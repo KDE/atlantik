@@ -26,6 +26,8 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	serverHost = select_server->hostToConnect();
 	serverPort = select_server->portToConnect();
 
+	connect(select_server, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
+
 	addPage(select_server, QString(i18n("Select a game server to connect to:")));
 	setHelpEnabled(select_server, false);
 	setNextEnabled(select_server, false);
@@ -105,7 +107,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	list = new QListView(this);
 	list->addColumn(QString(i18n("Server")));
 	list->addColumn(QString(i18n("Port")));
-	list->addColumn(QString(i18n("Description")));
+	list->addColumn(QString(i18n("Version")));
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
@@ -114,7 +116,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	monopigator = new Monopigator();
 
 	connect(monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
-	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString)));
+	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString, QString)));
 }
 
 void SelectServer::initPage()
@@ -122,8 +124,8 @@ void SelectServer::initPage()
 	list->setCurrentItem(0);
 	list->clearSelection();
 
-//	status_label->setText(i18n("Fetching list of servers..."));
-	monopigator->loadData("http://monopd.capsi.com/monopigator.php");
+	// Hardcoded, but there aren't any other Monopigator servers at the moment
+	monopigator->loadData("http://gator.monopd.net/");
 }
 
 bool SelectServer::validateNext()
@@ -152,12 +154,11 @@ int SelectServer::portToConnect()
 
 void SelectServer::slotMonopigatorClear()
 {	list->clear();
-	list->setCurrentItem(0);
-	list->clearSelection();
+	emit statusChanged();
 }
 
-void SelectServer::slotMonopigatorAdd(QString host, QString port)
-{	new QListViewItem(list, host, port, "fetched through monopigator");
+void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
+{	new QListViewItem(list, host, port, version);
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)

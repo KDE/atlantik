@@ -24,7 +24,7 @@ Q_OBJECT
 
 	public slots:
 		void slotMonopigatorClear();
-		void slotMonopigatorAdd(QString host, QString port);
+		void slotMonopigatorAdd(QString host, QString port, QString version);
 
 	signals:
 		void statusChanged();
