@@ -23,7 +23,7 @@ Q_OBJECT
 		int portToConnect();
 
 	public slots:
-//		void slotFetchedServerList(QDomNode);
+		void slotMonopigatorClear();
 		void slotMonopigatorAdd(QString host, QString port);
 
 	signals:

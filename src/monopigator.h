@@ -16,7 +16,8 @@ public:
 	void loadData(const KURL &);
 
 signals:
-	void monopigatorServer(QString host, QString port);
+	void monopigatorClear();
+	void monopigatorAdd(QString host, QString port);
 
 private slots:
 	void slotData(KIO::Job *, const QByteArray &);

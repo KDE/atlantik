@@ -34,6 +34,8 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 			if (eTop.tagName() != "monopigator")
 				return;
 
+			emit monopigatorClear();
+
 			QDomNode n = eTop.firstChild();
 			while(!n.isNull())
 			{
@@ -41,7 +43,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 				if(!e.isNull())
 				{
 					if (e.tagName() == "server")
-						emit monopigatorServer(e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value());
+						emit monopigatorAdd(e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value());
 				}
 				n = n.nextSibling();
 			}

@@ -113,7 +113,8 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	monopigator = new Monopigator();
 
-	connect(monopigator, SIGNAL(monopigatorServer(QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString)));
+	connect(monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
+	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString)));
 }
 
 void SelectServer::initPage()
@@ -149,9 +150,14 @@ int SelectServer::portToConnect()
 		return 0;
 }
 
+void SelectServer::slotMonopigatorClear()
+{	list->clear();
+	list->setCurrentItem(0);
+	list->clearSelection();
+}
+
 void SelectServer::slotMonopigatorAdd(QString host, QString port)
-{
-	new QListViewItem(list, host, port, "fetched through monopigator");
+{	new QListViewItem(list, host, port, "fetched through monopigator");
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
