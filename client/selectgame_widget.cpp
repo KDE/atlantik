@@ -1,8 +1,8 @@
 #include <qvgroupbox.h>
 #include <qradiobutton.h>
-#include <qhbox.h>
 
 #include <kdebug.h>
+#include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
  
@@ -10,7 +10,7 @@
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, 10);
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	CHECK_PTR(m_mainLayout);
 
 	QVGroupBox *groupBox;
@@ -27,17 +27,17 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	connect(m_gameList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
-	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this,
- SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this,
- SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBox *buttonBox = new QHBox(this);
-	m_mainLayout->addWidget(buttonBox);
+	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(buttonBox);
 
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Connect"), buttonBox);
+	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
-//	m_mainLayout->addWidget(m_connectButton);
+	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
 	

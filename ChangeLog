@@ -1,3 +1,8 @@
+2002-02-13 (kaper)
+----------
+
+- Nicer button layouts (QSpacerItems, KIcon::SizeSmall, margin/spacingHints)
+
 2002-02-11 (kaper)
 ----------
 

@@ -1,6 +1,7 @@
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 
+#include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -8,7 +9,7 @@
 
 SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, 10);
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	CHECK_PTR(m_mainLayout);
 
 	QVButtonGroup *bgroup;
@@ -39,13 +40,19 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	m_refreshButton = new KPushButton(BarIcon("reload", 16), i18n("Refresh"), bgroup);
+	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(buttonBox); 
+
+	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	m_refreshButton = new KPushButton(BarIcon("reload", KIcon::SizeSmall), i18n("Refresh"), this);
+	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(pressed()), this, SLOT(initMonopigator()));
 
-	m_connectButton = new KPushButton(BarIcon("forward", 16), i18n("Connect"), this);
+	m_connectButton = new KPushButton(BarIcon("forward", KIcon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
-	m_mainLayout->addWidget(m_connectButton);
+	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
 	
@@ -83,7 +90,7 @@ void SelectServer::slotMonopigatorClear()
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
 {
 	QListViewItem *item = new QListViewItem(m_serverList, host, port, version);
-	item->setPixmap(0, BarIcon("atlantik", 16));
+	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 }
 
@@ -91,7 +98,7 @@ void SelectServer::monopigatorFinished()
 {
 	// TODO : remove, this is temporarily until there is a good way to fork a server
 	QListViewItem *item = new QListViewItem(m_serverList, "localhost", QString::number(1234), "unknown");
-	item->setPixmap(0, BarIcon("atlantik", 16));
+	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 	status_label->setText(i18n("Retrieved server list."));
 }

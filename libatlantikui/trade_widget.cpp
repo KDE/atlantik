@@ -29,7 +29,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
-	QVBoxLayout *listCompBox = new QVBoxLayout(this, 11, 6);
+	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
 	QHGroupBox *addEstateBox = new QHGroupBox(i18n("Add component"), this);
 	listCompBox->addWidget(addEstateBox);
@@ -100,15 +100,17 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_componentList->addColumn("Player");
 	m_componentList->addColumn("Item");
 
-	QHBoxLayout *actionBox = new QHBoxLayout(this);
+	QHBoxLayout *actionBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	listCompBox->addItem(actionBox);
 
-	KPushButton *rejectButton = new KPushButton(i18n("Reject"), this);
+	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	KPushButton *rejectButton = new KPushButton(BarIcon("cancel", KIcon::SizeSmall), i18n("Reject"), this);
 	actionBox->addWidget(rejectButton);
 
 	connect(rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	KPushButton *acceptButton = new KPushButton(i18n("Accept"), this);
+	KPushButton *acceptButton = new KPushButton(BarIcon("ok", KIcon::SizeSmall), i18n("Accept"), this);
 	acceptButton->setEnabled(false);
 	actionBox->addWidget(acceptButton);
 

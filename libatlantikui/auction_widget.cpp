@@ -5,8 +5,9 @@
 
 #include <kdebug.h>
 
-#include <klocale.h>
+#include <kdialog.h>
 #include <kiconloader.h>
+#include <klocale.h>
 #include <kpushbutton.h>
 
 #include <atlantic_core.h>
@@ -25,7 +26,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(m_auction, SIGNAL(updateBid(Player *, int)), this, SLOT(updateBid(Player *, int)));
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
-	m_mainLayout = new QVBoxLayout(this, 10);
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	CHECK_PTR(m_mainLayout);
 
 	// Player list

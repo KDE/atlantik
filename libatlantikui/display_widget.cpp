@@ -1,12 +1,13 @@
 #include <kdebug.h>
 
+#include <kdialog.h>
 #include <klocale.h>
  
 #include "display_widget.moc"
 
 BoardDisplay::BoardDisplay(const QString type, const QString description, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, 10);
+	m_mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint());
 	CHECK_PTR(m_mainLayout);
 
 	// Player list.

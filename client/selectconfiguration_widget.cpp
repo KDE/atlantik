@@ -2,6 +2,7 @@
 
 #include <kdebug.h>
 
+#include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
@@ -10,7 +11,7 @@
 
 SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, 10);
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	CHECK_PTR(m_mainLayout);
 
 	// Player list.
@@ -34,8 +35,13 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 //	QListViewItem *item = new QListViewItem(m_configurationList, i18n("Start a new configuration"), "");
 //	item->setPixmap(0, SmallIcon("filenew"));
 
+	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(buttonBox);
+
+	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
 	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start game"), this);
-	m_mainLayout->addWidget(m_connectButton);
+	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
 	
