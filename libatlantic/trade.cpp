@@ -158,8 +158,8 @@ void Trade::update(bool force)
 
 TradeItem::TradeItem(Trade *trade, Player *from, Player *to) : mFrom(from), mTo(to), mTrade(trade)
 {
-	connect(from, SIGNAL(changed(Player *)), this, SIGNAL(changed(TradeItem *)));
-	connect(to, SIGNAL(changed(Player *)), this, SIGNAL(changed(TradeItem *)));
+	connect(from, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
+	connect(to, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 }
 
 void TradeItem::playerChanged()
