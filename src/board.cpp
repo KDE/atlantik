@@ -182,17 +182,9 @@ void AtlantikBoard::addToken(Player *player)
 	kdDebug() << "AtlantikBoard::addToken" << endl;
 
 	Token *token = new Token(player, this, "token");
-	tokenMap[player->playerId()] = token;
+	tokenMap[player] = token;
 
 	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
-
-	// Hide and don't position, because as long as we haven't reentered the
-	// event loop, the estate geometries are not correct anyway. Is this
-	// even solvable having playerupdate and estateupdate in the same
-	// initial message from monopd?
-	token->hide();
-//	token->setLocation(0);
-//	token->setDestination(0);
 
 	// Timer to reinit the gameboard _after_ event loop
 	QTimer::singleShot(100, this, SLOT(slotResizeAftermath()));
@@ -208,7 +200,7 @@ void AtlantikBoard::playerChanged()
 //	setGeometry(100, 100, 125, 125);
 
 	EstateView *estateView = estateViewMap[estateId];
-	Token *token = tokenMap[playerId];
+	Token *token = tokenMap[player];
 	
 	if (estateView && token)
 	{
@@ -383,11 +375,11 @@ void AtlantikBoard::slotResizeAftermath()
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-	for (unsigned int tokenId=0 ; tokenId < tokenMap.size() ; tokenId++)
+	Token *token;
+	for (QMap<Player *, Token *>::Iterator it=tokenMap.begin() ; it != tokenMap.end() ; ++it)
 	{
-#warning port
-//		if (Token *token = tokenMap[tokenId])
-//			jumpToken(token, token->location(), false);
+		if ((token = *it))
+			jumpToken(token, token->location(), false);
 	}
 
 	// Restart the timer that was stopped in resizeEvent

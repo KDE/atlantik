@@ -12,7 +12,6 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - KExtendedSocket errorcodes/port
-- token init still not correct
 
 For 0.2.0
 ---------

@@ -63,7 +63,7 @@ private:
 	int m_maxEstates;
 
 	QPtrList<EstateView> m_estateViews;
-	QMap<int, Token *> tokenMap;
+	QMap<Player *, Token *> tokenMap;
 };
 
 #endif
