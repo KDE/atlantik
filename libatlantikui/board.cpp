@@ -236,7 +236,7 @@ void AtlantikBoard::addToken(Player *player, EstateView *estateView)
 void AtlantikBoard::playerChanged()
 {
 	kdDebug() << "Board::playerChanged()" << endl;
-#warning implement decent AtlantikBoard::playerChanged to update tokens
+	// TODO: implement decent AtlantikBoard::playerChanged to update tokens
 /*
 	kdDebug() << "new geometry for token: " << m_player->location() << endl;
 	this->show();
@@ -270,8 +270,8 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 
 	// Set token destination
 	move_token = token;
-#warning port
-//	move_token->setDestination(estateId);
+	// TODO: port
+	// move_token->setDestination(estateId);
 
 	// Start timer
 	m_timer->start(15);
@@ -291,13 +291,12 @@ void AtlantikBoard::slotMoveToken()
 	int yCurrent = move_token->geometry().y();
 
 	// Where do we want to go today?
-#warning port
 	int dest = 0; // move_token->location() + 1;
 	if (dest==(m_gridLayout->numRows() - 1)*4)
 		dest = 0;
 	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
-#warning port
+	// TODO: port
 /*
 	if (EstateView *estateView = getEstateView(dest))
 	{
@@ -333,14 +332,14 @@ void AtlantikBoard::slotMoveToken()
 			if (move_token->destination() == move_token->location())
 			{
 				// We have arrived at our _final_ destination!
-#warning port
-//				emit tokenConfirmation(move_token->location());
+				// TODO: port
+				// emit tokenConfirmation(move_token->location());
 				m_timer->stop();
 				move_token = 0;
 			}
-#warning port
-//			else if (move_token->location() == 0)
-//				emit tokenConfirmation(move_token->location());
+			// TODO: port
+			// else if (move_token->location() == 0)
+			// emit tokenConfirmation(move_token->location());
 
 			return;
 		}

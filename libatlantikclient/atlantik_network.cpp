@@ -509,7 +509,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore and create view there
+					// TODO:  port to atlanticcore and create view there
 					if (player)
 					{
 						if (b_newPlayer)
@@ -536,7 +536,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore and create view there
+					// TODO:  port to atlanticcore and create view there
 					if (estateGroup)
 					{
 						if (b_newEstateGroup)
@@ -631,7 +631,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						estate->setPrice(a.value().toInt());
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore and create view there
+					// TODO:  port to atlanticcore and create view there
 					if (estate)
 					{
 						if (b_newEstate)
@@ -764,7 +764,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore and create view there
+					// TODO:  port to atlanticcore and create view there
 					if (trade)
 					{
 						if (b_newTrade)
@@ -818,7 +818,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore and create view there
+					// TODO:  port to atlanticcore and create view there
 					if (auction)
 					{
 						if (b_newAuction)
