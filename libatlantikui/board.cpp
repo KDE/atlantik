@@ -273,10 +273,10 @@ void AtlantikBoard::playerChanged(Player *player)
 			}
 		}
 
-		if (jump)
-			jumpToken(token);
 		if (move)
 			moveToken(token);
+		else if (jump)
+			jumpToken(token);
 	}
 	else
 		addToken(player);
