@@ -215,13 +215,13 @@ void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 	}
 }
 
-void KMonop::slotMsgEstateUpdateOwner(int id, int owner)
+void KMonop::slotMsgEstateUpdateOwner(int estateid, int playerid)
 {
-	if (id < 40 && owner < MAXPLAYERS)
+	if (estateid < 40 && playerid < MAXPLAYERS)
 	{
-		if (port[owner]!=0)
-			port[owner]->setOwned(id, true);
-		board->setOwned(id, true);
+		if (port[playerid]!=0)
+			port[playerid]->setOwned(estateid, true);
+		board->setOwned(estateid, true);
 	}
 }
 
