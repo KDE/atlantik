@@ -503,7 +503,7 @@ void Atlantik::initNetworkObject()
 		return;
 	}
 
-	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
+	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore);
 	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
