@@ -45,6 +45,8 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 	lname->hide();
 
 	pe = 0;
+	updatePE();
+
 	icon = new QPixmap(locate("data", "atlantik/pics/" + _icon));
 	icon = rotatePixmap(icon);
 
@@ -103,7 +105,7 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured Atlantik not to show them.
-	if (m_estate->owned() || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
+	if (m_estate->isOwned() || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -114,10 +116,9 @@ void EstateView::updatePE()
 		{
 			// Display a coloured portfolioestate to indicate property is
 			// for sale
-			pe = new PortfolioEstate(this);
-			pe->setColor(m_estate->color());
-			pe->setOwned(true);
+			pe = new PortfolioEstate(m_estate, true, this, "board-portfolioestate");
 			repositionPortfolioEstate();
+
 			pe->show();
 		}
 		else if (!pe->isVisible())
@@ -137,6 +138,7 @@ void EstateView::estateChanged()
 	b_recreate = true;
 	m_recreateQuartz = true;
     update();
+    updatePE();
 }
 
 void EstateView::repositionPortfolioEstate()
@@ -188,7 +190,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		
 		if (atlantikConfig.grayOutMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(atlantik_lgray);
-		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_estate->owned())
+		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
 			painter.setBrush(Qt::white);
 		else
 			painter.setBrush(m_estate->bgColor());

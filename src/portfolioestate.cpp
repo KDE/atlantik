@@ -1,33 +1,26 @@
 #include <qpainter.h>
 #include <qcolor.h>
 
-#include "portfolioestate.h"
+#include "portfolioestate.moc"
+#include "estate.h"
 
 extern QColor atlantik_lgray, atlantik_dgray;
 
-PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioEstate::PortfolioEstate(Estate *estate, bool alwaysOwned, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-    color = atlantik_lgray;
+	m_estate = estate;
+	m_alwaysOwned = alwaysOwned;
+
     QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
-	owned = false;
     b_recreate = true;
     qpixmap=0;
 }
 
-void PortfolioEstate::setColor(const QColor &c)
+void PortfolioEstate::estateChanged()
 {
-	color = c;
-}
-
-void PortfolioEstate::setOwned(bool o)
-{
-	if (o!=owned)
-	{
-		owned = o;
-		b_recreate = true;
-		update();
-	}
+	b_recreate = true;
+	update();
 }
 
 void PortfolioEstate::paintEvent(QPaintEvent *)
@@ -43,7 +36,7 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		painter.setPen(atlantik_lgray);
 		painter.setBrush(white);
 		painter.drawRect(rect());
-		if (owned)
+		if (m_alwaysOwned || m_estate->isOwned())
 		{
 			painter.setPen(atlantik_dgray);
 			for (int y=5;y<=13;y+=2)
@@ -58,8 +51,8 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 			painter.drawPoint(3, 13);
 			painter.drawPoint(10, 13);
 
-			painter.setPen(color);	
-			painter.setBrush(color);
+			painter.setPen(m_estate->color());	
+			painter.setBrush(m_estate->color());
 		}
 		else
 		{

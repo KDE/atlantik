@@ -6,22 +6,26 @@
 
 #define PE_WIDTH	13
 #define	PE_HEIGHT	16
+
+class Estate;
   
 class PortfolioEstate : public QWidget
 {
-	public:
-		PortfolioEstate(QWidget *parent, const char *name = 0);
-		void setColor(const QColor &);
-		void setOwned(bool);
+Q_OBJECT
+
+public:
+	PortfolioEstate(Estate *estate, bool alwaysOwned, QWidget *parent, const char *name = 0);
 
 	protected:
 		void paintEvent(QPaintEvent *);
 
 	private:
-		QColor color;
+		Estate *m_estate;
 		QPixmap *qpixmap;
-		bool b_recreate;
-		bool owned;
+		bool b_recreate, m_alwaysOwned;
+
+private slots:
+	void estateChanged();
 };
 
 #endif

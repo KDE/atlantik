@@ -15,8 +15,8 @@ public:
 	void setName(const QString name);
 	const QString name() { return m_name; }
 	void setOwner(Player *player);
-	const bool owned();
-	const bool ownedBySelf();
+	const bool isOwned();
+	const bool isOwnedBySelf();
 	void setHouses(unsigned int houses);
 	unsigned int houses() { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);

@@ -18,14 +18,15 @@ Bugfixes
 --------
 
 - Update messages views after resize.
-v double occurance of titleWidth/Height in EstateView
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
 - same for:
   - estates checking tokens upon estate init
   v portfolios checking estates upon player init
-- make PortfolioEstate have a relation with Estate like EstateView has
+v make PortfolioEstate have a relation with Estate like EstateView has
+  - rename to TinyEstateView
+  - remove hardcoded locations in portfolioview
 ^ make PortfolioView have a relation with Player
 v support for <display>
   v type chancecard (attrs playerid, name and description)

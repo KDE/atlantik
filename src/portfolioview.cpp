@@ -98,19 +98,16 @@ void PortfolioView::addEstateView(Estate *estate)
 
 	if (x>0 || y>0)
 	{
-		portfolioEstateMap[estateId] = new PortfolioEstate(this);
-		portfolioEstateMap[estateId]->setGeometry(x, y, portfolioEstateMap[estateId]->width(), portfolioEstateMap[estateId]->height());
-		portfolioEstateMap[estateId]->setColor(color);
-		portfolioEstateMap[estateId]->show();
+		PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, false, this, "portfolioestate");
+		portfolioEstateMap[estateId] = portfolioEstate;
+		portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
+
+		connect(estate, SIGNAL(changed()), portfolioEstate, SLOT(estateChanged()));
+
+		portfolioEstate->show();
 	}
 	else
 		portfolioEstateMap[estateId]=0;
-}
-
-void PortfolioView::setOwned(int estateId, bool owned)
-{
-	if (PortfolioEstate *portfolioEstate = portfolioEstateMap[estateId])
-		portfolioEstate->setOwned(owned);
 }
 
 /*

@@ -18,7 +18,6 @@ Q_OBJECT
 	public:
 		PortfolioView(Player *player, QWidget *parent, const char *name = 0);
 		void addEstateView(Estate *estate);
-		void setOwned(int, bool);
 
 //	protected:
 //		void paintEvent(QPaintEvent *);
