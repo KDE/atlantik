@@ -1,6 +1,7 @@
 [!Global!]
 IconName=atlantik
 Comment=Atlantik
+Comment[wa]=Atlantike
  
 [chat]
 Name=Chat
@@ -22,6 +23,7 @@ Name[es]=Nuevo jugador
 Name[hu]=Új játékos
 Name[pt_BR]=Novo jogador
 Name[sv]=Ny spelare
+Name[wa]=Novea djoweu
 Comment=A new player joins the game
 Comment[da]=En ny spiller går med i spillet
 Comment[es]=Un nuevo jugador se une a la partida
@@ -37,6 +39,7 @@ Name[es]=Nuevo juego
 Name[hu]=Új játék
 Name[pt_BR]=Novo jogo
 Name[sv]=Nytt spel
+Name[wa]=Novea djeu
 Comment=A new game is created
 Comment[da]=Et nyt spil bliver oprettet
 Comment[es]=Una nueva partida ha sido creada
