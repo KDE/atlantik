@@ -46,7 +46,6 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	// List of servers
 	m_serverList = new KListView(bgroup, "m_serverList");
 	m_serverList->addColumn(QString(i18n("Host")));
-	m_serverList->addColumn(QString(i18n("Port")));
 	m_serverList->addColumn(QString(i18n("Version")));
 	m_serverList->addColumn(QString(i18n("Users")));
 //	m_mainLayout->addWidget(m_serverList);
@@ -106,7 +105,7 @@ void SelectServer::slotMonopigatorClear()
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
-	QListViewItem *item = new QListViewItem(m_serverList, host, port, version, (users == -1) ? i18n("unknown") : QString::number(users));
+	QListViewItem *item = new QListViewItem(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 }
@@ -114,7 +113,7 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 void SelectServer::monopigatorFinished()
 {
 	// TODO : remove, this is temporarily until there is a good way to fork a server
-	QListViewItem *item = new QListViewItem(m_serverList, "localhost", QString::number(1234), "unknown");
+	QListViewItem *item = new QListViewItem(m_serverList, "localhost", i18n("unknown"), i18n("unknown"), QString::number(1234));
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 	status_label->setText(i18n("Retrieved server list."));
@@ -157,5 +156,5 @@ void SelectServer::slotListClicked(QListViewItem *item)
 void SelectServer::connectPressed()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
-		emit serverConnect(item->text(0), item->text(1).toInt());
+		emit serverConnect(item->text(0), item->text(3).toInt());
 }
