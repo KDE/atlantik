@@ -9,6 +9,13 @@
 - klatencytimer: support for server ping times
 - option to show timestamp in chat messages
 
+0.5.4
+-----
+
+- bugfix: don't interrupt token movement when player leaves jail on doubles
+- bugfix: add m_atlanticCore checks in Board, fixes some Atlantik Designer
+  crashes
+
 0.5.3
 -----
 
