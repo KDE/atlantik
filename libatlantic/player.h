@@ -32,9 +32,9 @@ public:
 	int id() { return m_id; }
 	void setGame(int gameId);
 	int gameId() { return m_gameId; }
-	void setLocation(Estate *estate);
+	void setLocation(Estate *location);
 	Estate *location() { return m_location; }
-	void setDestination(Estate *estate);
+	void setDestination(Estate *destination);
 	Estate *destination() { return m_destination; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
