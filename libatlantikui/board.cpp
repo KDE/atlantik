@@ -413,7 +413,7 @@ void AtlantikBoard::slotDisplayCard(QString type, QString description)
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 
-	QTimer::singleShot(3000, this, SLOT(displayCenter()));
+//	QTimer::singleShot(3000, this, SLOT(displayCenter()));
 }
 
 void AtlantikBoard::displayEstateDetails(Estate *estate)
