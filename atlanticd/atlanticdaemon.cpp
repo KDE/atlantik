@@ -24,7 +24,7 @@ void AtlanticDaemon::registerAtMonopigator()
 	get = "GET /register.php?host=capsi.com&port=1234&version=atlanticd-prototype HTTP/1.1\nHost: gator.monopd.net\n\n";
 	socket->writeBlock(get.latin1(), get.length());
 
-#warning close and delete socket
-//	socket->close();
-//	delete socket;
+	// TODO:  close and delete socket
+	// socket->close();
+	// delete socket;
 }
