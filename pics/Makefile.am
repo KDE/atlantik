@@ -1,3 +1,3 @@
 SUBDIRS = board misc toolbar
 
-KDE_ICON = atlantik
+KDE_ICON = atlantik atlanticdesigner
