@@ -74,7 +74,7 @@ public:
 	LogTextEdit( QWidget *parent = 0, const char *name = 0 );
 	virtual ~LogTextEdit();
 
-	QPopupMenu *LogTextEdit::createPopupMenu( const QPoint & pos );
+	QPopupMenu *createPopupMenu( const QPoint & pos );
 
 private:
 	KAction *m_clear, *m_selectAll, *m_copy;
