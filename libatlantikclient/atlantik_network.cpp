@@ -485,7 +485,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "estategroupupdate")
 			{
-				a = e.attributeNode(QString("estategroupid"));
+				a = e.attributeNode(QString("groupid"));
 				if (!a.isNull())
 				{
 					int groupId = a.value().toInt();
