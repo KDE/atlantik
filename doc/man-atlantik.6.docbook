@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+
+<!ENTITY % English "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<author><personname><firstname>Lauri</firstname><surname>Watts</surname></personname>
+<email>lauri@kde.org</email></author>
+<date>March 7, 2003</date>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle><command>atlantik</command></refentrytitle>
+<manvolnum>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname><command>atlantik</command></refname>
+<refpurpose>&kde; monopd client</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis>
+<command>atlantik</command>
+<group><option>-h, --host</option> <replaceable> host</replaceable></group>
+<group><option>-p, --port</option> <replaceable> port</replaceable></group>
+<group><option>-g, --game</option> <replaceable> game</replaceable></group>
+<group><option>KDE Generic Options</option></group>
+<group><option>Qt Generic Options</option></group>
+
+</cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Description</title>
+
+<para>&atlantik; is a &kde; client for playing Monopoly-like
+boardgames on the monopd network.</para>
+
+<para>Purpose of the atlantik board game is to acquire land in major
+cities in North America and Europe while being a transatlantic
+traveller. All game modes are served by monopd, a dedicated game
+server designed for &atlantik;. One of the game modes plays like the
+popular real estate board game known as Monopoly.</para>  
+
+</refsect1>
+
+<refsect1>
+<title>Options</title>
+
+<variablelist>
+<title>&atlantik; options</title>
+<varlistentry>
+<term><option>-h, --host</option> <parameter>host</parameter></term>
+<listitem>
+<para>Connect to this host.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-p, --port</option> <parameter>port</parameter></term>
+<listitem><para>Connect to this port</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><option>-g, --game</option> <parameter>game</parameter></term>
+<listitem><para>Join this game</para></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title>See Also</title>
+
+<para>More detailed user documentation is available from <ulink
+url="help:/atlantik">help:/atlantik</ulink> (either enter this
+<acronym>URL</acronym> into &konqueror;, or run
+<userinput><command>khelpcenter</command>
+<parameter>help:/atlantik</parameter></userinput>).</para>
+ 
+</refsect1>
+
+</refentry>
