@@ -10,6 +10,8 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 	orientation = _orientation;
 	color = _color;
 
+	setBackgroundMode(NoBackground); // avoid flickering
+
 	b_recreate = true;
 	qpixmap = 0;
 
