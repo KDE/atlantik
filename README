@@ -50,8 +50,10 @@ There is a mailinglist available for discussion of KMonop development:
 To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
 To post, send e-mail to: kmonop-devel@lists.capsi.com
 
-At the moment this list also covers the development of the monopd server and
-other monopd-compatible clients.
+There is a seperate mailinglist for monopd related discussion:
+
+To subscribe, send e-mail to: monopd-devel-subscribe@lists.capsi.com
+To post, send e-mail to: monopd-devel@lists.capsi.com
 
 4. Roadmap
 ----------
