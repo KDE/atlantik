@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,6 +26,9 @@
 #include <kpushbutton.h>
 
 class QCheckBox;
+class QListViewItem;
+
+class Player;
 
 class SelectConfiguration : public QWidget
 {
@@ -33,17 +36,16 @@ Q_OBJECT
 
 public:
 	SelectConfiguration(QWidget *parent, const char *name=0);
+	void addPlayer(Player *player);
 
 	void initPage();
-		bool validateNext();
-		QString hostToConnect() const;
-		int portToConnect();
+	bool validateNext();
+	QString hostToConnect() const;
+	int portToConnect();
 
-	public slots:
-		void slotPlayerListClear();
-		void slotPlayerListAdd(QString playerId, QString name, QString host);
-		void slotPlayerListEdit(QString playerId, QString name, QString host);
-		void slotPlayerListDel(QString playerId);
+public slots:
+	void slotDelPlayer(Player *player);
+	void slotPlayerChanged(Player *player);
 
 private slots:
 	void connectClicked();
@@ -66,6 +68,7 @@ private:
 	KPushButton *m_backButton, *m_connectButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QString, QCheckBox *> m_checkBoxMap;
+	QMap <Player *, QListViewItem *> m_items;
 };
 
 #endif

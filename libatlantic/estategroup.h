@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,9 @@ class EstateGroup : public QObject
 Q_OBJECT
 
 public:
-	EstateGroup(const int id);
+	EstateGroup(int groupId);
+
+	int id() { return m_id; }
 	void setName(const QString name);
 	QString name() const { return m_name; }
 	void update(bool force = false);

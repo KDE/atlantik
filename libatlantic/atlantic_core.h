@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -36,13 +36,16 @@ public:
 	void reset();
 
 	QPtrList<Player> players();
-	Player *newPlayer();
+	Player *newPlayer(int playerId);
+	Player *findPlayer(int playerId);
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
+	Estate *findEstate(int estateId);
 
 	QPtrList<EstateGroup> estateGroups();
-	EstateGroup *newEstateGroup(const int id);
+	EstateGroup *newEstateGroup(int groupId);
+	EstateGroup *findEstateGroup(int groupId);
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);

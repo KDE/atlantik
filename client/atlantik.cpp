@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -102,6 +102,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_portfolioWidget->show();
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
 
+	m_portfolioViews.setAutoDelete(true);
+
 	// Nice label
 //	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
 //	m_portfolioLayout->addWidget(m_portfolioLabel);
@@ -168,6 +170,9 @@ void Atlantik::newPlayer(Player *player)
 
 	m_board->addToken(player);
 
+	if (m_selectConfiguration)
+		m_selectConfiguration->addPlayer(player);
+
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
 
@@ -232,6 +237,17 @@ void Atlantik::showSelectGame()
 	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
 	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
 	m_selectGame->show();
+
+	// Reset core and GUI
+	if (m_board)
+	{
+		delete m_board;
+		m_board = 0;
+
+		m_portfolioViews.clear();
+		m_atlanticCore->reset();
+	}
+
 	if (m_selectServer)
 	{
 		delete m_selectServer;
@@ -274,10 +290,6 @@ void Atlantik::showSelectConfiguration()
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
-	connect(m_atlantikNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
-	connect(m_atlantikNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListEdit(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListDel(QString)), m_selectConfiguration, SLOT(slotPlayerListDel(QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));

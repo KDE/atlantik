@@ -136,12 +136,6 @@ signals:
 	void gameRun();
 	void gameEnd();
 
-	void playerListClear();
-	void playerListEndUpdate(QString);
-	void playerListAdd(QString, QString, QString);
-	void playerListEdit(QString, QString, QString);
-	void playerListDel(QString);
-
 	/**
 	 * The trade has been completed. Emitted after all necessary estate and
 	 * player updates are processed.
@@ -172,11 +166,7 @@ private:
 
 	int m_playerId;
 
-	QMap<int, Player *> m_playerMap;
-	QMap<Player *, int> m_playerRevMap;
 	QMap<Player *, int> m_playerLocationMap;
-	QMap<int, Estate *> m_estates;
-	QMap<int, EstateGroup *> m_estateGroups;
 	QMap<int, Trade *> m_trades;
 	QMap<int, Auction *> m_auctions;
 };

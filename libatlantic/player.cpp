@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,9 @@
 #include "player.moc"
 #include "estate.h"
 
-Player::Player() : QObject()
+Player::Player(int playerId) : QObject()
 {
+	m_id = playerId;
 	m_location = 0;
 	m_money = 0;
 	m_name = "";

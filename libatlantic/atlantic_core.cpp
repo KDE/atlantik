@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -51,12 +51,23 @@ QPtrList<Player> AtlanticCore::players()
 	return m_players;
 }
 
-Player *AtlanticCore::newPlayer()
+Player *AtlanticCore::newPlayer(int playerId)
 {
-	Player *player = new Player();
+	Player *player = new Player(playerId);
 	m_players.append(player);
 	return player;
 }
+
+Player *AtlanticCore::findPlayer(int playerId)
+{
+	Player *player = 0;
+	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+		if (player->id() == playerId)
+			return player;
+
+	return 0;
+}
+
 
 QPtrList<Estate> AtlanticCore::estates()
 {
@@ -70,16 +81,36 @@ Estate *AtlanticCore::newEstate(int estateId)
 	return estate;
 }
 
+Estate *AtlanticCore::findEstate(int estateId)
+{
+	Estate *estate = 0;
+	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+		if (estate->estateId() == estateId)
+			return estate;
+
+	return 0;
+}
+
 QPtrList<EstateGroup> AtlanticCore::estateGroups()
 {
 	return m_estateGroups;
 }
 
-EstateGroup *AtlanticCore::newEstateGroup(const int id)
+EstateGroup *AtlanticCore::newEstateGroup(int groupId)
 {
-	EstateGroup *estateGroup = new EstateGroup(id);
+	EstateGroup *estateGroup = new EstateGroup(groupId);
 	m_estateGroups.append(estateGroup);
 	return estateGroup;
+}
+
+EstateGroup *AtlanticCore::findEstateGroup(int groupId)
+{
+	EstateGroup *estateGroup = 0;
+	for (QPtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+		if (estateGroup->id() == groupId)
+			return estateGroup;
+
+	return 0;
 }
 
 QPtrList<Trade> AtlanticCore::trades()
