@@ -15,9 +15,8 @@ Q_OBJECT
 
 	public:
 		KMonopBoard(GameNetwork *, QWidget *parent, const char *name=0);
-		void jumpToken(Token *, int);
-		void moveToken(Token *, int);
 		void setOwned(int, bool);
+		void raiseToken(int);
 
 	public slots:
 		void slotMsgPlayerUpdate(QDomNode);
@@ -28,6 +27,9 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 
 	private:
+		void jumpToken(Token *, int);
+		void moveToken(Token *, int);
+
 		QWidget *spacer;
 		GameNetwork *netw;
 		EstateView *estate[40];

@@ -192,10 +192,14 @@ void KMonop::slotSetTurn(int player)
 	// Decrease player because array is 0-indexed
 	player--;
 
+	board->raiseToken(player);
+
 	for(int i=0 ; i<MAXPLAYERS ; i++)
 	{
 		if (port[i]!=0)
+		{
 			port[i]->setHasTurn(i==player ? true : false);
+		}
 	}
 }
 

@@ -1,15 +1,18 @@
 #include <qtooltip.h>
 #include <qpainter.h>
 #include <qtimer.h>
+#include <qwmatrix.h>
 
 #warning remove iostream output
 #include <iostream.h>
+
+#include <kstddirs.h>
 
 #include "estateview.h"
 
 extern QColor kmonop_greenbg, kmonop_greenhouse;
 
-EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, const char *name) : QWidget(parent, name)
+EstateView::EstateView(int _orientation, const QColor &_color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	orientation = _orientation;
 	color = _color;
@@ -18,6 +21,7 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 
 	b_recreate = true;
 	qpixmap = 0;
+	icon = 0;
 	pe = 0;
 
 /*
@@ -28,10 +32,38 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 	lname->setMaximumHeight(15);
 	lname->hide();
 */
+
+	icon = initIcon(_icon);
+
 	setName("Boardwalk");
 	setHouses(0);
 
 	QToolTip::add(this, estatename);
+}
+
+QPixmap *EstateView::initIcon(QString name)
+{
+	if (name.isNull())
+		return 0;
+
+	cout << " locating " << locate("data", "kmonop/pics/" + name) << endl;
+	QPixmap *icon = new QPixmap(locate("data", "kmonop/pics/" + name));
+	QWMatrix m;
+
+	switch(orientation)
+	{
+		case East:
+			m.rotate(90);
+			break;
+		case West:
+			m.rotate(-90);
+			break;
+		case South:
+			m.rotate(180);
+			break;
+	}
+	*icon = icon->xForm(m);
+	return icon;
 }
 
 void EstateView::setName(const char *n)
@@ -87,6 +119,10 @@ void EstateView::paintEvent(QPaintEvent *)
 		painter.setPen(Qt::black);
 		painter.setBrush(kmonop_greenbg);
 		painter.drawRect(rect());
+        
+		// Paint icon only when it exits and fits
+		if (icon!=0 && width() > icon->width() && height() > icon->height())
+			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
 		if (color.isValid())
 		{

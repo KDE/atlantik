@@ -31,8 +31,13 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 	int i=0, orientation=North;
 
 	QColor color;
+	QString icon;
+
 	for (i=0;i<40;i++)
 	{
+		color = QColor();
+		icon = QString();
+
 		switch(i)
 		{
 			case 1: case 3:
@@ -51,8 +56,16 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 				color = kmonop_green; break;
 			case 37: case 39:
 				color = kmonop_blue; break;
-			default:
-				color = QColor();
+
+			case 5: case 15: case 25: case 35:
+				icon = QString("train.png");
+				break;
+			case 7: case 36:
+				icon = QString("qmark-red.png");
+				break;
+			case 22:
+				icon = QString("qmark-blue.png");
+				break;
 		}
 
 		if (i<10)
@@ -64,7 +77,7 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 		else if (i<40)
 			orientation = West;
 			
-		estate[i] = new EstateView(orientation, color, this, "estate");
+		estate[i] = new EstateView(orientation, color, icon, this, "estate");
 		if (color.isValid())
 			estate[i]->setOwned(false);
 
@@ -122,6 +135,12 @@ void KMonopBoard::setOwned(int id, bool owned)
 {
 	if (id>=0 && id<40)
 		estate[id]->setOwned(owned);
+}
+
+void KMonopBoard::raiseToken(int id)
+{
+	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
+		token[id]->raise();
 }
 
 void KMonopBoard::slotMoveToken()

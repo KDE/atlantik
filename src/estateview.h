@@ -14,7 +14,8 @@ class EstateView : public QWidget
 Q_OBJECT
 
 	public:
-		EstateView(int _orientation, const QColor &, QWidget *parent, const char *name = 0);
+		EstateView(int _orientation, const QColor &, const QString &, QWidget *parent, const char *name = 0);
+		QPixmap *initIcon(QString);
 		void setName(const char *);
 		void setHouses(int);
 		void setOwned(bool);
@@ -27,7 +28,7 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 
 	private:
-		QPixmap *qpixmap;
+		QPixmap *qpixmap, *icon;
 		bool b_recreate;
 		QColor color;		
 		QLabel *lname;
