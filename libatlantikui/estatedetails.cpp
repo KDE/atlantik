@@ -298,5 +298,4 @@ void EstateDetails::clearButtons()
 void EstateDetails::buttonPressed()
 {
 	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
-	clearButtons();
 }
