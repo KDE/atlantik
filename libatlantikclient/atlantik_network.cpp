@@ -120,7 +120,7 @@ void AtlantikNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *pl
 	writeData(msg);
 }
 
-void AtlantikNetwork::tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money)
+void AtlantikNetwork::tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo)
 {
 	QString msg(".Tm");
 	msg.append(QString::number(trade ? trade->tradeId() : -1));
@@ -513,7 +513,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						m_trades[tradeId] = trade;
 
 						QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
-						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
+						QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
 
 						b_newTrade = true;
 					}
@@ -587,7 +587,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 									a = e_child.attributeNode(QString("money"));
 									if (trade && pFrom && pTo && !a.isNull())
-										trade->updateMoney(pFrom, pTo, a.value().toInt());
+										trade->updateMoney(a.value().toInt(), pFrom, pTo);
 								}
 							}
 							n_child = n_child.nextSibling();

@@ -6,6 +6,7 @@
 #include <qvalidator.h>
 #include <qmap.h>
 #include <qlabel.h>
+#include <qspinbox.h>
 
 #include <klocale.h>
 #include <klistview.h>
@@ -75,9 +76,11 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	QHGroupBox *addEstateBox = new QHGroupBox(i18n("Add component"), this);
 	listCompBox->addWidget(addEstateBox);
 
-	KComboBox *typeBox = new KComboBox(addEstateBox);
-	typeBox->insertItem(i18n("Estate"));
-//	typeBox->insertItem(i18n("Money"));
+	m_editTypeCombo = new KComboBox(addEstateBox);
+	m_editTypeCombo->insertItem(i18n("Estate"));
+	m_editTypeCombo->insertItem(i18n("Money"));
+
+	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setEditType(int)));
 
 	m_estateCombo = new KComboBox(addEstateBox);
 	QPtrList<Estate> estateList = m_atlanticCore->estates();
@@ -91,20 +94,39 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 		}
 	}
 
-	m_playerCombo = new KComboBox(addEstateBox);
+	m_moneyBox = new QSpinBox(0, 10000, 1, addEstateBox);
+
 	QPtrList<Player> playerList = m_atlanticCore->players();
 	Player *player;
+
+	m_fromLabel = new QLabel(addEstateBox);
+	m_fromLabel->setText(i18n("From"));
+
+	m_playerFromCombo = new KComboBox(addEstateBox);
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ((player = *it))
 		{
 			// TODO: map player pointer to itemid for reverse lookup
-			m_playerCombo->insertItem(player->name());
+			m_playerFromCombo->insertItem(player->name());
 		}
 	}
 
-	KPushButton *addEstateButton = new KPushButton(i18n("Add estate"), addEstateBox);
-//	addEstateButton->setEnabled(false);
+	m_toLabel = new QLabel(addEstateBox);
+	m_toLabel->setText(i18n("To"));
+
+	m_playerTargetCombo = new KComboBox(addEstateBox);
+	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	{
+		if ((player = *it))
+		{
+			// TODO: map player pointer to itemid for reverse lookup
+			m_playerTargetCombo->insertItem(player->name());
+		}
+	}
+
+	m_updateButton = new KPushButton(i18n("Update"), addEstateBox);
+	m_updateButton->setEnabled(false);
 
 	m_componentList = new KListView(this, "componentList");
 	listCompBox->addWidget(m_componentList);
@@ -128,12 +150,11 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(trade, SIGNAL(tradeRemoved(TradeItem *)), this, SLOT(tradeRemoved(TradeItem *)));
 	connect(trade, SIGNAL(tradeChanged(TradeItem *)), this, SLOT(tradeChanged(TradeItem *)));
 
-	connect(addEstateButton, SIGNAL(clicked()), this, SLOT(updateEstate()));
+	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
-//	connect(
-//			mPlayerList,
-//			SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)),
-//			SLOT(contextMenu(KListView *, QListViewItem *)));
+	setEditType(0);
+
+	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *)));
 }
 
 void TradeDisplay::playerAdded(Player *p)
@@ -206,32 +227,101 @@ void TradeDisplay::tradeChanged(TradeItem *t)
 	}
 }
 
-void TradeDisplay::updateEstate()
+void TradeDisplay::setEditType(int index)
+{
+	switch (index)
+	{
+	case 0:
+		// Editing estate component
+
+		m_estateCombo->show();
+		m_estateCombo->setMaximumWidth(9999);
+
+		m_moneyBox->hide();
+		m_moneyBox->setMaximumWidth(0);
+
+		m_playerFromCombo->setEnabled(false);
+
+		m_updateButton->setEnabled(true);
+
+		break;		
+
+	case 1:
+		// Editing money component
+
+		m_estateCombo->hide();
+		m_estateCombo->setMaximumWidth(0);
+
+		m_moneyBox->show();
+		m_moneyBox->setMaximumWidth(9999);
+
+		m_playerFromCombo->setEnabled(true);
+
+		m_updateButton->setEnabled(true);
+
+		break;
+	}
+}
+
+void TradeDisplay::updateComponent()
 {
 	QPtrList<Estate> estateList = m_atlanticCore->estates();
 	Estate *estate = 0;
-	for (QPtrListIterator<Estate> it(estateList); *it; ++it)
-	{
-		if ((estate = *it) && estate->name() == m_estateCombo->currentText())
-			break;
-		estate = 0;
-	}
 	QPtrList<Player> playerList = m_atlanticCore->players();
-	Player *player = 0;
-	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	Player *pFrom = 0, *pTarget = 0;
+
+	switch (m_editTypeCombo->currentItem())
 	{
-		if ((player = *it) && player->name() == m_playerCombo->currentText())
-			break;
-		player = 0;
+	case 0:
+		// Updating estate component
+
+		for (QPtrListIterator<Estate> it(estateList); *it; ++it)
+		{
+			if ((estate = *it) && estate->name() == m_estateCombo->currentText())
+				break;
+			estate = 0;
+		}
+
+		for (QPtrListIterator<Player> it(playerList); *it; ++it)
+		{
+			if ((pTarget = *it) && pTarget->name() == m_playerTargetCombo->currentText())
+				break;
+			pTarget = 0;
+		}
+
+		if (estate && pTarget)
+			emit updateEstate(m_trade, estate, pTarget);
+
+		break;
+
+	case 1:
+		// Updating money component
+
+		for (QPtrListIterator<Player> it(playerList); *it; ++it)
+		{
+			if ((pFrom = *it) && pFrom->name() == m_playerFromCombo->currentText())
+				break;
+			pFrom = 0;
+		}
+
+		for (QPtrListIterator<Player> it(playerList); *it; ++it)
+		{
+			if ((pTarget = *it) && pTarget->name() == m_playerTargetCombo->currentText())
+				break;
+			pTarget = 0;
+		}
+
+		if (pFrom && pTarget)
+			emit updateMoney(m_trade, m_moneyBox->value(), pFrom, pTarget);
+
+		break;
 	}
 
-	if (estate && player)
-		emit updateEstate(m_trade, estate, player);
 }
 
 void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 {
-	if (dynamic_cast<TradeListViewItem*>(item))
+	if (item)
 	{
 		TradeListViewItem *i=static_cast<TradeListViewItem*>(item);
 	

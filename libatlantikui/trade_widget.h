@@ -6,9 +6,11 @@
 
 class QListViewItem;
 class QLabel;
+class QSpinBox;
 
 class KListView;
 class KComboBox;
+class KPushButton;
 
 class AtlanticCore;
 class Player;
@@ -32,18 +34,23 @@ private slots:
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);
 
-	void updateEstate();
+	void setEditType(int);
+
+	void updateComponent();
 
 	void contextMenu(KListView *l, QListViewItem *i);
 
 signals:
-	void updateEstate(Trade *trade, Estate *estate, Player *to);	
+	void updateEstate(Trade *trade, Estate *estate, Player *to);
+	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 
 private:
-	QLabel *m_status;
+	QLabel *m_status, *m_fromLabel, *m_toLabel;
+	QSpinBox *m_moneyBox;
 
-	KComboBox *m_playerCombo, *m_estateCombo;
+	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo;
 	KListView *m_componentList;
+	KPushButton *m_updateButton;
 
 	AtlanticCore *m_atlanticCore;
 	Trade *mTrade, *m_trade;

@@ -50,7 +50,7 @@ private slots:
 	void newTrade(Player *player);
 	void tokenConfirmation(Estate *);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
-	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
+	void tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo);
 	void auctionBid(Auction *auction, int amount);
 
 public slots:

@@ -80,7 +80,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 	}
 }
 
-void Trade::updateMoney(Player *from, Player *to, unsigned int money)
+void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
 	std::cout << "Trade::updateMoney" << endl;	
 	TradeMoney *t=0;

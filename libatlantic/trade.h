@@ -55,6 +55,7 @@ public:
 
 signals:
 	void updateEstate(Trade *trade, Estate *estate, Player *player);
+	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 
 private:
 	Estate *mEstate;
@@ -129,7 +130,7 @@ private slots:
 public:
 	void update(bool force = false);
 	void updateEstate(Estate *estate, Player *player);
-	void updateMoney(Player *from, Player *to, unsigned int money);
+	void updateMoney(unsigned int money, Player *from, Player *to);
 	
 signals:
 	void changed();
@@ -141,7 +142,8 @@ signals:
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);
 
-	void updateEstate(Trade *trade, Estate *estate, Player *player);
+	void updateEstate(Trade *trade, Estate *estate, Player *to);
+	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 
 private:
 	bool m_changed;
