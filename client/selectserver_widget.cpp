@@ -35,15 +35,15 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Custom server group
-	QHGroupBox *customGroup = new QHGroupBox(i18n("Enter custom monopd Server"), this, "customGroup");
+	QHGroupBox *customGroup = new QHGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
 	m_mainLayout->addWidget(customGroup);
 
-	QLabel *hostLabel = new QLabel(i18n("Hostname"), customGroup);
+	QLabel *hostLabel = new QLabel(i18n("Hostname:"), customGroup);
 
 	m_hostEdit = new KLineEdit(customGroup);
 	m_hostEdit->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
 
-	QLabel *portLabel = new QLabel(i18n("Port"), customGroup);
+	QLabel *portLabel = new QLabel(i18n("Port:"), customGroup);
 
 	m_portEdit = new KLineEdit(QString::number(1234), customGroup);
 	m_portEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));

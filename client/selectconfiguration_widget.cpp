@@ -49,7 +49,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_tokenButton = new KPushButton(SmallIcon("personal"), i18n("Select Token"), this);
+	m_tokenButton = new KPushButton(SmallIcon("personal"), i18n("Select Token..."), this);
 	playerButtons->addWidget(m_tokenButton);
 
 	connect(m_tokenButton, SIGNAL(clicked()), this, SLOT(slotTokenButtonClicked()));
