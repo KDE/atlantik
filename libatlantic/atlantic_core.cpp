@@ -14,6 +14,8 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#include <iostream>
+
 #include "atlantic_core.moc"
 
 #include "player.h"
@@ -39,12 +41,16 @@ void AtlanticCore::reset()
 	m_estateGroups.setAutoDelete(true);
 	m_estateGroups.clear();
 	m_estateGroups.setAutoDelete(false);
-	m_players.setAutoDelete(true);
-	m_players.clear();
-	m_players.setAutoDelete(false);
 	m_trades.setAutoDelete(true);
 	m_trades.clear();
 	m_trades.setAutoDelete(false);
+
+	Player *player = 0;
+	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	{
+		player->setLocation(0);
+		player->setDestination(0);
+	}
 }
 
 QPtrList<Player> AtlanticCore::players()
@@ -181,4 +187,19 @@ void AtlanticCore::delAuction(Auction *auction)
 {
 	m_auctions.remove(auction);
 	delete auction;
+}
+
+void AtlanticCore::printDebug()
+{
+	Player *player = 0;
+	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+		std::cout << " P: " << player->name().latin1() << std::endl;
+
+	Estate *estate = 0;
+	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+		std::cout << " E: " << estate->name().latin1() << std::endl;
+
+	EstateGroup *estateGroup = 0;
+	for (QPtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+		std::cout << "EG: " << estateGroup->name().latin1() << std::endl;
 }

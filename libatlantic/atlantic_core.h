@@ -57,6 +57,8 @@ public:
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
+	void printDebug();
+
 signals:
 	void removeGUI(Player *player);
 	void deletePlayer(Player *player);
