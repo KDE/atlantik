@@ -6,6 +6,7 @@ Comment[xx]=xxAtlantikxx
 
 [gainedturn]
 Name=Gained Turn
+Name[bg]=Придобит ред
 Name[ca]=Et toca jugar
 Name[da]=Vundet tur
 Name[hu]=Nyert forduló
@@ -14,6 +15,7 @@ Name[sv]=Du vann omgången
 Name[wa]=Djeu wangnî
 Name[xx]=xxGained Turnxx
 Comment=It is your turn now
+Comment[bg]=Ваш ред е
 Comment[ca]=És el teu torn
 Comment[da]=Det er din tur nu
 Comment[hu]=Most Ön következik
