@@ -25,6 +25,7 @@ Bugfixes
   - Kagato (income tax) doesn't charge me.. it's set to 10% or $200 (monopd)
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
   - Trying to get out of jail before turn starts gives ERR (monopd / disable icons)
+- clicking estate on portfolio should update central widget
 
 For 0.3.0
 ---------

@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "trade.h"
 #include "trade.moc"
 #include "player.h"
 #include "estate.h"
@@ -57,7 +58,6 @@ void Trade::updateEstate(Estate *estate, Player *to)
 			if (t->to() == to)
 				return;
 			t->setTo(to);
-			emit itemChanged(t);
 		}
 		else
 		{
@@ -100,13 +100,11 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 			if (t->money() == money)
 				return;
 			t->setMoney(money);
-			emit itemChanged(t);
 		}
 		else
 		{
 			delete t;
 			mTradeItems.removeRef(t);
-			emit itemRemoved(t);
 		}
 	}
 	else if (from && to && money)
@@ -137,15 +135,20 @@ void Trade::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed();
+		emit changed(this);
 		m_changed = false;
 	}
 }
 
 TradeItem::TradeItem(Trade *trade, Player *from, Player *to) : mFrom(from), mTo(to), mTrade(trade)
 {
-	connect(from, SIGNAL(changed(Player *)), this, SIGNAL(changed()));
-	connect(to, SIGNAL(changed(Player *)), this, SIGNAL(changed()));
+	connect(from, SIGNAL(changed(Player *)), this, SIGNAL(changed(TradeItem *)));
+	connect(to, SIGNAL(changed(Player *)), this, SIGNAL(changed(TradeItem *)));
+}
+
+void TradeItem::playerChanged()
+{
+	emit changed(this);
 }
 
 TradeEstate::TradeEstate(Estate *estate, Trade *trade, Player *to) : TradeItem(trade, estate->owner(), to), mEstate(estate)

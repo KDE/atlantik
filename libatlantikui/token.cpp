@@ -16,6 +16,7 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	setBackgroundMode(NoBackground); // avoid flickering
 
 	m_player = player;
+	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
 	m_parentBoard = parent;
 	connect(this, SIGNAL(tokenConfirmation(Estate *)), m_parentBoard, SIGNAL(tokenConfirmation(Estate *)));
@@ -66,6 +67,9 @@ void Token::playerChanged()
 			}
 		}
 	}
+	
+	b_recreate = true;
+	update();
 }
 
 void Token::updateGeometry()

@@ -27,6 +27,12 @@ public:
 	 **/
 	virtual QString text() const=0;
 
+signals:
+	void changed(TradeItem *);
+
+private slots:
+	void playerChanged();
+
 private:
 	Player *mFrom, *mTo;
 	Trade *mTrade;
@@ -104,7 +110,7 @@ private slots:
 	/**
 	 * tell someone that this changed
 	 **/
-	void changed(TradeItem *i) { emit itemChanged(i); }
+//	void changed(TradeItem *i) { emit itemChanged(i); }
 
 public:
 	void update(bool force = false);
@@ -114,12 +120,11 @@ public:
 	void reject(Player *player);
 	
 signals:
-	void changed();
+	void changed(Trade *);
 	void rejected(Player *player);
 
 	void itemAdded(TradeItem *);
 	void itemRemoved(TradeItem *);
-	void itemChanged(TradeItem *);
 
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);

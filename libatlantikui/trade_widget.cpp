@@ -128,8 +128,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
 	connect(m_trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
-	connect(m_trade, SIGNAL(itemChanged(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
-	connect(m_trade, SIGNAL(changed()), this, SLOT(tradeChanged()));
+	connect(m_trade, SIGNAL(changed(Trade *)), this, SLOT(tradeChanged()));
 	connect(m_trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
 	connect(this, SIGNAL(updateEstate(Trade *, Estate *, Player *)), m_trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 	connect(this, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), m_trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
@@ -151,21 +150,21 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 	e->accept();
 }
 
-void TradeDisplay::tradeItemAdded(TradeItem *t)
+void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 {
-	KListViewItem *item = new KListViewItem(m_componentList, (t->from() ? t->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (t->to() ? t->to()->name() : QString("?")), t->text());
+	KListViewItem *item = new KListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
+	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
+
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
 	item->setPixmap(2, QPixmap(SmallIcon("personal")));
 
-	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(t))
-	{
+	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(tradeItem))
 		item->setPixmap(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
-	}
-//	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(t))
+//	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(tradeItem))
 //		item->setPixmap(3, PortfolioEstate::pixMap(tradeEstate->estate()));
 
-	m_componentMap[t] = item;
-	m_componentRevMap[item] = t;
+	m_componentMap[tradeItem] = item;
+	m_componentRevMap[item] = tradeItem;
 }
 	
 void TradeDisplay::tradeItemRemoved(TradeItem *t)
@@ -199,8 +198,6 @@ void TradeDisplay::playerChanged(Player *player)
 {
 	m_playerFromCombo->changeItem(player->name(), m_playerFromRevMap[player]);
 	m_playerTargetCombo->changeItem(player->name(), m_playerTargetRevMap[player]);
-
-	// TODO: update tradeitems
 }
 
 void TradeDisplay::tradeRejected(Player *player)
