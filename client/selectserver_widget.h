@@ -46,7 +46,6 @@ public:
 		void validateRadioButtons();
 		void validateConnectButton();
 
-		void slotMonopigatorClear();
 		void slotMonopigatorAdd(QString host, QString port, QString version, int users);
 		void slotListClicked(QListViewItem *);
 

@@ -81,7 +81,6 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	// Monopigator
 	m_monopigator = new Monopigator();
 
-	connect(m_monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
 	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
 	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
 
@@ -112,16 +111,6 @@ void SelectServer::checkLocalServer()
 	m_localSocket->setAddress("localhost", 1234);
 	m_localSocket->enableRead(true);
 	m_localSocket->startAsyncConnect();
-}
-
-void SelectServer::slotMonopigatorClear()
-{
-	m_serverList->clear();
-	if (m_localServerAvailable)
-		slotLocalConnected();
-
-	validateConnectButton();
-//	emit statusChanged();
 }
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
@@ -190,6 +179,9 @@ void SelectServer::slotListClicked(QListViewItem *item)
 void SelectServer::slotRefresh()
 {
 	m_localServerAvailable = false;
+
+	m_serverList->clear();
+	validateConnectButton();
 
 	checkLocalServer();
 	initMonopigator();
