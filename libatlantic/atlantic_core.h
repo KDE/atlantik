@@ -35,6 +35,9 @@ public:
 
 	void reset(bool deletePlayers = false);
 
+	void setPlayerSelf(Player *player);
+	Player *playerSelf();
+
 	QPtrList<Player> players();
 	Player *newPlayer(int playerId);
 	Player *findPlayer(int playerId);
@@ -71,6 +74,7 @@ private slots:
 	void slotDeleteTrade(Trade *trade);
 
 private:
+	Player *m_playerSelf;
 	QPtrList<Player> m_players;
 	QPtrList<Estate> m_estates;
 	QPtrList<EstateGroup> m_estateGroups;

@@ -26,6 +26,8 @@
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
+	m_playerSelf = 0;
+
 	connect(this, SIGNAL(deletePlayer(Player *)), this, SLOT(slotDeletePlayer(Player *)));
 	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
@@ -51,6 +53,8 @@ void AtlanticCore::reset(bool deletePlayers)
 		m_players.setAutoDelete(true);
 		m_players.clear();
 		m_players.setAutoDelete(false);
+
+		m_playerSelf = 0;
 	}
 	else
 	{
@@ -61,6 +65,16 @@ void AtlanticCore::reset(bool deletePlayers)
 			player->setDestination(0);
 		}
 	}
+}
+
+void AtlanticCore::setPlayerSelf(Player *player)
+{
+	m_playerSelf = player;
+}
+
+Player *AtlanticCore::playerSelf()
+{
+	return m_playerSelf;
 }
 
 QPtrList<Player> AtlanticCore::players()

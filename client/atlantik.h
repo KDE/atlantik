@@ -212,8 +212,6 @@ private:
 	AtlantikNetwork *m_atlantikNetwork;
 	AtlantikConfig m_config;
 
-	Player *m_playerSelf;
-
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
 	SelectServer *m_selectServer;
