@@ -28,12 +28,20 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	m_location = m_destination = 0;
 }
 
-void Token::setLocation(EstateView *estateView)
+Player *Token::player()
+{
+	return m_player;
+}
+
+void Token::setLocation(EstateView *estateView, bool confirm)
 {
 	if (m_location != estateView)
 	{
 		m_location = estateView;
 		updateGeometry();
+
+		if (confirm)
+			emit tokenConfirmation(m_player->location());
 	}
 }
 
@@ -44,6 +52,7 @@ void Token::setDestination(EstateView *estateView)
 		m_destination = estateView;
 		updateGeometry();
 	}
+	emit tokenConfirmation(m_player->location());
 }
 
 void Token::playerChanged()
@@ -74,18 +83,28 @@ void Token::playerChanged()
 
 void Token::updateGeometry()
 {
-	if (m_location)
+	if (!(m_location && m_player))
 	{
-		int x = m_location->geometry().center().x() - (width()/2);
-		int y = m_location->geometry().center().y() - (height()/2);
-		setGeometry(x, y, width(), height());
-		show();
-		emit tokenConfirmation(m_player->location());
+		hide();
+		return;
+	}
+
+	int x, y;
+	if (m_player->inJail())
+	{
+		x = m_location->geometry().x() + m_location->width() - width() - 2;
+		y = m_location->geometry().y() + 2;
 	}
 	else
 	{
-		hide();
+		x = m_location->geometry().center().x() - (width()/2);
+		y = m_location->geometry().center().y() - (height()/2);
 	}
+
+	kdDebug() << "Token::updateGeometry, x:" << x << " y:" << y << endl;
+	setGeometry(x, y, width(), height());
+	if (isHidden())
+		show();
 }
 
 void Token::paintEvent(QPaintEvent *)

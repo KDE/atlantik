@@ -54,7 +54,6 @@ private:
 	DisplayMode m_mode;
 
 	EstateView *getEstateView(Estate *estate);
-	void jumpToken(Token *, EstateView *estateView, bool confirm=true);
 	void moveToken(Token *, int destination);
 
 	QWidget *spacer;

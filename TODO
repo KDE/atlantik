@@ -27,6 +27,9 @@ Bugfixes
   - Trying to get out of jail before turn starts gives ERR (monopd)
 - clicking estate on portfolio should update central widget
 - tradeitems in widget are still not changed when player name changes
+- when a token is hidden because it has no associated estate, store a reminder to show it when
+  a suitable estate is initialised (iterate player, player->estateView == 0 && estateId ==
+  player->location)
 
 For 0.3.0
 ---------
@@ -46,7 +49,7 @@ v support for <display>
     - dice
     - leaving jail
     - 10/200% tax
-- Different token placement when in jail
+v Different token placement when in jail
 v fix portfolio
   v non street estates in portfolio (depends on proper monopd groups)
   - Chance/CC cards in portfolio

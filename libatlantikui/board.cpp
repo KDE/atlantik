@@ -210,42 +210,18 @@ void AtlantikBoard::playerChanged()
 	
 	if (estateView && token)
 	{
-		if (token->isHidden())
-			token->show();
-
 		// Only take action when location has changed
 		if (token->location() != estateId)
 		{
 			if (directMove)
-				jumpToken(token, estateView, false);
+				token->setLocation(estateView, false);
 			else if (m_animateTokens==false)
-				jumpToken(token, estateView);
+				token->setLocation(estateView);
 			else
 				moveToken(token, estateId);
 		}
 	}
 */
-}
-
-void AtlantikBoard::jumpToken(Token *token, EstateView *estateView, bool confirm)
-{
-#warning AtlantikBoard::jumpToken doesnt know about player->inJail()
-	kdDebug() << "AtlantikBoard::jumpToken(" << token->destination() << ", "  << confirm << ")" << endl;
-
-	if (estateView)
-	{
-		int x = estateView->geometry().center().x() - (token->width()/2);
-		int y = estateView->geometry().center().y() - (token->height()/2);
-		kdDebug() << "jumpToken says x is " << x << " and y is " << y << endl;
-
-		token->setLocation(estateView);
-		token->setGeometry(x, y, token->width(), token->height());
-
-		// Confirm location to server.
-#warning port
-//		if (confirm)
-//			emit tokenConfirmation(estateId);
-	}
 }
 
 void AtlantikBoard::moveToken(Token *token, int estateId)
@@ -375,7 +351,7 @@ void AtlantikBoard::slotResizeAftermath()
 	for (QMap<Player *, Token *>::Iterator it=tokenMap.begin() ; it != tokenMap.end() ; ++it)
 	{
 		if ((token = *it))
-			jumpToken(token, token->location(), false);
+			token->updateGeometry();
 	}
 
 	// Restart the timer that was stopped in resizeEvent

@@ -15,10 +15,12 @@ Q_OBJECT
 
 	public:
 		Token (Player *player, AtlantikBoard *parent, const char *name = 0);
-		void setLocation(EstateView *estateView);
+		Player *player();
+		void setLocation(EstateView *estateView, bool confirm = true);
 		EstateView *location() { return m_location; }
 		void setDestination(EstateView *estateView);
 		EstateView *destination() { return m_destination; }
+		void updateGeometry();
 
 	private slots:
 		void playerChanged();
@@ -31,8 +33,6 @@ signals:
 	void tokenConfirmation(Estate *);
 
 private:
-		void updateGeometry();
-
 		Player *m_player;
 		EstateView *m_location, *m_destination;
 		AtlantikBoard *m_parentBoard;
