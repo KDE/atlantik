@@ -7,7 +7,8 @@
 #include <ktoolbar.h>
 #include <kapplication.h>
 #include <kconfig.h>
-
+#include <klocale.h>
+ 
 #include "atlantik.moc"
 #include "config.h"
 
@@ -48,8 +49,8 @@ Atlantik::Atlantik () :
 	connect(gameNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 	connect(gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
+	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(Player *, QString)), this, SLOT(slotMsgPlayerUpdateName(Player *, QString)));
+	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(Player *, QString)), this, SLOT(slotMsgPlayerUpdateMoney(Player *, QString)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
@@ -57,38 +58,43 @@ Atlantik::Atlantik () :
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
 	m_mainWidget->show();
-	m_mainLayout = new QGridLayout(m_mainWidget, 9, 2);
+	m_mainLayout = new QGridLayout(m_mainWidget, 3, 2);
 	setCentralWidget(m_mainWidget);
+
+	// Vertical view area for portfolios.
+	m_portfolioWidget = new QWidget(m_mainWidget, "pfwidget");
+	m_mainLayout->addWidget(m_portfolioWidget, 0, 0);
+	m_portfolioWidget->show();
+	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
+	connect(gameNetwork, SIGNAL(createPortfolio(Player *)), this, SLOT(slotCreatePortfolio(Player *)));
+
+	// Nice label
+	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
+	m_portfolioLayout->addWidget(m_portfolioLabel);
+	m_portfolioLabel->show();
 
 	// TextView for chat and status messages from server.
 	m_serverMsgs = new QTextView(m_mainWidget, "serverMsgs");
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
 	m_serverMsgs->setFixedWidth(225);
-	m_mainLayout->addWidget(m_serverMsgs, 6, 0);
+	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
 	// LineEdit to enter commands and chat messages.
 	m_input = new QLineEdit(m_mainWidget, "input");
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
-	m_mainLayout->addWidget(m_input, 7, 0);
+	m_mainLayout->addWidget(m_input, 2, 0);
 
 	// The actual gameboard.
 	m_board = new AtlantikBoard(m_mainWidget, "board");
-	m_mainLayout->addMultiCellWidget(m_board, 0, 7, 1, 1);
+	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 
-	m_mainLayout->setRowStretch(6, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
+	// Set stretching where we want it.
+	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
 
 	// Regarding our game connection. TODO: Possibly move to gameNetwork,
 	// since it's related to our current connection.
 	m_myPlayerId = -1;
-
-	// Initialize portfolioviews. TODO: Make a nice vertical layout where we can add them dynamically.
-	for(int i=0;i<MAXPLAYERS;i++)
-	{
-		m_portfolioArray[i] = new PortfolioView(m_mainWidget);
-		m_mainLayout->addWidget(m_portfolioArray[i], i, 0);
-		m_portfolioArray[i]->hide();
-	}
 }
 
 void Atlantik::readConfig()
@@ -235,33 +241,26 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
+void Atlantik::slotMsgPlayerUpdateName(Player *player, QString name)
 {
-	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
-	{
-		if (m_portfolioArray[playerid]->isHidden())
-			m_portfolioArray[playerid]->show();
+	player->setName(name);
 
-		QString label;
-		label.setNum(playerid);
-		label.append(". " + name);
-		m_portfolioArray[playerid]->setName(label);
-	}
+// TODO: port to player class
+//		QString label;
+//		label.setNum(playerid);
+//		label.append(". " + name);
+//		m_portfolioArray[playerid]->setName(label);
 }
 
-void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
+void Atlantik::slotMsgPlayerUpdateMoney(Player *player, QString money)
 {
-	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
-	{
-		if (m_portfolioArray[playerid]->isHidden())
-			m_portfolioArray[playerid]->show();
-
-		m_portfolioArray[playerid]->setCash("$ " + money);
-	}
+	player->setMoney("$ " + money);
 }
 
 void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 {
+#warning port slotMsgEstateUpdateOwner
+/*
 	if (estateId < 40 && playerId < MAXPLAYERS)
 	{
 		// Update all portfolio estates.
@@ -272,6 +271,7 @@ void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 		// Update gameboard.
 		m_board->setOwned(estateId, (playerId == -1 ? false : true), (playerId == m_myPlayerId ? true : false));
 	}
+*/
 }
 
 void Atlantik::slotSetPlayerId(int playerId)
@@ -297,6 +297,8 @@ void Atlantik::slotSetTurn(int playerid)
 
 	m_board->raiseToken(playerid);
 
+#warning port slotSetTurn
+/*
 	for(int i=0 ; i<MAXPLAYERS ; i++)
 	{
 		if (m_portfolioArray[i]!=0)
@@ -304,13 +306,20 @@ void Atlantik::slotSetTurn(int playerid)
 			m_portfolioArray[i]->setHasTurn(i==playerid ? true : false);
 		}
 	}
+*/
+}
+
+void Atlantik::slotCreatePortfolio(Player *player)
+{
+	PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
+	m_portfolioLayout->addWidget(fpv);
+	fpv->show();
+	player->setView(fpv);
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
 {
-	// Use append, not setText (old+new) because that one doesn't wrap
+	// Use append, not setText(old+new) because that one doesn't wrap
 	m_serverMsgs->append(msg);
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
-#warning fixed in qt 3.0
-	m_serverMsgs->viewport()->update();
 }

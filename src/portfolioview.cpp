@@ -29,14 +29,14 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	lname->setMaximumHeight(15);
 	lname->show();
 
-	lcash = new QLabel(this);
-	lcash->setAlignment(Qt::AlignRight);
-	lcash->setGeometry(width()/2, 0, width()-5, height());
-	lcash->setBackgroundColor(atlantik_lgray);
-	lcash->setMinimumSize(lcash->sizeHint());
-	lcash->setMaximumWidth(width()/2);
-	lcash->setMaximumHeight(15);
-	lcash->show();
+	lmoney = new QLabel(this);
+	lmoney->setAlignment(Qt::AlignRight);
+	lmoney->setGeometry(width()/2, 0, width()-5, height());
+	lmoney->setBackgroundColor(atlantik_lgray);
+	lmoney->setMinimumSize(lmoney->sizeHint());
+	lmoney->setMaximumWidth(width()/2);
+	lmoney->setMaximumHeight(15);
+	lmoney->show();
 
 	QColor color;
 
@@ -135,9 +135,9 @@ void PortfolioView::setName(const char *n)
 	lname->setText(n);
 }
 
-void PortfolioView::setCash(const char *n)
+void PortfolioView::setMoney(const char *m)
 {
-	lcash->setText(n);
+	lmoney->setText(m);
 }
 
 void PortfolioView::setOwned(int id, bool owned)
@@ -155,8 +155,8 @@ void PortfolioView::setHasTurn(bool turn)
 
 	lname->setBackgroundColor(myHasTurn ? atlantik_dgray : atlantik_lgray);
 	lname->update();
-	lcash->setBackgroundColor(myHasTurn ? atlantik_dgray : atlantik_lgray);
-	lcash->update();
+	lmoney->setBackgroundColor(myHasTurn ? atlantik_dgray : atlantik_lgray);
+	lmoney->update();
 
 //	b_recreate = true;
 //	update();

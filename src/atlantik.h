@@ -4,6 +4,7 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtextview.h>
+#include <qlabel.h>
 
 #include <kmainwindow.h>
 #include <kaction.h>
@@ -13,6 +14,7 @@
 #include "network.h"
 #include "portfolioview.h"
 #include "board.h"
+#include "player.h"
 
 /**
  * Main Atlantik window.
@@ -124,7 +126,7 @@ public slots:
 	 * @param playerid Player identifier.
 	 * @param name     Player name.
 	 */
-	void slotMsgPlayerUpdateName(int playerid, QString name);
+	void slotMsgPlayerUpdateName(Player *player, QString name);
 
 	/**
 	 * Updates the money label in the appropriate player portfolio.
@@ -132,7 +134,7 @@ public slots:
 	 * @param playerid Player identifier.
 	 * @param name     Amount of money.
 	 */
-	void slotMsgPlayerUpdateMoney(int, QString);
+	void slotMsgPlayerUpdateMoney(Player *player, QString money);
 
 	/**
 	 * Updates whether an estateview is owned in the appropriate player
@@ -160,7 +162,15 @@ public slots:
 	 * @param playerid Player identifier.
 	 */
 	void slotSetTurn(int playerid);
-	
+
+	/**
+	 * A new player object has been created by the game network and we
+	 * require a viewport for it. Creates the portfolioview. 
+	 *
+	 * @param player Pointer to player object.
+	 */
+	 void slotCreatePortfolio(Player *player);
+
 private:
 	/**
 	 * Private member, appends a message the text view.
@@ -169,16 +179,18 @@ private:
 	 */
 	void serverMsgsAppend(QString msg);
 
-	QWidget *m_mainWidget;
-	QLineEdit *m_input;
+	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
+	QVBoxLayout *m_portfolioLayout;
+
+	QLabel *m_portfolioLabel;
+	QLineEdit *m_input;
 	QTextView *m_serverMsgs, *m_chatMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_configure, *m_endTurn;
 
 	NewGameWizard *m_newgameWizard;
 	ConfigDialog *m_configDialog;
-	PortfolioView *m_portfolioArray[6];
 	AtlantikBoard *m_board;
 
 	int m_myPlayerId;

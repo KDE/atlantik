@@ -244,7 +244,9 @@ void EstateView::paintEvent(QPaintEvent *)
 				quartzBuffer->resize(25, titleHeight-2);
 			else
 				quartzBuffer->resize(titleWidth-2, 25);
-			QPainter quartzPainter(quartzBuffer, this);
+
+			QPainter quartzPainter;
+			quartzPainter.begin(quartzBuffer, this);
 
 			painter.setBrush(m_color);
 			switch(m_orientation)

@@ -8,6 +8,9 @@ GameNetwork *gameNetwork;
 GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, name)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
+
+	// Management of data objects (players, games, estates)
+	playerList.setAutoDelete(true);
 }
 
 void GameNetwork::cmdRoll()
@@ -250,13 +253,28 @@ void GameNetwork::processNode(QDomNode n)
 				{
 					playerid = a.value().toInt();
 
+//					emit playerUpdate(playerid);
+
+					Player *player;
+					if (!(player = playerMap[playerid]))
+					{
+						cout << "adding new player to list and to dict at pos " << playerid << endl;
+						player = new Player();
+						playerList.append(player);
+						playerMap[playerid] = player;
+						emit createPortfolio(player);
+					}
+
 					a = e.attributeNode(QString("name"));
 					if (!a.isNull())
-						emit msgPlayerUpdateName(playerid, a.value());
+					{
+						emit msgPlayerUpdateName(player, a.value());
+						player->setName(a.value());
+					}
 
 					a = e.attributeNode(QString("money"));
 					if (!a.isNull())
-						emit msgPlayerUpdateMoney(playerid, a.value());
+						emit msgPlayerUpdateMoney(player, a.value());
 
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())

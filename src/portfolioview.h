@@ -12,7 +12,7 @@ class PortfolioView : public QWidget
 	public:
 		PortfolioView(QWidget *parent, const char *name = 0);
 		void setName(const char *);
-		void setCash(const char *);
+		void setMoney(const char *);
 		void setOwned(int, bool);
 		void setHasTurn(bool);
 
@@ -22,7 +22,7 @@ class PortfolioView : public QWidget
 	private:
 		QPixmap *qpixmap;
 		bool b_recreate;
-		QLabel *lname, *lcash;
+		QLabel *lname, *lmoney;
 		PortfolioEstate *estate[40];
 		bool myHasTurn;
 };
