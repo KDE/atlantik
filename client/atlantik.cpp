@@ -27,7 +27,7 @@
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
- 
+
 #include <atlantic_core.h>
 #include <auction.h>
 #include <estate.h>
@@ -228,12 +228,14 @@ void Atlantik::showSelectServer()
 	m_selectServer->show();
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
 	initNetworkObject();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame())); // disconnect from selectGame implied by deletion above
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 }
 
@@ -283,6 +285,9 @@ void Atlantik::showSelectConfiguration()
 {
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
@@ -294,7 +299,6 @@ void Atlantik::showSelectConfiguration()
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
@@ -321,6 +325,9 @@ void Atlantik::showBoard()
 {
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
@@ -546,6 +553,7 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
 
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameConfig()), this, SLOT(showSelectConfiguration()));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), this, SLOT(initBoard()));
 	connect(m_atlantikNetwork, SIGNAL(gameRun()), this, SLOT(showBoard()));
