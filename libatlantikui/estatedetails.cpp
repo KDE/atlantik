@@ -41,7 +41,7 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 	m_pixmap = 0;
 	b_recreate = true;
 
-	m_quartzBlocks = 0;	
+	m_quartzBlocks = 0;
 	m_closeButton = 0;
 	m_buttons.setAutoDelete(true);
 	m_recreateQuartz = true;
@@ -52,7 +52,7 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(m_buttonBox); 
+	m_mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
@@ -96,10 +96,10 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		painter.begin(m_pixmap, this);
 
 		painter.setPen(Qt::black);
-		
+
 		painter.setBrush(m_estate->bgColor());
 		painter.drawRect(rect());
-        
+
 /*
 		// Paint icon only when it exists and fits
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
@@ -217,7 +217,7 @@ void EstateDetails::addButton(QString command, QString caption, bool enabled)
 
 void EstateDetails::addCloseButton()
 {
-	m_closeButton = new KPushButton("Close", this);
+	m_closeButton = new KPushButton(i18n("Close"), this);
 	m_buttonBox->addWidget(m_closeButton);
 	m_closeButton->show();
 

@@ -17,7 +17,7 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kpushbutton.h>
- 
+
 #include "display_widget.moc"
 
 BoardDisplay::BoardDisplay(const QString &caption, const QString &body, QWidget *parent, const char *name) : QWidget(parent, name)
@@ -25,13 +25,13 @@ BoardDisplay::BoardDisplay(const QString &caption, const QString &body, QWidget 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 
 	m_textGroupBox = new QVGroupBox(caption, this, "groupBox");
-	mainLayout->addWidget(m_textGroupBox); 
+	mainLayout->addWidget(m_textGroupBox);
 
 	QTextEdit *label = new QTextEdit(body, NULL, m_textGroupBox);
 	label->setReadOnly(true);
 
 	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	mainLayout->addItem(m_buttonBox); 
+	mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
@@ -50,7 +50,7 @@ void BoardDisplay::addButton(const QString &command, const QString &caption, boo
 
 void BoardDisplay::addCloseButton()
 {
-	KPushButton *button = new KPushButton("Close", this);
+	KPushButton *button = new KPushButton(i18n("Close"), this);
 	m_buttonBox->addWidget(button);
 	button->show();
 

@@ -30,7 +30,7 @@
 #include <player.h>
 #include <estate.h>
 #include <auction.h>
- 
+
 #include "auction_widget.moc"
 
 AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent, const char *name) : QWidget(parent, name)
@@ -48,13 +48,13 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	// Player list
 	Estate *estate = auction->estate();
 	m_playerGroupBox = new QVGroupBox(estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
-	m_mainLayout->addWidget(m_playerGroupBox); 
+	m_mainLayout->addWidget(m_playerGroupBox);
 
 	m_playerList = new KListView(m_playerGroupBox);
-	m_playerList->addColumn(QString(i18n("Player")));
-	m_playerList->addColumn(QString(i18n("Bid")));
+	m_playerList->addColumn(i18n("Player"));
+	m_playerList->addColumn(i18n("Bid"));
 	m_playerList->setSorting(1, false);
-	
+
 	KListViewItem *item;
 	Player *player;
 
@@ -137,5 +137,5 @@ void AuctionWidget::updateBid(Player *player, int amount)
 
 void AuctionWidget::slotBidButtonClicked()
 {
-	emit bid(m_auction, m_bidSpinBox->value());	
+	emit bid(m_auction, m_bidSpinBox->value());
 }

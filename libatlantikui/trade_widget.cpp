@@ -117,10 +117,10 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_componentList = new KListView(this, "componentList");
 	listCompBox->addWidget(m_componentList);
 
-	m_componentList->addColumn("Player");
-	m_componentList->addColumn("gives");
-	m_componentList->addColumn("Player");
-	m_componentList->addColumn("Item");
+	m_componentList->addColumn(i18n("Player"));
+	m_componentList->addColumn(i18n("gives"));
+	m_componentList->addColumn(i18n("Player"));
+	m_componentList->addColumn(i18n("Item"));
 
 	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *, const QPoint&)));
 	connect(m_componentList, SIGNAL(clicked(QListViewItem *)), this, SLOT(setCombos(QListViewItem *)));
@@ -189,7 +189,7 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 	m_componentMap[tradeItem] = item;
 	m_componentRevMap[item] = tradeItem;
 }
-	
+
 void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
@@ -261,7 +261,7 @@ void TradeDisplay::setTypeCombo(int index)
 
 		m_updateButton->setEnabled( m_estateCombo->count() > 0 );
 
-		break;		
+		break;
 
 	case 1:
 		// Editing money component
