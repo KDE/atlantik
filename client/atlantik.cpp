@@ -170,9 +170,6 @@ void Atlantik::newPlayer(Player *player)
 	initBoard();
 	m_board->addToken(player);
 
-	if (m_selectConfiguration)
-		m_selectConfiguration->addPlayer(player);
-
 	addPortfolioView(player);
 
 	if (player->isSelf())

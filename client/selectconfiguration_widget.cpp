@@ -35,90 +35,39 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	// Player list.
-	m_playerBox = new QVGroupBox(i18n("Player List"), this, "playerBox");
-	m_mainLayout->addWidget(m_playerBox); 
-
-	// List of  players
-	m_playerList = new KListView(m_playerBox, "m_playerList");
-	m_playerList->addColumn(QString(i18n("Name")));
-	m_playerList->addColumn(QString(i18n("Host")));
-	m_playerList->setAllColumnsShowFocus(true);
-	m_playerList->setFullWidth(true);
-//	m_mainLayout->addWidget(m_playerList);
-
-	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
-
 	// Game configuration.
 	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
 	m_mainLayout->addWidget(m_configBox); 
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(buttonBox);
+	// Vertical spacer.
+	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+
+	// Server buttons.
+	QHBoxLayout *serverButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(serverButtons);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
-	buttonBox->addWidget(m_backButton);
+	serverButtons->addWidget(m_backButton);
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
-	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
-	buttonBox->addWidget(m_connectButton);
+	serverButtons->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
-	
-    // Status indicator
+
+    // Status indicator.
 	status_label = new QLabel(this);
 	status_label->setText(i18n("Retrieving configuration list..."));
 	m_mainLayout->addWidget(status_label);
-}
-
-void SelectConfiguration::addPlayer(Player *player)
-{
-	QListViewItem *item = new QListViewItem(m_playerList, player->name(), player->host());
-	item->setPixmap(0, QPixmap(SmallIcon("personal")));
-
-	m_items[player] = item;
-
-	connect(player, SIGNAL(changed(Player *)), this, SLOT(slotPlayerChanged(Player *)));
-}
-
-void SelectConfiguration::slotDelPlayer(Player *player)
-{
-	QListViewItem *item = m_items[player];
-	if (item)
-	{
-		delete item;
-		m_items[player] = 0;
-	}
-}
-
-void SelectConfiguration::slotPlayerChanged(Player *player)
-{
-	QListViewItem *item = m_items[player];
-	if (item)
-	{
-		item->setText(0, player->name());
-		item->setText(1, player->host());
-		item->setPixmap(0, QPixmap(SmallIcon("personal")));
-		m_playerList->triggerUpdate();
-	}
 }
 
 void SelectConfiguration::connectClicked()
 {
 	status_label->setText(i18n("Game started. Retrieving full game data..."));
 	emit startGame();
-}
-
-void SelectConfiguration::slotClicked()
-{
-	delete m_messageBox;
-	m_playerBox->setEnabled(true);
-	m_configBox->setEnabled(true);
-	m_connectButton->setEnabled(true);
-	status_label->setEnabled(true);
 }
 
 void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)
