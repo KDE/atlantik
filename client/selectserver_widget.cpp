@@ -25,8 +25,10 @@
 
 #include "selectserver_widget.moc"
 
-SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	m_hideDevelopmentServers = hideDevelopmentServers;
+
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
@@ -94,6 +96,11 @@ SelectServer::~SelectServer()
 	delete m_localSocket;
 }
 
+void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
+{
+	m_hideDevelopmentServers = hideDevelopmentServers;
+}
+
 void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
@@ -114,6 +121,9 @@ void SelectServer::checkCustomServer(const QString &host, int port)
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
+	if (m_hideDevelopmentServers && version.contains("CVS"))
+		return;
+
 	QListViewItem *item = new QListViewItem(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();

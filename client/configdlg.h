@@ -72,12 +72,13 @@ public:
 	ConfigMonopigator(ConfigDialog *dialog, QWidget *parent, const char *name = 0);
 
 	bool connectOnStart();
+	bool hideDevelopmentServers();
 
 private:
 	void reset();
 
 	ConfigDialog *m_configDialog;
-	QCheckBox *m_connectOnStart;
+	QCheckBox *m_connectOnStart, *m_hideDevelopmentServers;
 };
 
 class ConfigDialog : public KDialogBase
@@ -95,6 +96,7 @@ public:
 	AtlantikConfig config();
 	QString playerName();
 	bool connectOnStart();
+	bool hideDevelopmentServers();
 
 private:
 	Atlantik *m_parent;

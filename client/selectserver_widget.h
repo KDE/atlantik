@@ -34,10 +34,11 @@ class SelectServer : public QWidget
 Q_OBJECT
 
 public:
-	SelectServer(bool useMonopigatorOnStart, QWidget *parent, const char *name=0);
+	SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent, const char *name=0);
 	virtual ~SelectServer();
 
 	void initPage();
+	void setHideDevelopmentServers(bool hideDevelopmentServers);
 		bool validateNext();
 		QString hostToConnect() const;
 		int portToConnect();
@@ -73,7 +74,7 @@ private:
 	KPushButton *m_addServerButton, *m_refreshButton, *m_connectButton;
 	Monopigator *m_monopigator;
 	KExtendedSocket *m_localSocket;
-	bool m_localServerAvailable;
+	bool m_localServerAvailable, m_hideDevelopmentServers;
 };
 
 #endif

@@ -164,6 +164,7 @@ void Atlantik::readConfig()
 	// Meta server configuation
 	config->setGroup("Monopigator");
 	m_config.connectOnStart = config->readBoolEntry("ConnectOnStart", false);
+	m_config.hideDevelopmentServers = config->readBoolEntry("HideDevelopmentServers", true);
 
 	// Portfolio colors
 	config->setGroup("WM");
@@ -226,7 +227,7 @@ void Atlantik::removeGUI(Trade *trade)
 
 void Atlantik::showSelectServer()
 {
-	m_selectServer = new SelectServer(m_config.connectOnStart, m_mainWidget, "selectServer");
+	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget, "selectServer");
 	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
 	m_selectServer->show();
 
@@ -483,6 +484,16 @@ void Atlantik::slotUpdateConfig()
 		configChanged = true;
 	}
 
+	optBool = m_configDialog->hideDevelopmentServers();
+	if (m_config.hideDevelopmentServers != optBool)
+	{
+		m_config.hideDevelopmentServers = optBool;
+		if (m_selectServer)
+			m_selectServer->setHideDevelopmentServers(optBool);
+
+		configChanged = true;
+	}
+
 	config->setGroup("Personalization");
 	config->writeEntry("PlayerName", m_config.playerName);
 
@@ -495,6 +506,7 @@ void Atlantik::slotUpdateConfig()
 
 	config->setGroup("Monopigator");
 	config->writeEntry("ConnectOnStart", m_config.connectOnStart);
+	config->writeEntry("HideDevelopmentServers", m_config.hideDevelopmentServers);
 
 	config->sync();
 

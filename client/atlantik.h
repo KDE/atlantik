@@ -47,6 +47,7 @@ struct AtlantikConfig
 
 	// Meta server options
 	bool connectOnStart;
+	bool hideDevelopmentServers;
 
 	// Portfolio colors
 	QColor activeColor, inactiveColor;

@@ -74,6 +74,11 @@ bool ConfigDialog::connectOnStart()
 	return configMonopigator->connectOnStart();
 }
 
+bool ConfigDialog::hideDevelopmentServers()
+{
+	return configMonopigator->hideDevelopmentServers();
+}
+
 AtlantikConfig ConfigDialog::config()
 {
 	return m_parent->config();
@@ -118,6 +123,15 @@ ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent
 		"request a list of Internet servers.\n");
 	QWhatsThis::add(m_connectOnStart, message);
 
+	m_hideDevelopmentServers = new QCheckBox(i18n("Hide development servers"), parent);
+	layout->addWidget(m_hideDevelopmentServers);
+
+	message=i18n(
+		"Some of the Internet servers might be running development\n"
+		"versions of the server software. If checked, Atlantik will not\n"
+		"display these servers.\n");
+	QWhatsThis::add(m_hideDevelopmentServers, message);
+
 	layout->addStretch(1);
 
 	reset();
@@ -128,9 +142,15 @@ bool ConfigMonopigator::connectOnStart()
 	return m_connectOnStart->isChecked();
 }
 
+bool ConfigMonopigator::hideDevelopmentServers()
+{
+	return m_hideDevelopmentServers->isChecked();
+}
+
 void ConfigMonopigator::reset()
 {
 	m_connectOnStart->setChecked(m_configDialog->config().connectOnStart);
+	m_hideDevelopmentServers->setChecked(m_configDialog->config().hideDevelopmentServers);
 }
 
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)

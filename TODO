@@ -23,6 +23,7 @@ For 0.6.0
 v support for custom tokens
 v don't connect to meta server unless user has configured to do so
 v support for KNotify events
+v option to hide development servers (on by default)
 - make build/unmortgage protection configurable
 - use gameupdate for game list in SelectGame
 - .D command
