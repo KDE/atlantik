@@ -11,9 +11,7 @@ monopd API change
 Bugfixes
 --------
 
-- removing money from trade crashes!
 - money updates from network don't make it to a gui update
-
 - Update messages views after resize.
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior

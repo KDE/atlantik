@@ -603,6 +603,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (player && player->isSelf())
 						{
 							m_atlanticCore->delTrade(trade);
+							m_trades[tradeId] = 0;
 							trade = 0;
 						}
 					}
@@ -713,6 +714,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (status == 3)
 						{
 							m_atlanticCore->delAuction(auction);
+							m_auctions[auctionId] = 0;
 							auction = 0;
 						}
 					}

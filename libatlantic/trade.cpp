@@ -121,6 +121,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		{
 			delete t;
 			mTradeItems.removeRef(t);
+			emit itemRemoved(t);
 		}
 	}
 	else if (from && to && money)
