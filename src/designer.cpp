@@ -434,7 +434,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			card->name = name;
 			card->keys = keys;
 			card->values = values;
-			(parseMode == Chance_Cards ? chanceStack : ccStack).prepend(card);
+			(parseMode == Chance_Cards ? chanceStack : ccStack).append(card);
 		}
 	}
 
