@@ -10,6 +10,7 @@ Comment[xx]=xxAtlantikxx
 
 [gainedturn]
 Name=Gained Turn
+Name[ar]=ربحت دورا
 Name[bg]=Придобит ред
 Name[ca]=Et toca jugar
 Name[cs]=Získán tah
@@ -43,6 +44,7 @@ Name[tr]=Karlı Sıra
 Name[wa]=Djeu wangnî
 Name[xx]=xxGained Turnxx
 Comment=It is your turn now
+Comment[ar]=دورك الآن
 Comment[bg]=Ваш ред е
 Comment[bn]=এখন আপনার চাল
 Comment[ca]=És el teu torn
@@ -82,6 +84,7 @@ Comment[xx]=xxIt is your turn nowxx
 Comment[zh_TW]=該您擲骰子了
 [chat]
 Name=Chat
+Name[ar]=دردشة
 Name[bg]=Чат
 Name[bn]=আড্ডা
 Name[ca]=Xat
@@ -112,6 +115,7 @@ Name[uz]=Чат
 Name[xx]=xxChatxx
 Name[zh_TW]=聊天
 Comment=A player sends a chat message
+Comment[ar]=لقد أرسل لاعب رسالة دردشة
 Comment[bg]=Играч изпраща съобщение
 Comment[bn]=একজন খেলোয়াড় একটি বার্তা পাঠালেন
 Comment[ca]=Un jugador envia un missatge de xat
@@ -152,6 +156,7 @@ default_presentation=1
 
 [newplayer]
 Name=New player
+Name[ar]=لاعب جديد
 Name[bg]=Нов играч
 Name[bn]=নতুন খেলোয়াড়
 Name[ca]=Nou jugador
@@ -191,6 +196,7 @@ Name[wen]=Nowy hrajer
 Name[xx]=xxNew playerxx
 Name[zh_TW]=新玩家
 Comment=A new player joins the game
+Comment[ar]=لقد اشترك لاعب جديد في اللعبة
 Comment[bg]=Нов играч се присъединява към играта
 Comment[bn]=একজন নতুন খেলোয়াড় খেলায় যোগ দিয়েছেন
 Comment[ca]=Un nou jugador s'uneix a la partida
@@ -232,6 +238,7 @@ default_presentation=1
 
 [newgame]
 Name=New game
+Name[ar]=لعبة جديدة
 Name[bg]=Нова игра
 Name[bn]=নতুন খেলা
 Name[ca]=Nova partida
@@ -271,6 +278,7 @@ Name[wen]=Nowa hra
 Name[xx]=xxNew gamexx
 Name[zh_TW]=新遊戲
 Comment=A new game is created
+Comment[ar]=لقد انشئت لعبة جديدة
 Comment[bg]=Създадена е нова игра
 Comment[bn]=একটি নতুন খেলা আরম্ভ হয়েছে
 Comment[ca]=Es crea una nova partida
