@@ -164,8 +164,7 @@ void Atlantik::readConfig()
 
 void Atlantik::newPlayer(Player *player)
 {
-	if (!m_board)
-		initBoard();
+	initBoard();
 
 	m_board->addToken(player);
 
@@ -187,8 +186,7 @@ void Atlantik::newPlayer(Player *player)
 
 void Atlantik::newEstate(Estate *estate)
 {
-	if (!m_board)
-		initBoard();
+	initBoard();
 
 	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 }
@@ -202,8 +200,7 @@ void Atlantik::newTrade(Trade *trade)
 
 void Atlantik::newAuction(Auction *auction)
 {
-	if (!m_board)
-		initBoard();
+	initBoard();
 
 	m_board->addAuctionWidget(auction);
 }
@@ -290,6 +287,9 @@ void Atlantik::showSelectConfiguration()
 
 void Atlantik::initBoard()
 {
+	if (m_board)
+		return;
+
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 
