@@ -19,9 +19,11 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
+#include <qmap.h>
 #include <qvgroupbox.h>
-#include <qpushbutton.h>
 #include <qtextedit.h>
+
+class KPushButton;
 
 class BoardDisplay : public QWidget
 {
@@ -30,13 +32,21 @@ Q_OBJECT
 public:
 	BoardDisplay(const QString caption, const QString body, QWidget *parent, const char *name=0);
 
+	void addButton(const QString command, const QString caption);
+
 private slots:
+	void buttonPressed();
 	void slotClicked();
+
+signals:
+	void buttonCommand(QString);
 
 private:
 	QTextEdit *m_label;
 	QVBoxLayout *m_mainLayout;
+	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
+	QMap <QObject *, QString> m_buttonCommandMap;
 };
 
 #endif

@@ -18,6 +18,7 @@
 
 #include <kdialog.h>
 #include <klocale.h>
+#include <kpushbutton.h>
  
 #include "display_widget.moc"
 
@@ -31,6 +32,27 @@ BoardDisplay::BoardDisplay(const QString caption, const QString body, QWidget *p
 
 	m_label = new QTextEdit(body, NULL, m_textGroupBox);
 	m_label->setReadOnly(true);
+
+	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(m_buttonBox); 
+
+	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+}
+
+void BoardDisplay::addButton(QString command, QString caption)
+{
+	KPushButton *button = new KPushButton(caption, this);
+	m_buttonCommandMap[(QObject *)button] = command;
+	m_buttonBox->addWidget(button);
+
+	button->show();
+
+	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
+}
+
+void BoardDisplay::buttonPressed()
+{
+	emit buttonCommand(m_buttonCommandMap[(QObject *)QObject::sender()]);
 }
 
 void BoardDisplay::slotClicked()

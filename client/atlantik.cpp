@@ -309,7 +309,9 @@ void Atlantik::initGame()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(displayButton(QString, QString)), m_board, SLOT(displayButton(QString, QString)));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
+	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
 }
 
 void Atlantik::gameStarted()
@@ -417,7 +419,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 void Atlantik::serverMsgsAppend(QString msg)
 {
 	// Use append, not setText(old+new) because that one doesn't wrap
-	m_serverMsgs->append("<BR>" + msg);
+	m_serverMsgs->append(msg);
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 }
 

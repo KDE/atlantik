@@ -4,6 +4,8 @@
 - monopd no longer sends gamelist on connect, so request it
 - more intelligent EstateDetails, shows no useless info anymore and added
   groupname, price and isMortgaged
+- 10% or $200 taxes finally implemented! (requires monopd CVS >= 20020701)
+- removed <br> from messagewindow, apparently Qt autowraps (again??)
 
 2002-06-27 (kaper)
 ----------

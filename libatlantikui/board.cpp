@@ -400,6 +400,12 @@ void AtlantikBoard::displayText(QString caption, QString body)
 //	QTimer::singleShot(3000, this, SLOT(displayCenter()));
 }
 
+void AtlantikBoard::displayButton(QString command, QString caption)
+{
+	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_center))
+		display->addButton(command, caption);
+}
+
 void AtlantikBoard::displayEstateDetails(Estate *estate)
 {
 	if (!estate)

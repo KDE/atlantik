@@ -41,6 +41,7 @@ public:
 	void cmdChat(QString msg);
 
 private slots:
+	void writeData(QString msg);
 	void rollDice();
 	void endTurn();
 	void newGame(const QString &gameType);
@@ -112,7 +113,8 @@ signals:
 	void msgError(QString);
 	void msgChat(QString, QString);
 
-	void displayText(QString, QString);
+	void displayText(QString title, QString description);
+	void displayButton(QString command, QString caption);
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);
@@ -150,7 +152,6 @@ signals:
 	void auctionCompleted(Auction *auction);
 
 private:
-	void writeData(QString msg);
 	void processMsg(QString);
 	void processNode(QDomNode);
 

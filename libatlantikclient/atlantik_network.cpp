@@ -237,7 +237,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 {
 	QDomAttr a;
 
-	while(!n.isNull())
+	for ( ; !n.isNull() ; n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
 		if(!e.isNull())
@@ -257,9 +257,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "display")
 			{
-				QString type = e.attributeNode(QString("type")).value();
-				if (1 || type == "foo")
-					emit displayText(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
+				emit displayText(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
+				for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+				{
+					QDomElement eButton = nButtons.toElement();
+					if (!eButton.isNull() && eButton.tagName() == "button")
+						emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value());
+				}
 			}
 			else if (e.tagName() == "updategamelist")
 			{
@@ -420,7 +424,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore, but somehow dont create view until all properties are set
+#warning port to atlanticcore and create view there
 					if (b_newPlayer)
 						emit newPlayer(player);
 
@@ -446,7 +450,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore, but somehow dont create view until all properties are set
+#warning port to atlanticcore and create view there
 					if (b_newEstateGroup)
 						emit newEstateGroup(estateGroup);
 
@@ -533,7 +537,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						estate->setPrice(a.value().toInt());
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore, but somehow dont create view until all properties are set
+#warning port to atlanticcore and create view there
 					if (b_newEstate)
 						emit newEstate(estate);
 
@@ -662,7 +666,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore, but somehow dont create view until all properties are set
+#warning port to atlanticcore and create view there
 					if (b_newTrade)
 						emit newTrade(trade);
 
@@ -714,7 +718,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
-#warning port to atlanticcore, but somehow dont create view until all properties are set
+#warning port to atlanticcore and create view there
 					if (b_newAuction)
 						emit newAuction(auction);
 
@@ -725,9 +729,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 			else
 				kdDebug() << "ignored TAG: " << e.tagName() << endl;
 		}
-		QDomNode node = n.firstChild();
-		processNode(node);
-		n = n.nextSibling();
+		// TODO: remove permanently?
+		// QDomNode node = n.firstChild();
+		// processNode(node);
 	}
 }
 
