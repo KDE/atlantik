@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -113,13 +113,17 @@ MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString late
 //	setEnabled(false);
 	parent->sort();
 
-	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
 	QPtrList<KAddressInfo> addresses = KExtendedSocket::lookup(host, port);
 	addresses.setAutoDelete(true);
-	m_latencyTimer->setHost(addresses.first()->address());
+	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
 
-	connect(m_latencyTimer, SIGNAL(answer(int)), this, SLOT(updateLatency(int)));
-	m_latencyTimer->start();
+	if ( addresses.count() )
+	{
+		m_latencyTimer->setHost(addresses.first()->address());
+
+		connect(m_latencyTimer, SIGNAL(answer(int)), this, SLOT(updateLatency(int)));
+		m_latencyTimer->start();
+	}
 }
 
 void MonopigatorEntry::updateLatency(int msec)
