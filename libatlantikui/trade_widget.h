@@ -19,7 +19,7 @@
 
 #include <qwidget.h>
 #include <qmap.h>
-#include "libatlantic_export.h"
+#include "libatlantikui_export.h"
 
 class QHGroupBox;
 class QLabel;
@@ -36,7 +36,7 @@ class Player;
 class Trade;
 class TradeItem;
 
-class LIBATLANTIC_EXPORT TradeDisplay : public QWidget
+class LIBATLANTIKUI_EXPORT TradeDisplay : public QWidget
 {
 Q_OBJECT
 

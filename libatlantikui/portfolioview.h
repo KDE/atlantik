@@ -22,7 +22,7 @@
 #include <qptrlist.h>
 
 #include "portfolioestate.h"
-#include "libatlantic_export.h"
+#include "libatlantikui_export.h"
 class QColor;
 class QString;
 
@@ -30,7 +30,7 @@ class AtlanticCore;
 class Player;
 class Estate;
 
-class LIBATLANTIC_EXPORT PortfolioView : public QWidget
+class LIBATLANTIKUI_EXPORT PortfolioView : public QWidget
 {
 Q_OBJECT
 

@@ -10,6 +10,6 @@ libatlantikui_la_SOURCES = auction_widget.cpp board.cpp estatedetails.cpp \
 libatlantikuiincludedir = $(includedir)/atlantik/ui
 libatlantikuiinclude_HEADERS =  auction_widget.h board.h estatedetails.h \
 	estateview.h kwrappedlistviewitem.h portfolioestate.h \
-	portfolioview.h token.h trade_widget.h
+	portfolioview.h token.h trade_widget.h libatlantikui_export.h
 
 METASOURCES = AUTO
