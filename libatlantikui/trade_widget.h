@@ -30,9 +30,6 @@ protected:
 	void closeEvent(QCloseEvent *e);
 
 private slots:
-	void playerAdded(Player *);
-	void playerRemoved(Player *);
-
 	void tradeAdded(TradeItem *);
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);

@@ -27,13 +27,6 @@ public:
 	 **/
 	virtual QString text() const=0;
 
-	/**
-	 * the command sent to the server when this is created
-	 **/
-	virtual void createCommand()=0;
-	
-	virtual void destroyCommand()=0;
-
 private:
 	Player *mFrom, *mTo;
 	Trade *mTrade;
@@ -50,8 +43,6 @@ public:
 	Estate *estate() { return mEstate; }
 	
 	virtual QString text() const;
-	virtual void createCommand();
-	virtual void destroyCommand();
 
 signals:
 	void updateEstate(Trade *trade, Estate *estate, Player *player);
@@ -70,8 +61,6 @@ public:
 	void setMoney(unsigned int money) { mMoney = money; }
 	
 	virtual QString text() const;
-	virtual void createCommand();
-	virtual void destroyCommand();
 
 private:
 	unsigned int mMoney;
@@ -110,17 +99,6 @@ public:
 	
 	}
 
-public slots:
-	/**
-	 * make this take effect on the server
-	 **/
-	void addTradeItem(TradeItem *i);
-	/**
-	 * call this to destroy a trade item and take it
-	 * of the trade.  Do not delete it yourself
-	 **/
-	void removeTradeItem(TradeItem *i);
-
 private slots:	
 	/**
 	 * tell someone that this changed
@@ -134,9 +112,6 @@ public:
 	
 signals:
 	void changed();
-
-	void playerAdded(Player *);
-	void playerRemoved(Player *);
 
 	void tradeAdded(TradeItem *);
 	void tradeRemoved(TradeItem *);

@@ -31,22 +31,15 @@ For 0.2.0
 - kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
-- complete trades
+^ complete trades
  ^ widget (display)
-   v adding estate item
-   v adding money item
-   v deleting items
    - reseting accept on change (depends on monopd)
    - rejecting trade alltogether
    - completing trade when all accept
- - widget (edit)
+ ^ widget (edit)
    - set/unset accept
-   v reject
-   v add estate
    - delete estate
-   v add money
    - delete money
-   v closing widget should auto-reject
 
 For 0.2.1
 ---------

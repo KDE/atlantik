@@ -14,24 +14,11 @@ Trade::Trade(int tradeId)
 void Trade::addPlayer(Player *player)
 {
 	mPlayers.append(player);
-	emit playerAdded(player);
 }
 
 QPtrList<Player> Trade::players() const
 {
 	return mPlayers;
-}
-
-void Trade::removeTradeItem(TradeItem *i)
-{
-	mTradeItems.removeRef(i);
-	i->destroyCommand();
-}
-
-void Trade::addTradeItem(TradeItem *i)
-{
-	mTradeItems.append(i);
-	i->createCommand();
 }
 
 void Trade::updateEstate(Estate *estate, Player *to)
@@ -152,17 +139,6 @@ QString TradeEstate::text() const
 	return mEstate->name();
 }
 
-void TradeEstate::createCommand()
-{
-	emit updateEstate(trade(), estate(), to());
-}
-
-void TradeEstate::destroyCommand()
-{
-	emit updateEstate(trade(), estate(), to());
-}
-
-
 TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to)
 	: TradeItem(trade, from, to), mMoney(money)
 {
@@ -172,14 +148,4 @@ TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *t
 QString TradeMoney::text() const
 {
 	return QString("$%1").arg(mMoney);
-}
-
-void TradeMoney::createCommand()
-{
-
-}
-
-void TradeMoney::destroyCommand()
-{
-
 }
