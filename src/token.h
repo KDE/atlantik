@@ -5,6 +5,7 @@
 #include <qpixmap.h>
 
 class Player;
+class Estate;
 class EstateView;
 class AtlantikBoard;
 
@@ -25,6 +26,9 @@ Q_OBJECT
 	protected:
 		void paintEvent(QPaintEvent *);
 		void resizeEvent(QResizeEvent *);
+
+signals:
+	void tokenConfirmation(Estate *);
 
 private:
 		void updateGeometry();

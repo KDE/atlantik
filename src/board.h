@@ -37,7 +37,7 @@ public:
 		void slotDisplayCard(QString, QString);
 
 	signals:
-		void tokenConfirmation(int location);
+		void tokenConfirmation(Estate *estate);
 
 	protected:
 		void resizeEvent(QResizeEvent *);

@@ -100,10 +100,10 @@ void GameNetwork::cmdName(QString name)
 	writeData(msg);
 }
 
-void GameNetwork::cmdTokenConfirmation(int estateId)
+void GameNetwork::tokenConfirmation(Estate *estate)
 {
 	QString msg(".t");
-	msg.append(QString::number(estateId));
+	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 

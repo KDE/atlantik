@@ -15,7 +15,9 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	setBackgroundMode(NoBackground); // avoid flickering
 
 	m_player = player;
+
 	m_parentBoard = parent;
+	connect(this, SIGNAL(tokenConfirmation(Estate *)), m_parentBoard, SIGNAL(tokenConfirmation(Estate *)));
 
 	qpixmap = 0;
 	b_recreate = true;
@@ -72,6 +74,7 @@ void Token::updateGeometry()
 		int y = m_location->geometry().center().y() - (height()/2);
 		setGeometry(x, y, width(), height());
 		show();
+		emit tokenConfirmation(m_player->location());
 	}
 	else
 	{
