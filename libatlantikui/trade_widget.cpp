@@ -352,6 +352,9 @@ void TradeDisplay::contextMenu(KListView *, QListViewItem *i, const QPoint& p)
 
 void TradeDisplay::contextMenuClicked(int)
 {
+	if (!m_contextTradeItem)
+		return;
+
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
 		emit updateEstate(m_trade, tradeEstate->estate(), 0);
 	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
