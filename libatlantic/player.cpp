@@ -1,6 +1,8 @@
 //#include <kdebug.h>
 
+#include "player.h"
 #include "player.moc"
+#include "estate.h"
 
 Player::Player(int playerId) : QObject()
 {
@@ -8,12 +10,11 @@ Player::Player(int playerId) : QObject()
 	m_changed = m_isSelf = m_hasTurn = false;
 }
 
-void Player::setLocation(const int estateId)
+void Player::setLocation(Estate *location)
 {
-//	kdDebug() << "Player::setLocation" << endl;
-	if (m_location != estateId)
+	if (m_location != location)
 	{
-		m_location = estateId;
+		m_location = location;
 		m_changed = true;
 	}
 }

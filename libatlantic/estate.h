@@ -1,5 +1,5 @@
-#ifndef ATLANTIK_ESTATE_H
-#define ATLANTIK_ESTATE_H
+#ifndef LIBATLANTIC_ESTATE_H
+#define LIBATLANTIC_ESTATE_H
 
 #include <qobject.h>
 #include <qcolor.h>

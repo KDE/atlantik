@@ -1,8 +1,10 @@
-#ifndef ATLANTIK_PLAYER_H
-#define ATLANTIK_PLAYER_H
+#ifndef LIBATLANTIC_PLAYER_H
+#define LIBATLANTIC_PLAYER_H
 
 #include <qobject.h>
 #include <qstring.h>
+
+class Estate;
 
 class Player : public QObject
 {
@@ -12,8 +14,8 @@ public:
 	Player(int playerId);
 	int playerId() { return m_playerId; }
 
-	void setLocation(const int estateId);
-	int location() const { return m_location; }
+	void setLocation(Estate *estate);
+	Estate *location() { return m_location; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
 	void setHasTurn(const bool hasTurn);
@@ -30,11 +32,11 @@ signals:
 	void changed();
 
 private:
-	bool m_changed;
-	int m_playerId, m_location;
+	bool m_changed, m_isSelf, m_hasTurn, m_inJail;
+	int m_playerId;
 	unsigned int m_money;
-	bool m_isSelf, m_hasTurn, m_inJail;
 	QString m_name;
+	Estate *m_location;
 };
 
 #endif

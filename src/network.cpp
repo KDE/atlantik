@@ -5,8 +5,8 @@
 
 #include "trade.h"
 #include "trade_widget.h"
-#include "estate.h"
 #include "player.h"
+#include "estate.h"
 
 GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, name)
 {
@@ -399,13 +399,14 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
 					{
-						int location = a.value().toInt();
+						Estate *estate = getEstate(a.value().toInt());
 
 						a = e.attributeNode(QString("directmove"));
 						if (!a.isNull())
 							directmove = a.value().toInt();
 
-						player->setLocation(location);
+						if (estate)
+							player->setLocation(estate);
 					}
 
 					// Create view(s)
