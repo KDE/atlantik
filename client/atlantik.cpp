@@ -22,7 +22,6 @@
 #include <board.h>
 #include <trade_widget.h>
 
-#include "designer.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
@@ -38,7 +37,6 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Toolbar: Settings
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	(void) new KAction(i18n("Gameboard &Designer"), CTRL+Key_D, this, SLOT(startDesigner()), actionCollection(), "designer");
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
@@ -420,12 +418,6 @@ void Atlantik::serverMsgsAppend(QString msg)
 	// Use append, not setText(old+new) because that one doesn't wrap
 	m_serverMsgs->append("<BR>" + msg);
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
-}
-
-void Atlantik::startDesigner()
-{
-	   AtlanticDesigner *designer = new AtlanticDesigner(this, "Designer");
-	   designer->show();
 }
 
 void Atlantik::playerChanged()

@@ -7,7 +7,7 @@ SUBDIRS =
 
 atlantik_SOURCES = atlantik.cpp configdlg.cpp main.cpp monopigator.cpp \
 	selectconfiguration_widget.cpp selectgame_widget.cpp \
-	selectserver_widget.cpp editor.cpp designer.cpp boardinfo.cpp
+	selectserver_widget.cpp
 
 KDE_ICON = atlantik
 
