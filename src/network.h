@@ -74,6 +74,7 @@ signals:
 	void msgEstateUpdateBgColor(int, QString);
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
+	void msgEstateUpdateGroupId(int, int);
 	void msgEstateUpdateMortgaged(int, bool);
 	void msgEstateUpdateCanToggleMortgage(int, bool);
 	void msgEstateUpdateCanBeOwned(int, bool);

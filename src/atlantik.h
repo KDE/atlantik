@@ -164,6 +164,7 @@ public slots:
 	void slotMsgEstateUpdateColor(int, QString);
 	void slotMsgEstateUpdateBgColor(int, QString);
 	void slotMsgEstateUpdateHouses(int, int);
+	void slotMsgEstateUpdateGroupId(int, int);
 	void slotMsgEstateUpdateMortgaged(int, bool);
 	void slotMsgEstateUpdateCanToggleMortgage(int, bool);
 

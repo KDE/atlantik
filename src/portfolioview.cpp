@@ -46,10 +46,15 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 void PortfolioView::addEstateView(Estate *estate)
 {
 	kdDebug() << "PortfolioView::addEstateView(" << estate->estateId() << ")" << endl;
-	
-	int j=0,x=0,y=0, estateId = estate->estateId();
-	QColor color = QColor();
 
+	int estateId = estate->estateId();
+	if (!estate->canBeOwned())
+	{
+		portfolioEstateMap[estateId]=0;
+		return;
+	}
+
+/*
 	// Don't ask, it works. ;-)
 	switch(estateId)
 	{
@@ -96,18 +101,16 @@ void PortfolioView::addEstateView(Estate *estate)
 			x = 0; y = 0;
 	}
 
-	if (x>0 || y>0)
-	{
-		PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
-		portfolioEstateMap[estateId] = portfolioEstate;
-		portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
+*/
+	int x = 20 * (estateId % 10);
+	int y = 20 * (estateId / 10);
 
-		connect(estate, SIGNAL(changed()), portfolioEstate, SLOT(estateChanged()));
+	PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
+	portfolioEstateMap[estateId] = portfolioEstate;
+	portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
 
-		portfolioEstate->show();
-	}
-	else
-		portfolioEstateMap[estateId]=0;
+	connect(estate, SIGNAL(changed()), portfolioEstate, SLOT(estateChanged()));
+	portfolioEstate->show();
 }
 
 /*

@@ -12,6 +12,8 @@ Q_OBJECT
 public:
 	Estate(int estateId);
 	const int estateId() { return m_estateId; }
+	void setGroupId(const int groupId);
+	const int groupId() { return m_groupId; }
 	void setName(const QString name);
 	const QString name() { return m_name; }
 	void setOwner(Player *player);
@@ -44,7 +46,7 @@ signals:
 
 private:
 	bool m_changed;
-	int m_estateId;
+	int m_estateId, m_groupId;
 	QString m_name;
 	Player *m_owner;
 	unsigned int m_houses;

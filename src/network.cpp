@@ -366,6 +366,10 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateMortgaged(estateId, a.value().toInt());
 
+					a = e.attributeNode(QString("groupid"));
+					if (!a.isNull())
+						emit msgEstateUpdateGroupId(estateId, a.value().toInt());
+
 					a = e.attributeNode(QString("can_toggle_mortgage"));
 					if (!a.isNull())
 						emit msgEstateUpdateCanToggleMortgage(estateId, a.value().toInt());

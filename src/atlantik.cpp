@@ -52,6 +52,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateColor(int, QString)), this, SLOT(slotMsgEstateUpdateColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBgColor(int, QString)), this, SLOT(slotMsgEstateUpdateBgColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateGroupId(int, int)), this, SLOT(slotMsgEstateUpdateGroupId(int, int)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
@@ -406,6 +407,12 @@ void Atlantik::slotMsgEstateUpdateHouses(int estateId, int houses)
 {
 	if (Estate *estate = estateMap[estateId])
 		estate->setHouses(houses);
+}
+
+void Atlantik::slotMsgEstateUpdateGroupId(int estateId, int groupId)
+{
+	if (Estate *estate = estateMap[estateId])
+		estate->setGroupId(groupId);
 }
 
 void Atlantik::slotMsgEstateUpdateMortgaged(int estateId, bool mortgaged)

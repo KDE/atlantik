@@ -14,6 +14,12 @@ Estate::Estate(int estateId) : QObject()
 	m_color = QColor();
 }
 
+void Estate::setGroupId(const int groupId)
+{
+	if (m_groupId != groupId)
+		m_groupId = groupId;
+}
+
 void Estate::setOwner(Player *player)
 {
 	if (m_owner != player)
