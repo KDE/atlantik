@@ -33,7 +33,7 @@
 #include "estateview.moc"
 #include "config.h"
 
-EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
@@ -120,6 +120,7 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p)
 		case South:
 			m.rotate(180);
 			break;
+		default:;
 	}
 	*p = p->xForm(m);
 	return p;
@@ -143,6 +144,7 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 		case South:
 			m.rotate(180);
 			break;
+		default:;
 	}
 	*p = p->xForm(m);
 	return p;

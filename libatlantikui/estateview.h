@@ -27,7 +27,7 @@
 
 #include "portfolioestate.h"
 
-enum Orientation{ North=0, East=1, South=2, West=3 };
+enum EstateOrientation { North=0, East=1, South=2, West=3 };
 
 class Player;
 class Estate;
@@ -37,10 +37,11 @@ class EstateView : public QWidget
 Q_OBJECT
 
 	public:
-		EstateView(Estate *estate, int orientation, const QString &, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name = 0);
+		EstateView(Estate *estate, EstateOrientation orientation, const QString &, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name = 0);
 		void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects);
 		Estate *estate() { return m_estate; }
 		void updatePE();
+		EstateOrientation orientation() { return m_orientation; }
 
 	public slots:
 		void slotResizeAftermath();
@@ -68,7 +69,8 @@ Q_OBJECT
 		KPixmap *m_quartzBlocks;
 		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
-		int m_orientation, m_titleWidth, m_titleHeight;
+		int m_titleWidth, m_titleHeight;
+		EstateOrientation m_orientation;
 		QTextView *lname;
 		PortfolioEstate *pe;
 

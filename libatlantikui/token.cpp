@@ -24,9 +24,11 @@
 #include <kstandarddirs.h>
 #include <kglobalsettings.h>
 
-#include "token.moc"
-#include "player.h"
 #include "board.h"
+#include "estate.h"
+#include "player.h"
+
+#include "token.moc"
 #include "estateview.h"
 
 Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
@@ -125,6 +127,21 @@ void Token::updateGeometry()
 	{
 		x = m_location->geometry().center().x() - (width()/2);
 		y = m_location->geometry().center().y() - (height()/2);
+
+		if (m_location->estate()->color().isValid())
+		{
+			switch(m_location->orientation())
+			{
+				case North:
+					y += m_location->height()/8; break;
+				case East:
+					x -= m_location->width()/8; break;
+				case South:
+					y -= m_location->height()/8; break;
+				case West:
+					x += m_location->width()/8; break;
+			}
+		}
 	}
 
 	kdDebug() << "Token::updateGeometry, x:" << x << " y:" << y << endl;

@@ -14,13 +14,13 @@ Bugfixes
 - player name change doesn't make it to trade money items
 - Update messages views after resize.
 - Token should not have to know about EstateView, views could be independent
-? roll button not enabled after using jail card?
 - find a good starting location for tokens
 - all player/core dependencies in Board should only be there in Mode::Play
 
 For 0.4.0
 ---------
 
+v token geometry is now aware of estate colour captions
 - fancy widgets
   - generic (caption and description)
   ^ estate
