@@ -22,7 +22,9 @@ class AtlantikBoard : public QWidget
 Q_OBJECT
 
 public:
-	AtlantikBoard(AtlanticCore *atlanticCore, int, QWidget *parent, const char *name=0);
+	enum DisplayMode { Play, Edit };
+
+	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
 	void addAuctionWidget(Auction *auction);
@@ -50,6 +52,7 @@ protected:
 
 private:
 	AtlanticCore *m_atlanticCore;
+	DisplayMode m_mode;
 
 	EstateView *getEstateView(Estate *estate);
 	void jumpToken(Token *, EstateView *estateView, bool confirm=true);

@@ -17,14 +17,11 @@
 
 extern AtlantikConfig atlantikConfig;
 
-AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, QWidget *parent, const char *name) : QWidget(parent, name)
+AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-//	setMinimumWidth(320);
-//	setMinimumHeight(320);
-
 	m_atlanticCore = atlanticCore;
-
 	m_maxEstates = maxEstates;
+	m_mode = mode;
 
 	int sideLen = maxEstates/4;
 
@@ -153,7 +150,10 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	connect(estateView, SIGNAL(estateHouseBuy(Estate *)), estate, SIGNAL(estateHouseBuy(Estate *)));
 	connect(estateView, SIGNAL(estateHouseSell(Estate *)), estate, SIGNAL(estateHouseSell(Estate *)));
 	connect(estateView, SIGNAL(newTrade(Player *)), estate, SIGNAL(newTrade(Player *)));
-	connect(estateView, SIGNAL(LMBClicked(Estate *)), this, SLOT(displayEstateDetails(Estate *)));
+
+	// Designer has its own LMBClicked slot
+	if (m_mode == Play)
+		connect(estateView, SIGNAL(LMBClicked(Estate *)), this, SLOT(displayEstateDetails(Estate *)));
 
 	if (estateId<sideLen)
 		m_gridLayout->addWidget(estateView, sideLen, sideLen-estateId);
