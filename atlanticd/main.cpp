@@ -1,10 +1,10 @@
 #include <qapplication.h>
 
-#include "serversocket.h"
+#include "atlanticdaemon.h"
 
 int main(int argc, char *argv[])
 {
-	ServerSocket *serverSocket = new ServerSocket(1234, 100);
+	AtlanticDaemon *atlanticDaemon = new AtlanticDaemon();
 
 	QApplication qapplication(argc, argv);
 	qapplication.exec();

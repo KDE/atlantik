@@ -4,7 +4,7 @@
 
 // static QTextStream cout(stdout, IO_WriteOnly);
 
-Socket::Socket(QObject *parent = 0, const char *name = 0) : QSocket(parent, name)
+Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(readData()));
 }

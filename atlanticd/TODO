@@ -1,0 +1,11 @@
+This is a very basic TODO, only aimed at the most urgent goals and
+requirements. A complete reference would be the existing functionality of
+monopd.
+
+v create base class, AtlanticDaemon
+  v add monopigator method and timer
+  v create serversocket here
+  - let serversocket signal and atlanticd create client object
+  - create game object
+  - send list of games upon new connect
+

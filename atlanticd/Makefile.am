@@ -7,6 +7,6 @@ LDADD = $(LIB_QT)
 
 SUBDIRS = 
 
-atlanticd_SOURCES = main.cpp serversocket.cpp socket.cpp
+atlanticd_SOURCES = atlanticdaemon.cpp main.cpp serversocket.cpp socket.cpp
 
 METASOURCES = AUTO 
