@@ -223,7 +223,10 @@ void AtlantikBoard::addToken(Player *player, EstateView *estateView)
 	}
 
 	if (!estateView)
+	{
+		kdDebug() << "addToken - estateView null\n";
 		return;
+	}
 
 	Token *token = new Token(player, estateView, this, "token");
 	tokenMap[player] = token;
