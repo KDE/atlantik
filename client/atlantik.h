@@ -100,6 +100,7 @@ private slots:
 	void initBoard();
 	void showBoard();
 	void freezeBoard();
+	void clientCookie(QString cookie);
 
 public slots:
 
