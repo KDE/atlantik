@@ -62,8 +62,6 @@ private:
 	bool b_recreate;
 	QLabel *m_nameLabel, *m_moneyLabel;
 	QMap<int, PortfolioEstate*> portfolioEstateMap;
-	int x, y;
-	QString m_lastGroup;
 };
 
 #endif

@@ -65,10 +65,6 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	m_moneyLabel->setMaximumWidth(width()/2);
 	m_moneyLabel->setMaximumHeight(15);
 	m_moneyLabel->show();
-	
-	m_lastGroup = "";
-	x = 0;
-	y = 0;
 
 	// TODO: call buildPortfolio? Although, we should be able to assume no
 	// new estates or players are introduced after the game has been started
@@ -103,7 +99,7 @@ void PortfolioView::buildPortfolio()
 				{
 					// Create PE
 					PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
-					portfolioEstateMap[estate->estateId()] = portfolioEstate;
+					portfolioEstateMap[estate->id()] = portfolioEstate;
 
  					connect(portfolioEstate, SIGNAL(estateClicked(Estate *)), this, SIGNAL(estateClicked(Estate *)));
 					int x, y;

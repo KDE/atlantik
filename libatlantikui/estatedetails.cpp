@@ -22,6 +22,8 @@
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
+#include <kiconloader.h>
+#include <klistview.h>
 #include <klocale.h>
 #include <kpixmap.h>
 #include <kpushbutton.h>
@@ -33,7 +35,7 @@
 #include "estatedetails.h"
 #include "estatedetails.moc"
 
-EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) : QWidget(parent, name)
+EstateDetails::EstateDetails(QString text, Estate *estate, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_estate = estate;
 	setPaletteBackgroundColor(m_estate->bgColor());
@@ -49,13 +51,51 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
+
+	m_infoListView = new KListView(this, "infoListView");
+    m_infoListView->addColumn(m_estate ? m_estate->name() : "");
+    m_infoListView->setSorting(1);
+	m_mainLayout->addWidget(m_infoListView);
+
+	// Info text
+	QListViewItem *infoText = 0;
+	if (!text.isEmpty())
+	{
+		infoText = new QListViewItem(m_infoListView, text, m_infoListView.childCount());
+		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
+	}
+
+	// Price
+	if (m_estate->price())
+	{
+		infoText = new QListViewItem(m_infoListView, i18n("Price: %1").arg(m_estate->price()), m_infoListView.childCount());
+		infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+	}
+
+	// Owner, houses, isMortgaged
+	if (m_estate->canBeOwned())
+	{
+		infoText = new QListViewItem(m_infoListView, i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+		infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+		if (m_estate->isOwned())
+		{
+			infoText = new QListViewItem(m_infoListView, i18n("Houses: %1").arg(m_estate->houses()), m_infoListView.childCount());
+			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+			infoText = new QListViewItem(m_infoListView, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")), m_infoListView.childCount());
+			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+		}
+	}
 
 	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
+
+// TODO: destructor cleaning up all buttons and listviewitems
 
 void EstateDetails::paintEvent(QPaintEvent *)
 {
@@ -161,6 +201,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		painter.setPen(Qt::black);
 
 		int xText = 0;
+
 		// Estate group
 		if (m_estate->estateGroup())
 		{
@@ -171,29 +212,6 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		xText = titleHeight + fontSize + 5;
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
-
-		// Price
-		if (m_estate->price())
-		{
-			painter.drawText(5, xText, i18n("Price: %1").arg(m_estate->price()));
-			xText += (fontSize + 5);
-		}
-
-		// Owner, houses, isMortgaged
-		if (m_estate->canBeOwned())
-		{
-			painter.drawText(5, xText, i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			xText += (fontSize + 5);
-
-			if (m_estate->isOwned())
-			{
-				painter.drawText(5, xText, i18n("Houses: %1").arg(m_estate->houses()));
-				xText += (fontSize + 5);
-
-				painter.drawText(5, xText, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				xText += (fontSize + 5);
-			}
-		}
 
 		b_recreate = false;
 	}
@@ -228,7 +246,7 @@ void EstateDetails::addCloseButton()
 	connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
 }
 
-void EstateDetails::newUpdate()
+void EstateDetails::newUpdate(QString text)
 {
 	if (m_closeButton)
 	{
@@ -239,6 +257,10 @@ void EstateDetails::newUpdate()
 	// Delete buttons
 	m_buttons.clear();
 	m_buttonCommandMap.clear();
+
+	// Append text
+	QListViewItem *infoText = new QListViewItem(m_infoListView, text, m_infoListView.childCount());
+	infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 
 	// Redraw details
 	b_recreate = true;

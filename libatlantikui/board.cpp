@@ -151,7 +151,7 @@ EstateView *AtlantikBoard::getEstateView(Estate *estate)
 void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
 {
 	QString icon = QString();
-	int estateId = estate->estateId();
+	int estateId = estate->id();
 	EstateOrientation orientation = North;
 	int sideLen = m_gridLayout->numRows() - 1;
 
@@ -420,21 +420,6 @@ void AtlantikBoard::displayDefault()
 	updateCenter();
 }
 
-void AtlantikBoard::displayText(QString caption, QString body)
-{
-	BoardDisplay *bDisplay = new BoardDisplay(caption, body, this);
-	m_lastServerDisplay = bDisplay;
-
-	if (m_displayQueue.getFirst() != m_lastServerDisplay)
-		m_displayQueue.removeFirst();
-
-	m_displayQueue.prepend(bDisplay);
-	updateCenter();
-
-	connect(bDisplay, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
-	connect(bDisplay, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
-}
-
 void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
 {
 	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_lastServerDisplay))
@@ -453,17 +438,20 @@ void AtlantikBoard::addCloseButton()
 		eDetails->addCloseButton();
 }
 
-void AtlantikBoard::insertEstateDetails(Estate *estate)
+void AtlantikBoard::insertDetails(QString text, Estate *estate)
 {
 	if (!estate)
+	{
+		kdDebug() << "insertDetails called with empty estate" << endl;
 		return;
+	}
 
 	EstateDetails *eDetails = 0;
 
 	// This might just be a update
 	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails->estate() == estate)
 	{
-		eDetails->newUpdate();
+		eDetails->newUpdate(text);
 		return;
 	}
 
@@ -477,7 +465,7 @@ void AtlantikBoard::insertEstateDetails(Estate *estate)
 			display->addCloseButton();
 	}
 
-	eDetails = new EstateDetails(estate, this);
+	eDetails = new EstateDetails(text, estate, this);
 	m_lastServerDisplay = eDetails;
 	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
@@ -500,7 +488,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	if (!estate)
 		return;
 
-	EstateDetails *eDetails = new EstateDetails(estate, this);
+	EstateDetails *eDetails = new EstateDetails(QString(), estate, this);
 	eDetails->addCloseButton();
 
 	if (m_displayQueue.getFirst() != m_lastServerDisplay)

@@ -33,14 +33,19 @@ Q_OBJECT
 public:
 	AtlanticCore(QObject *parent, const char *name);
 
+	void reset();
+
 	QPtrList<Player> players();
-	Player *newPlayer();
+	Player *newPlayer(int playerId);
+	Player *findPlayer(int playerId);
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
+	Estate *findEstate(int groupId);
 
 	QPtrList<EstateGroup> estateGroups();
-	EstateGroup *newEstateGroup(const int id);
+	EstateGroup *newEstateGroup(int groupId);
+	EstateGroup *findEstateGroup(int groupId);
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);

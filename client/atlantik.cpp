@@ -102,6 +102,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_portfolioWidget->show();
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
 
+	m_portfolioViews.setAutoDelete(true);
+
 	// Nice label
 //	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
 //	m_portfolioLayout->addWidget(m_portfolioLabel);
@@ -235,6 +237,11 @@ void Atlantik::showSelectGame()
 	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
 	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
 	m_selectGame->show();
+
+	// Reset core and GUI
+	m_atlanticCore->reset();
+	m_portfolioViews.clear();
+
 	if (m_selectServer)
 	{
 		delete m_selectServer;
@@ -293,8 +300,7 @@ void Atlantik::initBoard()
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 
-	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(insertEstateDetails(Estate *)));
+	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, Estate *)), m_board, SLOT(insertDetails(QString, Estate *)));
 	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
 	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));

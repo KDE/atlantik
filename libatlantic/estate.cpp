@@ -22,7 +22,7 @@
 
 Estate::Estate(int estateId) : QObject()
 {
-	m_estateId = estateId;
+	m_id = estateId;
 	m_owner = 0;
 	m_houses = 0;
 	m_price = 0;
@@ -77,7 +77,7 @@ void Estate::setName(const QString name)
 	}
 }
 
-void Estate::setColor(const QColor color)
+void Estate::setColor(QColor color)
 {
 	if (m_color != color)
 	{
@@ -86,7 +86,7 @@ void Estate::setColor(const QColor color)
 	}
 }
 
-void Estate::setBgColor(const QColor color)
+void Estate::setBgColor(QColor color)
 {
 	if (m_bgColor != color)
 	{

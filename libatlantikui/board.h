@@ -55,10 +55,9 @@ public slots:
 private slots:
 	void playerChanged();
 	void displayDefault();
-	void displayText(QString caption, QString body);
 	void displayButton(QString command, QString caption, bool enabled);
 	void prependEstateDetails(Estate *);
-	void insertEstateDetails(Estate *);
+	void insertDetails(QString text, Estate *estate = 0);
 	void addCloseButton();
 
 signals:

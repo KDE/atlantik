@@ -115,8 +115,7 @@ signals:
 	void msgError(QString);
 	void msgChat(QString, QString);
 
-	void displayText(QString title, QString description);
-	void displayEstate(Estate *);
+	void displayDetails(QString text, Estate *estate = 0);
 	void displayDefault();
 	void addCommandButton(QString command, QString caption, bool enabled);
 	void addCloseButton();
@@ -169,11 +168,7 @@ private:
 
 	int m_playerId;
 
-	QMap<int, Player *> m_playerMap;
-	QMap<Player *, int> m_playerRevMap;
 	QMap<Player *, int> m_playerLocationMap;
-	QMap<int, Estate *> m_estates;
-	QMap<int, EstateGroup *> m_estateGroups;
 	QMap<int, Trade *> m_trades;
 	QMap<int, Auction *> m_auctions;
 };

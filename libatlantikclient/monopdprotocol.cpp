@@ -47,7 +47,7 @@ void MonopdProtocol::buyEstate()
 void MonopdProtocol::confirmTokenLocation(Estate *estate)
 {
 	QString data(".t");
-	data.append(QString::number(estate ? estate->estateId() : -1));
+	data.append(QString::number(estate ? estate->id() : -1));
 	sendData(data);
 }
 
