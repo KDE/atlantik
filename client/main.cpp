@@ -26,12 +26,12 @@
 static KCmdLineOptions options[] =
 {
 	{ "h", 0, 0 },
-    { "host <argument>", I18N_NOOP("connect to this host"), 0 },
+	{ "host <argument>", I18N_NOOP("connect to this host"), 0 },
 	{ "p", 0, 0 },
-    { "port <argument>", I18N_NOOP("connect at this port"), "1234" },
+	{ "port <argument>", I18N_NOOP("connect at this port"), "1234" },
 	{ "g", 0, 0 },
-    { "game <argument>", I18N_NOOP("join this game"), 0 },
-    { 0,0,0 }
+	{ "game <argument>", I18N_NOOP("join this game"), 0 },
+	KCmdLineLastOption
 };
 
 int main(int argc, char *argv[])
