@@ -30,7 +30,7 @@ v re-enabled token animation
 v API: use disability to join game when size == MAX in gameupdate (games in
   updategamelist now have canbejoined boolean attribute)
 v fixed possible double initialization of game board
-- use playerupdate for player list in SelectConfiguration
+^ use playerupdate for player list in SelectConfiguration
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio
