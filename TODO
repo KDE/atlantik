@@ -59,11 +59,20 @@ For 0.3.x
 - Fetch serverlist via Monopigator kind of interface.
 - Have a playable, more or less stable game.
 
+For 0.9.x
+---------
+
+- Beta series.
+- Move to kdegames during 2.3 development and prepare for 1.0.0 release for
+  2.3 final.
+
 For 1.0.0
 ---------
 
 - Have a game suitable for inclusion in kdegames. Nice icons, stable code,
   etcetera.
+- Version 1.0.0 should be released with KDE 2.3, so after the last 2.3 beta
+  KMonop version will be moved from 0.9.x to 1.0.0.
 
 For 1.x.y
 ---------
