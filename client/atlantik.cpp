@@ -474,6 +474,8 @@ void Atlantik::initNetworkObject()
 {
 	if (m_atlantikNetwork)
 	{
+		m_atlantikNetwork->reset();
+		return;
 		m_atlantikNetwork->closeNow();
 		delete m_atlantikNetwork;
 	}

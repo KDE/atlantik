@@ -434,14 +434,13 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 				rmbMenu->insertItem(i18n("Request Trade with %1").arg(player->name()), 3);
 		}
 
-		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
+		connect(dynamic_cast<KPopupMenu *>(rmbMenu), SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		QPoint g = QCursor::pos();
 		rmbMenu->exec(g);
+		delete rmbMenu;
 	}
 	else if (e->button()==LeftButton)
-	{
 		emit LMBClicked(m_estate);
-	}
 }
 
 void EstateView::slotResizeAftermath()
