@@ -17,6 +17,7 @@ Q_OBJECT
 public:
 	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name = 0);
 	Estate *estate() { return m_estate; }
+	static QPixmap drawPixmap(Estate *estate, Player *player = 0, bool alwaysOwned = true);
 
 	protected:
 		void paintEvent(QPaintEvent *);
@@ -24,7 +25,7 @@ public:
 	private:
 		Estate *m_estate;
 		Player *m_player;
-		QPixmap *qpixmap;
+		QPixmap m_pixmap;
 		bool b_recreate, m_alwaysOwned;
 
 private slots:

@@ -1,5 +1,6 @@
-#include <qpainter.h>
 #include <qcolor.h>
+#include <qpainter.h>
+#include <qrect.h>
 
 #include "portfolioestate.moc"
 #include "estate.h"
@@ -14,8 +15,8 @@ PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwne
 
     QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
+
     b_recreate = true;
-    qpixmap=0;
 }
 
 void PortfolioEstate::estateChanged()
@@ -24,45 +25,49 @@ void PortfolioEstate::estateChanged()
 	update();
 }
 
+QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysOwned)
+{
+	QPixmap qpixmap(PE_WIDTH, PE_HEIGHT);
+	QPainter painter;
+	painter.begin(&qpixmap);
+
+	painter.setPen(atlantik_lgray);
+	painter.setBrush(white);
+	painter.drawRect(QRect(0, 0, PE_WIDTH, PE_HEIGHT));
+	if (alwaysOwned || (estate && estate->isOwned() && player == estate->owner()))
+	{
+		painter.setPen(atlantik_dgray);
+		for (int y=5;y<=13;y+=2)
+			painter.drawLine(2, y, 10, y);
+
+		painter.setPen(Qt::white);
+		painter.drawPoint(8, 5);
+		painter.drawPoint(8, 7);
+		painter.drawPoint(8, 9);
+		painter.drawPoint(5, 11);
+		painter.drawPoint(9, 11);
+		painter.drawPoint(3, 13);
+		painter.drawPoint(10, 13);
+
+		painter.setPen(estate->color());	
+		painter.setBrush(estate->color());
+	}
+	else
+	{
+		painter.setPen(atlantik_lgray);	
+		painter.setBrush(atlantik_lgray);
+	}
+	painter.drawRect(0, 0, PE_WIDTH, 3);
+
+	return qpixmap;
+}
+
 void PortfolioEstate::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
 	{
-		delete qpixmap;
-		qpixmap = new QPixmap(width(), height());
-		
-		QPainter painter;
-		painter.begin(qpixmap, this);
-
-		painter.setPen(atlantik_lgray);
-		painter.setBrush(white);
-		painter.drawRect(rect());
-		if (m_alwaysOwned || (m_estate && m_estate->isOwned() && m_player == m_estate->owner()))
-		{
-			painter.setPen(atlantik_dgray);
-			for (int y=5;y<=13;y+=2)
-				painter.drawLine(2, y, 10, y);
-
-			painter.setPen(Qt::white);
-			painter.drawPoint(8, 5);
-			painter.drawPoint(8, 7);
-			painter.drawPoint(8, 9);
-			painter.drawPoint(5, 11);
-			painter.drawPoint(9, 11);
-			painter.drawPoint(3, 13);
-			painter.drawPoint(10, 13);
-
-			painter.setPen(m_estate->color());	
-			painter.setBrush(m_estate->color());
-		}
-		else
-		{
-			painter.setPen(atlantik_lgray);	
-			painter.setBrush(atlantik_lgray);
-		}
-		painter.drawRect(0,0,width(),3);
-		
+		m_pixmap = drawPixmap(m_estate, m_player, m_alwaysOwned);
 		b_recreate = false;
 	}
-	bitBlt(this, 0, 0, qpixmap);
+	bitBlt(this, 0, 0, &m_pixmap);
 }

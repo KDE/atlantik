@@ -22,6 +22,7 @@
 #include <player.h>
 #include <estate.h>
 #include <trade.h>
+#include <portfolioestate.h>
 
 #include "trade_widget.moc"
 
@@ -157,6 +158,13 @@ void TradeDisplay::tradeItemAdded(TradeItem *t)
 	KListViewItem *item = new KListViewItem(m_componentList, (t->from() ? t->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (t->to() ? t->to()->name() : QString("?")), t->text());
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
 	item->setPixmap(2, QPixmap(SmallIcon("personal")));
+
+	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(t))
+	{
+		item->setPixmap(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
+	}
+//	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(t))
+//		item->setPixmap(3, PortfolioEstate::pixMap(tradeEstate->estate()));
 
 	m_componentMap[t] = item;
 	m_componentRevMap[item] = t;
@@ -306,8 +314,7 @@ void TradeDisplay::contextMenuClicked(int index)
 {
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
 		emit updateEstate(m_trade, tradeEstate->estate(), 0);
-	else
-	if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
+	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
 		emit updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
 
 	m_contextTradeItem = 0;
