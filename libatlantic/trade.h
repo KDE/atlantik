@@ -54,26 +54,26 @@ public:
 	virtual void destroyCommand();
 
 signals:
-	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
+	void updateEstate(Trade *trade, Estate *estate, Player *player);
 
 private:
 	Estate *mEstate;
 };
 
-class TradeCash : public TradeItem
+class TradeMoney : public TradeItem
 {
 public:
-	TradeCash(int cash, Trade *trade, Player *from, Player *to);
+	TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to);
 
-	int cash() const { return mCash; }
-	void setCash(int cash);
+	unsigned int money() const { return mMoney; }
+	void setMoney(unsigned int money) { mMoney = money; }
 	
 	virtual QString text() const;
 	virtual void createCommand();
 	virtual void destroyCommand();
 
 private:
-	int mCash;
+	unsigned int mMoney;
 };
 
 
@@ -141,7 +141,7 @@ signals:
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);
 
-	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
+	void updateEstate(Trade *trade, Estate *estate, Player *player);
 
 private:
 	bool m_changed;

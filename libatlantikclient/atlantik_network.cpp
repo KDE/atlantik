@@ -512,7 +512,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						trade = m_atlanticCore->newTrade(tradeId);
 						m_trades[tradeId] = trade;
 
-						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
+						QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
 
 						b_newTrade = true;
@@ -567,11 +567,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 										if (!a.isNull())
 										{
 											Player *player = m_players[a.value().toInt()];
+											// Allow NULL player, it will remove the component
 											if (trade && estate)
-											{
-												kdDebug() << "calling trade->updateEstate" << endl;
 												trade->updateEstate(estate, player);
-											}
 										}
 									}
 								}
@@ -579,15 +577,15 @@ void AtlantikNetwork::processNode(QDomNode n)
 								{
 									Player *pFrom = 0, *pTo = 0;
 
-									a = e.attributeNode(QString("playerfrom"));
+									a = e_child.attributeNode(QString("playerfrom"));
 									if (!a.isNull())
 										pFrom = m_players[a.value().toInt()];
 
-									a = e.attributeNode(QString("playerto"));
+									a = e_child.attributeNode(QString("playerto"));
 									if (!a.isNull())
 										pTo = m_players[a.value().toInt()];
 
-									a = e.attributeNode(QString("money"));
+									a = e_child.attributeNode(QString("money"));
 									if (trade && pFrom && pTo && !a.isNull())
 										trade->updateMoney(pFrom, pTo, a.value().toInt());
 								}
@@ -623,7 +621,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (!(auction = m_auctions[auctionId]))
 					{
 						// Create auction object
-						auction = m_atlanticCore->newAuction(auctionId);
+						auction = m_atlanticCore->newAuction(auctionId, m_estates[e.attributeNode(QString("estateid")).value().toInt()]);
 						m_auctions[auctionId] = auction;
 
 						QObject::connect(auction, SIGNAL(bid(Auction *, int)), this, SLOT(auctionBid(Auction *, int)));

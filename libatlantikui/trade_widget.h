@@ -5,8 +5,10 @@
 #include <qmap.h>
 
 class QListViewItem;
+class QLabel;
 
 class KListView;
+class KComboBox;
 
 class AtlanticCore;
 class Player;
@@ -30,14 +32,25 @@ private slots:
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);
 
+	void updateEstate();
+
 	void contextMenu(KListView *l, QListViewItem *i);
-	
+
+signals:
+	void updateEstate(Trade *trade, Estate *estate, Player *to);	
+
 private:
-	AtlanticCore *m_atlanticCore;
+	QLabel *m_status;
+
+	KComboBox *m_playerCombo, *m_estateCombo;
 	KListView *m_componentList;
+
+	AtlanticCore *m_atlanticCore;
 	Trade *mTrade, *m_trade;
 
 	QMap<TradeItem *, KListViewItem *> m_componentMap;
+	QMap<int, Estate *> m_estateMap;
+	QMap<int, Player *> m_playerMap;
 };
 
 #endif

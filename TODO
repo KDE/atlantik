@@ -26,13 +26,13 @@ For 0.2.0
    v adding estate item
    v adding money item
    v deleting items
-   - reseting accept on change
+   - reseting accept on change (depends on monopd)
    - rejecting trade alltogether
    - completing trade when all accept
  - widget (edit)
    - set/unset accept
    - reject
-   - add estate
+   v add estate
    - delete estate
    - add money
    - delete money
@@ -63,6 +63,7 @@ v support for <display>
   - non street estates in portfolio
   - Chance/CC cards in portfolio
 - Option to configure toolbars (at least be able to save size/text settings)
+- support for trading jail cards (depends on monopd)
 
 For 0.3.0
 ---------

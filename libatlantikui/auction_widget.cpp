@@ -11,6 +11,7 @@
 
 #include <atlantic_core.h>
 #include <player.h>
+#include <estate.h>
 #include <auction.h>
  
 #include "auction_widget.moc"
@@ -28,7 +29,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	CHECK_PTR(m_mainLayout);
 
 	// Player list
-	m_playerGroupBox = new QVGroupBox(i18n("Auction"), this, "groupBox");
+	Estate *estate = auction->estate();
+	m_playerGroupBox = new QVGroupBox(estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox); 
 
 	m_playerList = new KListView(m_playerGroupBox);

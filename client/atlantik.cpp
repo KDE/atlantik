@@ -201,6 +201,7 @@ void Atlantik::newTrade(Trade *trade)
 	tradeDisplay->show();
 						
 //	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+	QObject::connect(tradeDisplay, SIGNAL(updateEstate(Trade *, Estate *, Player *)), trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 
 	// m_board->addTradeView(trade);
 }
@@ -423,7 +424,7 @@ void Atlantik::playerChanged()
 	m_auctionEstate->setEnabled(m_playerSelf->canBuy());
 	m_endTurn->setEnabled(m_playerSelf->hasTurn() && !(m_playerSelf->canRoll() || m_playerSelf->canBuy()));
 
-	// Could be more finetuned, but monopd doesn't send can_usejailcard can_payjail can_jailroll yet
+	// TODO: Should be more finetuned, but monopd doesn't send can_usejailcard can_payjail can_jailroll yet
 	m_jailCard->setEnabled(m_playerSelf->inJail());
 	m_jailPay->setEnabled(m_playerSelf->inJail());
 	m_jailRoll->setEnabled(m_playerSelf->inJail());

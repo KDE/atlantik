@@ -34,7 +34,7 @@ void Trade::addTradeItem(TradeItem *i)
 	i->createCommand();
 }
 
-void Trade::updateEstate(Estate *estate, Player *player)
+void Trade::updateEstate(Estate *estate, Player *to)
 {
 	std::cout << "Trade::updateEstate" << endl;	
 	TradeEstate *t=0;
@@ -42,19 +42,23 @@ void Trade::updateEstate(Estate *estate, Player *player)
 	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
 	{
 		t=dynamic_cast<TradeEstate*>(*i);
-		if (!t) continue;
+
+		if (!t)
+			continue;
 		
-		if (t->estate()==estate) break;
+		if (t->estate()==estate)
+			break;
 		
 		t=0;
 	}
 	if (t)
 	{
-		if (player)
+		if (to)
 		{
+			if (t->to() == to)
+				return;
 			std::cout << "gonna emit tradeChanged" << endl;
-			if (t->to()==player) return;
-			t->setTo(player);
+			t->setTo(to);
 			std::cout << "emit tradeChanged" << endl;
 			emit tradeChanged(t);
 		}
@@ -65,10 +69,10 @@ void Trade::updateEstate(Estate *estate, Player *player)
 			emit tradeRemoved(t);
 		}
 	}
-	else if (player)
+	else if (estate && to)
 	{
 		// new trade
-		t=new TradeEstate(estate, this, player);
+		t = new TradeEstate(estate, this, to);
 		
 		mTradeItems.append(t);
 			std::cout << "emit tradeAdded" << endl;
@@ -78,7 +82,48 @@ void Trade::updateEstate(Estate *estate, Player *player)
 
 void Trade::updateMoney(Player *from, Player *to, unsigned int money)
 {
+	std::cout << "Trade::updateMoney" << endl;	
+	TradeMoney *t=0;
+	
+	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	{
+		t=dynamic_cast<TradeMoney*>(*i);
 
+		if (!t)
+			continue;
+		
+		if (t->from() == from && t->to() == to && t->money())
+			break;
+		
+		t=0;
+	}
+	if (t)
+	{
+		if (from && to && money)
+		{
+			if (t->money() == money)
+				return;
+			std::cout << "gonna emit tradeChanged" << endl;
+			t->setMoney(money);
+			std::cout << "emit tradeChanged" << endl;
+			emit tradeChanged(t);
+		}
+		else
+		{
+			delete t;
+			mTradeItems.removeRef(t);
+			emit tradeRemoved(t);
+		}
+	}
+	else if (from && to && money)
+	{
+		// new trade
+		t = new TradeMoney(money, this, from, to);
+		
+		mTradeItems.append(t);
+			std::cout << "emit tradeAdded" << endl;
+		emit tradeAdded(t);
+	}
 }
 
 void Trade::update(bool force)
@@ -109,32 +154,32 @@ QString TradeEstate::text() const
 
 void TradeEstate::createCommand()
 {
-	emit tradeUpdateEstate(trade(), estate(), to());
+	emit updateEstate(trade(), estate(), to());
 }
 
 void TradeEstate::destroyCommand()
 {
-	emit tradeUpdateEstate(trade(), estate(), to());
+	emit updateEstate(trade(), estate(), to());
 }
 
 
-TradeCash::TradeCash(int cash, Trade *trade, Player *from, Player *to)
-	: TradeItem(trade, from, to), mCash(cash)
+TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to)
+	: TradeItem(trade, from, to), mMoney(money)
 {
 
 }
 
-QString TradeCash::text() const
+QString TradeMoney::text() const
 {
-	return QString("$%1").arg(cash());
+	return QString("$%1").arg(mMoney);
 }
 
-void TradeCash::createCommand()
+void TradeMoney::createCommand()
 {
 
 }
 
-void TradeCash::destroyCommand()
+void TradeMoney::destroyCommand()
 {
 
 }

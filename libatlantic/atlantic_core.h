@@ -26,7 +26,7 @@ public:
 	Trade *newTrade(int tradeId);
 
 	QPtrList<Auction> auctions();
-	Auction *newAuction(int auctionId);
+	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
 	void setCurrentTurn(Player *player);

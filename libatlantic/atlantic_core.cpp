@@ -50,9 +50,9 @@ QPtrList<Auction> AtlanticCore::auctions()
 	return m_auctions;
 }
 
-Auction *AtlanticCore::newAuction(int auctionId)
+Auction *AtlanticCore::newAuction(int auctionId, Estate *estate)
 {
-	Auction *auction = new Auction(auctionId);
+	Auction *auction = new Auction(auctionId, estate);
 	m_auctions.append(auction);
 	return auction;
 }

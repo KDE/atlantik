@@ -1,9 +1,11 @@
 #include <qlayout.h>
+#include <qhgroupbox.h>
 #include <qheader.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qvalidator.h>
 #include <qmap.h>
+#include <qlabel.h>
 
 #include <klocale.h>
 #include <klistview.h>
@@ -11,6 +13,8 @@
 #include <kdialogbase.h>
 #include <klineedit.h>
 #include <kiconloader.h>
+#include <kpushbutton.h>
+#include <kcombobox.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -66,13 +70,53 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
-	(new QHBoxLayout(this, 11, 6))->setAutoAdd(true);
+	QVBoxLayout *listCompBox = new QVBoxLayout(this, 11, 6);
+
+	QHGroupBox *addEstateBox = new QHGroupBox(i18n("Add component"), this);
+	listCompBox->addWidget(addEstateBox);
+
+	KComboBox *typeBox = new KComboBox(addEstateBox);
+	typeBox->insertItem(i18n("Estate"));
+//	typeBox->insertItem(i18n("Money"));
+
+	m_estateCombo = new KComboBox(addEstateBox);
+	QPtrList<Estate> estateList = m_atlanticCore->estates();
+	Estate *estate;
+	for (QPtrListIterator<Estate> it(estateList); *it; ++it)
+	{
+		if ((estate = *it) && estate->isOwned())
+		{
+			// TODO: map estate pointer to itemid for reverse lookup
+			m_estateCombo->insertItem(estate->name());
+		}
+	}
+
+	m_playerCombo = new KComboBox(addEstateBox);
+	QPtrList<Player> playerList = m_atlanticCore->players();
+	Player *player;
+	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	{
+		if ((player = *it))
+		{
+			// TODO: map player pointer to itemid for reverse lookup
+			m_playerCombo->insertItem(player->name());
+		}
+	}
+
+	KPushButton *addEstateButton = new KPushButton(i18n("Add estate"), addEstateBox);
+//	addEstateButton->setEnabled(false);
 
 	m_componentList = new KListView(this, "componentList");
+	listCompBox->addWidget(m_componentList);
+
 	m_componentList->addColumn("Player");
 	m_componentList->addColumn("gives");
 	m_componentList->addColumn("Player");
 	m_componentList->addColumn("Item");
+
+	m_status = new QLabel(this);
+	listCompBox->addWidget(m_status);
+	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(0).arg(0));
 
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
@@ -84,7 +128,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(trade, SIGNAL(tradeRemoved(TradeItem *)), this, SLOT(tradeRemoved(TradeItem *)));
 	connect(trade, SIGNAL(tradeChanged(TradeItem *)), this, SLOT(tradeChanged(TradeItem *)));
 
-	return;
+	connect(addEstateButton, SIGNAL(clicked()), this, SLOT(updateEstate()));
 
 //	connect(
 //			mPlayerList,
@@ -135,7 +179,7 @@ void TradeDisplay::playerRemoved(Player *p)
 
 void TradeDisplay::tradeAdded(TradeItem *t)
 {
-	KListViewItem *item = new KListViewItem(m_componentList, t->from()->name(), i18n("gives is transitive ;)", "gives"), t->to()->name(), t->text());
+	KListViewItem *item = new KListViewItem(m_componentList, (t->from() ? t->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (t->to() ? t->to()->name() : QString("?")), t->text());
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
 	item->setPixmap(2, QPixmap(SmallIcon("personal")));
 
@@ -154,12 +198,35 @@ void TradeDisplay::tradeChanged(TradeItem *t)
 	KListViewItem *item = m_componentMap[t];
 	if (item)
 	{
-		item->setText(0, t->from()->name());
+		item->setText(0, t->from() ? t->from()->name() : QString("?"));
 		item->setPixmap(0, QPixmap(SmallIcon("personal")));
-		item->setText(2, t->to()->name());
+		item->setText(2, t->to() ? t->to()->name() : QString("?"));
 		item->setPixmap(2, QPixmap(SmallIcon("personal")));
 		item->setText(3, t->text());
 	}
+}
+
+void TradeDisplay::updateEstate()
+{
+	QPtrList<Estate> estateList = m_atlanticCore->estates();
+	Estate *estate = 0;
+	for (QPtrListIterator<Estate> it(estateList); *it; ++it)
+	{
+		if ((estate = *it) && estate->name() == m_estateCombo->currentText())
+			break;
+		estate = 0;
+	}
+	QPtrList<Player> playerList = m_atlanticCore->players();
+	Player *player = 0;
+	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	{
+		if ((player = *it) && player->name() == m_playerCombo->currentText())
+			break;
+		player = 0;
+	}
+
+	if (estate && player)
+		emit updateEstate(m_trade, estate, player);
 }
 
 void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
@@ -171,7 +238,7 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 		QPopupMenu menu(this);
 		menu.insertItem(i18n("&Remove Trade"), 0);
 		
-		if (dynamic_cast<TradeCash*>(i->trade()))
+		if (dynamic_cast<TradeMoney*>(i->trade()))
 			menu.insertItem(i18n("&Change Value"), 1);
 		
 		switch (menu.exec())
@@ -196,10 +263,8 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 				if (result==KDialogBase::Ok)
 				{
 					// TODO money changed
-				
 				}
 			}
-		
 		}
 	}
 	else if (dynamic_cast<GivingListViewItem*>(item))
@@ -235,7 +300,5 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 					new TradeEstate(id[result], mTrade, i->parent()->player());
 			mTrade->addTradeItem(t);
 		}
-	
 	}
-		
 }

@@ -1,10 +1,12 @@
 #include "auction.h"
 #include "auction.moc"
 #include "player.h"
+#include "estate.h"
 
-Auction::Auction(int auctionId) : QObject()
+Auction::Auction(int auctionId, Estate *estate) : QObject()
 {
 	m_auctionId = auctionId;
+	m_estate = estate;
 	m_changed = false;
 }
 
