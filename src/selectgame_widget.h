@@ -32,9 +32,11 @@ public:
 		void newGame(const QString &gameType);
 //		void statusChanged();
 
-	private:
-		QVBoxLayout *m_mainLayout;
-		QLabel *status_label;
-		QListView *m_gameList;
-		QPushButton *m_connectButton;
+private:
+	void addDefaultGames();
+
+	QVBoxLayout *m_mainLayout;
+	QLabel *status_label;
+	QListView *m_gameList;
+	QPushButton *m_connectButton;
 };

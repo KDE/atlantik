@@ -30,13 +30,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	// Add default new game options to list view
-#warning hardcoded gametypes, waiting for monopd to send list of available types
-	QListViewItem *newAtlanticGame, *newCityGame;
-	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "", "");
-	newAtlanticGame->setPixmap(0, SmallIcon("filenew"));
-	newCityGame = new QListViewItem(m_gameList, i18n("Start a new Monopoly® game"), "city", "", "");
-	newCityGame->setPixmap(0, SmallIcon("filenew"));
+	addDefaultGames();
 
 	QHBox *buttonBox = new QHBox(this);
 	m_mainLayout->addWidget(buttonBox);
@@ -56,18 +50,20 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 void SelectGame::slotGameListClear()
 {
 	m_gameList->clear();
+	addDefaultGames();
+	validateConnectButton();
+//	emit statusChanged();
+}
 
+void SelectGame::addDefaultGames()
+{
 	// Add default new game options to list view
-#warning code duplication
 #warning hardcoded gametypes, waiting for monopd to send list of available types
 	QListViewItem *newAtlanticGame, *newCityGame;
 	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "", "");
 	newAtlanticGame->setPixmap(0, SmallIcon("filenew"));
 	newCityGame = new QListViewItem(m_gameList, i18n("Start a new Monopoly® game"), "city", "", "");
 	newCityGame->setPixmap(0, SmallIcon("filenew"));
-
-	validateConnectButton();
-//	emit statusChanged();
 }
 
 void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString description, QString players)
