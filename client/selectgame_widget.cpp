@@ -90,7 +90,7 @@ void SelectGame::addGame(Game *game)
 		item->setPixmap( 0, QPixmap(SmallIcon("atlantik")) );
 		item->setEnabled(game->canBeJoined());
 
-		KNotifyClient::event(this->winId(), "newgame");
+		KNotifyClient::event(winId(), "newgame");
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}

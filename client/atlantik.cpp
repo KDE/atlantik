@@ -257,7 +257,7 @@ void Atlantik::newPlayer(Player *player)
 	connect(player, SIGNAL(gainedTurn()), this, SLOT(gainedTurn()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
-	KNotifyClient::event(this->winId(), "newplayer");
+	KNotifyClient::event(winId(), "newplayer");
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -640,7 +640,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
-	KNotifyClient::event(this->winId(), "chat");
+	KNotifyClient::event(winId(), "chat");
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
@@ -711,7 +711,7 @@ void Atlantik::playerChanged(Player *player)
 
 void Atlantik::gainedTurn()
 {
-	KNotifyClient::event(this->winId(), "gainedturn", i18n("It is your turn now.") );
+	KNotifyClient::event(winId(), "gainedturn", i18n("It is your turn now.") );
 }
 
 void Atlantik::initEventLog()
