@@ -96,6 +96,11 @@ public:
   void setPort(int port);
 
   /**
+   * Retrieves the host name
+   */
+  QString host() const;
+
+  /**
    * Sets the target host. The @p host parameter must be
    * the string representation of a numeric IP address
    * (v4 or v6). Host names must be resolved by other

@@ -106,6 +106,11 @@ void KLatencyTimer::setPort(int port)
     m_port = port;
 }
 
+QString KLatencyTimer::host() const
+{
+  return d->target.nodeName();
+}
+
 void KLatencyTimer::setHost(const QString& node)
 {
   d->target.setHost(node);
