@@ -63,6 +63,7 @@ private:
 	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
 	QMap <QObject *, QString> m_buttonCommandMap;
+	QPtrList<KPushButton> m_buttons;
 };
 
 #endif

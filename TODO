@@ -23,7 +23,7 @@ For 0.4.0
 v token geometry is now aware of estate colour captions
 v queue display widgets
   v fix buttons, they have specific targets, not just the current widget
-  - delete buttons in EstateDetails::newUpdate()
+  v delete buttons in EstateDetails::newUpdate()
 - fancy widgets
   - generic (caption and description)
   ^ estate

@@ -17,6 +17,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qlayout.h>
+#include <qptrlist.h>
 #include <qvgroupbox.h>
 
 #include <kdialog.h>
@@ -41,6 +42,7 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 
 	m_quartzBlocks = 0;	
 	m_closeButton = 0;
+	m_buttons.setAutoDelete(true);
 	m_recreateQuartz = true;
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
@@ -202,6 +204,7 @@ void EstateDetails::resizeEvent(QResizeEvent *)
 void EstateDetails::addButton(QString command, QString caption, bool enabled)
 {
 	KPushButton *button = new KPushButton(caption, this);
+	m_buttons.append(button);
 	m_buttonCommandMap[(QObject *)button] = command;
 	m_buttonBox->addWidget(button);
 
@@ -229,7 +232,9 @@ void EstateDetails::newUpdate()
 	}
 
 	// Delete buttons
-	
+	m_buttons.clear();
+	m_buttonCommandMap.clear();
+
 	// Redraw details
 	b_recreate = true;
 	update();
