@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 		);
 
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
-	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("gameboard designer"), "jason@katzbrown.com", "http://katzbrown.com/");
 
 	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
 	aboutData.addCredit("Elhay Achiam", I18N_NOOP("auction icon"), "elhay_a@bezeqint.net");
