@@ -54,13 +54,14 @@ class="registered">Monopoly</trademark>-like boardgames on the
 <chapter id="introduction">
 <title>Introduction</title>
 
-<para>
-Purpose of the &atlantik; board game is to acquire land in major
-cities in North America and Europe while being a transatlantic
-traveler. All game modes are served by monopd, a dedicated game
-server designed for &atlantik;.  One of the game modes plays like the
-popular real estate board game known as <trademark
-class="registered">Monopoly</trademark>.</para>
+<para>Purpose of the &atlantik; board game is to acquire land in major
+cities in North America and Europe while being a transatlantic traveler. To
+win the game, players improve monopolized land with profitable buildings in
+the hopes of bankrupting all other players.</para>
+
+<para>All game modes are served by monopd, a dedicated game server designed
+&for atlantik;. One of the game modes plays like the popular real estate
+board game known as <trademark class="registered">Monopoly</trademark>.</para>
 
 </chapter>
 
