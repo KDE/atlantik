@@ -57,7 +57,7 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
 	m_infoListView = new KListView(this, "infoListView");
-	m_infoListView->addColumn(m_estate ? m_estate->name() : QString::null);
+	m_infoListView->addColumn(m_estate ? m_estate->name() : QString("") );
 	m_infoListView->setSorting(-1);
 	m_mainLayout->addWidget(m_infoListView);
 
@@ -278,7 +278,7 @@ void EstateDetails::setEstate(Estate *estate)
 	{
 		m_estate = estate;
 
-		m_infoListView->setColumnText( 0, m_estate ? m_estate->name() : QString::null );
+		m_infoListView->setColumnText( 0, m_estate ? m_estate->name() : QString("") );
 
 		b_recreate = true;
 		update();
