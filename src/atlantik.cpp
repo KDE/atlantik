@@ -211,9 +211,8 @@ void Atlantik::slotInitGame()
 		"Atlantik and monopd are undergoing a few major changes at the moment.\n"
 		"Unpredictable behavior might occur during your game.\n\n"
 		"Known issues:\n"
-		"- tokens are not shown correctly until first rolling of dice\n"
-		"- token movement animation not implemented\n"
 		"- portfolioviews are still hardcoded and arenot updated\n"
+		"- not all server actions (chance cards, purchases) are visualized\n"
 		"- atlantic theme is not completely implemented server-side"
 		));
 }

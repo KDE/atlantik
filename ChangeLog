@@ -1,3 +1,9 @@
+2001-11-14 (kaper)
+----------
+
+- Tokens are correctly positioned at startup and token animation is working
+  again.
+
 2001-11-12 (kaper)
 ----------
 

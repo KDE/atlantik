@@ -93,9 +93,6 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	for(i=0;i<MAXPLAYERS;i++)
 	{
 		label.setNum(i);
-		token[i] = new Token(label, this, "token");
-		jumpToken(token[i], 0, false);
-		token[i]->hide();
 	}
 */
 	kdDebug() << "ending board ctor" << endl;
@@ -150,12 +147,16 @@ void AtlantikBoard::addToken(Player *player)
 	// even solvable having playerupdate and estateupdate in the same
 	// initial message from monopd?
 	token->hide();
-	jumpToken(token, 0, false);
+//	token->setLocation(0);
+//	token->setDestination(0);
+
+	// Timer to reinit the gameboard _after_ event loop
+	QTimer::singleShot(100, this, SLOT(slotResizeAftermath()));
 }
 
 void AtlantikBoard::jumpToken(Token *token, int estateId, bool confirm)
 {
-	kdDebug() << "AtlantikBoard::jumpToken(" << estateId << ", "  << confirm << ")" << endl;
+	kdDebug() << "AtlantikBoard::jumpToken(" << token->destination() << ", "  << confirm << ")" << endl;
 
 	if (EstateView *estateView = estateViewMap[estateId])
 	{
@@ -202,8 +203,7 @@ void AtlantikBoard::indicateUnownedChanged()
 
 void AtlantikBoard::slotMoveToken()
 {
-	int dest;
-	int destX,destY,curX,curY;
+	int destX,destY;
 
 	// Do we actually have a token to move?
 	if (move_token==0)
@@ -213,55 +213,56 @@ void AtlantikBoard::slotMoveToken()
 	}
 
 	// Where are we?
-	curX = move_token->geometry().x();
-	curY = move_token->geometry().y();
+	int curX = move_token->geometry().x();
+	int curY = move_token->geometry().y();
 	kdDebug() << "we are at " << curX << "," << curY << endl;
 
 	// Where do we want to go today?
-	dest = move_token->location() + 1;
+	int dest = move_token->location() + 1;
 	if (dest==40)
 		dest = 0;
 	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
-#warning port Board::slotMoveToken
-//	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
-//	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
-	kdDebug() << "going to " << destX << "," << destY << endl;
-
-	if (curX == destX && curY == destY)
+	if (EstateView *estateView = estateViewMap[dest])
 	{
-		// We have arrived at our destination!
-		move_token->setLocation(dest);
+		destX = estateView->geometry().center().x() - (move_token->width()/2);
+		destY = estateView->geometry().center().y() - (move_token->height()/2);
+		kdDebug() << "going to " << destX << "," << destY << endl;
 
-		// We need to confirm passing Go and arriving at our final
-		// destination to the server.
-		if (move_token->destination() == move_token->location())
+		if (curX == destX && curY == destY)
 		{
-			emit tokenConfirmation(move_token->location());
+			// We have arrived at our destination!
+			move_token->setLocation(dest);
 
-			// We have arrived at our _final_ destination!
-			m_timer->stop();
-			move_token = 0;
+			// We need to confirm passing Go and arriving at our final
+			// destination to the server.
+			if (move_token->destination() == move_token->location())
+			{
+				// We have arrived at our _final_ destination!
+				emit tokenConfirmation(move_token->location());
+				m_timer->stop();
+				move_token = 0;
+			}
+			else if (move_token->location() == 0)
+				emit tokenConfirmation(move_token->location());
+
+			return;
 		}
-		else if (move_token->location() == 0)
-			emit tokenConfirmation(move_token->location());
 
-		return;
-	}
-
-	if (curX!=destX)
-	{
-		if (destX > curX)
-			move_token->setGeometry(curX+1, curY, move_token->width(), move_token->height());
-		else
-			move_token->setGeometry(curX-1, curY, move_token->width(), move_token->height());
-	}
-	if (curY!=destY)
-	{
-		if (destY > curY)
-			move_token->setGeometry(curX, curY+1, move_token->width(), move_token->height());
-		else
-			move_token->setGeometry(curX, curY-1, move_token->width(), move_token->height());
+		if (curX!=destX)
+		{
+			if (destX > curX)
+				move_token->setGeometry(curX+1, curY, move_token->width(), move_token->height());
+			else
+				move_token->setGeometry(curX-1, curY, move_token->width(), move_token->height());
+		}
+		if (curY!=destY)
+		{
+			if (destY > curY)
+				move_token->setGeometry(curX, curY+1, move_token->width(), move_token->height());
+			else
+				move_token->setGeometry(curX, curY-1, move_token->width(), move_token->height());
+		}
 	}
 }
 
@@ -294,18 +295,16 @@ void AtlantikBoard::resizeEvent(QResizeEvent *e)
 
 void AtlantikBoard::slotResizeAftermath()
 {
-#warning port AtlantikBoard::slotResizeAftermath
+	kdDebug() << "AtlantikBoard::slotResizeAftermath" << endl;
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-/*
-	for(int i=0;i<MAXPLAYERS;i++)
+	for (int i=0 ; i < tokenMap.size() ; i++)
 	{
-		if (token[i]!=0)
-			jumpToken(token[i], token[i]->location(), false);
+		if (Token *token = tokenMap[i])
+			jumpToken(token, token->location(), false);
 	}
-*/
 
 	// Restart the timer that was stopped in resizeEvent
 	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())
@@ -333,10 +332,7 @@ void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool
 			else if (atlantikConfig.animateToken==false)
 				jumpToken(token, estateId);
 			else
-				jumpToken(token, estateId);
-#warning reenable moveToken
-//				moveToken(token, estateId);
+				moveToken(token, estateId);
 		}
 	}
 }
-
