@@ -17,6 +17,7 @@
 #include <errno.h>
 
 #include <qcolor.h>
+#include <qdatetime.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
 
@@ -147,6 +148,10 @@ void Atlantik::readConfig()
 {
 	// Read configuration settings
 	KConfig *config = kapp->config();
+
+	// General configuration
+	config->setGroup("General");
+	m_config.chatTimestamps = config->readBoolEntry("ChatTimeStamps", false);
 
 	// Personalization configuration
 	config->setGroup("Personalization");
@@ -439,6 +444,13 @@ void Atlantik::slotUpdateConfig()
 	bool optBool, configChanged = false;
 	QString optStr;
 
+	optBool = m_configDialog->chatTimestamps();
+	if (m_config.chatTimestamps != optBool)
+	{
+		m_config.chatTimestamps = optBool;
+		configChanged = true;
+	}
+
 	optStr = m_configDialog->playerName();
 	if (m_config.playerName != optStr)
 	{
@@ -498,6 +510,9 @@ void Atlantik::slotUpdateConfig()
 		configChanged = true;
 	}
 
+	config->setGroup("General");
+	config->writeEntry("ChatTimeStamps", m_config.chatTimestamps);
+
 	config->setGroup("Personalization");
 	config->writeEntry("PlayerName", m_config.playerName);
 
@@ -536,7 +551,13 @@ void Atlantik::slotMsgError(QString msg)
 
 void Atlantik::slotMsgChat(QString player, QString msg)
 {
-	serverMsgsAppend(player + ": " + msg);
+	if (m_config.chatTimestamps)
+	{
+		QTime time = QTime::currentTime();
+		serverMsgsAppend(QString("[%1] %2: %3").arg(time.toString("hh:mm")).arg(player).arg(msg));
+	}
+	else
+		serverMsgsAppend(player + ": " + msg);
 	KNotifyClient::event("chat");
 }
 

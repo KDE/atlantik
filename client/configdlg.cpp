@@ -28,15 +28,22 @@
 ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
 {
 	m_parent = parent;
+	p_general = addPage(i18n("General"), i18n("General"), BarIcon("configure", KIcon::SizeMedium));
 	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", KIcon::SizeMedium));
 	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", KIcon::SizeMedium));
 	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", KIcon::SizeMedium));
 
+	configGeneral = new ConfigGeneral(this, p_general, "configGeneral");
 	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
 	configBoard = new ConfigBoard(this, p_board, "configBoard");
 	configMonopigator = new ConfigMonopigator(this, p_monopigator, "configMonopigator");
 
 	setMinimumSize(sizeHint());
+}
+
+bool ConfigDialog::chatTimestamps()
+{
+	return configGeneral->chatTimestamps();
 }
 
 bool ConfigDialog::indicateUnowned()
@@ -151,6 +158,34 @@ void ConfigMonopigator::reset()
 {
 	m_connectOnStart->setChecked(m_configDialog->config().connectOnStart);
 	m_hideDevelopmentServers->setChecked(m_configDialog->config().hideDevelopmentServers);
+}
+
+ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+{
+	m_configDialog = configDialog;
+	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+
+	m_chatTimestamps = new QCheckBox(i18n("Show timestamps in chat messages"), parent);
+	layout->addWidget(m_chatTimestamps);
+
+	QString message=i18n(
+		"If checked, Atlantik will add timestamps in front of chat\n"
+		"messages.\n");
+	QWhatsThis::add(m_chatTimestamps, message);
+
+	layout->addStretch(1);
+
+	reset();
+}
+
+bool ConfigGeneral::chatTimestamps()
+{
+	return m_chatTimestamps->isChecked();
+}
+
+void ConfigGeneral::reset()
+{
+	m_chatTimestamps->setChecked(m_configDialog->config().chatTimestamps);
 }
 
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)

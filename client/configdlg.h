@@ -81,6 +81,22 @@ private:
 	QCheckBox *m_connectOnStart, *m_hideDevelopmentServers;
 };
 
+class ConfigGeneral : public QWidget
+{
+Q_OBJECT
+
+public:
+	ConfigGeneral(ConfigDialog *dialog, QWidget *parent, const char *name = 0);
+
+	bool chatTimestamps();
+
+private:
+	void reset();
+
+	ConfigDialog *m_configDialog;
+	QCheckBox *m_chatTimestamps;
+};
+
 class ConfigDialog : public KDialogBase
 {
 Q_OBJECT
@@ -88,6 +104,7 @@ Q_OBJECT
 public:
 	ConfigDialog(Atlantik *parent, const char *name=0);
 
+	bool chatTimestamps();
 	bool indicateUnowned();
 	bool highliteUnowned();
 	bool darkenMortgaged();
@@ -100,10 +117,11 @@ public:
 
 private:
 	Atlantik *m_parent;
-	QFrame *p_p13n, *p_board, *p_monopigator;
+	QFrame *p_general, *p_p13n, *p_board, *p_monopigator;
 	ConfigPlayer *configPlayer;
 	ConfigBoard *configBoard;
 	ConfigMonopigator *configMonopigator;
+	ConfigGeneral *configGeneral;
 };
 
 #endif

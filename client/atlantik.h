@@ -35,6 +35,9 @@ class AtlantikNetwork;
 
 struct AtlantikConfig
 {
+	// General options;
+	bool chatTimestamps;
+
 	// Personalization options
 	QString playerName;
 

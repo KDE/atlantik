@@ -21,6 +21,7 @@ Bugfixes
 For 0.6.0
 ---------
 
+- use kde preferences for timestamp format (12/24h, etc)
 - make build/unmortgage protection configurable
 - use gameupdate for game list in SelectGame
 - .D command

@@ -7,6 +7,7 @@
 - option to hide development servers (on by default)
 - gui to connect to custom server
 - klatencytimer: support for server ping times
+- option to show timestamp in chat messages
 
 0.5.3
 -----
