@@ -51,7 +51,6 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 
 	// Init icon
 	m_image = 0;
-	m_imageName = "hamburger";
 	loadIcon();
 
 	setFixedSize(QSize(ICONSIZE, ICONSIZE + KGlobalSettings::generalFont().pointSize()));
@@ -76,7 +75,8 @@ void Token::setDestination(Estate *estateView)
 
 void Token::playerChanged()
 {
-	loadIcon();
+	if (m_imageName != m_player->image())
+		loadIcon();
 
 	b_recreate = true;
 	update();
@@ -84,12 +84,7 @@ void Token::playerChanged()
 
 void Token::loadIcon()
 {
-	kdDebug() << "loadicon [" << m_imageName << "][" << m_player->image() << "]" << endl;
-
-	if (m_imageName != m_player->image())
-		m_imageName = m_player->image();
-	else
-		return;
+	m_imageName = m_player->image();
 
 	delete m_image;
 	m_image = 0;
