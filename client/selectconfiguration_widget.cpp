@@ -65,7 +65,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_startButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
+	m_startButton = new KPushButton(SmallIconSet("forward"), i18n("Start Game"), this);
 	serverButtons->addWidget(m_startButton);
 	m_startButton->setEnabled(false);
 
