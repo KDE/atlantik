@@ -15,7 +15,9 @@
 // Boston, MA 02111-1307, USA.
 
 #include <qdom.h>
+#include <qptrlist.h>
 
+#include <kextendedsocket.h>
 #include <klatencytimer.h>
 
 #include "monopigator.moc"
@@ -108,10 +110,11 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port) : QObject(), QListViewItem(parent, host, latency, version, users, port)
 {
 	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
-	m_latencyTimer->setHost(host);
+	QPtrList<KAddressInfo> addresses = KExtendedSocket::lookup(host, port);
+	addresses.setAutoDelete(true);
+	m_latencyTimer->setHost(addresses.first()->address());
 
 	connect(m_latencyTimer, SIGNAL(answer(int)), this, SLOT(updateLatency(int)));
-
 	m_latencyTimer->start();
 }
 
