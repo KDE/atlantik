@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -76,6 +76,11 @@ void SelectGame::slotGameListClear()
 //	emit statusChanged();
 }
 
+void SelectGame::slotGameListEndUpdate()
+{
+	m_statusLabel->setText(i18n("Retrieved game list."));
+}
+
 void SelectGame::slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType)
 {
 	if (gameId == "-1")
@@ -99,6 +104,8 @@ void SelectGame::slotGameListEdit(QString gameId, QString name, QString descript
 	{
 		if (item->text(2) == gameId)
 		{
+			if (!name.isEmpty())
+				item->setText(0, i18n("Join %1 Game #%2").arg(name).arg(gameId));
 			if (!description.isEmpty())
 				item->setText(1, description);
 			item->setText(3, players);
@@ -133,7 +140,7 @@ void SelectGame::validateConnectButton()
 {
 	if (QListViewItem *item = m_gameList->selectedItem())
 	{
-		if (int gameId = item->text(2).toInt())
+		if (item->text(2).toInt() > 0)
 			m_connectButton->setText(i18n("Join Game"));
 		else
 			m_connectButton->setText(i18n("Create Game"));

@@ -44,8 +44,9 @@ public:
 		void slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
 		void slotGameListDel(QString gameId);
 
-	private slots:
-		void connectClicked();
+private slots:
+	void connectClicked();
+	void slotGameListEndUpdate();
 
 	signals:
 		void joinGame(int gameId);

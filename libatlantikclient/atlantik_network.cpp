@@ -346,7 +346,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 					n_game = n_game.nextSibling();
 				}
-				emit gamelistEndUpdate(type);
+				if (type == "full")
+					emit gameListEndUpdate();
 			}
 			else if (e.tagName() == "updateplayerlist")
 			{

@@ -123,7 +123,7 @@ signals:
 
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void gameListClear();
-	void gamelistEndUpdate(QString);
+	void gameListEndUpdate();
 	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListDel(QString gameId);
