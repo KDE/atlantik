@@ -61,8 +61,27 @@ void GameNetwork::processNode(QDomNode n)
 						emit msgStartGame(e.attributeNode(QString("value")).value());
 				}
 			}
-			else if (e.tagName() == "gamelist")
-				emit fetchedGameList(e);
+			else if (e.tagName() == "updategamelist")
+			{
+				QString type = e.attributeNode(QString("type")).value();
+
+				emit gamelistUpdate(type);
+
+				QDomNode n_game = n.firstChild();
+				while(!n_game.isNull())
+				{
+					QDomElement e_game = n_game.toElement();
+					if (!e_game.isNull() && e_game.tagName() == "game")
+					{
+						if (type=="del")
+							emit gamelistDel(e_game.attributeNode(QString("id")).value());
+						else if (type=="add" || type=="full")
+							emit gamelistAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("players")).value());
+					}
+					n_game = n_game.nextSibling();
+				}
+				emit gamelistEndUpdate(type);
+			}
 			else if (e.tagName() == "joinedgame")
 			{
 				// code to set playerid so we know when it's our turn or not

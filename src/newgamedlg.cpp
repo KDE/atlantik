@@ -107,7 +107,7 @@ SelectServer::SelectServer(GameNetwork *_nw, QWidget *parent, const char *name) 
 
 	// Until Monopigator works, add some servers manually
 	QListViewItem *item;
-//	item = new QListViewItem(list, "localhost", "1234", "0");
+	item = new QListViewItem(list, "localhost", "1234", "0");
 	item = new QListViewItem(list, "monopd.capsi.com", "1234", "0");
 }
 
@@ -129,9 +129,13 @@ QString SelectServer::hostToConnect() const
 
 SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	// Network interface
 	netw = _nw;
 	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
-	connect(netw, SIGNAL(fetchedGameList(QDomNode)), this, SLOT(slotFetchedGameList(QDomNode)));
+	connect(netw, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
+	connect(netw, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
+	connect(netw, SIGNAL(gamelistAdd(QString, QString)), this, SLOT(slotGamelistAdd(QString, QString)));
+	connect(netw, SIGNAL(gamelistDel(QString)), this, SLOT(slotGamelistDel(QString)));
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
@@ -142,14 +146,10 @@ SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QW
 
 	// Button to create new game
 	bnew = new QRadioButton(QString("Create a new game"), bgroup, "bnew");
-	bnew->setChecked(true);
-	bnew->setEnabled(false);
 	connect(bnew, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 
 	// Button to join game
 	bjoin = new QRadioButton(QString("Join a game"), bgroup, "bjoin");
-	bjoin->setChecked(false);
-	bjoin->setEnabled(false);
 	connect(bjoin, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 
 	// List of games
@@ -157,17 +157,10 @@ SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QW
 	list->addColumn(QString("Id"));
 	list->addColumn(QString("Players"));
 	list->addColumn(QString("Description"));
-	list->setEnabled(false);
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	layout->addWidget(list);
-
-	// Button to refresh list of games
-	brefresh = new QPushButton(QString("Refresh"), this, "brefresh");
-	connect(brefresh, SIGNAL(clicked()), this, SLOT(slotInitPage()));
-	connect(brefresh, SIGNAL(pressed()), this, SLOT(slotInitPage()));
-	layout->addWidget(brefresh);
 
 	// Status indicator
 	status_label = new QLabel(this);
@@ -177,8 +170,10 @@ SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QW
  
 void SelectGame::initPage()
 {
+	validateButtons();
+	bnew->setChecked(true);
+
 	status_label->setText("Connecting to server...");
-	brefresh->setEnabled(false);
 
 	// TODO: Only connect when no connection is made yet, only fetch when
 	// connection is already made.
@@ -195,9 +190,26 @@ void SelectGame::setGameHost(const QString &_host)
 	gameHost = _host;
 }
 
+void SelectGame::validateButtons()
+{
+	bnew->setEnabled( (netw->state()==QSocket::Connection) ? true : false);
+
+	if (list->childCount() > 0)
+	{
+		bjoin->setEnabled(true);
+	}
+	else
+	{
+		bjoin->setEnabled(false);
+		list->clearSelection();
+	}
+}
+
 bool SelectGame::validateNext()
 {
-	if (bnew->isChecked() || list->selectedItem())
+	validateButtons();
+
+	if ( (bnew->isEnabled() && bnew->isChecked()) || (bjoin->isEnabled() && bjoin->isChecked() && list->selectedItem()) )
 		return true;
 	else
 		return false;
@@ -215,45 +227,45 @@ QString SelectGame::gameToJoin() const
 
 void SelectGame::slotConnected()
 {
-	status_label->setText(QString("Connected. Fetching list of games..."));
-	bnew->setEnabled(true);
+	status_label->setText(QString("Connected."));
+	emit statusChanged();
 }
 
-void SelectGame::slotFetchedGameList(QDomNode gamelist)
+void SelectGame::slotGamelistUpdate(QString type)
 {
-	QDomAttr a;
-	QDomNode n = gamelist.firstChild();
-	QListViewItem *item;
-
-	list->clear();
-
-	while(!n.isNull())
+	if (type=="full")
 	{
-		QDomElement e = n.toElement();
-		if(!e.isNull())
+		status_label->setText(QString("Fetching list of games..."));
+		list->clear();
+	}
+}
+
+void SelectGame::slotGamelistAdd(QString id, QString players)
+{
+	new QListViewItem(list, id, players);
+	list->triggerUpdate();
+}
+
+void SelectGame::slotGamelistDel(QString id)
+{
+	QListViewItem *item = list->firstChild();
+	while (item)
+	{
+		if (item->text(0) == id)
 		{
-			if (e.tagName() == "game")
-			{
-				item =  new QListViewItem(list, e.attributeNode(QString("id")).value(), e.attributeNode(QString("players")).value());
-				list->triggerUpdate();
-			}
+			delete item;
+			return;
 		}
-		n = n.nextSibling();
+		item = item->nextSibling();
 	}
+}
 
-	status_label->setText(QString("Fetched list of games."));
-	brefresh->setEnabled(true);
+void SelectGame::slotGamelistEndUpdate(QString type)
+{
+	if (type=="full")
+		status_label->setText(QString("Fetched list of games."));
 
-	if (list->childCount() > 0)
-	{
-		bjoin->setEnabled(true);
-		list->setEnabled(true);
-	}
-	else
-	{
-		bjoin->setEnabled(false);
-		list->setEnabled(false);
-	}
+	emit statusChanged();
 }
 
 void SelectGame::slotInitPage()

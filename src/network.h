@@ -19,7 +19,12 @@ Q_OBJECT
 		void msgError(QString);
 		void msgInfo(QString);
 		void msgStartGame(QString);
-		void fetchedGameList(QDomNode);
+
+		void gamelistUpdate(QString);
+		void gamelistEndUpdate(QString);
+		void gamelistAdd(QString, QString);
+		void gamelistDel(QString);
+
 		void clearPlayerList();
 		void addToPlayerList(QString, QString);
 		void msgPlayerUpdate(QDomNode);

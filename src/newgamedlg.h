@@ -3,10 +3,7 @@
 
 #include <qlistview.h>
 #include <qstring.h>
-#warning move all qdom code to GameNetwork
-#include <qdom.h>
 #include <qradiobutton.h>
-#include <qpushbutton.h>
 
 #include <kwizard.h>
 #include <kdialogbase.h>
@@ -43,12 +40,16 @@ Q_OBJECT
 		SelectGame(GameNetwork *, QWidget *parent, const char *name=0);
 		void initPage();
 		void setGameHost(const QString &);
+		void validateButtons();
 		bool validateNext();
 		QString gameToJoin() const;
 
 	public slots:
 		void slotConnected();
-		void slotFetchedGameList(QDomNode);
+		void slotGamelistUpdate(QString);
+		void slotGamelistEndUpdate(QString);
+		void slotGamelistAdd(QString, QString);
+		void slotGamelistDel(QString);
 		void slotInitPage();
 
 	signals:
@@ -57,7 +58,6 @@ Q_OBJECT
 	private:
 		QRadioButton *bnew, *bjoin;
 		QListView *list;
-		QPushButton *brefresh;
 		QLabel *status_label;
 		GameNetwork *netw;
 		QString gameHost;
