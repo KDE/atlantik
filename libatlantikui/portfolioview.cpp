@@ -159,7 +159,7 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 		rmbMenu->insertTitle(m_player->name());
 
 		// Start trade
-		rmbMenu->insertItem(i18n("Request trade with %1").arg(m_player->name()), 0);
+		rmbMenu->insertItem(i18n("Request Trade with %1").arg(m_player->name()), 0);
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		QPoint g = QCursor::pos();

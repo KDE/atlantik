@@ -33,7 +33,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
-	m_updateComponentBox = new QHGroupBox(i18n("Add component"), this);
+	m_updateComponentBox = new QHGroupBox(i18n("Add Component"), this);
 	listCompBox->addWidget(m_updateComponentBox);
 
 	m_editTypeCombo = new KComboBox(m_updateComponentBox);
@@ -328,7 +328,7 @@ void TradeDisplay::contextMenu(KListView *, QListViewItem *i, const QPoint& p)
 
 	KPopupMenu *rmbMenu = new KPopupMenu(this);
 //	rmbMenu->insertTitle( ... );
-	rmbMenu->insertItem(i18n("Remove from trade"), 0);
+	rmbMenu->insertItem(i18n("Remove From Trade"), 0);
 
 	connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(contextMenuClicked(int)));
 	rmbMenu->exec(p);

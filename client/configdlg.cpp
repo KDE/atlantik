@@ -90,7 +90,7 @@ ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char
 	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game status feedback"), parent);
 	layout->addWidget(box);
 
-	m_indicateUnowned = new QCheckBox(i18n("Display Title Deed card on unowned properties"), box);
+	m_indicateUnowned = new QCheckBox(i18n("Display title deed card on unowned properties"), box);
 	QString message=i18n(
 		"If checked, unowned properties on the board display an estate\n"
 		"card to indicate the property is for sale.\n");

@@ -393,18 +393,18 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 
 			// Estate construction
 			if (m_estate->houses()>=4)
-				rmbMenu->insertItem(i18n("Build hotel"), 1);
+				rmbMenu->insertItem(i18n("Build Hotel"), 1);
 			else
-				rmbMenu->insertItem(i18n("Build house"), 1);
+				rmbMenu->insertItem(i18n("Build House"), 1);
 
 			if (!(m_estate->canBuyHouses()))
 				rmbMenu->setItemEnabled(1, false);
 
 			// Estate destruction
 			if (m_estate->houses()==5)
-				rmbMenu->insertItem(i18n("Sell hotel"), 2);
+				rmbMenu->insertItem(i18n("Sell Hotel"), 2);
 			else
-				rmbMenu->insertItem(i18n("Sell house"), 2);
+				rmbMenu->insertItem(i18n("Sell House"), 2);
 
 			if (!(m_estate->canSellHouses()))
 				rmbMenu->setItemEnabled(2, false);
@@ -413,7 +413,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		{
 			// Request trade
 			if (Player *player = m_estate->owner())
-				rmbMenu->insertItem(i18n("Request trade with %1").arg(player->name()), 3);
+				rmbMenu->insertItem(i18n("Request Trade with %1").arg(player->name()), 3);
 		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
