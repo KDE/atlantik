@@ -3,7 +3,6 @@
 #include <qptrlist.h>
 #include <qguardedptr.h>
 #include <qtimer.h>
-#include <qmap.h>
 #include <kglobal.h>
 #include <qpoint.h>
 #include <klocale.h>
@@ -140,16 +139,6 @@ void AtlanticDesigner::openNew()
 	bg = config->readColorEntry("alternateBackground", &black);
 	config->setGroup("WM");
 	fg = config->readColorEntry("activeBackground", &black);
-
-	QStringList groupList = config->groupList();
-	kdDebug() << "groups:\n";
-	for (QStringList::Iterator it = groupList.begin(); it != groupList.end(); ++it)
-		kdDebug() << *it << endl;
-
-	kdDebug() << "values in General\n";
-	QMap<QString, QString> entries = config->entryMap("General");
-	for (QMap<QString, QString>::Iterator it = entries.begin(); it != entries.end(); ++it)
-		kdDebug() << it.key() << "=" << it.data() << endl;
 
 	for(int i = 0; i < 40; ++i)
 	{
