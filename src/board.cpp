@@ -22,9 +22,6 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 	connect(qtimer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	resume_timer = false;
 
-	// Timer to reinit the gameboard _after_ resizeEvent
-	qtimer_resize =  new QTimer(this);
-	connect(qtimer_resize, SIGNAL(timeout()), this, SLOT(slotResizeAftermath()));
 
 	QGridLayout *layout = new QGridLayout(this, 25, 25);
 
@@ -194,9 +191,8 @@ void KMonopBoard::resizeEvent(QResizeEvent *e)
 		spacer->setFixedSize(s);
 	}
 
-	// Make sure we enter slotResizeAftermath
-	if (qtimer_resize!=0 && !qtimer->isActive())
-		qtimer_resize->start(0);
+	// Timer to reinit the gameboard _after_ resizeEvent
+	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
 void KMonopBoard::slotResizeAftermath()
@@ -212,10 +208,6 @@ void KMonopBoard::slotResizeAftermath()
 			jumpToken(token[i], token[i]->location());
 		}
 	}
-
-	// Stop resize timer
-	if (qtimer_resize!=0 && qtimer->isActive())
-		qtimer_resize->stop();
 
 	// Restart the timer that was stopped in resizeEvent
 	if (resume_timer && qtimer!=0 && !qtimer->isActive())

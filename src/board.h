@@ -31,7 +31,7 @@ Q_OBJECT
 		GameNetwork *netw;
 		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
-		QTimer *qtimer, *qtimer_resize;
+		QTimer *qtimer;
 		bool resume_timer;
 };
 
