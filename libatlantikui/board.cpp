@@ -211,8 +211,6 @@ void AtlantikBoard::addToken(Player *player)
 		kdDebug() << "addToken ignored - not in same game as playerSelf" << endl;
 		return;
 	}
-	else
-		kdDebug() << "addToken - no playerSelf" << endl;
 
 	Token *token = new Token(player, this, "token");
 	m_tokens.append(token);
