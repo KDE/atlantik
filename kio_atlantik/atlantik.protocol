@@ -1,0 +1,6 @@
+[Protocol]
+exec=kio_atlantik
+protocol=atlantik
+input=none
+output=none
+reading=true

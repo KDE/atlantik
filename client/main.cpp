@@ -22,6 +22,17 @@
 #include "main.h"
 #include "atlantik.h"
 
+static KCmdLineOptions options[] =
+{
+	{ "h", 0, 0 },
+    { "host <argument>", I18N_NOOP("connect to this host"), 0 },
+	{ "p", 0, 0 },
+    { "port <argument>", I18N_NOOP("connect at this port"), "1234" },
+	{ "g", 0, 0 },
+    { "game <argument>", I18N_NOOP("join this game"), 0 },
+    { 0,0,0 }
+};
+
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData(
@@ -44,7 +55,9 @@ int main(int argc, char *argv[])
 	aboutData.addCredit("Carlo Caneva", I18N_NOOP("icons"), "webmaster@molecola.com", "http://www.molecola.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
+	KCmdLineArgs::addCmdLineOptions (options);
 
+	KApplication::addCmdLineOptions();
 	KApplication kapplication;
 
 	if (kapplication.isRestored())

@@ -21,6 +21,7 @@
 #include <qscrollbar.h>
 
 #include <kapplication.h>
+#include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
@@ -58,8 +59,11 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
-	m_playerSelf = 0;
 	m_board = 0;
+	m_selectServer = 0;
+	m_selectGame = 0;
+	m_selectConfiguration = 0;
+	m_playerSelf = 0;
 
 	// Game core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
@@ -138,14 +142,20 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
 
-	m_selectServer = new SelectServer(m_mainWidget, "selectServer");
-	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
-	m_selectServer->show();
+	// Check command-line args to see if we need to connect or show Monopigator window
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
-
-	m_selectGame = 0;
-	m_selectConfiguration = 0;
+	QCString host = args->getOption("host");	
+	QCString port = args->getOption("port");	
+	if (!host.isNull() && !port.isNull())
+		m_atlantikNetwork->serverConnect(host, port.toInt());
+	else
+	{
+		m_selectServer = new SelectServer(m_mainWidget, "selectServer");
+		m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
+		m_selectServer->show();
+		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+	}
 }
 
 void Atlantik::readConfig()
@@ -231,23 +241,32 @@ void Atlantik::slotNetworkConnected()
 	// We're connected, so let's make ourselves known.
 	m_atlantikNetwork->setName(m_config.playerName);
 
-	// Create select game widget and replace the select server widget.
-	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
-	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
-	m_selectGame->show();
-	if (m_selectServer)
+	// Check command-line args to see if we need to auto-join
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
+	QCString game = args->getOption("game");	
+	if (!game.isNull())
+		m_atlantikNetwork->joinGame(game.toInt());
+	else
 	{
-		delete m_selectServer;
-		m_selectServer = 0;
+		// Create select game widget and replace the select server widget.
+		m_selectGame = new SelectGame(m_mainWidget, "selectGame");
+		m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
+		m_selectGame->show();
+		if (m_selectServer)
+		{
+			delete m_selectServer;
+			m_selectServer = 0;
+		}
+
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
+		connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
+		connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
+
+		connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
+		connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
 	}
-
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
-
-	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
-	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
 }
 
 void Atlantik::slotNetworkError(int errnum)

@@ -1,5 +1,5 @@
 COMPILE_FIRST = libatlantic libatlantikclient libatlantikui
-SUBDIRS = $(COMPILE_FIRST) client pics
+SUBDIRS = $(COMPILE_FIRST) client kio_atlantik pics
 
 EXTRA_DIST = atlantik.desktop
 

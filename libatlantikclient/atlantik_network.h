@@ -46,7 +46,6 @@ private slots:
 	void endTurn();
 	void getPlayerList();
 	void newGame(const QString &gameType);
-	void joinGame(int gameId);
 	void startGame();
 	void buyEstate();
 	void auctionEstate();
@@ -66,6 +65,7 @@ private slots:
 
 public slots:
 	void serverConnect(const QString host, int port);
+	void joinGame(int gameId);
 	void slotRead();
 		
 signals:

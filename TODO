@@ -65,14 +65,16 @@ For 0.4.0
   - animation speed should depend on board size and movement distance
   v disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
+v commandline parameters host, port and game supported (for auto-join)
+v kio_atlantik allows for easy connecting from other applications
+  (kopete/kmail)
 
 For 0.5.0
 ---------
 
 - Game configuration (when it appears in monopd)
 - inviting players
-  ^ kio_atlantik for easy launching
-  ^ cmdline arguments for auto-join
+  - fix cmdline args in kio_atlantik
   - invite button
     - kaddressbook hooks
     - e-mail invites
