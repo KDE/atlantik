@@ -179,9 +179,9 @@ void Atlantik::newPlayer(Player *player)
 	if (player->isSelf())
 	{
 		m_playerSelf = player;
-		connect(player, SIGNAL(changed()), this, SLOT(playerChanged()));
+		connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 	}
-	connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
+	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
 
 	m_portfolioLayout->addWidget(portfolioView);

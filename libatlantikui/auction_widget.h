@@ -26,6 +26,7 @@ public:
 
 private slots:
 	void auctionChanged();
+	void playerChanged(Player *player);
 	void updateBid(Player *player, int amount);
 	void slotBidButtonClicked();
 

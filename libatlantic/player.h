@@ -33,7 +33,7 @@ public:
 	void update(bool force = false);
 
 signals:
-	void changed();
+	void changed(Player *player);
 
 private:
 	bool m_changed, m_isSelf;

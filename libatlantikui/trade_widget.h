@@ -36,6 +36,7 @@ private slots:
 	void tradeItemRemoved(TradeItem *);
 	void tradeItemChanged(TradeItem *);
 	void tradeChanged();
+	void playerChanged(Player *player);
 	void tradeRejected(Player *);
 
 	void setTypeCombo(int);

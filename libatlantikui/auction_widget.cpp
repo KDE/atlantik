@@ -50,6 +50,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 			item = new KListViewItem(m_playerList, player->name(), QString("0"));
 			item->setPixmap(0, QPixmap(SmallIcon("personal")));
 			m_playerItems[player] = item;
+
+			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 		}
 	}
 
@@ -88,6 +90,19 @@ void AuctionWidget::auctionChanged()
 		status = "";
 	}
 	m_statusLabel->setText(status);
+}
+
+void AuctionWidget::playerChanged(Player *player)
+{
+	if (!player)
+		return;
+
+	QListViewItem *item;
+	if (!(item = m_playerItems[player]))
+		return;
+
+	item->setText(0, player->name());
+	m_playerList->triggerUpdate();
 }
 
 void AuctionWidget::updateBid(Player *player, int amount)

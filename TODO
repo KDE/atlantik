@@ -18,8 +18,6 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - KExtendedSocket errorcodes/port
-- connect Player::changed() to trade widget (for list items)
-- connect Player::changed() to auction widget (for list items)
 - bugs from Neil's trial report
   - No notification of when someone got sent to jail
   - Should display in console chance/community chest cards (reenable that optionally?)
@@ -40,8 +38,10 @@ v move all but mainwindow to libatlantikui
 - turn AtlantikConfig into real class instead of struct
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
 v support for <display>
-  v type chancecard (attrs playerid, name and description)
-  ^ type cccard (attrs playerid, name and description)
+  v generic (name (title) and description)
+  ^ estate
+    - fancy widget
+  - dice
 - gameNetwork API
   - commands
     - .D

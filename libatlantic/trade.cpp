@@ -142,16 +142,14 @@ void Trade::update(bool force)
 	}
 }
 
-TradeItem::TradeItem(Trade *trade, Player *from, Player *to)
-	: mFrom(from), mTo(to), mTrade(trade)
+TradeItem::TradeItem(Trade *trade, Player *from, Player *to) : mFrom(from), mTo(to), mTrade(trade)
 {
-
+	connect(from, SIGNAL(changed(Player *)), this, SIGNAL(changed()));
+	connect(to, SIGNAL(changed(Player *)), this, SIGNAL(changed()));
 }
 
-TradeEstate::TradeEstate(Estate *estate, Trade *trade, Player *to)
-	: TradeItem(trade, estate->owner(), to), mEstate(estate)
+TradeEstate::TradeEstate(Estate *estate, Trade *trade, Player *to) : TradeItem(trade, estate->owner(), to), mEstate(estate)
 {
-
 }
 
 QString TradeEstate::text() const
@@ -159,10 +157,8 @@ QString TradeEstate::text() const
 	return mEstate->name();
 }
 
-TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to)
-	: TradeItem(trade, from, to), mMoney(money)
+TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to) : TradeItem(trade, from, to), mMoney(money)
 {
-
 }
 
 QString TradeMoney::text() const

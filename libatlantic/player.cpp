@@ -76,7 +76,7 @@ void Player::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed();
+		emit changed(this);
 		m_changed = false;
 	}
 }

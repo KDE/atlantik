@@ -187,7 +187,7 @@ void AtlantikBoard::addToken(Player *player)
 	Token *token = new Token(player, this, "token");
 	tokenMap[player] = token;
 
-	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
+	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
 
 	// Timer to reinit the gameboard _after_ event loop
 	QTimer::singleShot(100, this, SLOT(slotResizeAftermath()));

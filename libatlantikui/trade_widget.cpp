@@ -64,8 +64,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
-
 	m_playerFromCombo = new KComboBox(m_updateComponentBox);
+
+	m_toLabel = new QLabel(m_updateComponentBox);
+	m_toLabel->setText(i18n("To"));
+	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
+
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ((player = *it))
@@ -73,20 +77,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 			m_playerFromCombo->insertItem(player->name());
 			m_playerFromMap[m_playerFromCombo->count() - 1] = player;
 			m_playerFromRevMap[player] = m_playerFromCombo->count() - 1;
-		}
-	}
 
-	m_toLabel = new QLabel(m_updateComponentBox);
-	m_toLabel->setText(i18n("To"));
-
-	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
-	for (QPtrListIterator<Player> it(playerList); *it; ++it)
-	{
-		if ((player = *it))
-		{
 			m_playerTargetCombo->insertItem(player->name());
 			m_playerTargetMap[m_playerTargetCombo->count() - 1] = player;
 			m_playerTargetRevMap[player] = m_playerTargetCombo->count() - 1;
+
+			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 		}
 	}
 
@@ -197,6 +193,14 @@ void TradeDisplay::tradeChanged()
 	// TODO: add notification whether playerSelf has accepted or not and
 	// enable/disable accept button based on that
 	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
+}
+
+void TradeDisplay::playerChanged(Player *player)
+{
+	m_playerFromCombo->changeItem(player->name(), m_playerFromRevMap[player]);
+	m_playerTargetCombo->changeItem(player->name(), m_playerTargetRevMap[player]);
+
+	// TODO: update tradeitems
 }
 
 void TradeDisplay::tradeRejected(Player *player)
