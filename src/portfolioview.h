@@ -19,11 +19,16 @@ Q_OBJECT
 		PortfolioView(Player *player, QWidget *parent, const char *name = 0);
 		void addEstateView(Estate *estate);
 
-//	protected:
+protected:
 //		void paintEvent(QPaintEvent *);
-	
+	void mousePressEvent(QMouseEvent *);
+
+signals:
+	void newTrade(int playerId);
+
 private slots:
 	void playerChanged();
+	void slotMenuAction(int item);
 
 	private:
 		Player *m_player;

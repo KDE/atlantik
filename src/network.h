@@ -16,7 +16,6 @@ public:
 	GameNetwork(Atlantik *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
-	void cmdTradeNew();
 	void cmdTradeToggleEstate(int tradeId, int estateId);
 	void cmdTradeSetMoney(int tradeId, int amount);
 	void cmdTradeAccept(int tradeId);
@@ -36,6 +35,7 @@ private slots:
 	void jailCard();
 	void jailPay();
 	void jailRoll();
+	void newTrade(int playerId);
 
 public slots:
 	void serverConnect(const QString host, int port);

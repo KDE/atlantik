@@ -1,6 +1,9 @@
 #include <qpainter.h>
+#include <qcursor.h>
 
 #include <kdebug.h>
+#include <klocale.h>
+#include <kpopupmenu.h>
 
 #include "portfolioview.moc"
 #include "player.h"
@@ -214,4 +217,30 @@ void PortfolioView::playerChanged()
 
 	b_recreate = true;
 	update();
+}
+
+void PortfolioView::mousePressEvent(QMouseEvent *e) 
+{
+	if (e->button()==RightButton)
+	{
+		KPopupMenu *rmbMenu = new KPopupMenu(this);
+		rmbMenu->insertTitle(m_player->name());
+
+		// Start trade
+		rmbMenu->insertItem(i18n("Trade with %1").arg(m_player->name()), 0);
+
+		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
+		QPoint g = QCursor::pos();
+		rmbMenu->exec(g);
+	}
+}
+
+void PortfolioView::slotMenuAction(int item)
+{
+	switch (item)
+	{
+	case 0:
+		emit newTrade(m_player->playerId());
+		break;
+	}
 }

@@ -2,7 +2,6 @@
 #include <qpainter.h>
 #include <qtimer.h>
 #include <qwmatrix.h>
-#include <qpopupmenu.h>
 #include <qcursor.h>
 
 #include <kdebug.h>

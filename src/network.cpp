@@ -81,8 +81,11 @@ void GameNetwork::cmdChat(QString msg)
 {	writeData(msg);
 }
 
-void GameNetwork::cmdTradeNew()
-{	writeData(".Tn");
+void GameNetwork::newTrade(int playerId)
+{
+	QString msg(".Tn");
+	msg.append(QString::number(playerId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdTradeToggleEstate(int tradeId, int estateId)
