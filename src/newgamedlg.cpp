@@ -159,7 +159,6 @@ void SelectServer::slotMonopigatorClear()
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
 {	new QListViewItem(list, host, port, version);
-	new QListViewItem(list, "localhost", "1234", version);
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
