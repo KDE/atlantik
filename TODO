@@ -27,7 +27,7 @@ v queue display widgets
 v commandline parameters host, port and game supported (for auto-join)
 v kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
-v leave game option
+v leave game and leave server options
 v pre-game configuration
 - fancy widgets
   - generic (caption and description)

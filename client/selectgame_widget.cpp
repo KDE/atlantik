@@ -49,6 +49,11 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(buttonBox);
 
+	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);
+	buttonBox->addWidget(backButton);
+
+	connect(backButton, SIGNAL(pressed()), this, SIGNAL(leaveServer()));
+
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Create Game"), this);

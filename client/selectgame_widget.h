@@ -50,6 +50,7 @@ public:
 	signals:
 		void joinGame(int gameId);
 		void newGame(const QString &gameType);
+		void leaveServer();
 //		void statusChanged();
 
 private:
