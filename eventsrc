@@ -15,6 +15,7 @@ Comment[hu]=Egy játékos szöveges üzenetet küld
 Comment[pt_BR]=Um jogador enviou uma mensagem
 Comment[sv]=En spelare skickar ett chattmeddelande
 Comment[tr]=Oyuncu bir mesaj gönderdi
+Comment[wen]=Hrajer sćele chatowu powěsć
 default_presentation=1
 
 [newplayer]
@@ -26,6 +27,7 @@ Name[pt_BR]=Novo jogador
 Name[sv]=Ny spelare
 Name[tr]=Yeni oynatıcı
 Name[wa]=Novea djoweu
+Name[wen]=Nowy hrajer
 Comment=A new player joins the game
 Comment[da]=En ny spiller går med i spillet
 Comment[es]=Un nuevo jugador se une a la partida
@@ -33,6 +35,7 @@ Comment[hu]=Egy új játékos csatlakozik a játékhoz
 Comment[pt_BR]=Um novo jogador entrou no jogo
 Comment[sv]=En ny spelare går med i spelet
 Comment[tr]=Yeni bir oyuncu oyuna girdi
+Comment[wen]=Nowy hrajer so přizamknje
 default_presentation=1
 
 [newgame]
@@ -44,6 +47,7 @@ Name[pt_BR]=Novo jogo
 Name[sv]=Nytt spel
 Name[tr]=Yeni oyun
 Name[wa]=Novea djeu
+Name[wen]=Nowa hra
 Comment=A new game is created
 Comment[da]=Et nyt spil bliver oprettet
 Comment[es]=Una nueva partida ha sido creada
@@ -51,4 +55,5 @@ Comment[hu]=Új játék jön létre
 Comment[pt_BR]=Um novo jogo foi criado
 Comment[sv]=Ett nytt spel har skapats
 Comment[tr]=Yeni bir oyun başlatıldı
+Comment[wen]=Nowa hra je so stworiła
 default_presentation=1
