@@ -2,12 +2,14 @@ For 0.0.2
 ---------
 
 - Finish newgamedlg wizard:
-  - Serverlist needn't be real yet, no way to fetch it at the moment.
-  - Gamelist needs to be real and present an option to create a new game.
+  v Serverlist needn't be real yet, no way to fetch it at the moment.
+  v Gamelist needs to be real and present an option to create a new game.
+  - Report error in case connection cannot be made.
   - Game configuration needn't be implemented yet, missing functionality in
     monopd server.
   - Game playerlist must be displayed and present an option to launch the
-    game.
+    game. (display works, although server code doesn't not yet inform
+    regarding people leaving or joining)
 
 For 0.0.3
 ---------
@@ -38,6 +40,7 @@ For 0.2.x
 For 0.5.x
 ---------
 
+- Fetch serverlist via Monopigator kind of interface.
 - Have a playable, more or less stable game.
 
 For 0.6.x

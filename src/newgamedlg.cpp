@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include <qlayout.h>
 #include <iostream.h>
 #include <qlabel.h>
@@ -12,6 +14,12 @@
  
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
 {
+	// Initiate network connection
+	// TODO: Should eventually go into KMonop..
+	netw = new GameNetwork(this, "network");
+
+	// Select server page
+	// TODO: Turn into seperate class..
 	select_server = new QWidget(this);
 	QVBoxLayout *qbox = new QVBoxLayout(select_server);
 	CHECK_PTR(qbox);
@@ -44,20 +52,32 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	setHelpEnabled(select_server, false);
 	setNextEnabled(select_server, false);
 
-	select_game = new SelectGame(this, "select_game");
+
+	// Select game page
+	select_game = new SelectGame(netw, this, "select_game");
+
 	addPage(select_game, QString("Select or create a game:"));
 	setHelpEnabled(select_game, false);
 
-	configure_game = new ConfigureGame(this, "configure_game");
+	connect(netw, SIGNAL(connected()), select_game, SLOT(slotConnected()));
+	connect(netw, SIGNAL(fetchedGameList(QDomNode)), select_game, SLOT(slotFetchedGameList(QDomNode)));
+
+	// Configure game page
+	configure_game = new ConfigureGame(netw, this, "configure_game");
+	configure_game->setGameId(select_game->gameToJoin());
+
 	addPage(configure_game, QString("Game configuration and list of players"));
 	setHelpEnabled(configure_game, false);
 	setFinishEnabled(configure_game, false);
+
+	connect(netw, SIGNAL(fetchedPlayerList(QDomNode)), configure_game, SLOT(slotFetchedPlayerList(QDomNode)));
 }
 
 NewGameWizard::~NewGameWizard()
 {
 }
 
+// Integrate with slotValidateNext()
 void NewGameWizard::slotListClick()
 {
 	if (list->selectedItem())
@@ -69,25 +89,29 @@ void NewGameWizard::slotListClick()
 void NewGameWizard::slotValidateNext()
 {
 	if (select_game->validateNext())
+	{
 		setNextEnabled(select_game, true);
+		configure_game->setGameId(select_game->gameToJoin());
+	}
 	else
 		setNextEnabled(select_game, false);
 }
 
 void NewGameWizard::slotInit(const QString &_name)
 {
-	cout << "page that should receive init: [" << _name << "]" << endl;
-	if (title(select_server) == _name)
-		cout << "that would be select_server" << endl;
+	cout << "initPage: " << _name << endl;
+//	if (title(select_server) == _name)
+//		select_server->initPage();
 	if (title(select_game) == _name)
-	{
-		cout << "that would be select_game" << endl;
 		select_game->initPage();
-	}
+	if (title(configure_game) == _name)
+		configure_game->initPage();
 }
 
-SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
+SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	netw = _nw;
+
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
@@ -123,16 +147,15 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 void SelectGame::initPage()
 {
-	delete netw;
-
 	status_label->setText("Connecting to server...");
 
-	netw = new GameNetwork(this, "network");
-	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
-	connect(netw, SIGNAL(fetchedGameList(QDomNode)), this, SLOT(slotFetchedGameList(QDomNode)));
-	connect(netw, SIGNAL(readyRead()), netw, SLOT(slotRead()));
+	// TODO: Replace with host from select_server list
 	netw->connectToHost("localhost", 1234);
-	netw->slotWrite(".gl");
+
+	// TODO: What if connection cannot be made?
+
+	// Fetch list of games
+	netw->writeData(".gl");
 }
 
 bool SelectGame::validateNext()
@@ -141,6 +164,16 @@ bool SelectGame::validateNext()
 		return true;
 	else
 		return false;
+}
+
+QString SelectGame::gameToJoin() const
+{
+	if (bnew->isChecked())
+		return QString("0");
+	else if (QListViewItem *item = list->selectedItem())
+		return item->text(0);
+	else
+		return QString("0");
 }
 
 void SelectGame::slotConnected()
@@ -173,76 +206,71 @@ void SelectGame::slotFetchedGameList(QDomNode gamelist)
 	status_label->setText(QString("Fetched list of games."));
 }
 
-ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigureGame::ConfigureGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	netw = _nw;
+	game_id = QString("0");
+
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
+
+	list = new QListView(this);
+
+	list->addColumn(QString("Player"));
+	list->addColumn(QString("Host"));
+
+	layout->addWidget(list);
 
 	status_label = new QLabel(this);
 	status_label->setText("Configuration of the game is not yet supported by the monopd server.");
 	layout->addWidget(status_label);
 }
 
-NewGameDialog::NewGameDialog(QWidget *parent, const char *name, bool modal) : KDialog(parent, name, modal)
+void ConfigureGame::initPage()
 {
-	QVBoxLayout *qbox = new QVBoxLayout(this, marginHint(), spacingHint());
-	CHECK_PTR(qbox);
-	
-	QLabel *header_label = new QLabel(this);
-	/* steps: select server, connect, listgames, join/create, config/wait, play */
-	header_label->setText("Please select a server to connect to:\n(you should choose localhost for now)\n");
-	qbox->addWidget(header_label);
-
-	list = new QListView(this);
-
-	QListViewItem *item;
-	item = new QListViewItem(list, "localhost", "1234", "0");
-//	item = new QListViewItem(list, "monopd.capsi.com", "1234", "0");
-
-	QString column;
-	column.setLatin1("Server", strlen("Server"));
-	list->addColumn(column);
-	column.setLatin1("Port", strlen("Port"));
-	list->addColumn(column);
-	column.setLatin1("Users", strlen("Users"));
-	list->addColumn(column);
-
-	qbox->addWidget(list);
-
-	KButtonBox *bbox = new KButtonBox( this, KButtonBox::Horizontal, 0, spacingHint());
-	CHECK_PTR( bbox );
-	qbox->addWidget(bbox);
-
-	bbox->addStretch();
-
-	bconnect = bbox->addButton( i18n("&Connect"), false );
-	bcancel = bbox->addButton( i18n("C&ancel"), false );
-
-	bbox->layout();
-	bconnect->setDefault(true);
-	
-	connect(bconnect, SIGNAL(clicked()), this, SLOT(slotConnect()));
-	connect(bcancel, SIGNAL(clicked()), this, SLOT(slotCancel()));
-}
-
-NewGameDialog::~NewGameDialog()
-{
-}
-
-void NewGameDialog::slotConnect()
-{
-	cout << "bconnect clicked" << endl;
-	QListViewItem *item;
-	if ((item = list->selectedItem()))
+	if (game_id == "0")
 	{
-		KMessageBox::sorry(0, QString("Network code has not yet been completed."), "Action unsupported");
+		// Create a new game
+		netw->writeData(".gn");
 	}
 	else
-		KMessageBox::sorry(0, QString(i18n("You did not select a server to connect to.")), "Select a server");
+	{
+		// Join existing game
+		QString str(".gj");
+		str.append(game_id);
+		netw->writeData(str.latin1());
+	}
+	
+	// Fetch playerlist
+	netw->writeData(".gp");
 }
 
-void NewGameDialog::slotCancel()
+void ConfigureGame::setGameId(const QString &_id)
 {
-	cout << "bcancel clicked" << endl;
-	hide();
+	game_id = _id;
+}
+
+void ConfigureGame::slotFetchedPlayerList(QDomNode gamelist)
+{
+	QDomAttr a;
+	QDomNode n = gamelist.firstChild();
+	QListViewItem *item;
+
+	list->clear();
+
+	while(!n.isNull())
+	{
+		QDomElement e = n.toElement();
+		if(!e.isNull())
+		{
+			if (e.tagName() == "player")
+			{
+				item =  new QListViewItem(list, e.attributeNode(QString("name")).value());
+				list->triggerUpdate();
+			}
+		}
+		n = n.nextSibling();
+	}
+
+	status_label->setText(QString("Fetched list of players."));
 }

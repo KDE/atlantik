@@ -17,9 +17,10 @@ class SelectGame : public QWidget
 Q_OBJECT
 
 	public:
-		SelectGame(QWidget *parent, const char *name=0);
+		SelectGame(GameNetwork *, QWidget *parent, const char *name=0);
 		void initPage();
 		bool validateNext();
+		QString gameToJoin() const;
 
 	public slots:
 		void slotConnected();	
@@ -32,14 +33,23 @@ Q_OBJECT
 		GameNetwork *netw;
 };
 
-
 class ConfigureGame : public QWidget
 {
+Q_OBJECT
+
 	public:
-		ConfigureGame(QWidget *parent, const char *name=0);
+		ConfigureGame(GameNetwork *, QWidget *parent, const char *name=0);
+		void initPage();
+		void setGameId(const QString &);
+
+	public slots:
+		void slotFetchedPlayerList(QDomNode);
 
 	private:
+		QListView *list;
 		QLabel *status_label;
+		GameNetwork *netw;
+		QString game_id;
 };
 
 class NewGameWizard : public KWizard
@@ -54,6 +64,9 @@ Q_OBJECT
 		void slotListClick();
 		void slotValidateNext();
 		void slotInit(const QString &);
+
+	protected:
+		GameNetwork *netw;
 
 	private:
 		QListView *list;
@@ -84,24 +97,6 @@ class Server
 	private:
 		QString h;
 		int p;
-};
-
-
-class NewGameDialog : public KDialog
-{
-Q_OBJECT
-
-	public:
-		NewGameDialog(QWidget *parent, const char *name=0, bool modal=true);
-		~NewGameDialog(void);
-
-	public slots:
-		void slotConnect();
-		void slotCancel();
-
-	private:
-		QListView *list;
-		QPushButton *bconnect, *bcancel;
 };
 
 #endif

@@ -10,13 +10,14 @@ Q_OBJECT
 
 	public:
 		GameNetwork(QObject *parent=0, const char *name=0);
+		void writeData(const char *);
 
 	public slots:
-		void slotWrite(const char *);
 		void slotRead();
 		
 	signals:
 		void fetchedGameList(QDomNode);
+		void fetchedPlayerList(QDomNode);
 
 	private:
 		void processMsg(QString);

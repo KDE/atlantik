@@ -1,10 +1,38 @@
+Contents
+--------
+
+1. Introduction
+2. Download
+3. Mailinglist
+4. Roadmap
+
+1. Introduction
+---------------
+
 KMonop is a KDE client for playing the Monopoly boardgame using a monopd
 server. The program is very alpha at the moment: it is polished nor
 functional. The same actually applies for the server and the network code
 the server relies on.
 
+2. Download
+-----------
+
 KMonop is currently only available from KDE CVS, in the kdenonbeta module.
 monopd can be downloaded from http://capsi.com/~cap/monopd/
+
+You must *always* use the latest snapshot of monopd that is available.
+
+Most of the messages between client and server are still being rewritten in
+a not backwards compatible way. Furthermore, KMonop is only the client and
+depends on the server very much: when the ability to show a playerlist is
+added to KMonop, the ability to generate it must be added to the server!
+
+I will try and update the monopd server code snapshot every time I make a
+major commit of KMonop client code, to make sure you can practically always
+run the same code as I do.
+
+3. Mailinglist
+--------------
 
 There is a mailinglist available for discussion of kmonop development:
 
@@ -13,7 +41,12 @@ To post, send e-mail to: kmonop-devel@lists.capsi.com
 
 At the moment this list also covers the development of the monopd server.
 
+4. Roadmap
+----------
+
 The TODO file gives a nice approximation of desired functionality and
-priorities. It can be used as roadmap or checklist. Please note that version
-numbers have little meaning at the moment, this will change as soon as the
-game is somewhat playable and non-CVS releases are useful.
+priorities. It can be used as roadmap or checklist.
+
+Please note that version numbers have little meaning at the moment, this
+will change as soon as the game is somewhat playable and non-CVS releases
+are useful.

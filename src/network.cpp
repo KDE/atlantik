@@ -4,9 +4,10 @@
 
 GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, name)
 {
+	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-void GameNetwork::slotWrite(const char *input)
+void GameNetwork::writeData(const char *input)
 {
 	QString str(input);
 	str.append("\n");
@@ -52,6 +53,11 @@ void GameNetwork::processNode(QDomNode n)
 			{
 				cout << "found gamelist ! " << endl;
 				emit fetchedGameList(e);
+			}
+			else if (e.tagName() == "playerlist")
+			{
+				cout << "found playerlist " << endl;
+				emit fetchedPlayerList(e);
 			}
 			if (e.tagName() == "game")
 			{
