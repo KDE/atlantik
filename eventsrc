@@ -1,0 +1,18 @@
+[!Global!]
+IconName=atlantik
+Comment=Atlantik
+ 
+[chat]
+Name=Chat
+Comment=A player sends a chat message
+default_presentation=1
+
+[newplayer]
+Name=New player
+Comment=A new player joins the game
+default_presentation=1
+
+[newgame]
+Name=New game
+Comment=A new game is created
+default_presentation=1
