@@ -194,7 +194,7 @@ signals:
 
 private:
 	void initNetworkObject();
-	void addPortfolioView(Player *player);
+	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
 
 	QWidget *m_mainWidget, *m_portfolioWidget;
