@@ -45,6 +45,12 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	return trade;
 }
 
+void AtlanticCore::delTrade(Trade *trade)
+{
+	m_trades.remove(trade);
+	delete trade;
+}
+
 QPtrList<Auction> AtlanticCore::auctions()
 {
 	return m_auctions;

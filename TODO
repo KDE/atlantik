@@ -30,13 +30,9 @@ For 0.2.0
 
 ^ complete trades
  ^ widget (display)
-   - reseting accept on change (depends on monopd)
-   ^ rejecting trade alltogether
-   - completing trade when all accept
+   - completing trade widget when trade is accepted
  ^ widget (edit)
-   - set/unset accept
-   v delete estate
-   v delete money
+   - lmb context on tradeitems should update values of comboboxes/spinner
 
 For 0.2.1
 ---------

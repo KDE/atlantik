@@ -24,6 +24,7 @@ public:
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
+	void delTrade(Trade *trade);
 
 	QPtrList<Auction> auctions();
 	Auction *newAuction(int auctionId, Estate *estate);

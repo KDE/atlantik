@@ -106,26 +106,30 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	KPushButton *rejectButton = new KPushButton(BarIcon("cancel", KIcon::SizeSmall), i18n("Reject"), this);
-	actionBox->addWidget(rejectButton);
+	m_rejectButton = new KPushButton(BarIcon("cancel", KIcon::SizeSmall), i18n("Reject"), this);
+	actionBox->addWidget(m_rejectButton);
 
-	connect(rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	KPushButton *acceptButton = new KPushButton(BarIcon("ok", KIcon::SizeSmall), i18n("Accept"), this);
-	acceptButton->setEnabled(false);
-	actionBox->addWidget(acceptButton);
+	m_acceptButton = new KPushButton(BarIcon("ok", KIcon::SizeSmall), i18n("Accept"), this);
+//	m_acceptButton->setEnabled(false);
+	actionBox->addWidget(m_acceptButton);
+
+	connect(m_acceptButton, SIGNAL(clicked()), this, SLOT(accept()));
 
 	m_status = new QLabel(this);
 	listCompBox->addWidget(m_status);
-	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(0).arg(0));
+	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
 
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
 //	mPlayerList->setResizeMode(KListView::AllColumns);
 	
-	connect(trade, SIGNAL(tradeAdded(TradeItem *)), this, SLOT(tradeAdded(TradeItem *)));
-	connect(trade, SIGNAL(tradeRemoved(TradeItem *)), this, SLOT(tradeRemoved(TradeItem *)));
-	connect(trade, SIGNAL(tradeChanged(TradeItem *)), this, SLOT(tradeChanged(TradeItem *)));
+	connect(trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
+	connect(trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
+	connect(trade, SIGNAL(itemChanged(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
+	connect(trade, SIGNAL(changed()), this, SLOT(tradeChanged()));
+	connect(trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
 
 	setEditType(m_editTypeCombo->currentItem());
 	setEditEstate(m_estateCombo->currentItem());
@@ -137,11 +141,14 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 void TradeDisplay::closeEvent(QCloseEvent *e)
 {
-	emit reject(m_trade);
+	// Don't send network event when trade is already rejected (and thus 0)
+	if (m_trade)
+		emit reject(m_trade);
+
 	e->accept();
 }
 
-void TradeDisplay::tradeAdded(TradeItem *t)
+void TradeDisplay::tradeItemAdded(TradeItem *t)
 {
 	KListViewItem *item = new KListViewItem(m_componentList, (t->from() ? t->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (t->to() ? t->to()->name() : QString("?")), t->text());
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
@@ -151,14 +158,14 @@ void TradeDisplay::tradeAdded(TradeItem *t)
 	m_componentRevMap[item] = t;
 }
 	
-void TradeDisplay::tradeRemoved(TradeItem *t)
+void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
 	delete item;
 //	delete t; // TODO: delete item as as well, right?
 }
 
-void TradeDisplay::tradeChanged(TradeItem *t)
+void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
 	if (item)
@@ -169,6 +176,37 @@ void TradeDisplay::tradeChanged(TradeItem *t)
 		item->setPixmap(2, QPixmap(SmallIcon("personal")));
 		item->setText(3, t->text());
 	}
+}
+
+void TradeDisplay::tradeChanged()
+{
+	// TODO: add notification whether playerSelf has accepted or not and
+	// enable/disable accept button based on that
+	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
+}
+
+void TradeDisplay::tradeRejected(Player *player)
+{
+	if (player)
+		m_status->setText(i18n("Trade proposal was rejected by %1.").arg(player->name()));
+	else
+		m_status->setText(i18n("Trade proposal was rejected."));
+
+	// Disable GUI elements
+	m_updateButton->setEnabled(false);
+	m_acceptButton->setEnabled(false);
+	m_rejectButton->setEnabled(false);
+	m_componentList->setEnabled(false);
+	m_editTypeCombo->setEnabled(false);
+	m_playerFromCombo->setEnabled(false);
+	m_playerTargetCombo->setEnabled(false);
+	m_estateCombo->setEnabled(false);
+	m_moneyBox->setEnabled(false);
+
+	// Empty trade pointer so closing window won't send network event
+	m_trade = 0;
+
+	// TODO: add/enable close button
 }
 
 void TradeDisplay::setEditType(int index)
@@ -246,6 +284,11 @@ void TradeDisplay::updateComponent()
 void TradeDisplay::reject()
 {
 	emit reject(m_trade);
+}
+
+void TradeDisplay::accept()
+{
+	emit accept(m_trade);
 }
 
 void TradeDisplay::contextMenu(KListView *l, QListViewItem *i, const QPoint& p)

@@ -29,7 +29,6 @@ public:
 	AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
-	void cmdTradeAccept(int tradeId);
 	void cmdChat(QString msg);
 
 private slots:
@@ -51,6 +50,7 @@ private slots:
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo);
 	void tradeReject(Trade *trade);
+	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
 
 public slots:
@@ -112,15 +112,6 @@ signals:
 	void playerListDel(QString);
 
 	void tradeUpdateActor(int tradeId, int playerId);
-
-	/**
-	 * Information from server whether a player accepts the trade as is.
-	 *
-	 * @param tradeId  Unique trade identifier
-	 * @param playerId Unique player identifier
-	 * @param accept   Whether the player accepts or not
-	 */
-	void msgTradeUpdatePlayerAccept(int tradeId, int playerId, bool accept);
 
 	/**
 	 * The trade has been accepted by all players!

@@ -199,11 +199,12 @@ void Atlantik::newTrade(Trade *trade)
 	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0, "tradeDisplay");
 	tradeDisplay->setFixedSize(200, 200);
 	tradeDisplay->show();
-						
-//	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+
+	// TODO: tradeDisplay can easily connect these itself ..
 	QObject::connect(tradeDisplay, SIGNAL(updateEstate(Trade *, Estate *, Player *)), trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 	QObject::connect(tradeDisplay, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
 	QObject::connect(tradeDisplay, SIGNAL(reject(Trade *)), trade, SIGNAL(reject(Trade *)));
+	QObject::connect(tradeDisplay, SIGNAL(accept(Trade *)), trade, SIGNAL(accept(Trade *)));
 
 	// m_board->addTradeView(trade);
 }

@@ -14,11 +14,23 @@ Trade::Trade(int tradeId)
 void Trade::addPlayer(Player *player)
 {
 	mPlayers.append(player);
+	m_playerAcceptMap[player] = false;
 }
 
 QPtrList<Player> Trade::players() const
 {
 	return mPlayers;
+}
+
+unsigned int Trade::acceptCount()
+{
+	unsigned int count = 0;
+	for (QMapIterator<Player *, bool> it = m_playerAcceptMap.begin() ; it != m_playerAcceptMap.end() ; ++it)
+	{
+		if (it.data())
+			count++;
+	}
+	return count;
 }
 
 void Trade::updateEstate(Estate *estate, Player *to)
@@ -44,16 +56,14 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		{
 			if (t->to() == to)
 				return;
-			std::cout << "gonna emit tradeChanged" << endl;
 			t->setTo(to);
-			std::cout << "emit tradeChanged" << endl;
-			emit tradeChanged(t);
+			emit itemChanged(t);
 		}
 		else
 		{
 			delete t;
 			mTradeItems.removeRef(t);
-			emit tradeRemoved(t);
+			emit itemRemoved(t);
 		}
 	}
 	else if (estate && to)
@@ -62,8 +72,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		t = new TradeEstate(estate, this, to);
 		
 		mTradeItems.append(t);
-			std::cout << "emit tradeAdded" << endl;
-		emit tradeAdded(t);
+		emit itemAdded(t);
 	}
 }
 
@@ -90,16 +99,14 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		{
 			if (t->money() == money)
 				return;
-			std::cout << "gonna emit tradeChanged" << endl;
 			t->setMoney(money);
-			std::cout << "emit tradeChanged" << endl;
-			emit tradeChanged(t);
+			emit itemChanged(t);
 		}
 		else
 		{
 			delete t;
 			mTradeItems.removeRef(t);
-			emit tradeRemoved(t);
+			emit itemRemoved(t);
 		}
 	}
 	else if (from && to && money)
@@ -108,9 +115,22 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		t = new TradeMoney(money, this, from, to);
 		
 		mTradeItems.append(t);
-			std::cout << "emit tradeAdded" << endl;
-		emit tradeAdded(t);
+		emit itemAdded(t);
 	}
+}
+
+void Trade::updateAccept(Player *player, bool accept)
+{
+	if (m_playerAcceptMap[player] != accept)
+	{
+		m_playerAcceptMap[player] = accept;
+		m_changed = true;
+	}
+}
+
+void Trade::reject(Player *player)
+{
+	emit rejected(player);
 }
 
 void Trade::update(bool force)

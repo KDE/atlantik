@@ -78,6 +78,7 @@ public:
 	void addPlayer(Player *);
 	
 	QPtrList<Player> players() const;
+	unsigned int acceptCount();
 	
 	/**
 	 * select the Trade of the given template type, with the given
@@ -103,29 +104,34 @@ private slots:
 	/**
 	 * tell someone that this changed
 	 **/
-	void changed(TradeItem *i) { emit tradeChanged(i); }
+	void changed(TradeItem *i) { emit itemChanged(i); }
 
 public:
 	void update(bool force = false);
 	void updateEstate(Estate *estate, Player *player);
 	void updateMoney(unsigned int money, Player *from, Player *to);
+	void updateAccept(Player *player, bool accept);
+	void reject(Player *player);
 	
 signals:
 	void changed();
+	void rejected(Player *player);
 
-	void tradeAdded(TradeItem *);
-	void tradeRemoved(TradeItem *);
-	void tradeChanged(TradeItem *);
+	void itemAdded(TradeItem *);
+	void itemRemoved(TradeItem *);
+	void itemChanged(TradeItem *);
 
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 	void reject(Trade *trade);
+	void accept(Trade *trade);
 
 private:
 	bool m_changed;
 	int m_tradeId;
 
 	QPtrList<Player> mPlayers;
+	QMap<Player *, bool> m_playerAcceptMap;
 	
 	QPtrList<TradeItem> mTradeItems;
 };

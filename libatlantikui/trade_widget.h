@@ -30,15 +30,18 @@ protected:
 	void closeEvent(QCloseEvent *e);
 
 private slots:
-	void tradeAdded(TradeItem *);
-	void tradeRemoved(TradeItem *);
-	void tradeChanged(TradeItem *);
+	void tradeItemAdded(TradeItem *);
+	void tradeItemRemoved(TradeItem *);
+	void tradeItemChanged(TradeItem *);
+	void tradeChanged();
+	void tradeRejected(Player *);
 
 	void setEditType(int);
 	void setEditEstate(int);
 
 	void updateComponent();
 	void reject();
+	void accept();
 
 	void contextMenu(KListView *l, QListViewItem *i, const QPoint& p);
 	void contextMenuClicked(int item);
@@ -47,6 +50,7 @@ signals:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 	void reject(Trade *trade);
+	void accept(Trade *trade);
 
 private:
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
@@ -54,7 +58,7 @@ private:
 
 	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo;
 	KListView *m_componentList;
-	KPushButton *m_updateButton;
+	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
 	AtlanticCore *m_atlanticCore;
 	Trade *mTrade, *m_trade;

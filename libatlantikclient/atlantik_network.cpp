@@ -140,10 +140,10 @@ void AtlantikNetwork::tradeReject(Trade *trade)
 	writeData(msg);
 }
 
-void AtlantikNetwork::cmdTradeAccept(int tradeId)
+void AtlantikNetwork::tradeAccept(Trade *trade)
 {
 	QString msg(".Ta");
-	msg.append(QString::number(tradeId));
+	msg.append(QString::number(trade ? trade->tradeId() : -1));
 	writeData(msg);
 }
 
@@ -516,6 +516,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
 						QObject::connect(trade, SIGNAL(reject(Trade *)), this, SLOT(tradeReject(Trade *)));
+						QObject::connect(trade, SIGNAL(accept(Trade *)), this, SLOT(tradeAccept(Trade *)));
 						b_newTrade = true;
 					}
 
@@ -537,8 +538,20 @@ void AtlantikNetwork::processNode(QDomNode n)
 							n_player = n_player.nextSibling();
 						}
 					}
-					else if (type=="edit")
+					else if (type=="accepted" && trade)
+						emit msgTradeUpdateAccepted(trade);
+					else if (type=="completed" && trade)
+						emit msgTradeUpdateCompleted(trade);
+					else if (type=="rejected")
 					{
+						Player *player = m_players[e.attributeNode(QString("actor")).value().toInt()];
+						if (trade)
+							trade->reject(player);
+					}
+					else
+					{
+						// No type specified, edit is implied.
+
 						QDomNode n_child = n.firstChild();
 						while(!n_child.isNull())
 						{
@@ -550,11 +563,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 									a = e_child.attributeNode(QString("playerid"));
 									if (!a.isNull())
 									{
-										int playerId = a.value().toInt();
+										Player *player = m_players[a.value().toInt()];
 
 										a = e_child.attributeNode(QString("accept"));
-										if (!a.isNull())
-											emit msgTradeUpdatePlayerAccept(trade->tradeId(), playerId, (bool)(a.value().toInt()));
+										if (trade && player && !a.isNull())
+											trade->updateAccept(player, (bool)(a.value().toInt()));
 									}
 								}
 								else if (e_child.tagName() == "tradeestate")
@@ -594,12 +607,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 							n_child = n_child.nextSibling();
 						}
 					}
-					else if (type=="accepted" && trade)
-						emit msgTradeUpdateAccepted(trade);
-					else if (type=="completed" && trade)
-						emit msgTradeUpdateCompleted(trade);
-					else if (type=="rejected" && trade)
-						emit msgTradeUpdateRejected(trade, e.attributeNode(QString("actor")).value().toInt());
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set
