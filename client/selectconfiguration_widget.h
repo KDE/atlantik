@@ -39,18 +39,17 @@ public:
 	SelectConfiguration(QWidget *parent, const char *name=0);
 	~SelectConfiguration();
 
-	void initPage();
 	void setCanStart(const bool &canStart);
 	QString hostToConnect() const;
 	int portToConnect();
 
 private slots:
-	void connectClicked();
 	void slotTokenButtonClicked();
 	void slotTokenSelected(const QString &name);
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void optionChanged();
 	void slotEndUpdate();
+	void initGame();
 
 signals:
 	void startGame();
