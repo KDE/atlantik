@@ -344,6 +344,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					m_clientId = a.value().toInt();
+					// TODO: move to Atlantik::slotNetworkConnected(), not needed on auto-join
 					cmdGamesList();
 				}
 			}
