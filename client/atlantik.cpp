@@ -136,6 +136,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_input = new QLineEdit(m_mainWidget, "input");
 	m_mainLayout->addWidget(m_input, 2, 0);
 
+	m_serverMsgs->setFocusProxy(m_input);
+
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
 	// Set stretching where we want it.
