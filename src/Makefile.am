@@ -5,7 +5,8 @@ LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
 SUBDIRS =
 
-kmonop_SOURCES = board.cpp main.cpp portfolioview.cpp estateview.cpp newgamedlg.cpp kmonop.cpp portfolioestate.cpp
+kmonop_SOURCES = main.cpp kmonop.cpp board.cpp estateview.cpp network.cpp \
+newgamedlg.cpp portfolioestate.cpp portfolioview.cpp
 
 KDE_ICON = kmonop
 

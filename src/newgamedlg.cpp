@@ -1,14 +1,14 @@
 #include <qlayout.h>
 #include <iostream.h>
 #include <qlabel.h>
-#include <qsocket.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 
 #include "newgamedlg.moc"
-
+#include "network.h"
+ 
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
 {
 	select_server = new QWidget(this);
@@ -44,7 +44,7 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	setNextEnabled(select_server, false);
 
 	select_game = new SelectGame(this, "select_game");
-	addPage(select_game, QString("Connecting to server..."));
+	addPage(select_game, QString("Select or create a game:"));
 	setHelpEnabled(select_game, false);
 }
 
@@ -72,11 +72,6 @@ void NewGameWizard::slotInit(const QString &_name)
 	}
 }
 
-void NewGameWizard::slotConnected()
-{
-	setTitle(select_game, QString("Connected. Fetching list of games..."));
-}
-
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	QVBoxLayout *layout = new QVBoxLayout(this);
@@ -85,14 +80,23 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	QLabel *header_label = new QLabel(this);
 	header_label->setText("No network connection to server made yet.");
 	layout->addWidget(header_label);
+	
+	status_label = new QLabel(this);
+	status_label->setText("Connecting to server...");
+	layout->addWidget(status_label);
 }
 
 void SelectGame::initPage()
 {
-	QSocket *sock = new QSocket(this, "mysock");
-	sock->connectToHost("localhost", 1234);
-	connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
-	connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
+	GameNetwork *netw = new GameNetwork(this, "network");
+	netw->connectToHost("localhost", 1234);
+	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
+	connect(netw, SIGNAL(readyRead()), netw, SLOT(slotRead()));
+}
+
+void SelectGame::slotConnected()
+{
+	status_label->setText(QString("Connected. Fetching list of games..."));
 }
 
 NewGameDialog::NewGameDialog(QWidget *parent, const char *name, bool modal) : KDialog(parent, name, modal)

@@ -10,9 +10,17 @@
 
 class SelectGame : public QWidget
 {
+Q_OBJECT
+
 	public:
 		SelectGame(QWidget *parent, const char *name=0);
 		void initPage();
+
+	public slots:
+		void slotConnected();	
+
+	private:
+		QLabel *status_label;
 };
 
 class NewGameWizard : public KWizard
@@ -26,7 +34,6 @@ Q_OBJECT
 	public slots:
 		void slotListClick(QListViewItem *);
 		void slotInit(const QString &);
-		void slotConnected();	
 
 	private:
 		QListView *list;
