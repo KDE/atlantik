@@ -7,7 +7,6 @@ extern QColor kmonop_lgray, kmonop_dgray;
 
 PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-    QColor kmonop_lgray(187, 187, 187);
     color = kmonop_lgray;
     QSize s(12,14);
     setFixedSize(s);
@@ -30,8 +29,7 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
 	{
-		if (qpixmap!=0)
-			delete qpixmap;
+		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 		
 		QPainter painter;

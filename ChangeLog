@@ -1,3 +1,10 @@
+2001-05-03
+----------
+
+- Various code cleanups, keeping things neat.
+- Playerlist and gamelist are automatically sent by server, manual request
+  no longer required.
+
 2001-05-02
 ----------
 

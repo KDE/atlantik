@@ -35,7 +35,7 @@ KMonop::KMonop (const char *name) :
 
   output = new QTextView(main, "output");
   output->setMinimumHeight(70);
-  server = new QLineEdit(main, "server");
+  input = new QLineEdit(main, "input");
   KMonopBoard *board = new KMonopBoard(main, "board");
   layout->addWidget(port, 0, 0);
   layout->addWidget(port2, 1, 0);
@@ -43,44 +43,9 @@ KMonop::KMonop (const char *name) :
   layout->addMultiCellWidget(board, 0, 3, 1, 1);
   layout->setRowStretch(2, 1); // make board+output stretch, not the rest
   layout->setColStretch(1, 1); // make board stretch, not the rest
-  layout->addWidget(server, 3, 0);
-//  sock = new QSocket(this, "mysock");
-//  sock->connectToHost("localhost", 1234);
-//  connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
-//  connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
-//  connect(server, SIGNAL(returnPressed()), this, SLOT(slotWrite()));
+  layout->addWidget(input, 3, 0);
+
   setView(main);
-}
-
-void KMonop::slotConnected()
-{
-	output->append("we are connected\n");
-	cout << "wow, we are connected. cheer!" << endl;
-	statusBar()->message("connected..", 2000);
-}
-
-void KMonop::slotRead()
-{
-	QString str;
-	cout << "wow, we can read. cheer!\n" << endl;
-
-	while(sock->canReadLine())
-	{
-		str = sock->readLine();
-		output->append(str);
-		cout << "[[[ " + str + " ]]] " << endl;
-	}
-
-	cout << "no more complete lines" << endl;
-}
-
-void KMonop::slotWrite()
-{
-	QString str(server->text());
-	str.append("\n");
-	output->append(str);
-	sock->writeBlock(str.latin1(), strlen(str.latin1()));
-	server->setText("");
 }
 
 void KMonop::slotNewGame()

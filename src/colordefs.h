@@ -1,5 +1,5 @@
-#ifndef KMONOP_COLORDEFS_H
-#define KMONOP_COLORDEFS_H
+#ifndef __KMONOP_COLORDEFS_H__
+#define __KMONOP_COLORDEFS_H__
 
 QColor kmonop_dpurple(102, 51, 102);
 QColor kmonop_lblue(153, 204, 255);

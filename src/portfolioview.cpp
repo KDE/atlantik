@@ -114,8 +114,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 	return;
 	if (b_recreate)
 	{
-		if (qpixmap!=0)
-			delete qpixmap;
+		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
 		QPainter painter;

@@ -3,8 +3,6 @@
 
 #include <ktmainwindow.h>
 #include <qtextview.h>
-#include <qsocket.h>
-#include <qdom.h>
 
 #include "newgamedlg.h"
 #include "network.h"
@@ -19,17 +17,12 @@ class KMonop : public KTMainWindow
 		KMonop(const char *name=0);
 		
 	public slots:
-		void slotConnected();
-		void slotRead();
-		void slotWrite();
 		void slotNewGame();
 		void slotMsgError(QString);
 		void slotMsgStartGame(QString);
 	
 	private:
-		QSocket *sock;
-		QLabel *serverlabel;
-		QLineEdit *server;
+		QLineEdit *input;
 		QTextView *output;
 		NewGameWizard *wizard;
 		GameNetwork *netw;

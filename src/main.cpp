@@ -26,8 +26,6 @@ int main(int argc, char *argv[])
 
 	KApplication kapplication;
 
-//	KApplication kapplication(argc, argv, "kmonop");
-	
 	if (kapplication.isRestored())
 		RESTORE(KMonop)
 	else
@@ -37,8 +35,6 @@ int main(int argc, char *argv[])
 		kmonop->setCaption("Monopoly for KDE");
 		kmonop->show();
 	}
-
-//	kapplication.setMainWidget(&window);
 
 	return kapplication.exec();
 }

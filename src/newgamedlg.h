@@ -65,7 +65,6 @@ Q_OBJECT
 		~NewGameWizard(void);
 
 	public slots:
-		void slotListClick();
 		void slotValidateNext();
 		void slotInit(const QString &);
 

@@ -37,9 +37,9 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 	qbox->addWidget(list);
 
 	// Belongs in select_server class
-	connect(list, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(slotListClick()));
-	connect(list, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClick()));
-	connect(list, SIGNAL(pressed(QListViewItem *)), this, SLOT(slotListClick()));
+	connect(list, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(slotValidateNext()));
+	connect(list, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotValidateNext()));
+	connect(list, SIGNAL(pressed(QListViewItem *)), this, SLOT(slotValidateNext()));
 
 	// Belongs here
 	connect(this, SIGNAL(selected(const QString &)), this, SLOT(slotInit(const QString &)));
@@ -47,7 +47,6 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 	addPage(select_server, QString("Select a game server to connect to:"));
 	setHelpEnabled(select_server, false);
 	setNextEnabled(select_server, false);
-
 
 	// Select game page
 	select_game = new SelectGame(netw, this, "select_game");
@@ -73,19 +72,16 @@ NewGameWizard::~NewGameWizard()
 {
 }
 
-// Integrate with slotValidateNext()
-void NewGameWizard::slotListClick()
-{
-	if (list->selectedItem())
-		setNextEnabled(select_server, true);
-	else
-		setNextEnabled(select_server, false);
-}
-
 void NewGameWizard::slotValidateNext()
 {
 	// TODO: different slots for different pages
 	// or: passing widget pointer to slot and evaluate
+
+	if (list->selectedItem())
+		setNextEnabled(select_server, true);
+	else
+		setNextEnabled(select_server, false);
+
 	if (select_game->validateNext())
 	{
 		setNextEnabled(select_game, true);
@@ -245,9 +241,6 @@ void ConfigureGame::initPage()
 		str.append(game_id);
 		netw->writeData(str.latin1());
 	}
-	
-	// Fetch playerlist
-//	netw->writeData(".gp"); // redundant, server prints list at create/join
 }
 
 void ConfigureGame::setGameId(const QString &_id)
