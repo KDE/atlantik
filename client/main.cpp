@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 		I18N_NOOP("Atlantik"), ATLANTIK_VERSION_STRING,
 		I18N_NOOP("The Atlantic board game"),
 		KAboutData::License_GPL,
-		I18N_NOOP("(c) 1998-2002 Rob Kaper"),
+		I18N_NOOP("(c) 1998-2003 Rob Kaper"),
 		I18N_NOOP("KDE client for playing Monopoly-like games on the monopd network."),
 		"http://unixcode.org/atlantik/"
 		);
