@@ -1,5 +1,4 @@
-#warning remove iostream output
-#include <iostream.h>
+#include <kdebug.h>
 
 #include "network.moc"
 #include "atlantik.h"
@@ -121,11 +120,11 @@ void GameNetwork::writeData(QString msg)
 	msg.append("\n");
 	if (state()==QSocket::Connection)
 	{
-		cout << "out [" << msg << "]" << endl;
+		kdDebug() << "out [" << msg << "]" << endl;
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
 	}
 	else
-		cout << "not [" << msg << "]" << endl;
+		kdDebug() << "not [" << msg << "]" << endl;
 }
 
 void GameNetwork::slotRead()
@@ -141,12 +140,12 @@ void GameNetwork::slotRead()
 
 void GameNetwork::processMsg(QString str)
 {
-	cout << "processing msg: " + str << endl;
+	kdDebug() << "processing msg: " + str << endl;
 	msg.setContent(str);
 	QDomElement e = msg.documentElement();
 	if (e.tagName() != "monopd")
 	{
-		cout << "invalid message: " << str << endl;
+		kdDebug() << "invalid message: " << str << endl;
 		return;
 	}
 	QDomNode n = e.firstChild();
@@ -292,7 +291,7 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("bgcolor"));
 					if (!a.isNull())
 					{
-						cout << "emit bgcolor" << endl;
+						kdDebug() << "emit bgcolor" << endl;
 						emit msgEstateUpdateBackgroundColor(estateid, a.value());
 					}
 

@@ -1,10 +1,10 @@
 #include <qlayout.h>
-#warning remove iostream output
-#include <iostream.h>
 #include <qlabel.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <qlineedit.h>
+
+#include <kdebug.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
@@ -68,7 +68,7 @@ void NewGameWizard::slotValidateNext()
 
 void NewGameWizard::slotInit(const QString &_name)
 {
-	cout << "initPage: " << _name << endl;
+	kdDebug() << "initPage: " << _name << endl;
 	if (title(select_game) == _name)
 		select_game->initPage();
 	if (title(configure_game) == _name)

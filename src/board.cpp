@@ -1,7 +1,6 @@
 #include <qpainter.h>
 
-#warning remove iostream output
-#include <iostream.h>
+#include <kdebug.h>
 
 #include "board.moc"
 #include "estateview.h"
@@ -116,7 +115,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		jumpToken(token[i], 0, false);
 		token[i]->hide();
 	}
-	cout << "ending board ctor" << endl;
+	kdDebug() << "ending board ctor" << endl;
 }
 
 void AtlantikBoard::addEstateView(Estate *estate)
@@ -169,7 +168,7 @@ void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
 
 void AtlantikBoard::moveToken(Token *token, int destination)
 {
-	cout << "moving piece from " << token->location() << " to " << destination << endl;
+	kdDebug() << "moving piece from " << token->location() << " to " << destination << endl;
 
 	// Set token destination
 	move_token = token;
@@ -225,17 +224,17 @@ void AtlantikBoard::slotMoveToken()
 	// Where are we?
 	curX = move_token->geometry().x();
 	curY = move_token->geometry().y();
-	cout << "we are at " << curX << "," << curY << endl;
+	kdDebug() << "we are at " << curX << "," << curY << endl;
 
 	// Where do we want to go today?
 	dest = move_token->location() + 1;
 	if (dest==40)
 		dest = 0;
-	cout << "going from " << move_token->location() << " to " << dest << endl;
+	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
 	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
 	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
-	cout << "going to " << destX << "," << destY << endl;
+	kdDebug() << "going to " << destX << "," << destY << endl;
 
 	if (curX == destX && curY == destY)
 	{

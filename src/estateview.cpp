@@ -5,6 +5,8 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 
+#include <kdebug.h>
+
 #include <kpixmapeffect.h>
 #include <kstandarddirs.h>
 #include <kpopupmenu.h>
@@ -55,7 +57,7 @@ EstateView::EstateView(Estate *estate, int orientation, const QColor &color, con
 
 	QToolTip::add(this, m_estate->name());
 
-	cout << "end of estateview ctor" << endl;
+	kdDebug() << "end of estateview ctor" << endl;
 }
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
