@@ -240,7 +240,7 @@ void PortfolioView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-		emit newTrade(m_player->playerId());
+		emit newTrade(m_player);
 		break;
 	}
 }

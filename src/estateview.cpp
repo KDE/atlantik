@@ -400,15 +400,15 @@ void EstateView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-		emit estateToggleMortgage(m_estate->estateId());
+		emit estateToggleMortgage(m_estate);
 		break;
 
 	case 1:
-		emit estateHouseBuy(m_estate->estateId());
+		emit estateHouseBuy(m_estate);
 		break;
 
 	case 2:
-		emit estateHouseSell(m_estate->estateId());
+		emit estateHouseSell(m_estate);
 		break;
 	}
 }

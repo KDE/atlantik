@@ -44,24 +44,24 @@ void GameNetwork::cmdTokenConfirmation(int estateId)
 	writeData(msg);
 }
 
-void GameNetwork::estateToggleMortgage(int estateId)
+void GameNetwork::estateToggleMortgage(Estate *estate)
 {
 	QString msg(".em");
-	msg.append(QString::number(estateId));
+	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::estateHouseBuy(int estateId)
+void GameNetwork::estateHouseBuy(Estate *estate)
 {
 	QString msg(".hb");
-	msg.append(QString::number(estateId));
+	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::estateHouseSell(int estateId)
+void GameNetwork::estateHouseSell(Estate *estate)
 {
 	QString msg(".hs");
-	msg.append(QString::number(estateId));
+	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
@@ -85,10 +85,10 @@ void GameNetwork::cmdChat(QString msg)
 {	writeData(msg);
 }
 
-void GameNetwork::newTrade(int playerId)
+void GameNetwork::newTrade(Player *player)
 {
 	QString msg(".Tn");
-	msg.append(QString::number(playerId));
+	msg.append(QString::number(player ? player->playerId() : -1));
 	writeData(msg);
 }
 

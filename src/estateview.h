@@ -27,9 +27,9 @@ Q_OBJECT
 		void slotResizeAftermath();
 
 	signals:
-		void estateToggleMortgage(int estateId);
-		void estateHouseBuy(int estateId);
-		void estateHouseSell(int estateId);
+		void estateToggleMortgage(Estate *estate);
+		void estateHouseBuy(Estate *estate);
+		void estateHouseSell(Estate *estate);
 
 	protected:
 		void paintEvent(QPaintEvent *);

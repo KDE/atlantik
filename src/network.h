@@ -32,13 +32,13 @@ private slots:
 	void joinGame(int gameId);
 	void startGame();
 	void buyEstate();
-	void estateToggleMortgage(int estateId);
-	void estateHouseBuy(int estateId);
-	void estateHouseSell(int estateId);
+	void estateToggleMortgage(Estate *estate);
+	void estateHouseBuy(Estate *estate);
+	void estateHouseSell(Estate *estate);
 	void jailCard();
 	void jailPay();
 	void jailRoll();
-	void newTrade(int playerId);
+	void newTrade(Player *player);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 
 public slots:

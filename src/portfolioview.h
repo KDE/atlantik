@@ -24,7 +24,7 @@ protected:
 	void mousePressEvent(QMouseEvent *);
 
 signals:
-	void newTrade(int playerId);
+	void newTrade(Player *player);
 
 private slots:
 	void playerChanged();
