@@ -3,6 +3,7 @@
 
 - Proper use of host and port in kio_atlantik: fixes problems with
   invitations sent by newer clients.
+- bugfix: scroll player views when they get too big. (#69043)
 
 0.7.1
 -----

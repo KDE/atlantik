@@ -19,7 +19,7 @@
 #include <qcolor.h>
 #include <qdatetime.h>
 #include <qlineedit.h>
-#include <qscrollbar.h>
+#include <qscrollview.h>
 #include <qpopupmenu.h>
 
 #include <kaboutapplication.h>
@@ -159,11 +159,18 @@ Atlantik::Atlantik ()
 	setCentralWidget(m_mainWidget);
 
 	// Vertical view area for portfolios.
-	m_portfolioWidget = new QWidget(m_mainWidget, "pfwidget");
-	m_mainLayout->addWidget(m_portfolioWidget, 0, 0);
-	m_portfolioWidget->show();
-	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
+	m_portfolioScroll = new QScrollView(m_mainWidget, "pfScroll");
+	m_mainLayout->addWidget( m_portfolioScroll, 0, 0 );
+	m_portfolioScroll->setHScrollBarMode( QScrollView::AlwaysOff );
+	m_portfolioScroll->setResizePolicy( QScrollView::AutoOneFit );
+	m_portfolioScroll->setFixedHeight( 200 );
+	m_portfolioScroll->hide();
 
+	m_portfolioWidget = new QWidget( m_portfolioScroll->viewport(), "pfWidget" );
+	m_portfolioScroll->addChild( m_portfolioWidget );
+	m_portfolioWidget->show();
+
+	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
 	m_portfolioViews.setAutoDelete(true);
 
 	// Nice label
@@ -792,6 +799,8 @@ PortfolioView *Atlantik::addPortfolioView(Player *player)
 {
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
+	if ( m_portfolioViews.count() > 0 && m_portfolioScroll->isHidden() )
+		m_portfolioScroll->show();
 
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));

@@ -29,6 +29,8 @@
 #include "portfolioview.h"
 #include "board.h"
 
+class QScrollView;
+
 class AtlanticCore;
 class AtlantikNetwork;
 
@@ -232,6 +234,7 @@ private:
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
 
+	QScrollView *m_portfolioScroll;
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;
