@@ -46,6 +46,7 @@ public:
 	void addToken(Player *player, EstateView *location = 0);
 	void indicateUnownedChanged();
 	QPtrList<EstateView> estateViews();
+	QWidget *centerWidget();
 
 public slots:
 	void slotMoveToken();
