@@ -27,6 +27,7 @@ Bugfixes
 For 0.2.1
 ---------
 
+- define minimum size for AtlantikBoard and center widget
 - re-order comboboxes in trade widget
 - kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui
@@ -48,9 +49,10 @@ v support for <display>
     - show instead of empty widget
     - availability influences buttons
     - buttons connect to network API
+    - nice paints with more artwork/effects
 - Different token placement when in jail
 - fix portfolio
-  - non street estates in portfolio
+  - non street estates in portfolio (depends on proper monopd groups)
   - Chance/CC cards in portfolio
 - Option to configure toolbars (at least be able to save size/text settings)
 - support for trading jail cards (depends on monopd)
