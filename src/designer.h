@@ -31,15 +31,18 @@ class AtlanticDesigner : public KMainWindow
 	void open();
 	void openNew();
 	void save();
+	void saveAs();
 	void changeEstate(int);
 	void changeEstate(Estate *);
 	void movePlayer(Estate *);
+	void setPlayerAtBeginning();
 
 	void smaller();
 	void larger();
 
 	private:
 	void openFile(const QString &);
+	bool warnClose();
 
 	EstateEdit *editor;
 	QPtrList<ConfigEstate> estates;

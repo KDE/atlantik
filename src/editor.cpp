@@ -24,6 +24,11 @@ ConfigEstate::ConfigEstate(int estateId) : Estate(estateId)
 	m_group = -1;
 }
 
+void ConfigEstate::setChanged(bool b)
+{
+	m_changed = b;
+}
+
 void ConfigEstate::setType(const int type)
 {
 	if (m_type != type)
@@ -98,9 +103,9 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 	layout->addWidget(nameEdit);
 	connect(nameEdit, SIGNAL(returnPressed()), this, SIGNAL(somethingChanged()));
 
-	layout->addStretch();
+	layout->addStretch(2);
 
-	QGroupBox *colorGroupBox = new QGroupBox(i18n("Colors"), m_center);
+	QGroupBox *colorGroupBox = new QGroupBox(m_center);
 	layout->addWidget(colorGroupBox);
 	
 	QGridLayout *colorLayout = new QGridLayout(colorGroupBox, 2, 2, 6);
@@ -113,6 +118,8 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 	colorLayout->addWidget(bgButton, 1, 1);
 	connect(bgButton, SIGNAL(changed(const QColor &)), this, SIGNAL(somethingChanged()));
 
+	layout->addStretch(3);
+
 	QHBoxLayout *typeLayout = new QHBoxLayout(layout, 6);
 	QLabel *typeLabel = new QLabel(i18n("Type"), m_center);
 	typeLayout->addWidget(typeLabel);
@@ -120,23 +127,9 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 	typeLayout->addWidget(typeCombo);
 	connect(typeCombo, SIGNAL(activated(int)), this, SIGNAL(somethingChanged()));
 
-	QHBoxLayout *groupLayout = new QHBoxLayout(layout, 6);
-	QLabel *groupLabel = new QLabel(i18n("Group"), m_center);
-	groupLayout->addWidget(groupLabel);
-	groupCombo = new QComboBox(false, m_center, "Group Combo");
-	groupLayout->addWidget(groupCombo);
-	connect(groupCombo, SIGNAL(activated(int)), this, SIGNAL(somethingChanged()));
-
 	configureButton = new QPushButton(m_center);
 	layout->addWidget(configureButton);
 	connect(configureButton, SIGNAL(clicked()), this, SLOT(configure()));
-
-	QStringList groups(i18n("None"));
-	for (int i = 0; i <= 20; i++)
-	{
-		groups.append(QString::number(i));
-	}
-	groupCombo->insertStringList(groups);
 
 	QStringList types(i18n("Street"));
 	types.append(i18n("Railroad"));
@@ -156,7 +149,6 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 void EstateEdit::setEstate(ConfigEstate *estate)
 {
 	typeCombo->setCurrentItem(estate->type());
-	groupCombo->setCurrentItem(estate->group() + 1);
 	nameEdit->setText(estate->name());
 	fgButton->setColor(estate->color());
 	bgButton->setColor(estate->bgColor());
@@ -174,11 +166,9 @@ ConfigEstate *EstateEdit::saveEstate()
 	estate->setName(nameEdit->text());
 	estate->setColor(fgButton->color());
 	estate->setBgColor(bgButton->color());
-	estate->setGroup(groupCombo->currentItem() - 1);
 
 	if (curType != Street)
 	{
-		groupCombo->setCurrentItem(0);
 		fgButton->setEnabled(false);
 		fgButton->setColor(QColor("zzzzzz"));
 		estate->setColor(QColor("zzzzzz"));
@@ -199,10 +189,10 @@ void EstateEdit::configure()
 	switch (typeCombo->currentItem())
 	{
 		case Street:
-		dialog = new StreetDlg(estate);
+		dialog = new StreetDlg(estate, this);
 		break;
 		case Tax:
-		dialog = new TaxDlg(estate);
+		dialog = new TaxDlg(estate, this);
 		break;
 		default:
 		return;
@@ -276,11 +266,29 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name, bool mod
 	houses5->setValue(estate->rent(5));
 
 	QFrame *PricesPage = addPage(i18n("Prices"));
-	QVBoxLayout *pricesBox = new QVBoxLayout(PricesPage);
-	price = new QSpinBox(0, 3000, 1, PricesPage);
-	pricesBox->addWidget(price);
+	QGridLayout *pricesBox = new QGridLayout(PricesPage, 2, 2);
+	pricesBox->addWidget(new QLabel(i18n("Price"), PricesPage), 0, 0);
+	pricesBox->addWidget(price = new QSpinBox(0, 3000, 25, PricesPage), 0, 1);
 	price->setSuffix(i18n("$"));
 	price->setValue(estate->price());
+	pricesBox->addWidget(new QLabel(i18n("House price"), PricesPage), 1, 0);
+	pricesBox->addWidget(housePrice = new QSpinBox(0, 3000, 25, PricesPage), 1, 1);
+	housePrice->setSuffix(i18n("$"));
+	housePrice->setValue(estate->housePrice());
+
+	QFrame *GroupPage = addPage(i18n("Group"));
+	QHBoxLayout *groupLayout = new QHBoxLayout(GroupPage, 6);
+	QLabel *groupLabel = new QLabel(i18n("Group"), GroupPage);
+	groupLayout->addWidget(groupLabel);
+	groupCombo = new QComboBox(false, GroupPage, "Group Combo");
+	QStringList groups(i18n("None"));
+	for (int i = 0; i <= 20; i++)
+	{
+		groups.append(QString::number(i));
+	}
+	groupCombo->insertStringList(groups);
+	groupLayout->addWidget(groupCombo);
+	groupCombo->setCurrentItem(estate->group() + 1);
 }
 
 void StreetDlg::slotOk()
@@ -292,6 +300,7 @@ void StreetDlg::slotOk()
 	estate->setRent(4, houses4->value());
 	estate->setRent(5, houses5->value());
 	estate->setPrice(price->value());
+	estate->setGroup(groupCombo->currentItem() - 1);
 	KDialogBase::slotOk();
 }
 

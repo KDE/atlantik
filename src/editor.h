@@ -37,6 +37,7 @@ class ConfigEstate : public Estate
 	int taxPercentage() {return m_taxPercentage; }
 	void setTaxPercentage(const int);
 
+	void setChanged(bool);
 
 	private:
 	int m_type;
@@ -72,7 +73,6 @@ class EstateEdit : public AtlantikBoard
 	KColorButton *bgButton;
 	QPushButton *configureButton;
 	QComboBox *typeCombo;
-	QComboBox *groupCombo;
 	QLineEdit *nameEdit;
 	QWidget *centerWidget;
 
@@ -117,6 +117,8 @@ class StreetDlg : public KDialogBase
 	QSpinBox *houses4;
 	QSpinBox *houses5;
 	QSpinBox *price;
+	QSpinBox *housePrice;
+	QComboBox *groupCombo;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include <kmainwindow.h>
 #include <qptrlist.h>
+#include <qtimer.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <qfile.h>
@@ -37,6 +38,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	(void) KStdAction::open(this, SLOT(open()), actionCollection());
 	(void) KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
+	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
 
 	(void) new KAction(i18n("&Larger"), "zoom+", 0, this, SLOT(larger()), actionCollection(), "larger");
 	(void) new KAction(i18n("&Smaller"), "zoom-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
@@ -64,13 +66,13 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	types.append("go");
 	types.append("TODO");
 
+	isMod = false;
 	openNew();
 
 	doCaption(false);
 
 	resize(350, 400);
 	applyMainWindowSettings(KGlobal::config(), "DesignerTopLevelWindow");
-	isMod = false;
 }
 
 AtlanticDesigner::~AtlanticDesigner()
@@ -80,13 +82,36 @@ AtlanticDesigner::~AtlanticDesigner()
 
 void AtlanticDesigner::openNew()
 {
+	if (warnClose())
+		return;
 	filename = QString::null;
 	KStandardDirs *dirs = KGlobal::dirs();
 	openFile(dirs->findResource("appdata", "defaultcity.conf"));
 }
 
+bool AtlanticDesigner::warnClose()
+{
+	if (isMod)
+	{
+		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to gameboard. Save them?"), i18n("Unsaved changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
+		switch(result)
+		{
+		case KMessageBox::Yes:
+			save();
+			// fallthrough
+		case KMessageBox::No:
+			return false;
+		case KMessageBox::Cancel:
+			return true;
+		}
+	}
+	return false;
+}
+
 void AtlanticDesigner::open()
 {
+	if (warnClose())
+		return;
 	filename = KFileDialog::getOpenFileName();
 	openFile(filename);
 }
@@ -206,6 +231,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			estate->setRent(i, rent[i]);
 		estate->setTax(tax);
 		estate->setTaxPercentage(taxPercentage);
+		estate->setChanged(false);
 		estates.append(estate);
 
 		connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
@@ -217,12 +243,27 @@ void AtlanticDesigner::openFile(const QString &filename)
 	editor->setEstate(estates.first());
 
 	// our superstar!
+	delete m_player;
 	m_player = new Player(1);
 	editor->addToken(m_player);
-	movePlayer(estates.first());
+	QTimer::singleShot(1000, this, SLOT(setPlayerAtBeginning()));
 
 	isMod = false;
 	doCaption(false);
+}
+
+void AtlanticDesigner::setPlayerAtBeginning()
+{
+	movePlayer(estates.first());
+}
+
+void AtlanticDesigner::saveAs()
+{
+	QString oldfilename = filename;
+	filename = QString::null;
+	save();
+	if (filename == QString::null)
+		filename = oldfilename;
 }
 
 void AtlanticDesigner::save()
@@ -283,21 +324,8 @@ void AtlanticDesigner::save()
 
 void AtlanticDesigner::closeEvent(QCloseEvent *e)
 {
-	if (isMod)
-	{
-		int result = KMessageBox::warningYesNoCancel(this, i18n("There are unsaved changes to gameboard. Save them?"), i18n("Unsaved changes"), i18n("Save"), i18n("Discard"), "DiscardAsk", true);
-		switch(result)
-		{
-		case KMessageBox::Yes:
-			save();
-			// fallthrough
-		case KMessageBox::No:
-			break;
-		case KMessageBox::Cancel:
-			return;
-		}
-	}
-
+	if (warnClose())
+		return;
 	saveMainWindowSettings(KGlobal::config(), "DesignerTopLevelWindow");
 	e->accept();
 }
