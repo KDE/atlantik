@@ -72,6 +72,8 @@ signals:
 	void msgEstateUpdateMortgaged(int, bool);
 	void msgEstateUpdateCanToggleMortgage(int, bool);
 	void msgEstateUpdateCanBeOwned(int, bool);
+	void estateUpdateCanBuyHouses(int, bool);
+	void estateUpdateCanSellHouses(int, bool);
 	void estateUpdateFinished(int);
 
 	/**

@@ -354,39 +354,33 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_estate->name());
+
+		// Mortgage toggle
 		if (m_estate->isMortgaged())
 			rmbMenu->insertItem(i18n("Unmortgage"), 0);
 		else
 			rmbMenu->insertItem(i18n("Mortgage"), 0);
 
+		if (!(m_estate->canToggleMortgage()))
+			rmbMenu->setItemEnabled(0, false);
+
+		// Estate construction
 		if (m_estate->houses()>=4)
 			rmbMenu->insertItem(i18n("Build hotel"), 1);
 		else
 			rmbMenu->insertItem(i18n("Build house"), 1);
 
+		if (!(m_estate->canBuyHouses()))
+			rmbMenu->setItemEnabled(1, false);
+
+		// Estate destruction
 		if (m_estate->houses()==5)
 			rmbMenu->insertItem(i18n("Sell hotel"), 2);
 		else
 			rmbMenu->insertItem(i18n("Sell house"), 2);
 
-		// Disable all if we don't own it
-		if (!m_estate->ownedBySelf())
-		{
-			rmbMenu->setItemEnabled(0, false);
-			rmbMenu->setItemEnabled(1, false);
+		if (!(m_estate->canSellHouses()))
 			rmbMenu->setItemEnabled(2, false);
-		}
-		else
-		{
-			// Mortgaged or full? Not building any houses
-			if (!(m_estate->canToggleMortgage()))
-				rmbMenu->setItemEnabled(0, false);
-
-			// TODO: can_build/can_sell monopd support
-			// Empty? Not selling any houses
-			if (!m_estate->houses())
-				rmbMenu->setItemEnabled(2, false);
-		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		QPoint g = QCursor::pos();

@@ -8,7 +8,7 @@ Estate::Estate(int estateId) : QObject()
 	m_estateId = estateId;
 	m_owner = 0;
 	m_houses = 0;
-	m_canBeOwned = m_isMortgaged = m_canToggleMortgage = false;
+	m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
 	m_bgColor = QColor();
 	m_color = QColor();
 }
@@ -74,10 +74,19 @@ void Estate::setBgColor(const QColor color)
 void Estate::setCanBeOwned(const bool canBeOwned)
 {
 	if (m_canBeOwned != canBeOwned)
-	{
 		m_canBeOwned = canBeOwned;
-		// TODO: Update view?
-	}
+}
+
+void Estate::setCanBuyHouses(const bool canBuyHouses)
+{
+	if (m_canBuyHouses != canBuyHouses)
+		m_canBuyHouses = canBuyHouses;
+}
+
+void Estate::setCanSellHouses(const bool canSellHouses)
+{
+	if (m_canSellHouses != canSellHouses)
+		m_canSellHouses = canSellHouses;
 }
 
 void Estate::setIsMortgaged(const bool isMortgaged)

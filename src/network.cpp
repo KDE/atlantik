@@ -352,6 +352,14 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeOwned(estateId, a.value().toInt());
 
+					a = e.attributeNode(QString("can_buy_houses"));
+					if (!a.isNull())
+						emit estateUpdateCanBuyHouses(estateId, a.value().toInt());
+
+					a = e.attributeNode(QString("can_sell_houses"));
+					if (!a.isNull())
+						emit estateUpdateCanSellHouses(estateId, a.value().toInt());
+
 					kdDebug() << "emit estateUpdateFinished(" << estateId << ")" << endl;
 					emit estateUpdateFinished(estateId);
 				}

@@ -190,6 +190,9 @@ public slots:
 	 */
 	void slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned);
 
+	void slotEstateUpdateCanBuyHouses(int estateId, bool canBuyHouses);
+	void slotEstateUpdateCanSellHouses(int estateId, bool canSellHouses);
+
 	void slotEstateUpdateFinished(int estateId);
 
 	/**

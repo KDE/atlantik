@@ -21,6 +21,10 @@ public:
 	unsigned int houses() { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);
 	const bool canBeOwned() { return m_canBeOwned; }
+	void setCanBuyHouses(const bool canBuyHouses);
+	const bool canBuyHouses() { return m_canBuyHouses; }
+	void setCanSellHouses(const bool canSellHouses);
+	const bool canSellHouses() { return m_canSellHouses; }
 	void setIsMortgaged(const bool isMortgaged);
 	const bool isMortgaged() { return m_isMortgaged; }
 	void setCanToggleMortgage(const bool canToggleMortgage);
@@ -43,7 +47,7 @@ private:
 	QString m_name;
 	Player *m_owner;
 	unsigned int m_houses;
-	bool m_canBeOwned, m_isMortgaged, m_canToggleMortgage;
+	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
 	QColor m_bgColor, m_color;
 };
 

@@ -1,3 +1,9 @@
+2001-11-15 (kaper)
+----------
+
+- Even more dynamic thinking: estateview actions now completely depend on
+  server data instead of own checks.
+
 2001-11-14 (kaper)
 ----------
 
