@@ -186,6 +186,13 @@ void AtlantikNetwork::auctionBid(Auction *auction, int amount)
 	writeData(msg);
 }
 
+void AtlantikNetwork::setImage(const QString &name)
+{
+	QString msg(".pi");
+	msg.append(name);
+	writeData(msg);
+}
+
 void AtlantikNetwork::jailPay()
 {
 	writeData(".jp");

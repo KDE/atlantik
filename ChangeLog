@@ -1,13 +1,13 @@
-For 0.5.0
----------
+0.5.0
+-----
 
-v fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
-v player name change doesn't make it to trade money items
-v fixed token positioning on game start
-v fixes to work with monopd 0.6.0 API
+- fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
+- player name change doesn't make it to trade money items
+- fixed token positioning on game start
+- fixes to work with monopd 0.6.0 API
 
-2002-07-29 (atlantik-0.4.0)
-----------
+0.4.0
+-----
 
 v token geometry is now aware of estate colour captions
 v queue display widgets

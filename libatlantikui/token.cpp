@@ -89,15 +89,15 @@ void Token::loadIcon()
 	delete m_image;
 	m_image = 0;
 
-	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 	if (KStandardDirs::exists(filename))
 		m_image = new QPixmap(filename);
 
 	if (!m_image)
 	{
-		m_imageName = "hamburger";
+		m_imageName = "hamburger.png";
 
-		filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+		filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 		if (KStandardDirs::exists(filename))
 			m_image = new QPixmap(filename);
 	}

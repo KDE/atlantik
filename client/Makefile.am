@@ -5,7 +5,7 @@ atlantik_LDADD = ../libatlantikui/libatlantikui.la ../libatlantikclient/libatlan
 
 atlantik_SOURCES = atlantik.cpp configdlg.cpp main.cpp monopigator.cpp \
 	selectconfiguration_widget.cpp selectgame_widget.cpp \
-	selectserver_widget.cpp
+	selectserver_widget.cpp tokenwidget.cpp
 
 KDE_ICON = atlantik
 

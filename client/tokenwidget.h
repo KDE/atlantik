@@ -14,15 +14,30 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#ifndef ATLANTIK_MAIN_H
-#define ATLANTIK_MAIN_H
+#ifndef ATLANTIK_TOKENWIDGET_H
+#define ATLANTIK_TOKENWIDGET_H
 
-#define	ATLANTIK_VERSION 060
-#define	ATLANTIK_VERSION_STRING "0.6.0 (CVS >= 20021219)"
-#define ATLANTIK_VERSION_MAJOR 0
-#define ATLANTIK_VERSION_MINOR 6
-#define ATLANTIK_VERSION_RELEASE 0
+#include <qwidget.h>
 
-int main(int, char *[]);
+class QVBoxLayout;
+
+class KFileItem;
+
+class TokenWidget : public QWidget
+{
+Q_OBJECT
+
+public:
+	TokenWidget(QWidget *parent, const char *name=0);
+
+public slots:
+	void slotIconSelected(const KFileItem *item);
+
+signals:
+	void iconSelected(const QString &name);
+
+private:
+	QVBoxLayout *m_mainLayout;
+};
 
 #endif

@@ -27,6 +27,8 @@
 
 class QCheckBox;
 
+class TokenWidget;
+
 class SelectConfiguration : public QWidget
 {
 Q_OBJECT
@@ -47,15 +49,19 @@ public:
 
 private slots:
 	void connectClicked();
+	void slotTokenButtonClicked();
 	void slotClicked();
+	void slotTokenSelected(const QString &name);
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void optionChanged();
+
 signals:
 	void startGame();
 	void leaveGame();
 	void joinConfiguration(int configurationId);
 	void newConfiguration();
 	void buttonCommand(QString);
+	void iconSelected(const QString &);
 //	void statusChanged();
 
 private:
@@ -63,9 +69,10 @@ private:
 	QLabel *status_label;
 	QVGroupBox *m_playerBox, *m_configBox, *m_messageBox;
 	KListView *m_playerList;
-	KPushButton *m_backButton, *m_connectButton;
+	KPushButton *m_backButton, *m_connectButton, *m_tokenButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QString, QCheckBox *> m_checkBoxMap;
+	TokenWidget *m_tokenWidget;
 };
 
 #endif

@@ -25,11 +25,14 @@
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
- 
+
+#include "tokenwidget.h" 
 #include "selectconfiguration_widget.moc"
 
 SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	m_tokenWidget = 0;
+
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
@@ -37,7 +40,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerBox = new QVGroupBox(i18n("Player List"), this, "playerBox");
 	m_mainLayout->addWidget(m_playerBox); 
 
-	// List of  players
 	m_playerList = new KListView(m_playerBox, "m_playerList");
 	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
@@ -48,26 +50,31 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
 
+	// Player buttons.
+	QHBoxLayout *playerButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(playerButtons);
+
+	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	m_tokenButton = new KPushButton(SmallIcon("personal"), i18n("Select token"), this);
+	playerButtons->addWidget(m_tokenButton);
+
+	connect(m_tokenButton, SIGNAL(clicked()), this, SLOT(slotTokenButtonClicked()));
+
 	// Game configuration.
 	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
 	m_mainLayout->addWidget(m_configBox); 
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(buttonBox);
+	// Server buttons.
+	QHBoxLayout *serverButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(serverButtons);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
-	buttonBox->addWidget(m_backButton);
+	serverButtons->addWidget(m_backButton);
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
-	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
-	buttonBox->addWidget(m_connectButton);
-
-	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
-	
-    // Status indicator
+    // Status indicator.
 	status_label = new QLabel(this);
 	status_label->setText(i18n("Retrieving configuration list..."));
 	m_mainLayout->addWidget(status_label);
@@ -126,6 +133,17 @@ void SelectConfiguration::connectClicked()
 	emit startGame();
 }
 
+void SelectConfiguration::slotTokenButtonClicked()
+{
+	if (m_tokenWidget)
+		return;
+
+	m_tokenWidget = new TokenWidget(0);
+	m_tokenWidget->show();
+
+	connect(m_tokenWidget, SIGNAL(iconSelected(const QString &)), this, SLOT(slotTokenSelected(const QString &)));
+}
+
 void SelectConfiguration::slotClicked()
 {
 	delete m_messageBox;
@@ -133,6 +151,14 @@ void SelectConfiguration::slotClicked()
 	m_configBox->setEnabled(true);
 	m_connectButton->setEnabled(true);
 	status_label->setEnabled(true);
+}
+
+void SelectConfiguration::slotTokenSelected(const QString &name)
+{
+	emit iconSelected(name);
+	m_tokenWidget->close();
+//	m_tokenWidget->deleteLater(); // FIXME: crashes?
+	m_tokenWidget = 0;
 }
 
 void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)

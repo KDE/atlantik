@@ -63,6 +63,7 @@ private slots:
 	void tradeReject(Trade *trade);
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
+	void setImage(const QString &name);
 
 public slots:
 	void serverConnect(const QString host, int port);
