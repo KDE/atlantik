@@ -393,7 +393,7 @@ void AtlantikBoard::displayCenter()
 	m_center->show();
 }
 
-void AtlantikBoard::slotDisplayCard(QString type, QString description)
+void AtlantikBoard::displayCard(QString type, QString description)
 {
 	kdDebug() << "displayCard(" << type << ", " << description << ")" << endl;
 

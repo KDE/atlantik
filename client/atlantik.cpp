@@ -307,7 +307,7 @@ void Atlantik::initGame()
 		m_selectConfiguration = 0;
 	}
 
-	connect(m_atlantikNetwork, SIGNAL(displayCard(QString, QString)), m_board, SLOT(slotDisplayCard(QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(displayCard(QString, QString)), m_board, SLOT(displayCard(QString, QString)));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
 }
 

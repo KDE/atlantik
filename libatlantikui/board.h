@@ -40,7 +40,7 @@ public slots:
 private slots:
 	void playerChanged();
 	void displayCenter();
-	void slotDisplayCard(QString, QString);
+	void displayCard(QString, QString);
 	void displayEstateDetails(Estate *);
 
 signals:
