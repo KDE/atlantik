@@ -66,7 +66,7 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Create Game"), this);
+	m_connectButton = new KPushButton(SmallIconSet("forward"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
