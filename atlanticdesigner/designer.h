@@ -4,8 +4,11 @@
 #include <kmainwindow.h>
 #include <qstring.h>
 
+#include "editor.h"
+
 class EstateEdit;
 class QCloseEvent;
+class KListAction;
 
 class TopLevel : public KMainWindow
 {
@@ -21,9 +24,17 @@ class TopLevel : public KMainWindow
 	void open();
 	void openNew();
 	void save();
+	void changeEstate(int);
 
 	private:
 	EstateEdit *editor;
+	QValueList<Estate> estates;
+	KListAction *estateAct;
+
+	QString filename;
+
+	int max;
+	QStringList types;
 };
 
 #endif
