@@ -5,7 +5,9 @@ Comment[wa]=Atlantike
 
 [gainedturn]
 Name=Gained Turn
+Name[sv]=Du vann omgången
 Comment=It is your turn now
+Comment[sv]=Det är din tur nu
 [chat]
 Name=Chat
 Name[bg]=Чат
