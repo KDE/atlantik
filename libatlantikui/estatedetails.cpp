@@ -66,7 +66,6 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	setEstate(estate);
-	setPaletteBackgroundColor(m_estate ? m_estate->bgColor() : Qt::white);
 }
 
 EstateDetails::~EstateDetails()
@@ -235,6 +234,8 @@ void EstateDetails::setEstate(Estate *estate)
 	if (m_estate != estate)
 	{
 		m_estate = estate;
+
+		setPaletteBackgroundColor(m_estate ? m_estate->bgColor() : Qt::white);
 
 		QString columnText = m_estate ? m_estate->name() : QString::null;
 		m_infoListView->setColumnText(0, columnText);
