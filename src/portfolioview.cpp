@@ -65,8 +65,6 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 		y = 2+lname->height()+(i>=w ? 22: 0);
 		estate->setGeometry(x, y, estate->width(), estate->height());
 		estate->setColor(current);
-		if (j++%3==0 || j==14 || j==16)
-			estate->setOwned(true);
 		estate->show();
 
 		estate = new PortfolioEstate(this);
@@ -74,8 +72,6 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 		y = 6+lname->height()+(i>=w ? 22: 0);
 		estate->setGeometry(x, y, estate->width(), estate->height());
 		estate->setColor(current);
-		if (j++%2==0 || j==14 || j==16)
-			estate->setOwned(true);
 		estate->show();
 
 		if (i>0 && i<7)
@@ -85,8 +81,6 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 			y = 10+lname->height()+(i>=w ? 22: 0);
 			estate->setGeometry(x, y, estate->width(), estate->height());
 				estate->setColor(current);
-			if (j++%2==0 || j==14 || j==16)
-				estate->setOwned(true);
 			estate->show();
 		}
 	}

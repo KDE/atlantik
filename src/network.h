@@ -21,6 +21,7 @@ Q_OBJECT
 		void msgStartGame(QString);
 		void fetchedGameList(QDomNode);
 		void msgPlayerList(QDomNode);
+		void msgPlayerUpdate(QDomNode);
 
 	private:
 		void processMsg(QString);

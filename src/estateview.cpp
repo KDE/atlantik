@@ -24,7 +24,7 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 	lname->hide();
 */
 	setName("Boardwalk");
-	setHouses(4);
+	setHouses(0);
 	QToolTip::add(this, estatename);
 }
 
@@ -67,7 +67,7 @@ void EstateView::paintEvent(QPaintEvent *)
 //					painter.setPen(Qt::black);
 //					painter.setFont(QFont("helvetica", 10));
 //					painter.drawText(0, height()/4, width(), height()/2, (Qt::AlignHCenter | Qt::AlignTop), estatename, estatename.length());
-					if (houses)
+					if (houses>0)
 					{
 						if (houses == 5)
 						{

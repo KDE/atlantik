@@ -7,7 +7,7 @@
 class Token : public QWidget
 {
 	public:
-		Token (QWidget *parent, const char *name = 0);
+		Token (QString, QWidget *parent, const char *name = 0);
 
 	protected:
 		void paintEvent(QPaintEvent *);
@@ -16,6 +16,7 @@ class Token : public QWidget
 	private:
 		bool b_recreate;
 		QPixmap *qpixmap;
+		QString myId;
 };
 
 #endif

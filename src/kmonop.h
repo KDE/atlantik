@@ -23,10 +23,11 @@ class KMonop : public KTMainWindow
 		
 	public slots:
 		void slotNewGame();
+		void slotSendMsg();
 		void slotMsgError(QString);
 		void slotMsgInfo(QString);
 		void slotMsgStartGame(QString);
-		void slotMsgPlayerList(QDomNode);
+		void slotMsgPlayerUpdate(QDomNode);
 	
 	private:
 		QWidget *main;

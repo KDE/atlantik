@@ -4,6 +4,7 @@
 #include <kapp.h>
 
 #include "main.h"
+#include "config.h"
 #include "kmonop.h"
 #include "colordefs.h"
 
@@ -11,7 +12,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData(
 		"kmonop",
-		I18N_NOOP("KMonop"), "0.0.1",
+		I18N_NOOP("KMonop"), VERSION,
 		I18N_NOOP("Monopoly boardgame"),
 		KAboutData::License_GPL,
 		I18N_NOOP("(c) 2001 Rob Kaper"),

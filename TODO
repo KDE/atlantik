@@ -10,17 +10,20 @@ For 0.0.2
   v Game playerlist must be displayed and present an option to launch the
     game. (display works, although server code doesn't not yet inform
     regarding people leaving)
-  - Upon startgame, use playerupdate to init/update portfolios. Final
+  v Upon startgame, use playerupdate to init/update portfolios. Final
     playerlist is already deprecated then. ;-)
 
 For 0.0.3
 ---------
 
 - Fetch (default) game data from server (streetnames).
-- Don't overwrite estate pointer in board.cpp, actually have a nice array.
-- Portfolioview states should represent actual situation.
-- Draw tokens on board at actual position.
+v Don't overwrite estate pointer in board.cpp, actually have a nice array.
+v Portfolioview states should represent actual situation.
+v Draw tokens on board at actual position.
 - Allow rolling the dice and advancing over board (without actions).
+- Move most of the dom parsing back to network.cpp and emit more specialized
+  signals such as moveToken(id, pos);
+
 
 For 0.1.x
 ---------

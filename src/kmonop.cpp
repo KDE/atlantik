@@ -6,6 +6,7 @@
 #include <kapp.h>
 
 #include "kmonop.moc"
+#include "config.h"
 #include "board.h"
 
 KMonop::KMonop (const char *name) :
@@ -22,27 +23,30 @@ KMonop::KMonop (const char *name) :
 	connect(netw, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
 	connect(netw, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
-	connect(netw, SIGNAL(msgPlayerList(QDomNode)), this, SLOT(slotMsgPlayerList(QDomNode)));
+	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
 
  	main = new QWidget(this, "main");
 	main->show();
 
 	layout = new QGridLayout(main, 8, 2);
 
-//	Token *token = new Token(main, "token");
-//	layout->addWidget(token, 1, 0);
+	output = new QTextView(main, "output");
 
-  output = new QTextView(main, "output");
-  output->setMinimumHeight(70);
-  input = new QLineEdit(main, "input");
-  KMonopBoard *board = new KMonopBoard(main, "board");
-  layout->addWidget(output, 6, 0);
-  layout->addMultiCellWidget(board, 0, 7, 1, 1);
-  layout->setRowStretch(6, 1); // make board+output stretch, not the rest
-  layout->setColStretch(1, 1); // make board stretch, not the rest
-  layout->addWidget(input, 7, 0);
+	input = new QLineEdit(main, "input");
+	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
-  setView(main);
+	KMonopBoard *board = new KMonopBoard(netw, main, "board");
+
+	layout->addWidget(output, 6, 0);
+	layout->addWidget(input, 7, 0);
+	layout->addMultiCellWidget(board, 0, 7, 1, 1);
+	layout->setRowStretch(6, 1); // make board+output stretch, not the rest
+	layout->setColStretch(1, 1); // make board stretch, not the rest
+
+	for(int i=0;i<MAXPLAYERS;i++)
+		port[i]=0;
+
+	setView(main);
 }
 
 void KMonop::slotNewGame()
@@ -55,6 +59,13 @@ void KMonop::slotNewGame()
 	wizard = 0;
 	if (result)
 		netw->writeData(".gs");
+}
+
+void KMonop::slotSendMsg()
+{
+	QString str(input->text());
+	netw->writeData(str.latin1());
+	input->setText("");
 }
 
 void KMonop::slotMsgError(QString msg)
@@ -78,44 +89,34 @@ void KMonop::slotMsgStartGame(QString msg)
 	output->append(msg);
 }
 
-void KMonop::slotMsgPlayerList(QDomNode playerlist)
+void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
 {
-	QDomAttr a;
+	QDomAttr a_id, a_name, a_money, a_location;
 	QDomElement e;
-	
-	// Only process final playerlist.
-	e = playerlist.toElement();
+	int id=0;
+
+	e = playerupdate.toElement();
 	if(!e.isNull())
 	{
-		a = e.attributeNode(QString("final"));
+		a_id = e.attributeNode(QString("id"));
+		a_name = e.attributeNode(QString("name"));
+		a_money = e.attributeNode(QString("money"));
+		a_location = e.attributeNode(QString("location"));
 
-		if(a.isNull() || a.value() == "false")
-			return;
-	}
-	else
-		return;
-
-	QDomNode n = playerlist.firstChild();
-	QListViewItem *item;
-	int i=0;
-
-	// Maximum of six players, right? Check with monopd, possibly fetch
-	// number first and make portfolio overviews part of QHLayout to allow
-	// any theoretically number.
-	while(!n.isNull() && i<6)
-	{
-		e = n.toElement();
-		if(!e.isNull())
+		// Maximum of six players, right? Check with monopd, possibly fetch
+		// number first and make portfolio overviews part of QHLayout to
+		// allow any theoretically number.
+		id = a_id.value().toInt() - 1;
+		if (id < MAXPLAYERS)
 		{
-			if (e.tagName() == "player")
+			// Only create portfolio once.
+			if(port[id]==0)
 			{
-				port[i] = new PortfolioView(main);
-				port[i]->setName(e.attributeNode(QString("name")).value());
-				port[i]->show();
-				layout->addWidget(port[i], i, 0);
-				i++;
+				port[id] = new PortfolioView(main);
+				port[id]->show();
+				layout->addWidget(port[id], id, 0);
 			}
+			port[id]->setName(a_id.value() + ". " + a_name.value());
 		}
-		n = n.nextSibling();
 	}
 }

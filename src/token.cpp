@@ -4,7 +4,7 @@
 
 extern QColor kmonop_greenbg;
 
-Token::Token(QWidget *parent, const char *name) : QWidget(parent, name)
+Token::Token(QString id, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -12,7 +12,9 @@ Token::Token(QWidget *parent, const char *name) : QWidget(parent, name)
 	qpixmap = 0;
 
 	setMinimumHeight(100);	
-	setFixedSize(QSize(30, 30));
+	setFixedSize(QSize(15, 15));
+	
+	myId = id;
 }
 
 void Token::paintEvent(QPaintEvent *)
@@ -25,15 +27,11 @@ void Token::paintEvent(QPaintEvent *)
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
-		painter.setPen(kmonop_greenbg);
-		painter.setBrush(kmonop_greenbg);
-		painter.drawRect(rect());
-
 		painter.setPen(Qt::black);
 		painter.setBrush(Qt::white);
-		painter.drawEllipse(0, 0, width(), height());
-		
-		painter.drawText(width()/2, height()/2, "1");
+		painter.drawRect(rect());
+
+		painter.drawText(2, height()-2, myId);
 
 		b_recreate = false;
 	}

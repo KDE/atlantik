@@ -1,3 +1,13 @@
+2001-05-08
+----------
+
+- Portfolios built upon "playerupdate" message instead of final playerlist,
+  since we'll get plenty more updates anyway.
+- Token placed on location hinted by playerupdate.
+- Input box at bottom left corner can be used to send messages to the server
+  to compensate for any commands not yet implemented. Such as .n to set your
+  name and .r to roll.
+
 2001-05-07
 ----------
 
