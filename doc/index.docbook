@@ -14,7 +14,6 @@
 <authorgroup>
 <author>
 <firstname>Rob</firstname>
-<othername></othername>
 <surname>Kaper</surname>
 <affiliation>
 <address><email>cap@capsi.com</email></address>
@@ -25,16 +24,13 @@
 
 <legalnotice>&FDLNotice;</legalnotice>
 
-<!-- Date and version information of the documentation
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (DD/MM/YYYY) and of the version
-(Major.minor.lesser), it could be used by automation scripts -->
+<copyright>
+<year>2002</year><year>2004</year>
+<holder>Rob Kaper</holder>
+</copyright>
 
-<date>2002-04-07</date>
-<releaseinfo>0.00.01</releaseinfo>
-
-<!-- Abstract about this handbook -->
+<date>2004-05-01</date>
+<releaseinfo>0.6.2</releaseinfo>
 
 <abstract>
 <para>
@@ -70,37 +66,33 @@ class="registered">Monopoly</trademark>.</para>
 <chapter id="connecting">
 <title>Connecting to a Server</title>
 
-<para>&atlantik; is not complete without a game server to connect
-to. If you are connected to the Internet, &atlantik; will
-automatically request a list of available servers from which you can
-choose.</para>
+<para>&atlantik; requires a game server to connect to. If you have an
+Internet connection, you can request a list of public Internet servers and
+you will not require additional software. If you want to play &atlantik;
+locally, on a <acronym>LAN</acronym> or on a private Internet server, you
+can enter the hostname and port to connect to. In this case, you will need
+the <ulink
+url="http://unixcode.org/monopd/"><command>monopd</command></ulink> server
+software installed and running on the host you are connecting to.</para>
 
-<para>You can also connect to a local server. Use the commandline
-parameters to connect to a custom server:</para>
-
-<screen>
-<userinput><command>atlantik</command> <option>-host</option> <replaceable>myhost.domain.net</replaceable> <option>-port</option> <replaceable>1234</replaceable></userinput>
-</screen>
-
-<para>You will need the <ulink
-url="http://unixcode.org/monopd/download.html">monopd</ulink> server
-software installed and running.</para>
-
-<para>If you have problems connecting to a server, the following
-actions might help you:</para>
+<para>If you have problems connecting to a server, the following troubleshoot
+notes might help you:</para>
 
 <itemizedlist>
-<listitem>
-<para>Try another server.  The public server list is updated every
-three minutes, and the server you are trying to connect to might not
-be available any longer.</para>
+<listitem><para>Try another server. The public server list is updated every
+three minutes, and the server you are trying to connect to might not be
+available any longer.</para>
 </listitem>
 <listitem>
-<para>Check your firewall. Your Internet access might be restricted,
-preventing you from connecting to servers. Allow outgoing connections
-to port 1234 and reply traffic or contact your system
-administrator.</para>
+<para>Check your firewall and masquerading settings. Restrictions might be in
+place preventing you from connecting to servers or receiving reply traffic.
+By default, monopd servers use TCP port 1234. If you're not sure, contact
+your system administrator.</para>
 </listitem>
+<listitem><para>&atlantik; makes use of
+<classname>KExtendedSocket</classname> for network connections, which in
+turn uses <classname>QDns</classname>. This might cause issues with IPv6
+and/or resolving hostnames.</para></listitem>
 </itemizedlist>
 
 </chapter>
@@ -113,57 +105,57 @@ it. Developers often catch and fix bugs themselves, but you might
 experience issues not yet known. Not reporting your problems might
 very well prevent them from being fixed indefinitely.</para>
 
-<para>If the bug is related to the game itself, such as the
-implementation of rules or behavior during game play, the bug might be
-in the <ulink url="http://unixcode.org/monopd/">monopd
-server</ulink>. Game play bugs are usually less obvious than crashes
-or client bugs because they depend on many variable conditions that
-appear within a game. Please specify details in your bug report, such
-as whether the bug occurs only when players are in jail or when there
-are debts.</para>
-
-<para>The best way to report a bug is through the <ulink
-url="http://bugs.kde.org/">&kde; Bug Wizard</ulink>. Use the
+<para>Some bugs might be in the monopd server instead of &atlantik;, but you
+don't need to worry about that: you can report all bugs under the &atlantik;
+package on the <ulink url="http://bugs.kde.org/">&kde; bug
+wizard</ulink>. Use the
 <menuchoice><guimenu>Help</guimenu><guimenuitem>Report
 Bug</guimenuitem></menuchoice> menu item to visit the bug wizard with some
-specifics on your Atlantik version filled in automatically. You can
-specify all bugs under <userinput>Atlantik</userinput>, the developers
-will sort out server specific bugs for you.</para>
+details of your Atlantik version filled in automatically.</para>
+
+<para>Please specify details in your bug report, such as game
+conditions. For example, a bug might only occur when people are in jail, or
+during an auction. If possible, save the event log and attach it to the bug
+report or send it to the author. It might contain vital clues about behavior
+that could lead to a faster resolution for the bug.</para>
 
 </chapter>
 
 <chapter id="download">
 <title>Download</title>
 
-<para>
-&atlantik; can be downloaded from <ulink
-url="http://unixcode.org/atlantik/">http://unixcode.org/atlantik/</ulink> and
-monopd can be downloaded from <ulink
-url="http://unixcode.org/monopd/">http://unixcode.org/monopd/</ulink>.</para>
+<para>&atlantik; is part of &kde; releases and as such the recommended
+releases are those shipped with &kde;, part of the &package; package. Some
+vendors might have individual packages for &atlantik; based on these
+releases.</para>
 
-<para>
-However, the latest versions of both applications can be found in
-<acronym>CVS</acronym>.  &atlantik; is located in the
-<acronym>CVS</acronym> repository of &kde; in the module kdegames.
-See <ulink
-url="http://www.kde.org/anoncvs.html">http://www.kde.org/anoncvs.html</ulink>
-for instructions how to download &kde; modules from
-<acronym>CVS</acronym>. &atlantik; is included in the kdegames package
-since &kde; 3.1.</para>
+<para>Users interested in the development version can likewise use the
+standard <ulink url="http://www.kde.org/anoncvs.html">&kde; CVS
+instructions</ulink> to acquire &atlantik; from the kdegames module.</para>
 
-<para>
-For more information on <application>monopd</application>
-<acronym>CVS</acronym> see the <application>monopd</application> pages
-on <ulink
-url="http://sourceforge.net/projects/monopd/">http://sourceforge.net/projects/monopd/</ulink>.</para>
+<para>Bleeding edge development requiring the development version of monopd
+is done using arch. For more information on this, or releases in general,
+visit the <ulink
+url="http://unixcode.org/atlantik/download.html">&atlantik;</ulink> download
+page.</para>
 
+</chapter>
+<chapter id="credits-and-licenses">
+<title>Credits and Licenses</title>
+
+<para>The program &atlantik; and the documentation are copyright &copy;
+1998-2004 Rob  Kaper <email>cap@capsi.com</email>.</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
 &underFDL;
 &underGPL;
 
+
 </chapter>
 
 &documentation.index; 
+
 </book>
 
 <!--
