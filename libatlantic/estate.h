@@ -46,10 +46,18 @@ public:
 	bool canBuyHouses() const { return m_canBuyHouses; }
 	void setCanSellHouses(const bool canSellHouses);
 	bool canSellHouses() const { return m_canSellHouses; }
+	void setHousePrice(const unsigned int housePrice) { m_housePrice = housePrice; }
+        unsigned int housePrice() const { return m_housePrice; }
+        void setHouseSellPrice(const unsigned int houseSellPrice) { m_houseSellPrice = houseSellPrice; }
+        unsigned int houseSellPrice() const { return m_houseSellPrice; }
 	void setIsMortgaged(const bool isMortgaged);
 	bool isMortgaged() const { return m_isMortgaged; }
 	void setCanToggleMortgage(const bool canToggleMortgage);
 	bool canToggleMortgage() const { return m_canToggleMortgage; }
+	void setMortgagePrice(const unsigned int mortgagePrice) { m_mortgagePrice = mortgagePrice; }
+        unsigned int mortgagePrice() const { return m_mortgagePrice; }
+        void setUnmortgagePrice(const unsigned int unmortgagePrice) { m_unmortgagePrice = unmortgagePrice; }
+        unsigned int unmortgagePrice() const { return m_unmortgagePrice; }
 	void setColor(QColor color);
 	QColor color() const { return m_color; }
 	void setBgColor(QColor color);
@@ -76,7 +84,7 @@ private:
 	QString m_name;
 	Player *m_owner;
 	EstateGroup *m_estateGroup;
-	unsigned int m_houses, m_price;
+	unsigned int m_houses, m_price, m_housePrice, m_houseSellPrice, m_mortgagePrice, m_unmortgagePrice;
 	int m_money;
 	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
 	QColor m_bgColor, m_color;

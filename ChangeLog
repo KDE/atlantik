@@ -1,4 +1,14 @@
-0.7.0
+0.7.5 (KDE 3.4)
+-----
+
+- Show mortgage and house prices/values on estate views.
+
+0.7.1 (KDE 3.3.1)
+-----
+
+- Don't show warning dialog when exiting a game that ended. (#88617)
+
+0.7.0 (KDE 3.3)
 -----
 
 - Event log

@@ -71,7 +71,17 @@ void EstateView::updateToolTip()
 	{
 		QString toolTip = m_estate->name();
 		if ( m_estate->isOwned() )
+		{
 			toolTip.append( "\n" + i18n("Owner: %1").arg( m_estate->owner()->name() ) );
+			if ( m_estate->isMortgaged() )
+				toolTip.append( "\n" + i18n("Unmortage Price: %1").arg( m_estate->unmortgagePrice() ) );
+		     	else
+		     		toolTip.append( "\n" + i18n("Mortage Value: %1").arg( m_estate->mortgagePrice() ) );	
+			if ( m_estate->canSellHouses() )
+				toolTip.append( "\n" + il8n("House Value: %1").arg( m_estate->houseSellPrice() ) );
+			if ( m_estate->canBuyHouses() )
+				toolTip.append( "\n" + il8n("House Price: %1").arg( m_estate->housePrice() ) );
+		}
 		else if ( m_estate->canBeOwned() )
 			toolTip.append( "\n" + i18n("Price: %1").arg( m_estate->price() ) );
 		else if ( m_estate->money() )

@@ -680,6 +680,22 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (estate && !a.isNull())
 						estate->setPrice(a.value().toInt());
 
+					a = e.attributeNode(QString("houseprice"));
+        				if (estate && !a.isNull())
+                				estate->setHousePrice(a.value().toInt());
+
+        				a = e.attributeNode(QString("sellhouseprice"));
+        				if (estate && !a.isNull())
+                				estate->setHouseSellPrice(a.value().toInt());
+						
+					a = e.attributeNode(QString("mortgageprice"));
+        				if (estate && !a.isNull())
+                				estate->setMortgagePrice(a.value().toInt());
+
+        				a = e.attributeNode(QString("unmortgageprice"));
+        				if (estate && !a.isNull())
+                				estate->setUnmortgagePrice(a.value().toInt());
+						
 					a = e.attributeNode(QString("money"));
 					if (estate && !a.isNull())
 						estate->setMoney(a.value().toInt());
