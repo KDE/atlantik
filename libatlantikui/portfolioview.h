@@ -37,7 +37,7 @@ Q_OBJECT
 public:
 	PortfolioView(AtlanticCore *core, Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
 	void buildPortfolio();
-
+    ~PortfolioView();
 	Player *player();
 
 protected:

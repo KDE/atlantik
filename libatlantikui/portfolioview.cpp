@@ -61,6 +61,12 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	loadIcon();
 }
 
+PortfolioView::~PortfolioView()
+{
+    delete m_image;
+    delete qpixmap;
+}
+
 Player *PortfolioView::player()
 {
 	return m_player;
