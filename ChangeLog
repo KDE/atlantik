@@ -1,3 +1,9 @@
+2001-10-10 (kaper)
+----------
+
+- Estates are created dynamically now!
+- Added Estate::canBeOwned, Estate::name
+
 2001-10-09 (kaper)
 ----------
 
