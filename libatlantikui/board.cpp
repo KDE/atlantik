@@ -69,48 +69,6 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 
 	m_displayQueue.setAutoDelete(true);
 	displayDefault();
-
-	QColor color;
-	QString icon;
-	bool canBeOwned;
-
-	for (int i=0;i<maxEstates;i++)
-	{
-		color = QColor();
-		icon = QString();
-		canBeOwned = false;
-
-		switch(i)
-		{
-			case 5: case 15: case 25: case 35:
-				icon = QString("train.png");
-				canBeOwned = true;
-				break;
-			case 12:
-				icon = QString("energy.png");
-				canBeOwned = true;
-				break;
-			case 28:
-				icon = QString("water.png");
-				canBeOwned = true;
-				break;
-			case 2: case 17: case 33:
-				icon = QString("box.png");
-				break;
-			case 7: case 36:
-				icon = QString("qmark-red.png");
-				break;
-			case 22:
-				icon = QString("qmark-blue.png");
-				break;
-			case 0:
-				icon = QString("arrow.png");
-				break;
-			case 38:
-				icon = QString("ring.png");
-				break;
-		}
-	}
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
