@@ -51,10 +51,10 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	(void) KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
 	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
-	(void) new KAction(i18n("&Edit Gameboard Info"), 0, this, SLOT(info()), actionCollection(), "boardinfo");
+	(void) new KAction(i18n("&Edit Gameboard Info..."), 0, this, SLOT(info()), actionCollection(), "boardinfo");
 
-	(void) new KAction(i18n("&Larger"), "viewmag+", 0, this, SLOT(larger()), actionCollection(), "larger");
-	(void) new KAction(i18n("&Smaller"), "viewmag-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
+	(void) new KAction(i18n("&Add 4 squares"), "viewmag+", 0, this, SLOT(larger()), actionCollection(), "larger");
+	(void) new KAction(i18n("&Remove 4 squares"), "viewmag-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
 	(void) KStdAction::copy(this, SLOT(copy()), actionCollection());
 	(void) KStdAction::paste(this, SLOT(paste()), actionCollection());
 	(void) new KAction(i18n("&Up"), Key_Up, this, SLOT(up()), actionCollection(), "up");
@@ -108,6 +108,8 @@ void AtlanticDesigner::initMembers()
 	ccStack.setAutoDelete(true);
 	ccStack.clear();
 	ccStack.setAutoDelete(false);
+
+	boardInfo = BoardInfo();
 }
 
 void AtlanticDesigner::initBoard()
@@ -170,8 +172,8 @@ ConfigEstate *AtlanticDesigner::newEstate(int i)
 	estate->setBgColor(bg);
 	estate->setPrice(100);
 	estate->setHousePrice(50);
-	for (int i = 0; i < 6; ++i)
-		estate->setRent(i, 10 * (i + 1));
+	for (int j = 0; j < 6; ++j)
+		estate->setRent(j, 10 * (j + 1));
 	estate->setChanged(false);
 	//estates.append(estate);
 	estates.insert(i, estate);
@@ -232,7 +234,7 @@ void AtlanticDesigner::openRecent(const KURL &url)
 
 void AtlanticDesigner::openFile(const QString &filename)
 {
-	enum ParseMode { Estates=0, Chance_Cards=1, CC_Cards=2, Other=3 };
+	enum ParseMode { Estates=0, Chance_Cards=1, CC_Cards=2, Other=3, Meta=4 };
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 		return;
@@ -246,13 +248,13 @@ void AtlanticDesigner::openFile(const QString &filename)
 	int i;
 	for (i = 0; !t.atEnd();)
 	{
-		if (i < 500)
-			kdDebug() << "s is [" << s << "]" << endl;
+		//if (i < 500)
+			//kdDebug() << "s is [" << s << "]" << endl;
 		s = s.stripWhiteSpace();
 
 		if (s.isEmpty())
 		{
-			kdDebug() << "thats empty, reading new line" << endl;
+			//kdDebug() << "thats empty, reading new line" << endl;
 			s = t.readLine();
 			continue;
 		}
@@ -261,13 +263,15 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 		if (s.left(1) == "<")
 		{
-			kdDebug() << "setting parsemode for s [" << s << "]" << endl;
+			//kdDebug() << "setting parsemode for s [" << s << "]" << endl;
 			if (s == "<Estates>")
 				parseMode = Estates;
 			else if (s == "<Chance_Cards>")
 				parseMode = Chance_Cards;
 			else if (s == "<CC_Cards>")
 				parseMode = CC_Cards;
+			else if (s == "<Meta>")
+				parseMode = Meta;
 			else
 				parseMode = Other;
 
@@ -280,7 +284,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 		
 		if (name.isEmpty())
 			name = i18n("No Name");
-		kdDebug() << "name is " << name << endl;
+		//kdDebug() << "name is " << name << endl;
 
 		//// for estates
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
@@ -301,11 +305,11 @@ void AtlanticDesigner::openFile(const QString &filename)
 				break;
 			s = t.readLine().stripWhiteSpace();
 
-			kdDebug() << "s is " << s << endl;
+			//kdDebug() << "s is " << s << endl;
 
 			if (s.left(1) == "[" || s.left(1) == "<")
 			{
-				kdDebug() << "breaking\n";
+				//kdDebug() << "breaking\n";
 				break;
 			}
 
@@ -381,7 +385,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			  ///////////////////////////// CARDS
 			else if (parseMode == Chance_Cards || parseMode == CC_Cards) 
 			{
-				kdDebug() << "in card area\n";
+				//kdDebug() << "in card area\n";
 				bool ok;
 				int v = value.toInt(&ok);
 				if (!ok)
@@ -403,17 +407,35 @@ void AtlanticDesigner::openFile(const QString &filename)
 					key = "goback";
 				}
 
-				kdDebug() << key << "=" << v << endl;
+				//kdDebug() << key << "=" << v << endl;
 				keys.append(key);
 				values.append(v);
 			}
-			else
-				kdDebug() << "ignoring line, unknown parseMode" << endl;
+			else if (parseMode == Meta)
+			{
+				if (name == "About")
+				{
+					if (key == "name")
+						boardInfo.name = value;
+					else if (key == "description")
+						boardInfo.description = value;
+					else if (key == "version")
+						boardInfo.version = value;
+					else if (key == "url")
+						boardInfo.url = value;
+					else if (key == "authors")
+						boardInfo.authors = QStringList::split(",", value);
+					else if (key == "credits")
+						boardInfo.credits = QStringList::split(",", value);
+				}
+			}
+			//else
+				//kdDebug() << "ignoring line, unknown parseMode" << endl;
 		}
 
 		if (parseMode == Estates)
 		{
-			kdDebug() << "making estate (" << i << ")\n";
+			//kdDebug() << "making estate (" << i << ")\n";
 			ConfigEstate *estate = new ConfigEstate(i);
 			estate->setName(name);
 			estate->setColor(color);
@@ -432,12 +454,12 @@ void AtlanticDesigner::openFile(const QString &filename)
 			connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
 			connect(estate, SIGNAL(changed()), this, SLOT(modified()));
 	
-			kdDebug() << "incrementing i\n";
+			//kdDebug() << "incrementing i\n";
 			i++;
 		}
 		else if (parseMode == Chance_Cards || parseMode == CC_Cards)
 		{
-			kdDebug() << "making new card" << endl;
+			//kdDebug() << "making new card" << endl;
 			Card *card = new Card();
 			card->name = name;
 			card->keys = keys;
@@ -465,7 +487,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 	isMod = false;
 	doCaption(false);
 	updateJumpMenu();
-	kdDebug() << "ending openFile\n";
+	//kdDebug() << "ending openFile\n";
 
 	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
 }
@@ -603,9 +625,7 @@ void AtlanticDesigner::save()
 				}
 
 				if (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil")
-				{
 					value = 1;
-				}
 				
 				t << key << "=" << value << endl;
 
@@ -615,7 +635,8 @@ void AtlanticDesigner::save()
 	}
 
 	// now save information
-	t << endl; 
+	t << endl << endl; 
+	t << QString("<Meta>\n[About]\nname=%2\ndescription=%3\nurl=%4\nversion=%5\nauthors=%6\ncredits=%7\n").arg(boardInfo.name).arg(boardInfo.description).arg(boardInfo.url).arg(boardInfo.version).arg(boardInfo.authors.join(",")).arg(boardInfo.credits.join(","));
 
 	f.flush();
 	isMod = false;
@@ -669,6 +690,7 @@ void AtlanticDesigner::changeEstate(Estate *estate)
 	if (!estate)
 		return;
 
+	kdDebug() << "saving first time:\n";
 	(void) editor->saveEstate();
 
 	editor->setEstate(static_cast<ConfigEstate *>(estate));
@@ -698,11 +720,11 @@ void AtlanticDesigner::larger()
 		estate->setEstateId(i);
 		board->addEstateView(estate);
 
-		kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
+		//kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
 		if ((i%sideLen - 1) == 0 || i == 1)
 			// make a newEstate
 		{
-			kdDebug() << "making a new Estate\n";
+			//kdDebug() << "making a new Estate\n";
 			newEstate(i);
 		}
 	}
@@ -714,6 +736,9 @@ void AtlanticDesigner::larger()
 
 void AtlanticDesigner::smaller()
 {
+	if (max < 12)
+		return;
+
 	max -= 4;
 	int sideLen = max/4;
 
@@ -724,11 +749,11 @@ void AtlanticDesigner::smaller()
 	ConfigEstate *estate = 0;
 	for (int i = 0; i < max; ++i)
 	{
-		kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
+		//kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
 		if (((i%sideLen - 1) == 0 || i == 1) && remove)
 			// remove estate
 		{
-			kdDebug() << "removing Estate\n";
+			//kdDebug() << "removing Estate\n";
 			estates.remove(i);
 			i--;
 			remove = false;
@@ -756,7 +781,7 @@ void AtlanticDesigner::modified()
 
 void AtlanticDesigner::doCaption(bool modified)
 {
-	setCaption(i18n("Atlantic gameboard editor"), modified);
+	setCaption(filename.isNull()? i18n("Atlantic gameboard editor") : filename, modified);
 }
 
 void AtlanticDesigner::info()

@@ -130,6 +130,7 @@ EstateEdit::EstateEdit(EstateList *estates, CardStack *chanceStack, CardStack *c
 	this->ccStack = ccStack;
 	this->estates = estates;
 	ready = false;
+	locked = false;
 
 	connect(this, SIGNAL(somethingChanged()), this, SLOT(saveEstate()));
 
@@ -179,7 +180,7 @@ EstateEdit::EstateEdit(EstateList *estates, CardStack *chanceStack, CardStack *c
 
 void EstateEdit::aboutToDie()
 {
-	kdDebug() << "aboutToDie()\n";
+	//kdDebug() << "aboutToDie()\n";
 	delete reallyOldConfDlg;
 	reallyOldConfDlg = 0;
 	delete oldConfDlg;
@@ -195,13 +196,23 @@ void EstateEdit::setReady(bool ready)
 
 void EstateEdit::setEstate(ConfigEstate *_estate)
 {
+	// wait for it to become unlocked
+	while (1)
+		if (!locked)
+			break;
+
 	this->estate = _estate;
 
-	nameEdit->setText(estate->name());
-	typeCombo->setCurrentItem(estate->type());
-	if (estate->color().isValid())
-		fgButton->setColor(estate->color());
-	bgButton->setColor(estate->bgColor());
+	//kdDebug() << "bgcolor name: " << _estate->bgColor().name() << endl;
+	//kdDebug() << "setting estate: " << _estate->name() << endl;
+
+	ready = false;
+	nameEdit->setText(_estate->name());
+	typeCombo->setCurrentItem(_estate->type());
+	if (_estate->color().isValid())
+		fgButton->setColor(_estate->color());
+	bgButton->setColor(_estate->bgColor());
+	//kdDebug() << "bgcolor name: " << _estate->bgColor().name() << endl;
 
 	ready = true;
 
@@ -212,6 +223,10 @@ ConfigEstate *EstateEdit::saveEstate(bool superficial)
 {
 	if (!estate || !ready)
 		return 0;
+
+	locked = true;
+
+	//kdDebug() << "saveEstate, saving " << estate->name() << endl;
 
 	EstateType curType = (EstateType)typeCombo->currentItem();
 
@@ -238,6 +253,9 @@ ConfigEstate *EstateEdit::saveEstate(bool superficial)
 		estate->update();
 
 	configure();
+
+	locked = false;
+	
 	return estate;
 }
 
@@ -345,6 +363,7 @@ void TaxDlg::slotUpdate(ConfigEstate *estate)
 {
 	this->estate = estate;
 	tax->setValue(estate->tax());
+
 	taxPercentage->setValue(estate->taxPercentage());
 }
 
@@ -399,7 +418,7 @@ void ChooseWidget::estateChanged(int i)
 {
 	if (!estate)
 		return;
-	kdDebug() << "estateChanged, and changing\n";
+	//kdDebug() << "estateChanged, and changing\n";
 	(*card->values.at(id)) = i;
 	estate->setCurrentItem(i);
 }
@@ -418,14 +437,14 @@ void ChooseWidget::typeChanged(int i)
 
 	if (number)
 	{
-		kdDebug() << "initting number\n";
+		//kdDebug() << "initting number\n";
 		delete estate;
 		estate = 0;
-		kdDebug() << "estate deleted\n";
+		//kdDebug() << "estate deleted\n";
 
 		value = new QSpinBox(0, 1000, 1, this);
 		
-		kdDebug() << "adding widget\n";
+		//kdDebug() << "adding widget\n";
 		hlayout->addWidget(value);
 		connect(value, SIGNAL(valueChanged(int)), this, SLOT(valueChanged(int)));
 
@@ -433,10 +452,10 @@ void ChooseWidget::typeChanged(int i)
 	}
 	else
 	{
-		kdDebug() << "deleting value\n";
+		//kdDebug() << "deleting value\n";
 		delete value;
 		value = 0;
-		kdDebug() << "making combobox\n";
+		//kdDebug() << "making combobox\n";
 		estate = new KComboBox(this);
 		ConfigEstate *curestate = 0;
 		QStringList estateStrings;
@@ -445,7 +464,7 @@ void ChooseWidget::typeChanged(int i)
 		estate->insertStringList(estateStrings);
 		connect(estate, SIGNAL(activated(int)), this, SLOT(estateChanged(int)));
 
-		kdDebug() << "adding estate\n";
+		//kdDebug() << "adding estate\n";
 		hlayout->addWidget(estate);
 		estate->show();
 	}
@@ -518,12 +537,12 @@ CardView::CardView(EstateList *estates, CardStack *stack, QWidget *parent, char 
 	connect(lessButton, SIGNAL(clicked()), this, SLOT(less()));
 	hlayout->addWidget(lessButton);
 
-	kdDebug() << "loading cards...\n";
+	//kdDebug() << "loading cards...\n";
 
 	Card *card = 0;
 	for (card = stack->first(); card; card = stack->next())
 	{
-		kdDebug() << "adding to list: " << card->name << endl;
+		//kdDebug() << "adding to list: " << card->name << endl;
 		List->insertItem(card->name);
 	}
 
@@ -617,15 +636,15 @@ void CardView::selected(int i)
 {
 	choosies.clear();
 
-	kdDebug() << "selected (" << i << ")\n";
+	//kdDebug() << "selected (" << i << ")\n";
 	card = stack->at(i);
 	unsigned int num = card->keys.count();
-	kdDebug() << "num is " << num << endl;
+	//kdDebug() << "num is " << num << endl;
 
 	QValueList<int>::Iterator vit = card->values.begin();
 	for (QStringList::Iterator it = card->keys.begin(); it != card->keys.end(); ++it)
 	{
-		kdDebug() << "creating a choser, id " << choosies.count() << endl;
+		//kdDebug() << "creating a choser, id " << choosies.count() << endl;
 		ChooseWidget *newChooseWidget = new ChooseWidget(estates, choosies.count(), card, this);
 
 		choosies.append(newChooseWidget);
@@ -637,14 +656,14 @@ void CardView::selected(int i)
 		newChooseWidget->valueChanged(*vit);
 		newChooseWidget->estateChanged(*vit);
 
-		kdDebug() << "chooser made\n";
+		//kdDebug() << "chooser made\n";
 
 		++vit;
 	}
 
 	if (num == 0)
 	{
-		kdDebug() << "doing more\n";
+		//kdDebug() << "doing more\n";
 		card->values.clear();
 		more();
 	}

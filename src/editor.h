@@ -110,6 +110,7 @@ class EstateEdit : public QWidget
 	EstateType oldType;
 
 	bool ready;
+	bool locked;
 };
 
 class ChooseWidget : public QWidget
