@@ -38,7 +38,7 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, co
 {
 	m_atlanticCore = atlanticCore;
 	m_parent = parent;
-	m_clientId = m_playerId = -1;
+	m_playerId = -1;
 
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
@@ -270,31 +270,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "display")
 			{
-				QString caption = e.attributeNode(QString("name")).value();
-				QString description = e.attributeNode(QString("description")).value();
-				
-				if (caption.isEmpty() && description.isEmpty())
-					emit displayDefault();
-				else
-				{
-					emit displayText(caption, description);
-
-					bool hasButtons = false;
-					for(QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
-					{
-						QDomElement eButton = nButtons.toElement();
-						if (!eButton.isNull() && eButton.tagName() == "button")
-						{
-							emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
-							hasButtons = true;
-						}
-					}
-					if (!hasButtons)
-						emit addCloseButton();
-				}
-			}
-			else if (e.tagName() == "estatedisplay")
-			{
 				int estateId = -1;
 
 				a = e.attributeNode(QString("estateid"));
@@ -305,6 +280,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if ((estate = m_estates[a.value().toInt()]))
 					{
 						emit displayEstate(estate);
+						// TODO: merge into displayEstate, or statusbar
+						emit msgInfo(e.attributeNode(QString("text")).value());
 
 						bool hasButtons = false;
 						for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
@@ -323,6 +300,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (!hasButtons)
 							emit addCloseButton();
 					}
+					else
+						displayDefault();
 				}
 			}
 			else if (e.tagName() == "updategamelist")
@@ -362,22 +341,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (!e_player.isNull() && e_player.tagName() == "player")
 					{
 						if (type=="del")
-							emit playerListDel(e_player.attributeNode(QString("clientid")).value());
+							emit playerListDel(e_player.attributeNode(QString("playerid")).value());
 						else if (type=="edit")
-							emit playerListEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerListEdit(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
-						{
-							int playerId = -1;
-							a = e_player.attributeNode(QString("playerid"));
-							if (!a.isNull())
-								playerId = a.value().toInt();
-
-							a = e_player.attributeNode(QString("clientid"));
-							if (!a.isNull() && a.value().toInt() == m_clientId)
-								m_playerId = playerId;
-							
 							emit playerListAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
-						}
 					}
 					n_player = n_player.nextSibling();
 				}
@@ -385,20 +353,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "client")
 			{
-				a = e.attributeNode(QString("clientid"));
+				a = e.attributeNode(QString("playerid"));
 				if (!a.isNull())
 				{
-					m_clientId = a.value().toInt();
+					m_playerId = a.value().toInt();
 					// TODO: move to Atlantik::slotNetworkConnected(), not needed on auto-join
 					cmdGamesList();
 				}
-			}
-			else if (e.tagName() == "newturn")
-			{
-				Player *player = m_playerMap[e.attributeNode(QString("player")).value().toInt()];
-				if (player)
-					// Update *all* objects
-					m_atlanticCore->setCurrentTurn(player);
 			}
 			else if (e.tagName() == "configupdate")
 			{
@@ -473,6 +434,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setMoney(a.value().toInt());
 
+					a = e.attributeNode(QString("hasturn"));
+					if (player && !a.isNull())
+						player->setHasTurn(a.value().toInt());
+
 					// Update whether player can roll
 					a = e.attributeNode(QString("can_roll"));
 					if (player && !a.isNull())
@@ -520,20 +485,26 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "estategroupupdate")
 			{
-				a = e.attributeNode(QString("name"));
+				a = e.attributeNode(QString("estategroupid"));
 				if (!a.isNull())
 				{
+					int groupId = a.value().toInt();
+
 					EstateGroup *estateGroup;
 					bool b_newEstateGroup = false;
 					
-					if (!(estateGroup = m_estateGroups[a.value()]))
+					if (!(estateGroup = m_estateGroups[groupId]))
 					{
 						// Create EstateGroup object
-						estateGroup = m_atlanticCore->newEstateGroup(a.value());
-						m_estateGroups[a.value()] = estateGroup;
+						estateGroup = m_atlanticCore->newEstateGroup(a.value().toInt());
+						m_estateGroups[groupId] = estateGroup;
 
 						b_newEstateGroup = true;
 					}
+
+					a = e.attributeNode(QString("name"));
+					if (estateGroup && !a.isNull())
+						estateGroup->setName(a.value());
 
 					// Emit signal so GUI implementations can create view(s)
 					// TODO:  port to atlanticcore and create view there
@@ -605,7 +576,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("group"));
 					if (!a.isNull())
 					{
-						EstateGroup *estateGroup = m_estateGroups[a.value()];
+						EstateGroup *estateGroup = m_estateGroups[a.value().toInt()];
 						if (estate)
 							estate->setEstateGroup(estateGroup);
 					}

@@ -40,7 +40,7 @@ public:
 	Estate *newEstate(int estateId);
 
 	QPtrList<EstateGroup> estateGroups();
-	EstateGroup *newEstateGroup(QString name);
+	EstateGroup *newEstateGroup(const int id);
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
@@ -49,8 +49,6 @@ public:
 	QPtrList<Auction> auctions();
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
-
-	void setCurrentTurn(Player *player);
 
 signals:
 	void removeGUI(Trade *trade);

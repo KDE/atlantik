@@ -2,18 +2,6 @@
 ^ in progress
 v implemented
 
-monopd API changes (break behavior, fix)
-------------------
-
-- API: replaced joinedgame with correct use of <gameupdate> tag
-- API: clientid in client message is now playerid, playerid no longer reset
-  at game startup, so a game does not necessarily have players 0 through n.
-- API: clientid in updateplayerlist message is also merged into playerid
-- API: group attribute in estateupdate sends groupid now, not name, groupid
-  attribute added to estategroupupdate
-- API: merged estatedisplay with display
-- API: moved newturn message to playerupdate attribute hasturn
-
 monopd API changes (features)
 ------------------
 
@@ -32,14 +20,6 @@ Bugfixes
 - Token should not have to know about EstateView, views could be independent
 - all player/core dependencies in Board should only be there in Mode::Play
 - player name change doesn't make it to game description
-
-For 0.5.0
----------
-
-v fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
-v player name change doesn't make it to trade money items
-v API: replaced joinedgame with correct use of <gameupdate> tag
-v fixed token positioning on game start
 
 For 0.6.0
 ---------

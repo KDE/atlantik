@@ -24,7 +24,7 @@ class EstateGroup : public QObject
 Q_OBJECT
 
 public:
-	EstateGroup(const QString name);
+	EstateGroup(const int id);
 	void setName(const QString name);
 	QString name() const { return m_name; }
 	void update(bool force = false);
@@ -33,6 +33,7 @@ signals:
 	void changed();
 
 private:
+	int m_id;
 	bool m_changed;
 	QString m_name;
 };

@@ -167,13 +167,13 @@ private:
 	QObject *m_parent;
 	QDomDocument msg;
 
-	int m_clientId, m_playerId;
+	int m_playerId;
 
 	QMap<int, Player *> m_playerMap;
 	QMap<Player *, int> m_playerRevMap;
 	QMap<Player *, int> m_playerLocationMap;
 	QMap<int, Estate *> m_estates;
-	QMap<QString, EstateGroup *> m_estateGroups;
+	QMap<int, EstateGroup *> m_estateGroups;
 	QMap<int, Trade *> m_trades;
 	QMap<int, Auction *> m_auctions;
 };

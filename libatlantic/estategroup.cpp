@@ -17,9 +17,9 @@
 #include "estategroup.h"
 #include "estategroup.moc"
 
-EstateGroup::EstateGroup(const QString name) : QObject()
+EstateGroup::EstateGroup(const int id) : QObject()
 {
-	m_name = name;
+	m_id = id;
 }
 
 void EstateGroup::setName(const QString name)

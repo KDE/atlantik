@@ -56,9 +56,9 @@ QPtrList<EstateGroup> AtlanticCore::estateGroups()
 	return m_estateGroups;
 }
 
-EstateGroup *AtlanticCore::newEstateGroup(QString name)
+EstateGroup *AtlanticCore::newEstateGroup(const int id)
 {
-	EstateGroup *estateGroup = new EstateGroup(name);
+	EstateGroup *estateGroup = new EstateGroup(id);
 	m_estateGroups.append(estateGroup);
 	return estateGroup;
 }
@@ -103,18 +103,4 @@ void AtlanticCore::delAuction(Auction *auction)
 {
 	m_auctions.remove(auction);
 	delete auction;
-}
-
-void AtlanticCore::setCurrentTurn(Player *player)
-{
-	Player *p;
-	for (QPtrListIterator<Player> i(m_players); *i; ++i)
-	{
-		p = dynamic_cast<Player *>(*i);
-		if (p)
-		{
-			p->setHasTurn(p==player);
-			p->update();
-		}
-	}
 }
