@@ -35,10 +35,10 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	// List of games
 	m_gameList = new KListView(groupBox, "m_gameList");
-	m_gameList->addColumn(QString(i18n("Game")));
-	m_gameList->addColumn(QString(i18n("Description")));
-	m_gameList->addColumn(QString(i18n("Id")));
-	m_gameList->addColumn(QString(i18n("Players")));
+	m_gameList->addColumn(i18n("Game"));
+	m_gameList->addColumn(i18n("Description"));
+	m_gameList->addColumn(i18n("Id"));
+	m_gameList->addColumn(i18n("Players"));
 	m_gameList->setAllColumnsShowFocus(true);
 //	m_mainLayout->addWidget(m_gameList);
 

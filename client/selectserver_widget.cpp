@@ -36,19 +36,19 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 	m_mainLayout->addWidget(bgroup);
 
 	// Button for local games
-//	m_localGameButton = new QRadioButton(QString(i18n("Start a local server")), bgroup, "m_localGameButton");
+//	m_localGameButton = new QRadioButton(i18n("Start a local server"), bgroup, "m_localGameButton");
 //	connect(m_localGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
 
 	// Button for on-line games
-//	m_onlineGameButton = new QRadioButton(QString(i18n("Select a server to play a game on-line")), bgroup, "m_onlineGameButton");
+//	m_onlineGameButton = new QRadioButton(i18n("Select a server to play a game on-line"), bgroup, "m_onlineGameButton");
 //	m_localGameButton->setEnabled(true);
 //	connect(m_onlineGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
 
 	// List of servers
 	m_serverList = new KListView(bgroup, "m_serverList");
-	m_serverList->addColumn(QString(i18n("Host")));
-	m_serverList->addColumn(QString(i18n("Version")));
-	m_serverList->addColumn(QString(i18n("Users")));
+	m_serverList->addColumn(i18n("Host"));
+	m_serverList->addColumn(i18n("Version"));
+	m_serverList->addColumn(i18n("Users"));
 	m_serverList->setAllColumnsShowFocus(true);
 //	m_mainLayout->addWidget(m_serverList);
 
