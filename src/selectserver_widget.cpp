@@ -2,9 +2,9 @@
 #include <qradiobutton.h>
 
 #include <klocale.h>
-#include <kstandarddirs.h>
+#include <kiconloader.h>
 #include <kmessagebox.h>
- 
+
 #include "selectserver_widget.moc"
 
 SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -40,13 +40,11 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	m_refreshButton = new QPushButton("Refresh", bgroup);
-//	m_refreshButton->setPixmap(QPixmap(locate("icon", "hicolor/16x16/actions/reload.png")));
+	m_refreshButton = new QPushButton(BarIcon("reload", 16), i18n("Refresh"), bgroup);
 
 	connect(m_refreshButton, SIGNAL(pressed()), this, SLOT(initMonopigator()));
 
-	m_connectButton = new QPushButton("Connect", this);
-//	m_connectButton = new QPushButton(QPixmap::QPixmap(locate("icon", "hicolor/16x16/actions/forward.png")), "Connect", this);
+	m_connectButton = new QPushButton(BarIcon("forward", 16), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	m_mainLayout->addWidget(m_connectButton);
 
@@ -85,7 +83,7 @@ void SelectServer::slotMonopigatorClear()
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
 {
 	QListViewItem *item = new QListViewItem(m_serverList, host, port, version);
-	item->setPixmap(0, QPixmap(locate("icon", "hicolor/16x16/apps/atlantik.png")));
+	item->setPixmap(0, BarIcon("atlantik", 16));
 	validateConnectButton();
 }
 
@@ -134,9 +132,4 @@ void SelectServer::connectPressed()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
 		emit serverConnect(item->text(0), item->text(1).toInt());
-
-	KMessageBox::sorry(this, i18n(
-		"The new game wizard is undergoing a rewrite which has not been finished yet.\n"
-		"You cannot select games at a server at the moment."
-		));
 }

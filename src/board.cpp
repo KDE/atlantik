@@ -103,8 +103,6 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 				icon = QString("ring.png");
 				break;
 		}
-
-		estate[i] = new EstateView(new Estate(i+100), North, color, icon, this, "estateview");
 	}
 
 	QString label;
@@ -155,8 +153,10 @@ void AtlantikBoard::addEstateView(Estate *estate)
 
 void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
 {
-	int x = estate[destination]->geometry().center().x() - (token->width()/2);
-	int y = estate[destination]->geometry().center().y() - (token->height()/2);
+#warning port Board::jumpToken
+	int x=0, y=0;
+//	int x = estate[destination]->geometry().center().x() - (token->width()/2);
+//	int y = estate[destination]->geometry().center().y() - (token->height()/2);
 
 	token->setLocation(destination);
 	token->setGeometry(x, y, token->width(), token->height());
@@ -180,8 +180,9 @@ void AtlantikBoard::moveToken(Token *token, int destination)
 
 void AtlantikBoard::setOwned(int estateId, bool byAny, bool byThisClient)
 {
-	if (estateId>=0 && estateId<40)
-		estate[estateId]->setOwned(byAny, byThisClient);
+#warning port Board::setOwned
+//	if (estateId>=0 && estateId<40)
+//		estate[estateId]->setOwned(byAny, byThisClient);
 }
 
 void AtlantikBoard::raiseToken(int id)
@@ -192,11 +193,12 @@ void AtlantikBoard::raiseToken(int id)
 
 void AtlantikBoard::indicateUnownedChanged()
 {
+#warning port Board::indicateUnownedChaged
 	int i=0;
 
-	for (i=0;i<40;i++)
-		if (estate[i]!=0)
-			estate[i]->updatePE();
+//	for (i=0;i<40;i++)
+//		if (estate[i]!=0)
+//			estate[i]->updatePE();
 }
 
 void AtlantikBoard::redrawEstates()
@@ -232,8 +234,9 @@ void AtlantikBoard::slotMoveToken()
 		dest = 0;
 	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
-	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
-	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
+#warning port Board::slotMoveToken
+//	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
+//	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
 	kdDebug() << "going to " << destX << "," << destY << endl;
 
 	if (curX == destX && curY == destY)

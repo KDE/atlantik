@@ -1,7 +1,7 @@
 #include "estate.h"
 #include "player.h"
 
-Estate::Estate(int estateId)
+Estate::Estate(int estateId) : QObject()
 {
 	m_estateId = estateId;
 	m_owner = 0;

@@ -40,7 +40,6 @@ Q_OBJECT
 
 		QWidget *spacer, *center;
 		QGridLayout *m_gridLayout;
-		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
 		QTimer *m_timer;
 		bool m_resumeTimer;

@@ -22,14 +22,14 @@ int serverPort, gameId;
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard(parent, name, modal, f)
 {
 	// Select game page
-	select_game = new SelectGame(this, "select_game");
-	gameId = select_game->gameToJoin();
+//	select_game = new SelectGame(this, "select_game");
+//	gameId = select_game->gameToJoin();
 
-	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
+//	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
 
-	addPage(select_game, QString(i18n("Select or create a game:")));
-	setHelpEnabled(select_game, false);
-	setNextEnabled(select_game, false);
+//	addPage(select_game, QString(i18n("Select or create a game:")));
+//	setHelpEnabled(select_game, false);
+//	setNextEnabled(select_game, false);
 
 	// Configure game page
 	configure_game = new ConfigureGame(this, "configure_game");
@@ -51,14 +51,14 @@ void NewGameWizard::slotValidateNext()
 	// TODO: different slots for different pages
 	// or: passing widget pointer to slot and evaluate
 
-	if (select_game->validateNext())
-	{
-		gameId = select_game->gameToJoin();
-
-		setNextEnabled(select_game, true);
-	}
-	else
-		setNextEnabled(select_game, false);
+//	if (select_game->validateNext())
+//	{
+//		gameId = select_game->gameToJoin();
+//
+//		setNextEnabled(select_game, true);
+//	}
+//	else
+//		setNextEnabled(select_game, false);
 
 	if (configure_game->validateNext())
 		setFinishEnabled(configure_game, true);
@@ -69,12 +69,12 @@ void NewGameWizard::slotValidateNext()
 void NewGameWizard::slotInit(const QString &_name)
 {
 	kdDebug() << "initPage: " << _name << endl;
-	if (title(select_game) == _name)
-		select_game->initPage();
+//	if (title(select_game) == _name)
+//		select_game->initPage();
 	if (title(configure_game) == _name)
 		configure_game->initPage();
 }
-
+/*
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	QVBoxLayout *layout = new QVBoxLayout(this);
@@ -199,41 +199,6 @@ void SelectGame::slotGamelistUpdate(QString type)
 	}
 }
 
-void SelectGame::slotGamelistAdd(QString id, QString players)
-{
-	new QListViewItem(list, id, players);
-	list->triggerUpdate();
-}
-
-void SelectGame::slotGamelistEdit(QString id, QString players)
-{
-	QListViewItem *item = list->firstChild();
-	while (item)
-	{
-		if (item->text(0) == id)
-		{
-			item->setText(1, players);
-			list->triggerUpdate();
-			return;
-		}
-		item = item->nextSibling();
-	}
-}
-
-void SelectGame::slotGamelistDel(QString id)
-{
-	QListViewItem *item = list->firstChild();
-	while (item)
-	{
-		if (item->text(0) == id)
-		{
-			delete item;
-			return;
-		}
-		item = item->nextSibling();
-	}
-}
-
 void SelectGame::slotGamelistEndUpdate(QString type)
 {
 	if (type=="full")
@@ -254,6 +219,7 @@ void SelectGame::slotInitPage()
 {
 	initPage();
 }
+*/
 
 ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {

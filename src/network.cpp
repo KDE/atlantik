@@ -179,8 +179,8 @@ void GameNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "updategamelist")
 			{
 				QString type = e.attributeNode(QString("type")).value();
-
-				emit gamelistUpdate(type);
+				if (type == "clear")
+					emit gameListClear();
 
 				QDomNode n_game = n.firstChild();
 				while(!n_game.isNull())
@@ -189,11 +189,11 @@ void GameNetwork::processNode(QDomNode n)
 					if (!e_game.isNull() && e_game.tagName() == "game")
 					{
 						if (type=="del")
-							emit gamelistDel(e_game.attributeNode(QString("id")).value());
+							emit gameListDel(e_game.attributeNode(QString("id")).value());
 						else if (type=="edit")
-							emit gamelistEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
 						else if (type=="add" || type=="full")
-							emit gamelistAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
 					}
 					n_game = n_game.nextSibling();
 				}

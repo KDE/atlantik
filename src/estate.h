@@ -5,8 +5,10 @@
 
 class Player;
 
-class Estate
+class Estate : public QObject
 {
+Q_OBJECT
+
 public:
 	Estate(int estateId);
 	const int estateId() { return m_estateId; }
@@ -23,6 +25,9 @@ public:
 	const bool canToggleMortgage() { return m_canToggleMortgage; }
 	void setBgColor(const QColor color);
 	const QColor bgColor() { return m_bgColor; }
+
+signals:
+	void changed();
 
 private:
 	int m_estateId;

@@ -63,6 +63,7 @@ For 0.2.1
   - Houses (- 16, - 32, - 48, - 64)
   - Hotels (- 16, - 32, - 48, - 64)
   - code to load/scale appropriate icon
+  - whats better? SmallIcon(...) or BarIcon(..., 16) ??
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?

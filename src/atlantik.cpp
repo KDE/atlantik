@@ -13,6 +13,7 @@
 #include "atlantik.moc"
 #include "board.h"
 #include "selectserver_widget.h"
+#include "selectgame_widget.h"
 
 #include "config.h"
 
@@ -62,6 +63,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
 	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
+	connect(m_gameNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
 
 	// Management of data objects (players, games, estates)
 	playerList.setAutoDelete(true);
@@ -132,6 +134,18 @@ void Atlantik::readConfig()
 	atlantikConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
 	atlantikConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
+}
+
+void Atlantik::slotNetworkConnected()
+{
+	SelectGame *selectGame = new SelectGame(m_mainWidget, "selectGame");
+	m_mainLayout->addMultiCellWidget(selectGame, 0, 2, 1, 1);
+	selectGame->show();
+
+	connect(m_gameNetwork, SIGNAL(gameListClear()), selectGame, SLOT(slotGameListClear()));
+	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString)), selectGame, SLOT(slotGameListAdd(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString)), selectGame, SLOT(slotGameListEdit(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), selectGame, SLOT(slotGameListDel(QString)));
 }
 
 void Atlantik::slotNewGame()

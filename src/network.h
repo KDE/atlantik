@@ -41,11 +41,11 @@ signals:
 	void msgError(QString);
 	void msgChat(QString, QString);
 	void msgStartGame(QString);
-	void gamelistUpdate(QString);
+	void gameListClear();
 	void gamelistEndUpdate(QString);
-	void gamelistAdd(QString, QString);
-	void gamelistEdit(QString, QString);
-	void gamelistDel(QString);
+	void gameListAdd(QString gameId, QString description, QString players);
+	void gameListEdit(QString gameId, QString description, QString players);
+	void gameListDel(QString gameId);
 
 	void playerlistUpdate(QString);
 	void playerlistEndUpdate(QString);

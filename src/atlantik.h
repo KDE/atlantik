@@ -49,6 +49,13 @@ public:
 
 public slots:
 	/**
+	 * A network connection has been established, so we can leave the server
+	 * list for the game list.
+	 *
+	 */
+	 void slotNetworkConnected();
+
+	/**
 	 * Creates a new modal dialog to open new games with.
 	 *
 	 */

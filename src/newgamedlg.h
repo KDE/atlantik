@@ -11,6 +11,7 @@
 #include "network.h"
 #include "monopigator.h"
 
+/*
 class SelectGame : public QWidget
 {
 Q_OBJECT
@@ -28,9 +29,6 @@ Q_OBJECT
 
 		void slotGamelistUpdate(QString);
 		void slotGamelistEndUpdate(QString);
-		void slotGamelistAdd(QString, QString);
-		void slotGamelistEdit(QString, QString);
-		void slotGamelistDel(QString);
 
 		void slotInitPage();
 
@@ -45,6 +43,7 @@ Q_OBJECT
 		QLabel *status_label;
 		GameNetwork *gameNetwork;
 };
+*/
 
 class ConfigureGame : public QWidget
 {
@@ -85,7 +84,7 @@ Q_OBJECT
 
 	private:
 		QListView *list;
-		SelectGame *select_game;
+//		SelectGame *select_game;
 		ConfigureGame *configure_game;
 		GameNetwork *gameNetwork;
 };
