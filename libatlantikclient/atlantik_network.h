@@ -20,6 +20,8 @@
 #include <qdom.h>
 #include <qmap.h>
 
+#define USE_KDE 1
+
 #ifndef USE_KDE
 #include <qsocket.h>
 #else
@@ -35,9 +37,9 @@ class Trade;
 class Auction;
 
 //#ifndef USE_KDE
-class AtlantikNetwork : public QSocket
+//class AtlantikNetwork : public QSocket
 //#else
-//class AtlantikNetwork : public KExtendedSocket
+class AtlantikNetwork : public KExtendedSocket
 //#endif
 {
 Q_OBJECT

@@ -38,6 +38,10 @@
 #include <board.h>
 #include <trade_widget.h>
 
+#ifdef USE_KDE
+#include <errno.h>
+#endif
+
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
@@ -76,8 +80,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
 #else
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
-	connect(m_atlantikNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
-	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkConnected()));
+	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
 #endif
 
 	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
@@ -251,12 +254,12 @@ void Atlantik::slotNetworkConnected()
 	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
 }
 
-void Atlantik::slotNetworkError(int errno)
+void Atlantik::slotNetworkError(int errnum)
 {
 	QString errMsg(i18n("Error connecting: "));
 	
 #ifndef USE_KDE
-	switch(errno)
+	switch(errnum)
 	{
 		case QSocket::ErrConnectionRefused:
 			errMsg.append(i18n("connection refused by host."));
@@ -273,8 +276,25 @@ void Atlantik::slotNetworkError(int errno)
 		default:
 			errMsg.append(i18n("unknown error."));
 	}
-	serverMsgsAppend(errMsg);
+#else
+	switch (m_atlantikNetwork->status())
+	{
+		case IO_ConnectError:
+			if (errnum == ECONNREFUSED)
+				errMsg.append(i18n("connection refused by host."));
+			else
+				errMsg.append(i18n("could not connect to host."));
+			break;
+
+		case IO_LookupError:
+			errMsg.append(i18n("host not found."));
+			break;
+
+		default:
+			errMsg.append(i18n("unknown error."));
+	}
 #endif
+	serverMsgsAppend(errMsg);
 }
 
 void Atlantik::slotJoinedGame()

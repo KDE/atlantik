@@ -36,9 +36,12 @@ int main(int argc, char *argv[])
 
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
 
+	// Patches and artists
+	aboutData.addCredit("Thiago Macieira", I18N_NOOP("KExtendedSocket support"), "thiagom@wanadoo.fr");
+
 	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
-	aboutData.addCredit("Elhay Achiam", I18N_NOOP("auction icon"), "elhay_a@bezeqint.net");
-	aboutData.addCredit("Carlo Caneva", I18N_NOOP("various icons"), "webmaster@molecola.com", "http://www.molecola.com/");
+	aboutData.addCredit("Elhay Achiam", I18N_NOOP("icons"), "elhay_a@bezeqint.net");
+	aboutData.addCredit("Carlo Caneva", I18N_NOOP("icons"), "webmaster@molecola.com", "http://www.molecola.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
 

@@ -25,6 +25,9 @@
 #include <trade.h>
 #include <auction.h>
 
+#define USE_KDE 1
+
+#include "atlantik_network.h"
 #include "atlantik_network.moc"
 
 //#include "atlantik.h"
@@ -214,13 +217,14 @@ void AtlantikNetwork::slotRead()
 	while(canReadLine())
 		processMsg(readLine());
 #else
-	char *tmp = NULL;
+	char *tmp = new char[1024 * 32];
 	while(canReadLine())
 	{
 		kdDebug() << "canReadLine!" << endl;
 		readLine(tmp, 1024 * 32);
 		processMsg(tmp);
 	}
+	delete[] tmp;
 #endif
 
 	// Maximum message size. Messages won't get bigger than 32k anyway, so
@@ -735,6 +739,7 @@ void AtlantikNetwork::serverConnect(const QString host, int port)
 	connectToHost(host, port);
 #else
 	setAddress(host, port);
+	enableRead(true);
 	connect();
 #endif
 }
