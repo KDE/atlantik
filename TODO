@@ -3,8 +3,8 @@
 ? fixed but unconfirmed
 v implemented
 
-monopd API change
-------------------
+monopd API changes
+-------------------
 
 - playerupdate's jailcard stuff is now outofjailcards=<int>
 
@@ -31,28 +31,13 @@ Bugfixes
 For 0.3.0
 ---------
 
-- gameNetwork API
-  - commands
-    - .D
 v support for <display>
-  - commandlist plugin for display_widget
-    - class skeleton
-    - buttons for each command
-    - availability influences buttons
-    - buttons connect to network API
-  - fancy widgets
-    - generic (name (title) and description)
-    v estate
-    - dice
-    - leaving jail
-    v 10/200% tax
-      v remove widget after paying (monopd needs to send a display reset)
+  v 10/200% tax
+    v remove widget after paying (monopd needs to send a display reset)
 v Different token placement when in jail
 v fix portfolio
   v non street estates in portfolio (depends on proper monopd groups)
-  - Chance/CC cards in portfolio
   v do some relayouting based on the estategroup order
-- multiplayer support (multiple local players)
 v decent copyright and license notice in code and headers
 v add usercount support within monopigator
 
@@ -64,13 +49,21 @@ For 0.3.1
 - kapp should own gui(kmainwindow), network and core and connect them
 v move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
-- turn AtlantikConfig into real class instead of struct
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
 - Option to configure toolbars (at least be able to save size/text settings)
+- More descriptive window titles
 
 For 0.4.0
 ---------
 
+- fancy widgets
+  - generic (caption and description)
+  ^ estate
+  - dice
+  - leaving jail
+- .D command
+- multiplayer support (multiple local players)
+- Chance/CC cards in portfolio
 - support for trading jail cards (depends on monopd)
 - Support .gd game description.
 - Support updateplayerlist master, only update changed QStrings
@@ -87,35 +80,18 @@ For 0.4.0
   - Hotels (- 16, - 32, - 48, - 64)
   - code to load/scale appropriate icon
   - whats better? SmallIcon(...) or BarIcon(..., 16) ??
-- Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance
   v disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
-      - monopd requires diffed command availability
 
 For 0.5.0
 ---------
 
-- More descriptive window titles
 - Game configuration (when it appears in monopd)
 
-For 0.9.0
----------
-
-- Start of Beta series with KDE 3.1 beta1.
-- Prepare for 1.0.0 release for 3.1 final.
-
 For 1.0.0
----------
-
-- Have a game suitable for inclusion in kdegames. Nice icons, stable code,
-  etcetera.
-- Version 1.0.0 should be released with KDE 3.1, so after the last
-  beta Atlantik version will be moved from 0.9.x to 1.0.0.
-
-For 1.1.0
 ---------
 
 - Code documentation

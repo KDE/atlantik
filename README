@@ -5,7 +5,8 @@ Contents
 2. Download
 3. Mailinglist
 4. Roadmap
-5. Copyrights, trademarks and patents
+5. Designer
+6. Copyrights, trademarks and patents
 
 1. Introduction
 ---------------
@@ -70,7 +71,13 @@ To post, send e-mail to: monopd-devel@lists.capsi.com
 The TODO file gives a nice approximation of desired functionality and
 priorities. It can be used as roadmap or checklist.
 
-5. Copyrights, trademarks and patents
+5. Designer
+-----------
+
+Atlantik Designer is a game board designer that will create game config
+files for monopd. You can find it in KDE CVS, module kdeaddons.
+
+6. Copyrights, trademarks and patents
 -------------------------------------
 
 Many people have expressed their concerns about possible copyrights and
