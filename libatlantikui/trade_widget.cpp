@@ -194,12 +194,11 @@ void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
 	delete item;
-//	delete t; // TODO: delete item as as well, right?
+	delete t;
 }
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	kdDebug() << "TradeDisplay::tradeItemChanged" << endl;
 	KListViewItem *item = m_componentMap[t];
 	if (item)
 	{
@@ -222,6 +221,10 @@ void TradeDisplay::playerChanged(Player *player)
 {
 	m_playerFromCombo->changeItem(player->name(), m_playerFromRevMap[player]);
 	m_playerTargetCombo->changeItem(player->name(), m_playerTargetRevMap[player]);
+
+	TradeItem *item = 0;
+	for (QMap<KListViewItem *, TradeItem *>::Iterator it=m_componentRevMap.begin() ; it != m_componentRevMap.end() && (item = *it) ; ++it)
+		tradeItemChanged(item);
 }
 
 void TradeDisplay::tradeRejected(Player *player)
