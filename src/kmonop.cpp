@@ -41,7 +41,7 @@ KMonop::KMonop (const char *name) :
 	connect(gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdate(int, int)), this, SLOT(slotMsgEstateUpdate(int, int)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
@@ -192,15 +192,13 @@ void KMonop::slotMsgStartGame(QString msg)
 
 void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
 {
-	playerid--;
-
 	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
 	{
 		if (port[playerid]->isHidden())
 			port[playerid]->show();
 
 		QString label;
-		label.setNum(playerid+1);
+		label.setNum(playerid);
 		label.append(". " + name);
 		port[playerid]->setName(label);
 	}
@@ -208,8 +206,6 @@ void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
 
 void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 {
-	playerid--;
-
 	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
 	{
 		if (port[playerid]->isHidden())
@@ -219,11 +215,8 @@ void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 	}
 }
 
-void KMonop::slotMsgEstateUpdate(int id, int owner)
+void KMonop::slotMsgEstateUpdateOwner(int id, int owner)
 {
-	// Decrease owner because array is 0-indexed
-	owner--;
-
 	if (id < 40 && owner < MAXPLAYERS)
 	{
 		if (port[owner]!=0)
@@ -250,9 +243,6 @@ void KMonop::slotSetTurn(int player)
 		roll_die->setEnabled(false);
 		buy_estate->setEnabled(false);
 	}
-
-	// Decrease player because array is 0-indexed
-	player--;
 
 	board->raiseToken(player);
 

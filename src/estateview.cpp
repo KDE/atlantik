@@ -37,7 +37,7 @@ EstateView::EstateView(int orientation, bool canBeOwned, const QColor &color, co
 	pe = 0;
 	icon = initIcon(_icon);
 
-	setName("Boardwalk");
+	setName("");
 	setHouses(0);
 	setOwned(false);
 

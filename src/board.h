@@ -22,6 +22,7 @@ Q_OBJECT
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
+		void slotMsgEstateUpdateName(int, QString);
 		void slotMoveToken();
 		void slotResizeAftermath();
 

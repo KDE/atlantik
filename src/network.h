@@ -31,7 +31,8 @@ Q_OBJECT
 		void msgPlayerUpdateName(int, QString);
 		void msgPlayerUpdateMoney(int, QString);
 		void msgPlayerUpdateLocation(int, int, bool);
-		void msgEstateUpdate(int, int);
+		void msgEstateUpdateName(int, QString);
+		void msgEstateUpdateOwner(int, int);
 		void setPlayerId(int);
 		void setTurn(int);
 

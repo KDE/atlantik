@@ -85,11 +85,11 @@ void GameNetwork::processNode(QDomNode n)
 				}
 				emit gamelistEndUpdate(type);
 			}
-			else if (e.tagName() == "joinedgame")
+			else if (e.tagName() == "client")
 			{
-				// code to set playerid so we know when it's our turn or not
-				int playerid = e.attributeNode(QString("playerid")).value().toInt();
-				emit setPlayerId(playerid);
+				a = e.attributeNode(QString("playerid"));
+				if (!a.isNull())
+					emit setPlayerId(a.value().toInt());
 			}
 			else if (e.tagName() == "newturn")
 			{
@@ -134,19 +134,33 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						location = a.value().toInt();
 
-					a = e.attributeNode(QString("directmove"));
-					if (!a.isNull())
-						directmove = a.value().toInt();
+					if (location != -1)
+					{
+						a = e.attributeNode(QString("directmove"));
+						if (!a.isNull())
+							directmove = a.value().toInt();
 
-					if (location >= 0)
 						emit msgPlayerUpdateLocation(playerid, location, directmove);
+					}
 				}
 			}
 			else if (e.tagName() == "estateupdate")
 			{
-				int id = e.attributeNode(QString("id")).value().toInt();
-				int owner = e.attributeNode(QString("owner")).value().toInt();
-				emit msgEstateUpdate(id, owner);
+				int estateid = -1;
+
+				a = e.attributeNode(QString("estateid"));
+				if (!a.isNull())
+				{
+					estateid = a.value().toInt();
+
+					a = e.attributeNode(QString("name"));
+					if (!a.isNull())
+						emit msgEstateUpdateName(estateid, a.value());
+
+					a = e.attributeNode(QString("owner"));
+					if (!a.isNull())
+						emit msgEstateUpdateOwner(estateid, a.value().toInt());
+				}
 			}
 		}
 		QDomNode node = n.firstChild();

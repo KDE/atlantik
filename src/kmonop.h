@@ -40,7 +40,7 @@ class KMonop : public KTMainWindow
 		void slotMsgStartGame(QString);
 		void slotMsgPlayerUpdateName(int, QString);
 		void slotMsgPlayerUpdateMoney(int, QString);
-		void slotMsgEstateUpdate(int, int);
+		void slotMsgEstateUpdateOwner(int, int);
 
 		void slotSetPlayerId(int);
 		void slotSetTurn(int);

@@ -112,11 +112,12 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 	}
 
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
 
 	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
 	{
-		label.setNum(i+1);
+		label.setNum(i);
 		token[i] = new Token(label, this, "token");
 		jumpToken(token[i], 0);
 		token[i]->hide();
@@ -282,9 +283,6 @@ void KMonopBoard::slotResizeAftermath()
 
 void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
 {
-	// Adjust playerid because our array is 0-indexed.
-	playerid--;
-
 	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
 	{
 		if (token[playerid]->isHidden())
@@ -298,5 +296,13 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 			else
 				moveToken(token[playerid], location);
 		}
+	}
+}
+
+void KMonopBoard::slotMsgEstateUpdateName(int estateid, QString name)
+{
+	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
+	{
+		estate[estateid]->setName(name);
 	}
 }

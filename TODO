@@ -1,23 +1,18 @@
-For 0.0.2
+For 0.1.0
 ---------
 
 - Finish newgamedlg wizard:
-  v Report error in case connection cannot be made.
-  - Game configuration needn't be implemented yet, missing functionality in
-    monopd server.
   v Game playerlist must be displayed and present an option to launch the
     game. (display works, although server code doesn't not yet inform
     regarding people leaving)
     - playerlist --> playerlistupdate, three types "add,del,full"
     - slot*Update(v gl - pl), slot*Add (v-), slot*Del (v-), slot*EndUpdate (v-)
-  v Upon startgame, use playerupdate to init/update portfolios. Final
-    playerlist is already deprecated then. ;-)
-- Fetch (default) game data from server (streetnames).
 - Station(v)/utility/cc/chance(v) icons on gameboard
 
-For 0.1.x
+For 0.2.x
 ---------
 
+- Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
@@ -32,7 +27,7 @@ For 0.1.x
   v disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
 
-For 0.2.x
+For 0.3.x
 ---------
 
 - Use i18n() for all messages. Until 0.2.x this is not recommendable because
