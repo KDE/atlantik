@@ -342,7 +342,7 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool directMove)
+void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool /*directMove*/)
 {
 	kdDebug() << "Atlantik::slotMsgPlayerUpdateLocation" << endl;
 	Player *player = playerMap[playerId];
@@ -562,18 +562,8 @@ void Atlantik::slotTradeInit(int tradeId)
 	Trade *trade;
 	if (!(trade = tradeMap[tradeId]))
 	{
-		trade = new Trade(tradeId);
-
-//		connect(trade, SIGNAL(tradeToggleMortgage(int)), m_gameNetwork, SLOT(tradeToggleMortgage(int)));
-
+		trade = new Trade(m_gameNetwork, tradeId);
 		tradeMap[tradeId] = trade;
-
-		kdDebug() << "adding trade display" << endl;
-		TradeDisplay *tradeDisplay = new TradeDisplay(0, "tradewindow");
-		tradeDisplay->setFixedSize(200, 200);
-		tradeDisplay->show();
-
-		connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 
 //		m_board->addTradeView(trade);
 	}
