@@ -111,7 +111,6 @@ private:
 	int m_tradeId;
 
 	QPtrList<Player> mPlayers;
-	TradeDisplay *mDisplay;
 	
 	QPtrList<TradeItem> mTradeItems;
 };

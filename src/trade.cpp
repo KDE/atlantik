@@ -9,9 +9,6 @@ Trade::Trade(GameNetwork *network, int tradeId)
 {
 	m_tradeId = tradeId;
 
-	mDisplay=new TradeDisplay(this);
-	connect(this, SIGNAL(changed()), mDisplay, SLOT(tradeChanged()));
-	
 }
 
 void Trade::addPlayer(Player *player)

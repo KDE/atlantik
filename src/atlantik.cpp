@@ -563,6 +563,7 @@ void Atlantik::slotTradeInit(int tradeId)
 	if (!(trade = tradeMap[tradeId]))
 	{
 		trade = new Trade(m_gameNetwork, tradeId);
+		new TradeDisplay(trade);
 		tradeMap[tradeId] = trade;
 
 //		m_board->addTradeView(trade);
