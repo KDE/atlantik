@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=atlanticdesigner -caption "%c" %i %m
+Icon=atlanticdesigner
+DocPath=atlantik/index.html
+Comment=KDE gameboard designer for the Atlantic game server
+Comment[xxx]=xx
+Terminal=0
+Name=Atlantic Designer
+Name[xxx]=xx
+MapNotify=true 
