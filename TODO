@@ -24,13 +24,17 @@ v token geometry is now aware of estate colour captions
 v queue display widgets
   v fix buttons, they have specific targets, not just the current widget
   v delete buttons in EstateDetails::newUpdate()
+v commandline parameters host, port and game supported (for auto-join)
+v kio_atlantik allows for easy connecting from other applications
+  (kopete/kmail)
+v leave game option
+v pre-game configuration
 - fancy widgets
   - generic (caption and description)
   ^ estate
   - dice
   - leaving jail
 - .D command
-- multiplayer support (multiple local players)
 - Chance/CC cards in portfolio
 - support for trading jail cards (depends on monopd)
 - Support .gd game description.
@@ -38,14 +42,6 @@ v queue display widgets
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance
-  v disable roll/buy toolbar buttons depending on game status
-    - at the moment based on turn, must be more precise
-v commandline parameters host, port and game supported (for auto-join)
-v kio_atlantik allows for easy connecting from other applications
-  (kopete/kmail)
-v leave game option
-^ pre-game configuration
-  v auctions
 
 For 0.5.0
 ---------
@@ -54,6 +50,7 @@ For 0.5.0
   - kaddressbook hooks
   - e-mail invites
   - IM invites
+- multiplayer support (multiple local players)
 
 For 1.0.0
 ---------
