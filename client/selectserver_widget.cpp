@@ -124,7 +124,7 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 	if (m_hideDevelopmentServers && version.contains("CVS"))
 		return;
 
-	QListViewItem *item = new QListViewItem(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
+	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 }
@@ -133,9 +133,8 @@ void SelectServer::slotCustomConnected()
 {
 	m_localServerAvailable = true;
 
-	QListViewItem *item = new QListViewItem(m_serverList, m_localSocket->host(), i18n("unknown"), i18n("unknown"), m_localSocket->port());
+	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, m_localSocket->host(), i18n("unknown"), i18n("unknown"), m_localSocket->port());
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
-
 	validateConnectButton();
 }
 

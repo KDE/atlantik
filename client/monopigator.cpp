@@ -102,3 +102,22 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 		}
 	}
 }
+
+MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString version, QString users, QString port) : QListViewItem(parent, host, version, users, port)
+{
+}
+
+int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const
+{
+	if (col == 2)
+	{
+		int myVal = text(col).toInt(), iVal = i->text(col).toInt();
+		if (myVal == iVal)
+			return 0;
+		else if (myVal > iVal)
+			return 1;
+		else
+			return -1;
+	}
+	return key( col, ascending ).compare( i->key( col, ascending) );
+}
