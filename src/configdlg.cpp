@@ -46,7 +46,9 @@ ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, 
 
 	m_playerName = new QLineEdit(parent);
 	layout->addWidget(m_playerName);
-	
+
+	layout->addStretch(1);
+
 	reset();
 }
 
@@ -81,6 +83,8 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 
 	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
 	layout->addWidget(box);
+
+	layout->addStretch(1);
 
 	reset();
 }
