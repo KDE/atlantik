@@ -38,6 +38,7 @@ KMonop::KMonop (const char *name) :
 	layout = new QGridLayout(main, 8, 2);
 
 	output = new QTextView(main, "output");
+	output->setHScrollBarMode(QScrollView::AlwaysOff);
 	output->setFixedWidth(225);
 
 	input = new QLineEdit(main, "input");
@@ -89,16 +90,18 @@ void KMonop::slotSendMsg()
 void KMonop::slotMsgError(QString msg)
 {
 	output->append("ERR: " + msg);
-	QScrollBar *sb = output->verticalScrollBar();
-	sb->setValue(sb->maxValue());
+//	QScrollBar *sb = output->verticalScrollBar();
+//	sb->setValue(sb->maxValue());
+	output->ensureVisible(0, output->contentsHeight());
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
 	output->append(msg);
-	QScrollBar *sb = output->verticalScrollBar();
-	sb->setValue(sb->minValue()); // ugly hack cuz maxValue directly doesn't properly update
-	sb->setValue(sb->maxValue());
+//	QScrollBar *sb = output->verticalScrollBar();
+//	sb->setValue(sb->minValue()); // ugly hack cuz maxValue directly doesn't properly update
+//	sb->setValue(sb->maxValue());
+	output->ensureVisible(0, output->contentsHeight());
 }
 
 void KMonop::slotMsgStartGame(QString msg)
@@ -107,8 +110,9 @@ void KMonop::slotMsgStartGame(QString msg)
 		wizard->hide();
 		
 	output->append("START: " + msg);
-	QScrollBar *sb = output->verticalScrollBar();
-	sb->setValue(sb->maxValue());
+//	QScrollBar *sb = output->verticalScrollBar();
+//	sb->setValue(sb->maxValue());
+	output->ensureVisible(0, output->contentsHeight());
 }
 
 void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
