@@ -88,7 +88,7 @@ public slots:
 	 * pre-game configuration.
 	 *
 	 */
-	 void slotInitGame();
+	 void initGame();
 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.

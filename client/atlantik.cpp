@@ -49,6 +49,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	// Initialize pointers to 0L
 	m_configDialog = 0;
 	m_playerSelf = 0;
+	m_board = 0;
 
 	// Game core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
@@ -71,7 +72,7 @@ Atlantik::Atlantik () : KMainWindow ()
 #endif
 
 	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
-	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
+	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
@@ -161,6 +162,9 @@ void Atlantik::readConfig()
 
 void Atlantik::newPlayer(Player *player)
 {
+	if (!m_board)
+		initGame();
+
 	m_board->addToken(player);
 
 	PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
@@ -186,6 +190,9 @@ void Atlantik::newPlayer(Player *player)
 
 void Atlantik::newEstate(Estate *estate)
 {
+	if (!m_board)
+		initGame();
+
 	m_board->addEstateView(estate);
 
 	PortfolioView *portfolioView;
@@ -211,6 +218,9 @@ void Atlantik::newTrade(Trade *trade)
 
 void Atlantik::newAuction(Auction *auction)
 {
+	if (!m_board)
+		initGame();
+
 	m_board->addAuctionWidget(auction);
 }
 
@@ -284,7 +294,7 @@ void Atlantik::slotJoinedGame()
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 }
 
-void Atlantik::slotInitGame()
+void Atlantik::initGame()
 {
 	// Create board widget and replace the game configuration widget.
 	m_board = new AtlantikBoard(m_atlanticCore, 40, m_mainWidget, "board");
@@ -326,7 +336,8 @@ void Atlantik::slotUpdateConfig()
 	if (atlantikConfig.indicateUnowned != optBool)
 	{
 		atlantikConfig.indicateUnowned = optBool;
-		m_board->indicateUnownedChanged();
+		if (m_board)
+			m_board->indicateUnownedChanged();
 	}
 
 	optBool = m_configDialog->highliteUnowned();
