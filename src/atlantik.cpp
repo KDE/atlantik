@@ -521,7 +521,7 @@ void Atlantik::slotPlayerInit(int playerId)
 			}
 
 		connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
-		connect(portfolioView, SIGNAL(newTrade(int)), m_gameNetwork, SLOT(newTrade(int)));
+		connect(portfolioView, SIGNAL(newTrade(Player *)), m_gameNetwork, SLOT(newTrade(Player *)));
 
 		m_portfolioLayout->addWidget(portfolioView);
 		portfolioView->show();
@@ -563,7 +563,10 @@ void Atlantik::slotTradeInit(int tradeId)
 	if (!(trade = tradeMap[tradeId]))
 	{
 		trade = new Trade(m_gameNetwork, tradeId);
-		new TradeDisplay(trade);
+
+		TradeDisplay *tradeDisplay = new TradeDisplay(trade);
+		tradeDisplay->show();
+
 		tradeMap[tradeId] = trade;
 
 //		m_board->addTradeView(trade);
