@@ -711,7 +711,7 @@ void Atlantik::playerChanged(Player *player)
 
 void Atlantik::gainedTurn()
 {
-	KNotifyClient::event(this->winId(), "gainedturn");
+	KNotifyClient::event(this->winId(), "gainedturn", i18n("It is your turn now.") );
 }
 
 void Atlantik::initEventLog()
