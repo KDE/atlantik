@@ -37,8 +37,6 @@ public:
 //		void statusChanged();
 
 private:
-	void addDefaultGames();
-
 	QVBoxLayout *m_mainLayout;
 	QLabel *status_label;
 	KListView *m_gameList;

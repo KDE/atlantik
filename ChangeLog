@@ -1,4 +1,9 @@
-2001-01-31 (kaper)
+2002-02-11 (kaper)
+----------
+
+- Gametypes no longer hardcoded but fetched from monopd server
+
+2002-01-31 (kaper)
 ----------
 
 - Bugfixes
