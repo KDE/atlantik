@@ -17,19 +17,18 @@ the server relies on.
 2. Download
 -----------
 
-KMonop is currently only available from KDE CVS, in the kdenonbeta module.
-monopd can be downloaded from http://capsi.com/~cap/monopd/
+KMonop can be downloaded from http://capsi.com/kmonop/
+monopd snapshots can be downloaded from http://capsi.com/~cap/monopd/ but
 
-You must *always* use the latest snapshot of monopd that is available.
+The latest versions however can be found in CVS. KMonop is located in the
+CVS repository of the KDE project in the module kdenonbeta. For more
+information on monopd CVS see http://sourceforge.net/projects/monopd/
 
-Most of the messages between client and server are still being rewritten in
-a not backwards compatible way. Furthermore, KMonop is only the client and
-depends on the server very much: when the ability to show a playerlist is
-added to KMonop, the ability to generate it must be added to the server!
-
-I will try and update the monopd server code snapshot every time I make a
-major commit of KMonop client code, to make sure you can practically always
-run the same code as I do.
+You must *always* use the latest version of monopd that is available: most
+of the messages between client and server are still being rewritten in a not
+backwards compatible way. Furthermore, KMonop is only the client and depends
+on the server very much: when the ability to show a playerlist is added to
+KMonop, the ability to generate it must be added to the server!
 
 3. Mailinglist
 --------------
