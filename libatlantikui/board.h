@@ -40,11 +40,15 @@ public:
 	enum DisplayMode { Play, Edit };
 
 	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
+	~AtlantikBoard();
+
 	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
+
 	void addToken(Player *player);
+
 	void indicateUnownedChanged();
 	EstateView *findEstateView(Estate *estate);
 	QWidget *centerWidget();
@@ -69,6 +73,7 @@ protected:
 	void resizeEvent(QResizeEvent *);
 
 private:
+	Token *findToken(Player *player);
 	void jumpToken(Token *token);
 	void moveToken(Token *token);
 	QPoint calculateTokenDestination(Token *token, Estate *estate = 0);
@@ -88,7 +93,7 @@ private:
 	int m_maxEstates;
 
 	QPtrList<EstateView> m_estateViews;
-	QMap<Player *, Token *> tokenMap;
+	QPtrList<Token> m_tokens;
 	QPtrList<QWidget> m_displayQueue;
 };
 

@@ -79,7 +79,7 @@ void Estate::setName(QString name)
 	}
 }
 
-QString Estate::name()
+QString Estate::name() const
 {
 	return m_name;
 }
