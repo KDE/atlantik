@@ -647,30 +647,27 @@ void AtlantikNetwork::processNode(QDomNode n)
 						b_newAuction = true;
 					}
 
-					QString type = e.attributeNode(QString("type")).value();
-					if (type=="new")
+					a = e.attributeNode(QString("highbidder"));
+					if (!a.isNull())
 					{
-					}
-					else if (type=="edit")
-					{
-						a = e.attributeNode(QString("highbidder"));
-						if (!a.isNull())
-						{
-							Player *player = m_players[e.attributeNode(QString("highbidder")).value().toInt()];
-							a = e.attributeNode(QString("highbid"));
-							if (auction && !a.isNull())
-								auction->newBid(player, a.value().toInt());
-						}
-
-						a = e.attributeNode(QString("status"));
+						Player *player = m_players[e.attributeNode(QString("highbidder")).value().toInt()];
+						a = e.attributeNode(QString("highbid"));
 						if (auction && !a.isNull())
-							auction->setStatus(a.value().toInt());
-
+							auction->newBid(player, a.value().toInt());
 					}
-					else if (type=="completed")
+
+					a = e.attributeNode(QString("status"));
+					if (auction && !a.isNull())
 					{
-						m_atlanticCore->delAuction(auction);
-						auction = 0;
+						int status = a.value().toInt();
+						auction->setStatus(status);
+
+						// TODO: find a good way to visualise "sold!"
+						if (status == 3)
+						{
+							m_atlanticCore->delAuction(auction);
+							auction = 0;
+						}
 					}
 
 					// Emit signal so GUI implementations can create view(s)
