@@ -20,8 +20,10 @@
 #include <qdatetime.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
+#include <qpopupmenu.h>
 
 #include <kaboutapplication.h>
+#include <kaction.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -52,6 +54,32 @@
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
+
+LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : QTextEdit( parent, name )
+{
+	m_clear = KStdAction::clear( this, SLOT( clear() ), 0 );
+	m_selectAll = KStdAction::selectAll( this, SLOT( selectAll() ), 0 );
+	m_copy = KStdAction::copy( this, SLOT( copy() ), 0 );
+}
+
+LogTextEdit::~LogTextEdit()
+{
+	delete m_clear;
+	delete m_selectAll;
+	delete m_copy;
+}
+
+QPopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
+{
+	QPopupMenu *rmbMenu = new QPopupMenu( this );
+	m_clear->plug( rmbMenu );
+	rmbMenu->insertSeparator();
+	m_copy->setEnabled( hasSelectedText() );
+	m_copy->plug( rmbMenu );
+	m_selectAll->plug( rmbMenu );
+
+	return rmbMenu;
+}
 
 Atlantik::Atlantik () : KMainWindow ()
 {
@@ -128,7 +156,7 @@ Atlantik::Atlantik () : KMainWindow ()
 //	m_portfolioLabel->show();
 
 	// Text view for chat and status messages from server.
-	m_serverMsgs = new QTextEdit(m_mainWidget, "serverMsgs");
+	m_serverMsgs = new LogTextEdit(m_mainWidget, "serverMsgs");
 	m_serverMsgs->setTextFormat(QTextEdit::PlainText);
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);

@@ -13,6 +13,7 @@
 
 - bugfix: avoid crash when unresolvable hosts are in the meta server list
 - bugfix: fix crash when network core is reset while readbuffer isn't empty
+- bugfix: chat view can be cleared (#69044)
 
 0.6.1
 -----
