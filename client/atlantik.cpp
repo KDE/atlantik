@@ -433,12 +433,6 @@ void Atlantik::freezeBoard()
 
 void Atlantik::slotNetworkConnected()
 {
-	// Check command-line args to see if we need to auto-join
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-	QCString game = args->getOption("game");	
-	if (!game.isNull())
-		m_atlantikNetwork->joinGame(game.toInt());
 }
 
 void Atlantik::slotNetworkError(int errnum)
@@ -774,6 +768,13 @@ void Atlantik::clientCookie(QString cookie)
 void Atlantik::sendHandshake()
 {
 	m_atlantikNetwork->setName(m_config.playerName);
+
+	// Check command-line args to see if we need to auto-join
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+
+	QCString game = args->getOption("game");	
+	if (!game.isNull())
+		m_atlantikNetwork->joinGame(game.toInt());
 }
 
 void Atlantik::statusBarClick(int item)
