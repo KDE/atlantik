@@ -4,6 +4,9 @@
 - correctly handle utf-8 over the network
 - only show localhost server when it is available
 - leaving a game and starting a new game correctly reinits atlanticCore
+- use disability to join game when size == MAX in gameupdate (games in
+  updategamelist now have canbejoined boolean attribute)
+- using playerupdate for player list in SelectConfiguration
 
 0.5.1
 -----
@@ -24,15 +27,15 @@
 0.4.0
 -----
 
-v token geometry is now aware of estate colour captions
-v queue display widgets
-  v fix buttons, they have specific targets, not just the current widget
-  v delete buttons in EstateDetails::newUpdate()
-v commandline parameters host, port and game supported (for auto-join)
-v kio_atlantik allows for easy connecting from other applications
+- token geometry is now aware of estate colour captions
+- queue display widgets
+  - fix buttons, they have specific targets, not just the current widget
+  - delete buttons in EstateDetails::newUpdate()
+- commandline parameters host, port and game supported (for auto-join)
+- kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
-v leave game and leave server options
-v pre-game configuration
+- leave game and leave server options
+- pre-game configuration
 
 2002-07-08 (kaper)
 ----------
