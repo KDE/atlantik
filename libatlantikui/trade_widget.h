@@ -10,6 +10,7 @@ class QListViewItem;
 class QSpinBox;
 
 class KListView;
+class KListViewItem;
 class KComboBox;
 class KPushButton;
 
