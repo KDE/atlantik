@@ -3,12 +3,12 @@
 #include <qcolor.h>
 
 #include <kstdgameaction.h>
-
 #include <kstdaction.h>
 #include <ktoolbar.h>
 #include <kapplication.h>
 #include <kconfig.h>
 #include <klocale.h>
+#include <kmessagebox.h>
  
 #include "atlantik.moc"
 #include "board.h"
@@ -206,6 +206,11 @@ void Atlantik::slotInitGame()
 
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
+
+	KMessageBox::information(this, i18n(
+		"Atlantik and monopd are undergoing a few major changes at the moment.\n"
+		"Unpredictable behavior might occur during your game."
+		));
 }
 
 void Atlantik::slotConfigure()

@@ -4,6 +4,9 @@
 - First changes to replace KMessageBox with in-window widget.
 - Starting games is possible again.
 - Connected Estate::changed to EstateView::estateChanged.
+- Added informational message at game startup regarding current Atlantik
+  state (buggy, at least).
+- No longer using fixed geometry.
 
 2001-11-05 (kaper)
 ----------
