@@ -5,10 +5,12 @@ Comment[wa]=Atlantike
  
 [chat]
 Name=Chat
+Name[bg]=Чат
 Name[hu]=Csevegés
 Name[pt_BR]=Bate-papo
 Name[sv]=Chatt
 Comment=A player sends a chat message
+Comment[bg]=Играч изпраща съобщение
 Comment[da]=En spiller sender en chat-besked
 Comment[es]=Un jugador ha enviado un mensaje
 Comment[hu]=Egy játékos szöveges üzenetet küld
@@ -20,6 +22,7 @@ default_presentation=1
 
 [newplayer]
 Name=New player
+Name[bg]=Нов играч
 Name[da]=Ny spiller
 Name[es]=Nuevo jugador
 Name[fr]=Nouveau lecteur
@@ -30,6 +33,7 @@ Name[tr]=Yeni oynatıcı
 Name[wa]=Novea djoweu
 Name[wen]=Nowy hrajer
 Comment=A new player joins the game
+Comment[bg]=Нов играч се присъединява към играта
 Comment[da]=En ny spiller går med i spillet
 Comment[es]=Un nuevo jugador se une a la partida
 Comment[fr]=Un nouveau joueur vient de se joindre à la partie
@@ -42,6 +46,7 @@ default_presentation=1
 
 [newgame]
 Name=New game
+Name[bg]=Нова игра
 Name[da]=Nyt spil
 Name[es]=Nuevo juego
 Name[fr]=Nouveau jeu
@@ -52,6 +57,7 @@ Name[tr]=Yeni oyun
 Name[wa]=Novea djeu
 Name[wen]=Nowa hra
 Comment=A new game is created
+Comment[bg]=Създадена е нова игра
 Comment[da]=Et nyt spil bliver oprettet
 Comment[es]=Una nueva partida ha sido creada
 Comment[fr]=Une nouvelle partie vient d'être créée
