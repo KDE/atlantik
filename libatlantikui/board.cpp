@@ -40,7 +40,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_maxEstates = maxEstates;
 	m_mode = mode;
 	m_animateTokens = false;
-	m_removeFirstOnPrepend = false;
+	m_lastServerDisplay = 0;
 
 	int sideLen = maxEstates/4;
 
@@ -202,6 +202,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 void AtlantikBoard::addAuctionWidget(Auction *auction)
 {
 	AuctionWidget *auctionW = new AuctionWidget(m_atlanticCore, auction, this);
+	m_lastServerDisplay = auctionW;
 	m_displayQueue.prepend(auctionW);
 	updateCenter();
 
@@ -403,10 +404,14 @@ void AtlantikBoard::displayDefault()
 		m_displayQueue.prepend(new QWidget(this));
 		break;
 	case 1:
+		if (m_displayQueue.getFirst() == m_lastServerDisplay)
+			m_lastServerDisplay = 0;
 		m_displayQueue.removeFirst();
 		m_displayQueue.prepend(new QWidget(this));
 		break;
 	default:
+		if (m_displayQueue.getFirst() == m_lastServerDisplay)
+			m_lastServerDisplay = 0;
 		m_displayQueue.removeFirst();
 		break;
 	}
@@ -416,10 +421,11 @@ void AtlantikBoard::displayDefault()
 void AtlantikBoard::displayText(QString caption, QString body)
 {
 	BoardDisplay *bDisplay = new BoardDisplay(caption, body, this);
+	m_lastServerDisplay = bDisplay;
 
-	if (m_removeFirstOnPrepend)
+	if (m_displayQueue.getFirst() != m_lastServerDisplay)
 		m_displayQueue.removeFirst();
-	m_removeFirstOnPrepend = false;
+
 	m_displayQueue.prepend(bDisplay);
 	updateCenter();
 
@@ -429,18 +435,20 @@ void AtlantikBoard::displayText(QString caption, QString body)
 
 void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
 {
-	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
+	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_lastServerDisplay))
 		display->addButton(command, caption, enabled);
-	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
+	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
 		display->addButton(command, caption, enabled);
 }
 
 void AtlantikBoard::addCloseButton()
 {
-	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
-		display->addCloseButton();
-	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
-		display->addCloseButton();
+	BoardDisplay *bDisplay = 0;
+	EstateDetails *eDetails = 0;
+	if ((bDisplay = dynamic_cast<BoardDisplay*>(m_lastServerDisplay)) && bDisplay != m_displayQueue.getLast())
+		bDisplay->addCloseButton();
+	else if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.getLast())
+		eDetails->addCloseButton();
 }
 
 void AtlantikBoard::insertEstateDetails(Estate *estate)
@@ -448,11 +456,27 @@ void AtlantikBoard::insertEstateDetails(Estate *estate)
 	if (!estate)
 		return;
 
-	if (m_removeFirstOnPrepend)
-		m_displayQueue.removeFirst();
-	m_removeFirstOnPrepend = false;
+	EstateDetails *eDetails = 0;
 
-	EstateDetails *eDetails = new EstateDetails(estate, this);
+	// This might just be a update
+	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails->estate() == estate)
+	{
+		eDetails->newUpdate();
+		return;
+	}
+
+	if (m_displayQueue.getFirst() != m_lastServerDisplay)
+		m_displayQueue.removeFirst();
+	else
+	{
+		if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_lastServerDisplay))
+			display->addCloseButton();
+		else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
+			display->addCloseButton();
+	}
+
+	eDetails = new EstateDetails(estate, this);
+	m_lastServerDisplay = eDetails;
 	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
 
@@ -477,9 +501,9 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	EstateDetails *eDetails = new EstateDetails(estate, this);
 	eDetails->addCloseButton();
 
-	if (m_removeFirstOnPrepend)
+	if (m_displayQueue.getFirst() != m_lastServerDisplay)
 		m_displayQueue.removeFirst();
-	m_removeFirstOnPrepend = true;
+
 	m_displayQueue.prepend(eDetails);
 	updateCenter();
 

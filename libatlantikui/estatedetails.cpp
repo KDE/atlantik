@@ -40,6 +40,7 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 	b_recreate = true;
 
 	m_quartzBlocks = 0;	
+	m_closeButton = 0;
 	m_recreateQuartz = true;
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
@@ -209,13 +210,29 @@ void EstateDetails::addButton(QString command, QString caption, bool enabled)
 
 	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
 }
+
 void EstateDetails::addCloseButton()
 {
-	KPushButton *button = new KPushButton("Close", this);
-	m_buttonBox->addWidget(button);
-	button->show();
+	m_closeButton = new KPushButton("Close", this);
+	m_buttonBox->addWidget(m_closeButton);
+	m_closeButton->show();
 
-	connect(button, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+	connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+}
+
+void EstateDetails::newUpdate()
+{
+	if (m_closeButton)
+	{
+		delete m_closeButton;
+		m_closeButton = 0;
+	}
+
+	// Delete buttons
+	
+	// Redraw details
+	b_recreate = true;
+	update();
 }
 
 void EstateDetails::buttonPressed()

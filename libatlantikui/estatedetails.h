@@ -25,6 +25,7 @@ class QVBoxLayout;
 class QVGroupBox;
 
 class KPixmap;
+class KPushButton;
 
 class Player;
 class Estate;
@@ -39,6 +40,7 @@ public:
 
 	void addButton(const QString command, const QString caption, bool enabled);
 	void addCloseButton();
+	void newUpdate();
 
 protected:
 	void paintEvent(QPaintEvent *);
@@ -55,6 +57,7 @@ private:
 	Estate *m_estate;
 	QPixmap *m_pixmap;
 	KPixmap *m_quartzBlocks;
+	KPushButton *m_closeButton;
 	bool b_recreate, m_recreateQuartz;
 	QVBoxLayout *m_mainLayout;
 	QHBoxLayout *m_buttonBox;

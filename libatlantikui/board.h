@@ -75,7 +75,7 @@ private:
 	AtlanticCore *m_atlanticCore;
 	DisplayMode m_mode;
 
-	QWidget *spacer;
+	QWidget *spacer, *m_lastServerDisplay;
 	QGridLayout *m_gridLayout;
 	Token *move_token;
 	QTimer *m_timer;
@@ -87,7 +87,6 @@ private:
 	QPtrList<EstateView> m_estateViews;
 	QMap<Player *, Token *> tokenMap;
 	QPtrList<QWidget> m_displayQueue;
-	bool m_removeFirstOnPrepend;
 };
 
 #endif
