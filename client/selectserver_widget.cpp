@@ -81,6 +81,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
 	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
+	connect(m_monopigator, SIGNAL(timeout()), SLOT(monopigatorTimeout()));
 
 	// Until we have a good way to use start a local monopd server, disable this button
 //	m_localGameButton->setEnabled(false);
@@ -140,6 +141,11 @@ void SelectServer::monopigatorFinished()
 	status_label->setText(i18n("Retrieved server list."));
 }
 
+void SelectServer::monopigatorTimeout()
+{
+	m_refreshButton->setEnabled(true);
+}
+
 void SelectServer::validateRadioButtons()
 {
 	return;
@@ -182,6 +188,7 @@ void SelectServer::slotRefresh()
 	validateConnectButton();
 
 	checkLocalServer();
+	m_refreshButton->setEnabled(false);
 	initMonopigator();
 }
 

@@ -19,6 +19,7 @@
 
 #include <qobject.h>
 #include <qbuffer.h>
+#include <qtimer.h>
 
 #include <kio/job.h>
 #include <kurl.h>
@@ -35,15 +36,18 @@ public:
 signals:
 	void monopigatorAdd(QString host, QString port, QString version, int users);
 	void finished();
+	void timeout();
 
 private slots:
 	void slotData(KIO::Job *, const QByteArray &);
 	void slotResult(KIO::Job *);
+	void slotTimeout();
 
 private:
 	void processData(const QByteArray &, bool = true);
 
 	QBuffer *m_downloadData;
+	QTimer *m_timer;
 	KIO::Job *m_job;
 };
 

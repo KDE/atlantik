@@ -22,11 +22,14 @@
 Monopigator::Monopigator()
 {
 	m_downloadData = 0;
+	m_job = 0;
+	m_timer = 0;
 }
 
 Monopigator::~Monopigator()
 {
-	if (m_job != NULL) m_job -> kill();
+	if (m_job)
+		m_job -> kill();
 }
 
 void Monopigator::loadData(const KURL &url)
@@ -40,19 +43,36 @@ void Monopigator::loadData(const KURL &url)
 	m_job = KIO::get(url.url(), true, false);
 	m_job->addMetaData(QString::fromLatin1("UserAgent"), QString::fromLatin1("Atlantik/" ATLANTIK_VERSION_STRING));
 
+	if (!m_timer)
+	{
+		m_timer = new QTimer(this);
+		m_timer->start(10000, true);
+	}
+
 	connect(m_job, SIGNAL(data(KIO::Job *, const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
 	connect(m_job, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
+	connect(m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
 }
 
 void Monopigator::slotData(KIO::Job *, const QByteArray &data)
 {
+	m_timer->stop();
 	m_downloadData->writeBlock(data.data(), data.size());
 }
 
 void Monopigator::slotResult(KIO::Job *job)
 {
 	processData(m_downloadData->buffer(), !job->error());
-	m_job = NULL;
+	m_job = 0;
+}
+
+void Monopigator::slotTimeout()
+{
+	if (m_job)
+		m_job -> kill();
+	m_job = 0;
+
+	emit timeout();
 }
 
 void Monopigator::processData(const QByteArray &data, bool okSoFar)
