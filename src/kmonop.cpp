@@ -257,19 +257,13 @@ void KMonop::slotMsgEstateUpdateOwner(int estateId, int playerId)
 {
 	if (estateId < 40 && playerId < MAXPLAYERS)
 	{
-		if (playerId == -1)
-		{
-			for(int i=0;i<MAXPLAYERS;i++)
-				if (m_portfolioArray[i]!=0)
-					m_portfolioArray[i]->setOwned(estateId, false);
-			m_board->setOwned(estateId, false, false);
-		}
-		else
-		{
-			if (m_portfolioArray[playerId]!=0)
-				m_portfolioArray[playerId]->setOwned(estateId, true);
-			m_board->setOwned(estateId, true, (playerId == m_myPlayerId ? true : false));
-		}
+		// Update all portfolio estates.
+		for(int i=0;i<MAXPLAYERS;i++)
+			if (m_portfolioArray[i]!=0)
+				m_portfolioArray[i]->setOwned(estateId, (playerId == i ? true : false));
+
+		// Update gameboard.
+		m_board->setOwned(estateId, (playerId == -1 ? false : true), (playerId == m_myPlayerId ? true : false));
 	}
 }
 

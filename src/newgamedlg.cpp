@@ -388,7 +388,8 @@ void ConfigureGame::slotPlayerlistEdit(QString clientId, QString name, QString h
 		if (item->text(0) == clientId)
 		{
 			item->setText(1, name);
-			item->setText(2, host);
+			if (!host.isNull())
+				item->setText(2, host);
 			list->triggerUpdate();
 			return;
 		}

@@ -24,7 +24,9 @@ Q_OBJECT
 		void slotMsgPlayerUpdateLocation(int, int, bool);
 		void slotMsgEstateUpdateName(int, QString);
 		void slotMsgEstateUpdateHouses(int, int);
-		void slotMsgEstateUpdateMortgage(int, bool);
+		void slotMsgEstateUpdateMortgaged(int, bool);
+		void slotMsgEstateUpdateCanBeMortgaged(int, bool);
+		void slotMsgEstateUpdateCanBeUnmortgaged(int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
 

@@ -1,3 +1,10 @@
+2001-07-30 (cap)
+----------
+
+- Estateupdate visual update fixes.
+- Using can_be_mortgaged and can_be_unmortgaged attributes of monopd's
+  estateupdate.
+
 2001-07-19 (cap)
 ----------
 

@@ -56,7 +56,9 @@ signals:
 	void msgEstateUpdateName(int, QString);
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
-	void msgEstateUpdateMortgage(int, bool);
+	void msgEstateUpdateMortgaged(int, bool);
+	void msgEstateUpdateCanBeMortgaged(int, bool);
+	void msgEstateUpdateCanBeUnmortgaged(int, bool);
 
 	/**
 	 * A new trade is created on the server.

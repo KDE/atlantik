@@ -20,9 +20,13 @@ Q_OBJECT
 		void setName(const char *);
 		void setHouses(int);
 		void setMortgaged(bool);
+		void setCanBeMortgaged(bool);
+		void setCanBeUnmortgaged(bool);
 		void setOwned(bool byAny, bool byThisClient);
 
 		bool mortgaged();
+		bool canBeMortgaged();
+		bool canBeUnmortgaged();
 		bool ownedByAny();
 		bool ownedByThisClient();
 
@@ -46,7 +50,7 @@ Q_OBJECT
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
 		bool b_recreate;
-		bool m_ownedByAny, m_ownedByThisClient, m_canBeOwned, m_mortgaged;
+		bool m_ownedByAny, m_ownedByThisClient, m_canBeOwned, m_mortgaged, m_canBeMortgaged, m_canBeUnmortgaged;
 		int m_id, m_orientation, m_houses, m_titleWidth, m_titleHeight;
 		QColor m_color;
 		QLabel *lname;

@@ -23,6 +23,8 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 	m_orientation = orientation;
 	m_canBeOwned = canBeOwned;
 	m_mortgaged = false;
+	m_canBeMortgaged = false;
+	m_canBeUnmortgaged = false;
 	m_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
@@ -132,6 +134,18 @@ void EstateView::setMortgaged(bool _m)
 	}
 }
 
+void EstateView::setCanBeMortgaged(bool _m)
+{
+	if (m_canBeMortgaged != _m)
+		m_canBeMortgaged = _m;
+}
+
+void EstateView::setCanBeUnmortgaged(bool _m)
+{
+	if (m_canBeUnmortgaged != _m)
+		m_canBeUnmortgaged = _m;
+}
+
 void EstateView::setOwned(bool byAny, bool byThisClient)
 {
 	if (m_ownedByThisClient != byThisClient)
@@ -147,6 +161,8 @@ void EstateView::setOwned(bool byAny, bool byThisClient)
 }
 
 bool EstateView::mortgaged() { return m_mortgaged; }
+bool EstateView::canBeMortgaged() { return m_canBeMortgaged; }
+bool EstateView::canBeUnmortgaged() { return m_canBeUnmortgaged; }
 bool EstateView::ownedByAny() { return m_ownedByAny; }
 bool EstateView::ownedByThisClient() { return m_ownedByThisClient; }
 
@@ -387,24 +403,18 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		else
 		{
 			// Mortgaged or full? Not building any houses
-			// TODO: missing group check
-			if (m_mortgaged || m_houses==5)
-				rmbMenu->setItemEnabled(1, false);
+			if (!(m_canBeMortgaged || m_canBeUnmortgaged))
+				rmbMenu->setItemEnabled(0, false);
 
+			// TODO: can_build/can_sell monopd support
 			// Empty? Not selling any houses
 			if (m_houses==0)
 				rmbMenu->setItemEnabled(2, false);
 		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
-//		rmbMenu->exec(QPoint(geometry.x(), geometry.y()));
-//		rmbMenu->exec(QPoint(pos()));
-
 		QPoint g = QCursor::pos();
-//		if (rmbMenu->height() < g.y())
-//			rmbMenu->exec(QPoint( g.x(), g.y() - rmbMenu->height()));
-//		else
-			rmbMenu->exec(g);
+		rmbMenu->exec(g);
 	}
 }
 

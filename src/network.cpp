@@ -293,7 +293,15 @@ void GameNetwork::processNode(QDomNode n)
 
 					a = e.attributeNode(QString("mortgaged"));
 					if (!a.isNull())
-						emit msgEstateUpdateMortgage(estateid, a.value().toInt());
+						emit msgEstateUpdateMortgaged(estateid, a.value().toInt());
+
+					a = e.attributeNode(QString("can_be_mortgaged"));
+					if (!a.isNull())
+						emit msgEstateUpdateCanBeMortgaged(estateid, a.value().toInt());
+
+					a = e.attributeNode(QString("can_be_unmortgaged"));
+					if (!a.isNull())
+						emit msgEstateUpdateCanBeUnmortgaged(estateid, a.value().toInt());
 				}
 			}
 			else if (e.tagName() == "tradeupdate")

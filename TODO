@@ -46,7 +46,10 @@ For 0.2.x
     - .D
   - XML signals
     v trades
+    - estateupdate::can_buyhouse
+    - estateupdate::can_sellhouse
 - Support .gd game description.
+- Support updateplayerlist master, only update changed QStrings
 - Support leaving jail
   - GUI
   - Different token placement when in jail
