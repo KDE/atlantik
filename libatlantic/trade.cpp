@@ -75,7 +75,8 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		else
 		{
 			mTradeItems.removeRef(t);
-			emit itemRemoved(t); // GUI deletes item
+			emit itemRemoved(t);
+			t->deleteLater();
 		}
 	}
 	else if (estate && to)
@@ -115,7 +116,8 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		else
 		{
 			mTradeItems.removeRef(t);
-			emit itemRemoved(t); // GUI deletes item
+			emit itemRemoved(t);
+			t->deleteLater();
 		}
 	}
 	else if (from && to && money)
