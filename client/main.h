@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@
 #define ATLANTIK_MAIN_H
 
 #define	ATLANTIK_VERSION 070
-#define	ATLANTIK_VERSION_STRING "0.7.0 (CVS >= 20040120)"
+#define	ATLANTIK_VERSION_STRING "0.7.0 (CVS >= 20040122)"
 
 #define ATLANTIK_VERSION_MAJOR 0
 #define ATLANTIK_VERSION_MINOR 7

@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 		I18N_NOOP("Atlantik"), ATLANTIK_VERSION_STRING,
 		I18N_NOOP("The Atlantic board game"),
 		KAboutData::License_GPL,
-		I18N_NOOP("(c) 1998-2003 Rob Kaper"),
+		I18N_NOOP("(c) 1998-2004 Rob Kaper"),
 		I18N_NOOP("KDE client for playing Monopoly-like games on the monopd network."),
 		"http://unixcode.org/atlantik/"
 		);

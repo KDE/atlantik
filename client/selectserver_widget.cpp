@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -119,7 +119,7 @@ void SelectServer::initMonopigator()
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
-	if (m_hideDevelopmentServers && version.contains("CVS"))
+	if (m_hideDevelopmentServers && ( version.contains("CVS") || version.contains("-dev") ) )
 		return;
 
 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port);
