@@ -1,5 +1,13 @@
+Bugfixes
+--------
+
 - fix leak of 4-300 Kb each time one switches board, i've investigated
   but haven't found leak :(
 - let you delete last card in a stack, it made designer crash, so delete
   doesn't do anything if there is only 1 card on stack
 - disable "Less properties" when there are no properties for a card
+
+For 0.2.1
+---------
+
+- when libatlantikui exists, make designer a seperate app again
