@@ -17,6 +17,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
+#include <qregexp.h>
 #include <qsizepolicy.h>
 #include <qvbuttongroup.h>
 #include <qhgroupbox.h>
@@ -119,7 +120,7 @@ void SelectServer::initMonopigator()
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
-	if (m_hideDevelopmentServers && ( version.contains("CVS") || version.contains("-dev") ) )
+	if (m_hideDevelopmentServers && version.find( QRegExp("(CVS|-dev)") ) != -1 )
 		return;
 
 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port);

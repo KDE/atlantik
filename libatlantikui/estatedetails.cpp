@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 #include <qpixmap.h>
 #include <qlayout.h>
 #include <qptrlist.h>
+#include <qregexp.h>
 #include <qvgroupbox.h>
 
 #include <kdialog.h>
@@ -295,7 +296,7 @@ void EstateDetails::appendText(QString text)
 		return;
 
 	QListViewItem *infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), text);
-	if (text.contains("rolls"))
+	if ( text.find( QRegExp("rolls") ) != -1 )
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
