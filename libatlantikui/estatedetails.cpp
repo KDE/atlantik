@@ -76,7 +76,6 @@ EstateDetails::~EstateDetails()
 	delete m_pixmap;
 	delete m_quartzBlocks;
 	delete m_infoListView;
-	// TODO: clean up listviewitems
 }
 
 void EstateDetails::paintEvent(QPaintEvent *)
