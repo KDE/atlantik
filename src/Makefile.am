@@ -1,6 +1,6 @@
 bin_PROGRAMS = atlantik
 INCLUDES = -I$(top_srcdir)/atlantik/libatlantic $(all_includes)
-LDFLAGS = -L../libatlantic $(all_libraries) $(KDE_RPATH)
+LDFLAGS = -L$(top_builddir)/atlantik/libatlantic $(all_libraries) $(KDE_RPATH)
 LDADD = -latlantic -lkdegames $(LIB_KSYCOCA) $(LIB_KFILE) 
 
 SUBDIRS = 
