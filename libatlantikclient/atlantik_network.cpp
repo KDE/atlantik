@@ -58,7 +58,8 @@ AtlantikNetwork::~AtlantikNetwork(void)
 }
 
 void AtlantikNetwork::rollDice()
-{	writeData(".r");
+{
+	writeData(".r");
 }
 
 void AtlantikNetwork::buyEstate()
@@ -87,130 +88,94 @@ void AtlantikNetwork::leaveGame()
 }
 
 void AtlantikNetwork::endTurn()
-{	writeData(".E");
+{
+	writeData(".E");
 }
 
 void AtlantikNetwork::setName(QString name)
 {
 	// Almost deprecated, will be replaced by libmonopdprotocol
-	QString msg(".n");
-	msg.append(name);
-	writeData(msg);
+	writeData(QString(".n%1").arg(name));
 }
 
 void AtlantikNetwork::tokenConfirmation(Estate *estate)
 {
-	QString msg(".t");
-	msg.append(QString::number(estate ? estate->id() : -1));
-	writeData(msg);
+	writeData(QString(".t%1").arg(estate ? estate->id() : -1));
 }
 
 void AtlantikNetwork::estateToggleMortgage(Estate *estate)
 {
-	QString msg(".em");
-	msg.append(QString::number(estate ? estate->id() : -1));
-	writeData(msg);
+	writeData(QString(".em%1").arg(estate ? estate->id() : -1));
 }
 
 void AtlantikNetwork::estateHouseBuy(Estate *estate)
 {
-	QString msg(".hb");
-	msg.append(QString::number(estate ? estate->id() : -1));
-	writeData(msg);
+	writeData(QString(".hb%1").arg(estate ? estate->id() : -1));
 }
 
 void AtlantikNetwork::estateHouseSell(Estate *estate)
 {
-	QString msg(".hs");
-	msg.append(QString::number(estate ? estate->id() : -1));
-	writeData(msg);
+	writeData(QString(".hs%1").arg(estate ? estate->id() : -1));
 }
 
 void AtlantikNetwork::cmdGamesList()
-{	writeData(".gl");
+{
+	writeData(".gl");
 }
 
 void AtlantikNetwork::getPlayerList()
-{	writeData(".gp");
+{
+	writeData(".gp");
 }
 
 void AtlantikNetwork::newGame(const QString &gameType)
 {
-	writeData(".gn" + gameType);
+	writeData(QString(".gn%1").arg(gameType));
 }
 
 void AtlantikNetwork::joinGame(int gameId)
 {
-	QString msg(".gj");
-	msg.append(QString::number(gameId));
-	writeData(msg);
+	writeData(QString(".gj%1").arg(gameId));
 }
 
 void AtlantikNetwork::cmdChat(QString msg)
-{	writeData(msg);
+{
+	writeData(msg);
 }
 
 void AtlantikNetwork::newTrade(Player *player)
 {
-	QString msg(".Tn");
-	msg.append(QString::number(player ? player->id() : -1));
-	writeData(msg);
+	writeData(QString(".Tn%1").arg(player ? player->id() : -1));
 }
 
 void AtlantikNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player)
 {
-	QString msg(".Te");
-	msg.append(QString::number(trade ? trade->tradeId() : -1));
-	msg.append(":");
-	msg.append(QString::number(estate ? estate->id() : -1));
-	msg.append(":");
-	msg.append(QString::number(player ? player->id() : -1));
-	writeData(msg);
+	writeData(QString(".Te%1:%2:%3").arg(trade ? trade->tradeId() : -1).arg(estate ? estate->id() : -1).arg(player ? player->id() : -1));
 }
 
 void AtlantikNetwork::tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo)
 {
-	QString msg(".Tm");
-	msg.append(QString::number(trade ? trade->tradeId() : -1));
-	msg.append(":");
-	msg.append(QString::number(pFrom ? pFrom->id() : -1));
-	msg.append(":");
-	msg.append(QString::number(pTo ? pTo->id() : -1));
-	msg.append(":");
-	msg.append(QString::number(money));
-	writeData(msg);
+	writeData(QString(".Tm%1:%2:%3:%4").arg(trade ? trade->tradeId() : -1).arg(pFrom ? pFrom->id() : -1).arg(pTo ? pTo->id() : -1).arg(money));
 }
 
 void AtlantikNetwork::tradeReject(Trade *trade)
 {
-	QString msg(".Tr");
-	msg.append(QString::number(trade ? trade->tradeId() : -1));
-	writeData(msg);
+	writeData(QString(".Tr%1").arg(trade ? trade->tradeId() : -1));
 }
 
 void AtlantikNetwork::tradeAccept(Trade *trade)
 {
-	QString msg(".Ta");
-	msg.append(QString::number(trade ? trade->tradeId() : -1));
-	msg.append(":");
-	msg.append(QString::number(trade ? trade->revision() : -1));
-	writeData(msg);
+	writeData(QString(".Ta%1:%2").arg(trade ? trade->tradeId() : -1).arg(trade ? trade->revision() : -1));
 }
 
 void AtlantikNetwork::auctionBid(Auction *auction, int amount)
 {
-	QString msg(".ab");
-	msg.append(QString::number(auction ? auction->auctionId() : -1));
-	msg.append(":");
-	msg.append(QString::number(amount));
-	writeData(msg);
+	writeData(QString(".ab%1:%2").arg(auction ? auction->auctionId() : -1).arg(amount));
 }
 
 void AtlantikNetwork::setImage(const QString &name)
 {
-	QString msg(".pi");
-	msg.append(name);
-	writeData(msg);
+	writeData(QString(".pi%1").arg(name));
 }
 
 void AtlantikNetwork::jailPay()
