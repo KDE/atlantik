@@ -8,6 +8,11 @@
 - Support individual configupdate tags
 - Show estate names on board (#61858)
 
+0.6.1
+-----
+
+- hide development servers identifying themselves with "-dev"
+
 0.6.0
 -----
 
