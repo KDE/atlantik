@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 		I18N_NOOP("Atlantik"), ATLANTIK_VERSION_STRING,
 		I18N_NOOP("The Atlantic board game"),
 		KAboutData::License_GPL,
-		I18N_NOOP("(c) 2001 Rob Kaper"),
+		I18N_NOOP("(c) 1998-2002 Rob Kaper"),
 		I18N_NOOP("KDE client for playing games out of the collection of the Atlantic board game daemon."),
 		"http://capsi.com/atlantik/"
 		);
