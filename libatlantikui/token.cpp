@@ -94,7 +94,7 @@ void Token::loadIcon()
 	delete m_image;
 	m_image = 0;
 
-	if (m_imageName != "")
+	if (!m_imageName.isEmpty())
 	{
 		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 		if (KStandardDirs::exists(filename))
