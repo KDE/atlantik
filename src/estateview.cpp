@@ -3,6 +3,7 @@
 #include <qtimer.h>
 #include <qwmatrix.h>
 #include <qpopupmenu.h>
+#include <qcursor.h>
 
 #include <kpixmapeffect.h>
 #include <kstddirs.h>

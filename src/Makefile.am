@@ -1,7 +1,7 @@
 bin_PROGRAMS = atlantik
 INCLUDES = $(all_includes) 
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
-LDADD = $(LIB_KSYCOCA) $(LIB_KFILE) 
+LDADD = -lkdegames $(LIB_KSYCOCA) $(LIB_KFILE) 
 
 SUBDIRS =
 
