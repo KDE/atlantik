@@ -55,7 +55,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(buttonBox);
 
-	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave game"), this);
+	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
 	buttonBox->addWidget(m_backButton);
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));

@@ -30,7 +30,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	Q_CHECK_PTR(m_mainLayout);
 
 	QVGroupBox *groupBox;
-	groupBox = new QVGroupBox(i18n("Create or Select a monopd Game"), this, "groupBox");
+	groupBox = new QVGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games
@@ -80,7 +80,7 @@ void SelectGame::slotGameListAdd(QString gameId, QString name, QString descripti
 {
 	if (gameId == "-1")
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, i18n("Create a new %1 Game").arg(name), description, "", "", gameType);
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Create new %1 Game").arg(name), description, "", "", gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else
