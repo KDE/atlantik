@@ -15,8 +15,8 @@ extern KMonopConfig kmonopConfig;
 
 KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	setMinimumWidth(160);
-	setMinimumHeight(160);
+	setMinimumWidth(320);
+	setMinimumHeight(320);
 
 	// Timer for token movement
 	qtimer = new QTimer(this);
@@ -75,11 +75,17 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 				icon = QString("water.png");
 				canBeOwned = true;
 				break;
+			case 2: case 17: case 33:
+				icon = QString("box.png");
+				break;
 			case 7: case 36:
 				icon = QString("qmark-red.png");
 				break;
 			case 22:
 				icon = QString("qmark-blue.png");
+				break;
+			case 38:
+				icon = QString("ring.png");
 				break;
 		}
 

@@ -1,2 +1,3 @@
 boardicondir = $(kde_datadir)/kmonop/pics
-boardicon_DATA = qmark-blue.png qmark-red.png token.png train.png
+boardicon_DATA = box.png qmark-blue.png qmark-red.png ring.png \
+token.png train.png

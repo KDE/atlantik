@@ -3,23 +3,17 @@ For 0.2.x
 
 - Support .gd game description.
 - Support leaving jail.
-- Support buying houses.
-  V Network code.
-  - Toolbar stuff.
-  V EstateView stuff.
-- Support mortgages.
-  V Network code.
-  - Toolbar stuff.
-  V EstateView stuff.
 - Icons on gameboard.
   V Station
   - Utility
-  - CC
+  V CC
   V Chance
   - Go
   - FP
   - Jail
   - toJail
+  - Tax
+  V Luxury Tax
 - Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create

@@ -283,10 +283,31 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(estatename);
-		if (mortgaged())
+		if (m_mortgaged)
 			rmbMenu->insertItem("Unmortgage", 0);
 		else
 			rmbMenu->insertItem("Mortgage", 0);
+
+		if (m_houses>=4)
+			rmbMenu->insertItem("Buy hotel", 1);
+		else
+			rmbMenu->insertItem("Buy house", 1);
+
+		if (m_houses==5)
+			rmbMenu->insertItem("Sell hotel", 2);
+		else
+			rmbMenu->insertItem("Sell house", 2);
+
+		if (!m_owned)
+		{
+			rmbMenu->setItemEnabled(0, false);
+			rmbMenu->setItemEnabled(1, false);
+			rmbMenu->setItemEnabled(2, false);
+		}
+		else if (m_mortgaged || m_houses==5)
+			rmbMenu->setItemEnabled(1, false);
+		else if (m_houses==0)
+			rmbMenu->setItemEnabled(2, false);
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 //		rmbMenu->exec(QPoint(geometry.x(), geometry.y()));
@@ -320,6 +341,14 @@ void EstateView::slotMenuAction(int item)
 				cmd.setLatin1(".u");
 			break;
 
+		case 1:
+			cmd.setLatin1(".bh");
+			break;
+
+		case 2:
+			cmd.setLatin1(".s");
+			break;
+			
 		default:
 			return;
 	}
