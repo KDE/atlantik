@@ -24,7 +24,7 @@ Bugfixes
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
   - Trying to get out of jail before turn starts gives ERR (monopd / disable icons)
 
-For 0.2.1
+For 0.3.0
 ---------
 
 - define minimum size for AtlantikBoard and center widget
@@ -57,7 +57,7 @@ v support for <display>
 - Option to configure toolbars (at least be able to save size/text settings)
 - support for trading jail cards (depends on monopd)
 
-For 0.3.0
+For 0.4.0
 ---------
 
 - Support .gd game description.
@@ -83,7 +83,7 @@ For 0.3.0
     - at the moment based on turn, must be more precise
       - monopd requires diffed command availability
 
-For 0.4.x
+For 0.5.0
 ---------
 
 - More descriptive window titles
@@ -107,7 +107,7 @@ v Use i18n()
   - token.h
 - Visualization of owners on board itself
 
-For 0.9.x
+For 0.9.0
 ---------
 
 - Beta series.
@@ -122,7 +122,7 @@ For 1.0.0
 - Version 1.0.0 should be released with KDE 3.1, so after the last
   beta Atlantik version will be moved from 0.9.x to 1.0.0.
 
-For 1.x.y
+For 1.1.0
 ---------
 
 - See mailinglist. It is unlikely that themes (Star Trek/Wars, Kiki Dunst,
