@@ -29,10 +29,12 @@ KMonop::KMonop (const char *name) :
 	// Settings actions
 	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
 
-	createGUI();
-//	toolBar(0)->setBarPos(KToolBar::Left);
-
+	// Initialize pointers to 0L
+	configDialog = 0;
 	wizard = 0;
+
+	createGUI();
+
 	gameNetwork = new GameNetwork(this, "gameNetwork");
 
 	connect(gameNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
