@@ -4,3 +4,4 @@ protocol=atlantik
 input=none
 output=none
 reading=true
+Icon=atlantik
