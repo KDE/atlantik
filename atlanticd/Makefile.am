@@ -1,3 +1,5 @@
+KDE_OPTIONS = qtonly
+
 bin_PROGRAMS = atlanticd
 
 INCLUDES = $(QT_INCLUDES)
