@@ -72,7 +72,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	{
 		if ((estate = *it) && estate->isOwned())
 		{
-			m_estateCombo->insertItem(estate->name());
+			m_estateCombo->insertItem( PortfolioEstate::drawPixmap(estate), estate->name() );
 			m_estateMap[m_estateCombo->count() - 1] = estate;
 			m_estateRevMap[estate] = m_estateCombo->count() - 1;
 		}
