@@ -19,10 +19,12 @@
 
 #include <qobject.h>
 
+#include <libatlantic_export.h>
+
 class Player;
 class Estate;
 
-class Auction : public QObject
+class LIBATLANTIC_EXPORT Auction : public QObject
 {
 Q_OBJECT
 

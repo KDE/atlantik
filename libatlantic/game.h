@@ -19,11 +19,13 @@
 
 #include <qobject.h>
 
+#include <libatlantic_export.h>
+
 class QString;
 
 class Player;
 
-class Game : public QObject
+class LIBATLANTIC_EXPORT Game : public QObject
 {
 Q_OBJECT
 

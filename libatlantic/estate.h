@@ -20,10 +20,12 @@
 #include <qobject.h>
 #include <qcolor.h>
 
+#include <libatlantic_export.h>
+
 class EstateGroup;
 class Player;
 
-class Estate : public QObject
+class LIBATLANTIC_EXPORT Estate : public QObject
 {
 Q_OBJECT
 

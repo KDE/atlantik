@@ -20,10 +20,12 @@
 #include <qobject.h>
 #include <qstring.h>
 
+#include <libatlantic_export.h>
+
 class Estate;
 class Game;
 
-class Player : public QObject
+class LIBATLANTIC_EXPORT Player : public QObject
 {
 Q_OBJECT
 

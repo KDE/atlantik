@@ -1,4 +1,5 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2004 Dirk Mueller <mueller@kde.org>
+
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -14,31 +15,11 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#ifndef LIBATLANTIC_ESTATEGROUP_H
-#define LIBATLANTIC_ESTATEGROUP_H
+#ifndef LIBATLANTIC_EXPORT_H
+#define LIBATLANTIC_EXPORT_H
 
-#include <qobject.h>
+#include <kdemacros.h>
 
-#include <libatlantic_export.h>
-
-class LIBATLANTIC_EXPORT EstateGroup : public QObject
-{
-Q_OBJECT
-
-public:
-	EstateGroup(const int id);
-	int id() { return m_id; }
-	void setName(const QString name);
-	QString name() const { return m_name; }
-	void update(bool force = false);
-
-signals:
-	void changed();
-
-private:
-	int m_id;
-	bool m_changed;
-	QString m_name;
-};
+#define LIBATLANTIC_EXPORT KDE_EXPORT
 
 #endif

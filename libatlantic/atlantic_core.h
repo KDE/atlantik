@@ -20,6 +20,8 @@
 #include <qobject.h>
 #include <qptrlist.h>
 
+#include <libatlantic_export.h>
+
 class Player;
 class ConfigOption;
 class Estate;
@@ -28,7 +30,7 @@ class Game;
 class Trade;
 class Auction;
 
-class AtlanticCore : public QObject
+class LIBATLANTIC_EXPORT AtlanticCore : public QObject
 {
 Q_OBJECT
 

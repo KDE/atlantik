@@ -21,11 +21,13 @@
 #include <qstring.h>
 #include <qptrlist.h>
 
+#include <libatlantic_export.h>
+
 class Player;
 class Trade;
 class Estate;
 
-class TradeItem : public QObject
+class LIBATLANTIC_EXPORT TradeItem : public QObject
 {
 Q_OBJECT
 
@@ -54,7 +56,7 @@ private:
 	Trade *mTrade;
 };
 
-class TradeEstate : public TradeItem
+class LIBATLANTIC_EXPORT TradeEstate : public TradeItem
 {
 Q_OBJECT
 
@@ -73,7 +75,7 @@ private:
 	Estate *mEstate;
 };
 
-class TradeMoney : public TradeItem
+class LIBATLANTIC_EXPORT TradeMoney : public TradeItem
 {
 Q_OBJECT
 
@@ -93,7 +95,7 @@ private:
 };
 
 
-class Trade : public QObject
+class LIBATLANTIC_EXPORT Trade : public QObject
 {
 Q_OBJECT
 

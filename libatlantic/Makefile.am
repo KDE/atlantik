@@ -10,6 +10,6 @@ libatlantic_la_SOURCES = atlantic_core.cpp auction.cpp configoption.cpp estate.c
 
 libatlanticincludedir = $(includedir)/atlantic
 libatlanticinclude_HEADERS = atlantic_core.h auction.h configoption.h estate.h \
-	estategroup.h game.h player.h trade.h
+	estategroup.h game.h player.h trade.h libatlantic_export.h
 
 METASOURCES = AUTO
