@@ -203,10 +203,13 @@ void AtlantikBoard::addToken(Player *player)
 	}
 
 	Player *playerSelf = m_atlanticCore->playerSelf();
-	if (playerSelf && playerSelf->gameId() != player->gameId())
+	if (playerSelf)
 	{
-		kdDebug() << "addToken - not in same game" << endl;
-		return;
+		if (playerSelf->gameId() != player->gameId())
+		{
+			kdDebug() << "addToken - not in same game" << endl;
+			return;
+		}
 	}
 	else
 		kdDebug() << "addToken - no playerSelf" << endl;
