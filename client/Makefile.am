@@ -1,9 +1,7 @@
 bin_PROGRAMS = atlantik
-INCLUDES = -I$(top_srcdir)/libkdegames -I$(top_srcdir)/atlantik/libatlantic -I$(top_srcdir)/atlantik/libatlantikclient -I$(top_srcdir)/atlantik/libatlantikui $(all_includes)
-LDFLAGS = -L$(top_builddir)/libkdegames -L$(top_builddir)/atlantik/libatlantic -L$(top_builddir)/atlantik/libatlantikclient -L$(top_builddir)/atlantik/libatlantikui $(all_libraries) $(KDE_RPATH)
-LDADD = -latlantikui -latlantikclient -latlantikui -lkdegames $(LIB_KIO) 
-
-SUBDIRS = 
+INCLUDES = -I$(top_srcdir)/libkdegames -I$(srcdir)/../libatlantic -I$(srcdir)/../libatlantikclient -I$(srcdir)/../libatlantikui $(all_includes) 
+atlantik_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+atlantik_LDADD = ../libatlantikui/libatlantikui.la ../libatlantikclient/libatlantikclient.la $(top_builddir)/libkdegames/libkdegames.la $(LIB_KIO) 
 
 atlantik_SOURCES = atlantik.cpp configdlg.cpp main.cpp monopigator.cpp \
 	selectconfiguration_widget.cpp selectgame_widget.cpp \
