@@ -46,22 +46,24 @@ void AtlanticCore::reset(bool deletePlayers)
 	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
 		removeTrade(trade);
 
-	if (deletePlayers)
+	Player *player = 0;
+	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 	{
-		m_players.setAutoDelete(true);
-		m_players.clear();
-		m_players.setAutoDelete(false);
-
-		m_playerSelf = 0;
-	}
-	else
-	{
-		Player *player = 0;
-		for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+		if (deletePlayers)
+		{
+			emit removeGUI(player);
+			emit deletePlayer(player);
+		}
+		else
 		{
 			player->setLocation(0);
 			player->setDestination(0);
 		}
+	}
+	if (deletePlayers)
+	{
+		m_players.clear();
+		m_playerSelf = 0;
 	}
 }
 
