@@ -185,7 +185,7 @@ private:
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
-	QTextEdit *m_serverMsgs, *m_chatMsgs;
+	QTextEdit *m_serverMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure;
