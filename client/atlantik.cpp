@@ -24,6 +24,7 @@
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <klocale.h>
+#include <knotifyclient.h>
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
@@ -181,6 +182,8 @@ void Atlantik::newPlayer(Player *player)
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
+
+	KNotifyClient::event("newplayer");
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -505,6 +508,7 @@ void Atlantik::slotMsgError(QString msg)
 void Atlantik::slotMsgChat(QString player, QString msg)
 {
 	serverMsgsAppend(player + ": " + msg);
+	KNotifyClient::event("chat");
 }
 
 void Atlantik::serverMsgsAppend(QString msg)

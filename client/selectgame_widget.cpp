@@ -21,6 +21,7 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
+#include <knotifyclient.h>
 
 #include "selectgame_widget.moc"
 
@@ -93,6 +94,7 @@ void SelectGame::slotGameListAdd(QString gameId, QString name, QString descripti
 		QListViewItem *item = new QListViewItem(m_gameList, i18n("Join %1 Game #%2").arg(name).arg(gameId), description, gameId, players, gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 		item->setEnabled(canBeJoined);
+		KNotifyClient::event("newgame");
 	}
 
 	validateConnectButton();
