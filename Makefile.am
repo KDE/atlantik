@@ -3,8 +3,6 @@ SUBDIRS =  libatlantic libatlantikclient libatlantikui client \
 
 EXTRA_DIST = atlantik.desktop
 
-KDE_ICON = atlantik
-
 xdg_apps_DATA = atlantik.desktop
 
 rcdir = $(kde_datadir)/atlantik
