@@ -27,9 +27,6 @@
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
 	m_playerSelf = 0;
-
-	connect(this, SIGNAL(deletePlayer(Player *)), this, SLOT(slotDeletePlayer(Player *)));
-	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
 
 void AtlanticCore::reset(bool deletePlayers)
@@ -46,7 +43,11 @@ void AtlanticCore::reset(bool deletePlayers)
 
 	Trade *trade = 0;
 	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
-		removeTrade(trade);
+	{
+		emit removeGUI(trade);
+		trade->deleteLater();
+	}
+	m_trades.clear();
 
 	Player *player = 0;
 	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
@@ -54,7 +55,7 @@ void AtlanticCore::reset(bool deletePlayers)
 		if (deletePlayers)
 		{
 			emit removeGUI(player);
-			emit deletePlayer(player);
+			player->deleteLater();
 		}
 		else
 		{
@@ -105,12 +106,7 @@ void AtlanticCore::removePlayer(Player *player)
 {
 	m_players.remove(player);
 	emit removeGUI(player);
-	emit deletePlayer(player);
-}
-
-void AtlanticCore::slotDeletePlayer(Player *player)
-{
-	delete player;
+	player->deleteLater();
 }
 
 QPtrList<Estate> AtlanticCore::estates()
@@ -199,12 +195,7 @@ void AtlanticCore::removeTrade(Trade *trade)
 {
 	m_trades.remove(trade);
 	emit removeGUI(trade);
-	emit deleteTrade(trade);
-}
-
-void AtlanticCore::slotDeleteTrade(Trade *trade)
-{	
-	delete trade;
+	trade->deleteLater();
 }
 
 QPtrList<Auction> AtlanticCore::auctions()
