@@ -43,7 +43,8 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	// Server buttons.
-	QHBoxLayout *serverButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	serverButtons->setMargin(0);
 	m_mainLayout->addItem(serverButtons);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
