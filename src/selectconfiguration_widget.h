@@ -4,12 +4,12 @@
 #include <qpushbutton.h>
 #include <qlabel.h>
 
-class SelectGame : public QWidget
+class SelectConfiguration : public QWidget
 {
 Q_OBJECT
 
 public:
-	SelectGame(QWidget *parent, const char *name=0);
+	SelectConfiguration(QWidget *parent, const char *name=0);
 
 	void initPage();
 		bool validateNext();
@@ -19,22 +19,22 @@ public:
 	public slots:
 		void validateConnectButton();
 
-		void slotGameListClear();
-		void slotGameListAdd(QString gameId, QString description, QString players);
-		void slotGameListEdit(QString gameId, QString description, QString players);
-		void slotGameListDel(QString gameId);
+		void slotPlayerListClear();
+		void slotPlayerListAdd(QString playerId, QString name, QString host);
+		void slotPlayerListEdit(QString playerId, QString name, QString host);
+		void slotPlayerListDel(QString playerId);
 
 	private slots:
 		void connectPressed();
 
 	signals:
-		void joinGame(int gameId);
-		void newGame();
+		void joinConfiguration(int configurationId);
+		void newConfiguration();
 //		void statusChanged();
 
 	private:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
-		QListView *m_gameList;
+		QListView *m_playerList;
 		QPushButton *m_connectButton;
 };

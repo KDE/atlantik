@@ -10,7 +10,6 @@
 #include <kaction.h>
 
 #include "configdlg.h"
-#include "newgamedlg.h"
 #include "network.h"
 #include "portfolioview.h"
 #include "board.h"
@@ -49,17 +48,26 @@ public:
 
 public slots:
 	/**
-	 * A network connection has been established, so we can leave the server
-	 * list for the game list.
+	 * A network connection has been established, so we can show the game
+	 * list instead of the server list.
 	 *
 	 */
 	 void slotNetworkConnected();
 
 	/**
-	 * Creates a new modal dialog to open new games with.
+	 * An error occured while setting up the network connection. Inform the
+	 * user.
+	 *
+	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
+	 */
+	 void slotNetworkError(int errno);
+
+	/**
+	 * A game was succesfully created or joined, so we can show the
+	 * configuration dialog instead of the game list.
 	 *
 	 */
-	void slotNewGame();
+	 void slotJoinedGame();
 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.
@@ -212,7 +220,6 @@ private:
 
 	GameNetwork *m_gameNetwork;
 
-	NewGameWizard *m_newgameWizard;
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
 

@@ -20,6 +20,14 @@ void Estate::setOwner(Player *player)
 	}
 }
 
+void Estate::setHouses(unsigned int houses)
+{
+	if (m_houses != houses)
+		m_houses = houses;
+#warning emit signal changed here
+//		m_estateView->redraw();
+}
+
 void Estate::setName(const QString name)
 {
 	if (m_name != name)

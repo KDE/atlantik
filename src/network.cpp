@@ -64,11 +64,12 @@ void GameNetwork::cmdGamesList()
 {	writeData(".gl");
 }
 
-void GameNetwork::cmdGameNew()
-{	writeData(".gn");
+void GameNetwork::newGame()
+{
+	writeData(".gn");
 }
 
-void GameNetwork::cmdGameJoin(int gameId)
+void GameNetwork::joinGame(int gameId)
 {
 	QString msg(".gj");
 	msg.append(QString::number(gameId));
@@ -179,7 +180,7 @@ void GameNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "updategamelist")
 			{
 				QString type = e.attributeNode(QString("type")).value();
-				if (type == "clear")
+				if (type == "full")
 					emit gameListClear();
 
 				QDomNode n_game = n.firstChild();
@@ -199,11 +200,15 @@ void GameNetwork::processNode(QDomNode n)
 				}
 				emit gamelistEndUpdate(type);
 			}
+			else if (e.tagName() == "joinedgame")
+			{
+				emit joinedGame();
+			}
 			else if (e.tagName() == "updateplayerlist")
 			{
 				QString type = e.attributeNode(QString("type")).value();
-
-				emit playerlistUpdate(type);
+				if (type == "full")
+					emit playerListClear();
 
 				QDomNode n_player = n.firstChild();
 				while(!n_player.isNull())
@@ -212,15 +217,15 @@ void GameNetwork::processNode(QDomNode n)
 					if (!e_player.isNull() && e_player.tagName() == "player")
 					{
 						if (type=="del")
-							emit playerlistDel(e_player.attributeNode(QString("clientid")).value());
+							emit playerListDel(e_player.attributeNode(QString("clientid")).value());
 						else if (type=="edit")
-							emit playerlistEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerListEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
-							emit playerlistAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerListAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 					}
 					n_player = n_player.nextSibling();
 				}
-				emit playerlistEndUpdate(type);
+				emit playerListEndUpdate(type);
 			}
 			else if (e.tagName() == "client")
 			{

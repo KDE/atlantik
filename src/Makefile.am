@@ -6,9 +6,9 @@ LDADD = -lkdegames $(LIB_KSYCOCA) $(LIB_KFILE)
 SUBDIRS = 
 
 atlantik_SOURCES = main.cpp atlantik.cpp board.cpp configdlg.cpp \
-estate.cpp estateview.cpp monopigator.cpp network.cpp newgamedlg.cpp \
-player.cpp portfolioestate.cpp portfolioview.cpp selectgame_widget.cpp \
-selectserver_widget.cpp token.cpp
+estate.cpp estateview.cpp monopigator.cpp network.cpp player.cpp \
+portfolioestate.cpp portfolioview.cpp selectconfiguration_widget.cpp \
+selectgame_widget.cpp selectserver_widget.cpp token.cpp
 
 KDE_ICON = atlantik
 

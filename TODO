@@ -76,9 +76,6 @@ For 0.3.x
 ---------
 
 - More descriptive window titles
-. Port new game wizard away from KWizard again, our network validation code
-  makes using a pre-defined wizard a difficult task, it's easier to create
-  our own widget.
 - Game configuration (when it appears in monopd)
 v Use i18n()
 - Have a playable, more or less stable game.
@@ -88,10 +85,12 @@ v Use i18n()
   - config.h
   - configdlg.h
   - estateview.h
-  V atlantik.h
+  - atlantik.h
   - main.h
   - network.h
-  - newgamedlg.h
+  - selectconfiguration_widget.h
+  - selectgame_widget.h
+  - selectserver_widget.h
   - portfolioestate.h
   - portfolioview.h
   - token.h

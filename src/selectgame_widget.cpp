@@ -1,9 +1,8 @@
-#include <qvbuttongroup.h>
+#include <qvgroupbox.h>
 #include <qradiobutton.h>
 
 #include <klocale.h>
 #include <kiconloader.h>
-#include <kmessagebox.h>
  
 #include "selectgame_widget.moc"
 
@@ -12,13 +11,12 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	m_mainLayout = new QVBoxLayout(this, 10);
 	CHECK_PTR(m_mainLayout);
 
-	QVButtonGroup *bgroup;
-	bgroup = new QVButtonGroup(i18n("Start or select a monopd game"), this, "bgroup");
-	bgroup->setExclusive(true);
-	m_mainLayout->addWidget(bgroup); 
+	QVGroupBox *groupBox;
+	groupBox = new QVGroupBox(i18n("Start or select a monopd game"), this, "groupBox");
+	m_mainLayout->addWidget(groupBox);
 
 	// List of games
-	m_gameList = new QListView(bgroup, "m_gameList");
+	m_gameList = new QListView(groupBox, "m_gameList");
 	m_gameList->addColumn(QString(i18n("Description")));
 	m_gameList->addColumn(QString(i18n("Id")));
 	m_gameList->addColumn(QString(i18n("Players")));
@@ -29,11 +27,9 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	// Add new game option to list view
+	// Add default new game option to list view
 	QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new game"), "", "");
 	item->setPixmap(0, SmallIcon("filenew"));
-
-	m_refreshButton = new QPushButton(SmallIcon("reload"), i18n("Refresh"), bgroup);
 
 	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
@@ -50,6 +46,11 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 void SelectGame::slotGameListClear()
 {
 	m_gameList->clear();
+
+	// Add default new game option to list view
+	QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new game"), "", "");
+	item->setPixmap(0, SmallIcon("filenew"));
+
 	validateConnectButton();
 //	emit statusChanged();
 }
@@ -107,10 +108,10 @@ void SelectGame::validateConnectButton()
 void SelectGame::connectPressed()
 {
 	if (QListViewItem *item = m_gameList->selectedItem())
-		emit gameConnect(item->text(1), item->text(1).toInt());
-
-	KMessageBox::sorry(this, i18n(
-		"The new game wizard is undergoing a rewrite which has not been finished yet.\n"
-		"You cannot start or select games at the moment."
-		));
+	{
+		if (int gameId = item->text(1).toInt())
+			emit joinGame(gameId);
+		else
+			emit newGame();
+	}
 }

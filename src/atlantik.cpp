@@ -14,6 +14,7 @@
 #include "board.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
+#include "selectconfiguration_widget.h"
 
 #include "config.h"
 
@@ -41,7 +42,6 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
-	m_newgameWizard = 0;
 
 	// Mix code and XML into GUI
 	createGUI();
@@ -63,7 +63,10 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
 	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
+
 	connect(m_gameNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
+	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
+	connect(m_gameNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 
 	// Management of data objects (players, games, estates)
 	playerList.setAutoDelete(true);
@@ -138,6 +141,10 @@ void Atlantik::readConfig()
 
 void Atlantik::slotNetworkConnected()
 {
+	// We're connected, so let's make ourselves known.
+	m_gameNetwork->cmdName(atlantikConfig.playerName);
+
+	// Create select game widget and replace the select server widget.
 	SelectGame *selectGame = new SelectGame(m_mainWidget, "selectGame");
 	m_mainLayout->addMultiCellWidget(selectGame, 0, 2, 1, 1);
 	selectGame->show();
@@ -146,25 +153,46 @@ void Atlantik::slotNetworkConnected()
 	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString)), selectGame, SLOT(slotGameListAdd(QString, QString, QString)));
 	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString)), selectGame, SLOT(slotGameListEdit(QString, QString, QString)));
 	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), selectGame, SLOT(slotGameListDel(QString)));
+
+	connect(selectGame, SIGNAL(joinGame(int)), m_gameNetwork, SLOT(joinGame(int)));
+	connect(selectGame, SIGNAL(newGame()), m_gameNetwork, SLOT(newGame()));
 }
 
-void Atlantik::slotNewGame()
+void Atlantik::slotNetworkError(int errno)
 {
-	m_newgameWizard = new NewGameWizard(this, "newgame", 1);
+	QString errMsg(i18n("Error connecting: "));
+	
+	switch(errno)
+	{
+		case QSocket::ErrConnectionRefused:
+			errMsg.append(i18n("connection refused by host."));
+			break;
 
-	connect(m_gameNetwork, SIGNAL(error(int)), m_newgameWizard, SLOT(slotConnectionError(int)));
-	connect(m_gameNetwork, SIGNAL(connected()), m_newgameWizard, SLOT(slotConnected()));
-	connect(m_gameNetwork, SIGNAL(gamelistUpdate(QString)), m_newgameWizard, SLOT(slotGamelistUpdate(QString)));
-	connect(m_gameNetwork, SIGNAL(gamelistEndUpdate(QString)), m_newgameWizard, SLOT(slotGamelistEndUpdate(QString)));
-	connect(m_gameNetwork, SIGNAL(gamelistAdd(QString, QString)), m_newgameWizard, SLOT(slotGamelistAdd(QString, QString)));
-	connect(m_gameNetwork, SIGNAL(gamelistEdit(QString, QString)), m_newgameWizard, SLOT(slotGamelistEdit(QString, QString)));
-	connect(m_gameNetwork, SIGNAL(gamelistDel(QString)), m_newgameWizard, SLOT(slotGamelistDel(QString)));
+		case QSocket::ErrHostNotFound:
+			errMsg.append(i18n("host not found."));
+			break;
 
-	int result = m_newgameWizard->exec();
-	delete m_newgameWizard;
-	m_newgameWizard = 0;
-	if (result)
-		m_gameNetwork->cmdGameStart();
+		case QSocket::ErrSocketRead:
+			errMsg.append(i18n("could not read data."));
+			break;
+
+		default:
+			errMsg.append(i18n("unknown error."));
+	}
+	serverMsgsAppend(errMsg);
+}
+
+void Atlantik::slotJoinedGame()
+{
+	// Create configuration widget and replace the select game widget.
+	SelectConfiguration *selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_mainLayout->addMultiCellWidget(selectConfiguration, 0, 2, 1, 1);
+	selectConfiguration->show();
+
+	connect(m_gameNetwork, SIGNAL(playerListClear()), selectConfiguration, SLOT(slotPlayerListClear()));
+	connect(m_gameNetwork, SIGNAL(playerListAdd(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(playerListEdit(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(playerListDel(QString)), selectConfiguration, SLOT(slotPlayerListDel(QString)));
 }
 
 void Atlantik::slotConfigure()
@@ -272,8 +300,8 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 
 void Atlantik::slotMsgStartGame(QString msg)
 {
-	if (m_newgameWizard!=0)
-		m_newgameWizard->hide();
+//	if (m_newgameWizard!=0)
+//		m_newgameWizard->hide();
 		
 	serverMsgsAppend("START: " + msg);
 }
@@ -324,10 +352,10 @@ void Atlantik::slotMsgEstateUpdateBackgroundColor(int estateId, QString color)
 		estate->setBgColor(QColor(color));
 }
 
-void Atlantik::slotMsgEstateUpdateHouses(int estateid, int houses)
+void Atlantik::slotMsgEstateUpdateHouses(int estateId, int houses)
 {
-//	if (Estate *estate = estateMap[estateId])
-//		estate->setHouses(houses);
+	if (Estate *estate = estateMap[estateId])
+		estate->setHouses(houses);
 }
 
 void Atlantik::slotMsgEstateUpdateMortgaged(int estateId, bool mortgaged)

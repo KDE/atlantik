@@ -23,14 +23,16 @@ public:
 	void cmdHouseBuy(int estateId);
 	void cmdHouseSell(int estateId);
 	void cmdGamesList();
-	void cmdGameNew();
-	void cmdGameJoin(int gameId);
 	void cmdTradeNew();
 	void cmdTradeToggleEstate(int tradeId, int estateId);
 	void cmdTradeSetMoney(int tradeId, int amount);
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
+
+private slots:
+	void newGame();
+	void joinGame(int gameId);
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -41,17 +43,19 @@ signals:
 	void msgError(QString);
 	void msgChat(QString, QString);
 	void msgStartGame(QString);
+
 	void gameListClear();
 	void gamelistEndUpdate(QString);
 	void gameListAdd(QString gameId, QString description, QString players);
 	void gameListEdit(QString gameId, QString description, QString players);
 	void gameListDel(QString gameId);
+	void joinedGame();
 
-	void playerlistUpdate(QString);
-	void playerlistEndUpdate(QString);
-	void playerlistAdd(QString, QString, QString);
-	void playerlistEdit(QString, QString, QString);
-	void playerlistDel(QString);
+	void playerListClear();
+	void playerListEndUpdate(QString);
+	void playerListAdd(QString, QString, QString);
+	void playerListEdit(QString, QString, QString);
+	void playerListDel(QString);
 
 	void msgPlayerUpdateName(int, QString);
 	void msgPlayerUpdateMoney(int, QString);
