@@ -123,6 +123,8 @@ signals:
 	void addCloseButton();
 
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
+	void endConfigUpdate();
+
 	void gameListClear();
 	void gameListEndUpdate();
 	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);

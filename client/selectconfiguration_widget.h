@@ -36,9 +36,10 @@ Q_OBJECT
 
 public:
 	SelectConfiguration(QWidget *parent, const char *name=0);
+	~SelectConfiguration();
 
 	void initPage();
-	bool validateNext();
+	void setCanStart(const bool &canStart);
 	QString hostToConnect() const;
 	int portToConnect();
 
@@ -46,6 +47,7 @@ private slots:
 	void connectClicked();
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void optionChanged();
+	void slotEndUpdate();
 
 signals:
 	void startGame();
@@ -57,7 +59,7 @@ signals:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QLabel *status_label;
+	QLabel *m_statusLabel;
 	QVGroupBox *m_configBox, *m_messageBox;
 	KPushButton *m_backButton, *m_connectButton;
 	QMap <QObject *, QString> m_optionCommandMap;

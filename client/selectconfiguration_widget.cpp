@@ -60,14 +60,19 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 
     // Status indicator.
-	status_label = new QLabel(this);
-	status_label->setText(i18n("Retrieving configuration list..."));
-	m_mainLayout->addWidget(status_label);
+	m_statusLabel = new QLabel(this);
+	m_statusLabel->setText(i18n("Retrieving configuration list..."));
+	m_mainLayout->addWidget(m_statusLabel);
+}
+
+SelectConfiguration::~SelectConfiguration()
+{
+	delete m_statusLabel;
 }
 
 void SelectConfiguration::connectClicked()
 {
-	status_label->setText(i18n("Game started. Retrieving full game data..."));
+	m_statusLabel->setText(i18n("Game started. Retrieving full game data..."));
 	emit startGame();
 }
 
@@ -99,26 +104,6 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value,
 	// TODO: Enable edit for master only
 }
 
-/*
-// some old code i might want to reuse
-
-void ConfigureGame::slotPlayerlistEndUpdate(QString type)
-{
-	if (type=="full")
-		status_label->setText(i18n("Fetched list of players."));
-
-	emit statusChanged();
-}
-
-bool ConfigureGame::validateNext()
-{
-	if (list->childCount() >= 2)
-		return true;
-	else
-		return false;
-}
-*/
-
 void SelectConfiguration::optionChanged()
 {
 	QString command = m_optionCommandMap[(QObject *)QObject::sender()];
@@ -128,4 +113,13 @@ void SelectConfiguration::optionChanged()
 		command.append(QString::number(checkBox->isChecked()));
 		emit buttonCommand(command);
 	}
+}
+
+void SelectConfiguration::slotEndUpdate()
+{
+}
+
+void SelectConfiguration::setCanStart(const bool &canStart)
+{
+	m_connectButton->setEnabled(canStart);
 }

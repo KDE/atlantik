@@ -247,8 +247,10 @@ void Atlantik::showSelectGame()
 	// Reset core and GUI
 	if (m_board)
 	{
-		delete m_board;
-		m_board = 0;
+		m_board->hide();
+		m_board->reset();
+//		delete m_board;
+//		m_board = 0;
 
 		m_portfolioViews.clear();
 		m_atlanticCore->reset();
@@ -293,11 +295,13 @@ void Atlantik::showSelectConfiguration()
 		return;
 
 	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_selectConfiguration->setCanStart(m_playerSelf ? m_playerSelf->master() : false);
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(endConfigUpdate()), m_selectConfiguration, SLOT(slotEndUpdate()));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
 	connect(m_selectConfiguration, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
@@ -338,6 +342,7 @@ void Atlantik::showBoard()
 		initBoard();
 
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+	m_board->displayDefault();
 	m_board->show();
 
 	PortfolioView *portfolioView = 0;
@@ -510,6 +515,9 @@ void Atlantik::playerChanged(Player *player)
 
 	if (player == m_playerSelf)
 	{
+		if (m_selectConfiguration)
+			m_selectConfiguration->setCanStart(player->master());
+
 		m_roll->setEnabled(player->canRoll());
 		m_buyEstate->setEnabled(player->canBuy());
 		m_auctionEstate->setEnabled(player->canAuction());

@@ -351,6 +351,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value(), eOption.attributeNode(QString("edit")).value(), eOption.attributeNode(QString("command")).value());
 					}
 				}
+				emit endConfigUpdate();
 			}
 			else if (e.tagName() == "gameupdate")
 			{
@@ -428,6 +429,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("money"));
 					if (player && !a.isNull())
 						player->setMoney(a.value().toInt());
+
+					a = e.attributeNode(QString("master"));
+					if (player && !a.isNull())
+						player->setMaster(a.value().toInt());
 
 					a = e.attributeNode(QString("bankrupt"));
 					if (player && !a.isNull())
@@ -665,7 +670,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 							{
 								Player *player = m_atlanticCore->findPlayer(e_player.attributeNode(QString("playerid")).value().toInt());
 								if (trade && player)
+								{
 									trade->addPlayer(player);
+									QObject::connect(m_atlanticCore, SIGNAL(removePlayer(Player *)), trade, SLOT(removePlayer(Player *)));
+								}
 							}
 							n_player = n_player.nextSibling();
 						}

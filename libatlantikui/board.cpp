@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -80,6 +80,15 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 
 AtlantikBoard::~AtlantikBoard()
 {
+	reset();
+}
+
+void AtlantikBoard::reset()
+{
+	m_tokens.clear();
+	m_estateViews.clear();
+	m_displayQueue.clear();
+	m_lastServerDisplay = 0;
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
@@ -105,7 +114,7 @@ EstateView *AtlantikBoard::findEstateView(Estate *estate)
 	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
 	{
 		estateView = dynamic_cast<EstateView*>(*i);
-		if (estateView->estate() == estate)
+		if (estateView && estateView->estate() == estate)
 			return estateView;
 	}
 	return 0;

@@ -36,10 +36,12 @@ public:
 	Estate *location() { return m_location; }
 	void setDestination(Estate *estate);
 	Estate *destination() { return m_destination; }
-	void setBankrupt(bool bankrupt);
-	bool isBankrupt() { return m_bankrupt; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
+	void setMaster(bool master);
+	bool master() { return m_master; }
+	void setBankrupt(bool bankrupt);
+	bool isBankrupt() { return m_bankrupt; }
 	void setHasDebt(bool hasDebt);
 	bool hasDebt() { return m_hasDebt; }
 	void setHasTurn(const bool hasTurn);
@@ -68,7 +70,7 @@ signals:
 private:
 	int m_id, m_gameId;
 	bool m_changed, m_isSelf;
-	bool m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_canUseCard, m_inJail;
+	bool m_master, m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_canUseCard, m_inJail;
 	unsigned int m_money;
 	QString m_name, m_host;
 	Estate *m_location, *m_destination;

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -441,7 +441,10 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 				rmbMenu->insertItem(i18n("Request Trade with %1").arg(player->name()), 3);
 		}
 
-		connect(dynamic_cast<KPopupMenu *>(rmbMenu), SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
+		KPopupMenu *pm = dynamic_cast<KPopupMenu *>(rmbMenu);
+		if (pm) {
+			connect(pm, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
+		}
 		QPoint g = QCursor::pos();
 		rmbMenu->exec(g);
 		delete rmbMenu;

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -101,7 +101,8 @@ public:
 	Trade(int tradeId);
 	int tradeId() { return m_tradeId; }
 
-	void addPlayer(Player *);
+	void addPlayer(Player *player);
+	void removePlayer(Player *player);
 	
 	QPtrList<Player> players() const;
 	unsigned int acceptCount();
