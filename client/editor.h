@@ -8,10 +8,12 @@
 #include "estate.h"
 
 class QCheckBox;
-class KComboBox;
-class QSpinBox;
-class KColorButton;
+class QGridLayout;
 class QLineEdit;
+class QSpinBox;
+
+class KColorButton;
+class KComboBox;
 class KPushButton;
 
 // following enum taken from monopd/estate.h, and numbers all decreased by one

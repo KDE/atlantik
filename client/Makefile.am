@@ -12,6 +12,3 @@ atlantik_SOURCES = atlantik.cpp configdlg.cpp main.cpp monopigator.cpp \
 KDE_ICON = atlantik
 
 METASOURCES = AUTO 
-
-data_DATA = designerui.rc
-datadir = $(kde_datadir)/atlantik
