@@ -13,9 +13,6 @@ Bugfixes
 
 - player name change doesn't make it to trade money items
 - Update messages views after resize.
-- store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
-  (which creates the listview connected to the related signals) is sent prior
-  to any of those updates
 - Token should not have to know about EstateView, views could be independent
 - bugs from Neil's trial report
   - Should display in console chance/community chest cards (reenable that optionally?)
@@ -37,6 +34,7 @@ v move all but mainwindow to libatlantikui
 - Option to configure toolbars (at least be able to save size/text settings)
 - More descriptive window titles
 v money updates from network don't make it to a gui update
+v request playerlist after joining game
 
 For 0.4.0
 ---------

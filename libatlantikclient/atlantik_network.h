@@ -44,6 +44,7 @@ private slots:
 	void writeData(QString msg);
 	void rollDice();
 	void endTurn();
+	void getPlayerList();
 	void newGame(const QString &gameType);
 	void joinGame(int gameId);
 	void startGame();

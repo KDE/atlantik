@@ -103,6 +103,10 @@ void AtlantikNetwork::cmdGamesList()
 {	writeData(".gl");
 }
 
+void AtlantikNetwork::getPlayerList()
+{	writeData(".gp");
+}
+
 void AtlantikNetwork::newGame(const QString &gameType)
 {
 	writeData(".gn" + gameType);
@@ -296,6 +300,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "joinedgame")
 			{
 				emit joinedGame();
+				getPlayerList();
 			}
 			else if (e.tagName() == "updateplayerlist")
 			{
