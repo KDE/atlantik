@@ -30,7 +30,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 			case 6: case 8: case 9:
 				color = kmonop_orange; break;
 			default:
-				color = NULL;
+				color = QColor();
 		}
 		estate = new EstateView(East, color, this, "aap");
 		if (i==0)
@@ -49,7 +49,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 			case 7: case 9:
 				color = kmonop_blue; break;
 			default:
-				color = NULL;
+				color = QColor();
 		}
 		estate = new EstateView(West, color, this, "aap");
 		if (i==0)
@@ -68,7 +68,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 			case 6: case 7: case 9:
 				color = kmonop_yellow; break;
 			default:
-				color = NULL;
+				color = QColor();
 		}
 		estate = new EstateView(South, color, this, "aap");
 		if (i==0)
@@ -87,7 +87,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 			case 6: case 8: case 9:
 				color = kmonop_lblue; break;
 			default:
-				color = NULL;
+				color = QColor();
 		}
 		estate = new EstateView(North, color, this, "aap");
 		if (i==0)

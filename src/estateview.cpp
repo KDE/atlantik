@@ -45,8 +45,7 @@ void EstateView::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
 	{
-		if (qpixmap!=0)
-			delete qpixmap;
+		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
 		QPainter painter;
@@ -56,7 +55,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		painter.setBrush(kmonop_greenbg);
 		painter.drawRect(rect());
 
-		if (color!=NULL)
+		if (color.isValid())
 		{
 			painter.setBrush(color);
 			switch(orientation)
