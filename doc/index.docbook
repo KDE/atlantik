@@ -13,11 +13,11 @@
 
 <authorgroup>
 <author>
-<firstname></firstname>
+<firstname>Rob</firstname>
 <othername></othername>
-<surname></surname>
+<surname>Kaper</surname>
 <affiliation>
-<address><email></email></address>
+<address><email>cap@capsi.com</email></address>
 </affiliation>
 </author>
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
@@ -31,34 +31,71 @@ need them for translation coordination !
 Please respect the format of the date (DD/MM/YYYY) and of the version
 (Major.minor.lesser), it could be used by automation scripts -->
 
-<date>2000-09-02</date>
-<releaseinfo>0.00.00</releaseinfo>
+<date>2002-04-07</date>
+<releaseinfo>0.00.01</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-&atlantik; is a property trading game for &kde;
+&atlantik; is a &kde; client for playing <trademark
+class="registered">Monopoly</trademark>-like boardgames on the
+<command>monopd</command> network.
 </para>
+
 </abstract>
 
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>Kapp</keyword>
+<keyword>kdegames</keyword>
+<keyword>Atlantik</keyword>
+<keyword>
 </keywordset>
 
 </bookinfo>
 
-<chapter id="introduction"> <title>Introduction</title> <para>Sorry, but
-the documentation for &kappname; was not finished when &kde; was installed on
-this computer.</para> <para>If you need help, please check <ulink
-url="http://www.kde.org">The &kde; Website</ulink> for updates, or by
-submitting your question to <ulink url="mailto:kde-user@kde.org">The
-&kde; User Mailing list</ulink>.</para> <para><emphasis>The &kde;
-Team</emphasis></para>
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+Purpose of the &atlantik; board game is to acquire land in major
+cities in North America and Europe while being a transatlantic
+traveller. All game modes are served by monopd, a dedicated game
+server designed for &atlantik;.  One of the game modes plays like the
+popular real estate board game known as <trademark
+class="registered">Monopoly</trademark>.</para>
+
+</chapter>
+
+<chapter id="download">
+<title>Download</title>
+
+<para>
+&atlantik; can be downloaded from <ulink
+url="http://capsi.com/atlantik/">http://capsi.com/atlantik/</ulink> and
+monopd can be downloaded from <ulink
+url="http://capsi.com/~cap/monopd/">http://capsi.com/~cap/monopd/</ulink>.</para>
+
+<para>
+However, the latest versions of both applications can be found in
+<acronym>CVS</acronym>.  &atlantik; is located in the
+<acronym>CVS</acronym> repository of &kde; in the module kdegames.
+See <ulink
+url="http://www.kde.org/anoncvs.html">http://www.kde.org/anoncvs.html</ulink>
+for instructions how to download &kde; modules from
+<acronym>CVS</acronym>. &atlantik; is included in the kdegames package
+since &kde; 3.1.</para>
+
+<para>
+For more information on <applicaiton>monopd</application>
+<acronym>CVS</acronym> see the <application>monopd</application> pages
+on <ulink
+url="http://sourceforge.net/projects/monopd/">http://sourceforge.net/projects/monopd/</ulink>.</para>
+
 
 &underFDL;
+&underGPL;
 
 </chapter>
 
