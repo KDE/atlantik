@@ -82,7 +82,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton = new KPushButton(BarIcon("forward", KIcon::SizeSmall), i18n("Connect"), this);
+	m_connectButton = new KPushButton(BarIconSet("forward", KIcon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
