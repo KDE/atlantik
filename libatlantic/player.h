@@ -50,6 +50,8 @@ public:
 	bool canRoll() const { return m_canRoll; }
 	void setCanBuy(bool canBuy);
 	bool canBuy() const { return m_canBuy; }
+	void setCanAuction(bool canAuction);
+	bool canAuction() const { return m_canAuction; }
 	void setInJail(const bool inJail);
 	bool inJail() const { return m_inJail; }
 	void setName(const QString _n);
@@ -68,7 +70,7 @@ signals:
 private:
 	int m_id, m_gameId;
 	bool m_changed, m_isSelf;
-	bool m_master, m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_inJail;
+	bool m_master, m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_inJail;
 	unsigned int m_money;
 	QString m_name, m_host, m_image;
 	Estate *m_location, *m_destination;
