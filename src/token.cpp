@@ -66,10 +66,11 @@ void Token::playerChanged()
 
 void Token::updateGeometry()
 {
-	kdDebug() << "new geometry for token: " << m_player->location() << endl;
-//	setGeometry(100, 100, 125, 125);
 	if (m_location)
 	{
+		int x = m_location->geometry().center().x() - (width()/2);
+		int y = m_location->geometry().center().y() - (height()/2);
+		setGeometry(x, y, width(), height());
 		show();
 	}
 	else
