@@ -546,28 +546,32 @@ void AtlantikNetwork::processNode(QDomNode n)
 							{
 								if (e_child.tagName() == "tradeplayer")
 								{
-									a = e.attributeNode(QString("playerid"));
+									a = e_child.attributeNode(QString("playerid"));
 									if (!a.isNull())
 									{
 										int playerId = a.value().toInt();
 
-										a = e.attributeNode(QString("accept"));
+										a = e_child.attributeNode(QString("accept"));
 										if (!a.isNull())
 											emit msgTradeUpdatePlayerAccept(trade->tradeId(), playerId, (bool)(a.value().toInt()));
 									}
 								}
 								else if (e_child.tagName() == "tradeestate")
 								{
-									a = e.attributeNode(QString("estateid"));
+									kdDebug() << "tradeestate" << endl;
+									a = e_child.attributeNode(QString("estateid"));
 									if (!a.isNull())
 									{
 										Estate *estate = m_estates[a.value().toInt()];
-										a = e.attributeNode(QString("targetplayer"));
+										a = e_child.attributeNode(QString("targetplayer"));
 										if (!a.isNull())
 										{
 											Player *player = m_players[a.value().toInt()];
 											if (trade && estate)
+											{
+												kdDebug() << "calling trade->updateEstate" << endl;
 												trade->updateEstate(estate, player);
+											}
 										}
 									}
 								}

@@ -200,7 +200,7 @@ void Atlantik::newTrade(Trade *trade)
 	tradeDisplay->setFixedSize(200, 200);
 	tradeDisplay->show();
 						
-	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+//	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 
 	// m_board->addTradeView(trade);
 }

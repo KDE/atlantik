@@ -3,12 +3,14 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qvalidator.h>
+#include <qmap.h>
 
 #include <klocale.h>
 #include <klistview.h>
 #include <kdebug.h>
 #include <kdialogbase.h>
 #include <klineedit.h>
+#include <kiconloader.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -59,101 +61,40 @@ private:
 	TradeItem *mTrade;
 };
 
-TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent, const char *name)
-	: QWidget(parent, name), mTrade(trade)
+TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
 	(new QHBoxLayout(this, 11, 6))->setAutoAdd(true);
-	
-	mPlayerList = new KListView(this, "playerlist");
-	mPlayerList->header()->hide();
-	mPlayerList->addColumn("nutin'!");
-	mPlayerList->setRootIsDecorated(true);
-	mPlayerList->setResizeMode(KListView::AllColumns);
-	
-	
-	connect(trade, SIGNAL(playerAdded(Player *)),
-			SLOT(playerAdded(Player *))
-		);
-	connect(trade, SIGNAL(playerRemoved(Player *)),
-			SLOT(playerRemoved(Player *))
-		);
 
-	connect(trade, SIGNAL(tradeAdded(TradeItem *)),
-			SLOT(tradeAdded(TradeItem *))
-		);
-	connect(trade, SIGNAL(tradeRemoved(TradeItem *)),
-			SLOT(tradeRemoved(TradeItem *))
-		);
-	connect(trade, SIGNAL(tradeChanged(TradeItem *)),
-			SLOT(tradeChanged(TradeItem *))
-		);
-	connect(
-			mPlayerList,
-			SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)),
-			SLOT(contextMenu(KListView *, QListViewItem *))
-		);
+	m_componentList = new KListView(this, "componentList");
+	m_componentList->addColumn("Player");
+	m_componentList->addColumn("gives");
+	m_componentList->addColumn("Player");
+	m_componentList->addColumn("Item");
+
+//	mPlayerList->header()->hide();
+//	mPlayerList->setRootIsDecorated(true);
+//	mPlayerList->setResizeMode(KListView::AllColumns);
+	
+	connect(trade, SIGNAL(playerAdded(Player *)), this, SLOT(playerAdded(Player *)));
+	connect(trade, SIGNAL(playerRemoved(Player *)), this, SLOT(playerRemoved(Player *)));
+	connect(trade, SIGNAL(tradeAdded(TradeItem *)), this, SLOT(tradeAdded(TradeItem *)));
+	connect(trade, SIGNAL(tradeRemoved(TradeItem *)), this, SLOT(tradeRemoved(TradeItem *)));
+	connect(trade, SIGNAL(tradeChanged(TradeItem *)), this, SLOT(tradeChanged(TradeItem *)));
+
+	return;
+
+//	connect(
+//			mPlayerList,
+//			SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)),
+//			SLOT(contextMenu(KListView *, QListViewItem *)));
 }
-
-
-GivingListViewItem *TradeDisplay::giving(Player *from, Player *to)
-{
-	PlayerListViewItem *fromItem=player(from);
-	if (!fromItem) return 0;
-	
-	for (
-			GivingListViewItem *i=
-					static_cast<GivingListViewItem*>(fromItem->firstChild());
-			i;
-			i=static_cast<GivingListViewItem*>(i->nextSibling()))
-	{
-		if (i->player()==to)
-			return i;
-	}
-	return 0;
-}
-
-GivingListViewItem *TradeDisplay::giving(TradeItem *t)
-{
-	return giving(t->from(), t->to());
-}
-
-PlayerListViewItem *TradeDisplay::player(Player *from)
-{
-	for (
-			PlayerListViewItem *i=
-					static_cast<PlayerListViewItem*>(mPlayerList->firstChild());
-			i;
-			i=static_cast<PlayerListViewItem*>(i->nextSibling()))
-	{
-		if (i->player()==from)
-			return i;
-	}
-	
-	return 0;
-}
-
-TradeListViewItem  *TradeDisplay::trade(TradeItem *t)
-{
-	GivingListViewItem *g=giving(t);
-	if (!g) return 0;
-	
-	for (
-			TradeListViewItem *i=
-					static_cast<TradeListViewItem*>(g->firstChild());
-			i;
-			i=static_cast<TradeListViewItem*>(i->nextSibling()))
-	{
-		if (i->trade()==t)
-			return i;
-	}
-	return 0;
-}
-
 
 void TradeDisplay::playerAdded(Player *p)
 {
+/*
 	PlayerListViewItem *other=0;
 	for (QListViewItem *i=mPlayerList->firstChild() ; i; i=i->nextSibling())
 	{
@@ -182,28 +123,43 @@ void TradeDisplay::playerAdded(Player *p)
 			);
 		
 	}
-	
+*/	
 }
 
 void TradeDisplay::playerRemoved(Player *p)
 {
+/*
 	delete player(p);
+*/
 }
 
 void TradeDisplay::tradeAdded(TradeItem *t)
 {
-	new TradeListViewItem(giving(t), t, t->text());
+	KListViewItem *item = new KListViewItem(m_componentList, t->from()->name(), i18n("gives is transitive ;)", "gives"), t->to()->name(), t->text());
+	item->setPixmap(0, QPixmap(SmallIcon("personal")));
+	item->setPixmap(2, QPixmap(SmallIcon("personal")));
+
+	m_componentMap[t] = item;
 }
 	
 void TradeDisplay::tradeRemoved(TradeItem *t)
 {
-	delete trade(t);
+	KListViewItem *item = m_componentMap[t];
+	delete item;
+//	delete trade(t);
 }
 
 void TradeDisplay::tradeChanged(TradeItem *t)
 {
-	delete trade(t);
-	tradeAdded(t);
+	KListViewItem *item = m_componentMap[t];
+	if (item)
+	{
+		item->setText(0, t->from()->name());
+		item->setPixmap(0, QPixmap(SmallIcon("personal")));
+		item->setText(2, t->to()->name());
+		item->setPixmap(2, QPixmap(SmallIcon("personal")));
+		item->setText(3, t->text());
+	}
 }
 
 void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
@@ -283,6 +239,3 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 	}
 		
 }
-
-
-

@@ -12,6 +12,8 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - KExtendedSocket errorcodes/port
+- connect Player::changed() to trade widget (for list items)
+- connect Player::changed() to auction widget (for list items)
 
 For 0.2.0
 ---------
@@ -20,9 +22,21 @@ For 0.2.0
 - move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
 - complete trades
- v network api
- ^ trade object
- ^ widget
+ ^ widget (display)
+   v adding estate item
+   v adding money item
+   v deleting items
+   - reseting accept on change
+   - rejecting trade alltogether
+   - completing trade when all accept
+ - widget (edit)
+   - set/unset accept
+   - reject
+   - add estate
+   - delete estate
+   - add money
+   - delete money
+   - closing widget should auto-reject
 
 For 0.2.1
 ---------

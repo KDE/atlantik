@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "trade.moc"
 #include "player.h"
 #include "estate.h"
@@ -34,6 +36,7 @@ void Trade::addTradeItem(TradeItem *i)
 
 void Trade::updateEstate(Estate *estate, Player *player)
 {
+	cout << "Trade::updateEstate" << endl;	
 	TradeEstate *t=0;
 	
 	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
@@ -45,13 +48,14 @@ void Trade::updateEstate(Estate *estate, Player *player)
 		
 		t=0;
 	}
-	
 	if (t)
 	{
 		if (player)
 		{
+			cout << "gonna emit tradeChanged" << endl;
 			if (t->to()==player) return;
 			t->setTo(player);
+			cout << "emit tradeChanged" << endl;
 			emit tradeChanged(t);
 		}
 		else
@@ -67,6 +71,7 @@ void Trade::updateEstate(Estate *estate, Player *player)
 		t=new TradeEstate(estate, this, player);
 		
 		mTradeItems.append(t);
+			cout << "emit tradeAdded" << endl;
 		emit tradeAdded(t);
 	}
 }

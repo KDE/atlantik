@@ -2,17 +2,15 @@
 #define TRADEWIDGET_H
 
 #include <qwidget.h>
+#include <qmap.h>
 
-class AtlanticCore;
-
-class GivingListViewItem;
-class PlayerListViewItem;
-class TradeListViewItem;
+class QListViewItem;
 
 class KListView;
-class QListViewItem;
-class Trade;
+
+class AtlanticCore;
 class Player;
+class Trade;
 class TradeItem;
 
 class TradeDisplay : public QWidget
@@ -24,11 +22,6 @@ public:
 
 	Trade *trade() { return mTrade; }
 
-	GivingListViewItem *giving(Player *from, Player *to);
-	GivingListViewItem *giving(TradeItem *t);
-	PlayerListViewItem *player(Player *from);
-	TradeListViewItem  *trade(TradeItem *t);
-	
 private slots:
 	void playerAdded(Player *);
 	void playerRemoved(Player *);
@@ -41,10 +34,10 @@ private slots:
 	
 private:
 	AtlanticCore *m_atlanticCore;
+	KListView *m_componentList;
+	Trade *mTrade, *m_trade;
 
-	KListView *mPlayerList;
-	Trade *mTrade;
+	QMap<TradeItem *, KListViewItem *> m_componentMap;
 };
 
 #endif
-
