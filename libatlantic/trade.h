@@ -106,6 +106,8 @@ public:
 	
 	QPtrList<Player> players() const;
 	unsigned int acceptCount();
+
+	bool isRejected() { return m_rejected; }
 	
 	/**
 	 * select the Trade of the given template type, with the given
@@ -153,7 +155,7 @@ signals:
 	void accept(Trade *trade);
 
 private:
-	bool m_changed;
+	bool m_changed, m_rejected;
 	int m_tradeId;
 
 	QPtrList<Player> mPlayers;

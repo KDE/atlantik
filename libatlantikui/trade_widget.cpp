@@ -166,8 +166,10 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 void TradeDisplay::closeEvent(QCloseEvent *e)
 {
-	// Don't send network event when trade is already rejected (and thus 0)
-	if (m_trade)
+	// Don't send network event when trade is already rejected
+	if (m_trade->isRejected())
+		m_atlanticCore->removeTrade(m_trade);
+	else
 		emit reject(m_trade);
 
 	e->accept();
@@ -238,9 +240,6 @@ void TradeDisplay::tradeRejected(Player *player)
 	m_componentList->setEnabled(false);
 	m_rejectButton->setEnabled(false);
 	m_acceptButton->setEnabled(false);
-
-	// Empty trade pointer so closing window won't send network event
-	m_trade = 0;
 
 	// TODO: add/enable close button
 }
