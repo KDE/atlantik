@@ -38,29 +38,20 @@ int Trade::revision() const
 
 void Trade::addPlayer(Player *player)
 {
-	mPlayers.append(player);
 	m_playerAcceptMap[player] = false;
 }
 
 void Trade::removePlayer(Player *player)
 {
-	mPlayers.remove(player);
 	m_playerAcceptMap[player] = false;
 }
 
-QPtrList<Player> Trade::players() const
-{
-	return mPlayers;
-}
-
-unsigned int Trade::acceptCount()
+unsigned int Trade::count( bool acceptOnly )
 {
 	unsigned int count = 0;
 	for (QMapIterator<Player *, bool> it = m_playerAcceptMap.begin() ; it != m_playerAcceptMap.end() ; ++it)
-	{
-		if (it.data())
+		if ( !acceptOnly || it.data() )
 			count++;
-	}
 	return count;
 }
 

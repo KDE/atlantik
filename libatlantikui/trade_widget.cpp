@@ -143,7 +143,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_status = new QLabel(this);
 	listCompBox->addWidget(m_status);
-	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
+	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
 
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
@@ -216,7 +216,7 @@ void TradeDisplay::tradeChanged()
 {
 	// TODO: add notification whether playerSelf has accepted or not and
 	// enable/disable accept button based on that
-	m_status->setText(i18n("%1 out of %2 players accept current trade proposal.").arg(m_trade->acceptCount()).arg(m_trade->players().count()));
+	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
 }
 
 void TradeDisplay::playerChanged(Player *player)
