@@ -4,12 +4,15 @@
 
 #include <player.h>
 #include <estate.h>
+#include <auction.h>
+
 #include <atlantik_network.h>
 
 #include "board.moc"
 #include "estateview.h"
 #include "config.h"
 #include "display_widget.h"
+#include "auction_widget.h"
 
 extern AtlantikConfig atlantikConfig;
 
@@ -158,6 +161,16 @@ void AtlantikBoard::addEstateView(Estate *estate)
 		m_gridLayout->addWidget(estateView, estateId-3*sideLen, sideLen);
 
 	estateView->show();
+}
+
+void AtlantikBoard::newAuction(Auction *auction)
+{
+	if (m_center != 0)
+		delete m_center;
+	
+	m_center = new AuctionWidget(this);
+	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
+	m_center->show();
 }
 
 void AtlantikBoard::addToken(Player *player)

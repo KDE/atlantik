@@ -15,6 +15,7 @@ class AtlanticCore;
 class Player;
 class Estate;
 class Trade;
+class Auction;
 
 //#ifndef USE_KDE
 class AtlantikNetwork : public QSocket
@@ -143,6 +144,9 @@ signals:
 	 */
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
+	void newAuction(Auction *auction);
+	void auctionCompleted(int auctionId);
+
 private:
 	void writeData(QString msg);
 	void processMsg(QString);
@@ -157,6 +161,7 @@ private:
 	QMap<int, Player *> m_players;
 	QMap<int, Estate *> m_estates;
 	QMap<int, Trade *> m_trades;
+	QMap<int, Auction *> m_auctions;
 };
 
 #endif

@@ -149,6 +149,7 @@ public slots:
 	void newPlayer(Player *player);
 	void newEstate(Estate *estate);
 	void newTrade(Trade *trade);
+	void newAuction(Auction *auction);
 
 	void playerChanged();
 

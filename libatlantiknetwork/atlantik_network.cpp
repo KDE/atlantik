@@ -4,6 +4,7 @@
 #include <player.h>
 #include <estate.h>
 #include <trade.h>
+#include <auction.h>
 
 #include "atlantik_network.moc"
 
@@ -492,7 +493,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					bool b_newTrade = false;
 					if (!(trade = m_trades[tradeId]))
 					{
-						// Create trade object and view
+						// Create trade object
 						trade = m_atlanticCore->newTrade(tradeId);
 						m_trades[tradeId] = trade;
 
@@ -589,6 +590,46 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					if (trade)
 						trade->update();
+				}
+			}
+			else if (e.tagName() == "auctionupdate")
+			{
+				a = e.attributeNode(QString("auctionid"));
+				if (!a.isNull())
+				{
+					int auctionId = a.value().toInt();
+
+					Auction *auction;
+					bool b_newAuction = false;
+					if (!(auction = m_auctions[auctionId]))
+					{
+						// Create auction object
+						auction = m_atlanticCore->newAuction(auctionId);
+						m_auctions[auctionId] = auction;
+
+//						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
+//						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
+
+						b_newAuction = true;
+					}
+
+					QString type = e.attributeNode(QString("type")).value();
+					if (type=="new")
+					{
+					}
+					else if (type=="edit")
+					{
+					}
+					else if (type=="completed")
+						emit auctionCompleted(auctionId);
+
+					// Emit signal so GUI implementations can create view(s)
+#warning port to atlanticcore, but somehow dont create view until all properties are set
+					if (b_newAuction)
+						emit newAuction(auction);
+
+					if (auction)
+						auction->update();
 				}
 			}
 			else

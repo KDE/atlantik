@@ -7,6 +7,7 @@
 class Player;
 class Estate;
 class Trade;
+class Auction;
 
 class AtlanticCore : public QObject
 {
@@ -24,12 +25,16 @@ public:
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
 
+	QPtrList<Auction> auctions();
+	Auction *newAuction(int auctionId);
+
 	void setCurrentTurn(Player *player);
 
 private:
 	QPtrList<Player> m_players;
 	QPtrList<Estate> m_estates;
 	QPtrList<Trade> m_trades;
+	QPtrList<Auction> m_auctions;
 };
 
 #endif

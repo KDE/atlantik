@@ -1,5 +1,5 @@
-#ifndef ATLANTIK_DISPLAY_WIDGET_H
-#define ATLANTIK_DISPLAY_WIDGET_H
+#ifndef ATLANTIK_AUCTION_WIDGET_H
+#define ATLANTIK_AUCTION_WIDGET_H
 
 #include <qwidget.h>
 #include <qlayout.h>
@@ -8,15 +8,12 @@
 #include <qpushbutton.h>
 #include <qtextedit.h>
 
-class BoardDisplay : public QWidget
+class AuctionWidget : public QWidget
 {
 Q_OBJECT
 
 public:
-	BoardDisplay(const QString type, const QString description, QWidget *parent, const char *name=0);
-
-private slots:
-	void slotClicked();
+	AuctionWidget(QWidget *parent, const char *name=0);
 
 private:
 	QTextEdit *m_label;

@@ -3,10 +3,12 @@
 #include "player.h"
 #include "estate.h"
 #include "trade.h"
+#include "auction.h"
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
 }
+
 QPtrList<Player> AtlanticCore::players()
 {
 	return m_players;
@@ -41,6 +43,18 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	Trade *trade = new Trade(tradeId);
 	m_trades.append(trade);
 	return trade;
+}
+
+QPtrList<Auction> AtlanticCore::auctions()
+{
+	return m_auctions;
+}
+
+Auction *AtlanticCore::newAuction(int auctionId)
+{
+	Auction *auction = new Auction(auctionId);
+	m_auctions.append(auction);
+	return auction;
 }
 
 void AtlanticCore::setCurrentTurn(Player *player)

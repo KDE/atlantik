@@ -10,31 +10,29 @@ Bugfixes
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
 - estates should check whether they need to init tokens upon estate init
-- rename PortfolioEstate to TinyEstateView
 - Token should not have to know about EstateView, views could be independent
-- KExtendedSocket errorcodes
+- KExtendedSocket errorcodes/port
 
 For 0.2.0
 ---------
 
-v seperate engine from network (network uses engine, not other way around,
-  engine could also be used without network in atlanticdesigner)
-  v move network layer to libatlantiknetwork
-  - kmainwindow should own network and core and connect them
-    - later: kapp should own gui(kmainwindow), network and core and connect them
+- kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui
-  Atlantik then uses atlantikui, which talks to atlantikcore, which uses
-  atlantic
+  (ui -> core -> net -> core -> ui)
 - complete trades
  v network api
  ^ trade object
  ^ widget
-- different modes for *views: Play and Edit, for example EstateView should
-  have a RMB canBeOwned option in Edit mode, but not in Play mode.
+- support auctions
+ ^ network api
+ ^ auction object
+ - widget
 
 For 0.2.1
 ---------
 
+- different modes for *views: Play and Edit, for example EstateView should
+  have a RMB canBeOwned option in Edit mode, but not in Play mode.
 - remove config global var
 v support for <display>
   v type chancecard (attrs playerid, name and description)
@@ -54,7 +52,6 @@ v support for <display>
 - fix portfolio
   - non street estates in portfolio
   - Chance/CC cards in portfolio
-- support auctions
 - Option to configure toolbars (at least be able to save size/text settings)
 
 For 0.3.0

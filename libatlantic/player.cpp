@@ -1,5 +1,3 @@
-//#include <kdebug.h>
-
 #include "player.h"
 #include "player.moc"
 #include "estate.h"

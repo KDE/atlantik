@@ -10,9 +10,11 @@
 //#include "estateview.h"
 #include "token.h"
 
-class Estate;
 class EstateView;
+
 class Player;
+class Estate;
+class Auction;
 
 class AtlantikBoard : public QWidget
 {
@@ -22,26 +24,27 @@ public:
 	AtlantikBoard(int, QWidget *parent, const char *name=0);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
+	void newAuction(Auction *auction);
 	void addToken(Player *player);
 	void indicateUnownedChanged();
 	QWidget *centerWidget() { return m_center; };
 	QPtrList<EstateView> estateViews();
 
-	public slots:
-		void slotMoveToken();
-		void slotResizeAftermath();
+public slots:
+	void slotMoveToken();
+	void slotResizeAftermath();
 
-	private slots:
-		void playerChanged();
-		void displayCenter();
-		void slotDisplayCard(QString, QString);
+private slots:
+	void playerChanged();
+	void displayCenter();
+	void slotDisplayCard(QString, QString);
 
-	signals:
-		void tokenConfirmation(Estate *estate);
+signals:
+	void tokenConfirmation(Estate *estate);
 
-	protected:
-		void resizeEvent(QResizeEvent *);
-		QWidget *m_center;
+protected:
+	void resizeEvent(QResizeEvent *);
+	QWidget *m_center;
 
 private:
 	EstateView *getEstateView(Estate *estate);

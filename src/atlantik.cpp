@@ -18,13 +18,13 @@
 #include <player.h>
 #include <estate.h>
 #include <trade.h>
+#include <auction.h>
 
 #include <atlantik_network.h>
 
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
-
 #include "trade_widget.h"
 
 #include "designer.h"
@@ -76,6 +76,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
 	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
+	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	// Toolbar: Move
 	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
@@ -200,6 +201,11 @@ void Atlantik::newTrade(Trade *trade)
 	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 
 	// m_board->addTradeView(trade);
+}
+
+void Atlantik::newAuction(Auction *auction)
+{
+	m_board->newAuction(auction);
 }
 
 void Atlantik::slotNetworkConnected()
