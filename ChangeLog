@@ -5,6 +5,7 @@
   portfolio/board estateviews.
 - Added icon for Go.
 - New config option to highlite unowned properties.
+- Seperated server messages from chat.
 
 2001-06-27 (cap)
 ----------

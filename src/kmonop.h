@@ -47,12 +47,13 @@ class KMonop : public KTMainWindow
 		void slotSetTurn(int);
 	
 	private:
-		void outputAppend(QString);
+		void serverMsgsAppend(QString);
+		void chatMsgsAppend(QString);
 
 		QWidget *main;
 		QLineEdit *input;
 		QGridLayout *layout;
-		QTextView *output;
+		QTextView *serverMsgs, *chatMsgs;
 		
 		KAction *roll_die, *buy_estate, *end_turn, *config_kmonop;
 

@@ -22,6 +22,11 @@ desire.
 
 <this space left blank intentionally>
 
+Bugfixes
+--------
+
+- Update messages views after resize.
+
 For 0.2.x
 ---------
 

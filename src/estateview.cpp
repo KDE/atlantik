@@ -110,7 +110,7 @@ void EstateView::setOwned(bool _o)
 {
 	if (m_owned != _o)
 	{
-		m_owned = _m;
+		m_owned = _o;
 		b_recreate = true;
 		update();
 	}

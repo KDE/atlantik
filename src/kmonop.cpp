@@ -52,21 +52,27 @@ KMonop::KMonop (const char *name) :
  	main = new QWidget(this, "main");
 	main->show();
 
-	layout = new QGridLayout(main, 8, 2);
+	layout = new QGridLayout(main, 9, 2);
 
-	output = new QTextView(main, "output");
-	output->setHScrollBarMode(QScrollView::AlwaysOff);
-	output->setFixedWidth(225);
+	serverMsgs = new QTextView(main, "serverMsgs");
+	serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
+	serverMsgs->setFixedWidth(225);
+
+	chatMsgs = new QTextView(main, "chatMsgs");
+	chatMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
+	chatMsgs->setFixedWidth(225);
 
 	input = new QLineEdit(main, "input");
 	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
 	board = new KMonopBoard(main, "board");
 
-	layout->addWidget(output, 6, 0);
-	layout->addWidget(input, 7, 0);
-	layout->addMultiCellWidget(board, 0, 7, 1, 1);
-	layout->setRowStretch(6, 1); // make board+output stretch, not the rest
+	layout->addWidget(serverMsgs, 6, 0);
+	layout->addWidget(chatMsgs, 7, 0);
+	layout->addWidget(input, 8, 0);
+	layout->addMultiCellWidget(board, 0, 8, 1, 1);
+	layout->setRowStretch(6, 1); // make board+serverMsgs stretch, not the rest
+	layout->setRowStretch(7, 1); // make board+chatMsgs stretch, not the rest
 	layout->setColStretch(1, 1); // make board stretch, not the rest
 
 	myPlayerId = -1;
@@ -197,17 +203,17 @@ void KMonop::slotSendMsg()
 
 void KMonop::slotMsgError(QString msg)
 {
-	outputAppend("ERR: " + msg);
+	serverMsgsAppend("ERR: " + msg);
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
-	outputAppend(msg);
+	serverMsgsAppend(msg);
 }
 
 void KMonop::slotMsgChat(QString player, QString msg)
 {
-	outputAppend(player + ": " + msg);
+	chatMsgsAppend(player + ": " + msg);
 }
 
 void KMonop::slotMsgStartGame(QString msg)
@@ -215,7 +221,7 @@ void KMonop::slotMsgStartGame(QString msg)
 	if (wizard!=0)
 		wizard->hide();
 		
-	outputAppend("START: " + msg);
+	serverMsgsAppend("START: " + msg);
 }
 
 void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
@@ -295,10 +301,18 @@ void KMonop::slotSetTurn(int player)
 	}
 }
 
-void KMonop::outputAppend(QString msg)
+void KMonop::serverMsgsAppend(QString msg)
 {
-	output->append(msg);
-	output->ensureVisible(0, output->contentsHeight());
+	serverMsgs->append(msg);
+	serverMsgs->ensureVisible(0, serverMsgs->contentsHeight());
 #warning fixed in qt 3.0
-	output->viewport()->update();
+	serverMsgs->viewport()->update();
+}
+
+void KMonop::chatMsgsAppend(QString msg)
+{
+	chatMsgs->append(msg);
+	chatMsgs->ensureVisible(0, chatMsgs->contentsHeight());
+#warning fixed in qt 3.0
+	chatMsgs->viewport()->update();
 }
