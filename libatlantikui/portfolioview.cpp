@@ -55,7 +55,7 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 
 	// Init icon
 	m_image = 0;
-	m_imageName = "hamburger";
+	m_imageName = "hamburger.png";
 	loadIcon();
 }
 
@@ -139,17 +139,18 @@ void PortfolioView::loadIcon()
 	delete m_image;
 	m_image = 0;
 
-	m_image = new QPixmap(locate("data", "atlantik/themes/default/tokens/hamburger.png"));
-
-	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
-	if (KStandardDirs::exists(filename))
-		m_image = new QPixmap(filename);
+	if (m_imageName != "")
+	{
+		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
+		if (KStandardDirs::exists(filename))
+			m_image = new QPixmap(filename);
+	}
 
 	if (!m_image)
 	{
-		m_imageName = "hamburger";
+		m_imageName = "hamburger.png";
 
-		filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 		if (KStandardDirs::exists(filename))
 			m_image = new QPixmap(filename);
 	}
