@@ -8,6 +8,13 @@
 #include <kwizard.h>
 #include <kdialogbase.h>
 
+class SelectGame : public QWidget
+{
+	public:
+		SelectGame(QWidget *parent, const char *name=0);
+		void initPage();
+};
+
 class NewGameWizard : public KWizard
 {
 Q_OBJECT
@@ -19,19 +26,38 @@ Q_OBJECT
 	public slots:
 		void slotListClick(QListViewItem *);
 		void slotInit(const QString &);
-//		void slotConnect();
-//		void slotCancel();
+		void slotConnected();	
 
 	private:
 		QListView *list;
-		QWidget *select_server, *select_game;
+		QWidget *select_server;
+		SelectGame *select_game;
 };
 
-class SelectGame : public QWidget
+class Server
 {
 	public:
-		SelectGame(QWidget *parent, const char *name=0);
+		Server(const QString& _host, int _port)
+		{
+			h = _host;
+			p = _port;
+		}
+
+		QString host() const
+		{
+			return h;
+		}
+
+		int port() const
+		{
+			return p;
+		}
+	
+	private:
+		QString h;
+		int p;
 };
+
 
 class NewGameDialog : public KDialog
 {

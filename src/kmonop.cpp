@@ -61,11 +61,11 @@ KMonop::KMonop (const char *name) :
   layout->setColStretch(1, 1); // make board stretch, not the rest
   layout->addMultiCellWidget(server, 4, 4, 0, 1);
   statusBar()->message ("KMonop v0.0.1");
-  sock = new QSocket(this, "mysock");
-  sock->connectToHost("localhost", 1234);
-  connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
-  connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
-  connect(server, SIGNAL(returnPressed()), this, SLOT(slotWrite()));
+//  sock = new QSocket(this, "mysock");
+//  sock->connectToHost("localhost", 1234);
+//  connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
+//  connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
+//  connect(server, SIGNAL(returnPressed()), this, SLOT(slotWrite()));
 // setBaseSize(port->width()+board->width(),board->height());
 // setSizeIncrement(24,24);
   setView(main);

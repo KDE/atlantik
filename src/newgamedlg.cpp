@@ -1,6 +1,7 @@
 #include <qlayout.h>
 #include <iostream.h>
 #include <qlabel.h>
+#include <qsocket.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
@@ -43,7 +44,7 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	setNextEnabled(select_server, false);
 
 	select_game = new SelectGame(this, "select_game");
-	addPage(select_game, QString("Select or create a game:"));
+	addPage(select_game, QString("Connecting to server..."));
 	setHelpEnabled(select_game, false);
 }
 
@@ -65,7 +66,15 @@ void NewGameWizard::slotInit(const QString &_name)
 	if (title(select_server) == _name)
 		cout << "that would be select_server" << endl;
 	if (title(select_game) == _name)
+	{
 		cout << "that would be select_game" << endl;
+		select_game->initPage();
+	}
+}
+
+void NewGameWizard::slotConnected()
+{
+	setTitle(select_game, QString("Connected. Fetching list of games..."));
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -76,6 +85,14 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	QLabel *header_label = new QLabel(this);
 	header_label->setText("No network connection to server made yet.");
 	layout->addWidget(header_label);
+}
+
+void SelectGame::initPage()
+{
+	QSocket *sock = new QSocket(this, "mysock");
+	sock->connectToHost("localhost", 1234);
+	connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
+	connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
 NewGameDialog::NewGameDialog(QWidget *parent, const char *name, bool modal) : KDialog(parent, name, modal)
