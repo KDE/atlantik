@@ -49,10 +49,16 @@ through the Monopigator interface.
 3. Mailinglist
 --------------
 
-There is a mailinglist available for discussion of Atlantik development:
+There are mailinglists available for discussion of Atlantik development. The
+kmonop-devel list (named kmonop for historic reasons) is for general
+discussion and development of the codebase, the atlantik-artists list is for
+the development of GFX/SFX for Atlantik.
 
 To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
 To post, send e-mail to: kmonop-devel@lists.capsi.com
+
+To subscribe, send e-mail to: atlantik-artists-subscribe@lists.capsi.com
+To post, send e-mail to: atlantik-artists@lists.capsi.com
 
 There is a seperate mailinglist for monopd related discussion:
 
