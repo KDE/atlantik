@@ -2,6 +2,8 @@
 ----------
 
 - monopd no longer sends gamelist on connect, so request it
+- more intelligent EstateDetails, shows no useless info anymore and added
+  groupname, price and isMortgaged
 
 2002-06-27 (kaper)
 ----------

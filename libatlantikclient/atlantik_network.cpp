@@ -528,6 +528,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (estate && !a.isNull())
 						estate->setCanSellHouses(a.value().toInt());
 
+					a = e.attributeNode(QString("price"));
+					if (estate && !a.isNull())
+						estate->setPrice(a.value().toInt());
+
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set
 					if (b_newEstate)
