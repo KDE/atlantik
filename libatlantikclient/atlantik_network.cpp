@@ -458,12 +458,18 @@ void AtlantikNetwork::processNode(QDomNode n)
 						bool directMove = false;
 
 						Estate *estate = m_atlanticCore->findEstate(a.value().toInt());
-						if (estate)
-							player->setLocation(estate);
 
 						a = e.attributeNode(QString("directmove"));
 						if (!a.isNull())
 							directMove = a.value().toInt();
+
+						if (player && estate)
+						{
+							if (directMove)
+								player->setLocation(estate);
+							else
+								player->setDestination(estate);
+						}
 					}
 
 					// Emit signal so GUI implementations can create view(s)

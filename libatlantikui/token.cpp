@@ -29,23 +29,19 @@
 #include "player.h"
 
 #include "token.moc"
-#include "estateview.h"
 
-Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
+Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
 
 	m_parentBoard = parent;
-	connect(this, SIGNAL(tokenConfirmation(Estate *)), m_parentBoard, SIGNAL(tokenConfirmation(Estate *)));
 
 	m_player = player;
 	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
-	m_location = 0;
-	setLocation(location, false);
-
+	m_inJail = m_player->inJail();
+	m_location = m_player->location();
 	m_destination = 0;
-	m_inJail = false;
 
 	qpixmap = 0;
 	b_recreate = true;
@@ -58,98 +54,22 @@ Player *Token::player()
 	return m_player;
 }
 
-void Token::setLocation(EstateView *location, bool confirm)
+void Token::setLocation(Estate *location)
 {
 	if (m_location != location)
-	{
 		m_location = location;
-		updateGeometry();
-
-		if (confirm)
-			emit tokenConfirmation(m_player->location());
-	}
 }
 
-void Token::setDestination(EstateView *estateView)
+void Token::setDestination(Estate *estateView)
 {
 	if (m_destination != estateView)
-	{
 		m_destination = estateView;
-		updateGeometry();
-	}
-	emit tokenConfirmation(m_player->location());
 }
 
 void Token::playerChanged()
 {
-	if (m_player->hasTurn())
-		raise();
-
-	if (Estate *estate = m_player->location())
-	{
-		EstateView *estateView;
-		QPtrList<EstateView> estateViews = m_parentBoard->estateViews();
-		for (QPtrListIterator<EstateView> it(estateViews); *it; ++it)
-		{
-			if ((estateView = dynamic_cast<EstateView*>(*it)))
-			{
-				if (estateView->estate() == estate)
-				{
-					setLocation(estateView);
-					if (m_player->inJail() != m_inJail)
-					{
-						m_inJail = m_player->inJail();
-						updateGeometry();
-					}
-					break;
-				}
-			}
-		}
-	}
-	
 	b_recreate = true;
 	update();
-}
-
-void Token::updateGeometry()
-{
-	if (!m_location)
-	{
-		hide();
-		return;
-	}
-
-	int x, y;
-	if (m_inJail)
-	{
-		x = m_location->geometry().x() + m_location->width() - width() - 2;
-		y = m_location->geometry().y() + 2;
-	}
-	else
-	{
-		x = m_location->geometry().center().x() - (width()/2);
-		y = m_location->geometry().center().y() - (height()/2);
-
-		if (m_location->estate()->color().isValid())
-		{
-			switch(m_location->orientation())
-			{
-				case North:
-					y += m_location->height()/8; break;
-				case East:
-					x -= m_location->width()/8; break;
-				case South:
-					y -= m_location->height()/8; break;
-				case West:
-					x += m_location->width()/8; break;
-			}
-		}
-	}
-
-	kdDebug() << "Token::updateGeometry, x:" << x << " y:" << y << endl;
-	setGeometry(x, y, width(), height());
-	if (isHidden())
-		show();
 }
 
 void Token::paintEvent(QPaintEvent *)

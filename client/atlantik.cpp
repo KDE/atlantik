@@ -180,6 +180,7 @@ void Atlantik::newPlayer(Player *player)
 		connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 	}
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
+	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
 	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
 

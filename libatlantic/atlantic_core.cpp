@@ -90,6 +90,22 @@ Estate *AtlanticCore::findEstate(int estateId)
 	return 0;
 }
 
+Estate *AtlanticCore::estateAfter(Estate *estate)
+{
+	Estate *eFirst = 0, *eTmp = 0;
+	bool useNext = false;
+	for (QPtrListIterator<Estate> it(m_estates); (eTmp = *it) ; ++it)
+	{
+		if (!eFirst)
+			eFirst = eTmp;
+		if (eTmp == estate)
+			useNext = true;
+		else if (useNext)
+			return eTmp;
+	}
+	return eFirst;
+}
+
 QPtrList<EstateGroup> AtlanticCore::estateGroups()
 {
 	return m_estateGroups;
