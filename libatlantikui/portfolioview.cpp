@@ -193,6 +193,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
 		painter.drawText(ICONSIZE + KDialog::marginHint(), 15, m_player->name());
+		painter.drawText(width() - 50, 15, QString::number(m_player->money()));
 
 		b_recreate = false;
 	}
