@@ -61,6 +61,7 @@ signals:
 	void msgEstateUpdateMortgaged(int, bool);
 	void msgEstateUpdateCanBeMortgaged(int, bool);
 	void msgEstateUpdateCanBeUnmortgaged(int, bool);
+	void msgEstateUpdateCanBeOwned(int, bool);
 
 	/**
 	 * A new trade is created on the server.

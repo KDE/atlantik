@@ -1,8 +1,9 @@
 #include "player.h"
 
-Player::Player(uint id)
+Player::Player(int id)
 {
 	m_id = id;
+	m_isSelf = false;
 }
 
 void Player::setName(const QString _n)

@@ -147,6 +147,20 @@ public slots:
 	 */
 	void slotMsgEstateUpdateOwner(int estateId, int playerId);
 
+	void slotMsgEstateUpdateName(int, QString);
+	void slotMsgEstateUpdateHouses(int, int);
+	void slotMsgEstateUpdateMortgaged(int, bool);
+	void slotMsgEstateUpdateCanBeMortgaged(int, bool);
+	void slotMsgEstateUpdateCanBeUnmortgaged(int, bool);
+
+	/**
+	 * Tells estate object whether it can be owned or not.
+	 *
+	 * @param estateId Estate identifier.
+	 * @param canBeOwned Boolean.
+	 */
+	 void slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned);
+
 	/**
 	 * Stores the playerid corresponding to this instance of the client.
 	 *
@@ -199,8 +213,6 @@ private:
 	NewGameWizard *m_newgameWizard;
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
-
-	int m_myPlayerId;
 
 	QPtrList<Player> playerList;
 	QPtrList<Estate> estateList;

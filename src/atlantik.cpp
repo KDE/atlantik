@@ -10,6 +10,8 @@
 #include <klocale.h>
  
 #include "atlantik.moc"
+#include "board.h"
+
 #include "config.h"
 
 extern AtlantikConfig atlantikConfig;
@@ -52,6 +54,12 @@ Atlantik::Atlantik () :
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeMortgaged(int, bool)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeUnmortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeUnmortgaged(int, bool)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
@@ -96,10 +104,6 @@ Atlantik::Atlantik () :
 	// Set stretching where we want it.
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
-
-	// Regarding our game connection. TODO: Possibly move to gameNetwork,
-	// since it's related to our current connection.
-	m_myPlayerId = -1;
 }
 
 void Atlantik::readConfig()
@@ -268,6 +272,12 @@ void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
 
 void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 {
+	Estate *estate = estateMap[estateId];
+	Player *player = playerMap[playerId];
+
+	if (estate)
+		estate->setOwner(player);
+		
 #warning port slotMsgEstateUpdateOwner
 /*
 	if (estateId < 40 && playerId < MAXPLAYERS)
@@ -276,21 +286,57 @@ void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 		for(int i=0;i<MAXPLAYERS;i++)
 			if (m_portfolioArray[i]!=0)
 				m_portfolioArray[i]->setOwned(estateId, (playerId == i ? true : false));
-
-		// Update gameboard.
-		m_board->setOwned(estateId, (playerId == -1 ? false : true), (playerId == m_myPlayerId ? true : false));
 	}
 */
 }
 
+void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
+{
+	if (Estate *estate = estateMap[estateId])
+		estate->setName(name);
+}
+
+void Atlantik::slotMsgEstateUpdateHouses(int estateid, int houses)
+{
+//	if (Estate *estate = estateMap[estateId])
+//		estate->setHouses(houses);
+}
+
+void Atlantik::slotMsgEstateUpdateMortgaged(int estateid, bool mortgaged)
+{
+//	if (Estate *estate = estateMap[estateId])
+//		estate->setMortgaged(mortgaged);
+}
+
+void Atlantik::slotMsgEstateUpdateCanBeMortgaged(int estateid, bool mortgaged)
+{
+//	if (Estate *estate = estateMap[estateId])
+//		estate->setCanBeMortgaged(mortgaged);
+}
+
+void Atlantik::slotMsgEstateUpdateCanBeUnmortgaged(int estateid, bool mortgaged)
+{
+//	if (Estate *estate = estateMap[estateId])
+//		estate->setCanBeUnmortgaged(mortgaged);
+}
+
+void Atlantik::slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned)
+{
+	if (Estate *estate = estateMap[estateId])
+		estate->setCanBeOwned(canBeOwned);
+}
+
 void Atlantik::slotSetPlayerId(int playerId)
 {
-	m_myPlayerId = playerId;
+	Player *player = playerMap[playerId];
+	if (player)
+		player->setIsSelf(true);
 }
 
 void Atlantik::slotSetTurn(int playerid)
 {
-
+#warning port slotSetTurn
+/*
 	if (playerid == m_myPlayerId)
 	{
 		m_roll->setEnabled(true);
@@ -306,8 +352,7 @@ void Atlantik::slotSetTurn(int playerid)
 
 	m_board->raiseToken(playerid);
 
-#warning port slotSetTurn
-/*
+
 	for(int i=0 ; i<MAXPLAYERS ; i++)
 	{
 		if (m_portfolioArray[i]!=0)
@@ -323,7 +368,6 @@ void Atlantik::slotPlayerInit(int playerid)
 	Player *player;
 	if (!(player = playerMap[playerid]))
 	{
-		cout << "adding new player to list and to map at pos " << playerid << endl;
 		player = new Player(playerid);
 		playerList.append(player);
 		playerMap[playerid] = player;
@@ -335,20 +379,16 @@ void Atlantik::slotPlayerInit(int playerid)
 	}
 }
 
-void Atlantik::slotEstateInit(int estateid)
+void Atlantik::slotEstateInit(int estateId)
 {
 	Estate *estate;
-	if (!(estate = estateMap[estateid]))
+	if (!(estate = estateMap[estateId]))
 	{
-		cout << "adding new estate to list and to map at pos " << estateid << endl;
-		estate = new Estate(estateid);
+		estate = new Estate(estateId);
 		estateList.append(estate);
-		estateMap[estateid] = estate;
+		estateMap[estateId] = estate;
 
-//		PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
-//		m_portfolioLayout->addWidget(fpv);
-//		fpv->show();
-//		estate->setView(fpv);
+		m_board->addEstateView(estate);
 	}
 }
 

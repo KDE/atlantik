@@ -310,6 +310,10 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeMortgaged(estateid, a.value().toInt());
 
+					a = e.attributeNode(QString("can_be_owned"));
+					if (!a.isNull())
+						emit msgEstateUpdateCanBeOwned(estateid, a.value().toInt());
+
 					a = e.attributeNode(QString("can_be_unmortgaged"));
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeUnmortgaged(estateid, a.value().toInt());

@@ -11,13 +11,14 @@
 
 enum Orientation{ North=0, East=1, South=2, West=3 };
 
+class Estate;
+
 class EstateView : public QWidget
 {
 Q_OBJECT
 
 	public:
-		EstateView(int id, int orientation, bool canBeOwned, const QColor &, const QString &, QWidget *parent, const char *name = 0);
-		void setName(const char *);
+		EstateView(Estate *parentEstate, int orientation, const QColor &, const QString &, QWidget *parent, const char *name = 0);
 		void setHouses(int);
 		void setMortgaged(bool);
 		void setCanBeMortgaged(bool);
@@ -47,14 +48,14 @@ Q_OBJECT
 		void drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2);
 		void repositionPortfolioEstate();
 
+		Estate *m_parentEstate;
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
 		bool b_recreate;
-		bool m_ownedByAny, m_ownedByThisClient, m_canBeOwned, m_mortgaged, m_canBeMortgaged, m_canBeUnmortgaged;
+		bool m_ownedByAny, m_ownedByThisClient, m_mortgaged, m_canBeMortgaged, m_canBeUnmortgaged;
 		int m_id, m_orientation, m_houses, m_titleWidth, m_titleHeight;
 		QColor m_color;
 		QLabel *lname;
-		QString estatename;
 		PortfolioEstate *pe;
 
 	private slots:

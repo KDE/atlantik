@@ -11,6 +11,7 @@
 #include <klocale.h>
 
 #include "estateview.h"
+#include "estate.h"
 #include "network.h"
 #include "config.h"
 
@@ -18,11 +19,11 @@ extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
 extern QColor atlantik_lgray;
 extern AtlantikConfig atlantikConfig;
 
-EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *parentEstate, int orientation, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
-	m_id = id;
+	m_parentEstate = parentEstate;
+	m_parentEstate->setView(this);
 	m_orientation = orientation;
-	m_canBeOwned = canBeOwned;
 	m_mortgaged = false;
 	m_canBeMortgaged = false;
 	m_canBeUnmortgaged = false;
@@ -54,11 +55,10 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 		m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 	}
 
-	setName("");
 	setHouses(0);
 	setOwned(false, false);
 
-	QToolTip::add(this, estatename);
+	QToolTip::add(this, m_parentEstate->name());
 }
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
@@ -105,14 +105,6 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 	}
 	*p = p->xForm(m);
 	return p;
-}
-
-void EstateView::setName(const char *n)
-{
-	estatename.setLatin1(n, strlen(n));
-	QToolTip::remove(this);
-	QToolTip::add(this, estatename);
-	lname->setText(n);
 }
 
 void EstateView::setHouses(int _h)
@@ -171,7 +163,7 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured Atlantik not to show them.
-	if (m_ownedByAny || !m_canBeOwned || atlantikConfig.indicateUnowned==false)
+	if (m_ownedByAny || !m_parentEstate->canBeOwned() || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -195,6 +187,11 @@ void EstateView::updatePE()
 
 void EstateView::redraw()
 {
+	// TODO: is this the correct place for name label updates?
+	QToolTip::remove(this);
+	QToolTip::add(this, m_parentEstate->name());
+	lname->setText(m_parentEstate->name());
+
 	b_recreate = true;
     update();
 }
@@ -223,7 +220,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		
 		if (atlantikConfig.grayOutMortgaged==true && m_mortgaged)
 			painter.setBrush(atlantik_lgray);
-		else if (atlantikConfig.highliteUnowned==true && m_canBeOwned && !m_ownedByAny)
+		else if (atlantikConfig.highliteUnowned==true && m_parentEstate->canBeOwned() && !m_ownedByAny)
 			painter.setBrush(Qt::white);
 		else
 			painter.setBrush(atlantik_greenbg);
@@ -382,7 +379,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	if (e->button()==RightButton)
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
-		rmbMenu->insertTitle(estatename);
+		rmbMenu->insertTitle(m_parentEstate->name());
 		if (m_mortgaged)
 			rmbMenu->insertItem(i18n("Unmortgage"), 0);
 		else

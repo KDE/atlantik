@@ -9,12 +9,15 @@
 #include "estateview.h"
 #include "token.h"
 
+class Estate;
+
 class AtlantikBoard : public QWidget
 {
 Q_OBJECT
 
 	public:
 		AtlantikBoard(QWidget *parent, const char *name=0);
+		EstateView *addEstateView(Estate *parentEstate);
 		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();
@@ -22,11 +25,6 @@ Q_OBJECT
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
-		void slotMsgEstateUpdateName(int, QString);
-		void slotMsgEstateUpdateHouses(int, int);
-		void slotMsgEstateUpdateMortgaged(int, bool);
-		void slotMsgEstateUpdateCanBeMortgaged(int, bool);
-		void slotMsgEstateUpdateCanBeUnmortgaged(int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
 
@@ -38,6 +36,7 @@ Q_OBJECT
 		void moveToken(Token *, int destination);
 
 		QWidget *spacer, *center;
+		QGridLayout *m_gridLayout;
 		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
 		QTimer *m_timer;

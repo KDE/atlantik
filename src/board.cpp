@@ -1,4 +1,3 @@
-#include <qlayout.h>
 #include <qpainter.h>
 
 #warning remove iostream output
@@ -6,6 +5,7 @@
 
 #include "board.moc"
 #include "estateview.h"
+#include "estate.h"
 #include "network.h"
 #include "config.h"
 
@@ -23,26 +23,26 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	m_resumeTimer = false;
 
-	QGridLayout *gridLayout = new QGridLayout(this, 11, 11);
+	m_gridLayout = new QGridLayout(this, 11, 11);
 	for(int i=0;i<=10;i++)
 	{
 		if (i==0 || i==10)
 		{
-			gridLayout->setRowStretch(i, 3);
-			gridLayout->setColStretch(i, 3);
+			m_gridLayout->setRowStretch(i, 3);
+			m_gridLayout->setColStretch(i, 3);
 		}
 		else
 		{
-			gridLayout->setRowStretch(i, 2);
-			gridLayout->setColStretch(i, 2);
+			m_gridLayout->setRowStretch(i, 2);
+			m_gridLayout->setColStretch(i, 2);
 		}
 	}
 
 //	spacer = new QWidget(this);
-//	gridLayout->addWidget(spacer, 24, 24); // SE
+//	m_gridLayout->addWidget(spacer, 24, 24); // SE
 
 	center = new QWidget(this);
-	gridLayout->addMultiCellWidget(center, 1, 9, 1, 9);
+	m_gridLayout->addMultiCellWidget(center, 1, 9, 1, 9);
 	center->setBackgroundColor(atlantik_greenbg);
 
 	int i=0, orientation=North;
@@ -105,33 +105,10 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 				break;
 		}
 
-		if (i<10)
-			orientation = North;
-		else if (i<20)
-			orientation = East;
-		else if (i<30)
-			orientation = South;
-		else if (i<40)
-			orientation = West;
-			
-		estate[i] = new EstateView(i, orientation, (color.isValid() || canBeOwned), color, icon, this, "estate");
-
-		if (i<=10)
-			gridLayout->addWidget(estate[i], 10, 10-i);
-		else if (i<20)
-			gridLayout->addWidget(estate[i], 20-i, 0);
-		else if (i<=30)
-			gridLayout->addWidget(estate[i], 0, i-20);
-		else
-			gridLayout->addWidget(estate[i], i-30, 10);
+		estate[i] = new EstateView(new Estate(i+100), North, color, icon, this, "estateview");
 	}
 
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeMortgaged(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeUnmortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeUnmortgaged(int, bool)));
 
 	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
@@ -141,6 +118,40 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		jumpToken(token[i], 0, false);
 		token[i]->hide();
 	}
+}
+
+EstateView *AtlantikBoard::addEstateView(Estate *parentEstate)
+{
+	QColor color = QColor();
+	bool canBeOwned = false;
+	QString icon = QString();
+
+	EstateView *estateView = new EstateView(parentEstate, North, color, icon, this, "estateview");
+
+	int estateId = parentEstate->estateId();
+	if (estateId<10)
+	{
+		m_gridLayout->addWidget(estateView, 10, 10-estateId);
+//		orientation = North;
+	}
+	else if (estateId<20)
+	{
+		m_gridLayout->addWidget(estateView, 20-estateId, 0);
+//		orientation = East;
+	}
+	else if (estateId<30)
+	{
+		m_gridLayout->addWidget(estateView, 0, estateId-20);
+//		orientation = South;
+	}
+	else
+	{
+		m_gridLayout->addWidget(estateView, estateId-30, 10);
+//		orientation = West;
+	}
+
+	estateView->show();
+	return estateView;
 }
 
 void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
@@ -329,32 +340,3 @@ void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool
 	}
 }
 
-void AtlantikBoard::slotMsgEstateUpdateName(int estateid, QString name)
-{
-	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-		estate[estateid]->setName(name);
-}
-
-void AtlantikBoard::slotMsgEstateUpdateHouses(int estateid, int houses)
-{
-	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-		estate[estateid]->setHouses(houses);
-}
-
-void AtlantikBoard::slotMsgEstateUpdateMortgaged(int estateid, bool mortgaged)
-{
-	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-		estate[estateid]->setMortgaged(mortgaged);
-}
-
-void AtlantikBoard::slotMsgEstateUpdateCanBeMortgaged(int estateid, bool mortgaged)
-{
-	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-		estate[estateid]->setCanBeMortgaged(mortgaged);
-}
-
-void AtlantikBoard::slotMsgEstateUpdateCanBeUnmortgaged(int estateid, bool mortgaged)
-{
-	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-		estate[estateid]->setCanBeUnmortgaged(mortgaged);
-}
