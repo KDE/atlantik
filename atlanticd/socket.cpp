@@ -14,13 +14,11 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <iostream>
-
 #include <qtextstream.h>
+#include <qtimer.h>
 
+#include "socket.h"
 #include "socket.moc"
-
-// static QTextStream std::cout(stdout, IO_WriteOnly);
 
 Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 {
@@ -29,9 +27,21 @@ Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 
 void Socket::readData()
 {
-	while(canReadLine())
-		std::cout << "ignoredLine(" << readLine().latin1() << ")" << std::endl;
+	if (canReadLine())
+	{
+		char *tmp = new char[1024 * 32];
+		readLine(tmp, 1024 * 32);
+		// processMsg(tmp);
+		delete[] tmp;
 
-	if (bytesAvailable() > (1024 * 32))
-		flush();
+		// There might be more data
+		QTimer::singleShot(0, this, SLOT(slotRead()));
+	}
+	else
+	{
+		// Maximum message size. Messages won't get bigger than 32k anyway, so
+		// if we didn't receive a newline by now, we probably won't anyway.
+		if (bytesAvailable() > (1024 * 32))
+			flush();
+	}
 }
