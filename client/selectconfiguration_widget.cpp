@@ -57,7 +57,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
 	serverButtons->addWidget(m_connectButton);
 
-	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
+	connect(m_connectButton, SIGNAL(clicked()), this, SIGNAL(startGame()));
 
     // Status indicator.
 	m_statusLabel = new QLabel(this);
@@ -70,10 +70,9 @@ SelectConfiguration::~SelectConfiguration()
 	delete m_statusLabel;
 }
 
-void SelectConfiguration::connectClicked()
+void SelectConfiguration::initGame()
 {
 	m_statusLabel->setText(i18n("Game started. Retrieving full game data..."));
-	emit startGame();
 }
 
 void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)
