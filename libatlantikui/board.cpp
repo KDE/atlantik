@@ -235,6 +235,13 @@ void AtlantikBoard::jumpToken(Token *token)
 
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
+
+	if (token == m_movingToken)
+	{
+		m_timer->stop();
+		m_movingToken = 0;
+	}
+
 	emit tokenConfirmation(token->location());
 }
 
