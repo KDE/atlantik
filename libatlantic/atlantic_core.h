@@ -33,6 +33,8 @@ Q_OBJECT
 public:
 	AtlanticCore(QObject *parent, const char *name);
 
+	void reset();
+
 	QPtrList<Player> players();
 	Player *newPlayer();
 

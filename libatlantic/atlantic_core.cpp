@@ -27,6 +27,25 @@ AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, 
 	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
 
+void AtlanticCore::reset()
+{
+	m_auctions.setAutoDelete(true);
+	m_auctions.clear();
+	m_auctions.setAutoDelete(false);
+	m_estates.setAutoDelete(true);
+	m_estates.clear();
+	m_estates.setAutoDelete(false);
+	m_estateGroups.setAutoDelete(true);
+	m_estateGroups.clear();
+	m_estateGroups.setAutoDelete(false);
+	m_players.setAutoDelete(true);
+	m_players.clear();
+	m_players.setAutoDelete(false);
+	m_trades.setAutoDelete(true);
+	m_trades.clear();
+	m_trades.setAutoDelete(false);
+}
+
 QPtrList<Player> AtlanticCore::players()
 {
 	return m_players;
