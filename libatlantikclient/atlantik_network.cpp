@@ -345,7 +345,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						else if (type=="edit")
 							emit playerListEdit(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
-							emit playerListAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerListAdd(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 					}
 					n_player = n_player.nextSibling();
 				}
