@@ -74,6 +74,13 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
+	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
+	serverButtons->addWidget(m_connectButton);
+
+	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
+
     // Status indicator.
 	status_label = new QLabel(this);
 	status_label->setText(i18n("Retrieving configuration list..."));
