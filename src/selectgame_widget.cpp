@@ -27,8 +27,10 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	connect(m_gameList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
-	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this,
+ SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this,
+ SLOT(validateConnectButton()));
 
 	addDefaultGames();
 
@@ -60,13 +62,15 @@ void SelectGame::addDefaultGames()
 	// Add default new game options to list view
 #warning hardcoded gametypes, waiting for monopd to send list of available types
 	QListViewItem *newAtlanticGame, *newCityGame;
-	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "", "");
+	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "",
+ "");
 	newAtlanticGame->setPixmap(0, SmallIcon("filenew"));
-	newCityGame = new QListViewItem(m_gameList, i18n("Start a new Monopoly® game"), "city", "", "");
+	newCityGame = new QListViewItem(m_gameList, i18n("Start a new MonopolyÂ® game"), "city", "", "");
 	newCityGame->setPixmap(0, SmallIcon("filenew"));
 }
 
-void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString description, QString players)
+void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString description, QString
+ players)
 {
 	QListViewItem *item = new QListViewItem(m_gameList, description, gameType, gameId, players);
 	item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
@@ -74,7 +78,8 @@ void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString descr
 	validateConnectButton();
 }
 
-void SelectGame::slotGameListEdit(QString gameId, QString gameType, QString description, QString players)
+void SelectGame::slotGameListEdit(QString gameId, QString gameType, QString description, QString
+ players)
 {
 	QListViewItem *item = m_gameList->firstChild();
 	while (item)
