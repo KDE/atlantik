@@ -1,35 +1,32 @@
+#include <qcolor.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
-#include <qcolor.h>
 
+#include <kapplication.h>
+#include <kconfig.h>
 #include <kdebug.h>
-
+#include <klocale.h>
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
-#include <kapplication.h>
-#include <kconfig.h>
-#include <klocale.h>
  
-#include "atlantik.moc"
-#include "board.h"
-
 #include <atlantic_core.h>
-#include <player.h>
-#include <estate.h>
-#include <trade.h>
 #include <auction.h>
+#include <estate.h>
+#include <player.h>
+#include <trade.h>
+#include "atlantik.moc"
 
 #include <atlantik_network.h>
 
+#include <board.h>
+#include <trade_widget.h>
+
+#include "config.h"
+#include "designer.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
-#include "trade_widget.h"
-
-#include "designer.h"
-
-#include "config.h"
 
 extern AtlantikConfig atlantikConfig;
 
