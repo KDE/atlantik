@@ -514,9 +514,9 @@ void Atlantik::playerChanged(Player *player)
 		m_buyEstate->setEnabled(player->canBuy());
 		m_auctionEstate->setEnabled(player->canAuction());
 
-		// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_usejailcard can_payjail can_jailroll yet
+		// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_payjail can_jailroll yet
 		m_endTurn->setEnabled(player->hasTurn() && !(player->canRoll() || player->canBuy() || player->inJail()));
-		m_jailCard->setEnabled(player->hasTurn() && player->inJail());
+		m_jailCard->setEnabled(player->canUseCard());
 		m_jailPay->setEnabled(player->hasTurn() && player->inJail());
 		m_jailRoll->setEnabled(player->hasTurn() && player->inJail());
 	}

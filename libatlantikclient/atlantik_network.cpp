@@ -456,6 +456,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setCanAuction(a.value().toInt());
 
+					// Update whether player can use a card
+					a = e.attributeNode(QString("canusecard"));
+					if (player && !a.isNull())
+						player->setCanUseCard(a.value().toInt());
+
 					// Update whether player is jailed
 					a = e.attributeNode(QString("jailed"));
 					if (player && !a.isNull())
