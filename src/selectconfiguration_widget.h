@@ -1,5 +1,6 @@
 #include <qwidget.h>
 #include <qlayout.h>
+#include <qvgroupbox.h>
 #include <qlistview.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -18,7 +19,6 @@ public:
 
 	public slots:
 		void validateConnectButton();
-
 		void slotPlayerListClear();
 		void slotPlayerListAdd(QString playerId, QString name, QString host);
 		void slotPlayerListEdit(QString playerId, QString name, QString host);
@@ -26,6 +26,7 @@ public:
 
 	private slots:
 		void connectPressed();
+		void slotClicked();
 
 	signals:
 		void joinConfiguration(int configurationId);
@@ -35,6 +36,7 @@ public:
 	private:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
+		QVGroupBox *m_playerGroupBox, *m_groupBox, *m_messageBox;
 		QListView *m_playerList;
 		QPushButton *m_connectButton;
 };

@@ -1,4 +1,3 @@
-#include <qvgroupbox.h>
 #include <qradiobutton.h>
 
 #include <klocale.h>
@@ -13,17 +12,15 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	CHECK_PTR(m_mainLayout);
 
 	// Player list.
-	QVGroupBox *playerGroupBox;
-	playerGroupBox = new QVGroupBox(i18n("Player list"), this, "groupBox");
-	m_mainLayout->addWidget(playerGroupBox); 
+	m_playerGroupBox = new QVGroupBox(i18n("Player list"), this, "groupBox");
+	m_mainLayout->addWidget(m_playerGroupBox); 
 
 	// Game configuration.
-	QVGroupBox *groupBox;
-	groupBox = new QVGroupBox(i18n("Game configuration"), this, "groupBox");
-	m_mainLayout->addWidget(groupBox); 
+	m_groupBox = new QVGroupBox(i18n("Game configuration"), this, "groupBox");
+	m_mainLayout->addWidget(m_groupBox); 
 
 	// List of  players
-	m_playerList = new QListView(playerGroupBox, "m_playerList");
+	m_playerList = new QListView(m_playerGroupBox, "m_playerList");
 	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
 	m_playerList->addColumn(QString(i18n("Host")));
@@ -117,10 +114,34 @@ void SelectConfiguration::connectPressed()
 			emit newConfiguration();
 	}
 
-	KMessageBox::sorry(this, i18n(
+	m_messageBox = new QVGroupBox(i18n("Sorry"), this, "messageBox");
+	m_mainLayout->addWidget(m_messageBox); 
+
+	QLabel *label = new QLabel(m_messageBox);
+	label->setText(i18n(
 		"The new game wizard is undergoing a rewrite which has not been finished yet.\n"
 		"You cannot start a game at the moment."
 		));
+
+	QPushButton *button = new QPushButton(i18n("Ok"), m_messageBox, "button");
+
+	m_playerGroupBox->setEnabled(false);
+	m_groupBox->setEnabled(false);
+	m_connectButton->setEnabled(false);
+	status_label->setEnabled(false);
+
+	connect(button, SIGNAL(clicked()), this, SLOT(slotClicked()));
+
+	m_messageBox->show();
+}
+
+void SelectConfiguration::slotClicked()
+{
+	delete m_messageBox;
+	m_playerGroupBox->setEnabled(true);
+	m_groupBox->setEnabled(true);
+	m_connectButton->setEnabled(true);
+	status_label->setEnabled(true);
 }
 
 /*
