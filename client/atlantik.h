@@ -96,6 +96,7 @@ private slots:
 	void showSelectConfiguration();
 	void initBoard();
 	void showBoard();
+	void freezeBoard();
 
 public slots:
 
