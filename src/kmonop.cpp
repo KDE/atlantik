@@ -1,4 +1,5 @@
 #include <qlineedit.h>
+#include <qscrollbar.h>
 #include <iostream.h>
 
 #include <kstdaction.h>
@@ -89,11 +90,16 @@ void KMonop::slotSendMsg()
 void KMonop::slotMsgError(QString msg)
 {
 	output->append("ERR: " + msg);
+	QScrollBar *sb = output->verticalScrollBar();
+	sb->setValue(sb->maxValue());
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
 	output->append(msg);
+	QScrollBar *sb = output->verticalScrollBar();
+	sb->setValue(sb->minValue()); // ugly hack cuz maxValue directly doesn't properly update
+	sb->setValue(sb->maxValue());
 }
 
 void KMonop::slotMsgStartGame(QString msg)
@@ -102,6 +108,8 @@ void KMonop::slotMsgStartGame(QString msg)
 		wizard->hide();
 		
 	output->append("START: " + msg);
+	QScrollBar *sb = output->verticalScrollBar();
+	sb->setValue(sb->maxValue());
 }
 
 void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
