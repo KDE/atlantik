@@ -2,7 +2,6 @@
 #define ATLANTIK_CONFIG_H
 
 #define	MAXPLAYERS	6
-#define VERSION		"pre-0.2.0"
 
 struct AtlantikConfig
 {

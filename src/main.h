@@ -1,6 +1,12 @@
 #ifndef ATLANTIK_MAIN_H
 #define ATLANTIK_MAIN_H
 
+#define	ATLANTIK_VERSION 011
+#define	ATLANTIK_VERSION_STRING "0.1.1"
+#define ATLANTIK_VERSION_MAJOR 0
+#define ATLANTIK_VERSION_MINOR 1
+#define ATLANTIK_VERSION_RELEASE 1
+
 int main(int, char *[]);
 
 #endif

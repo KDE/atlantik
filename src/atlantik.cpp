@@ -375,17 +375,6 @@ void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 
 	if (estate)
 		estate->setOwner(player);
-		
-#warning port slotMsgEstateUpdateOwner
-/*
-	if (estateId < 40 && playerId < MAXPLAYERS)
-	{
-		// Update all portfolio estates.
-		for(int i=0;i<MAXPLAYERS;i++)
-			if (m_portfolioArray[i]!=0)
-				m_portfolioArray[i]->setOwned(estateId, (playerId == i ? true : false));
-	}
-*/
 }
 
 void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
