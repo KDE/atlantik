@@ -107,8 +107,7 @@ public:
 	void addPlayer(Player *player);
 	void removePlayer(Player *player);
 	
-	QPtrList<Player> players() const;
-	unsigned int acceptCount();
+	unsigned int count( bool acceptOnly );
 
 	bool isRejected() { return m_rejected; }
 	
