@@ -1,3 +1,11 @@
+2001-06-19
+----------
+
+- Added "end turn" button.
+- Added "pay to leave jail" button.
+- Added playername to config dialog.
+- Updated parsing of <updateplayerlist> changes in monopd.
+
 2001-06-17 (cap)
 ----------
 

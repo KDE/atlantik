@@ -32,6 +32,7 @@ class KMonop : public KTMainWindow
 
 		void slotRoll();
 		void slotBuy();
+		void slotEndTurn();
 		void slotSendMsg();
 
 		void slotMsgError(QString);
@@ -53,7 +54,7 @@ class KMonop : public KTMainWindow
 		QGridLayout *layout;
 		QTextView *output;
 		
-		KAction *roll_die, *buy_estate, *config_kmonop;
+		KAction *roll_die, *buy_estate, *end_turn, *config_kmonop;
 
 		NewGameWizard *wizard;
 		ConfigDialog *configDialog;

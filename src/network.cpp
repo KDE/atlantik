@@ -14,7 +14,11 @@ void GameNetwork::writeData(const char *input)
 {
 	QString str(input);
 	str.append("\n");
-	writeBlock(str.latin1(), strlen(str.latin1()));
+	if (state()==QSocket::Connection)
+	{
+		cout << "out [" << str << "]" << endl;
+		writeBlock(str.latin1(), strlen(str.latin1()));
+	}
 }
 
 void GameNetwork::slotRead()
@@ -100,11 +104,11 @@ void GameNetwork::processNode(QDomNode n)
 					if (!e_player.isNull() && e_player.tagName() == "player")
 					{
 						if (type=="del")
-							emit playerlistDel(e_player.attributeNode(QString("playerid")).value());
+							emit playerlistDel(e_player.attributeNode(QString("clientid")).value());
 						else if (type=="edit")
-							emit playerlistEdit(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerlistEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
-							emit playerlistAdd(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+							emit playerlistAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 					}
 					n_player = n_player.nextSibling();
 				}

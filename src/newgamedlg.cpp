@@ -10,6 +10,10 @@
 #include <klocale.h>
 
 #include "newgamedlg.moc"
+
+#include "config.h"
+
+extern KMonopConfig kmonopConfig;
  
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard(parent, name, modal, f)
 {
@@ -320,6 +324,7 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 
 	list = new QListView(this);
 
+	list->addColumn(QString("ClientId"));
 	list->addColumn(QString("Player"));
 	list->addColumn(QString("Host"));
 
@@ -339,21 +344,21 @@ void ConfigureGame::slotPlayerlistUpdate(QString type)
 	}
 }
 
-void ConfigureGame::slotPlayerlistAdd(QString id, QString name, QString host)
+void ConfigureGame::slotPlayerlistAdd(QString clientId, QString name, QString host)
 {
-	new QListViewItem(list, name, host);
+	new QListViewItem(list, clientId, name, host);
 	list->triggerUpdate();
 }
 
-void ConfigureGame::slotPlayerlistEdit(QString id, QString name, QString host)
+void ConfigureGame::slotPlayerlistEdit(QString clientId, QString name, QString host)
 {
 	QListViewItem *item = list->firstChild();
 	while (item)
 	{
-		if (item->text(0) == id)
+		if (item->text(0) == clientId)
 		{
-			item->setText(0, name);
-			item->setText(1, host);
+			item->setText(1, name);
+			item->setText(2, host);
 			list->triggerUpdate();
 			return;
 		}
@@ -361,12 +366,12 @@ void ConfigureGame::slotPlayerlistEdit(QString id, QString name, QString host)
 	}
 }
 
-void ConfigureGame::slotPlayerlistDel(QString id)
+void ConfigureGame::slotPlayerlistDel(QString clientId)
 {
 	QListViewItem *item = list->firstChild();
 	while (item)
 	{
-		if (item->text(0) == id)
+		if (item->text(0) == clientId)
 		{
 			delete item;
 			return;
@@ -397,6 +402,7 @@ void ConfigureGame::initPage()
 		str.append(game_id);
 		gameNetwork->writeData(str.latin1());
 	}
+	gameNetwork->writeData(".n" + kmonopConfig.playerName);
 }
 
 void ConfigureGame::setGameId(const QString &_id)

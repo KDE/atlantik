@@ -13,10 +13,10 @@ extern KMonopConfig kmonopConfig;
 
 ConfigDialog::ConfigDialog(QWidget* parent, const char *name) : KDialogBase(IconList, i18n("Configure KMonop"), Ok|Cancel, Ok, parent, "config_kmonop", false)
 {
-//	p_p13n = addPage(QString(i18n("Personalization")), QString(i18n("Personalization")), BarIcon("personal", KIcon::SizeMedium));
+	p_p13n = addPage(QString(i18n("Personalization")), QString(i18n("Personalization")), BarIcon("personal", KIcon::SizeMedium));
 	p_board = addPage(QString(i18n("Board")), QString(i18n("Board")), BarIcon("monop_board", KIcon::SizeMedium));
 
-//	configPlayer = new ConfigPlayer(p_p13n, "configPlayer");
+	configPlayer = new ConfigPlayer(p_p13n, "configPlayer");
 	configBoard = new ConfigBoard(p_board, "configBoard");
 
 	setMinimumSize(sizeHint());
@@ -24,17 +24,17 @@ ConfigDialog::ConfigDialog(QWidget* parent, const char *name) : KDialogBase(Icon
 
 bool ConfigDialog::indicateUnowned()
 {
-	return configBoard->_indicateUnowned->isChecked();
+	return configBoard->m_indicateUnowned->isChecked();
 }
 
 bool ConfigDialog::animateToken()
 {
-	return configBoard->_animateToken->isChecked();
+	return configBoard->m_animateToken->isChecked();
 }
 
 QString ConfigDialog::playerName()
 {
-	return configPlayer->_playerName->text();
+	return configPlayer->m_playerName->text();
 }
 
 ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, name)
@@ -44,15 +44,15 @@ ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, 
 	QLabel *label = new QLabel("Player name:", parent);	
 	layout->addWidget(label);
 
-	_playerName = new QLineEdit(parent);
-	layout->addWidget(_playerName);
+	m_playerName = new QLineEdit(parent);
+	layout->addWidget(m_playerName);
 	
 	reset();
 }
 
 void ConfigPlayer::reset()
 {
-	_playerName->setText(kmonopConfig.playerName);
+	m_playerName->setText(kmonopConfig.playerName);
 }
 
 ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, name)
@@ -62,22 +62,22 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game status feedback"), parent);
 	layout->addWidget(box);
 
-	_indicateUnowned = new QCheckBox(i18n("Indicate whether a property is unowned"), box);
+	m_indicateUnowned = new QCheckBox(i18n("Indicate whether a property is unowned"), box);
 
 	QString message=i18n(
 		"Indicate whether a property is unowned\n\n"
 		"If checked, unowned properties on the board\n"
 		"display an estate card to indicate the\n"
 		"property is for sale.\n");
-	QWhatsThis::add(_indicateUnowned, message);
+	QWhatsThis::add(m_indicateUnowned, message);
 
-	_animateToken = new QCheckBox(i18n("Animate token movement"), box);
+	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
 
 	message=i18n(
 		"Animate token movement\n\n"
 		"If checked, tokens will move across the board\n"
 		"instead of jumping directly to their new location.\n");
-	QWhatsThis::add(_animateToken, message);
+	QWhatsThis::add(m_animateToken, message);
 
 	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
 	layout->addWidget(box);
@@ -87,6 +87,6 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 
 void ConfigBoard::reset()
 {
-	_indicateUnowned->setChecked(kmonopConfig.indicateUnowned);
-	_animateToken->setChecked(kmonopConfig.animateToken);
+	m_indicateUnowned->setChecked(kmonopConfig.indicateUnowned);
+	m_animateToken->setChecked(kmonopConfig.animateToken);
 }

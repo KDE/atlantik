@@ -20,11 +20,13 @@ KMonop::KMonop (const char *name) :
 	KStdAction::openNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
-	// Move actions
+	// Toolbar actions
 	roll_die = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "roll_die");
 	roll_die->setEnabled(false);
 	buy_estate = new KAction("&Buy", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
 	buy_estate->setEnabled(false);
+	end_turn = new KAction("&End Turn", "stop", CTRL+Key_E, this, SLOT(slotEndTurn()), actionCollection(), "end_turn");
+	end_turn->setEnabled(false);
 
 	// Settings actions
 	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
@@ -84,7 +86,7 @@ void KMonop::readConfig()
 	KConfig *config=kapp->config();
 
 	config->setGroup("Personalization");
-	kmonopConfig.playerName = config->readEntry("PlayerName");
+	kmonopConfig.playerName = config->readEntry("PlayerName", "KMonop");
 
 	config->setGroup("Board");
 	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
@@ -120,14 +122,12 @@ void KMonop::slotUpdateConfig()
 	bool optBool;
 	QString optStr;
 
-/*
 	optStr = configDialog->playerName();
 	if (kmonopConfig.playerName != optStr)
 	{
 		kmonopConfig.playerName = optStr;
 		gameNetwork->writeData(".n" + optStr);
 	}
-*/
 
 	optBool = configDialog->indicateUnowned();
 	if (kmonopConfig.indicateUnowned != optBool)
@@ -160,6 +160,11 @@ void KMonop::slotRoll()
 void KMonop::slotBuy()
 {
 	gameNetwork->writeData(".b");
+}
+
+void KMonop::slotEndTurn()
+{
+	gameNetwork->writeData(".e");
 }
 
 void KMonop::slotSendMsg()
@@ -239,11 +244,13 @@ void KMonop::slotSetTurn(int player)
 	{
 		roll_die->setEnabled(true);
 		buy_estate->setEnabled(true);
+		end_turn->setEnabled(true);
 	}
 	else
 	{
 		roll_die->setEnabled(false);
 		buy_estate->setEnabled(false);
+		end_turn->setEnabled(false);
 	}
 
 	board->raiseToken(player);

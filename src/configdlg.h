@@ -19,7 +19,7 @@ friend class ConfigDialog;
 	private:
 		void reset();
 
-		QLineEdit *_playerName;
+		QLineEdit *m_playerName;
 };
 
 class ConfigBoard : public QWidget
@@ -34,7 +34,7 @@ friend class ConfigDialog;
 	private:
 		void reset();
 
-		QCheckBox *_indicateUnowned, *_animateToken;
+		QCheckBox *m_indicateUnowned, *m_animateToken;
 };
 
 class ConfigDialog : public KDialogBase
