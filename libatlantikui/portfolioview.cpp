@@ -53,7 +53,7 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	qpixmap = 0;
 	b_recreate = true;
 
-	setMinimumHeight(20);
+	setMinimumHeight(ICONSIZE);
 
 	// Init icon
 	m_image = 0;
@@ -165,7 +165,6 @@ void PortfolioView::loadIcon()
 	else if (ICONSIZE > minimumHeight())
 		setMinimumHeight(ICONSIZE);
 
-
 	QWMatrix m;
 	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
 	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
@@ -206,6 +205,15 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
 		painter.drawText(ICONSIZE + KDialog::marginHint(), 15, m_player->name());
 		painter.drawText(width() - 50, 15, QString::number(m_player->money()));
+
+		if (!portfolioEstateMap.size())
+		{
+			painter.setPen(Qt::black);
+			painter.setBrush(Qt::white);
+
+			painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal));
+			painter.drawText(ICONSIZE + KDialog::marginHint(), 30, m_player->host());
+		}
 
 		b_recreate = false;
 	}
