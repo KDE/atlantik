@@ -8,7 +8,6 @@
 
 #include "kmonop.moc"
 #include "config.h"
-#include "board.h"
 
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
@@ -44,7 +43,7 @@ KMonop::KMonop (const char *name) :
 	input = new QLineEdit(main, "input");
 	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
-	KMonopBoard *board = new KMonopBoard(netw, main, "board");
+	board = new KMonopBoard(netw, main, "board");
 
 	layout->addWidget(output, 6, 0);
 	layout->addWidget(input, 7, 0);
@@ -163,6 +162,7 @@ void KMonop::slotMsgEstateUpdate(QDomNode estateupdate)
 		{
 			cout << "port " << owner << " id " << id << endl;
 			port[owner]->setOwned(id, true);
+			board->setOwned(id, true);
 		}
 	}
 }

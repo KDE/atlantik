@@ -1,5 +1,9 @@
 #include <qtooltip.h>
 #include <qpainter.h>
+#include <qtimer.h>
+
+#warning remove
+#include <iostream.h>
 
 #include "estateview.h"
 
@@ -14,6 +18,7 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 
 	b_recreate = true;
 	qpixmap = 0;
+	pe = 0;
 
 /*
 	lname = new QLabel(this);
@@ -25,6 +30,7 @@ EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, 
 */
 	setName("Boardwalk");
 	setHouses(0);
+
 	QToolTip::add(this, estatename);
 }
 
@@ -41,6 +47,31 @@ void EstateView::setName(const char *n)
 void EstateView::setHouses(int _houses)
 {
 	houses = _houses;
+}
+
+void EstateView::setOwned(bool owned)
+{
+	if (owned)
+	{
+		if (pe!=0 && pe->isVisible())
+			pe->hide();
+	}
+	else
+	{
+		if (pe==0)
+		{
+			// Display a coloured portfolioestate in the center to indicate
+			// property is for sale
+			pe = new PortfolioEstate(this);
+			pe->setColor(color);
+			pe->setOwned(true);
+			cout << (width()/2) << " - " << (pe->width()/2) << " - " << (height()/2) << " - " << (pe->height()/2) << endl;
+			pe->setGeometry((width()/2) - (pe->width()/2), (height()/2) - (pe->height()/2), pe->width(), pe->height());
+			pe->show();
+		}
+		else if (!pe->isVisible())
+			pe->show();
+	}
 }
 
 void EstateView::paintEvent(QPaintEvent *)
@@ -102,4 +133,12 @@ void EstateView::paintEvent(QPaintEvent *)
 void EstateView::resizeEvent(QResizeEvent *)
 {
 	b_recreate = true;
+	
+	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
+}
+
+void EstateView::slotResizeAftermath()
+{
+	if (pe!=0)
+		pe->setGeometry((width()/2) - (pe->width()/2), (height()/2) - (pe->height()/2), pe->width(), pe->height());
 }

@@ -17,6 +17,7 @@ Q_OBJECT
 		KMonopBoard(GameNetwork *, QWidget *parent, const char *name=0);
 		void jumpToken(Token *, int);
 		void moveToken(Token *, int);
+		void setOwned(int, bool);
 
 	public slots:
 		void slotMsgPlayerUpdate(QDomNode);

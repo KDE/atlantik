@@ -65,6 +65,8 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 			orientation = West;
 			
 		estate[i] = new EstateView(orientation, color, this, "estate");
+		if (color.isValid())
+			estate[i]->setOwned(false);
 
 		if (i==0)
 			layout->addMultiCellWidget(estate[i], 21, 23, 21, 23);
@@ -114,6 +116,12 @@ void KMonopBoard::moveToken(Token *token, int dest)
 
 	// Start timer
 	qtimer->start(10);
+}
+
+void KMonopBoard::setOwned(int id, bool owned)
+{
+	if (id>=0 && id<40)
+		estate[id]->setOwned(owned);
 }
 
 void KMonopBoard::slotMoveToken()

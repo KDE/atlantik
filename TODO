@@ -30,6 +30,9 @@ For 0.1.x
 
 - Make things work. ;-)
 - Do a thorough check on pointers and memory leaks.
+- Property for sale visualisation:
+  - also for utilities
+  - also for stations
 - Fix token movement bugs:
   - monopd allows new commands before we're done moving, we require a "done"
     command and "timeout" message (in case a client is not "done" soon enough,

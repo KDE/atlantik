@@ -12,6 +12,7 @@
 #include "newgamedlg.h"
 #include "network.h"
 #include "portfolioview.h"
+#include "board.h"
 
 class QLabel;
 
@@ -44,6 +45,7 @@ class KMonop : public KTMainWindow
 		NewGameWizard *wizard;
 		GameNetwork *netw;
 		PortfolioView *port[6];
+		KMonopBoard *board;
 };
 
 #endif
