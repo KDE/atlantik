@@ -371,7 +371,7 @@ void GameNetwork::processNode(QDomNode n)
 
 				if (type=="new")
 				{
-					emit msgTradeUpdateNew(tradeid, e.attributeNode(QString("actor")).value().toInt());
+					emit tradeInit(tradeid, e.attributeNode(QString("actor")).value().toInt());
 
 					QDomNode n_player = n.firstChild();
 					while(!n_player.isNull())

@@ -9,7 +9,7 @@ atlantik_SOURCES = main.cpp atlantik.cpp board.cpp configdlg.cpp \
 	display_widget.cpp estate.cpp estateview.cpp monopigator.cpp \
 	network.cpp player.cpp portfolioestate.cpp portfolioview.cpp \
 	selectconfiguration_widget.cpp selectgame_widget.cpp \
-	selectserver_widget.cpp token.cpp
+	selectserver_widget.cpp token.cpp trade_widget.cpp
 
 KDE_ICON = atlantik
 

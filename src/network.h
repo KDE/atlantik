@@ -82,7 +82,7 @@ signals:
 	 * @param tradeId  Unique identifier of the trade
 	 * @param playerId Player who initiates the trade
 	 */
-	void msgTradeUpdateNew(int tradeId, int playerId);
+	void tradeInit(int tradeId, int playerId);
 
 	/**
 	 * A player should be added to the trade.
@@ -149,14 +149,14 @@ signals:
 	 *
 	 * @param playerid Playerid for the new object
 	 */
-	void playerInit(int playerid);
+	void playerInit(int playerId);
 
 	/**
 	 * A new estate object must be initialized.
 	 *
 	 * @param estateid Estateid for the new object
 	 */
-	void estateInit(int estateid);
+	void estateInit(int estateId);
 
 	void setPlayerId(int);
 	void setTurn(int);
