@@ -152,18 +152,18 @@ public slots:
 	/**
 	 * Updates the playername label in the appropriate player portfolio.
 	 *
-	 * @param playerid Player identifier.
+	 * @param playerId Player identifier.
 	 * @param name     Player name.
 	 */
-	void slotMsgPlayerUpdateName(int playerid, QString name);
+	void slotMsgPlayerUpdateName(int playerId, QString name);
 
 	/**
 	 * Updates the money label in the appropriate player portfolio.
 	 *
-	 * @param playerid Player identifier.
+	 * @param playerId Player identifier.
 	 * @param name     Amount of money.
 	 */
-	void slotMsgPlayerUpdateMoney(int playerid, QString money);
+	void slotMsgPlayerUpdateMoney(int playerId, QString money);
 
 	/**
 	 * Updates whether an estateview is owned in the appropriate player
@@ -194,37 +194,38 @@ public slots:
 	void slotEstateUpdateCanSellHouses(int estateId, bool canSellHouses);
 
 	void slotEstateUpdateFinished(int estateId);
+	void slotPlayerUpdateFinished(int playerId);
 
 	/**
-	 * Stores the playerid corresponding to this instance of the client.
+	 * Stores the playerId corresponding to this instance of the client.
 	 *
-	 * @param playerid Player identifier.
+	 * @param playerId Player identifier.
 	 */
-	void slotSetPlayerId(int playerid);
+	void slotSetPlayerId(int playerId);
 
 	/**
 	 * Updates various visualisation parts of the player at turn. If
-	 * playerid matches the stored playerid, toolbar buttons are
+	 * playerId matches the stored playerId, toolbar buttons are
 	 * enabled, otherwise disabled. Raises the appropriate token on the
 	 * gameboard and visualises player at turn in the portfolioview.
 	 *
-	 * @param playerid Player identifier.
+	 * @param playerId Player identifier.
 	 */
-	void slotSetTurn(int playerid);
+	void slotSetTurn(int playerId);
 
 	/**
 	 * A new player object and view must be initialized.
 	 *
-	 * @param playerid Playerid as used by the server daemon.
+	 * @param playerId Playerid as used by the server daemon.
 	 */
-	 void slotPlayerInit(int playerid);
+	 void slotPlayerInit(int playerId);
 
 	/**
 	 * A new estate object and view must be initialized.
 	 *
-	 * @param estateid Estateid as used by the server daemon.
+	 * @param estateId Estateid as used by the server daemon.
 	 */
-	 void slotEstateInit(int estateid);
+	 void slotEstateInit(int estateId);
 
 private:
 	QWidget *m_mainWidget, *m_portfolioWidget;

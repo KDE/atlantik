@@ -19,9 +19,7 @@ Q_OBJECT
 
 	public:
 		EstateView(Estate *estate, int orientation, const QString &, QWidget *parent, const char *name = 0);
-
 		void updatePE();
-		void redraw();
 
 	public slots:
 		void slotResizeAftermath();

@@ -117,6 +117,21 @@ void GameNetwork::cmdTradeReject(int tradeId)
 	writeData(msg);
 }
 
+void GameNetwork::payJailFine()
+{
+	writeData(".jp");
+}
+
+void GameNetwork::jailRoll()
+{
+	writeData(".jr");
+}
+
+void GameNetwork::useJailCard()
+{
+	writeData(".jc");
+}
+
 void GameNetwork::writeData(QString msg)
 {
 	msg.append("\n");
@@ -268,26 +283,26 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "playerupdate")
 			{
-				int playerid = -1, location = -1;
+				int playerId = -1, location = -1;
 				bool directmove = false;
 
 				a = e.attributeNode(QString("playerid"));
 				if (!a.isNull())
 				{
-					playerid = a.value().toInt();
+					playerId = a.value().toInt();
 
 					// Create player object and view
-					emit playerInit(playerid);
+					emit playerInit(playerId);
 
 					// Update player name
 					a = e.attributeNode(QString("name"));
 					if (!a.isNull())
-						emit msgPlayerUpdateName(playerid, a.value());
+						emit msgPlayerUpdateName(playerId, a.value());
 
 					// Update player money
 					a = e.attributeNode(QString("money"));
 					if (!a.isNull())
-						emit msgPlayerUpdateMoney(playerid, a.value());
+						emit msgPlayerUpdateMoney(playerId, a.value());
 
 					// Update player location
 					a = e.attributeNode(QString("location"));
@@ -300,8 +315,11 @@ void GameNetwork::processNode(QDomNode n)
 						if (!a.isNull())
 							directmove = a.value().toInt();
 
-						emit msgPlayerUpdateLocation(playerid, location, directmove);
+						emit msgPlayerUpdateLocation(playerId, location, directmove);
 					}
+
+					kdDebug() << "emit playerUpdateFinished(" << playerId << ")" << endl;
+					emit playerUpdateFinished(playerId);
 				}
 			}
 			else if (e.tagName() == "estateupdate")
@@ -395,15 +413,15 @@ void GameNetwork::processNode(QDomNode n)
 								a = e.attributeNode(QString("playerid"));
 								if (!a.isNull())
 								{
-									int playerid = a.value().toInt();
+									int playerId = a.value().toInt();
 
 									a = e.attributeNode(QString("accept"));
 									if (!a.isNull())
-										emit msgTradeUpdatePlayerAccept(tradeid, playerid, (bool)(a.value().toInt()));
+										emit msgTradeUpdatePlayerAccept(tradeid, playerId, (bool)(a.value().toInt()));
 
 									a = e.attributeNode(QString("money"));
 									if (!a.isNull())
-										emit msgTradeUpdatePlayerMoney(tradeid, playerid, a.value().toInt());
+										emit msgTradeUpdatePlayerMoney(tradeid, playerId, a.value().toInt());
 								}
 							}
 							else if (e_child.tagName() == "tradeestate")
@@ -411,11 +429,11 @@ void GameNetwork::processNode(QDomNode n)
 								a = e.attributeNode(QString("estateid"));
 								if (!a.isNull())
 								{
-									int estateid = a.value().toInt();
+									int estateId = a.value().toInt();
 
 									a = e.attributeNode(QString("included"));
 									if (!a.isNull())
-										emit msgTradeUpdateEstateIncluded(tradeid, estateid, (bool)(a.value().toInt()));
+										emit msgTradeUpdateEstateIncluded(tradeid, estateId, (bool)(a.value().toInt()));
 								}
 							}
 						}

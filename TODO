@@ -18,14 +18,12 @@ Bugfixes
 --------
 
 - Update messages views after resize.
-- double occurance of titleWidth/Height in EstateView
-- <Capzilla> hm, if one playerupdate contains 5 updates, my widgets redraw for each change now
-  <Capzilla> maybe i should send a redraw command only upon leaving the playerupdate node
-  <odinhuntr> that's what I do.
+v double occurance of titleWidth/Height in EstateView
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
 - make PortfolioEstate have a relation with Estate like EstateView has
+^ make PortfolioView have a relation with Player
 v support for <display>
   v type chancecard (attrs playerid, name and description)
   ^ type cccard (attrs playerid, name and description)
@@ -35,14 +33,14 @@ For 0.2.0
 
 - gameNetwork API
   - commands
-    v trades
-    - .jp
-    - .jr
-    - .jc
     - .D
-- Support leaving jail
-  - GUI
-  - Different token placement when in jail
+- leaving jail GUI (commandlist plugin for display_widget)
+  - class skeleton
+  - buttons for each command
+  - show instead of empty widget
+  - availability influences buttons
+  - buttons connect to network API
+- Different token placement when in jail
 - Chance/CC cards in portfolio
 - support auctions
 

@@ -12,23 +12,23 @@ class Player;
 
 class PortfolioView : public QWidget
 {
+Q_OBJECT
+
 	public:
-		PortfolioView(Player *parentPlayer, QWidget *parent, const char *name = 0);
-		void updateName();
-		void setMoney(const char *);
+		PortfolioView(Player *player, QWidget *parent, const char *name = 0);
 		void setOwned(int, bool);
-		void setHasTurn(bool);
 
 	protected:
 		void paintEvent(QPaintEvent *);
 	
+private slots:
+	void playerChanged();
+
 	private:
-		Player *m_parentPlayer;
+		Player *m_player;
 		QPixmap *qpixmap;
 		bool b_recreate;
-		QLabel *lname, *lmoney;
-//		PortfolioEstate *estate[40];
-		bool myHasTurn;
+		QLabel *m_nameLabel, *m_moneyLabel;
 		QMap<int, PortfolioEstate*> portfolioMap;
 };
 

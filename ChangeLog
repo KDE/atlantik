@@ -1,3 +1,10 @@
+2001-11-23 (kaper)
+----------
+
+- Trading skeleton
+- Better implementation of connection between Player and PortfolioView
+- Various code cleanups
+
 2001-11-21 (kaper)
 ----------
 

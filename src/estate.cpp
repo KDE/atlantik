@@ -9,7 +9,7 @@ Estate::Estate(int estateId) : QObject()
 	m_estateId = estateId;
 	m_owner = 0;
 	m_houses = 0;
-	m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
+	m_changed = m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
 	m_bgColor = QColor();
 	m_color = QColor();
 }

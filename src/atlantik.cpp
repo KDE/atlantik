@@ -67,6 +67,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(estateUpdateCanBuyHouses(int, bool)), this, SLOT(slotEstateUpdateCanBuyHouses(int, bool)));
 	connect(m_gameNetwork, SIGNAL(estateUpdateCanSellHouses(int, bool)), this, SLOT(slotEstateUpdateCanSellHouses(int, bool)));
 	connect(m_gameNetwork, SIGNAL(estateUpdateFinished(int)), this, SLOT(slotEstateUpdateFinished(int)));
+	connect(m_gameNetwork, SIGNAL(playerUpdateFinished(int)), this, SLOT(slotPlayerUpdateFinished(int)));
 	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
@@ -360,16 +361,16 @@ void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool dire
 		player->setLocation(estateId);
 }
 
-void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
+void Atlantik::slotMsgPlayerUpdateName(int playerId, QString name)
 {
-	Player *player = playerMap[playerid];
+	Player *player = playerMap[playerId];
 	if (player)
 		player->setName(name);
 }
 
-void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
+void Atlantik::slotMsgPlayerUpdateMoney(int playerId, QString money)
 {
-	Player *player = playerMap[playerid];
+	Player *player = playerMap[playerId];
 	if (player)
 		player->setMoney("$ " + money);
 }
@@ -455,10 +456,17 @@ void Atlantik::slotEstateUpdateCanSellHouses(int estateId, bool canSellHouses)
 	if (Estate *estate = estateMap[estateId])
 		estate->setCanSellHouses(canSellHouses);
 }
+
 void Atlantik::slotEstateUpdateFinished(int estateId)
 {
 	if (Estate *estate = estateMap[estateId])
 		estate->update();
+}
+
+void Atlantik::slotPlayerUpdateFinished(int playerId)
+{
+	if (Player *player = playerMap[playerId])
+		player->update();
 }
 
 void Atlantik::slotSetPlayerId(int playerId)
@@ -487,12 +495,7 @@ void Atlantik::slotSetTurn(int playerId)
 	for (QMap<int, Player *>::Iterator i=playerMap.begin() ; i != playerMap.end() ; ++i)
 	{
 		if ((player = *i))
-		{
-#warning port Atlantik::slotSetTurn
-//			player->setHasTurn(player->playerId()==playerId);
-			if (PortfolioView *portfolioView = portfolioMap[player->playerId()])
-				portfolioView->setHasTurn(player->playerId()==playerId);
-		}
+			player->setHasTurn(player->playerId()==playerId);
 	}
 }
 
@@ -508,6 +511,8 @@ void Atlantik::slotPlayerInit(int playerId)
 
 		PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
 		portfolioMap[playerId] = portfolioView;
+
+		connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
 
 		m_portfolioLayout->addWidget(portfolioView);
 		portfolioView->show();

@@ -5,7 +5,7 @@
 Player::Player(int playerId) : QObject()
 {
 	m_playerId = playerId;
-	m_isSelf = false;
+	m_changed = m_isSelf = m_hasTurn = false;
 }
 
 void Player::setLocation(const int estateId)
@@ -14,7 +14,16 @@ void Player::setLocation(const int estateId)
 	if (m_location != estateId)
 	{
 		m_location = estateId;
-		update();
+		m_changed = true;
+	}
+}
+
+void Player::setHasTurn(const bool hasTurn)
+{
+	if (m_hasTurn != hasTurn)
+	{
+		m_hasTurn = hasTurn;
+		m_changed = true;
 	}
 }
 
@@ -23,7 +32,7 @@ void Player::setName(const QString _n)
 	if (m_name != _n)
 	{
 		m_name = _n;
-		m_portfolioView->updateName();
+		m_changed = true;
 	}
 }
 
@@ -32,12 +41,15 @@ void Player::setMoney(const QString _m)
 	if (m_money != _m)
 	{
 		m_money = _m;
-		m_portfolioView->setMoney(m_money);
+		m_changed = true;
 	}
 }
 
-void Player::update()
+void Player::update(bool force)
 {
-	kdDebug() << "emit Player::changed()" << endl;
-	emit changed();
+	if (m_changed || force)
+	{
+		emit changed();
+		m_changed = false;
+	}
 }

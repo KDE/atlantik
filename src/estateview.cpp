@@ -126,26 +126,13 @@ void EstateView::estateChanged()
 {
 	kdDebug() << "EstateView::estateChanged" << endl;
 
-	// TODO: is this the correct place for name label updates?
+#warning is this the correct place for name label updates?
 	QToolTip::remove(this);
 	QToolTip::add(this, m_estate->name());
 	lname->setText(m_estate->name());
 
 	b_recreate = true;
 	m_recreateQuartz = true;
-    update();
-}
-
-void EstateView::redraw()
-{
-	kdDebug() << "EstateView::redraw" << endl;
-
-	// TODO: is this the correct place for name label updates?
-	QToolTip::remove(this);
-	QToolTip::add(this, m_estate->name());
-	lname->setText(m_estate->name());
-
-	b_recreate = true;
     update();
 }
 
@@ -161,8 +148,8 @@ void EstateView::repositionPortfolioEstate()
 
 void EstateView::paintEvent(QPaintEvent *)
 {
-	int titleHeight = height()/4;
-	int titleWidth = width()/4;
+	m_titleHeight = height()/4;
+	m_titleWidth = width()/4;
 
 	if (m_recreateQuartz)
 	{
@@ -174,9 +161,9 @@ void EstateView::paintEvent(QPaintEvent *)
 			m_quartzBlocks = new KPixmap();
 
 			if (m_orientation == North || m_orientation == South)
-				m_quartzBlocks->resize(25, titleHeight-2);
+				m_quartzBlocks->resize(25, m_titleHeight-2);
 			else
-				m_quartzBlocks->resize(25, titleWidth-2);
+				m_quartzBlocks->resize(25, m_titleWidth-2);
 
 			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
@@ -213,9 +200,9 @@ void EstateView::paintEvent(QPaintEvent *)
 		{
 			KPixmap* quartzBuffer = new KPixmap;
 			if (m_orientation == North || m_orientation == South)
-				quartzBuffer->resize(25, titleHeight-2);
+				quartzBuffer->resize(25, m_titleHeight-2);
 			else
-				quartzBuffer->resize(titleWidth-2, 25);
+				quartzBuffer->resize(m_titleWidth-2, 25);
 
 			QPainter quartzPainter;
 			quartzPainter.begin(quartzBuffer, this);
@@ -224,7 +211,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			switch(m_orientation)
 			{
 				case North:
-					painter.drawRect(0, 0, width(), titleHeight);
+					painter.drawRect(0, 0, width(), m_titleHeight);
 
 					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
@@ -238,25 +225,25 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
-							painter.drawRect(2, 2, (width()/2)-4, (titleHeight)-4);
+							painter.drawRect(2, 2, (width()/2)-4, (m_titleHeight)-4);
 						}
 						else
 						{
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
-							int h = (titleHeight)-4, w = (titleWidth)-4;
+							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
 						}
 					}
 					break;
 				case South:
-					painter.drawRect(0, height()-(titleHeight), width(), titleHeight);
+					painter.drawRect(0, height()-(m_titleHeight), width(), m_titleHeight);
 
 					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-titleHeight+1, *quartzBuffer);
+						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-m_titleHeight+1, *quartzBuffer);
 					}
 
 					if (m_estate->houses() > 0)
@@ -265,20 +252,20 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
-							painter.drawRect(2, (3*(titleHeight))+2, (width()/2)-4, (titleHeight)-4);
+							painter.drawRect(2, (3*(m_titleHeight))+2, (width()/2)-4, (m_titleHeight)-4);
 						}
 						else
 						{
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
-							int h = (titleHeight)-4, w = (titleWidth)-4;
+							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect(2+(i*(w+2)), (3*(titleHeight))+2, w, h);
+								painter.drawRect(2+(i*(w+2)), (3*(m_titleHeight))+2, w, h);
 						}
 					}
 					break;
 				case West:
-					painter.drawRect(0, 0, titleWidth, height());
+					painter.drawRect(0, 0, m_titleWidth, height());
 
 					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
@@ -292,20 +279,20 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
-							painter.drawRect(2, 2, (titleWidth)-4, (height()/2)-4);
+							painter.drawRect(2, 2, (m_titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
-							int h = (titleHeight)-4, w = (titleWidth)-4;
+							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2, 2+(i*(h+2)), w, h);
 						}
 					}
 					break;
 				case East:
-					painter.drawRect(width()-(titleWidth), 0, titleWidth, height());
+					painter.drawRect(width()-(m_titleWidth), 0, m_titleWidth, height());
 
 					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
@@ -319,15 +306,15 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
-							painter.drawRect((3*(titleWidth))+2, 2, (titleWidth)-4, (height()/2)-4);
+							painter.drawRect((3*(m_titleWidth))+2, 2, (m_titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
-							int h = (titleHeight)-4, w = (titleWidth)-4;
+							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect((3*(titleWidth))+2, 2+(i*(h+2)), w, h);
+								painter.drawRect((3*(m_titleWidth))+2, 2+(i*(h+2)), w, h);
 						}
 					}
 					break;
@@ -390,8 +377,9 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 
 void EstateView::slotResizeAftermath()
 {
-	m_titleWidth = width()/4;
-	m_titleHeight = height()/4;
+#warning are these necessary here?
+//	m_titleWidth = width()/4;
+//	m_titleHeight = height()/4;
 	
 	repositionPortfolioEstate();
 }

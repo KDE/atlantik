@@ -17,20 +17,22 @@ public:
 	const int location() { return m_location; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	const bool isSelf() { return m_isSelf; }
+	void setHasTurn(const bool hasTurn);
+	const bool hasTurn() { return m_hasTurn; }
 	void setName(const QString _n);
 	const QString name() { return m_name; }
 	void setMoney(const QString _m);
-	void setView(PortfolioView *_pfv) { m_portfolioView = _pfv; }
-	void update();
+	const QString money() { return m_money; }
+	void update(bool force = false);
 
 signals:
 	void changed();
 
 private:
+	bool m_changed;
 	int m_playerId, m_location;
-	bool m_isSelf;
+	bool m_isSelf, m_hasTurn;
 	QString m_name, m_money;
-	PortfolioView *m_portfolioView;
 };
 
 #endif

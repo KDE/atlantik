@@ -33,6 +33,9 @@ private slots:
 	void estateToggleMortgage(int estateId);
 	void estateHouseBuy(int estateId);
 	void estateHouseSell(int estateId);
+	void payJailFine();
+	void jailRoll();
+	void useJailCard();
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -64,6 +67,7 @@ signals:
 	void msgPlayerUpdateName(int, QString);
 	void msgPlayerUpdateMoney(int, QString);
 	void msgPlayerUpdateLocation(int, int, bool);
+	void playerUpdateFinished(int);
 	void msgEstateUpdateName(int, QString);
 	void msgEstateUpdateColor(int, QString);
 	void msgEstateUpdateBgColor(int, QString);
@@ -147,14 +151,14 @@ signals:
 	/**
 	 * A new player object must be initialized.
 	 *
-	 * @param playerid Playerid for the new object
+	 * @param playerId Playerid for the new object
 	 */
 	void playerInit(int playerId);
 
 	/**
 	 * A new estate object must be initialized.
 	 *
-	 * @param estateid Estateid for the new object
+	 * @param estateId Estateid for the new object
 	 */
 	void estateInit(int estateId);
 

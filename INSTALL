@@ -1,8 +1,6 @@
 You downloaded Atlantik from CVS
 --------------------------------
 
-* Make sure you have libkdegames from the kdegame module installed
-
 cd $(srcdir)/kdenonbeta && make -f Makefile.cvs && ./configure
 cd $(srcdir)/kdenonbeta/atlantik && make && make install
 
