@@ -105,7 +105,7 @@ EstateView *AtlantikBoard::findEstateView(Estate *estate)
 	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
 	{
 		estateView = dynamic_cast<EstateView*>(*i);
-		if (estateView->estate() == estate)
+		if (estateView && estateView->estate() == estate)
 			return estateView;
 	}
 	return 0;
