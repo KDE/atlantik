@@ -16,13 +16,17 @@ public:
 	void setOwner(Player *player);
 	void setCanBeOwned(const bool canBeOwned);
 	const bool canBeOwned() { return m_canBeOwned; }
+	void setIsMortgaged(const bool isMortgaged);
+	const bool isMortgaged() { return m_isMortgaged; }
+	void setCanToggleMortgage(const bool canToggleMortgage);
+	const bool canToggleMortgage() { return m_canToggleMortgage; }
 
 private:
 	int m_estateId;
 	EstateView *m_estateView;
 	QString m_name;
 	Player *m_owner;
-	bool m_canBeOwned, m_canBeMortgaged, m_canBeUnmortgaged, m_mortgaged;
+	bool m_canBeOwned, m_isMortgaged, m_canToggleMortgage;
 };
 
 #endif

@@ -24,9 +24,6 @@ EstateView::EstateView(Estate *parentEstate, int orientation, const QColor &colo
 	m_parentEstate = parentEstate;
 	m_parentEstate->setView(this);
 	m_orientation = orientation;
-	m_mortgaged = false;
-	m_canBeMortgaged = false;
-	m_canBeUnmortgaged = false;
 	m_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
@@ -117,28 +114,6 @@ void EstateView::setHouses(int _h)
 	}
 }
 
-void EstateView::setMortgaged(bool _m)
-{
-	if (m_mortgaged != _m)
-	{
-		m_mortgaged = _m;
-		b_recreate = true;
-		update();
-	}
-}
-
-void EstateView::setCanBeMortgaged(bool _m)
-{
-	if (m_canBeMortgaged != _m)
-		m_canBeMortgaged = _m;
-}
-
-void EstateView::setCanBeUnmortgaged(bool _m)
-{
-	if (m_canBeUnmortgaged != _m)
-		m_canBeUnmortgaged = _m;
-}
-
 void EstateView::setOwned(bool byAny, bool byThisClient)
 {
 	if (m_ownedByThisClient != byThisClient)
@@ -153,9 +128,6 @@ void EstateView::setOwned(bool byAny, bool byThisClient)
 	updatePE();
 }
 
-bool EstateView::mortgaged() { return m_mortgaged; }
-bool EstateView::canBeMortgaged() { return m_canBeMortgaged; }
-bool EstateView::canBeUnmortgaged() { return m_canBeUnmortgaged; }
 bool EstateView::ownedByAny() { return m_ownedByAny; }
 bool EstateView::ownedByThisClient() { return m_ownedByThisClient; }
 
@@ -218,7 +190,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		
-		if (atlantikConfig.grayOutMortgaged==true && m_mortgaged)
+		if (atlantikConfig.grayOutMortgaged==true && m_parentEstate->isMortgaged())
 			painter.setBrush(atlantik_lgray);
 		else if (atlantikConfig.highliteUnowned==true && m_parentEstate->canBeOwned() && !m_ownedByAny)
 			painter.setBrush(Qt::white);
@@ -380,7 +352,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_parentEstate->name());
-		if (m_mortgaged)
+		if (m_parentEstate->isMortgaged())
 			rmbMenu->insertItem(i18n("Unmortgage"), 0);
 		else
 			rmbMenu->insertItem(i18n("Mortgage"), 0);
@@ -405,7 +377,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		else
 		{
 			// Mortgaged or full? Not building any houses
-			if (!(m_canBeMortgaged || m_canBeUnmortgaged))
+			if (!(m_parentEstate->canToggleMortgage()))
 				rmbMenu->setItemEnabled(0, false);
 
 			// TODO: can_build/can_sell monopd support
@@ -433,10 +405,7 @@ void EstateView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-		if (m_mortgaged)
-			gameNetwork->cmdEstateUnmortgage(m_id);
-		else
-			gameNetwork->cmdEstateMortgage(m_id);
+		gameNetwork->cmdEstateToggleMortgage(m_id);
 		break;
 
 	case 1:

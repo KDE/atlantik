@@ -1,8 +1,8 @@
 #include "player.h"
 
-Player::Player(int id)
+Player::Player(int playerId)
 {
-	m_id = id;
+	m_playerId = playerId;
 	m_isSelf = false;
 }
 
@@ -11,7 +11,7 @@ void Player::setName(const QString _n)
 	if (m_name != _n)
 	{
 		m_name = _n;
-		m_portfolioView->setName(m_name);
+		m_portfolioView->updateName();
 	}
 }
 

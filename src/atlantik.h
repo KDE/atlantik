@@ -150,8 +150,7 @@ public slots:
 	void slotMsgEstateUpdateName(int, QString);
 	void slotMsgEstateUpdateHouses(int, int);
 	void slotMsgEstateUpdateMortgaged(int, bool);
-	void slotMsgEstateUpdateCanBeMortgaged(int, bool);
-	void slotMsgEstateUpdateCanBeUnmortgaged(int, bool);
+	void slotMsgEstateUpdateCanToggleMortgage(int, bool);
 
 	/**
 	 * Tells estate object whether it can be owned or not.

@@ -2,7 +2,8 @@
 ----------
 
 - Estates are created dynamically now!
-- Added Estate::canBeOwned, Estate::name
+- Lots of internal changes regarding player and estateupdates.
+- monopd API change: mortgages are now a toggle.
 
 2001-10-09 (kaper)
 ----------

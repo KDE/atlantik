@@ -18,8 +18,7 @@ public:
 	void cmdEndTurn();
 	void cmdName(QString name);
 	void cmdTokenConfirmation(int estateId);
-	void cmdEstateMortgage(int estateId);
-	void cmdEstateUnmortgage(int estateId);
+	void cmdEstateToggleMortgage(int estateId);
 	void cmdHouseBuy(int estateId);
 	void cmdHouseSell(int estateId);
 	void cmdGamesList();
@@ -59,8 +58,7 @@ signals:
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
 	void msgEstateUpdateMortgaged(int, bool);
-	void msgEstateUpdateCanBeMortgaged(int, bool);
-	void msgEstateUpdateCanBeUnmortgaged(int, bool);
+	void msgEstateUpdateCanToggleMortgage(int, bool);
 	void msgEstateUpdateCanBeOwned(int, bool);
 
 	/**

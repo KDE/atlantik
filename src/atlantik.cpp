@@ -57,8 +57,7 @@ Atlantik::Atlantik () :
 	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeMortgaged(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeUnmortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeUnmortgaged(int, bool)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
@@ -255,12 +254,6 @@ void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
 	Player *player = playerMap[playerid];
 	if (player)
 		player->setName(name);
-
-// TODO: port to player class
-//		QString label;
-//		label.setNum(playerid);
-//		label.append(". " + name);
-//		m_portfolioArray[playerid]->setName(label);
 }
 
 void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
@@ -302,22 +295,16 @@ void Atlantik::slotMsgEstateUpdateHouses(int estateid, int houses)
 //		estate->setHouses(houses);
 }
 
-void Atlantik::slotMsgEstateUpdateMortgaged(int estateid, bool mortgaged)
+void Atlantik::slotMsgEstateUpdateMortgaged(int estateId, bool mortgaged)
 {
-//	if (Estate *estate = estateMap[estateId])
-//		estate->setMortgaged(mortgaged);
+	if (Estate *estate = estateMap[estateId])
+		estate->setIsMortgaged(mortgaged);
 }
 
-void Atlantik::slotMsgEstateUpdateCanBeMortgaged(int estateid, bool mortgaged)
+void Atlantik::slotMsgEstateUpdateCanToggleMortgage(int estateId, bool canToggleMortgage)
 {
-//	if (Estate *estate = estateMap[estateId])
-//		estate->setCanBeMortgaged(mortgaged);
-}
-
-void Atlantik::slotMsgEstateUpdateCanBeUnmortgaged(int estateid, bool mortgaged)
-{
-//	if (Estate *estate = estateMap[estateId])
-//		estate->setCanBeUnmortgaged(mortgaged);
+	if (Estate *estate = estateMap[estateId])
+		estate->setCanToggleMortgage(canToggleMortgage);
 }
 
 void Atlantik::slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned)
@@ -328,16 +315,14 @@ void Atlantik::slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned)
 
 void Atlantik::slotSetPlayerId(int playerId)
 {
-	Player *player = playerMap[playerId];
-	if (player)
+	if (Player *player = playerMap[playerId])
 		player->setIsSelf(true);
 }
 
-void Atlantik::slotSetTurn(int playerid)
+void Atlantik::slotSetTurn(int playerId)
 {
-#warning port slotSetTurn
-/*
-	if (playerid == m_myPlayerId)
+	Player *player = playerMap[playerId];
+	if (player && player->isSelf())
 	{
 		m_roll->setEnabled(true);
 		m_buyEstate->setEnabled(true);
@@ -350,9 +335,10 @@ void Atlantik::slotSetTurn(int playerid)
 		m_endTurn->setEnabled(false);
 	}
 
-	m_board->raiseToken(playerid);
+	m_board->raiseToken(playerId);
 
-
+#warning port slotSetTurn
+/*
 	for(int i=0 ; i<MAXPLAYERS ; i++)
 	{
 		if (m_portfolioArray[i]!=0)
@@ -372,10 +358,9 @@ void Atlantik::slotPlayerInit(int playerid)
 		playerList.append(player);
 		playerMap[playerid] = player;
 
-		PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
+		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
 		m_portfolioLayout->addWidget(fpv);
 		fpv->show();
-		player->setView(fpv);
 	}
 }
 

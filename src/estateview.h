@@ -20,14 +20,8 @@ Q_OBJECT
 	public:
 		EstateView(Estate *parentEstate, int orientation, const QColor &, const QString &, QWidget *parent, const char *name = 0);
 		void setHouses(int);
-		void setMortgaged(bool);
-		void setCanBeMortgaged(bool);
-		void setCanBeUnmortgaged(bool);
 		void setOwned(bool byAny, bool byThisClient);
 
-		bool mortgaged();
-		bool canBeMortgaged();
-		bool canBeUnmortgaged();
 		bool ownedByAny();
 		bool ownedByThisClient();
 
@@ -52,7 +46,7 @@ Q_OBJECT
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
 		bool b_recreate;
-		bool m_ownedByAny, m_ownedByThisClient, m_mortgaged, m_canBeMortgaged, m_canBeUnmortgaged;
+		bool m_ownedByAny, m_ownedByThisClient;
 		int m_id, m_orientation, m_houses, m_titleWidth, m_titleHeight;
 		QColor m_color;
 		QLabel *lname;

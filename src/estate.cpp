@@ -5,7 +5,7 @@ Estate::Estate(int estateId)
 {
 	m_estateId = estateId;
 	m_owner = 0;
-	m_canBeOwned = m_canBeMortgaged = m_canBeUnmortgaged = m_mortgaged = false;
+	m_canBeOwned = m_isMortgaged = m_canToggleMortgage = false;
 }
 
 void Estate::setOwner(Player *player)
@@ -31,4 +31,20 @@ void Estate::setCanBeOwned(const bool canBeOwned)
 		m_canBeOwned = canBeOwned;
 		// TODO: Update view?
 	}
+}
+
+void Estate::setIsMortgaged(const bool isMortgaged)
+{
+	if (m_isMortgaged != isMortgaged)
+	{
+		m_isMortgaged = isMortgaged;
+		// TODO: Update view? Done?
+		m_estateView->redraw();
+	}
+}
+
+void Estate::setCanToggleMortgage(const bool canToggleMortgage)
+{
+	if (m_canToggleMortgage != canToggleMortgage)
+		m_canToggleMortgage = canToggleMortgage;
 }

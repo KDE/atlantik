@@ -204,9 +204,10 @@ void AtlantikBoard::redrawEstates()
 {
 	int i=0;
 
-	for (i=0;i<40;i++)
-		if (estate[i]!=0 && ( !(estate[i]->ownedByAny()) || estate[i]->mortgaged() ))
-			estate[i]->redraw();
+#warning port Board::redrawEstates
+//	for (i=0;i<40;i++)
+//		if (estate[i]!=0 && ( !(estate[i]->ownedByAny()) || estate[i]->mortgaged() ))
+//			estate[i]->redraw();
 }
 
 void AtlantikBoard::slotMoveToken()

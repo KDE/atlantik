@@ -40,16 +40,9 @@ void GameNetwork::cmdTokenConfirmation(int estateId)
 	writeData(msg);
 }
 
-void GameNetwork::cmdEstateMortgage(int estateId)
+void GameNetwork::cmdEstateToggleMortgage(int estateId)
 {
-	QString msg(".m");
-	msg.append(QString::number(estateId));
-	writeData(msg);
-}
-
-void GameNetwork::cmdEstateUnmortgage(int estateId)
-{
-	QString msg(".u");
+	QString msg(".em");
 	msg.append(QString::number(estateId));
 	writeData(msg);
 }
@@ -306,17 +299,13 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateMortgaged(estateid, a.value().toInt());
 
-					a = e.attributeNode(QString("can_be_mortgaged"));
+					a = e.attributeNode(QString("can_toggle_mortgage"));
 					if (!a.isNull())
-						emit msgEstateUpdateCanBeMortgaged(estateid, a.value().toInt());
+						emit msgEstateUpdateCanToggleMortgage(estateid, a.value().toInt());
 
 					a = e.attributeNode(QString("can_be_owned"));
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeOwned(estateid, a.value().toInt());
-
-					a = e.attributeNode(QString("can_be_unmortgaged"));
-					if (!a.isNull())
-						emit msgEstateUpdateCanBeUnmortgaged(estateid, a.value().toInt());
 				}
 			}
 			else if (e.tagName() == "tradeupdate")

@@ -7,11 +7,13 @@
 
 #include "portfolioestate.h"
 
+class Player;
+
 class PortfolioView : public QWidget
 {
 	public:
-		PortfolioView(QWidget *parent, const char *name = 0);
-		void setName(const char *);
+		PortfolioView(Player *parentPlayer, QWidget *parent, const char *name = 0);
+		void updateName();
 		void setMoney(const char *);
 		void setOwned(int, bool);
 		void setHasTurn(bool);
@@ -20,6 +22,7 @@ class PortfolioView : public QWidget
 		void paintEvent(QPaintEvent *);
 	
 	private:
+		Player *m_parentPlayer;
 		QPixmap *qpixmap;
 		bool b_recreate;
 		QLabel *lname, *lmoney;

@@ -1,6 +1,7 @@
 #include <qpainter.h>
 
 #include "portfolioview.h"
+#include "player.h"
 
 #define PE_DISTW	4
 #define	PE_DISTH	4
@@ -12,8 +13,11 @@ extern QColor atlantik_dpurple, atlantik_lblue, atlantik_purple, atlantik_orange
 atlantik_red, atlantik_yellow, atlantik_green, atlantik_blue, atlantik_greenbg,
 atlantik_lgray, atlantik_dgray;
 
-PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioView::PortfolioView(Player *parentPlayer, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	m_parentPlayer = parentPlayer;
+	m_parentPlayer->setView(this);
+
 	b_recreate = true;
 	qpixmap = 0;
 
@@ -130,9 +134,12 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	setHasTurn(false);
 }
 
-void PortfolioView::setName(const char *n)
+void PortfolioView::updateName()
 {
-	lname->setText(n);
+	QString name;
+	name.setNum(m_parentPlayer->playerId());
+	name.append(". " + m_parentPlayer->name());
+	lname->setText(name);
 }
 
 void PortfolioView::setMoney(const char *m)

@@ -10,4 +10,4 @@ the first time:
 - GameNetwork interacts with the server daemon. It has several public
   methods which can be used to send data to the server and it sends several
   signals. Atlantik's slots listen for player/object management related
-  signals and objects themselves listen for content/data related signals.
+  signals which tells objects to change content/data and views.
