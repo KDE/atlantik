@@ -133,30 +133,31 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 	{
 		label.setNum(i);
 		token[i] = new Token(label, this, "token");
-		jumpToken(token[i], 0);
+		jumpToken(token[i], 0, false);
 		token[i]->hide();
 	}
 }
 
-void KMonopBoard::jumpToken(Token *token, int to)
+void KMonopBoard::jumpToken(Token *token, int destination, bool confirm)
 {
-	int x = estate[to]->geometry().center().x() - (token->width()/2);
-	int y = estate[to]->geometry().center().y() - (token->height()/2);
+	int x = estate[destination]->geometry().center().x() - (token->width()/2);
+	int y = estate[destination]->geometry().center().y() - (token->height()/2);
 
-	token->setLocation(to);
+	token->setLocation(destination);
 	token->setGeometry(x, y, token->width(), token->height());
 
 	// Confirm location to server.
-	gameNetwork->cmdTokenConfirmation(to);
+	if (confirm)
+		gameNetwork->cmdTokenConfirmation(destination);
 }
 
-void KMonopBoard::moveToken(Token *token, int dest)
+void KMonopBoard::moveToken(Token *token, int destination)
 {
-	cout << "moving piece from " << token->location() << " to " << dest << endl;
+	cout << "moving piece from " << token->location() << " to " << destination << endl;
 
 	// Set token destination
 	move_token = token;
-	move_token->setDestination(dest);
+	move_token->setDestination(destination);
 
 	// Start timer
 	m_timer->start(10);
@@ -291,7 +292,7 @@ void KMonopBoard::slotResizeAftermath()
 	for(int i=0;i<MAXPLAYERS;i++)
 	{
 		if (token[i]!=0)
-			jumpToken(token[i], token[i]->location());
+			jumpToken(token[i], token[i]->location(), false);
 	}
 
 	// Restart the timer that was stopped in resizeEvent
@@ -312,7 +313,9 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 		// Only take action when location has changed
 		if (token[playerid]->location() != location)
 		{
-			if (direct || kmonopConfig.animateToken==false)
+			if (direct)
+				jumpToken(token[playerid], location, false);
+			else if(kmonopConfig.animateToken==false)
 				jumpToken(token[playerid], location);
 			else
 				moveToken(token[playerid], location);

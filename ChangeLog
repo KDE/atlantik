@@ -4,6 +4,9 @@
 - Estateupdate visual update fixes.
 - Using can_be_mortgaged and can_be_unmortgaged attributes of monopd's
   estateupdate.
+- New app icons by Bart Szyszka :-)
+- Token confirmation disabled for jumpToken when resizing gameboard or after
+  directmove instrution from server.
 
 2001-07-19 (cap)
 ----------

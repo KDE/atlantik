@@ -34,8 +34,8 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 
 	private:
-		void jumpToken(Token *, int);
-		void moveToken(Token *, int);
+		void jumpToken(Token *, int destination, bool confirm=true);
+		void moveToken(Token *, int destination);
 
 		QWidget *spacer, *center;
 		EstateView *estate[40];
