@@ -12,6 +12,7 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - rename PortfolioEstate to TinyEstateView
 - Token should not have to know about EstateView, views could be independent
+- KExtendedSocket errorcodes
 
 For 0.2.0
 ---------

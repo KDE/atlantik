@@ -1,9 +1,14 @@
 #ifndef ATLANTIK_NETWORK_H
 #define ATLANTIK_NETWORK_H
 
-#include <qsocket.h>
 #include <qdom.h>
 #include <qmap.h>
+
+#ifdef QT_ONLY
+#include <qsocket.h>
+#else
+#include <kextsock.h>
+#endif
 
 class AtlanticCore;
 class Atlantik;
@@ -12,7 +17,11 @@ class Trade;
 class Estate;
 class Player;
 
-class GameNetwork : public QSocket
+//#ifdef QT_ONLY
+//class GameNetwork : public QSocket
+//#else
+class GameNetwork : public KExtendedSocket
+//#endif
 {
 Q_OBJECT
 

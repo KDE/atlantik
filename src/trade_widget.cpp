@@ -1,17 +1,18 @@
-#include <klocale.h>
-#include <klistview.h>
 #include <qlayout.h>
-#include <kdebug.h>
 #include <qheader.h>
-#include "trade.h"
-#include "trade_widget.moc"
-#include "player.h"
 #include <qpopupmenu.h>
-#include <kdialogbase.h>
-#include <klineedit.h>
 #include <qcursor.h>
 #include <qvalidator.h>
-#include "network.h"
+
+#include <klocale.h>
+#include <klistview.h>
+#include <kdebug.h>
+#include <kdialogbase.h>
+#include <klineedit.h>
+
+#include "trade_widget.moc"
+#include "trade.h"
+#include "player.h"
 #include "estate.h"
 
 class PlayerListViewItem : public QListViewItem

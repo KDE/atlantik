@@ -138,7 +138,7 @@ void Atlantik::readConfig()
 	config->setGroup("Board");
 	atlantikConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
 	atlantikConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
-	atlantikConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
+	atlantikConfig.darkenMortgaged = config->readBoolEntry("DarkenMortgaged", true);
 	atlantikConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 }
@@ -206,6 +206,8 @@ void Atlantik::slotNetworkError(int errno)
 {
 	QString errMsg(i18n("Error connecting: "));
 	
+#warning port to kextsock
+/*
 	switch(errno)
 	{
 		case QSocket::ErrConnectionRefused:
@@ -224,6 +226,7 @@ void Atlantik::slotNetworkError(int errno)
 			errMsg.append(i18n("unknown error."));
 	}
 	serverMsgsAppend(errMsg);
+*/
 }
 
 void Atlantik::slotJoinedGame()
@@ -298,10 +301,10 @@ void Atlantik::slotUpdateConfig()
 		redrawEstates = true;
 	}
 
-	optBool = m_configDialog->grayOutMortgaged();
-	if (atlantikConfig.grayOutMortgaged != optBool)
+	optBool = m_configDialog->darkenMortgaged();
+	if (atlantikConfig.darkenMortgaged != optBool)
 	{
-		atlantikConfig.grayOutMortgaged = optBool;
+		atlantikConfig.darkenMortgaged = optBool;
 		redrawEstates = true;
 	}
 
@@ -324,7 +327,7 @@ void Atlantik::slotUpdateConfig()
 	config->setGroup("Board");
 	config->writeEntry("IndicateUnowned", atlantikConfig.indicateUnowned);
 	config->writeEntry("HighliteUnowned", atlantikConfig.highliteUnowned);
-	config->writeEntry("GrayOutMortgaged", atlantikConfig.grayOutMortgaged);
+	config->writeEntry("DarkenMortgaged", atlantikConfig.darkenMortgaged);
 	config->writeEntry("AnimateToken", atlantikConfig.animateToken);
 	config->writeEntry("QuartzEffects", atlantikConfig.quartzEffects);
 

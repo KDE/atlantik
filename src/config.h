@@ -11,7 +11,7 @@ struct AtlantikConfig
 	// Board options
 	bool indicateUnowned;
 	bool highliteUnowned;
-	bool grayOutMortgaged;
+	bool darkenMortgaged;
 	bool animateToken;
 	bool quartzEffects;
 };

@@ -186,10 +186,10 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		
-		if (atlantikConfig.grayOutMortgaged==true && m_estate->isMortgaged())
-			painter.setBrush(atlantik_lgray);
+		if (atlantikConfig.darkenMortgaged==true && m_estate->isMortgaged())
+			painter.setBrush(m_estate->bgColor().light(20));
 		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
-			painter.setBrush(Qt::white);
+			painter.setBrush(m_estate->bgColor().light(180));
 		else
 			painter.setBrush(m_estate->bgColor());
 

@@ -3,6 +3,7 @@
 
 - Better toolbar disable/enable code (API changes in monopd)
 - Bugfixes for m_playerSelf
+- Using KExtendedSocket instead of QSocket
 
 2001-12-18 (kaper)
 ----------

@@ -34,7 +34,7 @@ friend class ConfigDialog;
 	private:
 		void reset();
 
-		QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_grayOutMortgaged, *m_animateToken, *m_quartzEffects;
+		QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_darkenMortgaged, *m_animateToken, *m_quartzEffects;
 };
 
 class ConfigDialog : public KDialogBase
@@ -46,7 +46,7 @@ class ConfigDialog : public KDialogBase
 
 		bool indicateUnowned();
 		bool highliteUnowned();
-		bool grayOutMortgaged();
+		bool darkenMortgaged();
 		bool animateToken();
 		bool quartzEffects();
 

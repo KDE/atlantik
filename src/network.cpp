@@ -10,13 +10,20 @@
 #include "player.h"
 #include "estate.h"
 
+#ifdef QT_ONLY
 GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : QSocket(parent, name)
 {
+#else
+GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : KExtendedSocket()
+{
+	setBufferSize(-1);
+#endif
+
 	m_atlanticCore = atlanticCore;
 	m_mainWindow = parent;
 	m_clientId = m_playerId = -1;
 
-	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
+	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
 void GameNetwork::roll()
@@ -154,7 +161,11 @@ void GameNetwork::jailCard()
 void GameNetwork::writeData(QString msg)
 {
 	msg.append("\n");
+#ifdef QT_ONLY
 	if (state()==QSocket::Connection)
+#else
+	if (socketStatus()==KExtendedSocket::connected)
+#endif
 	{
 		kdDebug() << "out [" << msg << "]" << endl;
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
@@ -165,8 +176,17 @@ void GameNetwork::writeData(QString msg)
 
 void GameNetwork::slotRead()
 {
+#ifdef QT_ONLY
 	while(canReadLine())
 		processMsg(readLine());
+#else
+	char *tmp = NULL;
+	while(canReadLine())
+	{
+		readLine(tmp, 1024 * 32);
+		processMsg(tmp);
+	}
+#endif
 
 	// Maximum message size. Messages won't get bigger than 32k anyway, so
 	// if we didn't receive a newline by now, we probably won't anyway.
@@ -413,9 +433,9 @@ void GameNetwork::processNode(QDomNode n)
 						estate = m_atlanticCore->newEstate(estateId);
 						m_estates[estateId] = estate;
 
-						connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
-						connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
-						connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
+						QObject::connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
+						QObject::connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
+						QObject::connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
 
 						newEstate = true;
 					}
@@ -487,15 +507,14 @@ void GameNetwork::processNode(QDomNode n)
 						trade = m_atlanticCore->newTrade(tradeId);
 						m_trades[tradeId] = trade;
 
-						connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
-#warning todo connect tradeupdatemoney
-//	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
+						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
+						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
 
 						TradeDisplay *tradeDisplay = new TradeDisplay(trade, 0, "tradeDisplay");
 						tradeDisplay->setFixedSize(200, 200);
 						tradeDisplay->show();
 						
-						connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+						QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 
 						// m_board->addTradeView(trade);
 					}
@@ -596,5 +615,10 @@ void GameNetwork::processNode(QDomNode n)
 
 void GameNetwork::serverConnect(const QString host, int port)
 {
+#ifdef QT_ONLY
 	connectToHost(host, port);
+#else
+	setAddress(host, port);
+	connect();
+#endif
 }

@@ -9,7 +9,6 @@
 #include <qlabel.h>
 
 #include "monopigator.h"
-#include "network.h"
 
 class SelectServer : public QWidget
 {
@@ -48,7 +47,6 @@ public:
 		QListView *m_serverList;
 		QPushButton *m_refreshButton, *m_connectButton;
 		Monopigator *monopigator;
-		GameNetwork *gameNetwork;
 };
 
 #endif

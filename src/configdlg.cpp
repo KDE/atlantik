@@ -32,9 +32,9 @@ bool ConfigDialog::highliteUnowned()
 	return configBoard->m_highliteUnowned->isChecked();
 }
 
-bool ConfigDialog::grayOutMortgaged()
+bool ConfigDialog::darkenMortgaged()
 {
-	return configBoard->m_grayOutMortgaged->isChecked();
+	return configBoard->m_darkenMortgaged->isChecked();
 }
 
 bool ConfigDialog::animateToken()
@@ -91,11 +91,11 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 		"indicate the property is for sale.\n");
 	QWhatsThis::add(m_highliteUnowned, message);
 
-	m_grayOutMortgaged = new QCheckBox(i18n("Gray out mortgaged properties"), box);
+	m_darkenMortgaged = new QCheckBox(i18n("Darken mortgaged properties"), box);
 	message=i18n(
 		"If checked, mortgaged properties on the board will be colored\n"
-		"gray instead of the default color.\n");
-	QWhatsThis::add(m_grayOutMortgaged, message);
+		"darker than of the default color.\n");
+	QWhatsThis::add(m_darkenMortgaged, message);
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
 	message=i18n(
@@ -121,7 +121,7 @@ void ConfigBoard::reset()
 {
 	m_indicateUnowned->setChecked(atlantikConfig.indicateUnowned);
 	m_highliteUnowned->setChecked(atlantikConfig.highliteUnowned);
-	m_grayOutMortgaged->setChecked(atlantikConfig.grayOutMortgaged);
+	m_darkenMortgaged->setChecked(atlantikConfig.darkenMortgaged);
 	m_animateToken->setChecked(atlantikConfig.animateToken);
 	m_quartzEffects->setChecked(atlantikConfig.quartzEffects);
 }
