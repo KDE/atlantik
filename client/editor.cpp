@@ -4,7 +4,6 @@
 #include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qspinbox.h>
-#include <qframe.h>
 #include <qlineedit.h>
 #include <qvgroupbox.h>
 #include <qhgroupbox.h>

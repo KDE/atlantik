@@ -11,7 +11,7 @@
 #include <qwidget.h>
 
 #include <kaction.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kfiledialog.h>
