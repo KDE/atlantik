@@ -2,7 +2,8 @@
 ----------
 
 - monopd no longer 'includes' estates in trades, but has a proper
-  targetplayer for them. added support for this API update.
+  targetplayer for them. added support for this API update, as well as the
+  update regarding money trades
 
 2001-12-14 (kaper)
 ----------

@@ -190,6 +190,7 @@ public slots:
 
 	void slotTradeUpdatePlayerAdd(int tradeId, int playerId);
 	void slotTradeUpdateEstate(int tradeId, int estateId, int playerId);
+	void slotTradeUpdateMoney(int tradeId, int playerFromId, int playerToId, unsigned int money);
 
 	/**
 	 * Stores the playerId corresponding to this instance of the client.

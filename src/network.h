@@ -20,7 +20,6 @@ public:
 	GameNetwork(Atlantik *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
-	void cmdTradeSetMoney(int tradeId, int amount);
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
@@ -40,6 +39,7 @@ private slots:
 	void jailRoll();
 	void newTrade(Player *player);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
+	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -120,7 +120,7 @@ signals:
 	 * @param playerId Unique player identifier
 	 * @param money    Amount of money
 	 */
-	void msgTradeUpdatePlayerMoney(int tradeId, int playerId, int money);
+	void tradeUpdateMoney(int tradeId, int playerFromId, int playerToId, unsigned int money);
 
 	/**
 	 * Information from server whether an estate is included in a trade or not.

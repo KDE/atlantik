@@ -103,12 +103,16 @@ void GameNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player
 	writeData(msg);
 }
 
-void GameNetwork::cmdTradeSetMoney(int tradeId, int amount)
+void GameNetwork::tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money)
 {
 	QString msg(".Tm");
-	msg.append(QString::number(amount));
+	msg.append(QString::number(trade ? trade->tradeId() : -1));
 	msg.append(":");
-	msg.append(QString::number(tradeId));
+	msg.append(QString::number(pFrom ? pFrom->playerId() : -1));
+	msg.append(":");
+	msg.append(QString::number(pTo ? pTo->playerId() : -1));
+	msg.append(":");
+	msg.append(QString::number(money));
 	writeData(msg);
 }
 
@@ -447,10 +451,6 @@ void GameNetwork::processNode(QDomNode n)
 										a = e.attributeNode(QString("accept"));
 										if (!a.isNull())
 											emit msgTradeUpdatePlayerAccept(tradeId, playerId, (bool)(a.value().toInt()));
-
-										a = e.attributeNode(QString("money"));
-										if (!a.isNull())
-											emit msgTradeUpdatePlayerMoney(tradeId, playerId, a.value().toInt());
 									}
 								}
 								else if (e_child.tagName() == "tradeestate")
