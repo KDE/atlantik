@@ -109,6 +109,9 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 
 MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port) : QObject(), QListViewItem(parent, host, latency, version, users, port)
 {
+//	setEnabled(false);
+	parent->sort();
+
 	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
 	QPtrList<KAddressInfo> addresses = KExtendedSocket::lookup(host, port);
 	addresses.setAutoDelete(true);
@@ -121,6 +124,9 @@ MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString late
 void MonopigatorEntry::updateLatency(int msec)
 {
 	setText(1, QString::number(msec));
+//	setEnabled(true);
+
+	listView()->sort();
 }
 
 int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const

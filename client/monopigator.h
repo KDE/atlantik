@@ -67,6 +67,7 @@ private slots:
 
 private:
 	KLatencyTimer *m_latencyTimer;
+	QListView *m_parent;
 };
 
 #endif
