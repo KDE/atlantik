@@ -10,6 +10,80 @@ GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, na
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
+void GameNetwork::cmdRoll()
+{	writeData(".r");
+}
+
+void GameNetwork::cmdBuyEstate()
+{	writeData(".be");
+}
+
+void GameNetwork::cmdGameStart()
+{	writeData(".gs");
+}
+
+void GameNetwork::cmdEndTurn()
+{	writeData(".e");
+}
+
+void GameNetwork::cmdName(QString name)
+{	writeData(".n" + (const char)name.latin1());
+}
+
+void GameNetwork::cmdTokenConfirmation(int location)
+{
+	QString buf;
+	buf.setNum(location);
+	writeData(".t" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdEstateMortgage(int estateId)
+{
+	QString buf;
+	buf.setNum(estateId);
+	writeData(".m" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdEstateUnmortgage(int estateId)
+{
+	QString buf;
+	buf.setNum(estateId);
+	writeData(".u" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdHouseBuy(int estateId)
+{
+	QString buf;
+	buf.setNum(estateId);
+	writeData(".hb" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdHouseSell(int estateId)
+{
+	QString buf;
+	buf.setNum(estateId);
+	writeData(".hs" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdGamesList()
+{	writeData(".gl");
+}
+
+void GameNetwork::cmdGameNew()
+{	writeData(".gn");
+}
+
+void GameNetwork::cmdGameJoin(int gameId)
+{
+	QString buf;
+	buf.setNum(gameId);
+	writeData(".gj" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdChat(QString msg)
+{	writeData(msg.latin1());
+}
+
 void GameNetwork::writeData(const char *input)
 {
 	QString str(input);

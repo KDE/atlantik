@@ -109,7 +109,7 @@ void KMonop::slotNewGame()
 	delete m_newgameWizard;
 	m_newgameWizard = 0;
 	if (result)
-		gameNetwork->writeData(".gs");
+		gameNetwork->cmdGameStart();
 }
 
 void KMonop::slotConfigure()
@@ -131,7 +131,7 @@ void KMonop::slotUpdateConfig()
 	if (kmonopConfig.playerName != optStr)
 	{
 		kmonopConfig.playerName = optStr;
-		gameNetwork->writeData(".n" + optStr);
+		gameNetwork->cmdName(optStr);
 	}
 
 	optBool = m_configDialog->indicateUnowned();
@@ -186,23 +186,22 @@ void KMonop::slotUpdateConfig()
 
 void KMonop::slotRoll()
 {
-	gameNetwork->writeData(".r");
+	gameNetwork->cmdRoll();
 }
 
 void KMonop::slotBuy()
 {
-	gameNetwork->writeData(".be");
+	gameNetwork->cmdBuyEstate();
 }
 
 void KMonop::slotEndTurn()
 {
-	gameNetwork->writeData(".e");
+	gameNetwork->cmdEndTurn();
 }
 
 void KMonop::slotSendMsg()
 {
-	QString str(m_input->text());
-	gameNetwork->writeData(str.latin1());
+	gameNetwork->cmdChat(m_input->text());
 	m_input->setText("");
 }
 

@@ -202,7 +202,7 @@ void SelectGame::initPage()
 	// TODO: What if connection cannot be made?
 
 	// Fetch list of games
-	gameNetwork->writeData(".gl");
+	gameNetwork->cmdGamesList();
 }
 
 void SelectGame::validateButtons()
@@ -421,19 +421,11 @@ void ConfigureGame::slotPlayerlistEndUpdate(QString type)
 void ConfigureGame::initPage()
 {
 	if (gameId == 0)
-	{
-		// Create a new game
-		gameNetwork->writeData(".gn");
-	}
+		gameNetwork->cmdGameNew();
 	else
-	{
-		// Join existing game
-		QString str(".gj"), id;
-		id.setNum(gameId);
-		str.append(id);
-		gameNetwork->writeData(str.latin1());
-	}
-	gameNetwork->writeData(".n" + kmonopConfig.playerName);
+		gameNetwork->cmdGameJoin(gameId);
+
+	gameNetwork->cmdName(kmonopConfig.playerName);
 }
 
 bool ConfigureGame::validateNext()

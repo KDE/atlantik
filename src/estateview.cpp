@@ -410,34 +410,28 @@ void EstateView::slotResizeAftermath()
 
 void EstateView::slotMenuAction(int item)
 {
-	QString cmd, loc;
-	loc.setNum(m_id);
-
 	cout << "slotMenu " << item << endl;
 	switch (item)
 	{
 		case 0:
 			if (mortgaged())
-				cmd.setLatin1(".u");
+				gameNetwork->cmdEstateUnmortgage(m_id);
 			else
-				cmd.setLatin1(".m");
+				gameNetwork->cmdEstateMortgage(m_id);
 			break;
 
 		case 1:
-			cmd.setLatin1(".hb");
+			gameNetwork->cmdHouseBuy(m_id);
 			break;
 
 		case 2:
-			cmd.setLatin1(".hs");
+			gameNetwork->cmdHouseSell(m_id);
 			break;
-			
-		default:
-			return;
 	}
-	cmd.append(loc);
-	gameNetwork->writeData(cmd.latin1());
 }
 
+// Kudos to Gallium <gallium@kde.org> for writing the Quartz KWin style and
+// letting me use the ultra slick algorithm!
 void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2)
 {
 	QPainter px;

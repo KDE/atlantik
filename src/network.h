@@ -10,7 +10,20 @@ Q_OBJECT
 
 	public:
 		GameNetwork(QObject *parent=0, const char *name=0);
-		void writeData(const char *);
+		void cmdRoll();
+		void cmdBuyEstate();
+		void cmdGameStart();
+		void cmdEndTurn();
+		void cmdName(QString name);
+		void cmdTokenConfirmation(int location);
+		void cmdEstateMortgage(int estateId);
+		void cmdEstateUnmortgage(int estateId);
+		void cmdHouseBuy(int estateId);
+		void cmdHouseSell(int estateId);
+		void cmdGamesList();
+		void cmdGameNew();
+		void cmdGameJoin(int gameId);
+		void cmdChat(QString msg);
 
 	public slots:
 		void slotRead();
@@ -45,6 +58,7 @@ Q_OBJECT
 		void setTurn(int);
 
 	private:
+		void writeData(const char *);
 		void processMsg(QString);
 		void processNode(QDomNode);
 		

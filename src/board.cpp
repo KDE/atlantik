@@ -145,10 +145,7 @@ void KMonopBoard::jumpToken(Token *token, int to)
 	token->setGeometry(x, y, token->width(), token->height());
 
 	// Confirm location to server.
-	QString msg(".t"), loc;
-	loc.setNum(to);
-	msg.append(loc);
-	gameNetwork->writeData(msg.latin1());
+	gameNetwork->cmdTokenConfirmation(to);
 }
 
 void KMonopBoard::moveToken(Token *token, int dest)
@@ -225,18 +222,19 @@ void KMonopBoard::slotMoveToken()
 		// We have arrived at our destination!
 		move_token->setLocation(dest);
 
-		// We need to confirm passing Go to the server.
-		QString msg(".t"), loc;
-		loc.setNum(dest);
-		msg.append(loc);
-		gameNetwork->writeData(msg.latin1());
-
+		// We need to confirm passing Go and arriving at our final
+		// destination to the server.
 		if (move_token->destination() == move_token->location())
 		{
+			gameNetwork->cmdTokenConfirmation(move_token->location());
+
 			// We have arrived at our _final_ destination!
 			m_timer->stop();
 			move_token = 0;
 		}
+		else if (move_token->location() == 0)
+			gameNetwork->cmdTokenConfirmation(move_token->location());
+
 		return;
 	}
 
