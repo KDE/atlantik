@@ -40,21 +40,21 @@ void GameNetwork::cmdTokenConfirmation(int estateId)
 	writeData(msg);
 }
 
-void GameNetwork::cmdEstateToggleMortgage(int estateId)
+void GameNetwork::estateToggleMortgage(int estateId)
 {
 	QString msg(".em");
 	msg.append(QString::number(estateId));
 	writeData(msg);
 }
 
-void GameNetwork::cmdHouseBuy(int estateId)
+void GameNetwork::estateHouseBuy(int estateId)
 {
 	QString msg(".hb");
 	msg.append(QString::number(estateId));
 	writeData(msg);
 }
 
-void GameNetwork::cmdHouseSell(int estateId)
+void GameNetwork::estateHouseSell(int estateId)
 {
 	QString msg(".hs");
 	msg.append(QString::number(estateId));

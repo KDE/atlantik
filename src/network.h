@@ -18,9 +18,6 @@ public:
 	void cmdBuyEstate();
 	void cmdEndTurn();
 	void cmdName(QString name);
-	void cmdEstateToggleMortgage(int estateId);
-	void cmdHouseBuy(int estateId);
-	void cmdHouseSell(int estateId);
 	void cmdGamesList();
 	void cmdTradeNew();
 	void cmdTradeToggleEstate(int tradeId, int estateId);
@@ -33,6 +30,9 @@ private slots:
 	void newGame();
 	void joinGame(int gameId);
 	void startGame();
+	void estateToggleMortgage(int estateId);
+	void estateHouseBuy(int estateId);
+	void estateHouseSell(int estateId);
 
 public slots:
 	void serverConnect(const QString host, int port);

@@ -19,16 +19,17 @@ Q_OBJECT
 
 	public:
 		EstateView(Estate *estate, int orientation, const QString &, QWidget *parent, const char *name = 0);
-		void setOwned(bool byAny, bool byThisClient);
-
-		bool ownedByAny();
-		bool ownedByThisClient();
 
 		void updatePE();
 		void redraw();
 
 	public slots:
 		void slotResizeAftermath();
+
+	signals:
+		void estateToggleMortgage(int estateId);
+		void estateHouseBuy(int estateId);
+		void estateHouseSell(int estateId);
 
 	protected:
 		void paintEvent(QPaintEvent *);
@@ -45,8 +46,7 @@ Q_OBJECT
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
 		bool b_recreate, m_recreateQuartz;
-		bool m_ownedByAny, m_ownedByThisClient;
-		int m_id, m_orientation, m_titleWidth, m_titleHeight;
+		int m_orientation, m_titleWidth, m_titleHeight;
 		QLabel *lname;
 		PortfolioEstate *pe;
 

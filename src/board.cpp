@@ -128,6 +128,9 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	estateViewMap[estate->estateId()] = estateView;
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
+	connect(estateView, SIGNAL(estateToggleMortgage(int)), estate, SIGNAL(estateToggleMortgage(int)));
+	connect(estateView, SIGNAL(estateHouseBuy(int)), estate, SIGNAL(estateHouseBuy(int)));
+	connect(estateView, SIGNAL(estateHouseSell(int)), estate, SIGNAL(estateHouseSell(int)));
 
 	int estateId = estate->estateId();
 	if (estateId<10)
@@ -207,6 +210,7 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 
 void AtlantikBoard::setOwned(int estateId, bool byAny, bool byThisClient)
 {
+//	EstateView *estateView = estateViewMap[estateId];
 #warning port Board::setOwned
 //	if (estateId>=0 && estateId<40)
 //		estate[estateId]->setOwned(byAny, byThisClient);

@@ -15,6 +15,8 @@ public:
 	void setName(const QString name);
 	const QString name() { return m_name; }
 	void setOwner(Player *player);
+	const bool owned();
+	const bool ownedBySelf();
 	void setHouses(unsigned int houses);
 	unsigned int houses() { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);
@@ -31,6 +33,9 @@ public:
 
 signals:
 	void changed();
+	void estateToggleMortgage(int estateId);
+	void estateHouseBuy(int estateId);
+	void estateHouseSell(int estateId);
 
 private:
 	bool m_changed;

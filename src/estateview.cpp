@@ -45,8 +45,6 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 	icon = new QPixmap(locate("data", "atlantik/pics/" + _icon));
 	icon = rotatePixmap(icon);
 
-	setOwned(false, false);
-
 	QToolTip::add(this, m_estate->name());
 
 	kdDebug() << "end of estateview ctor" << endl;
@@ -98,28 +96,11 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 	return p;
 }
 
-void EstateView::setOwned(bool byAny, bool byThisClient)
-{
-	if (m_ownedByThisClient != byThisClient)
-		m_ownedByThisClient = byThisClient;
-
-	if (m_ownedByAny != byAny)
-	{
-		m_ownedByAny = byAny;
-		b_recreate = true;
-		update();
-	}
-	updatePE();
-}
-
-bool EstateView::ownedByAny() { return m_ownedByAny; }
-bool EstateView::ownedByThisClient() { return m_ownedByThisClient; }
-
 void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured Atlantik not to show them.
-	if (m_ownedByAny || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
+	if (m_estate->owned() || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -209,7 +190,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		
 		if (atlantikConfig.grayOutMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(atlantik_lgray);
-		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_ownedByAny)
+		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_estate->owned())
 			painter.setBrush(Qt::white);
 		else
 			painter.setBrush(m_estate->bgColor());
@@ -385,7 +366,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 			rmbMenu->insertItem(i18n("Sell house"), 2);
 
 		// Disable all if we don't own it
-		if (!m_ownedByThisClient)
+		if (!m_estate->ownedBySelf())
 		{
 			rmbMenu->setItemEnabled(0, false);
 			rmbMenu->setItemEnabled(1, false);
@@ -422,16 +403,15 @@ void EstateView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-#warning emit action signals here
-//		emit estateToggleMortgage(m_id);
+		emit estateToggleMortgage(m_estate->estateId());
 		break;
 
 	case 1:
-//		emit estateHouseBuy(m_id);
+		emit estateHouseBuy(m_estate->estateId());
 		break;
 
 	case 2:
-//		emit estateHouseSell(m_id);
+		emit estateHouseSell(m_estate->estateId());
 		break;
 	}
 }

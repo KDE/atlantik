@@ -21,6 +21,21 @@ void Estate::setOwner(Player *player)
 		m_changed = true;
 	}
 }
+const bool Estate::owned()
+{
+	if (m_owner)
+		return true;
+	else
+		return false;
+}
+
+const bool Estate::ownedBySelf()
+{
+	if (m_owner && m_owner->isSelf())
+		return true;
+	else
+		return false;
+}
 
 void Estate::setHouses(unsigned int houses)
 {

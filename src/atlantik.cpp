@@ -73,10 +73,6 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 	connect(m_gameNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
 
-	// Management of data objects (players, games, estates)
-//	playerList.setAutoDelete(true);
-//	estateList.setAutoDelete(true);
-
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
 	m_mainWidget->show();
@@ -108,7 +104,6 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_mainLayout->addWidget(m_input, 2, 0);
 
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
-
 
 	// Set stretching where we want it.
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
@@ -480,7 +475,6 @@ void Atlantik::slotPlayerInit(int playerid)
 	if (!(player = playerMap[playerid]))
 	{
 		player = new Player(playerid);
-//		playerList.append(player);
 		playerMap[playerid] = player;
 
 		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
@@ -497,7 +491,11 @@ void Atlantik::slotEstateInit(int estateId)
 	if (!(estate = estateMap[estateId]))
 	{
 		estate = new Estate(estateId);
-//		estateList.append(estate);
+
+		connect(estate, SIGNAL(estateToggleMortgage(int)), m_gameNetwork, SLOT(estateToggleMortgage(int)));
+		connect(estate, SIGNAL(estateHouseBuy(int)), m_gameNetwork, SLOT(estateHouseBuy(int)));
+		connect(estate, SIGNAL(estateHouseSell(int)), m_gameNetwork, SLOT(estateHouseSell(int)));
+
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);

@@ -235,8 +235,6 @@ private:
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
 
-	QPtrList<Player> playerList;
-	QPtrList<Estate> estateList;
 	QMap<int, Player *> playerMap;
 	QMap<int, Estate *> estateMap;
 };
