@@ -29,6 +29,17 @@ QPtrList<Trade> GameNetwork::trades() const
 	return m_trades;
 }
 
+Player *GameNetwork::self()
+{
+	QPtrList<Player> pl=players();
+	for (QPtrListIterator<Player> i(pl); *i; ++i)
+	{
+		if ((*i)->isSelf())
+			return *i;
+	}
+	return 0;
+}
+
 Player *GameNetwork::getPlayer(int playerId)
 {
 	Player *player;

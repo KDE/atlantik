@@ -6,6 +6,7 @@
 #include "estate.h"
 
 Trade::Trade(GameNetwork *network, int tradeId)
+	: mNetwork(network)
 {
 	m_tradeId = tradeId;
 
@@ -23,11 +24,16 @@ QPtrList<Player> Trade::players() const
 	return mPlayers;
 }
 
+void Trade::removeTradeItem(TradeItem *i)
+{
+	mTradeItems.removeRef(i);
+	i->destroyCommand();
+}
+
 void Trade::addTradeItem(TradeItem *i)
 {
 	mTradeItems.append(i);
 	i->createCommand();
-
 }
 
 void Trade::updateEstate(Estate *estate, Player *player)
@@ -94,12 +100,12 @@ QString TradeEstate::text() const
 
 void TradeEstate::createCommand()
 {
-
+	trade()->network()->tradeUpdateEstate(trade(), estate(), to());
 }
 
 void TradeEstate::destroyCommand()
 {
-
+	trade()->network()->tradeUpdateEstate(trade(), estate(), 0);
 }
 
 

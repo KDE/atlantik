@@ -26,6 +26,8 @@ public:
 	QPtrList<Estate> estates() const;
 	QPtrList<Player> players() const;
 	QPtrList<Trade> trades() const;
+	
+	Player *self();
 
 private slots:
 	void roll();
@@ -41,6 +43,7 @@ private slots:
 	void jailPay();
 	void jailRoll();
 	void newTrade(Player *player);
+public:
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
 
@@ -122,7 +125,5 @@ private:
 	QPtrList<Estate> m_estates;
 	QPtrList<Trade> m_trades;
 };
-
-extern GameNetwork *gameNetwork;
 
 #endif

@@ -8,6 +8,7 @@ class PlayerListViewItem;
 class  TradeListViewItem;
 
 class KListView;
+class QListViewItem;
 class Trade;
 class Player;
 class TradeItem;
@@ -34,6 +35,8 @@ private slots:
 	void tradeRemoved(TradeItem *);
 	void tradeChanged(TradeItem *);
 
+	void contextMenu(KListView *l, QListViewItem *i);
+	
 private:
 	KListView *mPlayerList;
 	Trade *mTrade;

@@ -1,11 +1,18 @@
 #include <klocale.h>
 #include <klistview.h>
-#include <qhbox.h>
+#include <qlayout.h>
 #include <kdebug.h>
 #include <qheader.h>
 #include "trade.h"
 #include "trade_widget.moc"
 #include "player.h"
+#include <qpopupmenu.h>
+#include <kdialogbase.h>
+#include <klineedit.h>
+#include <qcursor.h>
+#include <qvalidator.h>
+#include "network.h"
+#include "estate.h"
 
 class PlayerListViewItem : public QListViewItem
 {
@@ -29,6 +36,9 @@ public:
 	
 	Player *player() { return mPlayer; }
 	
+	PlayerListViewItem *parent()
+		{ return static_cast<PlayerListViewItem*>(QListViewItem::parent()); }
+	
 private:
 	Player *mPlayer;
 };
@@ -49,12 +59,13 @@ private:
 TradeDisplay::TradeDisplay(Trade *trade, QWidget *parent, const char *name)
 	: QWidget(parent, name), mTrade(trade)
 {
-	QHBox *main=new QHBox(this);
-	main->setSpacing(6);
+	(new QHBoxLayout(this, 11, 6))->setAutoAdd(true);
 	
-	mPlayerList = new KListView(main, "playerlist");
+	mPlayerList = new KListView(this, "playerlist");
 	mPlayerList->header()->hide();
 	mPlayerList->addColumn("nutin'!");
+	mPlayerList->setRootIsDecorated(true);
+	mPlayerList->setResizeMode(QListView::AllColumns);
 	
 	
 	connect(trade, SIGNAL(playerAdded(Player *)),
@@ -72,6 +83,11 @@ TradeDisplay::TradeDisplay(Trade *trade, QWidget *parent, const char *name)
 		);
 	connect(trade, SIGNAL(tradeChanged(TradeItem *)),
 			SLOT(tradeChanged(TradeItem *))
+		);
+	connect(
+			mPlayerList,
+			SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)),
+			SLOT(contextMenu(KListView *, QListViewItem *))
 		);
 }
 
@@ -133,15 +149,35 @@ TradeListViewItem  *TradeDisplay::trade(TradeItem *t)
 
 void TradeDisplay::playerAdded(Player *p)
 {
+	PlayerListViewItem *other=0;
 	for (QListViewItem *i=mPlayerList->firstChild() ; i; i=i->nextSibling())
-	{	
-		new GivingListViewItem(
-				static_cast<PlayerListViewItem*>(i), p, 
-				i18n("Someone gives person %1 an estate", "Gives %1").
-					arg(p->name()));
+	{
+		// add myself to the other toplevels
+		GivingListViewItem *othergiver=0;
+		othergiver = new GivingListViewItem(
+				static_cast<PlayerListViewItem*>(i), p,
+				i18n("gives is transitive ;)", "Gives %1").arg(p->name())
+			);
+		other = othergiver->parent();
 	}
 	
-	new PlayerListViewItem(mPlayerList, p, p->name());
+	PlayerListViewItem *item=new PlayerListViewItem(mPlayerList, p, p->name());
+	
+	QPtrList<Player> players=trade()->players();
+	
+	for (QPtrListIterator<Player> i(players); *i; ++i)
+	{
+		// add "Gives someone" to the other toplevels
+		PlayerListViewItem *top = player(*i);
+		if (top == other) continue; // don't add me to me
+		
+		new GivingListViewItem(
+				top, p,
+				i18n("gives is transitive ;)", "Gives %1").arg(p->name())
+			);
+		
+	}
+	
 }
 
 void TradeDisplay::playerRemoved(Player *p)
@@ -165,7 +201,83 @@ void TradeDisplay::tradeChanged(TradeItem *t)
 	tradeAdded(t);
 }
 
-
+void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
+{
+	if (dynamic_cast<TradeListViewItem*>(item))
+	{
+		TradeListViewItem *i=static_cast<TradeListViewItem*>(item);
+	
+		QPopupMenu menu(this);
+		menu.insertItem(i18n("&Remove Trade"), 0);
+		
+		if (dynamic_cast<TradeCash*>(i->trade()))
+			menu.insertItem(i18n("&Change Value"), 1);
+		
+		switch (menu.exec())
+		{
+		case 0:
+			trade()->removeTradeItem(i->trade());
+			break;
+		case 1:
+			{
+				KDialogBase dlg(
+						this, 0, true,
+						i18n("Trade Money"),
+						KDialogBase::Ok|KDialogBase::Cancel
+					);
+				KLineEdit *e=new KLineEdit(&dlg);
+				dlg.setMainWidget(e);
+				e->setValidator(
+						new QIntValidator(0, i->trade()->from()->money(), this)
+					);
+				
+				int result=dlg.exec();
+				if (result==KDialogBase::Ok)
+				{
+					// TODO money changed
+				
+				}
+			}
+		
+		}
+	}
+	else if (dynamic_cast<GivingListViewItem*>(item))
+	{
+		GivingListViewItem *i=static_cast<GivingListViewItem*>(item);
+		QPopupMenu menu(this);
+		menu.insertItem(i18n("Trade &Money"), 0);
+		
+		QPtrList<Estate> estateList=trade()->network()->estates();
+		QMap<int, Estate*> id;
+		QPopupMenu estates(this);
+		
+		{
+			int num=1;
+			for (QPtrListIterator<Estate> it(estateList); *it; ++it)
+			{
+				if ((*it)->owner()==i->parent()->player())
+				{
+					id[num]=*it;
+					estates.insertItem((*it)->name(), num);
+					num++;
+				}
+			}
+		}
+		
+		menu.insertItem(i18n("Trade &Estate"), &estates);
+		
+		int result=menu.exec(QCursor::pos());
+	
+		if (result!=-1)
+		{
+			TradeEstate *t=
+					new TradeEstate(id[result], mTrade, i->parent()->player());
+			mTrade->addTradeItem(t);
+		}
+	
+	}
+		
+}
 
 
 

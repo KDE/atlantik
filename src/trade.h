@@ -78,16 +78,42 @@ Q_OBJECT
 public:
 	Trade(GameNetwork *network, int tradeId);
 	int tradeId() { return m_tradeId; }
+	GameNetwork *network() { return mNetwork; }
 
 	void addPlayer(Player *);
 	
 	QPtrList<Player> players() const;
+	
+	/**
+	 * select the Trade of the given template type, with the given
+	 * from and to
+	 **/
+	template <class Type> Type *select(Player *from, Player *to)
+	{
+		for (QPtrListIterator<Player> i(mPlayers()); *i; ++i)
+		{
+			if (
+					(*i)->from()==from
+					&& (*i)->to()==to
+					&& dynamic_cast<Player*>(*i)
+				)
+			{
+				return *i;
+			}
+		}
+	
+	}
 
 public slots:
 	/**
 	 * make this take effect on the server
 	 **/
 	void addTradeItem(TradeItem *i);
+	/**
+	 * call this to destroy a trade item and take it
+	 * of the trade.  Do not delete it yourself
+	 **/
+	void removeTradeItem(TradeItem *i);
 
 private slots:	
 	/**
@@ -113,6 +139,7 @@ private:
 	QPtrList<Player> mPlayers;
 	
 	QPtrList<TradeItem> mTradeItems;
+	GameNetwork *mNetwork;
 };
 
 #endif
