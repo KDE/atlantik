@@ -641,6 +641,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 							if (auction && !a.isNull())
 								auction->newBid(player, a.value().toInt());
 						}
+
+						a = e.attributeNode(QString("status"));
+						if (auction && !a.isNull())
+							auction->setStatus(a.value().toInt());
+
 					}
 					else if (type=="completed")
 						m_atlanticCore->delAuction(auction);

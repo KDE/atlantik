@@ -12,7 +12,11 @@ Q_OBJECT
 public:
 	Auction(int auctionId);
 	virtual ~Auction();
+
 	int auctionId() { return m_auctionId; }
+
+	void setStatus(int status);
+	int status() { return m_status; }
 
 	void newBid(Player *player, int bid);
 
@@ -26,7 +30,7 @@ signals:
 
 private:
 	bool m_changed;
-	int m_auctionId;
+	int m_auctionId, m_status;
 };
 
 #endif

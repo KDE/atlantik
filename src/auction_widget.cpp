@@ -1,5 +1,7 @@
-#include <qhgroupbox.h>
+#include <qvgroupbox.h>
+#include <qhbox.h>
 #include <qspinbox.h>
+#include <qlabel.h>
 
 #include <kdebug.h>
 
@@ -18,23 +20,22 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	m_atlanticCore = atlanticCore;
 
 	m_auction = auction;
+	connect(m_auction, SIGNAL(changed()), this, SLOT(auctionChanged()));
 	connect(m_auction, SIGNAL(updateBid(Player *, int)), this, SLOT(updateBid(Player *, int)));
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
 	m_mainLayout = new QVBoxLayout(this, 10);
 	CHECK_PTR(m_mainLayout);
 
-	// Player list.
+	// Player list
 	m_playerGroupBox = new QVGroupBox(i18n("Auction"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox); 
 
 	m_playerList = new KListView(m_playerGroupBox);
 	m_playerList->addColumn(QString(i18n("Player")));
 	m_playerList->addColumn(QString(i18n("Bid")));
+	m_playerList->setSorting(1, false);
 	
-//	m_label = new QTextEdit("under construction ;)", NULL, m_playerGroupBox);
-//	m_label->setReadOnly(true);
-
 	KListViewItem *item;
 	Player *player;
 
@@ -49,13 +50,41 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 		}
 	}
 
-	QHGroupBox *bidBox = new QHGroupBox(this);
+	// Bid spinbox and button
+	QHBox *bidBox = new QHBox(this);
 	m_mainLayout->addWidget(bidBox);
 
 	m_bidSpinBox = new QSpinBox(1, 10000, 1, bidBox);
 
 	KPushButton *bidButton = new KPushButton(i18n("Make bid"), bidBox, "bidButton");
 	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
+
+	// Status label
+	m_statusLabel = new QLabel(this, "statusLabel");
+	m_mainLayout->addWidget(m_statusLabel);
+}
+
+void AuctionWidget::auctionChanged()
+{
+	QString status;
+	switch (m_auction->status())
+	{
+	case 1:
+		status = i18n("Going once...");
+		break;
+
+	case 2:
+		status = i18n("Going twice...");
+		break;
+
+	case 3:
+		status = i18n("Sold!");
+		break;
+
+	default:
+		status = "";
+	}
+	m_statusLabel->setText(status);
 }
 
 void AuctionWidget::updateBid(Player *player, int amount)

@@ -13,6 +13,15 @@ Auction::~Auction()
 	emit completed();
 }
 
+void Auction::setStatus(int status)
+{
+	if (m_status != status)
+	{
+		m_status = status;
+		m_changed = true;
+	}
+}
+
 void Auction::newBid(Player *player, int amount)
 {
 	emit updateBid(player, amount);

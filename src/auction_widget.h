@@ -3,14 +3,13 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qvgroupbox.h>
-#include <qpushbutton.h>
-#include <qtextedit.h>
 #include <qmap.h>
 
 #include <klistview.h>
 
+class QVGroupBox;
 class QSpinBox;
+class QLabel;
 
 class KListViewItem;
 
@@ -26,6 +25,7 @@ public:
 	AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent, const char *name=0);
 
 private slots:
+	void auctionChanged();
 	void updateBid(Player *player, int amount);
 	void slotBidButtonClicked();
 
@@ -33,11 +33,11 @@ signals:
 	void bid(Auction *auction, int amount);
 
 private:
-	QTextEdit *m_label;
 	QVBoxLayout *m_mainLayout;
 	QVGroupBox *m_playerGroupBox;
 	QSpinBox *m_bidSpinBox;
 	QMap<Player *, KListViewItem *> m_playerItems;
+	QLabel *m_statusLabel;
 
 	KListView *m_playerList;
 
