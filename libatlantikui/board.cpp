@@ -348,7 +348,7 @@ void AtlantikBoard::slotMoveToken()
 	}
 }
 
-void AtlantikBoard::resizeEvent(QResizeEvent *e)
+void AtlantikBoard::resizeEvent(QResizeEvent *)
 {
 	// Stop moving tokens, slotResizeAftermath will re-enable this
 	if (m_timer!=0 && m_timer->isActive())
