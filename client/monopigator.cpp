@@ -17,6 +17,7 @@
 #include <qdom.h>
 
 #include "monopigator.moc"
+#include "main.h"
 
 Monopigator::Monopigator()
 {
@@ -32,6 +33,8 @@ void Monopigator::loadData(const KURL &url)
 	m_downloadData->reset();
 
 	KIO::Job *job = KIO::get(url.url(), true, false);
+	job->addMetaData(QString::fromLatin1("UserAgent"), QString::fromLatin1("Atlantik/" ATLANTIK_VERSION_STRING));
+
 	connect(job, SIGNAL(data(KIO::Job *, const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
 	connect(job, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
 }
