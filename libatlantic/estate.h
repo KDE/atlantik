@@ -42,9 +42,10 @@ public:
 signals:
 	void changed();
 	void estateToggleMortgage(Estate *estate);
-	void LMBClicked(Estate *estate);
 	void estateHouseBuy(Estate *estate);
 	void estateHouseSell(Estate *estate);
+	void newTrade(Player *player);
+	void LMBClicked(Estate *estate);
 
 protected:
 	bool m_changed;

@@ -13,6 +13,7 @@
 
 enum Orientation{ North=0, East=1, South=2, West=3 };
 
+class Player;
 class Estate;
 
 class EstateView : public QWidget
@@ -31,6 +32,7 @@ Q_OBJECT
 		void estateToggleMortgage(Estate *estate);
 		void estateHouseBuy(Estate *estate);
 		void estateHouseSell(Estate *estate);
+		void newTrade(Player *player);
 		void LMBClicked(Estate *estate);
 
 	protected:

@@ -11,7 +11,9 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
+#include <player.h>
 #include <estate.h>
+
 #include <atlantik_network.h>
 
 #include "estateview.moc"
@@ -342,37 +344,46 @@ void EstateView::resizeEvent(QResizeEvent *)
 
 void EstateView::mousePressEvent(QMouseEvent *e) 
 {
-	if (e->button()==RightButton)
+	if (e->button()==RightButton && m_estate->isOwned())
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_estate->name());
 
-		// Mortgage toggle
-		if (m_estate->isMortgaged())
-			rmbMenu->insertItem(i18n("Unmortgage"), 0);
+		if (m_estate->isOwnedBySelf())
+		{
+			// Mortgage toggle
+			if (m_estate->isMortgaged())
+				rmbMenu->insertItem(i18n("Unmortgage"), 0);
+			else
+				rmbMenu->insertItem(i18n("Mortgage"), 0);
+
+			if (!(m_estate->canToggleMortgage()))
+				rmbMenu->setItemEnabled(0, false);
+
+			// Estate construction
+			if (m_estate->houses()>=4)
+				rmbMenu->insertItem(i18n("Build hotel"), 1);
+			else
+				rmbMenu->insertItem(i18n("Build house"), 1);
+
+			if (!(m_estate->canBuyHouses()))
+				rmbMenu->setItemEnabled(1, false);
+
+			// Estate destruction
+			if (m_estate->houses()==5)
+				rmbMenu->insertItem(i18n("Sell hotel"), 2);
+			else
+				rmbMenu->insertItem(i18n("Sell house"), 2);
+
+			if (!(m_estate->canSellHouses()))
+				rmbMenu->setItemEnabled(2, false);
+		}
 		else
-			rmbMenu->insertItem(i18n("Mortgage"), 0);
-
-		if (!(m_estate->canToggleMortgage()))
-			rmbMenu->setItemEnabled(0, false);
-
-		// Estate construction
-		if (m_estate->houses()>=4)
-			rmbMenu->insertItem(i18n("Build hotel"), 1);
-		else
-			rmbMenu->insertItem(i18n("Build house"), 1);
-
-		if (!(m_estate->canBuyHouses()))
-			rmbMenu->setItemEnabled(1, false);
-
-		// Estate destruction
-		if (m_estate->houses()==5)
-			rmbMenu->insertItem(i18n("Sell hotel"), 2);
-		else
-			rmbMenu->insertItem(i18n("Sell house"), 2);
-
-		if (!(m_estate->canSellHouses()))
-			rmbMenu->setItemEnabled(2, false);
+		{
+			// Request trade
+			if (Player *player = m_estate->owner())
+				rmbMenu->insertItem(i18n("Request trade with %1").arg(player->name()), 3);
+		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		QPoint g = QCursor::pos();
@@ -413,6 +424,10 @@ void EstateView::slotMenuAction(int item)
 
 	case 2:
 		emit estateHouseSell(m_estate);
+		break;
+
+	case 3:
+		emit newTrade(m_estate->owner());
 		break;
 	}
 }
