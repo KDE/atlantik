@@ -3,6 +3,7 @@
 
 - correctly handle utf-8 over the network
 - only show localhost server when it is available
+- leaving a game and starting a new game correctly reinits atlanticCore
 
 0.5.1
 -----
