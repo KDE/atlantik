@@ -32,6 +32,9 @@ public:
 
 	void setCurrentTurn(Player *player);
 
+signals:
+	void removeGUI(Trade *trade);
+
 private:
 	QPtrList<Player> m_players;
 	QPtrList<Estate> m_estates;

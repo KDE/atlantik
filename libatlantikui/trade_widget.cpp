@@ -32,16 +32,16 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
-	QHGroupBox *addEstateBox = new QHGroupBox(i18n("Add component"), this);
-	listCompBox->addWidget(addEstateBox);
+	m_updateComponentBox = new QHGroupBox(i18n("Add component"), this);
+	listCompBox->addWidget(m_updateComponentBox);
 
-	m_editTypeCombo = new KComboBox(addEstateBox);
+	m_editTypeCombo = new KComboBox(m_updateComponentBox);
 	m_editTypeCombo->insertItem(i18n("Estate"));
 	m_editTypeCombo->insertItem(i18n("Money"));
 
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setEditType(int)));
 
-	m_estateCombo = new KComboBox(addEstateBox);
+	m_estateCombo = new KComboBox(m_updateComponentBox);
 	QPtrList<Estate> estateList = m_atlanticCore->estates();
 	Estate *estate;
 	for (QPtrListIterator<Estate> it(estateList); *it; ++it)
@@ -55,15 +55,15 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_estateCombo, SIGNAL(activated(int)), this, SLOT(setEditEstate(int)));
 
-	m_moneyBox = new QSpinBox(0, 10000, 1, addEstateBox);
+	m_moneyBox = new QSpinBox(0, 10000, 1, m_updateComponentBox);
 
 	QPtrList<Player> playerList = m_atlanticCore->players();
 	Player *player;
 
-	m_fromLabel = new QLabel(addEstateBox);
+	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
 
-	m_playerFromCombo = new KComboBox(addEstateBox);
+	m_playerFromCombo = new KComboBox(m_updateComponentBox);
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ((player = *it))
@@ -74,10 +74,10 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 		}
 	}
 
-	m_toLabel = new QLabel(addEstateBox);
+	m_toLabel = new QLabel(m_updateComponentBox);
 	m_toLabel->setText(i18n("To"));
 
-	m_playerTargetCombo = new KComboBox(addEstateBox);
+	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ((player = *it))
@@ -88,7 +88,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 		}
 	}
 
-	m_updateButton = new KPushButton(i18n("Update"), addEstateBox);
+	m_updateButton = new KPushButton(i18n("Update"), m_updateComponentBox);
 	m_updateButton->setEnabled(false);
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
@@ -124,12 +124,16 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
 //	mPlayerList->setResizeMode(KListView::AllColumns);
-	
-	connect(trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
-	connect(trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
-	connect(trade, SIGNAL(itemChanged(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
-	connect(trade, SIGNAL(changed()), this, SLOT(tradeChanged()));
-	connect(trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
+
+	connect(m_trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
+	connect(m_trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
+	connect(m_trade, SIGNAL(itemChanged(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
+	connect(m_trade, SIGNAL(changed()), this, SLOT(tradeChanged()));
+	connect(m_trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
+	connect(this, SIGNAL(updateEstate(Trade *, Estate *, Player *)), m_trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
+	connect(this, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), m_trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
+	connect(this, SIGNAL(reject(Trade *)), m_trade, SIGNAL(reject(Trade *)));
+	connect(this, SIGNAL(accept(Trade *)), m_trade, SIGNAL(accept(Trade *)));
 
 	setEditType(m_editTypeCombo->currentItem());
 	setEditEstate(m_estateCombo->currentItem());
@@ -193,15 +197,10 @@ void TradeDisplay::tradeRejected(Player *player)
 		m_status->setText(i18n("Trade proposal was rejected."));
 
 	// Disable GUI elements
-	m_updateButton->setEnabled(false);
-	m_acceptButton->setEnabled(false);
-	m_rejectButton->setEnabled(false);
+	m_updateComponentBox->setEnabled(false);
 	m_componentList->setEnabled(false);
-	m_editTypeCombo->setEnabled(false);
-	m_playerFromCombo->setEnabled(false);
-	m_playerTargetCombo->setEnabled(false);
-	m_estateCombo->setEnabled(false);
-	m_moneyBox->setEnabled(false);
+	m_rejectButton->setEnabled(false);
+	m_acceptButton->setEnabled(false);
 
 	// Empty trade pointer so closing window won't send network event
 	m_trade = 0;

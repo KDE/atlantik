@@ -48,6 +48,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 void AtlanticCore::delTrade(Trade *trade)
 {
 	m_trades.remove(trade);
+	emit removeGUI(trade);
 	delete trade;
 }
 

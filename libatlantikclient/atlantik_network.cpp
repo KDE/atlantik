@@ -549,6 +549,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						Player *player = m_players[e.attributeNode(QString("actor")).value().toInt()];
 						if (trade)
 							trade->reject(player);
+						if (player && player->isSelf())
+							m_atlanticCore->delTrade(trade);
 					}
 					else
 					{

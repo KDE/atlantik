@@ -4,8 +4,9 @@
 #include <qwidget.h>
 #include <qmap.h>
 
-class QListViewItem;
+class QHGroupBox;
 class QLabel;
+class QListViewItem;
 class QSpinBox;
 
 class KListView;
@@ -53,6 +54,7 @@ signals:
 	void accept(Trade *trade);
 
 private:
+	QHGroupBox *m_updateComponentBox;
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
 	QSpinBox *m_moneyBox;
 

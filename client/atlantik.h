@@ -20,6 +20,7 @@ class AtlantikNetwork;
 class SelectServer;
 class SelectGame;
 class SelectConfiguration;
+class TradeDisplay;
 
 class Player;
 class Estate;
@@ -148,8 +149,10 @@ public slots:
 
 	void newPlayer(Player *player);
 	void newEstate(Estate *estate);
-	void newTrade(Trade *trade);
+	void createGUI(Trade *trade);
 	void newAuction(Auction *auction);
+
+	void removeGUI(Trade *trade);
 
 	void playerChanged();
 
@@ -177,6 +180,7 @@ private:
 	SelectConfiguration *m_selectConfiguration;
 
 	QPtrList<PortfolioView> m_portfolioViews;
+	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;
 };
 
 #endif

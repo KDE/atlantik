@@ -54,6 +54,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	// Game core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 
+	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
+
 	// Network layer
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
 
@@ -76,7 +78,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
+	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(createGUI(Trade *)));
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	// Menu,toolbar: Move
@@ -96,7 +98,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
-	createGUI();
+	KMainWindow::createGUI();
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -201,19 +203,11 @@ void Atlantik::newEstate(Estate *estate)
 			portfolioView->addEstateView(estate);
 }
 
-void Atlantik::newTrade(Trade *trade)
+void Atlantik::createGUI(Trade *trade)
 {
 	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0, "tradeDisplay");
-	tradeDisplay->setFixedSize(200, 200);
+	m_tradeGUIMap[trade] = tradeDisplay;
 	tradeDisplay->show();
-
-	// TODO: tradeDisplay can easily connect these itself ..
-	QObject::connect(tradeDisplay, SIGNAL(updateEstate(Trade *, Estate *, Player *)), trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
-	QObject::connect(tradeDisplay, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
-	QObject::connect(tradeDisplay, SIGNAL(reject(Trade *)), trade, SIGNAL(reject(Trade *)));
-	QObject::connect(tradeDisplay, SIGNAL(accept(Trade *)), trade, SIGNAL(accept(Trade *)));
-
-	// m_board->addTradeView(trade);
 }
 
 void Atlantik::newAuction(Auction *auction)
@@ -222,6 +216,12 @@ void Atlantik::newAuction(Auction *auction)
 		initGame();
 
 	m_board->addAuctionWidget(auction);
+}
+
+void Atlantik::removeGUI(Trade *trade)
+{
+	if (TradeDisplay *tradeDisplay = m_tradeGUIMap[trade])
+		delete tradeDisplay;
 }
 
 void Atlantik::slotNetworkConnected()
