@@ -4,9 +4,12 @@
   <Menu name="file">
     <Action name="estate_num"/>
   </Menu>
-  <Menu name="edit"><text>&nbsp;Edit</text>
+  <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
     <Action name="smaller"/>
     <Action name="larger"/>
+    <Seperator/>
+    <Action name="edit_copy"/>
+    <Action name="edit_paste"/>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar">

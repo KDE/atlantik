@@ -1,3 +1,6 @@
+#ifndef ATLANTIK_DISPLAY_WIDGET_H
+#define  ATLANTIK_DISPLAY_WIDGET_H
+
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
@@ -23,3 +26,5 @@ public:
 		QVBoxLayout *m_mainLayout;
 		QVGroupBox *m_playerGroupBox;
 };
+
+#endif

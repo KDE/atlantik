@@ -1,3 +1,6 @@
+#ifndef ATLANTIK_SELECTSERVER_WIDGET_H
+#define ATLANTIK_SELECTSERVER_WIDGET_H
+
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
@@ -47,3 +50,5 @@ public:
 		Monopigator *monopigator;
 		GameNetwork *gameNetwork;
 };
+
+#endif

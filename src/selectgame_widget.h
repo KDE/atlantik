@@ -1,3 +1,6 @@
+#ifndef ATLANTIK_SELECTGAME_WIDGET_H
+#define ATLANTIK_SELECTGAME_WIDGET_H
+
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qlistview.h>
@@ -40,3 +43,5 @@ private:
 	QListView *m_gameList;
 	QPushButton *m_connectButton;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef ATLANTIK_SELECTCONFIGURATION_WIDGET_H
+#define ATLANTIK_SELECTCONFIGURATION_WIDGET_H
+
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
@@ -40,3 +43,5 @@ public:
 		QListView *m_playerList;
 		QPushButton *m_connectButton;
 };
+
+#endif

@@ -300,6 +300,7 @@ void StreetDlg::slotOk()
 	estate->setRent(4, houses4->value());
 	estate->setRent(5, houses5->value());
 	estate->setPrice(price->value());
+	estate->setHousePrice(housePrice->value());
 	estate->setGroup(groupCombo->currentItem() - 1);
 	KDialogBase::slotOk();
 }

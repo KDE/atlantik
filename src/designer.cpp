@@ -3,6 +3,7 @@
 #include <qtimer.h>
 #include <kglobal.h>
 #include <klocale.h>
+#include <kurl.h>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <kfiledialog.h>
@@ -33,15 +34,22 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	setCentralWidget(editor);
 
 	m_player = 0;
+	copiedEstate = 0;
 
 	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	(void) KStdAction::open(this, SLOT(open()), actionCollection());
 	(void) KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
 	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
+	(void) KStdAction::copy(this, SLOT(copy()), actionCollection());
+	(void) KStdAction::paste(this, SLOT(paste()), actionCollection());
 
 	(void) new KAction(i18n("&Larger"), "zoom+", 0, this, SLOT(larger()), actionCollection(), "larger");
 	(void) new KAction(i18n("&Smaller"), "zoom-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
+
+	recentAct = KStdAction::openRecent(0, 0, actionCollection());
+	connect(recentAct, SIGNAL(urlSelected(const KURL &)), this, SLOT(openRecent(const KURL &)));
+	recentAct->loadEntries(KGlobal::config());
 
 	estateAct = new KListAction(i18n("Change estate"), 0, 0, 0, actionCollection(), "estate_num");
 	QStringList estates;
@@ -112,8 +120,27 @@ void AtlanticDesigner::open()
 {
 	if (warnClose())
 		return;
+
 	filename = KFileDialog::getOpenFileName();
+
+	if (filename == QString::null)
+		return;
+
 	openFile(filename);
+	recentAct->addURL(QString("file:") + filename);
+}
+
+void AtlanticDesigner::openRecent(const KURL &url)
+{
+	if (url.isLocalFile())
+	{
+		filename = url.path();
+		openFile(filename);
+	}
+	else
+	{
+		recentAct->removeURL(url);
+	}
 }
 
 void AtlanticDesigner::openFile(const QString &filename)
@@ -135,7 +162,6 @@ void AtlanticDesigner::openFile(const QString &filename)
 		name = name.right(name.length() - name.find("[") - 1);
 		if (name.isEmpty())
 			name = i18n("Empty");
-		kdDebug() << "opening " << name << endl;
 		//kdDebug() << "name is " << name << endl;;
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
 		int type = 0;
@@ -264,16 +290,22 @@ void AtlanticDesigner::saveAs()
 	save();
 	if (filename == QString::null)
 		filename = oldfilename;
+	else
+		recentAct->addURL(QString("file:") + filename);
 }
 
 void AtlanticDesigner::save()
 {
 	//kdDebug() << "count is " << estates.count() << endl;
+	QString oldfilename = filename;
 	if (filename == QString::null)
 		filename = KFileDialog::getOpenFileName();
 
 	if (filename == QString::null)
+	{
+		filename = oldfilename;
 		return;
+	}
 
 	//QStringList allNames;
 
@@ -313,8 +345,6 @@ void AtlanticDesigner::save()
 		}
 
 		//allNames.append(estate->name());
-
-		kdDebug() << "done with " << estate->name() << endl;
 	}
 
 	f.flush();
@@ -322,11 +352,34 @@ void AtlanticDesigner::save()
 	doCaption(false);
 }
 
+void AtlanticDesigner::copy()
+{
+	copiedEstate = editor->theEstate();
+}
+
+void AtlanticDesigner::paste()
+{
+	ConfigEstate *estate = editor->theEstate();
+	estate->setColor(copiedEstate->color());
+	estate->setBgColor(copiedEstate->bgColor());
+	estate->setType(copiedEstate->type());
+	estate->setGroup(copiedEstate->group());
+	for (int i = 0; i < 6; i++)
+		estate->setRent(i, copiedEstate->rent(i));
+	estate->setPrice(copiedEstate->price());
+	estate->setHousePrice(copiedEstate->housePrice());
+	estate->setTax(copiedEstate->tax());
+	estate->setTaxPercentage(copiedEstate->taxPercentage());
+
+	editor->setEstate(estate);
+}
+
 void AtlanticDesigner::closeEvent(QCloseEvent *e)
 {
 	if (warnClose())
 		return;
 	saveMainWindowSettings(KGlobal::config(), "DesignerTopLevelWindow");
+	recentAct->saveEntries(KGlobal::config());
 	e->accept();
 }
 

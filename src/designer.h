@@ -1,5 +1,5 @@
-#ifndef DESIGNER_H
-#define DESIGNER_H
+#ifndef ATLANTK_DESIGNER_H
+#define ATLANTK_DESIGNER_H
 
 #include <kmainwindow.h>
 #include <qstring.h>
@@ -10,6 +10,7 @@
 class EstateEdit;
 class QCloseEvent;
 class KListAction;
+class KRecentFilesAction;
 class Estate;
 class Player;
 
@@ -29,9 +30,12 @@ class AtlanticDesigner : public KMainWindow
 
 	private slots:
 	void open();
+	void openRecent(const KURL &);
 	void openNew();
 	void save();
 	void saveAs();
+	void copy();
+	void paste();
 	void changeEstate(int);
 	void changeEstate(Estate *);
 	void movePlayer(Estate *);
@@ -47,8 +51,11 @@ class AtlanticDesigner : public KMainWindow
 	EstateEdit *editor;
 	QPtrList<ConfigEstate> estates;
 	KListAction *estateAct;
+	KRecentFilesAction *recentAct;
 
 	QString filename;
+
+	ConfigEstate *copiedEstate;
 
 	void doCaption(bool);
 

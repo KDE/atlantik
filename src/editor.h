@@ -1,5 +1,5 @@
-#ifndef EDITOR_H
-#define EDITOR_H
+#ifndef ATLANTIK_EDITOR_H
+#define ATLANTIK_EDITOR_H
 
 #include <kdialogbase.h>
 #include <kmainwindow.h>
@@ -55,6 +55,7 @@ class EstateEdit : public AtlantikBoard
 
 	public:
 	EstateEdit(QWidget *parent = 0, const char *name = 0);
+	ConfigEstate *theEstate() { return estate; }
 	
 	public slots:
 	void setEstate(ConfigEstate *);
