@@ -1,4 +1,5 @@
 #include <qtextstream.h>
+#include <iostream.h>
 
 #include "socket.moc"
 
