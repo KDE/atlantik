@@ -1,5 +1,5 @@
 SUBDIRS =  libatlantic libatlantikclient libatlantikui client \
-           kio_atlantik pics
+           kio_atlantik pics themes
 
 EXTRA_DIST = atlantik.desktop
 

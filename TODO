@@ -26,6 +26,8 @@ For 0.6.0
 v leaving a game and starting a new game correctly reinits atlanticCore
 v seperation of display msgs from chat window
 v Token should not have to know about EstateView, views could be independent
+^ support for custom tokens
+  - make gui to choose token
 v re-enabled token animation
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance

@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 	aboutData.addCredit("Thiago Macieira", I18N_NOOP("KExtendedSocket support"), "thiagom@wanadoo.fr");
 
 	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
+	aboutData.addCredit("Rob Malda", I18N_NOOP("token icons"), "", "http://cmdrtaco.net/");
 	aboutData.addCredit("Elhay Achiam", I18N_NOOP("icons"), "elhay_a@bezeqint.net");
 	aboutData.addCredit("Carlo Caneva", I18N_NOOP("icons"), "webmaster@molecola.com", "http://www.molecola.com/");
 
