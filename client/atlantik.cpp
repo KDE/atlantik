@@ -220,6 +220,7 @@ void Atlantik::showSelectServer()
 	m_selectServer = new SelectServer(m_mainWidget, "selectServer");
 	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
 	m_selectServer->show();
+
 	if (m_selectGame)
 	{
 		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
@@ -227,6 +228,10 @@ void Atlantik::showSelectServer()
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
+
+	m_atlanticCore->reset(true);
+	m_playerSelf = 0;
+
 	initNetworkObject();
 
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
