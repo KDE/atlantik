@@ -63,13 +63,13 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_selectGame = 0;
 	m_selectConfiguration = 0;
 	m_playerSelf = 0;
+	m_atlantikNetwork = 0;
 
 	// Game core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
-	m_atlantikNetwork = 0;
 	initNetworkObject();
 
 	// Menu,toolbar: Move
@@ -81,11 +81,11 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_auctionEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(m_atlantikNetwork, SLOT(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
-	m_jailCard = new KAction(i18n("Use Card to Leave Jail"), "altantik_move_jail_card", 0, m_atlantikNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
+	m_jailCard = new KAction(i18n("Use Card to Leave Jail"), "atlantik_move_jail_card", 0, m_atlantikNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
 	m_jailCard->setEnabled(false);
 	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), "jail_pay", CTRL+Key_P, m_atlantikNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
 	m_jailPay->setEnabled(false);
-	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), "altantik_move_jail_roll", CTRL+Key_J, m_atlantikNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
+	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), "atlantik_move_jail_roll", CTRL+Key_J, m_atlantikNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
@@ -224,11 +224,7 @@ void Atlantik::showSelectServer()
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
-	if (m_atlantikNetwork)
-	{
-		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
-	}
+	initNetworkObject();
 }
 
 void Atlantik::showSelectGame()
@@ -322,8 +318,8 @@ void Atlantik::slotNetworkError(int errnum)
 
 	serverMsgsAppend(errMsg);
 
-	// Re-init network object (not yet, KExtendedSocket does weird stuff)
-	// initNetworkObject();
+	// Re-init network object
+	initNetworkObject();
 }
 
 void Atlantik::initGame()
@@ -444,7 +440,7 @@ void Atlantik::slotMsgInfo(QString msg)
 
 void Atlantik::slotMsgError(QString msg)
 {
-	serverMsgsAppend("ERR: " + msg);
+	serverMsgsAppend("Error: " + msg);
 }
 
 void Atlantik::slotMsgChat(QString player, QString msg)
@@ -475,7 +471,10 @@ void Atlantik::playerChanged()
 void Atlantik::initNetworkObject()
 {
 	if (m_atlantikNetwork)
+	{
+		m_atlantikNetwork->closeNow();
 		delete m_atlantikNetwork;
+	}
 
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
 	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
