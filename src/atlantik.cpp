@@ -22,6 +22,8 @@
 
 #include "trade_widget.h"
 
+#include "designer.h"
+
 #include "config.h"
 
 extern AtlantikConfig atlantikConfig;
@@ -37,6 +39,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Toolbar: Settings
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) new KAction(i18n("Gameboard &Designer"), CTRL+Key_D, this, SLOT(startDesigner()), actionCollection(), "designer");
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
@@ -56,15 +59,15 @@ Atlantik::Atlantik () : KMainWindow ()
 	// Toolbar: Move
 	m_roll = KStdGameAction::roll(m_gameNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
 	m_roll->setEnabled(false);
-	m_buyEstate = new KAction("&Buy", "atlantik_buy_estate", CTRL+Key_B, m_gameNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
+	m_buyEstate = new KAction(i18n("&Buy"), "atlantik_buy_estate", CTRL+Key_B, m_gameNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(m_gameNetwork, SLOT(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
-	m_jailCard = new KAction("Use card to leave jail", "altantik_move_jail_card", 0, m_gameNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
+	m_jailCard = new KAction(i18n("Use card to leave jail"), "altantik_move_jail_card", 0, m_gameNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
 	m_jailCard->setEnabled(false);
-	m_jailPay = new KAction("&Pay to leave jail", "altantik_move_jail_pay", CTRL+Key_P, m_gameNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
+	m_jailPay = new KAction(i18n("&Pay to leave jail"), "altantik_move_jail_pay", CTRL+Key_P, m_gameNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
 	m_jailPay->setEnabled(false);
-	m_jailRoll = new KAction("&Roll to leave jail", "altantik_move_jail_roll", CTRL+Key_R, m_gameNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
+	m_jailRoll = new KAction(i18n("&Roll to leave jail"), "altantik_move_jail_roll", CTRL+Key_R, m_gameNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
@@ -389,4 +392,10 @@ void Atlantik::serverMsgsAppend(QString msg)
 	// Use append, not setText(old+new) because that one doesn't wrap
 	m_serverMsgs->append("<BR>"+msg);
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
+}
+
+void Atlantik::startDesigner()
+{
+	   AtlanticDesigner *designer = new AtlanticDesigner(this, "Designer");
+	   designer->show();
 }

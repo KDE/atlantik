@@ -378,6 +378,10 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		QPoint g = QCursor::pos();
 		rmbMenu->exec(g);
 	}
+	else if (e->button()==LeftButton)
+	{
+		emit LMBClicked(m_estate);
+	}
 }
 
 void EstateView::slotResizeAftermath()

@@ -38,12 +38,13 @@ Q_OBJECT
 
 	protected:
 		void resizeEvent(QResizeEvent *);
+		QWidget *m_center;
 
 	private:
 		void jumpToken(Token *, int destination, bool confirm=true);
 		void moveToken(Token *, int destination);
 
-		QWidget *spacer, *m_center;
+		QWidget *spacer;
 		QGridLayout *m_gridLayout;
 		Token *move_token;
 		QTimer *m_timer;

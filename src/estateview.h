@@ -30,6 +30,7 @@ Q_OBJECT
 		void estateToggleMortgage(Estate *estate);
 		void estateHouseBuy(Estate *estate);
 		void estateHouseSell(Estate *estate);
+		void LMBClicked(Estate *estate);
 
 	protected:
 		void paintEvent(QPaintEvent *);

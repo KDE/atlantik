@@ -69,6 +69,11 @@ public:
 
 public slots:
 	/**
+	 * Start the designer.
+	 */
+	void startDesigner();
+
+	/**
 	 * A network connection has been established, so we can show the game
 	 * list instead of the server list.
 	 *

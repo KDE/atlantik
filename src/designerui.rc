@@ -1,0 +1,15 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="atlanticdesigner" version="1">
+<MenuBar>
+  <Menu name="file">
+    <Action name="estate_num"/>
+  </Menu>
+  <Menu name="edit"><text>&nbsp;Edit</text>
+    <Action name="smaller"/>
+    <Action name="larger"/>
+  </Menu>
+</MenuBar>
+<ToolBar name="mainToolBar">
+  <Action name="estate_num" />
+</ToolBar />
+</kpartgui>

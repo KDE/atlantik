@@ -41,11 +41,14 @@ public:
 signals:
 	void changed();
 	void estateToggleMortgage(Estate *estate);
+	void LMBClicked(Estate *estate);
 	void estateHouseBuy(Estate *estate);
 	void estateHouseSell(Estate *estate);
 
-private:
+protected:
 	bool m_changed;
+
+private:
 	int m_estateId, m_groupId;
 	QString m_name;
 	Player *m_owner;
