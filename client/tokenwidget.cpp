@@ -29,7 +29,7 @@
 
 TokenWidget::TokenWidget(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	setCaption(i18n("Select token"));
+	setCaption(i18n("Select Token"));
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
