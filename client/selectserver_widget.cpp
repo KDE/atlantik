@@ -39,7 +39,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	QHGroupBox *customGroup = new QHGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
 	m_mainLayout->addWidget(customGroup);
 
-	QLabel *hostLabel = new QLabel(i18n("Host name:"), customGroup);
+	QLabel *hostLabel = new QLabel(i18n("Hostname:"), customGroup);
 
 	m_hostEdit = new KLineEdit(customGroup);
 	m_hostEdit->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
