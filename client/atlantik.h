@@ -258,6 +258,8 @@ private:
 
 	QPtrList<PortfolioView> m_portfolioViews;
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;
+
+	bool m_runningGame;
 };
 
 #endif

@@ -94,7 +94,9 @@ QPopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
 	return rmbMenu;
 }
 
-Atlantik::Atlantik () : KMainWindow ()
+Atlantik::Atlantik ()
+ :	KMainWindow (),
+ 	m_runningGame( false )
 {
 	// Read application configuration
 	readConfig();
@@ -408,6 +410,8 @@ void Atlantik::showBoard()
 	if (!m_board)
 		initBoard();
 
+	m_runningGame = true;
+
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->displayDefault();
 	m_board->show();
@@ -423,6 +427,7 @@ void Atlantik::freezeBoard()
 	if (!m_board)
 		showBoard();
 
+	m_runningGame = false;
 	// TODO: m_board->freeze();
 }
 
@@ -814,7 +819,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 	Player *playerSelf = m_atlanticCore->playerSelf();
 
 	int result = KMessageBox::Yes;
-	if ( gameSelf && !playerSelf->isBankrupt() )
+	if ( gameSelf && !playerSelf->isBankrupt() && m_runningGame )
 		result = KMessageBox::warningYesNo( this, i18n("You are currently part of an active game. Are you sure you want to close Atlantik? If you do, you forfeit the game."), i18n("Close & Forfeit?") );
 
 	if ( result == KMessageBox::Yes )

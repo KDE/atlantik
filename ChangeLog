@@ -1,3 +1,8 @@
+0.7.1
+-----
+
+- Don't show warning dialog when exiting a game that ended. (#88617)
+
 0.7.0
 -----
 
