@@ -62,14 +62,14 @@ EstateDetails::EstateDetails(QString text, Estate *estate, QWidget *parent, cons
 	QListViewItem *infoText = 0;
 	if (!text.isEmpty())
 	{
-		infoText = new QListViewItem(m_infoListView, text, m_infoListView->childCount());
+		infoText = new QListViewItem(m_infoListView, text, QString::number(m_infoListView->childCount()));
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 	}
 
 	// Price
 	if (m_estate->price())
 	{
-		infoText = new QListViewItem(m_infoListView, i18n("Price: %1").arg(m_estate->price()), m_infoListView->childCount());
+		infoText = new QListViewItem(m_infoListView, i18n("Price: %1").arg(m_estate->price()), QString::number(m_infoListView->childCount()));
 		infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 	}
 
@@ -81,10 +81,10 @@ EstateDetails::EstateDetails(QString text, Estate *estate, QWidget *parent, cons
 
 		if (m_estate->isOwned())
 		{
-			infoText = new QListViewItem(m_infoListView, i18n("Houses: %1").arg(m_estate->houses()), m_infoListView->childCount());
+			infoText = new QListViewItem(m_infoListView, i18n("Houses: %1").arg(m_estate->houses()), QString::number(m_infoListView->childCount()));
 			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 
-			infoText = new QListViewItem(m_infoListView, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")), m_infoListView->childCount());
+			infoText = new QListViewItem(m_infoListView, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")), QString::number(m_infoListView->childCount()));
 			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 		}
 	}
@@ -259,7 +259,7 @@ void EstateDetails::newUpdate(QString text)
 	m_buttonCommandMap.clear();
 
 	// Append text
-	QListViewItem *infoText = new QListViewItem(m_infoListView, text, m_infoListView->childCount());
+	QListViewItem *infoText = new QListViewItem(m_infoListView, text, QString::number(m_infoListView->childCount()));
 	infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 
 	// Redraw details
