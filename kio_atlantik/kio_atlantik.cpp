@@ -27,8 +27,12 @@ void AtlantikProtocol::get( const KURL& url )
 	QString port = url.queryItem("port");
 	QString game = url.queryItem("game");
 
-	if (!host.isNull() && !port.isNull() && !game.isNull())
-		*proc << "--host" << host << "--port" << port << "--game" << game;
+	if (!host.isNull() && !port.isNull())
+	{
+		*proc << "--host" << host << "--port" << port;
+		if (!game.isNull())
+			*proc << "--game" << game;
+	}
 
 	proc->start(KProcess::DontCare);
 	proc->detach();
