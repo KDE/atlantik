@@ -89,6 +89,7 @@ void AtlantikBoard::reset()
 	m_estateViews.clear();
 	m_displayQueue.clear();
 	m_lastServerDisplay = 0;
+	m_movingToken = 0;
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
@@ -198,6 +199,12 @@ void AtlantikBoard::addToken(Player *player)
 		kdDebug() << "addToken - estateView null" << endl;
 		return;
 	}
+	Player *playerSelf = m_atlanticCore->playerSelf();
+	if (playerSelf && playerSelf->gameId() != player->gameId())
+	{
+		kdDebug() << "addToken - not in same game" << endl;
+		return;
+	}
 
 	Token *token = new Token(player, this, "token");
 	m_tokens.append(token);
@@ -211,11 +218,13 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged(Player *player)
 {
+	Player *playerSelf = m_atlanticCore->playerSelf();
+
 	// Update token
 	Token *token = findToken(player);
 	if (token)
 	{
-		if (player->isBankrupt())
+		if (player->isBankrupt() || (playerSelf && playerSelf->gameId() != player->gameId()) )
 			token->hide();
 		if (player->hasTurn())
 			token->raise();

@@ -62,7 +62,6 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_selectServer = 0;
 	m_selectGame = 0;
 	m_selectConfiguration = 0;
-	m_playerSelf = 0;
 	m_atlantikNetwork = 0;
 
 	// Game and network core
@@ -176,7 +175,7 @@ void Atlantik::newPlayer(Player *player)
 	playerChanged(player);
 
 	if (player->isSelf())
-		m_playerSelf = player;
+		m_atlanticCore->setPlayerSelf(player);
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
@@ -233,7 +232,6 @@ void Atlantik::showSelectServer()
 	}
 
 	m_atlanticCore->reset(true);
-	m_playerSelf = 0;
 
 	initNetworkObject();
 
@@ -297,8 +295,9 @@ void Atlantik::showSelectConfiguration()
 	if (m_selectConfiguration)
 		return;
 
+	Player *playerSelf = m_atlanticCore->playerSelf();
 	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
-	m_selectConfiguration->setCanStart(m_playerSelf ? m_playerSelf->master() : false);
+	m_selectConfiguration->setCanStart(playerSelf ? playerSelf->master() : false);
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
@@ -515,7 +514,8 @@ void Atlantik::playerChanged(Player *player)
 	if (!portfolioView)
 		portfolioView = addPortfolioView(player);
 
-	if (player == m_playerSelf)
+	Player *playerSelf = m_atlanticCore->playerSelf();
+	if (player == playerSelf)
 	{
 		// We changed ourselves, see if other players (that we know
 		// about) have the same gameId..
@@ -525,7 +525,7 @@ void Atlantik::playerChanged(Player *player)
 			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			{
 				Player *pTmp = portfolioView->player();
-				if (pTmp->gameId() == m_playerSelf->gameId())
+				if (pTmp->gameId() == playerSelf->gameId())
 					portfolioView->show();
 				else
 					portfolioView->hide();
@@ -548,9 +548,9 @@ void Atlantik::playerChanged(Player *player)
 	{
 		// Another player changed, check if we need to show or hide
 		// his/her portfolioView.
-		if (m_playerSelf)
+		if (playerSelf)
 		{
-			if (player->gameId() == m_playerSelf->gameId())
+			if (player->gameId() == playerSelf->gameId())
 				portfolioView->show();
 			else
 				portfolioView->hide();
