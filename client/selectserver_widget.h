@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -27,12 +27,15 @@
 
 #include "monopigator.h"
 
+class KExtendedSocket;
+
 class SelectServer : public QWidget
 {
 Q_OBJECT
 
 public:
 	SelectServer(QWidget *parent, const char *name=0);
+	virtual ~SelectServer();
 
 	void initPage();
 		bool validateNext();
@@ -40,8 +43,6 @@ public:
 		int portToConnect();
 
 	public slots:
-		void initMonopigator();
-
 		void validateRadioButtons();
 		void validateConnectButton();
 
@@ -50,20 +51,28 @@ public:
 		void slotListClicked(QListViewItem *);
 
 	private slots:
-		void connectClicked();
+		void slotConnect();
+		void slotRefresh();
+		void slotLocalConnected();
+		void slotLocalError();
 		void monopigatorFinished();
 
 	signals:
 		void serverConnect(const QString host, int port);
 //		void statusChanged();
 
-	private:
+private:
+	void checkLocalServer();
+	void initMonopigator();
+
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
 		QRadioButton *m_localGameButton, *m_onlineGameButton;
 		KListView *m_serverList;
 		KPushButton *m_refreshButton, *m_connectButton;
-		Monopigator *monopigator;
+		Monopigator *m_monopigator;
+		KExtendedSocket *m_localSocket;
+		bool m_localServerAvailable;
 };
 
 #endif
