@@ -256,8 +256,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "display")
 			{
 				QString type = e.attributeNode(QString("type")).value();
-				if (type == "chancecard" ||type == "communitychestcard")
-					emit displayCard(type, e.attributeNode(QString("description")).value());
+				if (1 || type == "foo")
+					emit displayCard(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
 			}
 			else if (e.tagName() == "updategamelist")
 			{

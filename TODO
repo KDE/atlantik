@@ -6,9 +6,7 @@ v implemented
 monopd API change
 ------------------
 
-- removed type= in estateupdate
 - playerupdate's jailcard stuff is now outofjailcards=<int>
-- chance cards are dynamic now, so that might be shaky
 
 Bugfixes
 --------
