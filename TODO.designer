@@ -1,9 +1,6 @@
-- support gameboards that are not 40 estates big (in fact, atlantic will
-  probably be 44 big in the end) -- it probably does already, but can't
-  test because AtlantikBoard doesn't support size != 40 yet
 - fix leak of 4-300 Kb each time one switches board, i've investigated
   but haven't found leak :(
 - let you delete last card in a stack, it made designer crash, so delete
   doesn't do anything if there is only 1 card on stack
-- disable "Less properties" when there is only one property for a card
+- disable "Less properties" when there are no properties for a card
 - replace Estate #20 in "advanceto" pulldown with actual estate names
