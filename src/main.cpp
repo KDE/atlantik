@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
 	KAboutData aboutData(
 		"kmonop",
 		I18N_NOOP("KMonop"), VERSION,
-		I18N_NOOP("Monopoly boardgame"),
+		I18N_NOOP("Monopoly board game"),
 		KAboutData::License_GPL,
 		I18N_NOOP("(c) 2001 Rob Kaper"),
-		I18N_NOOP("KDE client for playing the Monopoly boardgame on monopd servers."),
+		I18N_NOOP("KDE client for playing the Monopoly board game on monopd servers."),
 		"http://capsi.com/kmonop/"
 		);
 

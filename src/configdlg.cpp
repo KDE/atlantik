@@ -85,16 +85,16 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 		"card to indicate the property is for sale.\n");
 	QWhatsThis::add(m_indicateUnowned, message);
 
-	m_highliteUnowned = new QCheckBox(i18n("Highlite unowned properties"), box);
+	m_highliteUnowned = new QCheckBox(i18n("Highlight unowned properties"), box);
 	message=i18n(
-		"If checked, unowned properties on the board are highlited to\n"
+		"If checked, unowned properties on the board are highlighted to\n"
 		"indicate the property is for sale.\n");
 	QWhatsThis::add(m_highliteUnowned, message);
 
 	m_grayOutMortgaged = new QCheckBox(i18n("Gray out mortgaged properties"), box);
 	message=i18n(
-		"If checked, mortgaged properties on the board will be coloured\n"
-		"gray instead of the default colour.\n");
+		"If checked, mortgaged properties on the board will be colored\n"
+		"gray instead of the default color.\n");
 	QWhatsThis::add(m_grayOutMortgaged, message);
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
@@ -105,7 +105,7 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 
 	m_quartzEffects = new QCheckBox(i18n("Quartz effects"), box);
 	message=i18n(
-		"If checked, the coloured headers of street estates on the board"
+		"If checked, the colored headers of street estates on the board "
 		"will have a Quartz effect similar to the Quartz KWin style.\n");
 	QWhatsThis::add(m_quartzEffects, message);
 
