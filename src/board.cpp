@@ -185,7 +185,7 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 	move_token->setDestination(estateId);
 
 	// Start timer
-	m_timer->start(10);
+	m_timer->start(15);
 }
 
 void AtlantikBoard::raiseToken(int tokenId)
@@ -203,8 +203,6 @@ void AtlantikBoard::indicateUnownedChanged()
 
 void AtlantikBoard::slotMoveToken()
 {
-	int destX,destY;
-
 	// Do we actually have a token to move?
 	if (move_token==0)
 	{
@@ -213,9 +211,8 @@ void AtlantikBoard::slotMoveToken()
 	}
 
 	// Where are we?
-	int curX = move_token->geometry().x();
-	int curY = move_token->geometry().y();
-	kdDebug() << "we are at " << curX << "," << curY << endl;
+	int xCurrent = move_token->geometry().x();
+	int yCurrent = move_token->geometry().y();
 
 	// Where do we want to go today?
 	int dest = move_token->location() + 1;
@@ -225,11 +222,29 @@ void AtlantikBoard::slotMoveToken()
 
 	if (EstateView *estateView = estateViewMap[dest])
 	{
-		destX = estateView->geometry().center().x() - (move_token->width()/2);
-		destY = estateView->geometry().center().y() - (move_token->height()/2);
-		kdDebug() << "going to " << destX << "," << destY << endl;
+		int xFinal = estateView->geometry().center().x() - (move_token->width()/2);
+		int yFinal = estateView->geometry().center().y() - (move_token->height()/2);
+		int xDest, yDest;
 
-		if (curX == destX && curY == destY)
+		if (xFinal - xCurrent > 1)
+			xDest = xCurrent + 2;
+		else if (xCurrent - xFinal > 1)
+			xDest = xCurrent - 2;
+		else
+			xDest = xCurrent;
+
+		if (yFinal - yCurrent > 1)
+			yDest = yCurrent + 2;
+		else if (yCurrent - yFinal > 1)
+			yDest = yCurrent - 2;
+		else
+			yDest = yCurrent;
+
+		kdDebug() << "TOKEN: we are @ " << xCurrent << "," << yCurrent << endl;
+		kdDebug() << "TOKEN: final to " << xFinal << "," << yFinal << endl;
+		kdDebug() << "TOKEN: going to " << xDest << "," << yDest << endl;
+
+		if (xCurrent == xDest && yCurrent == yDest)
 		{
 			// We have arrived at our destination!
 			move_token->setLocation(dest);
@@ -248,21 +263,8 @@ void AtlantikBoard::slotMoveToken()
 
 			return;
 		}
-
-		if (curX!=destX)
-		{
-			if (destX > curX)
-				move_token->setGeometry(curX+1, curY, move_token->width(), move_token->height());
-			else
-				move_token->setGeometry(curX-1, curY, move_token->width(), move_token->height());
-		}
-		if (curY!=destY)
-		{
-			if (destY > curY)
-				move_token->setGeometry(curX, curY+1, move_token->width(), move_token->height());
-			else
-				move_token->setGeometry(curX, curY-1, move_token->width(), move_token->height());
-		}
+		
+		move_token->setGeometry(xDest, yDest, move_token->width(), move_token->height());
 	}
 }
 
@@ -309,7 +311,7 @@ void AtlantikBoard::slotResizeAftermath()
 	// Restart the timer that was stopped in resizeEvent
 	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())
 	{
-		m_timer->start(10);
+		m_timer->start(15);
 		m_resumeTimer=false;
 	}
 }
