@@ -57,6 +57,12 @@ Auction *AtlanticCore::newAuction(int auctionId)
 	return auction;
 }
 
+void AtlanticCore::delAuction(Auction *auction)
+{
+	m_auctions.remove(auction);
+	delete auction;
+}
+
 void AtlanticCore::setCurrentTurn(Player *player)
 {
 	Player *p;

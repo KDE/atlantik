@@ -25,7 +25,7 @@ public:
 	AtlantikBoard(AtlanticCore *atlanticCore, int, QWidget *parent, const char *name=0);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
-	void newAuction(Auction *auction);
+	void addAuctionWidget(Auction *auction);
 	void addToken(Player *player);
 	void indicateUnownedChanged();
 	QWidget *centerWidget() { return m_center; };

@@ -165,7 +165,7 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	estateView->show();
 }
 
-void AtlantikBoard::newAuction(Auction *auction)
+void AtlantikBoard::addAuctionWidget(Auction *auction)
 {
 	if (m_center != 0)
 		delete m_center;
@@ -173,6 +173,8 @@ void AtlantikBoard::newAuction(Auction *auction)
 	m_center = new AuctionWidget(m_atlanticCore, auction, this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
+
+	connect(auction, SIGNAL(completed()), this, SLOT(displayCenter()));
 }
 
 void AtlantikBoard::addToken(Player *player)
@@ -417,5 +419,5 @@ void AtlantikBoard::slotDisplayCard(QString type, QString description)
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 
-	QTimer::singleShot(2000, this, SLOT(displayCenter()));
+	QTimer::singleShot(3000, this, SLOT(displayCenter()));
 }

@@ -40,6 +40,7 @@ private slots:
 	void joinGame(int gameId);
 	void startGame();
 	void buyEstate();
+	void auctionEstate();
 	void estateToggleMortgage(Estate *estate);
 	void estateHouseBuy(Estate *estate);
 	void estateHouseSell(Estate *estate);

@@ -78,11 +78,13 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
-	// Toolbar: Move
+	// Menu,toolbar: Move
 	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
 	m_roll->setEnabled(false);
 	m_buyEstate = new KAction(i18n("&Buy"), "atlantik_buy_estate", CTRL+Key_B, m_atlantikNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
+	m_auctionEstate = new KAction(i18n("&Auction"), "atlantik_auction_estate", CTRL+Key_A, m_atlantikNetwork, SLOT(auctionEstate()), actionCollection(), "auction_estate");
+	m_auctionEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(m_atlantikNetwork, SLOT(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
 	m_jailCard = new KAction(i18n("Use card to leave jail"), "altantik_move_jail_card", 0, m_atlantikNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
@@ -205,7 +207,7 @@ void Atlantik::newTrade(Trade *trade)
 
 void Atlantik::newAuction(Auction *auction)
 {
-	m_board->newAuction(auction);
+	m_board->addAuctionWidget(auction);
 }
 
 void Atlantik::slotNetworkConnected()
@@ -418,6 +420,7 @@ void Atlantik::playerChanged()
 {
 	m_roll->setEnabled(m_playerSelf->canRoll());
 	m_buyEstate->setEnabled(m_playerSelf->canBuy());
+	m_auctionEstate->setEnabled(m_playerSelf->canBuy());
 	m_endTurn->setEnabled(m_playerSelf->hasTurn() && !(m_playerSelf->canRoll() || m_playerSelf->canBuy()));
 
 	// Could be more finetuned, but monopd doesn't send can_usejailcard can_payjail can_jailroll yet

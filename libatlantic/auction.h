@@ -11,6 +11,7 @@ Q_OBJECT
 
 public:
 	Auction(int auctionId);
+	virtual ~Auction();
 	int auctionId() { return m_auctionId; }
 
 	void newBid(Player *player, int bid);
@@ -19,6 +20,7 @@ public:
 
 signals:
 	void changed();
+	void completed();
 	void bid(Auction *auction, int amount);
 	void updateBid(Player *player, int amount);
 

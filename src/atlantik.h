@@ -162,9 +162,8 @@ private:
 	QLineEdit *m_input;
 	QTextEdit *m_serverMsgs, *m_chatMsgs;
 
-	KAction *m_roll, *m_buyEstate, *m_endTurn,
-		*m_jailCard, *m_jailPay, *m_jailRoll,
-		*m_configure;
+	KAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
+		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure;
 
 	AtlanticCore *m_atlanticCore;
 	AtlantikNetwork *m_atlantikNetwork;

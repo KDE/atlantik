@@ -8,6 +8,11 @@ Auction::Auction(int auctionId) : QObject()
 	m_changed = false;
 }
 
+Auction::~Auction()
+{
+	emit completed();
+}
+
 void Auction::newBid(Player *player, int amount)
 {
 	emit updateBid(player, amount);

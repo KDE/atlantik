@@ -27,6 +27,7 @@ public:
 
 	QPtrList<Auction> auctions();
 	Auction *newAuction(int auctionId);
+	void delAuction(Auction *auction);
 
 	void setCurrentTurn(Player *player);
 

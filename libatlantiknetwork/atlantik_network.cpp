@@ -29,7 +29,13 @@ void AtlantikNetwork::roll()
 }
 
 void AtlantikNetwork::buyEstate()
-{	writeData(".eb");
+{
+	writeData(".eb");
+}
+
+void AtlantikNetwork::auctionEstate()
+{
+	writeData(".ea");
 }
 
 void AtlantikNetwork::startGame()
@@ -632,12 +638,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 						{
 							Player *player = m_players[e.attributeNode(QString("highbidder")).value().toInt()];
 							a = e.attributeNode(QString("highbid"));
-							if (auction && player && !a.isNull())
+							if (auction && !a.isNull())
 								auction->newBid(player, a.value().toInt());
 						}
 					}
-//					else if (type=="completed")
-//						emit auctionCompleted(auction);
+					else if (type=="completed")
+						m_atlanticCore->delAuction(auction);
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set

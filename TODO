@@ -12,6 +12,7 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - KExtendedSocket errorcodes/port
+- token init still not correct
 
 For 0.2.0
 ---------
@@ -23,9 +24,7 @@ For 0.2.0
  v network api
  ^ trade object
  ^ widget
-^ support auctions
-  - remove view when completed
-  - button to init auction
+- show auction status update (going once, twice)
 
 For 0.2.1
 ---------
@@ -42,11 +41,11 @@ v support for <display>
 - leaving jail GUI
   v menubar
   - commandlist plugin for display_widget
-  - class skeleton
-  - buttons for each command
-  - show instead of empty widget
-  - availability influences buttons
-  - buttons connect to network API
+    - class skeleton
+    - buttons for each command
+    - show instead of empty widget
+    - availability influences buttons
+    - buttons connect to network API
 - Different token placement when in jail
 - fix portfolio
   - non street estates in portfolio
