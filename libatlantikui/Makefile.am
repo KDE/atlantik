@@ -4,12 +4,12 @@ libatlantikui_la_LDFLAGS = -L$(top_builddir)/atlantik/libatlantic $(all_librarie
 libatlantikui_la_LIBADD = -latlantic $(LIB_QT) $(LIB_KIO)
 
 libatlantikui_la_SOURCES = auction_widget.cpp board.cpp display_widget.cpp \
-	estateview.cpp portfolioestate.cpp portfolioview.cpp token.cpp \
+	estatedetails.cpp estateview.cpp portfolioestate.cpp portfolioview.cpp token.cpp \
 	trade_widget.cpp
 
 libatlantikuiincludedir = $(includedir)/atlantik/ui
 libatlantikuiinclude_HEADERS =  auction_widget.h board.h display_widget.h \
-	estateview.h portfolioestate.h portfolioview.h token.h \
+	estatedetails.h estateview.h portfolioestate.h portfolioview.h token.h \
 	trade_widget.h
 
 METASOURCES = AUTO

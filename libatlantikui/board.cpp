@@ -9,7 +9,10 @@
 
 #include "auction_widget.h"
 #include "display_widget.h"
+#include "estatedetails.h"
 #include "estateview.h"
+
+#include "board.h"
 #include "board.moc"
 
 AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name) : QWidget(parent, name)
@@ -416,8 +419,7 @@ void AtlantikBoard::displayEstateDetails(Estate *estate)
 	if (m_center != 0)
 		delete m_center;
 
-//	m_center = new EstateDetails(estate, this);
-	m_center = new BoardDisplay(estate->name(), i18n("Houses: %1\nOwner: %1\n").arg(estate->houses()).arg(estate->owner() ? estate->owner()->name() : i18n("unowned")), this);
+	m_center = new EstateDetails(estate, this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 }
