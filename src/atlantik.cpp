@@ -141,15 +141,11 @@ void Atlantik::addPlayer(Player *player)
 	m_portfolioViews.append(portfolioView);
 
 	Estate *estate;
-	for (QPtrListIterator<Estate> it(m_gameNetwork->estates()); *it; ++it)
-	{
-		kdDebug() << "iterating estates" << endl;
+	QPtrList<Estate> estates = m_gameNetwork->estates();
+//	kdDebug() << "estates size is " << estates.count() << endl;
+	for (QPtrListIterator<Estate> it(estates); *it; ++it)
 		if ((estate = dynamic_cast<Estate*>(*it)))
-		{
-			kdDebug() << "Atlantik: portfolioView->addEstateView:" << estate->estateId() << endl;
 			portfolioView->addEstateView(estate);
-		}
-	}
 
 	connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_gameNetwork, SLOT(newTrade(Player *)));
