@@ -2,12 +2,15 @@
 #include <qsocket.h>
 #include <qstring.h>
 
+#include <atlantic_core.h>
+
 #include "atlanticdaemon.moc"
 #include "serversocket.h"
 
 AtlanticDaemon::AtlanticDaemon()
 {
 	m_serverSocket = new ServerSocket(1234, 100);
+	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 
 	registerAtMonopigator();
 }

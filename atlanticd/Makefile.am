@@ -2,10 +2,9 @@ KDE_OPTIONS = qtonly
 
 bin_PROGRAMS = atlanticd
 
-INCLUDES = $(QT_INCLUDES)
-LDFLAGS = $(X_LDFLAGS) $(QT_LDFLAGS) -R $(qt_libraries)
-#LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
-LDADD = $(LIB_QT)
+INCLUDES = -I$(top_srcdir)/atlantik/libatlantic $(QT_INCLUDES)
+LDFLAGS = -L$(top_builddir)/atlantik/libatlantic $(X_LDFLAGS) $(QT_LDFLAGS) -R $(qt_libraries)
+LDADD = -latlantic $(LIB_QT)
 
 SUBDIRS = 
 

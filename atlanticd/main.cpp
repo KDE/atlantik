@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-	AtlanticDaemon *atlanticDaemon = new AtlanticDaemon();
+	new AtlanticDaemon();
 
 	QApplication qapplication(argc, argv);
 	qapplication.exec();
