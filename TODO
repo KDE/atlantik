@@ -20,14 +20,11 @@ Bugfixes
 For 0.6.0
 ---------
 
-v seperation of display msgs from chat window
 v Token should not have to know about EstateView, views could be independent
 v support for custom tokens
 v re-enabled token animation
   - animation speed should depend on board size and movement distance
-v API: make use of cleartext/clearbuttons attributes in display
 v don't connect to meta server unless user has configured to do so
-v use portfolioview instead of klistview for players during config
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio
