@@ -16,7 +16,6 @@ Bugfixes
 
 - Update messages views after resize.
 - all player/core dependencies in Board should only be there in Mode::Play
-- player name change doesn't make it to game description
 
 For 0.6.0
 ---------
