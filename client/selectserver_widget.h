@@ -53,8 +53,8 @@ public:
 		void slotConnect();
 		void slotRefresh(bool useMonopigator = true);
 		void slotAddServer();
-		void slotLocalConnected();
-		void slotLocalError();
+		void slotCustomConnected();
+		void slotCustomError();
 		void monopigatorFinished();
 		void monopigatorTimeout();
 
@@ -63,17 +63,17 @@ public:
 //		void statusChanged();
 
 private:
-	void checkLocalServer();
+	void checkCustomServer(const QString &host, int port);
 	void initMonopigator();
 
-		QVBoxLayout *m_mainLayout;
-		QLabel *status_label;
-		QRadioButton *m_localGameButton, *m_onlineGameButton;
-		KListView *m_serverList;
-		KPushButton *m_addServerButton, *m_refreshButton, *m_connectButton;
-		Monopigator *m_monopigator;
-		KExtendedSocket *m_localSocket;
-		bool m_localServerAvailable;
+	QVBoxLayout *m_mainLayout;
+	QLabel *status_label;
+	QRadioButton *m_localGameButton, *m_onlineGameButton;
+	KListView *m_serverList;
+	KPushButton *m_addServerButton, *m_refreshButton, *m_connectButton;
+	Monopigator *m_monopigator;
+	KExtendedSocket *m_localSocket;
+	bool m_localServerAvailable;
 };
 
 #endif

@@ -102,12 +102,12 @@ void SelectServer::initMonopigator()
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
-void SelectServer::checkLocalServer()
+void SelectServer::checkCustomServer(const QString &host, int port)
 {
 	m_localSocket = new KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket);
-	connect(m_localSocket, SIGNAL(connectionSuccess()), this, SLOT(slotLocalConnected()));
-	connect(m_localSocket, SIGNAL(connectionFailed(int)), this, SLOT(slotLocalError()));
-	m_localSocket->setAddress("localhost", 1234);
+	connect(m_localSocket, SIGNAL(connectionSuccess()), this, SLOT(slotCustomConnected()));
+	connect(m_localSocket, SIGNAL(connectionFailed(int)), this, SLOT(slotCustomError()));
+	m_localSocket->setAddress(host, port);
 	m_localSocket->enableRead(true);
 	m_localSocket->startAsyncConnect();
 }
@@ -119,17 +119,17 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 	validateConnectButton();
 }
 
-void SelectServer::slotLocalConnected()
+void SelectServer::slotCustomConnected()
 {
 	m_localServerAvailable = true;
 
-	QListViewItem *item = new QListViewItem(m_serverList, "localhost", i18n("unknown"), i18n("unknown"), QString::number(1234));
+	QListViewItem *item = new QListViewItem(m_serverList, m_localSocket->host(), i18n("unknown"), i18n("unknown"), m_localSocket->port());
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 
 	validateConnectButton();
 }
 
-void SelectServer::slotLocalError()
+void SelectServer::slotCustomError()
 {
 	m_localServerAvailable = false;
 
@@ -168,7 +168,6 @@ void SelectServer::validateConnectButton()
 {
 	validateRadioButtons();
 
-//	if ( (m_localGameButton->isEnabled() && m_localGameButton->isChecked()) || (m_onlineGameButton->isEnabled() && m_onlineGameButton->isChecked() && m_serverList->selectedItem()) )
 	if (m_serverList->selectedItem())
 		m_connectButton->setEnabled(true);
 	else
@@ -189,7 +188,7 @@ void SelectServer::slotRefresh(bool useMonopigator)
 	m_serverList->clear();
 	validateConnectButton();
 
-	checkLocalServer();
+	checkCustomServer("localhost", 1234);
 	if (useMonopigator)
 	{
 		m_refreshButton->setEnabled(false);
@@ -205,7 +204,7 @@ void SelectServer::slotAddServer()
 	if (!dlg.exec())
 		return;
 
-	// TODO: add a server entry for dlg.text()
+	checkCustomServer(dlg.text(), 1234);
 }
 
 void SelectServer::slotConnect()
