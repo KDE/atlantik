@@ -104,9 +104,9 @@ void AtlanticDesigner::openFile(const QString &filename)
 	QTextStream t(&f);
 	QString s;
 
-	for (int i = 1; !t.atEnd(); i++)
+	for (int i = 0; !t.atEnd(); i++)
 	{
-		QString name = (i == 1? t.readLine() : s).mid(1, s.length() - 2);
+		QString name = (i == 1? t.readLine().stripWhiteSpace() : s).mid(1, s.length() - 2);
 		//kdDebug() << "name is " << name << endl;;
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
 		int type = 0;
@@ -121,7 +121,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 		{
 			if (t.atEnd())
 				break;
-			s = t.readLine();
+			s = t.readLine().stripWhiteSpace();
 
 			if (s.left(1) == "[")
 			{
@@ -211,6 +211,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 	}
 	
 	editor->setEstate(estates.first());
+	movePlayer(1);
 
 	isMod = false;
 	doCaption(false);
