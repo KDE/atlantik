@@ -59,7 +59,7 @@ void BoardDisplay::addCloseButton()
 
 void BoardDisplay::buttonPressed()
 {
-	QObject *o = QObject::sender();
+	QObject *o = const_cast<QObject*>(QObject::sender());
 	emit buttonCommand(m_buttonCommandMap[o]);
 }
 
