@@ -31,6 +31,31 @@ Bugfixes
 For 0.3.0
 ---------
 
+- gameNetwork API
+  - commands
+    - .D
+v support for <display>
+  - commandlist plugin for display_widget
+    - class skeleton
+    - buttons for each command
+    - availability influences buttons
+    - buttons connect to network API
+  - fancy widgets
+    - generic (name (title) and description)
+    ^ estate
+    - dice
+    - leaving jail
+    - 10/200% tax
+- Different token placement when in jail
+v fix portfolio
+  v non street estates in portfolio (depends on proper monopd groups)
+  - Chance/CC cards in portfolio
+  v do some relayouting based on the estategroup order
+- multiplayer support (multiple local players)
+
+For 0.3.1
+---------
+
 - define minimum size for AtlantikBoard and center widget
 - re-order comboboxes in trade widget
 - kapp should own gui(kmainwindow), network and core and connect them
@@ -38,34 +63,12 @@ v move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
 - turn AtlantikConfig into real class instead of struct
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
-v support for <display>
-  v generic (name (title) and description)
-  ^ estate
-    - fancy widget
-  - dice
-- gameNetwork API
-  - commands
-    - .D
-- leaving jail GUI
-  v menubar
-  - commandlist plugin for display_widget
-    - class skeleton
-    - buttons for each command
-    - show instead of empty widget
-    - availability influences buttons
-    - buttons connect to network API
-    - nice paints with more artwork/effects
-- Different token placement when in jail
-v fix portfolio
-  v non street estates in portfolio (depends on proper monopd groups)
-  - Chance/CC cards in portfolio
-  v do some relayouting based on the estategroup order
 - Option to configure toolbars (at least be able to save size/text settings)
-- support for trading jail cards (depends on monopd)
 
 For 0.4.0
 ---------
 
+- support for trading jail cards (depends on monopd)
 - Support .gd game description.
 - Support updateplayerlist master, only update changed QStrings
 - New (original) icons on gameboard
