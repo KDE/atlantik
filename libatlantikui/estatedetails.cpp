@@ -39,8 +39,6 @@
 
 EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	kdDebug() << "EstateDetails::EstateDetails(text[" << text << "], estate[" << (estate ? estate->name() : "-1") << "])" << endl;
-
 	m_pixmap = 0;
 	m_quartzBlocks = 0;
 	b_recreate = true;

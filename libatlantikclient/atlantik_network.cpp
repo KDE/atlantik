@@ -802,7 +802,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	kdDebug() << "AtlantikNetwork::serverConnect(" << host << ", " << QString::number(port) << ")" << endl;
 	setAddress(host, port);
 	enableRead(true);
 	startAsyncConnect();
