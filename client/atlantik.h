@@ -103,6 +103,7 @@ public slots:
 	 *
 	 */
 	 void initGame();
+	 void gameStarted();
 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.
@@ -150,15 +151,6 @@ public slots:
 	 * @param msg    The chat message to be appended.
 	 */
 	void slotMsgChat(QString player, QString msg);
-
-	/**
-	 * Hides the new game dialog and informs serverMsgs() to append an
-	 * incoming message from the server to the text view at the start of
-	 * the game.
-	 *
-	 * @param msg    The message to be appended.
-	 */
-	void slotMsgStartGame(QString msg);
 
 	void newPlayer(Player *player);
 	void newEstate(Estate *estate);

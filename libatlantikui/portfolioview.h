@@ -11,6 +11,7 @@
 class QColor;
 class QString;
 
+class AtlanticCore;
 class Player;
 class Estate;
 
@@ -19,8 +20,8 @@ class PortfolioView : public QWidget
 Q_OBJECT
 
 public:
-	PortfolioView(Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
-	void addEstateView(Estate *estate);
+	PortfolioView(AtlanticCore *core, Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
+	void buildPortfolio();
 
 	Player *player();
 
@@ -36,6 +37,7 @@ private slots:
 	void slotMenuAction(int item);
 
 private:
+	AtlanticCore *m_atlanticCore;
 	Player *m_player;
 	PortfolioEstate *m_lastPE;
 	QColor m_activeColor, m_inactiveColor;

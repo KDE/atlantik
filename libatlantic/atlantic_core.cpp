@@ -2,6 +2,7 @@
 
 #include "player.h"
 #include "estate.h"
+#include "estategroup.h"
 #include "trade.h"
 #include "auction.h"
 
@@ -31,6 +32,18 @@ Estate *AtlanticCore::newEstate(int estateId)
 	Estate *estate = new Estate(estateId);
 	m_estates.append(estate);
 	return estate;
+}
+
+QPtrList<EstateGroup> AtlanticCore::estateGroups()
+{
+	return m_estateGroups;
+}
+
+EstateGroup *AtlanticCore::newEstateGroup(QString name)
+{
+	EstateGroup *estateGroup = new EstateGroup(name);
+	m_estateGroups.append(estateGroup);
+	return estateGroup;
 }
 
 QPtrList<Trade> AtlanticCore::trades()

@@ -6,6 +6,7 @@
 
 class Player;
 class Estate;
+class EstateGroup;
 class Trade;
 class Auction;
 
@@ -21,6 +22,9 @@ public:
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
+
+	QPtrList<EstateGroup> estateGroups();
+	EstateGroup *newEstateGroup(QString name);
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
@@ -38,6 +42,7 @@ signals:
 private:
 	QPtrList<Player> m_players;
 	QPtrList<Estate> m_estates;
+	QPtrList<EstateGroup> m_estateGroups;
 	QPtrList<Trade> m_trades;
 	QPtrList<Auction> m_auctions;
 };

@@ -7,6 +7,7 @@ monopd API change
 ------------------
 
 - playerupdate's jailcard stuff is now outofjailcards=<int>
+- Estate::m_group should be EstateGroup *, not QString
 
 Bugfixes
 --------
@@ -58,7 +59,7 @@ v support for <display>
 v fix portfolio
   v non street estates in portfolio (depends on proper monopd groups)
   - Chance/CC cards in portfolio
-  - do some relayouting based on the estategroup order
+  v do some relayouting based on the estategroup order
 - Option to configure toolbars (at least be able to save size/text settings)
 - support for trading jail cards (depends on monopd)
 

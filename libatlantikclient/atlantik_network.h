@@ -14,6 +14,7 @@ class AtlanticCore;
 
 class Player;
 class Estate;
+class EstateGroup;
 class Trade;
 class Auction;
 
@@ -65,7 +66,7 @@ signals:
 	 * do not want GUI implementations to create a view until the
 	 * playerupdate message has been fully parsed.
 	 *
-	 * @param player	Point to created player object.
+	 * @param player	Created Player object.
 	 */
 	void newPlayer(Player *player);
 
@@ -75,9 +76,19 @@ signals:
 	 * do not want GUI implementations to create a view until the
 	 * estateupdate message has been fully parsed.
 	 *
-	 * @param estate	Point to created estate object.
+	 * @param estate	Created Estate object.
 	 */
 	void newEstate(Estate *estate);
+
+	/**
+	 * A new estate group was created. This signal might be replaced with
+	 * one in the AtlanticCore class in the future, but it is here now
+	 * because we do not want GUI implementations to create a view until the
+	 * estategroupupdate message has been fully parsed.
+	 *
+	 * @param estateGroup	Created EstateGroup object.
+	 */
+	void newEstateGroup(EstateGroup *estateGroup);
 
 	/**
 	 * A new trade was created. This signal might be replaced with one in
@@ -85,14 +96,13 @@ signals:
 	 * do not want GUI implementations to create a view until the
 	 * tradeupdate message has been fully parsed.
 	 *
-	 * @param trade	Point to created trade object.
+	 * @param trade	Created Trade object.
 	 */
 	void newTrade(Trade *trade);
 
 	void msgInfo(QString);
 	void msgError(QString);
 	void msgChat(QString, QString);
-	void msgStartGame(QString);
 
 	void displayCard(QString, QString);
 
@@ -103,7 +113,7 @@ signals:
 	void gameListDel(QString gameId);
 	void joinedGame();
 	void initGame();
-	void startedGame();
+	void gameStarted();
 
 	void playerListClear();
 	void playerListEndUpdate(QString);
@@ -146,6 +156,7 @@ private:
 
 	QMap<int, Player *> m_players;
 	QMap<int, Estate *> m_estates;
+	QMap<QString, EstateGroup *> m_estateGroups;
 	QMap<int, Trade *> m_trades;
 	QMap<int, Auction *> m_auctions;
 };

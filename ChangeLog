@@ -1,3 +1,9 @@
+2002-03-28 (kaper)
+----------
+
+- monopd API: support for estategroupupdate
+- build portfolioview upon game start for better layouting
+
 2002-02-19 (kaper)
 ----------
 

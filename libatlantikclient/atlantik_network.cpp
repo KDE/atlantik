@@ -5,6 +5,7 @@
 #include <atlantic_core.h>
 #include <player.h>
 #include <estate.h>
+#include <estategroup.h>
 #include <trade.h>
 #include <auction.h>
 
@@ -246,11 +247,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit msgInfo(e.attributeNode(QString("value")).value());
 					else if (a.value() == "chat")
 						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
-					else if (a.value() == "startgame")
-					{
-						emit startedGame();
-						emit msgStartGame(e.attributeNode(QString("value")).value());
-					}
 				}
 			}
 			else if (e.tagName() == "display")
@@ -345,6 +341,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					QString status = e.attributeNode(QString("status")).value();
 					if (status == "init")
 						emit initGame();
+					else if (status == "start")
+						emit gameStarted();
 				}
 			}
 			else if (e.tagName() == "playerupdate")
@@ -418,6 +416,32 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					if (player)
 						player->update();
+				}
+			}
+			else if (e.tagName() == "estategroupupdate")
+			{
+				a = e.attributeNode(QString("name"));
+				if (!a.isNull())
+				{
+					EstateGroup *estateGroup;
+					bool b_newEstateGroup = false;
+					
+					if (!(estateGroup = m_estateGroups[a.value()]))
+					{
+						// Create EstateGroup object
+						estateGroup = m_atlanticCore->newEstateGroup(a.value());
+						m_estateGroups[a.value()] = estateGroup;
+
+						b_newEstateGroup = true;
+					}
+
+					// Emit signal so GUI implementations can create view(s)
+#warning port to atlanticcore, but somehow dont create view until all properties are set
+					if (b_newEstateGroup)
+						emit newEstateGroup(estateGroup);
+
+					if (estateGroup)
+						estateGroup->update();
 				}
 			}
 			else if (e.tagName() == "estateupdate")

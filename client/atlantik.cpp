@@ -54,7 +54,6 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 
 #ifndef USE_KDE
 	connect(m_atlantikNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
@@ -67,6 +66,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
+	connect(m_atlantikNetwork, SIGNAL(gameStarted()), this, SLOT(gameStarted()));
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
@@ -167,14 +167,8 @@ void Atlantik::newPlayer(Player *player)
 
 	m_board->addToken(player);
 
-	PortfolioView *portfolioView = new PortfolioView(player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
+	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
-
-	Estate *estate;
-	QPtrList<Estate> estates = m_atlanticCore->estates();
-	for (QPtrListIterator<Estate> it(estates); *it; ++it)
-		if ((estate = dynamic_cast<Estate*>(*it)))
-			portfolioView->addEstateView(estate);
 
 	if (player->isSelf())
 	{
@@ -194,11 +188,6 @@ void Atlantik::newEstate(Estate *estate)
 		initGame();
 
 	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
-
-	PortfolioView *portfolioView;
-	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
-		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
-			portfolioView->addEstateView(estate);
 }
 
 void Atlantik::createGUI(Trade *trade)
@@ -311,6 +300,14 @@ void Atlantik::initGame()
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
 }
 
+void Atlantik::gameStarted()
+{
+	PortfolioView *portfolioView;
+	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
+		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
+			portfolioView->buildPortfolio();
+}
+
 void Atlantik::slotConfigure()
 {
 	if (m_configDialog == 0)
@@ -403,14 +400,6 @@ void Atlantik::slotMsgError(QString msg)
 void Atlantik::slotMsgChat(QString player, QString msg)
 {
 	serverMsgsAppend("<b>" + player + ":</b> " + msg);
-}
-
-void Atlantik::slotMsgStartGame(QString msg)
-{
-//	if (m_newgameWizard!=0)
-//		m_newgameWizard->hide();
-		
-	serverMsgsAppend("START: " + msg);
 }
 
 void Atlantik::serverMsgsAppend(QString msg)

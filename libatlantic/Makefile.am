@@ -6,10 +6,11 @@ libatlantic_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-in
 libatlantic_la_LIBADD = $(LIB_QT)
 
 libatlantic_la_SOURCES = atlantic_core.cpp auction.cpp estate.cpp \
-	player.cpp trade.cpp
+	estategroup.cpp player.cpp trade.cpp
 
 libatlanticincludedir = $(includedir)/atlantic
-libatlanticinclude_HEADERS = atlantic_core.h auction.h estate.h player.h trade.h
+libatlanticinclude_HEADERS = atlantic_core.h auction.h estate.h \
+	estategroup.h player.h trade.h
 
 METASOURCES = AUTO 
  
