@@ -278,12 +278,19 @@ void AtlantikNetwork::processNode(QDomNode n)
 				else
 				{
 					emit displayText(caption, description);
-					for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+
+					bool hasButtons = false;
+					for(QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
 					{
 						QDomElement eButton = nButtons.toElement();
 						if (!eButton.isNull() && eButton.tagName() == "button")
-							emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+						{
+							emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+							hasButtons = true;
+						}
 					}
+					if (!hasButtons)
+						emit addCloseButton();
 				}
 			}
 			else if (e.tagName() == "estatedisplay")
@@ -299,6 +306,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					{
 						emit displayEstate(estate);
 
+						bool hasButtons = false;
 						for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
 						{
 							QDomElement eButton = nButtons.toElement();
@@ -306,9 +314,14 @@ void AtlantikNetwork::processNode(QDomNode n)
 							{
 								QDomElement eButton = nButtons.toElement();
 								if (!eButton.isNull() && eButton.tagName() == "button")
-									emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+								{
+									emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+									hasButtons = true;
+								}
 							}
 						}
+						if (!hasButtons)
+							emit addCloseButton();
 					}
 				}
 			}

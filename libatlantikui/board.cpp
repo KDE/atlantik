@@ -40,6 +40,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_maxEstates = maxEstates;
 	m_mode = mode;
 	m_animateTokens = false;
+	m_removeFirstOnPrepend = false;
 
 	int sideLen = maxEstates/4;
 
@@ -66,7 +67,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 //	spacer = new QWidget(this);
 //	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
-	m_center = 0;
+	m_displayQueue.setAutoDelete(true);
 	displayDefault();
 
 	QColor color;
@@ -175,7 +176,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 	// Designer has its own LMBClicked slot
 	if (m_mode == Play)
-		connect(estateView, SIGNAL(LMBClicked(Estate *)), this, SLOT(displayEstateDetails(Estate *)));
+		connect(estateView, SIGNAL(LMBClicked(Estate *)), this, SLOT(prependEstateDetails(Estate *)));
 
 	if (estateId<sideLen)
 		m_gridLayout->addWidget(estateView, sideLen, sideLen-estateId);
@@ -200,12 +201,9 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 void AtlantikBoard::addAuctionWidget(Auction *auction)
 {
-	if (m_center != 0)
-		delete m_center;
-
-	m_center = new AuctionWidget(m_atlanticCore, auction, this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
-	m_center->show();
+	AuctionWidget *auctionW = new AuctionWidget(m_atlanticCore, auction, this);
+	m_displayQueue.prepend(auctionW);
+	updateCenter();
 
 	connect(auction, SIGNAL(completed()), this, SLOT(displayDefault()));
 }
@@ -399,50 +397,100 @@ void AtlantikBoard::slotResizeAftermath()
 
 void AtlantikBoard::displayDefault()
 {
-	if (m_center != 0)
-		delete m_center;
-
-	m_center = new QWidget(this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
-	m_center->show();
+	switch(m_displayQueue.count())
+	{
+	case 0:
+		m_displayQueue.prepend(new QWidget(this));
+		break;
+	case 1:
+		m_displayQueue.removeFirst();
+		m_displayQueue.prepend(new QWidget(this));
+		break;
+	default:
+		m_displayQueue.removeFirst();
+		break;
+	}
+	updateCenter();
 }
 
 void AtlantikBoard::displayText(QString caption, QString body)
 {
-	if (m_center != 0)
-		delete m_center;
-	
-	BoardDisplay *display = new BoardDisplay(caption, body, this);
-	m_center = display;
-	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
-	m_center->show();
+	BoardDisplay *bDisplay = new BoardDisplay(caption, body, this);
 
-	connect(display, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+	if (m_removeFirstOnPrepend)
+		m_displayQueue.removeFirst();
+	m_removeFirstOnPrepend = false;
+	m_displayQueue.prepend(bDisplay);
+	updateCenter();
 
-//	QTimer::singleShot(3000, this, SLOT(displayDefault()));
+	connect(bDisplay, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+	connect(bDisplay, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
 }
 
 void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
 {
-	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_center))
+	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
 		display->addButton(command, caption, enabled);
-	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_center))
+	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
 		display->addButton(command, caption, enabled);
 }
 
-void AtlantikBoard::displayEstateDetails(Estate *estate)
+void AtlantikBoard::addCloseButton()
+{
+	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
+		display->addCloseButton();
+	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
+		display->addCloseButton();
+}
+
+void AtlantikBoard::insertEstateDetails(Estate *estate)
 {
 	if (!estate)
 		return;
 
-	// TODO: store m_center, it might be an auction or something else we'd like to restore
-	if (m_center != 0)
-		delete m_center;
+	if (m_removeFirstOnPrepend)
+		m_displayQueue.removeFirst();
+	m_removeFirstOnPrepend = false;
 
-	EstateDetails *display = new EstateDetails(estate, this);
-	m_center = display;
-	m_gridLayout->addMultiCellWidget(display, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
-	display->show();
+	EstateDetails *eDetails = new EstateDetails(estate, this);
+	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
 
-	connect(display, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+	// Don't overwrite possible chance cards or previous estates
+	int uid = 0;
+	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
+		uid = 1;
+	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
+		uid = 1;
+	
+	m_displayQueue.insert(uid, eDetails);
+
+	if (uid == 0)
+		updateCenter();
+}
+
+void AtlantikBoard::prependEstateDetails(Estate *estate)
+{
+	if (!estate)
+		return;
+
+	EstateDetails *eDetails = new EstateDetails(estate, this);
+	eDetails->addCloseButton();
+
+	if (m_removeFirstOnPrepend)
+		m_displayQueue.removeFirst();
+	m_removeFirstOnPrepend = true;
+	m_displayQueue.prepend(eDetails);
+	updateCenter();
+
+	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
+
+}
+
+void AtlantikBoard::updateCenter()
+{
+	QWidget *center = m_displayQueue.getFirst();
+	m_gridLayout->addMultiCellWidget(center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
+	center->show();
 }

@@ -38,6 +38,7 @@ public:
 	Estate *estate() { return m_estate; }
 
 	void addButton(const QString command, const QString caption, bool enabled);
+	void addCloseButton();
 
 protected:
 	void paintEvent(QPaintEvent *);
@@ -48,6 +49,7 @@ private slots:
 
 signals:
 	void buttonCommand(QString);
+	void buttonClose();
 
 private:
 	Estate *m_estate;

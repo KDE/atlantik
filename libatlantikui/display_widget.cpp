@@ -48,6 +48,15 @@ void BoardDisplay::addButton(const QString &command, const QString &caption, boo
 	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
 }
 
+void BoardDisplay::addCloseButton()
+{
+	KPushButton *button = new KPushButton("Close", this);
+	m_buttonBox->addWidget(button);
+	button->show();
+
+	connect(button, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+}
+
 void BoardDisplay::buttonPressed()
 {
 	QObject *o = QObject::sender();

@@ -33,6 +33,7 @@ public:
 	BoardDisplay(const QString &caption, const QString &body, QWidget *parent, const char *name=0);
 
 	void addButton(const QString &command, const QString &caption, bool enabled);
+	void addCloseButton();
 
 private slots:
 	void buttonPressed();
@@ -40,6 +41,7 @@ private slots:
 
 signals:
 	void buttonCommand(QString);
+	void buttonClose();
 
 private:
 	QHBoxLayout *m_buttonBox;

@@ -209,6 +209,14 @@ void EstateDetails::addButton(QString command, QString caption, bool enabled)
 
 	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
 }
+void EstateDetails::addCloseButton()
+{
+	KPushButton *button = new KPushButton("Close", this);
+	m_buttonBox->addWidget(button);
+	button->show();
+
+	connect(button, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+}
 
 void EstateDetails::buttonPressed()
 {

@@ -117,8 +117,9 @@ signals:
 
 	void displayText(QString title, QString description);
 	void displayEstate(Estate *);
-	void displayButton(QString command, QString caption, bool enabled);
 	void displayDefault();
+	void addCommandButton(QString command, QString caption, bool enabled);
+	void addCloseButton();
 
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void gameListClear();

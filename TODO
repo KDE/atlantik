@@ -21,6 +21,8 @@ For 0.4.0
 ---------
 
 v token geometry is now aware of estate colour captions
+v queue display widgets
+  - fix buttons, they have specific targets, not just the current widget
 - fancy widgets
   - generic (caption and description)
   ^ estate
@@ -44,7 +46,6 @@ v token geometry is now aware of estate colour captions
   - Houses (- 16, - 32, - 48, - 64)
   - Hotels (- 16, - 32, - 48, - 64)
   - code to load/scale appropriate icon
-  - whats better? SmallIcon(...) or BarIcon(..., 16) ??
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance

@@ -45,7 +45,6 @@ public:
 	void addAuctionWidget(Auction *auction);
 	void addToken(Player *player, EstateView *location = 0);
 	void indicateUnownedChanged();
-	QWidget *centerWidget() { return m_center; };
 	QPtrList<EstateView> estateViews();
 
 public slots:
@@ -57,7 +56,9 @@ private slots:
 	void displayDefault();
 	void displayText(QString caption, QString body);
 	void displayButton(QString command, QString caption, bool enabled);
-	void displayEstateDetails(Estate *);
+	void prependEstateDetails(Estate *);
+	void insertEstateDetails(Estate *);
+	void addCloseButton();
 
 signals:
 	void tokenConfirmation(Estate *estate);
@@ -65,14 +66,14 @@ signals:
 
 protected:
 	void resizeEvent(QResizeEvent *);
-	QWidget *m_center;
 
 private:
-	AtlanticCore *m_atlanticCore;
-	DisplayMode m_mode;
-
 	EstateView *getEstateView(Estate *estate);
 	void moveToken(Token *, int destination);
+	void updateCenter();
+
+	AtlanticCore *m_atlanticCore;
+	DisplayMode m_mode;
 
 	QWidget *spacer;
 	QGridLayout *m_gridLayout;
@@ -85,6 +86,8 @@ private:
 
 	QPtrList<EstateView> m_estateViews;
 	QMap<Player *, Token *> tokenMap;
+	QPtrList<QWidget> m_displayQueue;
+	bool m_removeFirstOnPrepend;
 };
 
 #endif

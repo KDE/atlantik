@@ -179,7 +179,7 @@ void Atlantik::newPlayer(Player *player)
 	}
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
-	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(displayEstateDetails(Estate *)));
+	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
 
 	m_portfolioLayout->addWidget(portfolioView);
 	portfolioView->show();
@@ -341,9 +341,10 @@ void Atlantik::initGame()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(displayEstateDetails(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(displayButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
+	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(insertEstateDetails(Estate *)));
 	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
+	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
+	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
 	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
 }
