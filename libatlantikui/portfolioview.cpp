@@ -17,6 +17,8 @@
 #include <qpainter.h>
 #include <qcursor.h>
 
+#include <kdialogbase.h>
+#include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 
@@ -42,36 +44,12 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	m_inactiveColor = inactiveColor;
 	m_lastPE = 0;
 
-	b_recreate = true;
-	qpixmap = 0;
-
-	setFixedSize(QSize(225, 100));
 	setBackgroundColor(Qt::white);
-	
-	m_nameLabel = new QLabel(this);
-	m_nameLabel->setAlignment(Qt::AlignLeft);
-	m_nameLabel->setGeometry(5, 0, width()/2, height());
-	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_nameLabel->setMinimumSize(m_nameLabel->sizeHint());
-	m_nameLabel->setMaximumWidth(width()-10);
-	m_nameLabel->setMaximumHeight(15);
-	m_nameLabel->show();
 
-	m_moneyLabel = new QLabel(this);
-	m_moneyLabel->setAlignment(Qt::AlignRight);
-	m_moneyLabel->setGeometry(width()/2, 0, width()-5, height());
-	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_moneyLabel->setMinimumSize(m_moneyLabel->sizeHint());
-	m_moneyLabel->setMaximumWidth(width()/2);
-	m_moneyLabel->setMaximumHeight(15);
-	m_moneyLabel->show();
+	qpixmap = 0;
+	b_recreate = true;
 	
-	m_lastGroup = "";
-	x = 0;
-	y = 0;
-
-	// TODO: call buildPortfolio? Although, we should be able to assume no
-	// new estates or players are introduced after the game has been started
+	setMinimumHeight(35);
 }
 
 Player *PortfolioView::player()
@@ -85,6 +63,9 @@ void PortfolioView::buildPortfolio()
 	// Loop through estate groups in order
 	QPtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
 	PortfolioEstate *lastPE = 0, *firstPEprevGroup = 0;
+
+	int x = 100, y = 25, marginHint = 5, bottom;
+	bottom = 20 - PE_HEIGHT - marginHint;
 
 	EstateGroup *estateGroup;
 	for (QPtrListIterator<EstateGroup> it(estateGroups); *it; ++it)
@@ -106,22 +87,25 @@ void PortfolioView::buildPortfolio()
 					portfolioEstateMap[estate->estateId()] = portfolioEstate;
 
  					connect(portfolioEstate, SIGNAL(estateClicked(Estate *)), this, SIGNAL(estateClicked(Estate *)));
-					int x, y;
 					if (lastPE)
 					{
 						x = lastPE->x() + 2;
 						y = lastPE->y() + 4;
+						if (y > bottom)
+							bottom = y;
 					}
 					else if (firstPEprevGroup)
 					{
 						x = firstPEprevGroup->x() + PE_WIDTH + 8;
-						y = 18;
+						y = 20 + marginHint;
 						firstPEprevGroup = portfolioEstate;
 					}
 					else
 					{
-						x = 5;
-						y = 18;
+						x = marginHint;
+						y = 20 + marginHint;
+						if (y > bottom)
+							bottom = y;
 						firstPEprevGroup = portfolioEstate;
 					}
 
@@ -135,9 +119,12 @@ void PortfolioView::buildPortfolio()
 			}
 		}
 	}
+	setMinimumWidth(x + PE_WIDTH + marginHint);
+	int minHeight = bottom + PE_HEIGHT + marginHint;
+	if (minHeight > minimumHeight())
+		setMinimumHeight(minHeight);
 }
 
-/*
 void PortfolioView::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
@@ -148,22 +135,40 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
+		painter.setPen(Qt::white);
+		painter.setBrush(Qt::white);
+		painter.drawRect(rect());
+
+		painter.setPen(m_player->hasTurn() ? m_activeColor : Qt::black);
+		painter.setBrush(m_player->hasTurn() ? m_activeColor : Qt::black);
+		painter.drawRect(0, 0, width(), 20);
+
+		painter.setPen(Qt::white);
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
+		painter.drawText(KDialog::marginHint(), 15, m_player->name());
+		painter.drawText(width() - 50, 15, QString::number(m_player->money()));
+
+		if (!portfolioEstateMap.size())
+		{
+			painter.setPen(Qt::black);
+			painter.setBrush(Qt::white);
+
+			painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal));
+			painter.drawText(KDialog::marginHint(), 30, m_player->host());
+		}
+
 		b_recreate = false;
 	}
 	bitBlt(this, 0, 0, qpixmap);
 }
-*/
+
+void PortfolioView::resizeEvent(QResizeEvent *)
+{
+	b_recreate = true;
+}
 
 void PortfolioView::playerChanged()
 {
-	m_nameLabel->setText(m_player->name());
-	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_nameLabel->update();
-
-	m_moneyLabel->setText(QString::number(m_player->money()));
-	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_moneyLabel->update();
-
 	b_recreate = true;
 	update();
 }

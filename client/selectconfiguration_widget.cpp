@@ -143,8 +143,8 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value,
 
 		connect(checkBox, SIGNAL(clicked()), this, SLOT(optionChanged()));
 	}
-	else
-		kdDebug() << "TODO: game options other than type=bool" << endl;
+
+	// TODO: create options other than type=bool
 
 	// TODO: Enable edit for master only
 }
