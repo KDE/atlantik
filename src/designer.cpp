@@ -2,19 +2,21 @@
 #include <qptrlist.h>
 #include <kglobal.h>
 #include <klocale.h>
+#include <qfile.h>
+#include <qtextstream.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <qwidget.h>
 #include <kmessagebox.h>
 #include <qstring.h>
 #include <kapp.h>
-#include <kconfig.h>
 #include <qevent.h>
 #include <qcolor.h>
 #include <kdebug.h>
 #include <qlayout.h>
 #include <kaction.h>
 #include <kstdaction.h>
+#include <kstandarddirs.h>
 
 #include "player.h"
 #include "designer.h"
@@ -50,17 +52,21 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 
 	createGUI("designerui.rc");
 
-	openNew();
-
 	// these MUST match up to the ones in editor.cpp!
 	types.append("street");
-	types.append("airport");
+	types.append("rr");
+	types.append("utility");
+	types.append("communitychest");
 	types.append("chance");
-	types.append("street");
-	types.append("go");
+	types.append("freeparking");
+	types.append("tojail");
+	types.append("tax");
+	types.append("airport");
 	types.append("jail");
-	types.append("gotojail");
-	types.append("todo");
+	types.append("go");
+	types.append("TODO");
+
+	openNew();
 
 	doCaption(false);
 
@@ -76,15 +82,126 @@ AtlanticDesigner::~AtlanticDesigner()
 
 void AtlanticDesigner::openNew()
 {
+	filename = QString::null;
+	KStandardDirs *dirs = KGlobal::dirs();
+	openFile(dirs->findResource("appdata", "defaultcity.conf"));
+}
+
+void AtlanticDesigner::open()
+{
+	filename = KFileDialog::getOpenFileName();
+	openFile(filename);
+}
+
+void AtlanticDesigner::openFile(const QString &filename)
+{
 	estates.clear();
 
-	for (int i = 1; i <= max; i++)
+	QFile f(filename);
+	if (!f.open(IO_ReadOnly))
+		return;
+
+	QTextStream t(&f);
+	QString s;
+
+	for (int i = 1; !t.atEnd(); i++)
 	{
+		QString name = (i == 1? t.readLine() : s).mid(1, s.length() - 2);
+		kdDebug() << "name is " << name << endl;;
+		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
+		int type = 0;
+		int group = -1;
+		int price = -1;
+		int housePrice = -1;
+		int rent[6] = {-1, -1, -1, -1, -1, -1};
+		int tax = -1;
+		int taxPercentage = 01;
+
+		while (true)
+		{
+			if (t.atEnd())
+				break;
+			s = t.readLine();
+
+			if (s.left(1) == "[")
+			{
+				break;
+			}
+
+			int eqSign = s.find("=");
+			if (eqSign == -1)
+				continue;
+
+			QString key = s.left(eqSign);
+			QString value = s.right(s.length() - eqSign - 1);
+
+			if (key == "type")
+			{
+				kdDebug() << "its a type!\n";
+				int i = 0;
+				for (QStringList::Iterator it = types.begin(); it != types.end(); ++it)
+				{
+					kdDebug() << (*it) << ", " << value << endl;
+					if ((*it) == value)
+					{
+						type = i;
+						break;
+					}
+					i++;
+				}
+				kdDebug() << "type is " << type << endl;
+			}
+			else if (key == "price")
+			{
+				price = value.toInt();
+			}
+			else if (key == "houseprice")
+			{
+				housePrice = value.toInt();
+			}
+			else if (key.left(4) == "rent")
+			{
+				int houses = key.right(1).toInt();
+				if (houses < 0 || houses > 5)
+					continue;
+				rent[houses] = value.toInt();
+			}
+			else if (key == "tax")
+			{
+				tax = value.toInt();
+			}
+			else if (key == "taxpercentage")
+			{
+				taxPercentage = value.toInt();
+			}
+			else if (key == "group")
+			{
+				group = value.toInt();
+			}
+			else if (key == "color")
+			{
+				color.setNamedColor(value);
+				kdDebug() << "color is " << color.name() << endl;
+			}
+			else if (key == "bgcolor")
+			{
+				bgColor.setNamedColor(value);
+				kdDebug() << "bgcolor is " << bgColor.name() << endl;
+			}
+		}
+
 		ConfigEstate *estate = new ConfigEstate(i);
-		estate->setName(i18n("Estate %1").arg(i));
-		estate->setColor(white);
-		estate->setBgColor(white);
-		estate->setType(0);
+		estate->setName(name);
+		estate->setColor(color);
+		estate->setBgColor(bgColor);
+		estate->setType(type);
+		estate->setGroup(group);
+		estate->setPrice(price);
+		estate->setHousePrice(housePrice);
+		for (int i = 0; i < 6; i++)
+			estate->setRent(i, rent[i]);
+		estate->setTax(tax);
+		estate->setTaxPercentage(taxPercentage);
 		estates.append(estate);
 
 		connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
@@ -92,17 +209,11 @@ void AtlanticDesigner::openNew()
 
 		editor->addEstateView(estate);
 	}
-	// max blank estates...
 	
 	editor->setEstate(estates.first());
 
-	filename = QString::null;
 	isMod = false;
-}
-
-void AtlanticDesigner::open()
-{
-	filename = KFileDialog::getOpenFileName();
+	doCaption(false);
 }
 
 void AtlanticDesigner::save()
@@ -114,31 +225,49 @@ void AtlanticDesigner::save()
 	if (filename == QString::null)
 		return;
 
-	QStringList allNames;
+	//QStringList allNames;
+
+	QFile f(filename);
+	if (!f.open(IO_WriteOnly))
+		return;
+
+	QTextStream t(&f);
 
 	ConfigEstate *estate = 0;
-	KConfig *config = new KConfig(filename);
 	for (estate = estates.first(); estate; estate = estates.next())
 	{
+		/*
 		if (!allNames.grep(estate->name()).empty())
 		{
 			KMessageBox::detailedSorry(this, i18n("There are duplicate names on your gameboard. Thus, it can not be saved correctly; aborting."), i18n("%1 (number %1) has a duplicate name.").arg(estate->name()).arg(estate->estateId()));
 			return;
 		}
-		config->setGroup(estate->name());
-		kdDebug() << "type is " << estate->type() << endl;
-		config->writeEntry("type", (*types.at(estate->type())));
-		config->writeEntry("color", estate->color());
-		config->writeEntry("bgcolor", estate->bgColor());
+		*/
 
-		allNames.append(estate->name());
+		t << QString("[%1]\ntype=%2\ncolor=%3\nbgcolor=%4\n").arg(estate->name().latin1()).arg(*types.at(estate->type())).arg(estate->color().name()).arg(estate->bgColor().name());
+		if (estate->group() >= 0)
+			t << "group=" << estate->group() << endl;
+		if (estate->price() >= 0)
+			t << "price=" << estate->price() << endl;
+		if (estate->tax() >= 0)
+			t << "tax=" << estate->tax() << endl;
+		if (estate->taxPercentage() >= 0)
+			t << "taxpercentage=" << estate->taxPercentage() << endl;
+
+		for (int i = 0; i < 6; i++)
+		{
+			if (estate->rent(i) >= 0)
+				t << "rent" << i << "=" << estate->rent(i) << endl;
+		}
+
+		//allNames.append(estate->name());
 
 		kdDebug() << "done with " << estate->name() << endl;
 	}
 
-	config->sync();
-
+	f.flush();
 	isMod = false;
+	doCaption(false);
 }
 
 void AtlanticDesigner::closeEvent(QCloseEvent *e)

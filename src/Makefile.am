@@ -16,5 +16,8 @@ KDE_ICON = atlantik
 
 METASOURCES = AUTO 
 
+data_DATA = defaultcity.conf
+datadir = $(kde_datadir)/atlantik
+
 messages: rc.cpp
 	$(XGETTEXT) *.cpp -o $(podir)/atlantik.pot

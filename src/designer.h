@@ -39,6 +39,8 @@ class AtlanticDesigner : public KMainWindow
 	void larger();
 
 	private:
+	void openFile(const QString &);
+
 	EstateEdit *editor;
 	QPtrList<ConfigEstate> estates;
 	KListAction *estateAct;
