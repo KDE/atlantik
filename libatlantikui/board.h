@@ -21,7 +21,7 @@
 #include <qtimer.h>
 #include <qlayout.h>
 #include <qptrlist.h>
-
+#include "libatlantic_export.h"
 class QPoint;
 
 class AtlanticCore;
@@ -32,7 +32,7 @@ class Token;
 
 class EstateView;
 
-class AtlantikBoard : public QWidget
+class LIBATLANTIC_EXPORT AtlantikBoard : public QWidget
 {
 Q_OBJECT
 

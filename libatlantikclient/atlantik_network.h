@@ -20,7 +20,7 @@
 #include <qmap.h>
 
 #include <kextsock.h>
-
+#include "libatlantic_export.h"
 class QDomNode;
 class QTextStream;
 
@@ -32,7 +32,7 @@ class EstateGroup;
 class Trade;
 class Auction;
 
-class AtlantikNetwork : public KExtendedSocket
+class LIBATLANTIC_EXPORT AtlantikNetwork : public KExtendedSocket
 {
 Q_OBJECT
 
