@@ -32,22 +32,11 @@ Atlantik::Atlantik () : KMainWindow ()
 //	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
-	// Toolbar: Move
-	m_roll = KStdGameAction::roll(this, SLOT(slotRoll()), actionCollection()); // No Ctrl-R at the moment
-	m_roll->setEnabled(false);
-	m_buyEstate = new KAction("&Buy", "atlantik_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
-	m_buyEstate->setEnabled(false);
-	m_endTurn = KStdGameAction::endTurn(this, SLOT(slotEndTurn()), actionCollection());
-	m_endTurn->setEnabled(false);
-
 	// Toolbar: Settings
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
-
-	// Mix code and XML into GUI
-	createGUI();
 
 	// Network layer
 	m_gameNetwork = new GameNetwork(this, "gameNetwork");
@@ -77,6 +66,23 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
 	connect(m_gameNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 	connect(m_gameNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
+
+	// Toolbar: Move
+	m_roll = KStdGameAction::roll(m_gameNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
+	m_roll->setEnabled(false);
+	m_buyEstate = new KAction("&Buy", "atlantik_buy_estate", CTRL+Key_B, m_gameNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
+	m_buyEstate->setEnabled(false);
+	m_endTurn = KStdGameAction::endTurn(m_gameNetwork, SLOT(endTurn()), actionCollection());
+	m_endTurn->setEnabled(false);
+	m_jailCard = new KAction("Use card to leave jail", "altantik_move_jail_card", 0, m_gameNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
+	m_jailCard->setEnabled(false);
+	m_jailPay = new KAction("&Pay to leave jail", "altantik_move_jail_pay", CTRL+Key_P, m_gameNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
+	m_jailPay->setEnabled(false);
+	m_jailRoll = new KAction("&Roll to leave jail", "altantik_move_jail_roll", CTRL+Key_R, m_gameNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
+	m_jailRoll->setEnabled(false);
+
+	// Mix code and XML into GUI
+	createGUI();
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -308,21 +314,6 @@ void Atlantik::slotUpdateConfig()
 	}
 }
 
-void Atlantik::slotRoll()
-{
-	m_gameNetwork->cmdRoll();
-}
-
-void Atlantik::slotBuy()
-{
-	m_gameNetwork->cmdBuyEstate();
-}
-
-void Atlantik::slotEndTurn()
-{
-	m_gameNetwork->cmdEndTurn();
-}
-
 void Atlantik::slotSendMsg()
 {
 	m_gameNetwork->cmdChat(m_input->text());
@@ -477,12 +468,18 @@ void Atlantik::slotSetTurn(int playerId)
 		m_roll->setEnabled(true);
 		m_buyEstate->setEnabled(true);
 		m_endTurn->setEnabled(true);
+		m_jailCard->setEnabled(true);
+		m_jailPay->setEnabled(true);
+		m_jailRoll->setEnabled(true);
 	}
 	else
 	{
 		m_roll->setEnabled(false);
 		m_buyEstate->setEnabled(false);
 		m_endTurn->setEnabled(false);
+		m_jailCard->setEnabled(false);
+		m_jailRoll->setEnabled(false);
+		m_jailPay->setEnabled(false);
 	}
 	m_board->raiseToken(playerId);
 

@@ -97,24 +97,6 @@ public slots:
 	void slotUpdateConfig();
 
 	/**
-	 * Writes the command to roll the dice to the network interface.
-	 *
-	 */
-	void slotRoll();
-
-	/**
-	 * Writes the command to buy the current estate to the network interface.
-	 *
-	 */
-	void slotBuy();
-
-	/**
-	 * Writes the command to end the turn to the network interface.
-	 *
-	 */
-	void slotEndTurn();
-
-	/**
 	 * Writes the contents of the text input field to the network
 	 * interface and clears the text input field.
 	 *
@@ -241,7 +223,9 @@ private:
 	QLineEdit *m_input;
 	QTextEdit *m_serverMsgs, *m_chatMsgs;
 
-	KAction *m_roll, *m_buyEstate, *m_configure, *m_endTurn;
+	KAction *m_roll, *m_buyEstate, *m_endTurn,
+		*m_jailCard, *m_jailPay, *m_jailRoll,
+		*m_configure;
 
 	GameNetwork *m_gameNetwork;
 

@@ -5,6 +5,9 @@
     <Action name="move_roll"/>
     <Action name="buy_estate"/>
     <Action name="move_endturn"/>
+    <Action name="move_jailcard"/>
+    <Action name="move_jailpay"/>
+    <Action name="move_jailroll"/>
   </Menu>
 </MenuBar>
 <ToolBar name="moveToolBar">

@@ -14,9 +14,6 @@ Q_OBJECT
 
 public:
 	GameNetwork(Atlantik *parent=0, const char *name=0);
-	void cmdRoll();
-	void cmdBuyEstate();
-	void cmdEndTurn();
 	void cmdName(QString name);
 	void cmdGamesList();
 	void cmdTradeNew();
@@ -27,15 +24,18 @@ public:
 	void cmdChat(QString msg);
 
 private slots:
+	void roll();
+	void endTurn();
 	void newGame();
 	void joinGame(int gameId);
 	void startGame();
+	void buyEstate();
 	void estateToggleMortgage(int estateId);
 	void estateHouseBuy(int estateId);
 	void estateHouseSell(int estateId);
-	void payJailFine();
+	void jailCard();
+	void jailPay();
 	void jailRoll();
-	void useJailCard();
 
 public slots:
 	void serverConnect(const QString host, int port);

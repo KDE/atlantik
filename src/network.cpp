@@ -9,11 +9,11 @@ GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, n
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-void GameNetwork::cmdRoll()
+void GameNetwork::roll()
 {	writeData(".r");
 }
 
-void GameNetwork::cmdBuyEstate()
+void GameNetwork::buyEstate()
 {	writeData(".eb");
 }
 
@@ -22,7 +22,7 @@ void GameNetwork::startGame()
 	writeData(".gs");
 }
 
-void GameNetwork::cmdEndTurn()
+void GameNetwork::endTurn()
 {	writeData(".E");
 }
 
@@ -117,7 +117,7 @@ void GameNetwork::cmdTradeReject(int tradeId)
 	writeData(msg);
 }
 
-void GameNetwork::payJailFine()
+void GameNetwork::jailPay()
 {
 	writeData(".jp");
 }
@@ -127,7 +127,7 @@ void GameNetwork::jailRoll()
 	writeData(".jr");
 }
 
-void GameNetwork::useJailCard()
+void GameNetwork::jailCard()
 {
 	writeData(".jc");
 }
