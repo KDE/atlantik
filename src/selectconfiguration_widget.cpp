@@ -106,6 +106,9 @@ void SelectConfiguration::validateConnectButton()
 
 void SelectConfiguration::connectPressed()
 {
+	emit startGame();
+	return;
+
 	if (QListViewItem *item = m_playerList->selectedItem())
 	{
 		if (int playerId = item->text(1).toInt())

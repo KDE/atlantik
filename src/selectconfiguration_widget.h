@@ -29,6 +29,7 @@ public:
 		void slotClicked();
 
 	signals:
+		void startGame();
 		void joinConfiguration(int configurationId);
 		void newConfiguration();
 //		void statusChanged();

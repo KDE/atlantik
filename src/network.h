@@ -16,7 +16,6 @@ public:
 	GameNetwork(Atlantik *parent=0, const char *name=0);
 	void cmdRoll();
 	void cmdBuyEstate();
-	void cmdGameStart();
 	void cmdEndTurn();
 	void cmdName(QString name);
 	void cmdEstateToggleMortgage(int estateId);
@@ -33,6 +32,7 @@ public:
 private slots:
 	void newGame();
 	void joinGame(int gameId);
+	void startGame();
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -50,6 +50,8 @@ signals:
 	void gameListEdit(QString gameId, QString description, QString players);
 	void gameListDel(QString gameId);
 	void joinedGame();
+	void initGame();
+	void startedGame();
 
 	void playerListClear();
 	void playerListEndUpdate(QString);

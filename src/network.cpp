@@ -17,8 +17,9 @@ void GameNetwork::cmdBuyEstate()
 {	writeData(".eb");
 }
 
-void GameNetwork::cmdGameStart()
-{	writeData(".gs");
+void GameNetwork::startGame()
+{
+	writeData(".gs");
 }
 
 void GameNetwork::cmdEndTurn()
@@ -174,7 +175,10 @@ void GameNetwork::processNode(QDomNode n)
 					else if (a.value() == "chat")
 						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
 					else if (a.value() == "startgame")
+					{
+						emit startedGame();
 						emit msgStartGame(e.attributeNode(QString("value")).value());
+					}
 				}
 			}
 			else if (e.tagName() == "updategamelist")
@@ -238,6 +242,20 @@ void GameNetwork::processNode(QDomNode n)
 				// Find out which player has the turn now
 				int player = e.attributeNode(QString("player")).value().toInt();
 				emit setTurn(player);
+			}
+			else if (e.tagName() == "gameupdate")
+			{
+				int gameId = -1;
+
+				a = e.attributeNode(QString("gameid"));
+				if (!a.isNull())
+				{
+					gameId = a.value().toInt();
+
+					QString status = e.attributeNode(QString("status")).value();
+					if (status == "init")
+						emit initGame();
+				}
 			}
 			else if (e.tagName() == "playerupdate")
 			{

@@ -67,6 +67,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
 	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
 	connect(m_gameNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
+	connect(m_gameNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
 
 	// Management of data objects (players, games, estates)
 	playerList.setAutoDelete(true);
@@ -104,11 +105,6 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
-	// The actual gameboard.
-//	m_board = new AtlantikBoard(m_mainWidget, "board");
-//	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
-//	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
-//	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
 	// Set stretching where we want it.
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
@@ -141,6 +137,7 @@ void Atlantik::readConfig()
 
 void Atlantik::slotNetworkConnected()
 {
+#warning delete server widget
 	// We're connected, so let's make ourselves known.
 	m_gameNetwork->cmdName(atlantikConfig.playerName);
 
@@ -184,6 +181,7 @@ void Atlantik::slotNetworkError(int errno)
 
 void Atlantik::slotJoinedGame()
 {
+#warning delete game widget
 	// Create configuration widget and replace the select game widget.
 	SelectConfiguration *selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
 	m_mainLayout->addMultiCellWidget(selectConfiguration, 0, 2, 1, 1);
@@ -193,6 +191,20 @@ void Atlantik::slotJoinedGame()
 	connect(m_gameNetwork, SIGNAL(playerListAdd(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
 	connect(m_gameNetwork, SIGNAL(playerListEdit(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
 	connect(m_gameNetwork, SIGNAL(playerListDel(QString)), selectConfiguration, SLOT(slotPlayerListDel(QString)));
+
+	connect(selectConfiguration, SIGNAL(startGame()), m_gameNetwork, SLOT(startGame()));
+}
+
+void Atlantik::slotInitGame()
+{
+#warning delete config widget
+	// Create board widget and replace the game configuration widget.
+	m_board = new AtlantikBoard(m_mainWidget, "board");
+	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+	m_board->show();
+
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 }
 
 void Atlantik::slotConfigure()

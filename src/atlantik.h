@@ -70,6 +70,13 @@ public slots:
 	 void slotJoinedGame();
 
 	/**
+ 	 * The game is starting, so we can show the game board instead of the
+	 * pre-game configuration.
+	 *
+	 */
+	 void slotInitGame();
+
+	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.
 	 *
 	 */
