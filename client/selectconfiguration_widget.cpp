@@ -67,10 +67,10 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
-	serverButtons->addWidget(m_connectButton);
+	m_startButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
+	serverButtons->addWidget(m_startButton);
 
-	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
+	connect(m_startButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 
     // Status indicator.
 	status_label = new QLabel(this);
@@ -140,14 +140,6 @@ void ConfigureGame::slotPlayerlistEndUpdate(QString type)
 
 	emit statusChanged();
 }
-
-bool ConfigureGame::validateNext()
-{
-	if (list->childCount() >= 2)
-		return true;
-	else
-		return false;
-}
 */
 
 void SelectConfiguration::optionChanged()
@@ -159,4 +151,9 @@ void SelectConfiguration::optionChanged()
 		command.append(QString::number(checkBox->isChecked()));
 		emit buttonCommand(command);
 	}
+}
+
+void SelectConfiguration::setCanStart(const bool &canStart)
+{
+	m_startButton->setEnabled(canStart);
 }

@@ -39,7 +39,7 @@ public:
 	SelectConfiguration(QWidget *parent, const char *name=0);
 
 	void initPage();
-	bool validateNext();
+	void setCanStart(const bool &canStart);
 	QString hostToConnect() const;
 	int portToConnect();
 
@@ -63,7 +63,7 @@ private:
 	QVBoxLayout *m_mainLayout;
 	QLabel *status_label;
 	QVGroupBox *m_configBox, *m_messageBox;
-	KPushButton *m_backButton, *m_connectButton, *m_tokenButton;
+	KPushButton *m_backButton, *m_startButton, *m_tokenButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QString, QCheckBox *> m_checkBoxMap;
 	QMap <Player *, QListViewItem *> m_items;

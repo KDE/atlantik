@@ -296,6 +296,7 @@ void Atlantik::showSelectConfiguration()
 		return;
 
 	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_selectConfiguration->setCanStart(m_playerSelf ? m_playerSelf->master() : false);
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
@@ -525,6 +526,9 @@ void Atlantik::playerChanged(Player *player)
 
 	if (player == m_playerSelf)
 	{
+		if (m_selectConfiguration)
+			m_selectConfiguration->setCanStart(player->master());
+
 		m_roll->setEnabled(player->canRoll());
 		m_buyEstate->setEnabled(player->canBuy());
 		m_auctionEstate->setEnabled(player->canBuy());
