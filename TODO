@@ -70,6 +70,13 @@ For 0.5.0
 ---------
 
 - Game configuration (when it appears in monopd)
+- inviting players
+  ^ kio_atlantik for easy launching
+  ^ cmdline arguments for auto-join
+  - invite button
+    - kaddressbook hooks
+    - e-mail invites
+    - IM invites
 
 For 1.0.0
 ---------
