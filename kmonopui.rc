@@ -2,10 +2,12 @@
 <kpartgui name="kmonop" version="1">
 <MenuBar>
   <Menu name="move"><text>&amp;Move</text>
-    <Action name="move_roll"/>
+    <Action name="roll_die"/>
+    <Action name="buy_estate"/>
   </Menu>
 </MenuBar>
 <ToolBar name="moveToolBar">
-    <Action name="move_roll"/>
+    <Action name="roll_die"/>
+    <Action name="buy_estate"/>
 </ToolBar>
 </kpartgui>

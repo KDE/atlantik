@@ -15,8 +15,10 @@ KMonop::KMonop (const char *name) :
 	KStdAction::openNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
-	move_roll = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "move_roll");
-//	move_roll->setEnabled(false);
+	roll_die = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "roll_die");
+//	roll_die->setEnabled(false);
+	buy_estate = new KAction("&Buy estate", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
+//	buy_estate->setEnabled(false);
 
 	createGUI();
 	toolBar(0)->setBarPos(KToolBar::Left);
@@ -70,6 +72,11 @@ void KMonop::slotNewGame()
 void KMonop::slotRoll()
 {
 	netw->writeData(".r");
+}
+
+void KMonop::slotBuy()
+{
+	netw->writeData(".b");
 }
 
 void KMonop::slotSendMsg()
