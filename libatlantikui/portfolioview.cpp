@@ -47,7 +47,7 @@ PortfolioView::PortfolioView(Player *player, QColor activeColor, QColor inactive
 	m_moneyLabel->setMaximumHeight(15);
 	m_moneyLabel->show();
 	
-	m_lastGroupId = 0;
+	m_lastGroup = "";
 	x = 0;
 	y = 0;
 }
@@ -60,7 +60,7 @@ Player *PortfolioView::player()
 void PortfolioView::addEstateView(Estate *estate)
 {
 	int estateId = estate->estateId();
-	if (!estate->canBeOwned() || !estate->groupId())
+	if (!estate->canBeOwned() || estate->group().isEmpty())
 		return;
 
 //	if ((estateId / 10) * 18 > y)
@@ -69,12 +69,12 @@ void PortfolioView::addEstateView(Estate *estate)
 //		x = 0;
 //	}
 
-	if (m_lastGroupId >= estate->groupId())
+	if (m_lastGroup == estate->group())
 		x += 18;
 	else
 	{
 		x += 36;
-		m_lastGroupId = estate->groupId();
+		m_lastGroup = estate->group();
 	}
 	x = 5 + 16 * ((estateId-1) % 10);
 
@@ -90,7 +90,7 @@ void PortfolioView::addEstateView(Estate *estate)
 			{
 				if (tmpPE->estate() == estate)
 					break;
-				if (tmpPE->estate()->groupId() == estate->groupId())
+				if (tmpPE->estate()->group() == estate->group())
 					lastPE = tmpPE;
 			}
 		}

@@ -471,9 +471,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (estate && !a.isNull())
 						estate->setIsMortgaged(a.value().toInt());
 
-					a = e.attributeNode(QString("groupid"));
+					a = e.attributeNode(QString("group"));
 					if (estate && !a.isNull())
-						estate->setGroupId(a.value().toInt());
+						estate->setGroup(a.value());
 
 					a = e.attributeNode(QString("can_toggle_mortgage"));
 					if (estate && !a.isNull())

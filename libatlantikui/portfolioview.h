@@ -9,6 +9,7 @@
 #include "portfolioestate.h"
 
 class QColor;
+class QString;
 
 class Player;
 class Estate;
@@ -41,7 +42,8 @@ private slots:
 		bool b_recreate;
 		QLabel *m_nameLabel, *m_moneyLabel;
 		QMap<int, PortfolioEstate*> portfolioEstateMap;
-		int x, y, m_lastGroupId;
+		int x, y;
+		QString m_lastGroup;
 };
 
 #endif

@@ -13,10 +13,10 @@ Q_OBJECT
 public:
 	Estate(int estateId);
 	int estateId() const { return m_estateId; }
-	void setGroupId(const int groupId);
-	int groupId() const { return m_groupId; }
 	void setName(const QString name);
 	QString name() const { return m_name; }
+	void setGroup(const QString group);
+	QString group() const { return m_group; }
 	void setOwner(Player *player);
 	bool isOwned() const;
 	bool isOwnedBySelf() const;
@@ -52,8 +52,7 @@ protected:
 	int m_estateId;
 
 private:
-	int m_groupId;
-	QString m_name;
+	QString m_name, m_group;
 	Player *m_owner;
 	unsigned int m_houses;
 	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
