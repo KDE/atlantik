@@ -30,7 +30,7 @@ AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, 
 	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
 
-void AtlanticCore::reset()
+void AtlanticCore::reset(bool deletePlayers)
 {
 	m_auctions.setAutoDelete(true);
 	m_auctions.clear();
@@ -46,11 +46,20 @@ void AtlanticCore::reset()
 	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
 		removeTrade(trade);
 
-	Player *player = 0;
-	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	if (deletePlayers)
 	{
-		player->setLocation(0);
-		player->setDestination(0);
+		m_players.setAutoDelete(true);
+		m_players.clear();
+		m_players.setAutoDelete(false);
+	}
+	else
+	{
+		Player *player = 0;
+		for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+		{
+			player->setLocation(0);
+			player->setDestination(0);
+		}
 	}
 }
 
