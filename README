@@ -5,7 +5,7 @@ Contents
 2. Download
 3. Mailinglist
 4. Roadmap
-5. Copyrights and patents
+5. Copyrights, trademarks and patents
 
 1. Introduction
 ---------------
@@ -61,19 +61,44 @@ To post, send e-mail to: monopd-devel@lists.capsi.com
 The TODO file gives a nice approximation of desired functionality and
 priorities. It can be used as roadmap or checklist.
 
-5. Copyrights and patents
--------------------------
+5. Copyrights, trademarks and patents
+-------------------------------------
 
 Many people have expressed their concerns about possible copyrights and
 patents applicable to Monopoly games and the possible implications for
 KMonop development.
 
-All possible coyrighted artwork in KMonop has been replaced by original
-artwork. Parker Brothers has no rights to this folk game other than their
+For example, on kde-core-devel:
+
+On Mon, Aug 06, 2001 at 08:20:19PM -0400, Preston Brown wrote:
+> Just FYI: Parker Brothers _aggressively_ defends their trademark on
+> Monopoly. KMonop may or may not fly.
+ 
+But how aggresively exactly?
+ 
+* KMonop has been in existance since June 1998. It was inpsired by `monopd'',
+a game in the bsdgames package which has been part of my Slackware since at
+least 1995 - the manual page on monopd has March 25, 1993 as date.
+ 
+A quick search on "Monopoly boardgame" on Google returns KMonop as #1 result
+and as #6 result on Altavista. As well as a multitude of other computer
+versions of real estate trading games more or less similar to Monopoly®.
+
+Apparently Parker Brothers has not attempted (or failed) to defend their
+trademark for almost a decade!
+
+* KMonop will ship with original artwork, designed to not resemble the
+Parker Brother's look and feel - KMonop implements a folk game.
+
+Parker Brothers has no rights to this folk game other than their copyrighted
 visual enhancements, as confirmed by the U.S. Supreme Court.
 <http://www.antimonopoly.com/graphics/evolution.gif>
 
-Furthermore, KMonop has little or no code which is aware of the game rules,
-streetnames or board layout. These aspects of the game are all collected in
-the monopd daemon and are only visualized by KMonop during gameplay - much
-like a webbrowser visualizes Internet content.
+* KMonop has little or no code which is aware of the game rules, street
+names, board layout or any other aspect of the game. It only visualizes
+these aspects during gameplay - much like a webbrowser visualizes Internet
+content.
+
+All game logic itself is embedded in monopd, which in turn will ship with
+the customized rules that have been played by families for decades as
+defaults and not with the same rulset as the Parker Brothers game.
