@@ -2,20 +2,21 @@
 #include <qlabel.h>
 #include <qstringlist.h>
 #include <qspinbox.h>
-#include <qpushbutton.h>
 #include <qframe.h>
-#include <kdialogbase.h>
-#include <kcolorbutton.h>
 #include <qlineedit.h>
 #include <qvgroupbox.h>
-#include <klocale.h>
-#include <kdebug.h>
 #include <qlayout.h>
 
-#include "estate.h"
+#include <kdebug.h>
+#include <kdialogbase.h>
+#include <kcolorbutton.h>
 
-#include "board.h"
+#include <klocale.h>
+#include <kpushbutton.h>
+
 #include "editor.h"
+#include "estate.h"
+#include "board.h"
 
 ConfigEstate::ConfigEstate(int estateId) : Estate(estateId)
 {
@@ -127,7 +128,7 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 	typeLayout->addWidget(typeCombo);
 	connect(typeCombo, SIGNAL(activated(int)), this, SIGNAL(somethingChanged()));
 
-	configureButton = new QPushButton(m_center);
+	configureButton = new KPushButton(m_center);
 	layout->addWidget(configureButton);
 	connect(configureButton, SIGNAL(clicked()), this, SLOT(configure()));
 

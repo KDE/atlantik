@@ -34,7 +34,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 //	QListViewItem *item = new QListViewItem(m_configurationList, i18n("Start a new configuration"), "");
 //	item->setPixmap(0, SmallIcon("filenew"));
 
-	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Start game"), this);
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start game"), this);
 	m_mainLayout->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
@@ -112,7 +112,7 @@ void SelectConfiguration::connectPressed()
 		"You cannot start a game at the moment."
 		));
 
-	QPushButton *button = new QPushButton(i18n("Ok"), m_messageBox, "button");
+	KPushButton *button = new KPushButton(i18n("Ok"), m_messageBox, "button");
 
 	m_playerGroupBox->setEnabled(false);
 	m_groupBox->setEnabled(false);

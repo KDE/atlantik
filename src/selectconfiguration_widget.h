@@ -5,8 +5,9 @@
 #include <qlayout.h>
 #include <qvgroupbox.h>
 #include <qlistview.h>
-#include <qpushbutton.h>
 #include <qlabel.h>
+
+#include <kpushbutton.h>
 
 class SelectConfiguration : public QWidget
 {
@@ -41,7 +42,7 @@ public:
 		QLabel *status_label;
 		QVGroupBox *m_playerGroupBox, *m_groupBox, *m_messageBox;
 		QListView *m_playerList;
-		QPushButton *m_connectButton;
+		KPushButton *m_connectButton;
 };
 
 #endif

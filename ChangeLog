@@ -4,6 +4,7 @@
 - Better toolbar disable/enable code (API changes in monopd)
 - Bugfixes for m_playerSelf
 - preparations to use KExtendedSocket instead of QSocket
+- using KPushButton instead of QPushButton
 
 2001-12-18 (kaper)
 ----------

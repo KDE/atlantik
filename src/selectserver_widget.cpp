@@ -39,11 +39,11 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	m_refreshButton = new QPushButton(BarIcon("reload", 16), i18n("Refresh"), bgroup);
+	m_refreshButton = new KPushButton(BarIcon("reload", 16), i18n("Refresh"), bgroup);
 
 	connect(m_refreshButton, SIGNAL(pressed()), this, SLOT(initMonopigator()));
 
-	m_connectButton = new QPushButton(BarIcon("forward", 16), i18n("Connect"), this);
+	m_connectButton = new KPushButton(BarIcon("forward", 16), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	m_mainLayout->addWidget(m_connectButton);
 

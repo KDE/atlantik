@@ -35,7 +35,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	QHBox *buttonBox = new QHBox(this);
 	m_mainLayout->addWidget(buttonBox);
 
-	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Connect"), buttonBox);
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Connect"), buttonBox);
 	m_connectButton->setEnabled(false);
 //	m_mainLayout->addWidget(m_connectButton);
 
