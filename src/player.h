@@ -13,7 +13,7 @@ public:
 	Player(int playerId);
 	int playerId() { return m_playerId; }
 
-	void setLocation(const int estateId) { m_location = estateId; }
+	void setLocation(const int estateId);
 	const int location() { return m_location; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	const bool isSelf() { return m_isSelf; }
@@ -21,6 +21,7 @@ public:
 	const QString name() { return m_name; }
 	void setMoney(const QString _m);
 	void setView(PortfolioView *_pfv) { m_portfolioView = _pfv; }
+	void update();
 
 signals:
 	void changed();

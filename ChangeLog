@@ -10,6 +10,7 @@
 - Dynamic (server guided) colour support for estates.
 - Board configuration settings update properly again.
 - Starting Player / Token relationship as we did for Estate / EstateView
+- Tokens are moved again, just not in any useful direction ;-)
 
 2001-11-05 (kaper)
 ----------

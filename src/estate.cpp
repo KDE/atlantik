@@ -11,8 +11,6 @@ Estate::Estate(int estateId) : QObject()
 	m_canBeOwned = m_isMortgaged = m_canToggleMortgage = false;
 	m_bgColor = QColor();
 	m_color = QColor();
-	if (m_color.isValid())
-		kdDebug() << "estate color is valid at init" << endl;
 }
 
 void Estate::setOwner(Player *player)
@@ -84,10 +82,8 @@ void Estate::setCanToggleMortgage(const bool canToggleMortgage)
 
 void Estate::update(bool force = false)
 {
-	kdDebug() << "Estate::update()" << endl;
 	if (m_changed || force)
 	{
-		kdDebug() << "emit Estate::changed()" << endl;
 		emit changed();
 		m_changed = false;
 	}

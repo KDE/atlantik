@@ -182,13 +182,11 @@ void EstateView::paintEvent(QPaintEvent *)
 {
 	if (m_recreateQuartz)
 	{
-		kdDebug() << "EstateView::paintEvent recreating quartz blocks" << endl;
 		if (m_quartzBlocks)
 			delete m_quartzBlocks;
 
 		if (m_estate->color().isValid())
 		{
-			kdDebug() << "EstateView::paintEvent drawing quartz blocks" << endl;
 			m_quartzBlocks = new KPixmap();
 			m_quartzBlocks->resize(25, 18);
 			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
@@ -201,7 +199,6 @@ void EstateView::paintEvent(QPaintEvent *)
 
 	if (b_recreate)
 	{
-		kdDebug() << "EstateView::paintEvent recreating pixmap" << endl;
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
@@ -247,7 +244,6 @@ void EstateView::paintEvent(QPaintEvent *)
 
 					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
-						kdDebug() << "EstateView::paintEvent painting quartz on pixmap" << endl;
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, 1, *quartzBuffer);
 					}
@@ -265,7 +261,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i < m_estate->houses() ; i++ )
+							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
 						}
 					}
@@ -292,7 +288,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i < m_estate->houses() ; i++ )
+							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), (3*(titleHeight))+2, w, h);
 						}
 					}
@@ -319,7 +315,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i < m_estate->houses() ; i++ )
+							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2, 2+(i*(h+2)), w, h);
 						}
 					}
@@ -346,7 +342,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i < m_estate->houses() ; i++ )
+							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect((3*(titleWidth))+2, 2+(i*(h+2)), w, h);
 						}
 					}

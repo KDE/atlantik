@@ -335,8 +335,9 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool something)
+void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool directMove)
 {
+	kdDebug() << "Atlantik::slotMsgPlayerUpdateLocation" << endl;
 	Player *player = playerMap[playerId];
 	if (player)
 		player->setLocation(estateId);

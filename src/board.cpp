@@ -154,7 +154,9 @@ void AtlantikBoard::addEstateView(Estate *estate)
 
 void AtlantikBoard::addToken(Player *player)
 {
-	Token *token = new Token(this, "token");
+	Token *token = new Token(player, this, "token");
+	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
+
 	token->show();
 	jumpToken(token, 0, false);
 }
@@ -176,6 +178,9 @@ void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
 
 void AtlantikBoard::moveToken(Token *token, int destination)
 {
+	if ( token==0 )
+		return;
+	
 	kdDebug() << "moving piece from " << token->location() << " to " << destination << endl;
 
 	// Set token destination
@@ -195,8 +200,9 @@ void AtlantikBoard::setOwned(int estateId, bool byAny, bool byThisClient)
 
 void AtlantikBoard::raiseToken(int id)
 {
-	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
-		token[id]->raise();
+#warning port AtlantikBoard::raiseToken
+//	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
+//		token[id]->raise();
 }
 
 void AtlantikBoard::indicateUnownedChanged()
@@ -303,15 +309,18 @@ void AtlantikBoard::resizeEvent(QResizeEvent *e)
 
 void AtlantikBoard::slotResizeAftermath()
 {
+#warning port AtlantikBoard::slotResizeAftermath
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
+/*
 	for(int i=0;i<MAXPLAYERS;i++)
 	{
 		if (token[i]!=0)
 			jumpToken(token[i], token[i]->location(), false);
 	}
+*/
 
 	// Restart the timer that was stopped in resizeEvent
 	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())
@@ -323,6 +332,8 @@ void AtlantikBoard::slotResizeAftermath()
 
 void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
 {
+#warning remove AtlantikBoard::slotMsgPlayerUpdateLocation
+/*
 	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
 	{
 		if (token[playerid]->isHidden())
@@ -339,5 +350,6 @@ void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool
 				moveToken(token[playerid], location);
 		}
 	}
+*/
 }
 

@@ -1,18 +1,23 @@
 #include <qpainter.h>
 #include <qfont.h>
 
+#include <kdebug.h>
+
 #include <kstandarddirs.h>
 
-#include "token.h"
+#include "token.moc"
+#include "player.h"
 
 extern QColor atlantik_greenbg;
 
-Token::Token(QWidget *parent, const char *name) : QWidget(parent, name)
+Token::Token(Player *player, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
 
-	b_recreate = true;
+	m_player = player;
+
 	qpixmap = 0;
+	b_recreate = true;
 
 	setFixedSize(QSize(26, 26));
 	myId = QString("");
@@ -62,6 +67,12 @@ void Token::moveTo(int loc)
 	}
 	token[id]->setGeometry(x, y, width(), height());
 */
+}
+
+void Token::playerChanged()
+{
+	kdDebug() << "Token::playerChanged()" << endl;
+	setGeometry(100, 100, 125, 125);
 }
 
 void Token::paintEvent(QPaintEvent *)
