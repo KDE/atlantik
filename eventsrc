@@ -11,6 +11,7 @@ Comment[wa]=Atlantike
 
 [gainedturn]
 Name=Gained Turn
+Name[ar]=ربحت دورا
 Name[bg]=Придобит ред
 Name[bs]=Potez dobiven
 Name[ca]=Et toca jugar
@@ -47,6 +48,7 @@ Name[wa]=Djeu wangnî
 Name[zh_CN]=获得一次机会
 Name[zh_TW]=增加的回合
 Comment=It is your turn now
+Comment[ar]=دورك الآن
 Comment[bg]=Придобит ред
 Comment[bn]=এখন আপনার চাল
 Comment[bs]=Na vas je red
@@ -89,11 +91,13 @@ default_presentation=80
 
 [chat]
 Name=Chat
+Name[ar]=دردشة
 Name[bg]=Изпратено съобщение
 Name[bn]=আড্ডা
 Name[bs]=Razgovor
 Name[ca]=Xat
 Name[cs]=Rozhovor
+Name[cy]=Sgwrsio
 Name[el]=Κουβέντα
 Name[eo]=Babilu
 Name[et]=Vestlus
@@ -122,6 +126,7 @@ Name[uz]=Чат
 Name[zh_CN]=聊天
 Name[zh_TW]=聊天
 Comment=A player sends a chat message
+Comment[ar]=لقد أرسل لاعب رسالة دردشة
 Comment[bg]=Изпратено е съобщение от играч
 Comment[bn]=একজন খেলোয়াড় একটি বার্তা পাঠালেন
 Comment[bs]=Igrač je poslao poruku
@@ -164,8 +169,10 @@ default_presentation=64
 
 [newplayer]
 Name=New player
+Name[ar]=لاعب جديد
 Name[bg]=Нов играч
 Name[bn]=নতুন খেলোয়াড়
+Name[br]=C'hoarier nevez
 Name[bs]=Novi igrač
 Name[ca]=Nou jugador
 Name[cs]=Nový hráč
@@ -205,6 +212,7 @@ Name[wa]=Novea djouweu
 Name[zh_CN]=新玩家
 Name[zh_TW]=新玩家
 Comment=A new player joins the game
+Comment[ar]=لقد اشترك لاعب جديد في اللعبة
 Comment[bg]=Нов играч се присъедини към играта
 Comment[bn]=একজন নতুন খেলোয়াড় খেলায় যোগ দিয়েছেন
 Comment[bs]=Novi igrač se uključuje u igru
@@ -247,6 +255,7 @@ Comment[zh_TW]=一個新玩家加入此遊戲
 
 [newgame]
 Name=New game
+Name[ar]=لعبة جديدة
 Name[bg]=Нова игра
 Name[bn]=নতুন খেলা
 Name[br]=C'hoari nevez
@@ -288,6 +297,7 @@ Name[wa]=Novea djeu
 Name[zh_CN]=新游戏
 Name[zh_TW]=新遊戲
 Comment=A new game is created
+Comment[ar]=لقد انشئت لعبة جديدة
 Comment[bg]=Създадена е нова игра
 Comment[bn]=একটি নতুন খেলা আরম্ভ হয়েছে
 Comment[bs]=Napravljena je nova igra
