@@ -3,6 +3,7 @@
 
 #include <qwidget.h>
 #include <qtimer.h>
+#include <qabstractlayout.h>
 
 #include "config.h"
 #include "estateview.h"
@@ -17,6 +18,7 @@ Q_OBJECT
 		KMonopBoard(QWidget *parent, const char *name=0);
 		void setOwned(int, bool);
 		void raiseToken(int);
+		void indicateUnownedChanged();
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
@@ -30,7 +32,7 @@ Q_OBJECT
 		void jumpToken(Token *, int);
 		void moveToken(Token *, int);
 
-		QWidget *spacer;
+		QWidget *spacer, *center;
 		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
 		QTimer *qtimer;

@@ -3,29 +3,38 @@
 
 #include <qwidget.h>
 #include <qcheckbox.h>
+#include <qlineedit.h>
 
 #include <kdialogbase.h>
 
-struct ConfigOptions
+class ConfigPlayer : public QWidget
 {
-	bool indicateUnowned;
-	bool animateToken;
+	Q_OBJECT
+
+friend class ConfigDialog;
+
+	public:
+		ConfigPlayer(QWidget *parent, const char *name=0);
+
+	private:
+		void reset();
+
+		QLineEdit *_playerName;
 };
 
 class ConfigBoard : public QWidget
 {
 	Q_OBJECT
 
+friend class ConfigDialog;
+
 	public:
 		ConfigBoard(QWidget *parent, const char *name=0);
-//		ConfigOptions options();
 
 	private:
 		void reset();
 
-		ConfigOptions _options;
-
-		QCheckBox *indicateUnowned, *animateToken;
+		QCheckBox *_indicateUnowned, *_animateToken;
 };
 
 class ConfigDialog : public KDialogBase
@@ -34,10 +43,14 @@ class ConfigDialog : public KDialogBase
 
 	public:
 		ConfigDialog(QWidget *parent, const char *name=0);
-//		ConfigOptions options();
+		bool indicateUnowned();
+		bool animateToken();
+		QString playerName();
 
 	private:
-		ConfigOptions _options;
+		QFrame *p_p13n, *p_board;
+		ConfigPlayer *configPlayer;
+		ConfigBoard *configBoard;
 };
 
 #endif

@@ -9,13 +9,16 @@
 #include <kstddirs.h>
 
 #include "estateview.h"
+#include "config.h"
 
 extern QColor kmonop_greenbg, kmonop_greenhouse;
+extern KMonopConfig kmonopConfig;
 
-EstateView::EstateView(int _orientation, const QColor &_color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
-	orientation = _orientation;
-	color = _color;
+	_orientation = orientation;
+	_canBeOwned = canBeOwned;
+	_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -36,6 +39,7 @@ EstateView::EstateView(int _orientation, const QColor &_color, const QString &_i
 
 	setName("Boardwalk");
 	setHouses(0);
+	setOwned(false);
 
 	QToolTip::add(this, estatename);
 }
@@ -48,7 +52,7 @@ QPixmap *EstateView::initIcon(QString name)
 	QPixmap *icon = new QPixmap(locate("data", "kmonop/pics/" + name));
 	QWMatrix m;
 
-	switch(orientation)
+	switch(_orientation)
 	{
 		case East:
 			m.rotate(90);
@@ -81,19 +85,28 @@ void EstateView::setHouses(int _houses)
 
 void EstateView::setOwned(bool owned)
 {
-	if (owned)
+	_owned = owned;
+	updatePE();
+}
+
+void EstateView::updatePE()
+{
+	// Don't show a when a property is not unowned, cannot be owned at all
+	// or when the user has configured KMonop not to show them.
+	if (_owned || !_canBeOwned || kmonopConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
 	}
-	else
+//	else if (kmonopConfig.indicateUnowned==true)
+else
 	{
 		if (pe==0)
 		{
 			// Display a coloured portfolioestate in the center to indicate
 			// property is for sale
 			pe = new PortfolioEstate(this);
-			pe->setColor(color);
+			pe->setColor(_color);
 			pe->setOwned(true);
 			centerPortfolioEstate();
 			pe->show();
@@ -127,10 +140,10 @@ void EstateView::paintEvent(QPaintEvent *)
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
-		if (color.isValid())
+		if (_color.isValid())
 		{
-			painter.setBrush(color);
-			switch(orientation)
+			painter.setBrush(_color);
+			switch(_orientation)
 			{
 				case North:
 					painter.drawRect(0, 0, width(), height()/4);

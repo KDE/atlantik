@@ -9,6 +9,8 @@
 #include "kmonop.moc"
 #include "config.h"
 
+extern KMonopConfig kmonopConfig;
+
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
 {
@@ -26,7 +28,6 @@ KMonop::KMonop (const char *name) :
 
 	// Settings actions
 	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
-//	config_kmonop->setEnabled(false); // since its not done yet
 
 	createGUI();
 //	toolBar(0)->setBarPos(KToolBar::Left);
@@ -80,10 +81,12 @@ void KMonop::readConfig()
 {
 	KConfig *config=kapp->config();
 
-	config->setGroup("Board");
+	config->setGroup("Personalization");
+	kmonopConfig.playerName = config->readEntry("PlayerName");
 
-//	setConfigIndicateUnowned(config->readBoolEntry("IndicateUnowned", true));
-//	setConfigAnimateToken(config->readBoolEntry("AnimateToken", false));
+	config->setGroup("Board");
+	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
+	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 }
 
 void KMonop::slotNewGame()
@@ -105,7 +108,46 @@ void KMonop::slotConfigure()
 		configDialog = new ConfigDialog(this);
 	}
 	configDialog->show();
-//	configDialog->raise();
+	
+	connect(configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
+}
+
+void KMonop::slotUpdateConfig()
+{
+	KConfig *config=kapp->config();
+	bool optBool;
+	QString optStr;
+
+/*
+	optStr = configDialog->playerName();
+	if (kmonopConfig.playerName != optStr)
+	{
+		kmonopConfig.playerName = optStr;
+		gameNetwork->writeData(".n" + optStr);
+	}
+*/
+
+	optBool = configDialog->indicateUnowned();
+	if (kmonopConfig.indicateUnowned != optBool)
+	{
+		kmonopConfig.indicateUnowned = optBool;
+		board->indicateUnownedChanged();
+	}
+
+	optBool = configDialog->animateToken();
+	if (kmonopConfig.animateToken != optBool)
+	{
+		kmonopConfig.animateToken = optBool;
+	}
+
+	config->setGroup("Personalization");
+	config->writeEntry("PlayerName", kmonopConfig.playerName);
+
+	config->setGroup("Board");
+	config->writeEntry("IndicateUnowned", kmonopConfig.indicateUnowned);
+	config->writeEntry("AnimateToken", kmonopConfig.animateToken);
+
+	config->sync();
 }
 
 void KMonop::slotRoll()

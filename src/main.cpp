@@ -8,6 +8,8 @@
 #include "kmonop.h"
 #include "colordefs.h"
 
+KMonopConfig kmonopConfig;
+
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData(

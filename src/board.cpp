@@ -6,9 +6,11 @@
 
 #include "board.moc"
 #include "estateview.h"
+#include "config.h"
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
+extern KMonopConfig kmonopConfig;
 
 KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -25,19 +27,21 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 	spacer = new QWidget(this);
 	layout->addWidget(spacer, 24, 24); // SE
 
-	QWidget *center = new QWidget(this);
-	layout->addMultiCellWidget(center, 3, 3, 20, 20);
+	center = new QWidget(this);
+	layout->addMultiCellWidget(center, 3, 20, 3, 20);
 	center->setBackgroundColor(kmonop_greenbg);
 
 	int i=0, orientation=North;
 
 	QColor color;
 	QString icon;
+	bool canBeOwned;
 
 	for (i=0;i<40;i++)
 	{
 		color = QColor();
 		icon = QString();
+		canBeOwned = false;
 
 		switch(i)
 		{
@@ -60,6 +64,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 
 			case 5: case 15: case 25: case 35:
 				icon = QString("train.png");
+				canBeOwned = true;
 				break;
 			case 7: case 36:
 				icon = QString("qmark-red.png");
@@ -78,9 +83,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 		else if (i<40)
 			orientation = West;
 			
-		estate[i] = new EstateView(orientation, color, icon, this, "estate");
-		if (color.isValid())
-			estate[i]->setOwned(false);
+		estate[i] = new EstateView(orientation, (color.isValid() || canBeOwned), color, icon, this, "estate");
 
 		if (i==0)
 			layout->addMultiCellWidget(estate[i], 21, 23, 21, 23);
@@ -119,6 +122,12 @@ void KMonopBoard::jumpToken(Token *token, int to)
 
 	token->setLocation(to);
 	token->setGeometry(x, y, token->width(), token->height());
+
+	// Confirm location to server.
+	QString msg(".t"), loc;
+	loc.setNum(to);
+	msg.append(loc);
+	gameNetwork->writeData(msg.latin1());
 }
 
 void KMonopBoard::moveToken(Token *token, int dest)
@@ -143,6 +152,15 @@ void KMonopBoard::raiseToken(int id)
 {
 	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
 		token[id]->raise();
+}
+
+void KMonopBoard::indicateUnownedChanged()
+{
+	int i=0;
+
+	for (i=0;i<40;i++)
+		if (estate[i]!=0)
+			estate[i]->updatePE();
 }
 
 void KMonopBoard::slotMoveToken()
@@ -267,7 +285,7 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 		// Only take action when location has changed
 		if (token[playerid]->location() != location)
 		{
-			if (direct)
+			if (direct || kmonopConfig.animateToken==false)
 				jumpToken(token[playerid], location);
 			else
 				moveToken(token[playerid], location);

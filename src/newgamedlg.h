@@ -44,6 +44,7 @@ Q_OBJECT
 		QString gameToJoin() const;
 
 	public slots:
+		void slotConnectionError(int);
 		void slotConnected();
 		void slotGamelistUpdate(QString);
 		void slotGamelistEndUpdate(QString);

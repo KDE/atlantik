@@ -126,6 +126,7 @@ QString SelectServer::hostToConnect() const
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	// Network interface
+	connect(gameNetwork, SIGNAL(error(int)), this, SLOT(slotConnectionError(int)));
 	connect(gameNetwork, SIGNAL(connected()), this, SLOT(slotConnected()));
 	connect(gameNetwork, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
 	connect(gameNetwork, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
@@ -218,6 +219,27 @@ QString SelectGame::gameToJoin() const
 		return item->text(0);
 	else
 		return QString("0");
+}
+
+void SelectGame::slotConnectionError(int errno)
+{
+	QString errMsg("Error connecting: ");
+	
+	switch(errno)
+	{
+		case QSocket::ErrConnectionRefused:
+			errMsg.append("connection refused by host.");
+			break;
+
+		case QSocket::ErrHostNotFound:
+			errMsg.append("host not found.");
+			break;
+
+		default:
+			errMsg.append("unknown error.");
+	}
+	status_label->setText(errMsg);
+//	emit statusChanged();
 }
 
 void SelectGame::slotConnected()

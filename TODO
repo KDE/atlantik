@@ -2,7 +2,7 @@ For 0.0.2
 ---------
 
 - Finish newgamedlg wizard:
-  - Report error in case connection cannot be made.
+  v Report error in case connection cannot be made.
   - Game configuration needn't be implemented yet, missing functionality in
     monopd server.
   v Game playerlist must be displayed and present an option to launch the
@@ -13,18 +13,21 @@ For 0.0.2
   v Upon startgame, use playerupdate to init/update portfolios. Final
     playerlist is already deprecated then. ;-)
 - Fetch (default) game data from server (streetnames).
-- Move most of the dom parsing back to network.cpp and emit more specialized
+v Move most of the dom parsing back to network.cpp and emit more specialized
   signals such as moveToken(id, pos);
 v Property for sale visualisation:
   - also for utilities
-  - also for stations
+  v also for stations
 - Station(v)/utility/cc/chance(v) icons on gameboard
-- Config options working:
-  - for sale visualization
+v Config options working:
+  - passing through changes
 
 For 0.1.x
 ---------
 
+- Port new game wizard away from KWizard again, our network validation code
+  makes using a pre-defined wizard a difficult task, it's easier to create
+  our own widget.
 - Make things work. ;-)
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:

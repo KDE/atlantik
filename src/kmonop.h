@@ -26,10 +26,14 @@ class KMonop : public KTMainWindow
 		
 	public slots:
 		void slotNewGame();
+
 		void slotConfigure();
+		void slotUpdateConfig();
+
 		void slotRoll();
 		void slotBuy();
 		void slotSendMsg();
+
 		void slotMsgError(QString);
 		void slotMsgInfo(QString);
 		void slotMsgChat(QString, QString);
@@ -37,6 +41,7 @@ class KMonop : public KTMainWindow
 		void slotMsgPlayerUpdateName(int, QString);
 		void slotMsgPlayerUpdateMoney(int, QString);
 		void slotMsgEstateUpdate(int, int);
+
 		void slotSetPlayerId(int);
 		void slotSetTurn(int);
 	
