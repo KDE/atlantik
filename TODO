@@ -28,19 +28,6 @@ Bugfixes
   player->location)
 - update token geometry when player's jail status changed
 
-For 0.3.0
----------
-
-v support for <display>
-  v 10/200% tax
-    v remove widget after paying (monopd needs to send a display reset)
-v Different token placement when in jail
-v fix portfolio
-  v non street estates in portfolio (depends on proper monopd groups)
-  v do some relayouting based on the estategroup order
-v decent copyright and license notice in code and headers
-v add usercount support within monopigator
-
 For 0.3.1
 ---------
 
