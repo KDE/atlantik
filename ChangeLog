@@ -4,6 +4,7 @@
 - fixed potential double initialization of gameboard
 - don't crash when removing money from a trade
 - properly quote arguments given to KProcess in kio_atlantik
+- valgrind leak and unitialised memory access fixes
 
 0.5.0
 -----
