@@ -23,7 +23,7 @@
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include <atlantic_core.h>
 #include <config.h>
@@ -180,7 +180,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		painter.setPen(m_player->hasTurn() ? m_activeColor : Qt::black);
 		painter.setBrush(m_player->hasTurn() ? m_activeColor : Qt::black);
 		painter.drawRect(0, 0, width(), 20);
-		
+
 		if (m_image)
 		{
 			painter.setPen(Qt::black);
@@ -213,7 +213,7 @@ void PortfolioView::playerChanged()
 	update();
 }
 
-void PortfolioView::mousePressEvent(QMouseEvent *e) 
+void PortfolioView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==RightButton && !m_player->isSelf())
 	{
