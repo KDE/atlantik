@@ -16,7 +16,6 @@ Bugfixes
 - connect Player::changed() to trade widget (for list items)
 - connect Player::changed() to auction widget (for list items)
 - bugs from Neil's trial report
-  - Trade dialog functionless, but you knew that
   - Deed icons shown on non-deeded squares (jail, free parking, go to jail)
   - Can't tell who owns which railroads and utilities, as the upper left only shows streets
   - No notification of when someone got sent to jail
