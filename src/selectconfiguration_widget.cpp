@@ -28,17 +28,13 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerList->addColumn(QString(i18n("Host")));
 //	m_mainLayout->addWidget(m_playerList);
 
-	connect(m_playerList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
-	connect(m_playerList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_playerList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
 	// Add new configuration option to list view
 //	QListViewItem *item = new QListViewItem(m_configurationList, i18n("Start a new configuration"), "");
 //	item->setPixmap(0, SmallIcon("filenew"));
 
 	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Start game"), this);
-	m_connectButton->setEnabled(false);
 	m_mainLayout->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
@@ -52,7 +48,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 void SelectConfiguration::slotPlayerListClear()
 {
 	m_playerList->clear();
-	validateConnectButton();
 //	emit statusChanged();
 }
 
@@ -61,8 +56,6 @@ void SelectConfiguration::slotPlayerListAdd(QString playerId, QString name, QStr
 	kdDebug() << "SelectConfiguration::slotPlayerListAdd" << endl;
 	QListViewItem *item = new QListViewItem(m_playerList, playerId, name, host);
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
-
-	validateConnectButton();
 }
 
 void SelectConfiguration::slotPlayerListEdit(QString playerId, QString name, QString host)
@@ -79,7 +72,6 @@ void SelectConfiguration::slotPlayerListEdit(QString playerId, QString name, QSt
 		}
 		item = item->nextSibling();
 	}
-	validateConnectButton();
 //	emit statusChanged();
 }
 
@@ -95,16 +87,7 @@ void SelectConfiguration::slotPlayerListDel(QString playerId)
 		}
 		item = item->nextSibling();
 	}
-	validateConnectButton();
 //	emit statusChanged();
-}
-
-void SelectConfiguration::validateConnectButton()
-{
-	if (m_playerList->selectedItem())
-		m_connectButton->setEnabled(true);
-	else
-		m_connectButton->setEnabled(false);
 }
 
 void SelectConfiguration::connectPressed()

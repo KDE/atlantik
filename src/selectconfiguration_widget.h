@@ -18,7 +18,6 @@ public:
 		int portToConnect();
 
 	public slots:
-		void validateConnectButton();
 		void slotPlayerListClear();
 		void slotPlayerListAdd(QString playerId, QString name, QString host);
 		void slotPlayerListEdit(QString playerId, QString name, QString host);
