@@ -29,8 +29,8 @@
 <holder>Rob Kaper</holder>
 </copyright>
 
-<date>2004-05-01</date>
-<releaseinfo>0.6.2</releaseinfo>
+<date>2004-09-15</date>
+<releaseinfo>0.8.0</releaseinfo>
 
 <abstract>
 <para>
@@ -46,6 +46,7 @@ class="registered">Monopoly</trademark>-like boardgames on the
 <keyword>KDE</keyword>
 <keyword>kdegames</keyword>
 <keyword>Atlantik</keyword>
+<keyword>monopd</keyword>
 </keywordset>
 
 </bookinfo>
@@ -140,6 +141,47 @@ url="http://unixcode.org/atlantik/download.html">&atlantik;</ulink> download
 page.</para>
 
 </chapter>
+
+<chapter id="faq-answers">
+<title>Answers to Frequently Asked Questions</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para>How do I add a computer player?</para>
+</question>
+<answer>
+<para>Unfortunately, computer opponents are not yet supported by &atlantik;.
+Work is in progress to development a network bot that can connect to
+servers, called <ulink
+url="http://unixcode.org/atlantik/pacifik.html">Pacifik</ulink>, but is has
+not yet reached a useful level.</para>
+<para>Users are advised to take advantage of the public
+Internet servers or a private <acronym>LAN</acronym> server.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para>How do I trade?</para>
+</question>
+<answer>
+<para>Click on a player portfolio or estate with the &RMB; and you can open
+a trade.</para>
+<para>There are a two usability issues with trades that can cause confusion.
+If you in any way include another player in a trade, that player will get
+the trade window. Any player can reject the terms, which unnecessarily ends
+the trade session for all other players as well. A trade has to be accepted
+by all players in it before it can completed, which can be complicated
+because players remain a participant in deals even when they are no longer
+involved with tradeable items.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
 <chapter id="credits-and-licenses">
 <title>Credits and Licenses</title>
 
