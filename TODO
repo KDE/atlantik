@@ -33,6 +33,7 @@ v fixed possible double initialization of game board
 v API: using playerupdate for player list in SelectConfiguration
 v don't crash when removing money from a trade
 v API: make use of cleartext/clearbuttons attributes in display
+v properly quote arguments given to KProcess in kio_atlantik
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio
