@@ -310,6 +310,7 @@ void Atlantik::initGame()
 
 	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(displayButton(QString, QString)), m_board, SLOT(displayButton(QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
 	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
 }

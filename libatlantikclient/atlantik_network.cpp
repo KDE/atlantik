@@ -257,12 +257,20 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "display")
 			{
-				emit displayText(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
-				for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+				QString caption = e.attributeNode(QString("name")).value();
+				QString description = e.attributeNode(QString("description")).value();
+				
+				if (caption.isEmpty() && description.isEmpty())
+					emit displayDefault();
+				else
 				{
-					QDomElement eButton = nButtons.toElement();
-					if (!eButton.isNull() && eButton.tagName() == "button")
-						emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value());
+					emit displayText(caption, description);
+					for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+					{
+						QDomElement eButton = nButtons.toElement();
+						if (!eButton.isNull() && eButton.tagName() == "button")
+							emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value());
+					}
 				}
 			}
 			else if (e.tagName() == "updategamelist")

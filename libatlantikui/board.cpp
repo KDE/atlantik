@@ -64,7 +64,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 //	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
 	m_center = 0;
-	displayCenter();
+	displayDefault();
 
 	QColor color;
 	QString icon;
@@ -196,7 +196,7 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 
-	connect(auction, SIGNAL(completed()), this, SLOT(displayCenter()));
+	connect(auction, SIGNAL(completed()), this, SLOT(displayDefault()));
 }
 
 void AtlantikBoard::addToken(Player *player)
@@ -378,7 +378,7 @@ void AtlantikBoard::slotResizeAftermath()
 	}
 }
 
-void AtlantikBoard::displayCenter()
+void AtlantikBoard::displayDefault()
 {
 	if (m_center != 0)
 		delete m_center;
@@ -401,7 +401,7 @@ void AtlantikBoard::displayText(QString caption, QString body)
 
 	connect(display, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 
-//	QTimer::singleShot(3000, this, SLOT(displayCenter()));
+//	QTimer::singleShot(3000, this, SLOT(displayDefault()));
 }
 
 void AtlantikBoard::displayButton(QString command, QString caption)

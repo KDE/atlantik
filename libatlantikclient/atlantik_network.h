@@ -115,6 +115,7 @@ signals:
 
 	void displayText(QString title, QString description);
 	void displayButton(QString command, QString caption);
+	void displayDefault();
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);

@@ -46,7 +46,7 @@ v support for <display>
     - dice
     - leaving jail
     v 10/200% tax
-      - remove widget after paying (monopd needs to send a display reset)
+      v remove widget after paying (monopd needs to send a display reset)
 v Different token placement when in jail
 v fix portfolio
   v non street estates in portfolio (depends on proper monopd groups)
