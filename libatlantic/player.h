@@ -46,6 +46,8 @@ public:
 	bool inJail() const { return m_inJail; }
 	void setName(const QString _n);
 	QString name() const { return m_name; }
+	void setHost(const QString &host);
+	QString host() const { return m_host; }
 	void setImage(const QString &image);
 	const QString image() const { return m_image; }
 	void setMoney(unsigned int _m);
@@ -60,7 +62,7 @@ private:
 	bool m_changed, m_isSelf;
 	bool m_hasTurn, m_canRoll, m_canBuy, m_inJail;
 	unsigned int m_money;
-	QString m_name, m_image;
+	QString m_name, m_host, m_image;
 	Estate *m_location, *m_destination;
 };
 

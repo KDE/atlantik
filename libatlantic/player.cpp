@@ -22,6 +22,7 @@ Player::Player(int playerId) : QObject()
 {
 	m_id = playerId;
 	m_name = "";
+	m_host = "";
 	m_image = "";
 	m_location = m_destination = 0;
 	m_money = 0;
@@ -88,6 +89,15 @@ void Player::setName(const QString _n)
 	if (m_name != _n)
 	{
 		m_name = _n;
+		m_changed = true;
+	}
+}
+
+void Player::setHost(const QString &host)
+{
+	if (m_host != host)
+	{
+		m_host = host;
 		m_changed = true;
 	}
 }
