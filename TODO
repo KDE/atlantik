@@ -16,6 +16,7 @@ Bugfixes
 
 - Update messages views after resize.
 - all player/core dependencies in Board should only be there in Mode::Play
+- don't display trade results over auction, but stack it behind it in the queue
 
 For 0.6.0
 ---------

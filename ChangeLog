@@ -13,6 +13,7 @@
 - don't tell game has started when it has not
 - sort user column in server list by number, not alphabetically
 - show non-game users when not in a game
+- prevent double close buttons on estate details
 
 0.5.2
 -----
