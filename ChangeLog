@@ -7,6 +7,8 @@
 - Support gameupdate tag, deprecate updategamelist (requires monopd >= 0.9.0)
 - Support individual configupdate tags
 - Show estate names on board (#61858)
+- Properly withdraw from a game prior to intended client exits, to avoid
+  triggering monopd's reconnection timeout.
 
 0.6.3
 -----

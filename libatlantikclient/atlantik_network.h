@@ -49,7 +49,6 @@ private slots:
 	void newGame(const QString &gameType);
 	void reconnect(const QString &cookie);
 	void startGame();
-	void leaveGame();
 	void buyEstate();
 	void auctionEstate();
 	void estateToggleMortgage(Estate *estate);
@@ -75,6 +74,7 @@ private slots:
 public slots:
 	void serverConnect(const QString host, int port);
 	void joinGame(int gameId);
+	void leaveGame();
 	void slotRead();
 
 signals:

@@ -28,6 +28,7 @@
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <klocale.h>
+#include <kmessagebox.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
 #include <kstatusbar.h>
@@ -802,4 +803,23 @@ PortfolioView *Atlantik::findPortfolioView(Player *player)
 			return portfolioView;
 
 	return 0;
+}
+
+void Atlantik::closeEvent(QCloseEvent *e)
+{
+	Game *gameSelf = m_atlanticCore->gameSelf();
+	Player *playerSelf = m_atlanticCore->playerSelf();
+
+	int result = KMessageBox::Yes;
+	if ( gameSelf && !playerSelf->isBankrupt() )
+		result = KMessageBox::warningYesNo( this, i18n("You are currently part of an active game. Are you sure you want to close Atlantik? If you do, you forfeit the game."), i18n("Close and Forfeit?") );
+
+	if ( result == KMessageBox::Yes )
+	{
+		if ( m_atlantikNetwork )
+			m_atlantikNetwork->leaveGame();
+
+		saveMainWindowSettings(kapp->config(), "AtlantikMainWindow");
+		KMainWindow::closeEvent(e);
+	}
 }

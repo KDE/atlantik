@@ -223,6 +223,9 @@ signals:
 	void jailPay();
 	void jailRoll();
 
+protected:
+	void closeEvent(QCloseEvent *);
+
 private:
 	void initEventLog();
 	void initNetworkObject();
