@@ -3,7 +3,7 @@ Contents
 
 1. Introduction
 2. Download
-3. Mailinglist
+3. Mailinglists
 4. Roadmap
 5. Designer
 6. Copyrights, trademarks and patents
@@ -47,15 +47,16 @@ Both monopd and Atlantik are in heavy development and it is important to match
 versions when connecting to a game server. One can choose a suitable server
 through the Monopigator interface.
 
-3. Mailinglist
---------------
+3. Mailinglists
+--------------=
 
 There are mailinglists available for discussion of Atlantik development. The
 atlantik-devel list is for general discussion and development of the
-codebase, the atlantik-artists list is for the development of GFX/SFX for
-Atlantik.
+codebase, the atlantik-cvs list has all the CVS commits in it and the
+atlantik-artists list is for the development of GFX/SFX for Atlantik.
 
 See http://mail.kde.org/mailman/listinfo/atlantik-devel
+See http://mail.kde.org/mailman/listinfo/atlantik-cvs
 and http://mail.kde.org/mailman/listinfo/atlantik-artists
 
 on information on subscribing, posting and list archives.
