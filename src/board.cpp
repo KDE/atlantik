@@ -2,11 +2,12 @@
 
 #include <kdebug.h>
 
+#include <player.h>
+#include <estate.h>
+#include <atlantik_network.h>
+
 #include "board.moc"
 #include "estateview.h"
-#include "estate.h"
-#include "player.h"
-#include "network.h"
 #include "config.h"
 #include "display_widget.h"
 

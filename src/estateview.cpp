@@ -11,9 +11,10 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
+#include <estate.h>
+#include <atlantik_network.h>
+
 #include "estateview.moc"
-#include "estate.h"
-#include "network.h"
 #include "config.h"
 
 extern QColor atlantik_redhotel, atlantik_greenhouse;

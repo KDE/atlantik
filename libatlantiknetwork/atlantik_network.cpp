@@ -1,108 +1,108 @@
 #include <kdebug.h>
 
-#include "network.moc"
+#include <atlantic_core.h>
+#include <player.h>
+#include <estate.h>
+#include <trade.h>
 
-#include "atlantic_core.h"
-#include "atlantik.h"
+#include "atlantik_network.moc"
 
-#include "trade.h"
-#include "trade_widget.h"
-#include "player.h"
-#include "estate.h"
+//#include "atlantik.h"
+//#include "trade_widget.h"
 
 #ifndef USE_KDE
-GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : QSocket(parent, name)
+AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : QSocket(parent, name)
 #else
-GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
+AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
 #endif
 {
 	m_atlanticCore = atlanticCore;
-	m_mainWindow = parent;
+	m_parent = parent;
 	m_clientId = m_playerId = -1;
 
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-void GameNetwork::roll()
+void AtlantikNetwork::roll()
 {	writeData(".r");
 }
 
-void GameNetwork::buyEstate()
+void AtlantikNetwork::buyEstate()
 {	writeData(".eb");
 }
 
-void GameNetwork::startGame()
+void AtlantikNetwork::startGame()
 {
 	writeData(".gs");
 }
 
-void GameNetwork::endTurn()
+void AtlantikNetwork::endTurn()
 {	writeData(".E");
 }
 
-void GameNetwork::cmdName(QString name)
+void AtlantikNetwork::cmdName(QString name)
 {
 	QString msg(".n");
 	msg.append(name);
 	writeData(msg);
 }
 
-void GameNetwork::tokenConfirmation(Estate *estate)
+void AtlantikNetwork::tokenConfirmation(Estate *estate)
 {
 	QString msg(".t");
 	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::estateToggleMortgage(Estate *estate)
+void AtlantikNetwork::estateToggleMortgage(Estate *estate)
 {
 	QString msg(".em");
 	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::estateHouseBuy(Estate *estate)
+void AtlantikNetwork::estateHouseBuy(Estate *estate)
 {
 	QString msg(".hb");
 	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::estateHouseSell(Estate *estate)
+void AtlantikNetwork::estateHouseSell(Estate *estate)
 {
 	QString msg(".hs");
 	msg.append(QString::number(estate ? estate->estateId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::cmdGamesList()
+void AtlantikNetwork::cmdGamesList()
 {	writeData(".gl");
 }
 
-void GameNetwork::newGame(const QString &gameType)
+void AtlantikNetwork::newGame(const QString &gameType)
 {
 	writeData(".gn" + gameType);
 }
 
-void GameNetwork::joinGame(int gameId)
+void AtlantikNetwork::joinGame(int gameId)
 {
 	QString msg(".gj");
 	msg.append(QString::number(gameId));
 	writeData(msg);
 }
 
-void GameNetwork::cmdChat(QString msg)
+void AtlantikNetwork::cmdChat(QString msg)
 {	writeData(msg);
 }
 
-void GameNetwork::newTrade(Player *player)
+void AtlantikNetwork::newTrade(Player *player)
 {
 	QString msg(".Tn");
 	msg.append(QString::number(player ? player->playerId() : -1));
 	writeData(msg);
 }
 
-void GameNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player)
+void AtlantikNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player)
 {
 	QString msg(".Te");
 	msg.append(QString::number(trade ? trade->tradeId() : -1));
@@ -113,7 +113,7 @@ void GameNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player
 	writeData(msg);
 }
 
-void GameNetwork::tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money)
+void AtlantikNetwork::tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money)
 {
 	QString msg(".Tm");
 	msg.append(QString::number(trade ? trade->tradeId() : -1));
@@ -126,36 +126,36 @@ void GameNetwork::tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, uns
 	writeData(msg);
 }
 
-void GameNetwork::cmdTradeAccept(int tradeId)
+void AtlantikNetwork::cmdTradeAccept(int tradeId)
 {
 	QString msg(".Ta");
 	msg.append(QString::number(tradeId));
 	writeData(msg);
 }
 
-void GameNetwork::cmdTradeReject(int tradeId)
+void AtlantikNetwork::cmdTradeReject(int tradeId)
 {
 	QString msg(".Tr");
 	msg.append(QString::number(tradeId));
 	writeData(msg);
 }
 
-void GameNetwork::jailPay()
+void AtlantikNetwork::jailPay()
 {
 	writeData(".jp");
 }
 
-void GameNetwork::jailRoll()
+void AtlantikNetwork::jailRoll()
 {
 	writeData(".jr");
 }
 
-void GameNetwork::jailCard()
+void AtlantikNetwork::jailCard()
 {
 	writeData(".jc");
 }
 
-void GameNetwork::writeData(QString msg)
+void AtlantikNetwork::writeData(QString msg)
 {
 	msg.append("\n");
 #ifndef USE_KDE
@@ -171,7 +171,7 @@ void GameNetwork::writeData(QString msg)
 		kdDebug() << "not [" << msg << "]" << endl;
 }
 
-void GameNetwork::slotRead()
+void AtlantikNetwork::slotRead()
 {
 	kdDebug() << "slotRead" << endl;
 #ifndef USE_KDE
@@ -193,7 +193,7 @@ void GameNetwork::slotRead()
 		flush();
 }
 
-void GameNetwork::processMsg(QString str)
+void AtlantikNetwork::processMsg(QString str)
 {
 	kdDebug() << "processing msg: " + str << endl;
 	msg.setContent(str);
@@ -207,7 +207,7 @@ void GameNetwork::processMsg(QString str)
 	processNode(n);
 }
 
-void GameNetwork::processNode(QDomNode n)
+void AtlantikNetwork::processNode(QDomNode n)
 {
 	QDomAttr a;
 
@@ -224,7 +224,7 @@ void GameNetwork::processNode(QDomNode n)
 					if (a.value() == "error")
 						emit msgError(e.attributeNode(QString("value")).value());
 					else if (a.value() == "info")
-						m_mainWindow->serverMsgsAppend( e.attributeNode(QString("value")).value() );
+						emit msgInfo(e.attributeNode(QString("value")).value());
 					else if (a.value() == "chat")
 						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
 					else if (a.value() == "startgame")
@@ -311,22 +311,8 @@ void GameNetwork::processNode(QDomNode n)
 			{
 				Player *player = m_players[e.attributeNode(QString("player")).value().toInt()];
 				if (player)
-				{
-					// Update all objects
-#warning port to atlanticcore
-/*
-					Player *p;
-					for (QPtrListIterator<Player> i(m_players); *i; ++i)
-					{
-						p = dynamic_cast<Player*>(*i);
-						if (p)
-							p->setHasTurn(p==player);
-					}
-*/
-
-					// Update view(s)
-					m_mainWindow->setTurn(player);
-				}
+					// Update *all* objects
+					m_atlanticCore->setCurrentTurn(player);
 			}
 			else if (e.tagName() == "gameupdate")
 			{
@@ -352,14 +338,14 @@ void GameNetwork::processNode(QDomNode n)
 					playerId = a.value().toInt();
 
 					Player *player;
-					bool newPlayer = false;
+					bool b_newPlayer = false;
 					if (!(player = m_players[playerId]))
 					{
 						// Create player object
 						player = m_atlanticCore->newPlayer(playerId);
 						m_players[playerId] = player;
 
-						newPlayer = true;
+						b_newPlayer = true;
 					}
 
 					// Check if this is us
@@ -406,9 +392,9 @@ void GameNetwork::processNode(QDomNode n)
 							player->setLocation(estate);
 					}
 
-					// Create view(s)
-					if (newPlayer)
-						m_mainWindow->addPlayer(player);
+					// Emit signal so GUI implementations can create view(s)
+					if (b_newPlayer)
+						emit newPlayer(player);
 
 					if (player)
 						player->update();
@@ -425,7 +411,7 @@ void GameNetwork::processNode(QDomNode n)
 					kdDebug() << "ESTATEUPDATE id " << estateId << endl;
 
 					Estate *estate;
-					bool newEstate = false;
+					bool b_newEstate = false;
 					if (!(estate = m_estates[a.value().toInt()]))
 					{
 						// Create estate object
@@ -436,7 +422,7 @@ void GameNetwork::processNode(QDomNode n)
 						QObject::connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
 						QObject::connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
 
-						newEstate = true;
+						b_newEstate = true;
 					}
 
 					a = e.attributeNode(QString("name"));
@@ -484,9 +470,9 @@ void GameNetwork::processNode(QDomNode n)
 					if (estate && !a.isNull())
 						estate->setCanSellHouses(a.value().toInt());
 
-					// Create view(s)
-					if (newEstate)
-						m_mainWindow->addEstate(estate);
+					// Emit signal so GUI implementations can create view(s)
+					if (b_newEstate)
+						emit newEstate(estate);
 
 					if (estate)
 						estate->update();
@@ -509,6 +495,8 @@ void GameNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
 
+#warning port away tradedisplay
+/*
 						TradeDisplay *tradeDisplay = new TradeDisplay(trade, 0, "tradeDisplay");
 						tradeDisplay->setFixedSize(200, 200);
 						tradeDisplay->show();
@@ -516,6 +504,7 @@ void GameNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 
 						// m_board->addTradeView(trade);
+*/
 					}
 
 					QString type = e.attributeNode(QString("type")).value();
@@ -612,7 +601,7 @@ void GameNetwork::processNode(QDomNode n)
 	}
 }
 
-void GameNetwork::serverConnect(const QString host, int port)
+void AtlantikNetwork::serverConnect(const QString host, int port)
 {
 #ifndef USE_KDE
 	connectToHost(host, port);

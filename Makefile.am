@@ -2,7 +2,7 @@ INCLUDES = $(all_includes)
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
-COMPILE_FIRST = libatlantic
+COMPILE_FIRST = libatlantic libatlantiknetwork
 SUBDIRS = $(COMPILE_FIRST) src atlanticd pics
 
 EXTRA_DIST = atlantik.desktop

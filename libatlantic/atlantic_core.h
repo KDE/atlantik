@@ -24,6 +24,8 @@ public:
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
 
+	void setCurrentTurn(Player *player);
+
 private:
 	QPtrList<Player> m_players;
 	QPtrList<Estate> m_estates;

@@ -17,7 +17,7 @@
 #include "trade.h"
 
 class AtlanticCore;
-class GameNetwork;
+class AtlantikNetwork;
 
 class SelectServer;
 class SelectGame;
@@ -56,8 +56,6 @@ public:
 	 */
 	void serverMsgsAppend(QString msg);
 
-	void addPlayer(Player *);
-	void addEstate(Estate *);
 
 	/**
 	 * Updates various visualisation parts of the player at turn. If
@@ -128,12 +126,19 @@ public slots:
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the
+	 * server to the text view as informational message.
+	 *
+	 * @param msg The message to be appended.
+	 */
+	void slotMsgInfo(QString msg);
+
+	/**
+	 * Informs serverMsgs() to append an incoming message from the
 	 * server to the text view as error message.
 	 *
 	 * @param msg The error message to be appended.
 	 */
 	void slotMsgError(QString msg);
-
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the
@@ -153,6 +158,8 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
+	void addPlayer(Player *);
+	void addEstate(Estate *);
 	void playerChanged();
 
 private:
@@ -169,7 +176,7 @@ private:
 		*m_configure;
 
 	AtlanticCore *m_atlanticCore;
-	GameNetwork *m_gameNetwork;
+	AtlantikNetwork *m_atlantikNetwork;
 
 	Player *m_playerSelf;
 

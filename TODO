@@ -17,9 +17,9 @@ Bugfixes
 For 0.2.0
 ---------
 
-- seperate engine from network (network uses engine, not other way around,
+v seperate engine from network (network uses engine, not other way around,
   engine could also be used without network in atlanticdesigner)
-  - move network layer to libatlantiknetwork
+  v move network layer to libatlantiknetwork
   - kmainwindow should own network and core and connect them
     - later: kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui

@@ -43,16 +43,13 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	return trade;
 }
 
-/*
-Estate *GameNetwork::getEstate(int estateId)
+void AtlanticCore::setCurrentTurn(Player *player)
 {
-	Estate *estate;
-	for (QPtrListIterator<Estate> i(m_estates); *i; ++i)
+	Player *p;
+	for (QPtrListIterator<Player> i(m_players); *i; ++i)
 	{
-		estate = dynamic_cast<Estate*>(*i);
-		if (estate->estateId() == estateId)
-			return estate;
+		p = dynamic_cast<Player *>(*i);
+		if (p)
+			p->setHasTurn(p==player);
 	}
-	return 0;
 }
-*/

@@ -1,5 +1,5 @@
-#ifndef ATLANTIK_NETWORK_H
-#define ATLANTIK_NETWORK_H
+#ifndef LIBATLANTIK_NETWORK_H
+#define LIBATLANTIK_NETWORK_H
 
 #include <qdom.h>
 #include <qmap.h>
@@ -11,22 +11,21 @@
 #endif
 
 class AtlanticCore;
-class Atlantik;
 
-class Trade;
-class Estate;
 class Player;
+class Estate;
+class Trade;
 
 //#ifndef USE_KDE
-class GameNetwork : public QSocket
+class AtlantikNetwork : public QSocket
 //#else
-//class GameNetwork : public KExtendedSocket
+//class AtlantikNetwork : public KExtendedSocket
 //#endif
 {
 Q_OBJECT
 
 public:
-	GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent=0, const char *name=0);
+	AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
 	void cmdTradeAccept(int tradeId);
@@ -56,6 +55,28 @@ public slots:
 	void slotRead();
 		
 signals:
+
+	/**
+	 * A new player was created. This signal might be replaced with one in
+	 * the AtlanticCore class in the future, but it is here now because we
+	 * do not want GUI implementations to create a view until the
+	 * playerupdate message has been fully parsed.
+	 *
+	 * @param player	Point to created player object.
+	 */
+	void newPlayer(Player *player);
+
+	/**
+	 * A new estate was created. This signal might be replaced with one in
+	 * the AtlanticCore class in the future, but it is here now because we
+	 * do not want GUI implementations to create a view until the
+	 * estateupdate message has been fully parsed.
+	 *
+	 * @param estate	Point to created estate object.
+	 */
+	void newEstate(Estate *estate);
+
+	void msgInfo(QString);
 	void msgError(QString);
 	void msgChat(QString, QString);
 	void msgStartGame(QString);
@@ -118,7 +139,7 @@ private:
 	void processNode(QDomNode);
 
 	AtlanticCore *m_atlanticCore;
-	Atlantik *m_mainWindow;
+	QObject *m_parent;
 	QDomDocument msg;
 
 	int m_clientId, m_playerId;

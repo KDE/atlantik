@@ -1,5 +1,5 @@
 #ifndef ATLANTIK_DISPLAY_WIDGET_H
-#define  ATLANTIK_DISPLAY_WIDGET_H
+#define ATLANTIK_DISPLAY_WIDGET_H
 
 #include <qwidget.h>
 #include <qlayout.h>

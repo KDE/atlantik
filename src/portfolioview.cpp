@@ -5,9 +5,10 @@
 #include <klocale.h>
 #include <kpopupmenu.h>
 
+#include <player.h>
+#include <estate.h>
+
 #include "portfolioview.moc"
-#include "player.h"
-#include "estate.h"
 
 #define PE_DISTW	4
 #define	PE_DISTH	4
