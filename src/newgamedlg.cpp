@@ -26,7 +26,7 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	serverHost = select_server->hostToConnect();
 	serverPort = select_server->portToConnect();
 
-	addPage(select_server, QString("Select a game server to connect to:"));
+	addPage(select_server, QString(i18n("Select a game server to connect to:")));
 	setHelpEnabled(select_server, false);
 	setNextEnabled(select_server, false);
 
@@ -36,14 +36,14 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 
 	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
 
-	addPage(select_game, QString("Select or create a game:"));
+	addPage(select_game, QString(i18n("Select or create a game:")));
 	setHelpEnabled(select_game, false);
 	setNextEnabled(select_game, false);
 
 	// Configure game page
 	configure_game = new ConfigureGame(this, "configure_game");
 
-	addPage(configure_game, QString("Game configuration and list of players"));
+	addPage(configure_game, QString(i18n("Game configuration and list of players")));
 	setHelpEnabled(configure_game, false);
 	setFinishEnabled(configure_game, false);
 
@@ -104,9 +104,9 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	// List of servers
 	list = new QListView(this);
-	list->addColumn(QString("Server"));
-	list->addColumn(QString("Port"));
-	list->addColumn(QString("Description"));
+	list->addColumn(QString(i18n("Server")));
+	list->addColumn(QString(i18n("Port")));
+	list->addColumn(QString(i18n("Description")));
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
@@ -162,18 +162,18 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	layout->addWidget(bgroup);
 
 	// Button to create new game
-	bnew = new QRadioButton(QString("Create a new game"), bgroup, "bnew");
+	bnew = new QRadioButton(QString(i18n("Create a new game")), bgroup, "bnew");
 	connect(bnew, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 
 	// Button to join game
-	bjoin = new QRadioButton(QString("Join a game"), bgroup, "bjoin");
+	bjoin = new QRadioButton(QString(i18n("Join a game")), bgroup, "bjoin");
 	connect(bjoin, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 
 	// List of games
 	list = new QListView(this);
-	list->addColumn(QString("Id"));
-	list->addColumn(QString("Players"));
-	list->addColumn(QString("Description"));
+	list->addColumn(i18n("Id"));
+	list->addColumn(i18n("Players"));
+	list->addColumn(i18n("Description"));
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
@@ -181,7 +181,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	// Status indicator
 	status_label = new QLabel(this);
-	status_label->setText("Connecting to server...");
+	status_label->setText(i18n("Connecting to server..."));
 	layout->addWidget(status_label);
 }
  
@@ -190,7 +190,7 @@ void SelectGame::initPage()
 	validateButtons();
 	bnew->setChecked(true);
 
-	status_label->setText("Connecting to server...");
+	status_label->setText(i18n("Connecting to server..."));
 
 	// TODO: Only connect when no connection is made yet, only fetch when
 	// connection is already made.
@@ -239,20 +239,20 @@ int SelectGame::gameToJoin()
 
 void SelectGame::slotConnectionError(int errno)
 {
-	QString errMsg("Error connecting: ");
+	QString errMsg(i18n("Error connecting: "));
 	
 	switch(errno)
 	{
 		case QSocket::ErrConnectionRefused:
-			errMsg.append("connection refused by host.");
+			errMsg.append(i18n("connection refused by host."));
 			break;
 
 		case QSocket::ErrHostNotFound:
-			errMsg.append("host not found.");
+			errMsg.append(i18n("host not found."));
 			break;
 
 		default:
-			errMsg.append("unknown error.");
+			errMsg.append(i18n("unknown error."));
 	}
 	status_label->setText(errMsg);
 //	emit statusChanged();
@@ -260,7 +260,7 @@ void SelectGame::slotConnectionError(int errno)
 
 void SelectGame::slotConnected()
 {
-	status_label->setText(QString("Connected."));
+	status_label->setText(i18n("Connected to server.")));
 	emit statusChanged();
 }
 
@@ -268,7 +268,7 @@ void SelectGame::slotGamelistUpdate(QString type)
 {
 	if (type=="full")
 	{
-		status_label->setText(QString("Fetching list of games..."));
+		status_label->setText(i18n("Fetching list of games..."));
 		list->clear();
 	}
 }
@@ -311,7 +311,7 @@ void SelectGame::slotGamelistDel(QString id)
 void SelectGame::slotGamelistEndUpdate(QString type)
 {
 	if (type=="full")
-		status_label->setText(QString("Fetched list of games."));
+		status_label->setText(i18n("Fetched list of games."));
 
 	emit statusChanged();
 }
@@ -343,13 +343,14 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 	
 	list = new QListView(this);
 
-	list->addColumn(QString("ClientId"));
-	list->addColumn(QString("Player"));
-	list->addColumn(QString("Host"));
+	list->addColumn(i18n("ClientId"));
+	list->addColumn(i18n("Player"));
+	list->addColumn(i18n("Host"));
 
 	layout->addWidget(list);
 
 	status_label = new QLabel(this);
+	// No i18n, this is not a permanent label anyway.
 	status_label->setText("Configuration of the game is not yet supported by the monopd server.\nGames will be played using the standard rules.");
 	layout->addWidget(status_label);
 }
@@ -358,7 +359,7 @@ void ConfigureGame::slotPlayerlistUpdate(QString type)
 {
 	if (type=="full")
 	{
-		status_label->setText(QString("Fetching list of players..."));
+		status_label->setText(i18n("Fetching list of players..."));
 		list->clear();
 	}
 }
@@ -402,7 +403,7 @@ void ConfigureGame::slotPlayerlistDel(QString clientId)
 void ConfigureGame::slotPlayerlistEndUpdate(QString type)
 {
 	if (type=="full")
-		status_label->setText(QString("Fetched list of players."));
+		status_label->setText(i18n("Fetched list of players."));
 
 	emit statusChanged();
 }

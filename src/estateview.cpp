@@ -284,19 +284,19 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(estatename);
 		if (m_mortgaged)
-			rmbMenu->insertItem("Unmortgage", 0);
+			rmbMenu->insertItem(i18n("Unmortgage"), 0);
 		else
-			rmbMenu->insertItem("Mortgage", 0);
+			rmbMenu->insertItem(i18n("Mortgage"), 0);
 
 		if (m_houses>=4)
-			rmbMenu->insertItem("Buy hotel", 1);
+			rmbMenu->insertItem(i18n("Build hotel"), 1);
 		else
-			rmbMenu->insertItem("Buy house", 1);
+			rmbMenu->insertItem(i18n("Build house"), 1);
 
 		if (m_houses==5)
-			rmbMenu->insertItem("Sell hotel", 2);
+			rmbMenu->insertItem(i18n("Sell hotel"), 2);
 		else
-			rmbMenu->insertItem("Sell house", 2);
+			rmbMenu->insertItem(i18n("Sell house"), 2);
 
 		if (!m_owned)
 		{

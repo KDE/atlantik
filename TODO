@@ -30,16 +30,17 @@ For 0.2.x
   - toJail
   - Tax
   V Luxury Tax
-- Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
-  - monopd allows new commands before we're done moving, we require a "done"
+  v monopd allows new commands before we're done moving, we require a "done"
     command and "timeout" message (in case a client is not "done" soon enough,
     monopd should be able to issue a "well then stop playing and just set the
     board as it should be)
+    - token confirmation implemented for a long time now, timeout override
+      is currently missing in monopd
   - animation speed should depend on board size and movement distance
   V disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
@@ -47,6 +48,7 @@ For 0.2.x
 For 0.3.x
 ---------
 
+- Game configuration (when it appears in monopd)
 - Use i18n() for all messages. Until 0.2.x this is not recommendable because
   too many strings will yet change and it would be a waste of time to
   translate those strings. Once the game is working more or less, messages
