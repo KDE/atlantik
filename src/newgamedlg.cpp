@@ -14,7 +14,7 @@
 
 #include "config.h"
 
-extern KMonopConfig atlantikConfig;
+extern AtlantikConfig atlantikConfig;
 
 QString serverHost;
 int serverPort, gameId;

@@ -11,9 +11,9 @@
 #include "atlantik.moc"
 #include "config.h"
 
-extern KMonopConfig atlantikConfig;
+extern AtlantikConfig atlantikConfig;
 
-KMonop::KMonop (const char *name) :
+Atlantik::Atlantik (const char *name) :
   KTMainWindow (name)
 {
 	readConfig();
@@ -63,7 +63,7 @@ KMonop::KMonop (const char *name) :
 	m_input = new QLineEdit(m_mainWidget, "input");
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
-	m_board = new KMonopBoard(m_mainWidget, "board");
+	m_board = new AtlantikBoard(m_mainWidget, "board");
 
 	m_mainLayout->addWidget(m_serverMsgs, 6, 0);
 	m_mainLayout->addWidget(m_input, 7, 0);
@@ -83,12 +83,12 @@ KMonop::KMonop (const char *name) :
 	setView(m_mainWidget);
 }
 
-void KMonop::readConfig()
+void Atlantik::readConfig()
 {
 	KConfig *config=kapp->config();
 
 	config->setGroup("Personalization");
-	atlantikConfig.playerName = config->readEntry("PlayerName", "KMonop");
+	atlantikConfig.playerName = config->readEntry("PlayerName", "Atlantik");
 
 	config->setGroup("Board");
 	atlantikConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
@@ -98,7 +98,7 @@ void KMonop::readConfig()
 	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 }
 
-void KMonop::slotNewGame()
+void Atlantik::slotNewGame()
 {
 	int result;
 
@@ -110,7 +110,7 @@ void KMonop::slotNewGame()
 		gameNetwork->cmdGameStart();
 }
 
-void KMonop::slotConfigure()
+void Atlantik::slotConfigure()
 {
 	if (m_configDialog == 0)
 		m_configDialog = new ConfigDialog(this);
@@ -119,7 +119,7 @@ void KMonop::slotConfigure()
 	connect(m_configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
 }
 
-void KMonop::slotUpdateConfig()
+void Atlantik::slotUpdateConfig()
 {
 	KConfig *config=kapp->config();
 	bool optBool, redrawEstates = false;
@@ -182,43 +182,43 @@ void KMonop::slotUpdateConfig()
 		m_board->redrawEstates();
 }
 
-void KMonop::slotRoll()
+void Atlantik::slotRoll()
 {
 	gameNetwork->cmdRoll();
 }
 
-void KMonop::slotBuy()
+void Atlantik::slotBuy()
 {
 	gameNetwork->cmdBuyEstate();
 }
 
-void KMonop::slotEndTurn()
+void Atlantik::slotEndTurn()
 {
 	gameNetwork->cmdEndTurn();
 }
 
-void KMonop::slotSendMsg()
+void Atlantik::slotSendMsg()
 {
 	gameNetwork->cmdChat(m_input->text());
 	m_input->setText("");
 }
 
-void KMonop::slotMsgError(QString msg)
+void Atlantik::slotMsgError(QString msg)
 {
 	serverMsgsAppend("ERR: " + msg);
 }
 
-void KMonop::slotMsgInfo(QString msg)
+void Atlantik::slotMsgInfo(QString msg)
 {
 	serverMsgsAppend(msg);
 }
 
-void KMonop::slotMsgChat(QString player, QString msg)
+void Atlantik::slotMsgChat(QString player, QString msg)
 {
 	serverMsgsAppend("<b>" + player + ":</b> " + msg);
 }
 
-void KMonop::slotMsgStartGame(QString msg)
+void Atlantik::slotMsgStartGame(QString msg)
 {
 	if (m_newgameWizard!=0)
 		m_newgameWizard->hide();
@@ -226,7 +226,7 @@ void KMonop::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
+void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
 {
 	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
 	{
@@ -240,7 +240,7 @@ void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
 	}
 }
 
-void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
+void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
 {
 	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
 	{
@@ -251,7 +251,7 @@ void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 	}
 }
 
-void KMonop::slotMsgEstateUpdateOwner(int estateId, int playerId)
+void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
 {
 	if (estateId < 40 && playerId < MAXPLAYERS)
 	{
@@ -265,12 +265,12 @@ void KMonop::slotMsgEstateUpdateOwner(int estateId, int playerId)
 	}
 }
 
-void KMonop::slotSetPlayerId(int playerId)
+void Atlantik::slotSetPlayerId(int playerId)
 {
 	m_myPlayerId = playerId;
 }
 
-void KMonop::slotSetTurn(int playerid)
+void Atlantik::slotSetTurn(int playerid)
 {
 
 	if (playerid == m_myPlayerId)
@@ -297,7 +297,7 @@ void KMonop::slotSetTurn(int playerid)
 	}
 }
 
-void KMonop::serverMsgsAppend(QString msg)
+void Atlantik::serverMsgsAppend(QString msg)
 {
 	// Use append, not setText (old+new) because that one doesn't wrap
 	m_serverMsgs->append(msg);

@@ -4,12 +4,17 @@ the first time:
 - the new game wizard is no longer a dialog, but for historic reasons it is
   still in the files newgamedlg.[cpp|h]
 
-- there are no entities such as player. KMonop was not designed to actually
-  play a Monopoly game! (hm, no?) No! It was designed to interact with a
-  monopd server which plays the game. And it was designed to visualize that
-  game.
+- there are no entities such as player. Atlantik was not designed to
+  actually play a Monopoly game! (hm, no?) No! It was designed to interact
+  with a monopd server which plays the game. And it was designed to
+  visualize that game.
 
   Future versions might include a player class for the sake of convenience,
   but at the moment the interaction with the server is - in a way - more
   straightforward: if a player joins the game, we don't create a player
   instance ourselves but we simply add a portfolioview.
+
+  (this is already backfiring on me and making trades difficult, I guess
+  there will be classes such as Player soon to cache some server data. They
+  will however remain generic to minimize necessary client code
+  modifications in the event of changes of the server code)

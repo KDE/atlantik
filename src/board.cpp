@@ -11,9 +11,9 @@
 
 extern QColor atlantik_dpurple, atlantik_lblue, atlantik_purple, atlantik_orange,
 atlantik_red, atlantik_yellow, atlantik_green, atlantik_blue, atlantik_greenbg;
-extern KMonopConfig atlantikConfig;
+extern AtlantikConfig atlantikConfig;
 
-KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
+AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	setMinimumWidth(320);
 	setMinimumHeight(320);
@@ -138,7 +138,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 	}
 }
 
-void KMonopBoard::jumpToken(Token *token, int destination, bool confirm)
+void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
 {
 	int x = estate[destination]->geometry().center().x() - (token->width()/2);
 	int y = estate[destination]->geometry().center().y() - (token->height()/2);
@@ -151,7 +151,7 @@ void KMonopBoard::jumpToken(Token *token, int destination, bool confirm)
 		gameNetwork->cmdTokenConfirmation(destination);
 }
 
-void KMonopBoard::moveToken(Token *token, int destination)
+void AtlantikBoard::moveToken(Token *token, int destination)
 {
 	cout << "moving piece from " << token->location() << " to " << destination << endl;
 
@@ -163,19 +163,19 @@ void KMonopBoard::moveToken(Token *token, int destination)
 	m_timer->start(10);
 }
 
-void KMonopBoard::setOwned(int estateId, bool byAny, bool byThisClient)
+void AtlantikBoard::setOwned(int estateId, bool byAny, bool byThisClient)
 {
 	if (estateId>=0 && estateId<40)
 		estate[estateId]->setOwned(byAny, byThisClient);
 }
 
-void KMonopBoard::raiseToken(int id)
+void AtlantikBoard::raiseToken(int id)
 {
 	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
 		token[id]->raise();
 }
 
-void KMonopBoard::indicateUnownedChanged()
+void AtlantikBoard::indicateUnownedChanged()
 {
 	int i=0;
 
@@ -184,7 +184,7 @@ void KMonopBoard::indicateUnownedChanged()
 			estate[i]->updatePE();
 }
 
-void KMonopBoard::redrawEstates()
+void AtlantikBoard::redrawEstates()
 {
 	int i=0;
 
@@ -193,7 +193,7 @@ void KMonopBoard::redrawEstates()
 			estate[i]->redraw();
 }
 
-void KMonopBoard::slotMoveToken()
+void AtlantikBoard::slotMoveToken()
 {
 	int dest;
 	int destX,destY,curX,curY;
@@ -257,7 +257,7 @@ void KMonopBoard::slotMoveToken()
 	}
 }
 
-void KMonopBoard::resizeEvent(QResizeEvent *e)
+void AtlantikBoard::resizeEvent(QResizeEvent *e)
 {
 	// Stop moving tokens, slotResizeAftermath will re-enable this
 	if (m_timer!=0 && m_timer->isActive())
@@ -283,7 +283,7 @@ void KMonopBoard::resizeEvent(QResizeEvent *e)
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
-void KMonopBoard::slotResizeAftermath()
+void AtlantikBoard::slotResizeAftermath()
 {
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
@@ -303,7 +303,7 @@ void KMonopBoard::slotResizeAftermath()
 	}
 }
 
-void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
+void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
 {
 	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
 	{
@@ -323,31 +323,31 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 	}
 }
 
-void KMonopBoard::slotMsgEstateUpdateName(int estateid, QString name)
+void AtlantikBoard::slotMsgEstateUpdateName(int estateid, QString name)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
 		estate[estateid]->setName(name);
 }
 
-void KMonopBoard::slotMsgEstateUpdateHouses(int estateid, int houses)
+void AtlantikBoard::slotMsgEstateUpdateHouses(int estateid, int houses)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
 		estate[estateid]->setHouses(houses);
 }
 
-void KMonopBoard::slotMsgEstateUpdateMortgaged(int estateid, bool mortgaged)
+void AtlantikBoard::slotMsgEstateUpdateMortgaged(int estateid, bool mortgaged)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
 		estate[estateid]->setMortgaged(mortgaged);
 }
 
-void KMonopBoard::slotMsgEstateUpdateCanBeMortgaged(int estateid, bool mortgaged)
+void AtlantikBoard::slotMsgEstateUpdateCanBeMortgaged(int estateid, bool mortgaged)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
 		estate[estateid]->setCanBeMortgaged(mortgaged);
 }
 
-void KMonopBoard::slotMsgEstateUpdateCanBeUnmortgaged(int estateid, bool mortgaged)
+void AtlantikBoard::slotMsgEstateUpdateCanBeUnmortgaged(int estateid, bool mortgaged)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
 		estate[estateid]->setCanBeUnmortgaged(mortgaged);

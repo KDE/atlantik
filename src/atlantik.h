@@ -15,21 +15,21 @@
 #include "board.h"
 
 /**
- * Main KMonop window.
+ * Main Atlantik window.
  * Manages gameboard, portfolios and pretty much everything else.
  *
  * @author Rob Kaper <cap@capsi.com>
  */
-class KMonop : public KTMainWindow
+class Atlantik : public KTMainWindow
 {
 Q_OBJECT
 	
 public:
 	/**
-	 * Create a KMonop window.
+	 * Create a Atlantik window.
 	 *
 	 */
-	KMonop(const char *name=0);
+	Atlantik(const char *name=0);
 
 	/**
 	 * Read the configuration settings using KConfig.
@@ -179,7 +179,7 @@ private:
 	NewGameWizard *m_newgameWizard;
 	ConfigDialog *m_configDialog;
 	PortfolioView *m_portfolioArray[6];
-	KMonopBoard *m_board;
+	AtlantikBoard *m_board;
 
 	int m_myPlayerId;
 };

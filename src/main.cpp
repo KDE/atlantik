@@ -8,7 +8,7 @@
 #include "atlantik.h"
 #include "colordefs.h"
 
-KMonopConfig atlantikConfig;
+AtlantikConfig atlantikConfig;
 
 int main(int argc, char *argv[])
 {

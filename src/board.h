@@ -9,12 +9,12 @@
 #include "estateview.h"
 #include "token.h"
 
-class KMonopBoard : public QWidget
+class AtlantikBoard : public QWidget
 {
 Q_OBJECT
 
 	public:
-		KMonopBoard(QWidget *parent, const char *name=0);
+		AtlantikBoard(QWidget *parent, const char *name=0);
 		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();

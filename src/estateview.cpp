@@ -15,7 +15,7 @@
 
 extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
 extern QColor atlantik_lgray;
-extern KMonopConfig atlantikConfig;
+extern AtlantikConfig atlantikConfig;
 
 EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
@@ -169,7 +169,7 @@ bool EstateView::ownedByThisClient() { return m_ownedByThisClient; }
 void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
-	// or when the user has configured KMonop not to show them.
+	// or when the user has configured Atlantik not to show them.
 	if (m_ownedByAny || !m_canBeOwned || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;

@@ -1,2 +1,2 @@
-kmonoptoolbardir = $(kde_datadir)/kmonop/icons
-kmonoptoolbar_ICON = AUTO
+atlantiktoolbardir = $(kde_datadir)/atlantik/icons
+atlantiktoolbar_ICON = AUTO

@@ -4,7 +4,7 @@
 #define	MAXPLAYERS	6
 #define VERSION		"pre-0.2.0"
 
-struct KMonopConfig
+struct AtlantikConfig
 {
 	// Personalization options
 	QString playerName;
