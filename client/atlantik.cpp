@@ -174,6 +174,9 @@ void Atlantik::readConfig()
 
 void Atlantik::newPlayer(Player *player)
 {
+	if (player->isSelf())
+		m_atlanticCore->setPlayerSelf(player);
+
 	initBoard();
 	m_board->addToken(player);
 	addPortfolioView(player);
@@ -181,9 +184,6 @@ void Atlantik::newPlayer(Player *player)
 	// Player::changed() is not connected until later this method, so
 	// we'd better force an update.
 	playerChanged(player);
-
-	if (player->isSelf())
-		m_atlanticCore->setPlayerSelf(player);
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));

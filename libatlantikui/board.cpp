@@ -85,6 +85,8 @@ AtlantikBoard::~AtlantikBoard()
 
 void AtlantikBoard::reset()
 {
+	kdDebug() << "AtlantikBoard::reset" << endl;
+
 	m_tokens.clear();
 	m_estateViews.clear();
 	m_displayQueue.clear();
@@ -199,12 +201,15 @@ void AtlantikBoard::addToken(Player *player)
 		kdDebug() << "addToken - estateView null" << endl;
 		return;
 	}
+
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (playerSelf && playerSelf->gameId() != player->gameId())
 	{
 		kdDebug() << "addToken - not in same game" << endl;
 		return;
 	}
+	else
+		kdDebug() << "addToken - no playerSelf" << endl;
 
 	Token *token = new Token(player, this, "token");
 	m_tokens.append(token);
@@ -272,6 +277,8 @@ void AtlantikBoard::playerChanged(Player *player)
 void AtlantikBoard::removeToken(Player *player)
 {
 	Token *token = findToken(player);
+	if (!token)
+		return;
 
 	if (token == m_movingToken)
 	{
@@ -393,7 +400,7 @@ void AtlantikBoard::slotMoveToken()
 	else
 		yDest = yCurrent;
 
-	kdDebug() << "TOKEN: at " << xCurrent << "," << yCurrent << " and going to " << xDest << "," << yDest << endl;
+//	kdDebug() << "TOKEN: at " << xCurrent << "," << yCurrent << " and going to " << xDest << "," << yDest << endl;
 
 	if (xCurrent != xDest || yCurrent != yDest)
 	{
