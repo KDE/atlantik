@@ -1,4 +1,3 @@
-#include <kcombobox.h>
 #include <qvbox.h>
 #include <qlabel.h>
 #include <qframe.h>
@@ -11,6 +10,7 @@
 #include <qhgroupbox.h>
 #include <qlayout.h>
 
+#include <kcombobox.h>
 #include <kdebug.h>
 #include <klineeditdlg.h>
 #include <kdialogbase.h>
