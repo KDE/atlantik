@@ -6,7 +6,7 @@ Contents
 3. Mailinglists
 4. Roadmap
 5. Designer
-6. Copyrights, trademarks and patents
+6. Legal issues
 
 1. Introduction
 ---------------
@@ -78,30 +78,17 @@ priorities. It can be used as roadmap or checklist.
 Atlantik Designer is a game board designer that will create game config
 files for monopd. You can find it in KDE CVS, module kdeaddons.
 
-6. Copyrights, trademarks and patents
--------------------------------------
+6. Legal issues
+---------------
 
-Many people have expressed their concerns about possible copyrights and
-patents applicable to Monopoly games and the possible implications for
-Atlantik development and distribution.
+Many people have expressed their concerns about possible copyrights,
+trademarks and patents applicable to Monopoly® and the possible implications
+for Atlantik (and monopd) development and distribution.
 
-In our defense:
+I believe that Atlantik and monopd are completely clear of violating any
+copyrights, trademarks or patents and that there are no legal issues that
+might affect development or distibution of either application.
 
-* Atlantik is NOT Monopoly! It's a completely different boardgame! It does
-however ship with a game which has a closer resemblance to Monopoly and
-features the streets of Atlantic City, based on the folk game upon which
-Parker Brothers based their game. This clone will ship with original
-artwork, designed to not resemble the Parker Brothers' look and feel.
+For more information, please read
 
-Parker Brothers has no rights to this folk game other than their copyrighted
-visual enhancements, as confirmed by the U.S. Supreme Court.
-<http://www.antimonopoly.com/graphics/evolution.gif>
-
-* Atlantik has little or no code which is aware of the game rules, street
-names, board layout or any other aspect of the game. It only visualizes
-these aspects during gameplay - much like a web browser visualizes Internet
-content.
-
-All game logic itself is embedded in monopd, which in turn will ship with
-the customized rules that have been played by families for decades as
-defaults and not with the same ruleset as the Parker Brothers game.
+http://unixcode.org/atlantik/legal.html
