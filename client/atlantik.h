@@ -104,7 +104,7 @@ public slots:
 	 *
 	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
 	 */
-	 void slotNetworkError(int errno);
+	 void slotNetworkError(int errnum);
 
 	/**
 	 * A game was succesfully created or joined, so we can show the
