@@ -34,6 +34,8 @@ public:
 	int gameId() { return m_gameId; }
 	void setLocation(Estate *estate);
 	Estate *location() { return m_location; }
+	void setDestination(Estate *estate);
+	Estate *destination() { return m_destination; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
 	void setHasTurn(const bool hasTurn);
@@ -61,7 +63,7 @@ private:
 	bool m_hasTurn, m_canRoll, m_canBuy, m_inJail;
 	unsigned int m_money;
 	QString m_name, m_host;
-	Estate *m_location;
+	Estate *m_location, *m_destination;
 };
 
 #endif

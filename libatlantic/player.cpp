@@ -21,7 +21,7 @@
 Player::Player(int playerId) : QObject()
 {
 	m_id = playerId;
-	m_location = 0;
+	m_location = m_destination = 0;
 	m_money = 0;
 	m_gameId = -1;
 	m_name = "";
@@ -44,6 +44,15 @@ void Player::setLocation(Estate *location)
 	if (m_location != location)
 	{
 		m_location = location;
+		m_changed = true;
+	}
+}
+
+void Player::setDestination(Estate *destination)
+{
+	if (m_destination != destination)
+	{
+		m_destination = destination;
 		m_changed = true;
 	}
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,11 @@
 #define ATLANTIK_TOKEN_H
 
 #include <qwidget.h>
-#include <qpixmap.h>
+
+class QPixmap;
 
 class Player;
 class Estate;
-class EstateView;
 class AtlantikBoard;
 
 class Token : public QWidget
@@ -30,13 +30,14 @@ class Token : public QWidget
 Q_OBJECT
 
 	public:
-		Token (Player *player, EstateView *location, AtlantikBoard *parent, const char *name = 0);
+		Token (Player *player, AtlantikBoard *parent, const char *name = 0);
 		Player *player();
-		void setLocation(EstateView *estateView, bool confirm = true);
-		EstateView *location() { return m_location; }
-		void setDestination(EstateView *estateView);
-		EstateView *destination() { return m_destination; }
-		void updateGeometry();
+		void setLocation(Estate *estate);
+		Estate *location() { return m_location; }
+		void setDestination(Estate *estate);
+		Estate *destination() { return m_destination; }
+		void setInJail (bool inJail) { m_inJail = inJail; }
+		bool inJail() { return m_inJail; }
 
 	private slots:
 		void playerChanged();
@@ -45,14 +46,12 @@ Q_OBJECT
 		void paintEvent(QPaintEvent *);
 		void resizeEvent(QResizeEvent *);
 
-signals:
-	void tokenConfirmation(Estate *);
-
 private:
 		Player *m_player;
-		EstateView *m_location, *m_destination;
+		Estate *m_location, *m_destination;
+		bool m_inJail;
 		AtlantikBoard *m_parentBoard;
-		bool b_recreate, m_inJail;
+		bool b_recreate;
 		QPixmap *qpixmap;
 };
 

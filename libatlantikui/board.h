@@ -22,12 +22,13 @@
 #include <qlayout.h>
 #include <qptrlist.h>
 
-#include "token.h"
+class QPoint;
 
 class AtlanticCore;
 class Auction;
 class Estate;
 class Player;
+class Token;
 
 class EstateView;
 
@@ -39,13 +40,16 @@ public:
 	enum DisplayMode { Play, Edit };
 
 	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
+	~AtlantikBoard();
+
 	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
-	void addToken(Player *player, EstateView *location = 0);
+
+	void addToken(Player *player);
+
 	void indicateUnownedChanged();
-	QPtrList<EstateView> estateViews();
 	EstateView *findEstateView(Estate *estate);
 	QWidget *centerWidget();
 
@@ -69,7 +73,11 @@ protected:
 	void resizeEvent(QResizeEvent *);
 
 private:
-	void moveToken(Token *, int destination);
+	Token *findToken(Player *player);
+	void jumpToken(Token *token);
+	void moveToken(Token *token);
+	QPoint calculateTokenDestination(Token *token, Estate *estate = 0);
+
 	void updateCenter();
 
 	AtlanticCore *m_atlanticCore;
@@ -77,7 +85,7 @@ private:
 
 	QWidget *spacer, *m_lastServerDisplay;
 	QGridLayout *m_gridLayout;
-	Token *move_token;
+	Token *m_movingToken;
 	QTimer *m_timer;
 	bool m_resumeTimer;
 
@@ -85,7 +93,7 @@ private:
 	int m_maxEstates;
 
 	QPtrList<EstateView> m_estateViews;
-	QMap<Player *, Token *> tokenMap;
+	QPtrList<Token> m_tokens;
 	QPtrList<QWidget> m_displayQueue;
 };
 

@@ -43,6 +43,7 @@ public:
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
 	Estate *findEstate(int estateId);
+	Estate *estateAfter(Estate *estate);
 
 	QPtrList<EstateGroup> estateGroups();
 	EstateGroup *newEstateGroup(int groupId);

@@ -15,7 +15,6 @@ Bugfixes
 --------
 
 - Update messages views after resize.
-- Token should not have to know about EstateView, views could be independent
 - all player/core dependencies in Board should only be there in Mode::Play
 
 For 0.6.0
@@ -31,9 +30,6 @@ For 0.6.0
 - support for trading jail cards (depends on monopd)
 - Support .gd game description.
 - Support updateplayerlist master, only update changed QStrings
-- Fix token movement bugs:
-  - does jumpToken (activated by monopd timeout) cancel animation?
-  - animation speed should depend on board size and movement distance
 - invite button
   - kaddressbook hooks
   - e-mail invites

@@ -461,8 +461,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (!a.isNull())
 							directMove = a.value().toInt();
 
-						if (estate)
-							player->setLocation(estate);
+						if (player && estate)
+						{
+							if (directMove)
+								player->setLocation(estate);
+							else
+								player->setDestination(estate);
+						}
 					}
 
 					// Emit signal so GUI implementations can create view(s)
