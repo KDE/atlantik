@@ -393,7 +393,7 @@ void Atlantik::slotUpdateConfig()
 
 	config->sync();
 
-	if (configChanged)
+	if (configChanged && m_board)
 		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 }
 
