@@ -7,8 +7,6 @@
 #include <estate.h>
 #include <auction.h>
 
-#include <atlantik_network.h>
-
 #include "auction_widget.h"
 #include "display_widget.h"
 #include "estateview.h"

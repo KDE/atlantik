@@ -14,8 +14,6 @@
 #include <player.h>
 #include <estate.h>
 
-#include <atlantik_network.h>
-
 #include "estateview.moc"
 #include "config.h"
 
