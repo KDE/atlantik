@@ -145,6 +145,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Mix code and XML into GUI
 	KMainWindow::createGUI();
+	applyMainWindowSettings( KGlobal::config(), "AtlantikMainWindow" );
 	KMainWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
 	KMainWindow::statusBar()->insertItem(QString::null, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
