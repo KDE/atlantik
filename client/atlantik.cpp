@@ -321,6 +321,14 @@ void Atlantik::showBoard()
 			portfolioView->buildPortfolio();
 }
 
+void Atlantik::freezeBoard()
+{
+	if (!m_board)
+		showBoard();
+
+	// TODO: m_board->freeze();
+}
+
 void Atlantik::slotNetworkConnected()
 {
 	// We're connected, so let's make ourselves known.
@@ -497,6 +505,7 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(gameConfig()), this, SLOT(showSelectConfiguration()));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), this, SLOT(initBoard()));
 	connect(m_atlantikNetwork, SIGNAL(gameRun()), this, SLOT(showBoard()));
+	connect(m_atlantikNetwork, SIGNAL(gameEnd()), this, SLOT(freezeBoard()));
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));

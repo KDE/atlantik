@@ -131,6 +131,7 @@ signals:
 	void gameConfig();
 	void gameInit();
 	void gameRun();
+	void gameEnd();
 
 	void playerListClear();
 	void playerListEndUpdate(QString);

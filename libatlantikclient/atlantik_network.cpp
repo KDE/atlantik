@@ -434,6 +434,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit gameInit();
 					else if (status == "run")
 						emit gameRun();
+					else if (status == "end")
+						emit gameEnd();
 				}
 			}
 			else if (e.tagName() == "playerupdate")
