@@ -1,4 +1,7 @@
 #include <qpainter.h>
+#include <qfont.h>
+
+#include <kstddirs.h>
 
 #include "token.h"
 
@@ -11,9 +14,8 @@ Token::Token(QString id, QWidget *parent, const char *name) : QWidget(parent, na
 	b_recreate = true;
 	qpixmap = 0;
 
-	setMinimumHeight(100);	
-	setFixedSize(QSize(15, 15));
-	
+	setFixedSize(QSize(26, 26));
+
 	myId = id;
 	myLoc = myDest = 0;
 }
@@ -67,15 +69,15 @@ void Token::paintEvent(QPaintEvent *)
 	if (b_recreate)
 	{
 		delete qpixmap;
-		qpixmap = new QPixmap(width(), height());
+		qpixmap = new QPixmap(locate("data", "kmonop/pics/token.png"));
 
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
-		painter.setPen(Qt::black);
-		painter.setBrush(Qt::white);
-		painter.drawRect(rect());
+		painter.drawPixmap(0, 0, *qpixmap);
 
+		painter.setPen(Qt::black);
+		painter.setFont(QFont("Helvetica", 12, QFont::Bold));
 		painter.drawText(2, height()-2, myId);
 
 		b_recreate = false;
