@@ -18,6 +18,7 @@ Q_OBJECT
 	signals:
 		void msgError(QString);
 		void msgInfo(QString);
+		void msgChat(QString, QString);
 		void msgStartGame(QString);
 
 		void gamelistUpdate(QString);
@@ -27,9 +28,10 @@ Q_OBJECT
 
 		void clearPlayerList();
 		void addToPlayerList(QString, QString);
-		void msgPlayerUpdate(QDomNode);
+		void msgPlayerUpdateName(int, QString);
+		void msgPlayerUpdateMoney(int, QString);
+		void msgPlayerUpdateLocation(int, int, bool);
 		void msgEstateUpdate(int, int);
-		void msgMoveToken(int, int);
 		void setPlayerId(int);
 		void setTurn(int);
 
@@ -39,5 +41,7 @@ Q_OBJECT
 		
 		QDomDocument msg;
 };
+
+extern GameNetwork *gameNetwork;
 
 #endif

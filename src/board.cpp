@@ -10,10 +10,8 @@
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
 
-KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
+KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	netw = _nw;
-
 	setMinimumWidth(160);
 	setMinimumHeight(160);
 
@@ -26,6 +24,10 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 
 	spacer = new QWidget(this);
 	layout->addWidget(spacer, 24, 24); // SE
+
+	QWidget *center = new QWidget(this);
+	layout->addMultiCellWidget(center, 3, 3, 20, 20);
+	center->setBackgroundColor(kmonop_greenbg);
 
 	int i=0, orientation=North;
 
@@ -98,11 +100,17 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 			layout->addMultiCellWidget(estate[i], ((i-30)*2)+1, ((i-30)*2)+2, 21, 23);
 	}
 
-	connect(netw, SIGNAL(msgMoveToken(int, int)), this, SLOT(slotMsgMoveToken(int, int)));
-	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
+	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 
+	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
-		token[i]=0;
+	{
+		label.setNum(i+1);
+		token[i] = new Token(label, this, "token");
+		jumpToken(token[i], 0);
+#warning do hide until startgame message / playerlist final parsing
+//		token[i]->hide();
+	}
 }
 
 void KMonopBoard::jumpToken(Token *token, int to)
@@ -169,11 +177,12 @@ void KMonopBoard::slotMoveToken()
 	{
 		// We have arrived at our destination!
 		move_token->setLocation(dest);
+
+		// We need to confirm passing Go to the server.
 		QString msg(".t"), loc;
 		loc.setNum(dest);
 		msg.append(loc);
-		cout << "msg is " << msg << endl;
-		netw->writeData(msg.latin1());
+		gameNetwork->writeData(msg.latin1());
 
 		if (move_token->destination() == move_token->location())
 		{
@@ -235,9 +244,7 @@ void KMonopBoard::slotResizeAftermath()
 	for(int i=0;i<MAXPLAYERS;i++)
 	{
 		if (token[i]!=0)
-		{
 			jumpToken(token[i], token[i]->location());
-		}
 	}
 
 	// Restart the timer that was stopped in resizeEvent
@@ -248,55 +255,20 @@ void KMonopBoard::slotResizeAftermath()
 	}
 }
 
-void KMonopBoard::slotMsgMoveToken(int player, int location)
+void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
 {
-	// Adjust player because our array is 0-indexed.
-	player--;
+	// Adjust playerid because our array is 0-indexed.
+	playerid--;
 
-	// Maximum of six players, right? Check with monopd, possibly fetch
-	// number first and make portfolio overviews part of QHLayout to allow
-	// any theoretically number.
-
-	if (player >= 0 && player < MAXPLAYERS)
+	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
 	{
-		if(token[player]==0)
+		// Only take action when location has changed
+		if (token[playerid]->location() != location)
 		{
-			token[player] = new Token(QString("" + player), this, "token");
-			jumpToken(token[player], 0);
-			token[player]->show();
-		}
-
-		// Only move when location has changed
-		if (token[player]->location() != location)
-			moveToken(token[player], location);
-	}
-}
-
-void KMonopBoard::slotMsgPlayerUpdate(QDomNode n)
-{
-	QDomAttr a_id, a_location;
-	QDomElement e;
-	int id=0;
-	
-	e = n.toElement();
-	if(!e.isNull())
-	{
-		a_id = e.attributeNode(QString("id"));
-		if (a_id.isNull())
-			return;
-
-		// Maximum of six players, right? Check with monopd, possibly fetch
-		// number first and make portfolio overviews part of QHLayout to
-		// allow any theoretically number.
-		id = a_id.value().toInt() - 1;
-		if (id < MAXPLAYERS)
-		{
-			if(token[id]==0)
-			{
-				token[id] = new Token(a_id.value(), this, "token");
-				jumpToken(token[id], 0);
-				token[id]->show();
-			}
+			if (direct)
+				jumpToken(token[playerid], location);
+			else
+				moveToken(token[playerid], location);
 		}
 	}
 }

@@ -3,6 +3,8 @@
 
 #include "network.moc"
 
+GameNetwork *gameNetwork;
+
 GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, name)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
@@ -56,6 +58,8 @@ void GameNetwork::processNode(QDomNode n)
 						emit msgError(e.attributeNode(QString("value")).value());
 					else if (a.value() == "info")
 						emit msgInfo(e.attributeNode(QString("value")).value());
+					else if (a.value() == "chat")
+						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
 					else if (a.value() == "startgame")
 						emit msgStartGame(e.attributeNode(QString("value")).value());
 				}
@@ -109,18 +113,40 @@ void GameNetwork::processNode(QDomNode n)
 				}
 			}
 			else if (e.tagName() == "playerupdate")
-				emit msgPlayerUpdate(e);
+			{
+				int playerid = -1, location = -1;
+				bool directmove = false;
+
+				a = e.attributeNode(QString("playerid"));
+				if (!a.isNull())
+				{
+					playerid = a.value().toInt();
+
+					a = e.attributeNode(QString("name"));
+					if (!a.isNull())
+						emit msgPlayerUpdateName(playerid, a.value());
+
+					a = e.attributeNode(QString("money"));
+					if (!a.isNull())
+						emit msgPlayerUpdateMoney(playerid, a.value());
+
+					a = e.attributeNode(QString("location"));
+					if (!a.isNull())
+						location = a.value().toInt();
+
+					a = e.attributeNode(QString("directmove"));
+					if (!a.isNull())
+						directmove = a.value().toInt();
+
+					if (location >= 0)
+						emit msgPlayerUpdateLocation(playerid, location, directmove);
+				}
+			}
 			else if (e.tagName() == "estateupdate")
 			{
 				int id = e.attributeNode(QString("id")).value().toInt();
 				int owner = e.attributeNode(QString("owner")).value().toInt();
 				emit msgEstateUpdate(id, owner);
-			}
-			else if (e.tagName() == "movetoken")
-			{
-				int player = e.attributeNode(QString("player")).value().toInt();
-				int location = e.attributeNode(QString("location")).value().toInt();
-				emit msgMoveToken(player, location);
 			}
 		}
 		QDomNode node = n.firstChild();

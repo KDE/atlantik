@@ -37,7 +37,6 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	lcash->setMaximumWidth(width()/2);
 	lcash->setMaximumHeight(15);
 	lcash->show();
-	lcash->setText("$ 1,500");
 
 	QColor color;
 

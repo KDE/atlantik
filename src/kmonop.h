@@ -4,8 +4,6 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtextview.h>
-#warning move all qdom code to GameNetwork
-#include <qdom.h>
 
 #include <ktmainwindow.h>
 #include <kaction.h>
@@ -24,6 +22,7 @@ class KMonop : public KTMainWindow
 	
 	public:
 		KMonop(const char *name=0);
+		void readConfig();
 		
 	public slots:
 		void slotNewGame();
@@ -33,8 +32,10 @@ class KMonop : public KTMainWindow
 		void slotSendMsg();
 		void slotMsgError(QString);
 		void slotMsgInfo(QString);
+		void slotMsgChat(QString, QString);
 		void slotMsgStartGame(QString);
-		void slotMsgPlayerUpdate(QDomNode);
+		void slotMsgPlayerUpdateName(int, QString);
+		void slotMsgPlayerUpdateMoney(int, QString);
 		void slotMsgEstateUpdate(int, int);
 		void slotSetPlayerId(int);
 		void slotSetTurn(int);
@@ -52,7 +53,6 @@ class KMonop : public KTMainWindow
 		NewGameWizard *wizard;
 		ConfigDialog *configDialog;
 
-		GameNetwork *netw;
 		PortfolioView *port[6];
 		KMonopBoard *board;
 		int myPlayerId;

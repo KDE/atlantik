@@ -15,7 +15,7 @@ class SelectServer : public QWidget
 Q_OBJECT
 
 	public:
-		SelectServer(GameNetwork *, QWidget *parent, const char *name=0);
+		SelectServer(QWidget *parent, const char *name=0);
 		void initPage();
 		bool validateNext();
 		QString hostToConnect() const;
@@ -29,7 +29,6 @@ Q_OBJECT
 	private:
 		QListView *list;
 		QLabel *status_label;
-		GameNetwork *netw;
 };
 
 class SelectGame : public QWidget
@@ -37,7 +36,7 @@ class SelectGame : public QWidget
 Q_OBJECT
 
 	public:
-		SelectGame(GameNetwork *, QWidget *parent, const char *name=0);
+		SelectGame(QWidget *parent, const char *name=0);
 		void initPage();
 		void setGameHost(const QString &);
 		void validateButtons();
@@ -59,7 +58,6 @@ Q_OBJECT
 		QRadioButton *bnew, *bjoin;
 		QListView *list;
 		QLabel *status_label;
-		GameNetwork *netw;
 		QString gameHost;
 };
 
@@ -68,7 +66,7 @@ class ConfigureGame : public QWidget
 Q_OBJECT
 
 	public:
-		ConfigureGame(GameNetwork *, QWidget *parent, const char *name=0);
+		ConfigureGame(QWidget *parent, const char *name=0);
 		void initPage();
 		void setGameId(const QString &);
 		bool validateNext();
@@ -83,7 +81,6 @@ Q_OBJECT
 	private:
 		QListView *list;
 		QLabel *status_label;
-		GameNetwork *netw;
 		QString game_id;
 };
 
@@ -92,15 +89,12 @@ class NewGameWizard : public KWizard
 Q_OBJECT
 
 	public:
-		NewGameWizard(GameNetwork *, QWidget *parent, const char *name=0, bool modal=true, WFlags f=0);
+		NewGameWizard(QWidget *parent, const char *name=0, bool modal=true, WFlags f=0);
 		~NewGameWizard(void);
 
 	public slots:
 		void slotValidateNext();
 		void slotInit(const QString &);
-
-	protected:
-		GameNetwork *netw;
 
 	private:
 		QListView *list;

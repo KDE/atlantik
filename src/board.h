@@ -14,13 +14,12 @@ class KMonopBoard : public QWidget
 Q_OBJECT
 
 	public:
-		KMonopBoard(GameNetwork *, QWidget *parent, const char *name=0);
+		KMonopBoard(QWidget *parent, const char *name=0);
 		void setOwned(int, bool);
 		void raiseToken(int);
 
 	public slots:
-		void slotMsgMoveToken(int, int);
-		void slotMsgPlayerUpdate(QDomNode);
+		void slotMsgPlayerUpdateLocation(int, int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
 
@@ -32,7 +31,6 @@ Q_OBJECT
 		void moveToken(Token *, int);
 
 		QWidget *spacer;
-		GameNetwork *netw;
 		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
 		QTimer *qtimer;

@@ -11,19 +11,17 @@
 
 #include "newgamedlg.moc"
  
-NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
+NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard(parent, name, modal, f)
 {
-	netw = _nw;
-
 	// Select server page
-	select_server = new SelectServer(netw, this, "select_server");
+	select_server = new SelectServer(this, "select_server");
 
 	addPage(select_server, QString("Select a game server to connect to:"));
 	setHelpEnabled(select_server, false);
 	setNextEnabled(select_server, false);
 
 	// Select game page
-	select_game = new SelectGame(netw, this, "select_game");
+	select_game = new SelectGame(this, "select_game");
 	select_game->setGameHost(select_server->hostToConnect());
 	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
 
@@ -32,10 +30,10 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 	setNextEnabled(select_game, false);
 
 	// Configure game page
-	configure_game = new ConfigureGame(netw, this, "configure_game");
+	configure_game = new ConfigureGame(this, "configure_game");
 	configure_game->setGameId(select_game->gameToJoin());
-	connect(netw, SIGNAL(clearPlayerList()), configure_game, SLOT(slotClearPlayerList()));
-	connect(netw, SIGNAL(addToPlayerList(QString, QString)), configure_game, SLOT(slotAddToPlayerList(QString, QString)));
+	connect(gameNetwork, SIGNAL(clearPlayerList()), configure_game, SLOT(slotClearPlayerList()));
+	connect(gameNetwork, SIGNAL(addToPlayerList(QString, QString)), configure_game, SLOT(slotAddToPlayerList(QString, QString)));
 
 	addPage(configure_game, QString("Game configuration and list of players"));
 	setHelpEnabled(configure_game, false);
@@ -88,10 +86,8 @@ void NewGameWizard::slotInit(const QString &_name)
 		configure_game->initPage();
 }
 
-SelectServer::SelectServer(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	netw = _nw;
-
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
@@ -127,15 +123,14 @@ QString SelectServer::hostToConnect() const
 		return QString("0");
 }
 
-SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	// Network interface
-	netw = _nw;
-	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
-	connect(netw, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
-	connect(netw, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
-	connect(netw, SIGNAL(gamelistAdd(QString, QString)), this, SLOT(slotGamelistAdd(QString, QString)));
-	connect(netw, SIGNAL(gamelistDel(QString)), this, SLOT(slotGamelistDel(QString)));
+	connect(gameNetwork, SIGNAL(connected()), this, SLOT(slotConnected()));
+	connect(gameNetwork, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
+	connect(gameNetwork, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
+	connect(gameNetwork, SIGNAL(gamelistAdd(QString, QString)), this, SLOT(slotGamelistAdd(QString, QString)));
+	connect(gameNetwork, SIGNAL(gamelistDel(QString)), this, SLOT(slotGamelistDel(QString)));
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
@@ -177,12 +172,12 @@ void SelectGame::initPage()
 
 	// TODO: Only connect when no connection is made yet, only fetch when
 	// connection is already made.
-	netw->connectToHost(gameHost, 1234);
+	gameNetwork->connectToHost(gameHost, 1234);
 
 	// TODO: What if connection cannot be made?
 
 	// Fetch list of games
-	netw->writeData(".gl");
+	gameNetwork->writeData(".gl");
 }
 
 void SelectGame::setGameHost(const QString &_host)
@@ -192,7 +187,7 @@ void SelectGame::setGameHost(const QString &_host)
 
 void SelectGame::validateButtons()
 {
-	bnew->setEnabled( (netw->state()==QSocket::Connection) ? true : false);
+	bnew->setEnabled( (gameNetwork->state()==QSocket::Connection) ? true : false);
 
 	if (list->childCount() > 0)
 	{
@@ -273,9 +268,8 @@ void SelectGame::slotInitPage()
 	initPage();
 }
 
-ConfigureGame::ConfigureGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	netw = _nw;
 	game_id = QString("0");
 
 	connect(this, SIGNAL(playerListChanged()), parent, SLOT(slotValidateNext()));
@@ -300,14 +294,14 @@ void ConfigureGame::initPage()
 	if (game_id == "0")
 	{
 		// Create a new game
-		netw->writeData(".gn");
+		gameNetwork->writeData(".gn");
 	}
 	else
 	{
 		// Join existing game
 		QString str(".gj");
 		str.append(game_id);
-		netw->writeData(str.latin1());
+		gameNetwork->writeData(str.latin1());
 	}
 }
 
