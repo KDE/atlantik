@@ -367,6 +367,22 @@ void AtlantikNetwork::processNode(QDomNode n)
 					// Update *all* objects
 					m_atlanticCore->setCurrentTurn(player);
 			}
+			else if (e.tagName() == "configupdate")
+			{
+				int gameId = -1;
+
+				a = e.attributeNode(QString("gameid"));
+				if (!a.isNull())
+				{
+					gameId = a.value().toInt();
+					for( QDomNode nOptions = n.firstChild() ; !nOptions.isNull() ; nOptions = nOptions.nextSibling() )
+					{
+						QDomElement eOption = nOptions.toElement();
+						if (!eOption.isNull() && eOption.tagName() == "option")
+							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value());
+					}
+				}
+			}
 			else if (e.tagName() == "gameupdate")
 			{
 				int gameId = -1;

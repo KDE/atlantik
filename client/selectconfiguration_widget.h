@@ -43,9 +43,10 @@ public:
 		void slotPlayerListEdit(QString playerId, QString name, QString host);
 		void slotPlayerListDel(QString playerId);
 
-	private slots:
-		void connectPressed();
-		void slotClicked();
+private slots:
+	void connectPressed();
+	void slotClicked();
+	void gameOption(QString title, QString type, QString value);
 
 signals:
 	void startGame();
@@ -57,7 +58,7 @@ signals:
 	private:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
-		QVGroupBox *m_playerGroupBox, *m_groupBox, *m_messageBox;
+		QVGroupBox *m_playerBox, *m_configBox, *m_messageBox;
 		KListView *m_playerList;
 		KPushButton *m_backButton, *m_connectButton;
 };

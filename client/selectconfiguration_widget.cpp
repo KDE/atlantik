@@ -16,6 +16,7 @@
 
 #include <iostream>
 
+#include <qcheckbox.h>
 #include <qradiobutton.h>
 
 #include <kdebug.h>
@@ -33,11 +34,11 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Player list.
-	m_playerGroupBox = new QVGroupBox(i18n("Player List"), this, "groupBox");
-	m_mainLayout->addWidget(m_playerGroupBox); 
+	m_playerBox = new QVGroupBox(i18n("Player List"), this, "playerBox");
+	m_mainLayout->addWidget(m_playerBox); 
 
 	// List of  players
-	m_playerList = new KListView(m_playerGroupBox, "m_playerList");
+	m_playerList = new KListView(m_playerBox, "m_playerList");
 	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
 	m_playerList->addColumn(QString(i18n("Host")));
@@ -45,11 +46,9 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
 
-#if 0
 	// Game configuration.
-	m_groupBox = new QVGroupBox(i18n("Game Configuration"), this, "groupBox");
-	m_mainLayout->addWidget(m_groupBox); 
-#endif
+	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
+	m_mainLayout->addWidget(m_configBox); 
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(buttonBox);
@@ -143,8 +142,8 @@ void SelectConfiguration::connectPressed()
 
 	KPushButton *button = new KPushButton(i18n("Ok"), m_messageBox, "button");
 
-	m_playerGroupBox->setEnabled(false);
-	m_groupBox->setEnabled(false);
+	m_playerBox->setEnabled(false);
+	m_configBox->setEnabled(false);
 	m_connectButton->setEnabled(false);
 	status_label->setEnabled(false);
 
@@ -156,17 +155,32 @@ void SelectConfiguration::connectPressed()
 void SelectConfiguration::slotClicked()
 {
 	delete m_messageBox;
-	m_playerGroupBox->setEnabled(true);
-	m_groupBox->setEnabled(true);
+	m_playerBox->setEnabled(true);
+	m_configBox->setEnabled(true);
 	m_connectButton->setEnabled(true);
 	status_label->setEnabled(true);
 }
 
+void SelectConfiguration::gameOption(QString title, QString type, QString value)
+{
+	// Find if option exists in GUI yet
+		// Update
+
+	// Create option
+	if (type == "bool")
+	{
+		QCheckBox *checkBox = new QCheckBox(title, m_configBox, "checkbox");
+		checkBox->setChecked(value.toInt());
+		checkBox->show();
+	}
+	else
+		kdDebug() << "TODO: game options other than type=bool" << std::endl;
+
+	// TODO: Enable edit for master only
+}
+
 /*
 // some old code i might want to reuse
-
-	// No i18n, this is not a permanent label anyway.
-	status_label->setText("Configuration of the game is not yet supported by the monopd server.\nGames will be played using the standard rules.");
 
 void ConfigureGame::slotPlayerlistEndUpdate(QString type)
 {

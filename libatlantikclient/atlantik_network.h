@@ -119,11 +119,13 @@ signals:
 	void displayButton(QString command, QString caption);
 	void displayDefault();
 
+	void gameOption(QString title, QString type, QString value);
 	void gameListClear();
 	void gamelistEndUpdate(QString);
 	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListDel(QString gameId);
+
 	void joinedGame();
 	void initGame();
 	void gameStarted();
