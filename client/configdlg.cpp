@@ -28,8 +28,8 @@
 ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
 {
 	m_parent = parent;
-	p_p13n = addPage(QString(i18n("Personalization")), QString(i18n("Personalization")), BarIcon("personal", KIcon::SizeMedium));
-	p_board = addPage(QString(i18n("Board")), QString(i18n("Board")), BarIcon("monop_board", KIcon::SizeMedium));
+	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", KIcon::SizeMedium));
+	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", KIcon::SizeMedium));
 
 	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
 	configBoard = new ConfigBoard(this, p_board, "configBoard");
@@ -77,7 +77,7 @@ ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const ch
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
 
-	QLabel *label = new QLabel("Player name:", parent);	
+	QLabel *label = new QLabel(i18n("Player name:"), parent);
 	layout->addWidget(label);
 
 	m_playerName = new QLineEdit(parent);

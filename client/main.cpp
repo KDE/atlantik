@@ -18,6 +18,7 @@
 #include <kcmdlineargs.h>
 #include <klocale.h>
 #include <kapplication.h>
+#include <kglobal.h>
 
 #include "main.h"
 #include "atlantik.h"
@@ -59,6 +60,7 @@ int main(int argc, char *argv[])
 
 	KApplication::addCmdLineOptions();
 	KApplication kapplication;
+    KGlobal::locale()->insertCatalogue("libkdegames");
 
 	if (kapplication.isRestored())
 		RESTORE(Atlantik)
