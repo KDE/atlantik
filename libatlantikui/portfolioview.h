@@ -35,15 +35,16 @@ private slots:
 	void playerChanged();
 	void slotMenuAction(int item);
 
-	private:
-		Player *m_player;
-		QColor m_activeColor, m_inactiveColor;
-		QPixmap *qpixmap;
-		bool b_recreate;
-		QLabel *m_nameLabel, *m_moneyLabel;
-		QMap<int, PortfolioEstate*> portfolioEstateMap;
-		int x, y;
-		QString m_lastGroup;
+private:
+	Player *m_player;
+	PortfolioEstate *m_lastPE;
+	QColor m_activeColor, m_inactiveColor;
+	QPixmap *qpixmap;
+	bool b_recreate;
+	QLabel *m_nameLabel, *m_moneyLabel;
+	QMap<int, PortfolioEstate*> portfolioEstateMap;
+	int x, y;
+	QString m_lastGroup;
 };
 
 #endif

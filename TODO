@@ -3,6 +3,13 @@
 ? fixed but unconfirmed
 v implemented
 
+monopd API change
+------------------
+
+- removed type= in estateupdate
+- playerupdate's jailcard stuff is now outofjailcards=<int>
+- chance cards are dynamic now, so that might be shaky
+
 Bugfixes
 --------
 
@@ -16,8 +23,6 @@ Bugfixes
 - connect Player::changed() to trade widget (for list items)
 - connect Player::changed() to auction widget (for list items)
 - bugs from Neil's trial report
-  - Deed icons shown on non-deeded squares (jail, free parking, go to jail)
-  - Can't tell who owns which railroads and utilities, as the upper left only shows streets
   - No notification of when someone got sent to jail
   - Should display in console chance/community chest cards (reenable that optionally?)
   - Kagato (income tax) doesn't charge me.. it's set to 10% or $200 (monopd)
@@ -52,9 +57,10 @@ v support for <display>
     - buttons connect to network API
     - nice paints with more artwork/effects
 - Different token placement when in jail
-- fix portfolio
-  - non street estates in portfolio (depends on proper monopd groups)
+v fix portfolio
+  v non street estates in portfolio (depends on proper monopd groups)
   - Chance/CC cards in portfolio
+  - do some relayouting based on the estategroup order
 - Option to configure toolbars (at least be able to save size/text settings)
 - support for trading jail cards (depends on monopd)
 

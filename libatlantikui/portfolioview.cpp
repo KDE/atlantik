@@ -22,6 +22,7 @@ PortfolioView::PortfolioView(Player *player, QColor activeColor, QColor inactive
 	m_player = player;
 	m_activeColor = activeColor;
 	m_inactiveColor = inactiveColor;
+	m_lastPE = 0;
 
 	b_recreate = true;
 	qpixmap = 0;
@@ -57,77 +58,75 @@ Player *PortfolioView::player()
 	return m_player;
 }
 
+// TODO: little idea for later when we actually know about the groups beforehand
+/*
+void PortfolioView::buildPortfolio()
+{
+	// Loop through estategroups in order
+	// For each entry loop through estates and add estates
+}
+*/
+
 void PortfolioView::addEstateView(Estate *estate)
 {
 	int estateId = estate->estateId();
 	if (!estate->canBeOwned() || estate->group().isEmpty())
 		return;
 
-//	if ((estateId / 10) * 18 > y)
-//	{
-		y = 18 * (1 + (estateId / 10));
-//		x = 0;
-//	}
-
-	if (m_lastGroup == estate->group())
-		x += 18;
-	else
-	{
-		x += 36;
-		m_lastGroup = estate->group();
-	}
-	x = 5 + 16 * ((estateId-1) % 10);
+	kdDebug() << estate->name() << " canBeOwned and group is not empty but \"" << estate->group() << "\"" << endl;
 
 	// Create PE
 	PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 	portfolioEstateMap[estateId] = portfolioEstate;
 
-	// Find last of this group
-	PortfolioEstate *tmpPE = 0, *lastPE = 0;
+	// Find the last PE with the same group
+	PortfolioEstate *tmpPE = 0, *referencePE = 0;
 	for (QMap<int, PortfolioEstate *>::Iterator i=portfolioEstateMap.begin() ; i != portfolioEstateMap.end() ; ++i)
 		{
 			if ((tmpPE = *i))
 			{
+				// Estate found, break
 				if (tmpPE->estate() == estate)
 					break;
+
 				if (tmpPE->estate()->group() == estate->group())
-					lastPE = tmpPE;
+				{
+					// Same group, so set referencePE and if current
+					// referencePE is the very last PE, we're now it.
+					if (referencePE == m_lastPE)
+						m_lastPE = tmpPE;
+					referencePE = tmpPE;
+				}
 			}
 		}
 
-	// Place this one on top of it
-	if (lastPE)
+	// If we found a reference PE, we can place the new one next to it
+	if (referencePE)
 	{
-		kdDebug() << "last of same group" << endl;
-		x = lastPE->x()+2;
-		y = lastPE->y()+4;
+		kdDebug() << "last of same group (" << estate->group() << ")" << endl;
+		x = referencePE->x()+2;
+		y = referencePE->y()+4;
 	}
-	// Else, find last
+	// No reference PE from the same group, so place new one aside the last one
 	else
 	{
-		for (QMap<int, PortfolioEstate *>::Iterator i=portfolioEstateMap.begin() ; i != portfolioEstateMap.end() ; ++i)
-			{
-				if ((tmpPE = *i))
-				{
-					if (tmpPE->estate() == estate)
-						break;
-					lastPE = tmpPE;
-				}
-			}
-		// Place this one next to it
-		if (lastPE)
+		if (m_lastPE)
 		{
+			// Next to m_lastPE
 			kdDebug() << "last of any" << endl;
-			x = lastPE->x() + 18;
+			x = m_lastPE->x() + 18;
 			y = 18;
 		}
-		// Else use first placement
 		else
 		{
+			// No m_lastPE, place at the defaults
 			kdDebug() << "default" << endl;
 			x = 5;
 			y = 18;
 		}
+
+		// We're the last one now
+		m_lastPE = portfolioEstate;
 	}
 	kdDebug() << "setting geometry to " << x << ", " << y << endl;
 	portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
