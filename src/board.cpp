@@ -16,10 +16,12 @@
 
 extern AtlantikConfig atlantikConfig;
 
-AtlantikBoard::AtlantikBoard(int maxEstates, QWidget *parent, const char *name) : QWidget(parent, name)
+AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 //	setMinimumWidth(320);
 //	setMinimumHeight(320);
+
+	m_atlanticCore = atlanticCore;
 
 	m_maxEstates = maxEstates;
 
@@ -167,8 +169,8 @@ void AtlantikBoard::newAuction(Auction *auction)
 {
 	if (m_center != 0)
 		delete m_center;
-	
-	m_center = new AuctionWidget(this);
+
+	m_center = new AuctionWidget(m_atlanticCore, auction, this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 }

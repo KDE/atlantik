@@ -7,8 +7,9 @@
 #include <qptrlist.h>
 
 #include "config.h"
-//#include "estateview.h"
 #include "token.h"
+
+class AtlanticCore;
 
 class EstateView;
 
@@ -21,7 +22,7 @@ class AtlantikBoard : public QWidget
 Q_OBJECT
 
 public:
-	AtlantikBoard(int, QWidget *parent, const char *name=0);
+	AtlantikBoard(AtlanticCore *atlanticCore, int, QWidget *parent, const char *name=0);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
 	void newAuction(Auction *auction);
@@ -47,6 +48,8 @@ protected:
 	QWidget *m_center;
 
 private:
+	AtlanticCore *m_atlanticCore;
+
 	EstateView *getEstateView(Estate *estate);
 	void jumpToken(Token *, EstateView *estateView, bool confirm=true);
 	void moveToken(Token *, int destination);

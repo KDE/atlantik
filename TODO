@@ -23,10 +23,9 @@ For 0.2.0
  v network api
  ^ trade object
  ^ widget
-- support auctions
- ^ network api
- ^ auction object
- - widget
+^ support auctions
+  - remove view when completed
+  - button to init auction
 
 For 0.2.1
 ---------

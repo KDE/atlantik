@@ -50,6 +50,7 @@ private slots:
 	void tokenConfirmation(Estate *);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
+	void auctionBid(Auction *auction, int amount);
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -145,7 +146,7 @@ signals:
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
 	void newAuction(Auction *auction);
-	void auctionCompleted(int auctionId);
+	void auctionCompleted(Auction *auction);
 
 private:
 	void writeData(QString msg);

@@ -124,7 +124,7 @@ void AtlanticDesigner::initBoard()
 	delete board;
 	delete layout;
 
-	board = new AtlantikBoard(max, this, "Board");
+	board = new AtlantikBoard(0, max, this, "Board");
 	setCentralWidget(board);
 	layout = new QVBoxLayout(board->centerWidget());
 	editor = new EstateEdit(&estates, &chanceStack, &ccStack, board->centerWidget(), "Estate Editor");

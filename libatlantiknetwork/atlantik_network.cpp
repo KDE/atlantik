@@ -141,6 +141,15 @@ void AtlantikNetwork::cmdTradeReject(int tradeId)
 	writeData(msg);
 }
 
+void AtlantikNetwork::auctionBid(Auction *auction, int amount)
+{
+	QString msg(".ab");
+	msg.append(QString::number(auction ? auction->auctionId() : -1));
+	msg.append(":");
+	msg.append(QString::number(amount));
+	writeData(msg);
+}
+
 void AtlantikNetwork::jailPay()
 {
 	writeData(".jp");
@@ -607,8 +616,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						auction = m_atlanticCore->newAuction(auctionId);
 						m_auctions[auctionId] = auction;
 
-//						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
-//						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
+						QObject::connect(auction, SIGNAL(bid(Auction *, int)), this, SLOT(auctionBid(Auction *, int)));
 
 						b_newAuction = true;
 					}
@@ -619,9 +627,17 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 					else if (type=="edit")
 					{
+						a = e.attributeNode(QString("highbidder"));
+						if (!a.isNull())
+						{
+							Player *player = m_players[e.attributeNode(QString("highbidder")).value().toInt()];
+							a = e.attributeNode(QString("highbid"));
+							if (auction && player && !a.isNull())
+								auction->newBid(player, a.value().toInt());
+						}
 					}
-					else if (type=="completed")
-						emit auctionCompleted(auctionId);
+//					else if (type=="completed")
+//						emit auctionCompleted(auction);
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set
