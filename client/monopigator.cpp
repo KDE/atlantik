@@ -34,12 +34,13 @@ Monopigator::~Monopigator()
 {
 	if (m_job)
 		m_job -> kill();
+        delete m_downloadData;
+        m_downloadData=0L;
 }
 
 void Monopigator::loadData(const KURL &url)
 {
-	if (m_downloadData)
-		delete m_downloadData;
+    delete m_downloadData;
 	m_downloadData = new QBuffer();
 	m_downloadData->open(IO_WriteOnly);
 	m_downloadData->reset();
