@@ -31,11 +31,11 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Player list.
-	m_playerGroupBox = new QVGroupBox(i18n("Player list"), this, "groupBox");
+	m_playerGroupBox = new QVGroupBox(i18n("Player List"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox); 
 
 	// Game configuration.
-	m_groupBox = new QVGroupBox(i18n("Game configuration"), this, "groupBox");
+	m_groupBox = new QVGroupBox(i18n("Game Configuration"), this, "groupBox");
 	m_mainLayout->addWidget(m_groupBox); 
 
 	// List of  players

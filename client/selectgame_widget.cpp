@@ -21,7 +21,7 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
- 
+
 #include "selectgame_widget.moc"
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -30,7 +30,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	Q_CHECK_PTR(m_mainLayout);
 
 	QVGroupBox *groupBox;
-	groupBox = new QVGroupBox(i18n("Start or select a monopd game"), this, "groupBox");
+	groupBox = new QVGroupBox(i18n("Start or Select a monopd Game"), this, "groupBox");
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games

@@ -30,7 +30,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	QVButtonGroup *bgroup;
 //	bgroup = new QVButtonGroup(i18n("Start or select a monopd server"), this, "bgroup");
-	bgroup = new QVButtonGroup(i18n("Select a monopd server"), this, "bgroup");
+	bgroup = new QVButtonGroup(i18n("Select a monopd Server"), this, "bgroup");
 	bgroup->setExclusive(true);
 	m_mainLayout->addWidget(bgroup); 
 

@@ -103,7 +103,7 @@ ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
 
-	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game status feedback"), parent);
+	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game Status Feedback"), parent);
 	layout->addWidget(box);
 
 	m_indicateUnowned = new QCheckBox(i18n("Display title deed card on unowned properties"), box);
