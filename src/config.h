@@ -11,6 +11,7 @@ struct KMonopConfig
 
 	// Board options
 	bool indicateUnowned;
+	bool highliteUnowned;
 	bool grayOutMortgaged;
 	bool animateToken;
 };

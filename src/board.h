@@ -18,7 +18,7 @@ Q_OBJECT
 		void setOwned(int, bool);
 		void raiseToken(int);
 		void indicateUnownedChanged();
-		void grayOutMortgagedChanged();
+		void redrawEstates();
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
@@ -38,8 +38,8 @@ Q_OBJECT
 		QWidget *spacer, *center;
 		EstateView *estate[40];
 		Token *token[MAXPLAYERS], *move_token;
-		QTimer *qtimer;
-		bool resume_timer;
+		QTimer *m_timer;
+		bool m_resumeTimer;
 };
 
 #endif

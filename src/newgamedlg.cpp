@@ -335,11 +335,11 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
-//	QLabel *header = new QLabel("<b>Game description</b>", this);
-//	layout->addWidget(header);
+	QLabel *header = new QLabel("Game description for game list", this);
+	layout->addWidget(header);
 
-//	QLineEdit *desc = new QLineEdit(this);
-//	layout->addWidget(desc);
+	QLineEdit *desc = new QLineEdit(this);
+	layout->addWidget(desc);
 	
 	list = new QListView(this);
 

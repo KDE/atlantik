@@ -25,7 +25,7 @@ Q_OBJECT
 		bool owned();
 
 		void updatePE();
-		void updateMortgaged();
+		void redraw();
 
 	public slots:
 		void slotResizeAftermath();

@@ -19,9 +19,9 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 	setMinimumHeight(320);
 
 	// Timer for token movement
-	qtimer = new QTimer(this);
-	connect(qtimer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
-	resume_timer = false;
+	m_timer = new QTimer(this);
+	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
+	m_resumeTimer = false;
 
 	QGridLayout *layout = new QGridLayout(this, 25, 25);
 
@@ -83,6 +83,9 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 				break;
 			case 22:
 				icon = QString("qmark-blue.png");
+				break;
+			case 0:
+				icon = QString("arrow.png");
 				break;
 			case 38:
 				icon = QString("ring.png");
@@ -157,7 +160,7 @@ void KMonopBoard::moveToken(Token *token, int dest)
 	move_token->setDestination(dest);
 
 	// Start timer
-	qtimer->start(10);
+	m_timer->start(10);
 }
 
 void KMonopBoard::setOwned(int id, bool owned)
@@ -181,13 +184,13 @@ void KMonopBoard::indicateUnownedChanged()
 			estate[i]->updatePE();
 }
 
-void KMonopBoard::grayOutMortgagedChanged()
+void KMonopBoard::redrawEstates()
 {
 	int i=0;
 
 	for (i=0;i<40;i++)
-		if (estate[i]!=0 && estate[i]->mortgaged())
-			estate[i]->updateMortgaged();
+		if (estate[i]!=0 && ( !(estate[i]->owned()) || estate[i]->mortgaged() ))
+			estate[i]->redraw();
 }
 
 void KMonopBoard::slotMoveToken()
@@ -198,7 +201,7 @@ void KMonopBoard::slotMoveToken()
 	// Do we actually have a token to move?
 	if (move_token==0)
 	{
-		qtimer->stop();
+		m_timer->stop();
 		return;
 	}
 
@@ -231,7 +234,7 @@ void KMonopBoard::slotMoveToken()
 		if (move_token->destination() == move_token->location())
 		{
 			// We have arrived at our _final_ destination!
-			qtimer->stop();
+			m_timer->stop();
 			move_token = 0;
 		}
 		return;
@@ -256,10 +259,10 @@ void KMonopBoard::slotMoveToken()
 void KMonopBoard::resizeEvent(QResizeEvent *e)
 {
 	// Stop moving tokens, slotResizeAftermath will re-enable this
-	if (qtimer!=0 && qtimer->isActive())
+	if (m_timer!=0 && m_timer->isActive())
 	{
-		qtimer->stop();
-		resume_timer=true;
+		m_timer->stop();
+		m_resumeTimer=true;
 	}
 
 	// Adjust spacer to make sure board stays a square
@@ -276,7 +279,7 @@ void KMonopBoard::resizeEvent(QResizeEvent *e)
 	}
 
 	// Timer to reinit the gameboard _after_ resizeEvent
-	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
+	QTimer::singleShot(1000, this, SLOT(slotResizeAftermath()));
 }
 
 void KMonopBoard::slotResizeAftermath()
@@ -292,10 +295,10 @@ void KMonopBoard::slotResizeAftermath()
 	}
 
 	// Restart the timer that was stopped in resizeEvent
-	if (resume_timer && qtimer!=0 && !qtimer->isActive())
+	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())
 	{
-		qtimer->start(10);
-		resume_timer=false;
+		m_timer->start(10);
+		m_resumeTimer=false;
 	}
 }
 

@@ -1,3 +1,11 @@
+2001-06-29 (cap)
+----------
+
+- Bugfix: when owner=-1 in estateupdate, KMonop now clears the
+  portfolio/board estateviews.
+- Added icon for Go.
+- New config option to highlite unowned properties.
+
 2001-06-27 (cap)
 ----------
 

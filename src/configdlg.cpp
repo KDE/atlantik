@@ -27,6 +27,11 @@ bool ConfigDialog::indicateUnowned()
 	return configBoard->m_indicateUnowned->isChecked();
 }
 
+bool ConfigDialog::highliteUnowned()
+{
+	return configBoard->m_highliteUnowned->isChecked();
+}
+
 bool ConfigDialog::grayOutMortgaged()
 {
 	return configBoard->m_grayOutMortgaged->isChecked();
@@ -69,34 +74,33 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game status feedback"), parent);
 	layout->addWidget(box);
 
-	m_indicateUnowned = new QCheckBox(i18n("Indicate whether a property is unowned"), box);
-
+	m_indicateUnowned = new QCheckBox(i18n("Display Title Deed card on unowned properties"), box);
 	QString message=i18n(
-		"Indicate whether a property is unowned\n\n"
-		"If checked, unowned properties on the board\n"
-		"display an estate card to indicate the\n"
-		"property is for sale.\n");
+		"If checked, unowned properties on the board display an estate\n"
+		"card to indicate the property is for sale.\n");
 	QWhatsThis::add(m_indicateUnowned, message);
 
-	m_grayOutMortgaged = new QCheckBox(i18n("Gray out mortgaged properties"), box);
-
+	m_highliteUnowned = new QCheckBox(i18n("Highlite unowned properties"), box);
 	message=i18n(
-		"Gray out mortgaged properties\n\n"
-		"If checked, mortgaged properties on the board\n"
-		"will be coloured gray instead of the default\n"
-		"colour.\n");
+		"If checked, unowned properties on the board are highlited to\n"
+		"indicate the property is for sale.\n");
+	QWhatsThis::add(m_highliteUnowned, message);
+
+	m_grayOutMortgaged = new QCheckBox(i18n("Gray out mortgaged properties"), box);
+	message=i18n(
+		"If checked, mortgaged properties on the board will be coloured\n"
+		"gray instead of the default colour.\n");
 	QWhatsThis::add(m_grayOutMortgaged, message);
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
-
 	message=i18n(
 		"Animate token movement\n\n"
 		"If checked, tokens will move across the board\n"
 		"instead of jumping directly to their new location.\n");
 	QWhatsThis::add(m_animateToken, message);
 
-	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
-	layout->addWidget(box);
+//	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
+//	layout->addWidget(box);
 
 	layout->addStretch(1);
 
@@ -106,6 +110,7 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 void ConfigBoard::reset()
 {
 	m_indicateUnowned->setChecked(kmonopConfig.indicateUnowned);
+	m_highliteUnowned->setChecked(kmonopConfig.highliteUnowned);
 	m_grayOutMortgaged->setChecked(kmonopConfig.grayOutMortgaged);
 	m_animateToken->setChecked(kmonopConfig.animateToken);
 }

@@ -141,7 +141,7 @@ void EstateView::updatePE()
 	}
 }
 
-void EstateView::updateMortgaged()
+void EstateView::redraw()
 {
 	b_recreate = true;
     update();
@@ -167,6 +167,8 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (kmonopConfig.grayOutMortgaged==true && m_mortgaged)
 			painter.setBrush(kmonop_lgray);
+		else if (kmonopConfig.highliteUnowned==true && m_canBeOwned && !m_owned)
+			painter.setBrush(Qt::white);
 		else
 			painter.setBrush(kmonop_greenbg);
 

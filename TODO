@@ -1,3 +1,11 @@
+t in the works
+- not implemented, low priority
++ not implemented, medium priority
+! not implemented, high priority
+? bug should be fixed, not confirmed yet
+v implemented
+V implemented and confirmed
+
 Wishlist
 --------
 
@@ -17,8 +25,11 @@ desire.
 For 0.2.x
 ---------
 
-- Support .gd game description.
+t Support .gd game description.
 - Support leaving jail.
+  - GUI
+  - Network
+  - Different token placement when in jail?
 - Icons on gameboard.
   V Station
   - Utility
@@ -30,6 +41,8 @@ For 0.2.x
   - toJail
   - Tax
   V Luxury Tax
+  - Houses
+  - Hotels
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
@@ -49,13 +62,7 @@ For 0.3.x
 ---------
 
 - Game configuration (when it appears in monopd)
-- Use i18n() for all messages. Until 0.2.x this is not recommendable because
-  too many strings will yet change and it would be a waste of time to
-  translate those strings. Once the game is working more or less, messages
-  are likely to freeze and translations are more than welcome. Note: strings
-  such as streetnames are not to be translated! It should be perfectly
-  normal to play a game in German with original US streetnames such as
-  Boardwalk.
+v Use i18n()
 - Fetch serverlist via Monopigator kind of interface.
 - Have a playable, more or less stable game.
 

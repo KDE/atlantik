@@ -90,6 +90,7 @@ void KMonop::readConfig()
 
 	config->setGroup("Board");
 	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
+	kmonopConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", true);
 	kmonopConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
 	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 }
@@ -120,7 +121,7 @@ void KMonop::slotConfigure()
 void KMonop::slotUpdateConfig()
 {
 	KConfig *config=kapp->config();
-	bool optBool;
+	bool optBool, redrawEstates = false;
 	QString optStr;
 
 	optStr = configDialog->playerName();
@@ -137,11 +138,18 @@ void KMonop::slotUpdateConfig()
 		board->indicateUnownedChanged();
 	}
 
+	optBool = configDialog->highliteUnowned();
+	if (kmonopConfig.highliteUnowned != optBool)
+	{
+		kmonopConfig.highliteUnowned = optBool;
+		redrawEstates = true;
+	}
+
 	optBool = configDialog->grayOutMortgaged();
 	if (kmonopConfig.grayOutMortgaged != optBool)
 	{
 		kmonopConfig.grayOutMortgaged = optBool;
-		board->grayOutMortgagedChanged();
+		redrawEstates = true;
 	}
 
 	optBool = configDialog->animateToken();
@@ -155,10 +163,14 @@ void KMonop::slotUpdateConfig()
 
 	config->setGroup("Board");
 	config->writeEntry("IndicateUnowned", kmonopConfig.indicateUnowned);
+	config->writeEntry("HighliteUnowned", kmonopConfig.highliteUnowned);
 	config->writeEntry("GrayOutMortgaged", kmonopConfig.grayOutMortgaged);
 	config->writeEntry("AnimateToken", kmonopConfig.animateToken);
 
 	config->sync();
+
+	if (redrawEstates)
+		board->redrawEstates();
 }
 
 void KMonop::slotRoll()
