@@ -153,6 +153,7 @@ signals:
 
 	void newAuction(Auction *auction);
 	void auctionCompleted(Auction *auction);
+	void clientCookie(QString cookie);
 
 private:
 	void processMsg(QString);

@@ -332,6 +332,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 					// TODO: move to Atlantik::slotNetworkConnected(), not needed on auto-join
 					cmdGamesList();
 				}
+				a = e.attributeNode(QString("cookie"));
+				if (!a.isNull())
+					emit clientCookie(a.value());
 			}
 			else if (e.tagName() == "configupdate")
 			{

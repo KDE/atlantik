@@ -549,6 +549,8 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
+	connect(m_atlantikNetwork, SIGNAL(clientCookie(QString)), this, SLOT(clientCookie(QString)));
+
 	connect(this, SIGNAL(rollDice()), m_atlantikNetwork, SLOT(rollDice()));
 	connect(this, SIGNAL(buyEstate()), m_atlantikNetwork, SLOT(buyEstate()));
 	connect(this, SIGNAL(auctionEstate()), m_atlantikNetwork, SLOT(auctionEstate()));
@@ -556,6 +558,17 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailCard()), m_atlantikNetwork, SLOT(jailCard()));
 	connect(this, SIGNAL(jailPay()), m_atlantikNetwork, SLOT(jailPay()));
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
+}
+
+void Atlantik::clientCookie(QString cookie)
+{
+	KConfig *config = kapp->config();
+
+	config->setGroup("Reconnection");
+	config->writeEntry("Host", m_atlantikNetwork->host());
+	config->writeEntry("Port", m_atlantikNetwork->port());
+	config->writeEntry("Cookie", cookie);
+	config->sync();
 }
 
 void Atlantik::addPortfolioView(Player *player)
