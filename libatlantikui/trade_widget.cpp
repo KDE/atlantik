@@ -118,7 +118,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	listCompBox->addWidget(m_componentList);
 
 	m_componentList->addColumn(i18n("Player"));
-	m_componentList->addColumn(i18n("gives"));
+	m_componentList->addColumn(i18n("Gives"));
 	m_componentList->addColumn(i18n("Player"));
 	m_componentList->addColumn(i18n("Item"));
 
