@@ -14,6 +14,9 @@ struct AtlantikConfig
 	bool darkenMortgaged;
 	bool animateToken;
 	bool quartzEffects;
+
+	// Portfolio colors
+	QColor activeColor, inactiveColor;
 };
 
 #endif

@@ -147,7 +147,7 @@ Atlantik::Atlantik () : KMainWindow ()
 void Atlantik::readConfig()
 {
 	// Read configuration settings
-	KConfig *config=kapp->config();
+	KConfig *config = kapp->config();
 
 	// Personalization configuration
 	config->setGroup("Personalization");
@@ -160,6 +160,12 @@ void Atlantik::readConfig()
 	atlantikConfig.darkenMortgaged = config->readBoolEntry("DarkenMortgaged", true);
 	atlantikConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
+
+	// Portfolio colors
+	config->setGroup("WM");
+	atlantikConfig.activeColor = config->readColorEntry("activeBackground", &black);
+	atlantikConfig.inactiveColor = config->readColorEntry("inactiveBlend", &black);
+
 }
 
 void Atlantik::newPlayer(Player *player)
