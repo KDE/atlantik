@@ -103,7 +103,7 @@ Atlantik::Atlantik ()
 
 	// Toolbar: Game
 //	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
-	m_showEventLog = new KAction(i18n("Show Event &Log"), "atlantik_showeventlog", CTRL+Key_L, this, SLOT(showEventLog()), actionCollection(), "showeventlog");
+        m_showEventLog = new KAction(i18n("Show Event &Log")/*, "atlantik_showeventlog"*/, CTRL+Key_L, this, SLOT(showEventLog()), actionCollection(), "showeventlog");
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Settings
@@ -138,11 +138,11 @@ Atlantik::Atlantik ()
 	m_auctionEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
-	m_jailCard = new KAction(i18n("Use Card to Leave Jail"), "atlantik_move_jail_card", 0, this, SIGNAL(jailCard()), actionCollection(), "move_jailcard");
+        m_jailCard = new KAction(i18n("Use Card to Leave Jail")/*, "atlantik_move_jail_card"*/, 0, this, SIGNAL(jailCard()), actionCollection(), "move_jailcard");
 	m_jailCard->setEnabled(false);
 	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), "jail_pay", CTRL+Key_P, this, SIGNAL(jailPay()), actionCollection(), "move_jailpay");
 	m_jailPay->setEnabled(false);
-	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), "atlantik_move_jail_roll", CTRL+Key_J, this, SIGNAL(jailRoll()), actionCollection(), "move_jailroll");
+        m_jailRoll = new KAction(i18n("Roll to Leave &Jail")/*, "atlantik_move_jail_roll"*/, CTRL+Key_J, this, SIGNAL(jailRoll()), actionCollection(), "move_jailroll");
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
