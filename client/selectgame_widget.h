@@ -40,8 +40,8 @@ public:
 		void validateConnectButton();
 
 		void slotGameListClear();
-		void slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);
-		void slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
+		void slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
+		void slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
 		void slotGameListDel(QString gameId);
 
 private slots:

@@ -81,7 +81,7 @@ void SelectGame::slotGameListEndUpdate()
 	m_statusLabel->setText(i18n("Retrieved game list."));
 }
 
-void SelectGame::slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType)
+void SelectGame::slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined)
 {
 	if (gameId == "-1")
 	{
@@ -92,12 +92,13 @@ void SelectGame::slotGameListAdd(QString gameId, QString name, QString descripti
 	{
 		QListViewItem *item = new QListViewItem(m_gameList, i18n("Join %1 Game #%2").arg(name).arg(gameId), description, gameId, players, gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
+		item->setEnabled(canBeJoined);
 	}
 
 	validateConnectButton();
 }
 
-void SelectGame::slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType)
+void SelectGame::slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined)
 {
 	QListViewItem *item = m_gameList->firstChild();
 	while (item)
@@ -111,6 +112,7 @@ void SelectGame::slotGameListEdit(QString gameId, QString name, QString descript
 			item->setText(3, players);
 			if (!gameType.isEmpty())
 				item->setText(4, gameType);
+			item->setEnabled(canBeJoined);
 			m_gameList->triggerUpdate();
 			return;
 		}
