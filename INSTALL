@@ -1,8 +1,8 @@
 You downloaded Atlantik from CVS
 --------------------------------
 
-cd $(srcdir)/kdenonbeta && make -f Makefile.cvs && ./configure
-cd $(srcdir)/kdenonbeta/atlantik && make && make install
+cd $(srcdir)/kdegames && make -f Makefile.cvs && ./configure
+cd $(srcdir)/kdegames/atlantik && make && make install
 
 You downloaded a release tarball
 --------------------------------

@@ -35,8 +35,9 @@ http://capsi.com/~cap/monopd/
 However, the latest versions of both projects are found in CVS.
 
 Atlantik is located in the CVS repository of the KDE project in the module
-kdenonbeta. See http://www.kde.org/anoncvs.html for instructions how to
-download KDE modules from CVS.
+kdegames. See http://www.kde.org/anoncvs.html for instructions how to
+download KDE modules from CVS. Atlantik is included in the kdegames package
+since the KDE 3.1 release.
 
 For more information on monopd CVS see the monopd pages on
 http://sourceforge.net/projects/monopd/
