@@ -4,6 +4,7 @@
 #include <kdebug.h>
 
 #include <kstandarddirs.h>
+#include <kglobalsettings.h>
 
 #include "token.moc"
 #include "player.h"
@@ -96,7 +97,7 @@ void Token::paintEvent(QPaintEvent *)
 		painter.drawPixmap(0, 0, *qpixmap);
 
 		painter.setPen(Qt::black);
-		painter.setFont(QFont("Helvetica", 12, QFont::Bold));
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
 		painter.drawText(2, height()-2, m_player->name());
 
 		b_recreate = false;
