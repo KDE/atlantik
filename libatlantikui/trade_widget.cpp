@@ -180,6 +180,7 @@ void TradeDisplay::setEditType(int index)
 		m_moneyBox->hide();
 		m_moneyBox->setMaximumWidth(0);
 
+		setEditEstate(m_estateCombo->currentItem()); // re-init From player
 		m_playerFromCombo->setEnabled(false);
 
 		m_updateButton->setEnabled( m_estateCombo->count() > 0 );
