@@ -150,7 +150,7 @@ void AtlanticDesigner::openRecent(const KURL &url)
 
 void AtlanticDesigner::openFile(const QString &filename)
 {
-	kdDebug() << "starting openFile\n";
+	enum ParseMode { Estates=0, Chance_Cards=1, CC_Cards=2, Other=3 };
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 		return;
@@ -161,17 +161,18 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 	QTextStream t(&f);
 	QString s = t.readLine();
-	QString parsemode = QString::null;
+	ParseMode parseMode = Other;
 
 	int i;
 	for (i = 0; !t.atEnd();)
 	{
-		if (i < 100)
-			kdDebug() << "s is " << s << endl;
+		if (i < 500)
+			kdDebug() << "s is [" << s << "]" << endl;
 		s = s.stripWhiteSpace();
 
 		if (s.isEmpty())
 		{
+			kdDebug() << "thats empty, reading new line" << endl;
 			s = t.readLine();
 			continue;
 		}
@@ -180,9 +181,16 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 		if (s.left(1) == "<")
 		{
-			parsemode = s.left(s.find(">"));
-			parsemode = parsemode.right(parsemode.length() - parsemode.find("<") - 1);
-			kdDebug() << "parsemode now is " << parsemode << endl;
+			kdDebug() << "setting parsemode for s [" << s << "]" << endl;
+			if (s == "<Estates>")
+				parseMode = Estates;
+			else if (s == "<Chance_Cards>")
+				parseMode = Chance_Cards;
+			else if (s == "<CC_Cards>")
+				parseMode = CC_Cards;
+			else
+				parseMode = Other;
+
 			s = t.readLine();
 			continue;
 		}
@@ -231,7 +239,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			QString value = s.right(s.length() - eqSign - 1);
 
 			//////////////////////////////// ESTATES
-			if (parsemode == "Estates")
+			if (parseMode == Estates)
 			{
 			if (key == "type")
 			{
@@ -291,7 +299,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			} ///////////////////////////// END ESTATES
 
 			  ///////////////////////////// CARDS
-			else if (parsemode == "ChanceCards" || parsemode == "CCCards") 
+			else if (parseMode == Chance_Cards || parseMode == CC_Cards) 
 			{
 				kdDebug() << "in card area\n";
 				bool ok;
@@ -319,9 +327,11 @@ void AtlanticDesigner::openFile(const QString &filename)
 				keys.append(key);
 				values.append(v);
 			}
+			else
+				kdDebug() << "ignoring line, unknown parseMode" << endl;
 		}
 
-		if (parsemode == "Estates")
+		if (parseMode == Estates)
 		{
 			kdDebug() << "making estate (" << i << ")\n";
 			ConfigEstate *estate = new ConfigEstate(i);
@@ -348,13 +358,14 @@ void AtlanticDesigner::openFile(const QString &filename)
 			kdDebug() << "incrementing i\n";
 			i++;
 		}
-		else if (parsemode = "ChanceCards" || parsemode == "CCCards")
+		else if (parseMode == Chance_Cards || parseMode == CC_Cards)
 		{
+			kdDebug() << "making new card" << endl;
 			Card *card = new Card();
 			card->name = name;
 			card->keys = keys;
 			card->values = values;
-			(parsemode == "ChanceCards"? chanceStack : ccStack).append(card);
+			(parseMode == Chance_Cards ? chanceStack : ccStack).append(card);
 		}
 	}
 
