@@ -349,6 +349,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					gameId = a.value().toInt();
 
+					kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(m_atlanticCore->playerSelf() ? m_atlanticCore->playerSelf()->gameId() : -2) << endl;
+
 					QString status = e.attributeNode(QString("status")).value();
 					if (status == "config")
 					{

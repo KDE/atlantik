@@ -195,10 +195,9 @@ Token *AtlantikBoard::findToken(Player *player)
 
 void AtlantikBoard::addToken(Player *player)
 {
-	kdDebug() << "addToken" << endl;
 	if (!player->location())
 	{
-		kdDebug() << "addToken - estateView null" << endl;
+		kdDebug() << "addToken ignored - estateView null" << endl;
 		return;
 	}
 
@@ -211,6 +210,8 @@ void AtlantikBoard::addToken(Player *player)
 		kdDebug() << "addToken ignored - not in same game as playerSelf" << endl;
 		return;
 	}
+
+	kdDebug() << "addToken" << endl;
 
 	Token *token = new Token(player, this, "token");
 	m_tokens.append(token);

@@ -220,7 +220,10 @@ void AtlanticCore::printDebug()
 {
 	Player *player = 0;
 	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
-		std::cout << " P: " << player->name().latin1() << std::endl;
+		if (player == m_playerSelf)
+			std::cout << "PS: " << player->name().latin1() << ", game " << QString::number(player->gameId()).latin1() << std::endl;
+		else
+			std::cout << " P: " << player->name().latin1() << ", game " << QString::number(player->gameId()).latin1() << std::endl;
 
 	Estate *estate = 0;
 	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
