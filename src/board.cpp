@@ -118,11 +118,10 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 
 void AtlantikBoard::addEstateView(Estate *estate)
 {
-	QColor color = QColor();
 	bool canBeOwned = false;
 	QString icon = QString();
 
-	EstateView *estateView = new EstateView(estate, North, color, icon, this, "estateview");
+	EstateView *estateView = new EstateView(estate, North, icon, this, "estateview");
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 
 	int estateId = estate->estateId();

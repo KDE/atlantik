@@ -10,6 +10,7 @@ Estate::Estate(int estateId) : QObject()
 	m_houses = 0;
 	m_canBeOwned = m_isMortgaged = m_canToggleMortgage = false;
 	m_bgColor = QColor();
+	m_color = QColor();
 }
 
 void Estate::setOwner(Player *player)
@@ -33,6 +34,15 @@ void Estate::setName(const QString name)
 	if (m_name != name)
 	{
 		m_name = name;
+		m_changed = true;
+	}
+}
+
+void Estate::setColor(const QColor color)
+{
+	if (m_color != color)
+	{
+		m_color = color;
 		m_changed = true;
 	}
 }

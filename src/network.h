@@ -63,6 +63,8 @@ signals:
 	void msgPlayerUpdateMoney(int, QString);
 	void msgPlayerUpdateLocation(int, int, bool);
 	void msgEstateUpdateName(int, QString);
+	void msgEstateUpdateColor(int, QString);
+	void msgEstateUpdateBgColor(int, QString);
 	void msgEstateUpdateBackgroundColor(int, QString);
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);

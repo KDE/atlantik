@@ -23,6 +23,8 @@ public:
 	const bool isMortgaged() { return m_isMortgaged; }
 	void setCanToggleMortgage(const bool canToggleMortgage);
 	const bool canToggleMortgage() { return m_canToggleMortgage; }
+	void setColor(const QColor color);
+	const QColor color() { return m_color; }
 	void setBgColor(const QColor color);
 	const QColor bgColor() { return m_bgColor; }
 	void update();
@@ -37,7 +39,7 @@ private:
 	Player *m_owner;
 	unsigned int m_houses;
 	bool m_canBeOwned, m_isMortgaged, m_canToggleMortgage;
-	QColor m_bgColor, m_fgColor;
+	QColor m_bgColor, m_color;
 };
 
 #endif

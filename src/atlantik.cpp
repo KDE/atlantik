@@ -56,6 +56,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateColor(int, QString)), this, SLOT(slotMsgEstateUpdateColor(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBgColor(int, QString)), this, SLOT(slotMsgEstateUpdateBgColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBackgroundColor(int, QString)), this, SLOT(slotMsgEstateUpdateBackgroundColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
@@ -204,6 +206,7 @@ void Atlantik::slotInitGame()
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->show();
 
+#warning port msgPlayerUpdateLocation connect
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
@@ -362,6 +365,24 @@ void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
 {
 	if (Estate *estate = estateMap[estateId])
 		estate->setName(name);
+}
+
+void Atlantik::slotMsgEstateUpdateColor(int estateId, QString colorStr)
+{
+	QColor color;
+	color.setNamedColor(colorStr);
+	
+	if (Estate *estate = estateMap[estateId])
+		estate->setColor(color);
+}
+
+void Atlantik::slotMsgEstateUpdateBgColor(int estateId, QString colorStr)
+{
+	QColor color;
+	color.setNamedColor(colorStr);
+
+	if (Estate *estate = estateMap[estateId])
+		estate->setBgColor(color);
 }
 
 void Atlantik::slotMsgEstateUpdateBackgroundColor(int estateId, QString color)

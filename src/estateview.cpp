@@ -21,16 +21,18 @@ extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
 extern QColor atlantik_lgray;
 extern AtlantikConfig atlantikConfig;
 
-EstateView::EstateView(Estate *estate, int orientation, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
-	m_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
 
-	b_recreate = true;
 	qpixmap = 0;
+	b_recreate = true;
+
+	m_quartzBlocks = 0;	
+	m_recreateQuartz = true;
 
 	lname = new QLabel(this);
 	lname->setAlignment(Qt::AlignLeft);
@@ -42,16 +44,6 @@ EstateView::EstateView(Estate *estate, int orientation, const QColor &color, con
 	pe = 0;
 	icon = new QPixmap(locate("data", "atlantik/pics/" + _icon));
 	icon = rotatePixmap(icon);
-
-	// Initialize Quartz blocks, regardless of configuration (when user
-	// enabled effects pixmaps must've been initialized)
-	m_quartzBlocks = new KPixmap();
-	m_quartzBlocks->resize(25, 18);
-	if (color.isValid())
-	{
-		drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, color.light(60), color);
-		m_quartzBlocks = rotatePixmap(m_quartzBlocks);
-	}
 
 	setOwned(false, false);
 
@@ -139,7 +131,7 @@ void EstateView::updatePE()
 			// Display a coloured portfolioestate to indicate property is
 			// for sale
 			pe = new PortfolioEstate(this);
-			pe->setColor(m_color);
+			pe->setColor(m_estate->color());
 			pe->setOwned(true);
 			repositionPortfolioEstate();
 			pe->show();
@@ -159,6 +151,7 @@ void EstateView::estateChanged()
 	lname->setText(m_estate->name());
 
 	b_recreate = true;
+	m_recreateQuartz = true;
     update();
 }
 
@@ -187,8 +180,28 @@ void EstateView::repositionPortfolioEstate()
 
 void EstateView::paintEvent(QPaintEvent *)
 {
+	if (m_recreateQuartz)
+	{
+		kdDebug() << "EstateView::paintEvent recreating quartz blocks" << endl;
+		if (m_quartzBlocks)
+			delete m_quartzBlocks;
+
+		if (m_estate->color().isValid())
+		{
+			kdDebug() << "EstateView::paintEvent drawing quartz blocks" << endl;
+			m_quartzBlocks = new KPixmap();
+			m_quartzBlocks->resize(25, 18);
+			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
+			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
+		}
+
+		m_recreateQuartz = false;
+		b_recreate = true;
+	}
+
 	if (b_recreate)
 	{
+		kdDebug() << "EstateView::paintEvent recreating pixmap" << endl;
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
@@ -210,7 +223,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
-		if (m_color.isValid())
+		if (m_estate->color().isValid())
 		{
 			int titleHeight = height()/4;
 			int titleWidth = width()/4;
@@ -226,14 +239,15 @@ void EstateView::paintEvent(QPaintEvent *)
 			QPainter quartzPainter;
 			quartzPainter.begin(quartzBuffer, this);
 
-			painter.setBrush(m_color);
+			painter.setBrush(m_estate->color());
 			switch(m_orientation)
 			{
 				case North:
 					painter.drawRect(0, 0, width(), titleHeight);
 
-					if (atlantikConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
+						kdDebug() << "EstateView::paintEvent painting quartz on pixmap" << endl;
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, 1, *quartzBuffer);
 					}
@@ -259,7 +273,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case South:
 					painter.drawRect(0, height()-(titleHeight), width(), titleHeight);
 
-					if (atlantikConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-titleHeight+1, *quartzBuffer);
@@ -286,7 +300,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case West:
 					painter.drawRect(0, 0, titleWidth, height());
 
-					if (atlantikConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
@@ -313,7 +327,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case East:
 					painter.drawRect(width()-(titleWidth), 0, titleWidth, height());
 
-					if (atlantikConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);

@@ -7,6 +7,7 @@
 - Added informational message at game startup regarding current Atlantik
   state (buggy, at least).
 - No longer using fixed geometry.
+- Dynamic (server guided) colour support for estates.
 
 2001-11-05 (kaper)
 ----------

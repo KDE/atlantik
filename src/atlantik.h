@@ -170,6 +170,8 @@ public slots:
 	void slotMsgEstateUpdateOwner(int estateId, int playerId);
 
 	void slotMsgEstateUpdateName(int, QString);
+	void slotMsgEstateUpdateColor(int, QString);
+	void slotMsgEstateUpdateBgColor(int, QString);
 	void slotMsgEstateUpdateBackgroundColor(int, QString);
 	void slotMsgEstateUpdateHouses(int, int);
 	void slotMsgEstateUpdateMortgaged(int, bool);
