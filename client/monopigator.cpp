@@ -45,7 +45,7 @@ void Monopigator::loadData(const KURL &url)
 	m_downloadData->open(IO_WriteOnly);
 	m_downloadData->reset();
 
-	m_job = KIO::get(url.url(), true, false);
+	m_job = KIO::get(url, true, false);
 	m_job->addMetaData(QString::fromLatin1("UserAgent"), QString::fromLatin1("Atlantik/" ATLANTIK_VERSION_STRING));
 
 	if (!m_timer)
