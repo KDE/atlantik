@@ -20,10 +20,7 @@ Bugfixes
 For 0.6.0
 ---------
 
-v Token should not have to know about EstateView, views could be independent
 v support for custom tokens
-v re-enabled token animation
-  - animation speed should depend on board size and movement distance
 v don't connect to meta server unless user has configured to do so
 - use gameupdate for game list in SelectGame
 - .D command

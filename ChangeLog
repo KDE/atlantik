@@ -9,6 +9,7 @@
 - using playerupdate for player list in SelectConfiguration
 - use portfolioview instead of klistview for players during config
 - better handling of display messages from server
+- fixed token animation
 
 0.5.1
 -----
