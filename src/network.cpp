@@ -7,8 +7,9 @@ GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, na
 	//
 }
 
-void GameNetwork::slotWrite(QString &str)
+void GameNetwork::slotWrite(const char *input)
 {
+	QString str(input);
 	str.append("\n");
 	writeBlock(str.latin1(), strlen(str.latin1()));
 }
@@ -20,5 +21,13 @@ void GameNetwork::slotRead()
 	{
 		str = readLine();
 		cout << "[[[ " + str + " ]]] " << endl;
+		processCmd(str);
 	}
+}
+
+void GameNetwork::processCmd(QString str)
+{
+	cout << "processing: " + str << endl;
+	if (str.startsWith(QString("<gamelist>")))
+		cout << "we have a gamelist!" << endl;
 }

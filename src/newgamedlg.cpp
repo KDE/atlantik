@@ -89,9 +89,10 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 void SelectGame::initPage()
 {
 	GameNetwork *netw = new GameNetwork(this, "network");
-	netw->connectToHost("localhost", 1234);
 	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
 	connect(netw, SIGNAL(readyRead()), netw, SLOT(slotRead()));
+	netw->connectToHost("localhost", 1234);
+	netw->slotWrite(".gl");
 }
 
 void SelectGame::slotConnected()

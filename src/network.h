@@ -8,6 +8,9 @@ Q_OBJECT
 		GameNetwork(QObject *parent=0, const char *name=0);
 
 	public slots:
-		void slotWrite(QString &);
+		void slotWrite(const char *);
 		void slotRead();
+
+	private:
+		void processCmd(QString);
 };
