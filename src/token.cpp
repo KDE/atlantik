@@ -7,12 +7,15 @@
 
 #include "token.moc"
 #include "player.h"
+#include "board.h"
+#include "estateview.h"
 
-Token::Token(Player *player, QWidget *parent, const char *name) : QWidget(parent, name)
+Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
 
 	m_player = player;
+	m_parentBoard = parent;
 
 	qpixmap = 0;
 	b_recreate = true;
@@ -22,12 +25,57 @@ Token::Token(Player *player, QWidget *parent, const char *name) : QWidget(parent
 	m_location = m_destination = 0;
 }
 
+void Token::setLocation(EstateView *estateView)
+{
+	if (m_location != estateView)
+	{
+		m_location = estateView;
+		updateGeometry();
+	}
+}
+
+void Token::setDestination(EstateView *estateView)
+{
+	if (m_destination != estateView)
+	{
+		m_destination = estateView;
+		updateGeometry();
+	}
+}
+
 void Token::playerChanged()
 {
 	kdDebug() << "Token::playerChanged()" << endl;
+	if (Estate *estate = m_player->location())
+	{
+		EstateView *estateView;
+		QPtrList<EstateView> estateViews = m_parentBoard->estateViews();
+		for (QPtrListIterator<EstateView> it(estateViews); *it; ++it)
+		{
+			if ((estateView = dynamic_cast<EstateView*>(*it)))
+			{
+				if (estateView->estate() == estate)
+				{
+					setLocation(estateView);
+					break;
+				}
+			}
+		}
+	}
+}
+
+void Token::updateGeometry()
+{
 	kdDebug() << "new geometry for token: " << m_player->location() << endl;
-	this->show();
 //	setGeometry(100, 100, 125, 125);
+	if (m_location)
+	{
+		show();
+	}
+	else
+	{
+		hide();
+	}
 }
 
 void Token::paintEvent(QPaintEvent *)

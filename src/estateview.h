@@ -21,6 +21,7 @@ Q_OBJECT
 
 	public:
 		EstateView(Estate *estate, int orientation, const QString &, QWidget *parent, const char *name = 0);
+		Estate *estate() { return m_estate; }
 		void updatePE();
 
 	public slots:

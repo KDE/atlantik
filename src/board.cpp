@@ -95,6 +95,24 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	kdDebug() << "ending board ctor" << endl;
 }
 
+QPtrList<EstateView> AtlantikBoard::estateViews()
+{
+	return m_estateViews;
+}
+
+
+EstateView *AtlantikBoard::getEstateView(Estate *estate)
+{
+	EstateView *estateView;
+	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
+	{
+		estateView = dynamic_cast<EstateView*>(*i);
+		if (estateView->estate() == estate)
+			return estateView;
+	}
+	return 0;
+}
+
 void AtlantikBoard::addEstateView(Estate *estate)
 {
 	QString icon = QString();
@@ -110,7 +128,7 @@ void AtlantikBoard::addEstateView(Estate *estate)
 		orientation = West;
 	
 	EstateView *estateView = new EstateView(estate, orientation, icon, this, "estateview");
-	estateViewMap[estateId] = estateView;
+	m_estateViews.append(estateView);
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 	connect(estateView, SIGNAL(estateToggleMortgage(Estate *)), estate, SIGNAL(estateToggleMortgage(Estate *)));
@@ -153,9 +171,9 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged()
 {
+	kdDebug() << "Board::playerChanged()" << endl;
 #warning implement decent AtlantikBoard::playerChanged to update tokens
 /*
-	kdDebug() << "Board::playerChanged()" << endl;
 	kdDebug() << "new geometry for token: " << m_player->location() << endl;
 	this->show();
 //	setGeometry(100, 100, 125, 125);
@@ -172,9 +190,9 @@ void AtlantikBoard::playerChanged()
 		if (token->location() != estateId)
 		{
 			if (directMove)
-				jumpToken(token, estateId, false);
+				jumpToken(token, estateView, false);
 			else if (atlantikConfig.animateToken==false)
-				jumpToken(token, estateId);
+				jumpToken(token, estateView);
 			else
 				moveToken(token, estateId);
 		}
@@ -182,23 +200,24 @@ void AtlantikBoard::playerChanged()
 */
 }
 
-void AtlantikBoard::jumpToken(Token *token, int estateId, bool confirm)
+void AtlantikBoard::jumpToken(Token *token, EstateView *estateView, bool confirm)
 {
 #warning AtlantikBoard::jumpToken doesnt know about player->inJail()
 	kdDebug() << "AtlantikBoard::jumpToken(" << token->destination() << ", "  << confirm << ")" << endl;
 
-	if (EstateView *estateView = estateViewMap[estateId])
+	if (estateView)
 	{
 		int x = estateView->geometry().center().x() - (token->width()/2);
 		int y = estateView->geometry().center().y() - (token->height()/2);
 		kdDebug() << "jumpToken says x is " << x << " and y is " << y << endl;
 
-		token->setLocation(estateId);
+		token->setLocation(estateView);
 		token->setGeometry(x, y, token->width(), token->height());
 
 		// Confirm location to server.
-		if (confirm)
-			emit tokenConfirmation(estateId);
+#warning port
+//		if (confirm)
+//			emit tokenConfirmation(estateId);
 	}
 }
 
@@ -211,7 +230,8 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 
 	// Set token destination
 	move_token = token;
-	move_token->setDestination(estateId);
+#warning port
+//	move_token->setDestination(estateId);
 
 	// Start timer
 	m_timer->start(15);
@@ -225,9 +245,12 @@ void AtlantikBoard::raiseToken(int tokenId)
 
 void AtlantikBoard::indicateUnownedChanged()
 {
-	for (unsigned int estateId=0 ; estateId < estateViewMap.size() ; estateId++)
-		if (EstateView *estateView = estateViewMap[estateId])
+	EstateView *estateView;
+	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
+	{
+		if ((estateView = dynamic_cast<EstateView*>(*i)))
 			estateView->updatePE();
+	}
 }
 
 void AtlantikBoard::slotMoveToken()
@@ -244,12 +267,15 @@ void AtlantikBoard::slotMoveToken()
 	int yCurrent = move_token->geometry().y();
 
 	// Where do we want to go today?
-	int dest = move_token->location() + 1;
+#warning port
+	int dest = 0; // move_token->location() + 1;
 	if (dest==40)
 		dest = 0;
 	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
-	if (EstateView *estateView = estateViewMap[dest])
+#warning port
+/*
+	if (EstateView *estateView = getEstateView(dest))
 	{
 		int xFinal = estateView->geometry().center().x() - (move_token->width()/2);
 		int yFinal = estateView->geometry().center().y() - (move_token->height()/2);
@@ -276,25 +302,28 @@ void AtlantikBoard::slotMoveToken()
 		if (xCurrent == xDest && yCurrent == yDest)
 		{
 			// We have arrived at our destination!
-			move_token->setLocation(dest);
+			move_token->setLocation(estateView);
 
 			// We need to confirm passing Go and arriving at our final
 			// destination to the server.
 			if (move_token->destination() == move_token->location())
 			{
 				// We have arrived at our _final_ destination!
-				emit tokenConfirmation(move_token->location());
+#warning port
+//				emit tokenConfirmation(move_token->location());
 				m_timer->stop();
 				move_token = 0;
 			}
-			else if (move_token->location() == 0)
-				emit tokenConfirmation(move_token->location());
+#warning port
+//			else if (move_token->location() == 0)
+//				emit tokenConfirmation(move_token->location());
 
 			return;
 		}
 		
 		move_token->setGeometry(xDest, yDest, move_token->width(), move_token->height());
 	}
+*/
 }
 
 void AtlantikBoard::resizeEvent(QResizeEvent *e)
@@ -333,8 +362,9 @@ void AtlantikBoard::slotResizeAftermath()
 
 	for (unsigned int tokenId=0 ; tokenId < tokenMap.size() ; tokenId++)
 	{
-		if (Token *token = tokenMap[tokenId])
-			jumpToken(token, token->location(), false);
+#warning port
+//		if (Token *token = tokenMap[tokenId])
+//			jumpToken(token, token->location(), false);
 	}
 
 	// Restart the timer that was stopped in resizeEvent

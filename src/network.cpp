@@ -14,17 +14,17 @@ GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, n
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-QPtrList<Player> GameNetwork::players() const
+QPtrList<Player> GameNetwork::players()
 {
 	return m_players;
 }
 
-QPtrList<Estate> GameNetwork::estates() const
+QPtrList<Estate> GameNetwork::estates()
 {
 	return m_estates;
 }
 
-QPtrList<Trade> GameNetwork::trades() const
+QPtrList<Trade> GameNetwork::trades()
 {
 	return m_trades;
 }
@@ -373,7 +373,6 @@ void GameNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "playerupdate")
 			{
 				int playerId = -1;
-				bool directmove = false;
 
 				a = e.attributeNode(QString("playerid"));
 				if (!a.isNull())
@@ -411,10 +410,11 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 					{
 						Estate *estate = getEstate(a.value().toInt());
+						bool directMove = false;
 
 						a = e.attributeNode(QString("directmove"));
 						if (!a.isNull())
-							directmove = a.value().toInt();
+							directMove = a.value().toInt();
 
 						if (estate)
 							player->setLocation(estate);

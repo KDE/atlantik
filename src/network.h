@@ -23,9 +23,9 @@ public:
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
 
-	QPtrList<Estate> estates() const;
-	QPtrList<Player> players() const;
-	QPtrList<Trade> trades() const;
+	QPtrList<Estate> estates();
+	QPtrList<Player> players();
+	QPtrList<Trade> trades();
 	
 	Player *self();
 

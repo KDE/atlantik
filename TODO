@@ -21,6 +21,7 @@ Bugfixes
   - estates checking tokens upon estate init
   v portfolios checking estates upon player init
 - rename PortfolioEstate to TinyEstateView
+- Token should not have to know about EstateView, views could be independent
 
 For 0.1.2
 ---------

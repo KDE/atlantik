@@ -5,17 +5,19 @@
 #include <qpixmap.h>
 
 class Player;
+class EstateView;
+class AtlantikBoard;
 
 class Token : public QWidget
 {
 Q_OBJECT
 
 	public:
-		Token (Player *player, QWidget *parent, const char *name = 0);
-		void setLocation(int location) { m_location = location; }
-		int location() const { return m_location; }
-		void setDestination(int destination) { m_destination = destination; }
-		int destination() const { return m_destination; }
+		Token (Player *player, AtlantikBoard *parent, const char *name = 0);
+		void setLocation(EstateView *estateView);
+		EstateView *location() { return m_location; }
+		void setDestination(EstateView *estateView);
+		EstateView *destination() { return m_destination; }
 
 	private slots:
 		void playerChanged();
@@ -24,12 +26,15 @@ Q_OBJECT
 		void paintEvent(QPaintEvent *);
 		void resizeEvent(QResizeEvent *);
 
-	private:
+private:
+		void updateGeometry();
+
 		Player *m_player;
+		EstateView *m_location, *m_destination;
+		AtlantikBoard *m_parentBoard;
 		bool b_recreate;
 		QPixmap *qpixmap;
 		QString myId;
-		int m_location, m_destination;
 };
 
 #endif
