@@ -15,6 +15,7 @@
 #include "portfolioview.h"
 #include "board.h"
 #include "player.h"
+#include "estate.h"
 
 /**
  * Main Atlantik window.
@@ -170,6 +171,13 @@ public slots:
 	 */
 	 void slotPlayerInit(int playerid);
 
+	/**
+	 * A new estate object and view must be initialized.
+	 *
+	 * @param estateid Estateid as used by the server daemon.
+	 */
+	 void slotEstateInit(int estateid);
+
 private:
 	/**
 	 * Private member, appends a message the text view.
@@ -195,8 +203,9 @@ private:
 	int m_myPlayerId;
 
 	QPtrList<Player> playerList;
+	QPtrList<Estate> estateList;
 	QMap<int, Player *> playerMap;
-
+	QMap<int, Estate *> estateMap;
 };
 
 #endif

@@ -5,6 +5,9 @@
   the creation and updates of the content are done by the (new) Player
   class. Atlantik does act as intermediate here, though, eventually being
   responsible for both player and widget management.
+- Player objects/views are only created when playerupdate contains init=1
+- Estate class created, simplified grid layout code for board.
+- Temporarily removed gameboard spacer code.
 
 2001-10-05 (kaper)
 ----------

@@ -57,6 +57,7 @@ Atlantik::Atlantik () :
 
 	// Management of data objects (players, games, estates)
 	playerList.setAutoDelete(true);
+	estateList.setAutoDelete(true);
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -70,6 +71,7 @@ Atlantik::Atlantik () :
 	m_portfolioWidget->show();
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
 	connect(gameNetwork, SIGNAL(playerInit(int)), this, SLOT(slotPlayerInit(int)));
+	connect(gameNetwork, SIGNAL(estateInit(int)), this, SLOT(slotEstateInit(int)));
 
 	// Nice label
 	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
@@ -321,8 +323,8 @@ void Atlantik::slotPlayerInit(int playerid)
 	Player *player;
 	if (!(player = playerMap[playerid]))
 	{
-		cout << "adding new player to list and to dict at pos " << playerid << endl;
-		player = new Player();
+		cout << "adding new player to list and to map at pos " << playerid << endl;
+		player = new Player(playerid);
 		playerList.append(player);
 		playerMap[playerid] = player;
 
@@ -330,6 +332,23 @@ void Atlantik::slotPlayerInit(int playerid)
 		m_portfolioLayout->addWidget(fpv);
 		fpv->show();
 		player->setView(fpv);
+	}
+}
+
+void Atlantik::slotEstateInit(int estateid)
+{
+	Estate *estate;
+	if (!(estate = estateMap[estateid]))
+	{
+		cout << "adding new estate to list and to map at pos " << estateid << endl;
+		estate = new Estate(estateid);
+		estateList.append(estate);
+		estateMap[estateid] = estate;
+
+//		PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
+//		m_portfolioLayout->addWidget(fpv);
+//		fpv->show();
+//		estate->setView(fpv);
 	}
 }
 

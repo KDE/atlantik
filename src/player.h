@@ -8,13 +8,13 @@
 class Player
 {
 public:
-	Player();
+	Player(uint id);
 	void setName(const QString _n);
 	void setMoney(const QString _m);
 	void setView(PortfolioView *_pfv) { m_portfolioView = _pfv; }
 
 private:
-	int id;
+	uint m_id;
 	QString m_name, m_money;
 	PortfolioView *m_portfolioView;
 };

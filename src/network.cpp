@@ -249,17 +249,21 @@ void GameNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					playerid = a.value().toInt();
-					// TODO: Only emit signal when init=1, not yet supported by monopd API
+
+					// Create player object and view
 					emit playerInit(playerid);
 
+					// Update player name
 					a = e.attributeNode(QString("name"));
 					if (!a.isNull())
 						emit msgPlayerUpdateName(playerid, a.value());
 
+					// Update player money
 					a = e.attributeNode(QString("money"));
 					if (!a.isNull())
 						emit msgPlayerUpdateMoney(playerid, a.value());
 
+					// Update player location
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
 						location = a.value().toInt();
@@ -282,6 +286,9 @@ void GameNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					estateid = a.value().toInt();
+
+					// Create estate object and view
+					emit estateInit(estateid);
 
 					a = e.attributeNode(QString("name"));
 					if (!a.isNull())

@@ -3,7 +3,7 @@
 
 #include <qwidget.h>
 #include <qtimer.h>
-#include <qabstractlayout.h>
+#include <qlayout.h>
 
 #include "config.h"
 #include "estateview.h"

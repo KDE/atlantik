@@ -241,9 +241,11 @@ void EstateView::paintEvent(QPaintEvent *)
 
 			KPixmap* quartzBuffer = new KPixmap;
 			if (m_orientation == North || m_orientation == South)
-				quartzBuffer->resize(25, titleHeight-2);
+//				quartzBuffer->resize(25, titleHeight-2);
+				quartzBuffer->resize(25, 18);
 			else
-				quartzBuffer->resize(titleWidth-2, 25);
+//				quartzBuffer->resize(titleWidth-2, 25);
+				quartzBuffer->resize(18, 25);
 
 			QPainter quartzPainter;
 			quartzPainter.begin(quartzBuffer, this);

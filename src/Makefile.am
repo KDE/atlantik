@@ -7,7 +7,7 @@ SUBDIRS =
 
 atlantik_SOURCES = main.cpp atlantik.cpp board.cpp configdlg.cpp estateview.cpp \
 monopigator.cpp network.cpp newgamedlg.cpp portfolioestate.cpp \
-portfolioview.cpp token.cpp player.cpp
+portfolioview.cpp token.cpp player.cpp estate.cpp
 
 KDE_ICON = atlantik
 

@@ -23,13 +23,26 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	m_resumeTimer = false;
 
-	QGridLayout *layout = new QGridLayout(this, 25, 25);
+	QGridLayout *gridLayout = new QGridLayout(this, 11, 11);
+	for(int i=0;i<=10;i++)
+	{
+		if (i==0 || i==10)
+		{
+			gridLayout->setRowStretch(i, 3);
+			gridLayout->setColStretch(i, 3);
+		}
+		else
+		{
+			gridLayout->setRowStretch(i, 2);
+			gridLayout->setColStretch(i, 2);
+		}
+	}
 
-	spacer = new QWidget(this);
-	layout->addWidget(spacer, 24, 24); // SE
+//	spacer = new QWidget(this);
+//	gridLayout->addWidget(spacer, 24, 24); // SE
 
 	center = new QWidget(this);
-	layout->addMultiCellWidget(center, 3, 20, 3, 20);
+	gridLayout->addMultiCellWidget(center, 1, 9, 1, 9);
 	center->setBackgroundColor(atlantik_greenbg);
 
 	int i=0, orientation=North;
@@ -103,22 +116,14 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 			
 		estate[i] = new EstateView(i, orientation, (color.isValid() || canBeOwned), color, icon, this, "estate");
 
-		if (i==0)
-			layout->addMultiCellWidget(estate[i], 21, 23, 21, 23);
-		else if (i<10)
-			layout->addMultiCellWidget(estate[i], 21, 23, 21-(i*2), 23-1-(i*2));
-		else if (i==10)
-			layout->addMultiCellWidget(estate[i], 21, 23, 0, 2);
+		if (i<=10)
+			gridLayout->addWidget(estate[i], 10, 10-i);
 		else if (i<20)
-			layout->addMultiCellWidget(estate[i], 21-((i-10)*2), 23-1-((i-10)*2), 0, 2);
-		else if (i==20)
-			layout->addMultiCellWidget(estate[i], 0, 2, ((i-20)*2), 2+((i-20)*2));
-		else if (i<30)
-			layout->addMultiCellWidget(estate[i], 0, 2, 1+((i-20)*2), 2+((i-20)*2));
-		else if (i==30)
-			layout->addMultiCellWidget(estate[i], 0, 2, 21, 23);
+			gridLayout->addWidget(estate[i], 20-i, 0);
+		else if (i<=30)
+			gridLayout->addWidget(estate[i], 0, i-20);
 		else
-			layout->addMultiCellWidget(estate[i], ((i-30)*2)+1, ((i-30)*2)+2, 21, 23);
+			gridLayout->addWidget(estate[i], i-30, 10);
 	}
 
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
@@ -266,6 +271,7 @@ void AtlantikBoard::resizeEvent(QResizeEvent *e)
 		m_resumeTimer=true;
 	}
 
+/*
 	// Adjust spacer to make sure board stays a square
 	int q = e->size().width() - e->size().height();
 	if (q > 0)
@@ -278,7 +284,7 @@ void AtlantikBoard::resizeEvent(QResizeEvent *e)
 		QSize s(0, -q);
 		spacer->setFixedSize(s);
 	}
-
+*/
 	// Timer to reinit the gameboard _after_ resizeEvent
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }

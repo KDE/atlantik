@@ -137,6 +137,13 @@ signals:
 	 */
 	void playerInit(int playerid);
 
+	/**
+	 * A new estate object must be initialized.
+	 *
+	 * @param estateid Estateid for the new object
+	 */
+	void estateInit(int estateid);
+
 	void setPlayerId(int);
 	void setTurn(int);
 
