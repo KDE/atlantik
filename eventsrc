@@ -78,6 +78,8 @@ Comment[wa]=C' est a vos asteure
 Comment[xx]=xxIt is your turn nowxx
 Comment[zh_CN]=轮到您了
 Comment[zh_TW]=該您擲骰子了
+default_presentation=80
+
 [chat]
 Name=Chat
 Name[bg]=Изпратено съобщение
@@ -144,7 +146,7 @@ Comment[uz]=Ўйинчи хабар жўнатаяпти
 Comment[xx]=xxA player sends a chat messagexx
 Comment[zh_CN]=一个玩家发送了一条聊天信息
 Comment[zh_TW]=一個玩家送出了一條聊天訊息
-default_presentation=1
+default_presentation=64
 
 [newplayer]
 Name=New player
@@ -220,7 +222,6 @@ Comment[wa]=On novea djouweu s' a raloyî å djeu
 Comment[xx]=xxA new player joins the gamexx
 Comment[zh_CN]=一个新玩家加入了游戏
 Comment[zh_TW]=一個新玩家加入此遊戲
-default_presentation=1
 
 [newgame]
 Name=New game
@@ -296,4 +297,3 @@ Comment[wa]=On novea djeu a stî enondé
 Comment[xx]=xxA new game is createdxx
 Comment[zh_CN]=创建了一个新游戏
 Comment[zh_TW]=一個新遊戲開啟完成
-default_presentation=1
