@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -337,9 +337,6 @@ void Atlantik::showSelectGame()
 void Atlantik::showSelectConfiguration()
 {
 	if (m_selectConfiguration)
-		return;
-
-	if ( ! ( m_atlanticCore && m_atlanticCore->playerSelf() && m_atlanticCore->gameSelf() ) )
 		return;
 
 	if (m_selectGame)

@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -368,8 +368,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					gameId = a.value().toInt();
 
-					if ( m_atlanticCore->playerSelf() && m_atlanticCore->playerSelf()->game() )
-						kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(m_atlanticCore->playerSelf()->game()->id()) << endl;
+					Player *playerSelf = m_atlanticCore->playerSelf();
+					if ( playerSelf && playerSelf->game() )
+						kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(playerSelf->game()->id()) << endl;
 					else
 						kdDebug() << "gameupdate for " << QString::number(gameId) << endl;
 
@@ -411,14 +412,17 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					QString status = e.attributeNode(QString("status")).value();
-					if (status == "config")
-						emit gameConfig();
-					else if (status == "init")
-						emit gameInit();
-					else if (status == "run")
-						emit gameRun();
-					else if (status == "end")
-						emit gameEnd();
+					if ( playerSelf && playerSelf->game() == game )
+					{
+						if (status == "config")
+							emit gameConfig();
+						else if (status == "init")
+							emit gameInit();
+						else if (status == "run")
+							emit gameRun();
+						else if (status == "end")
+							emit gameEnd();
+					}
 
 					if (game)
 						game->update();
