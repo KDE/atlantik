@@ -122,36 +122,8 @@ void SelectConfiguration::slotPlayerListDel(QString playerId)
 
 void SelectConfiguration::connectClicked()
 {
+	status_label->setText(i18n("Game started. Retrieving full game data..."));
 	emit startGame();
-	return;
-
-	if (QListViewItem *item = m_playerList->selectedItem())
-	{
-		if (int playerId = item->text(1).toInt())
-			emit joinConfiguration(playerId);
-		else
-			emit newConfiguration();
-	}
-
-	m_messageBox = new QVGroupBox(i18n("Sorry"), this, "messageBox");
-	m_mainLayout->addWidget(m_messageBox); 
-
-	QLabel *label = new QLabel(m_messageBox);
-	label->setText(i18n(
-		"The new game wizard is undergoing a rewrite which has not been finished yet.\n"
-		"You cannot start a game at the moment."
-		));
-
-	KPushButton *button = new KPushButton(i18n("OK"), m_messageBox, "button");
-
-	m_playerBox->setEnabled(false);
-	m_configBox->setEnabled(false);
-	m_connectButton->setEnabled(false);
-	status_label->setEnabled(false);
-
-	connect(button, SIGNAL(clicked()), this, SLOT(slotClicked()));
-
-	m_messageBox->show();
 }
 
 void SelectConfiguration::slotClicked()

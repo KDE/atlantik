@@ -94,6 +94,8 @@ private slots:
 	void showSelectServer();
 	void showSelectGame();
 	void showSelectConfiguration();
+	void initBoard();
+	void showBoard();
 
 public slots:
 
@@ -111,14 +113,6 @@ public slots:
 	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
 	 */
 	 void slotNetworkError(int errnum);
-
-	/**
-	 * A game was succesfully created or joined, so we can show the
-	 * configuration dialog instead of the game list.
-	 *
-	 */
-	 void initGame();
-	 void gameStarted();
 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.

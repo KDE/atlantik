@@ -13,7 +13,6 @@ Bugfixes
 
 - Update messages views after resize.
 - Token should not have to know about EstateView, views could be independent
-- find a good starting location for tokens
 - all player/core dependencies in Board should only be there in Mode::Play
 
 For 0.4.1
@@ -21,6 +20,8 @@ For 0.4.1
 
 v fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
 v player name change doesn't make it to trade money items
+v API: replaced joinedgame with correct use of <gameupdate> tag
+v fixed token positioning on game start
 
 For 0.5.0
 ---------

@@ -348,11 +348,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 				}
 				emit gamelistEndUpdate(type);
 			}
-			else if (e.tagName() == "joinedgame")
-			{
-				emit joinedGame();
-				getPlayerList();
-			}
 			else if (e.tagName() == "updateplayerlist")
 			{
 				QString type = e.attributeNode(QString("type")).value();
@@ -430,10 +425,15 @@ void AtlantikNetwork::processNode(QDomNode n)
 					gameId = a.value().toInt();
 
 					QString status = e.attributeNode(QString("status")).value();
-					if (status == "init")
-						emit initGame();
-					else if (status == "start")
-						emit gameStarted();
+					if (status == "config")
+					{
+						emit gameConfig();
+						getPlayerList();
+					}
+					else if (status == "init")
+						emit gameInit();
+					else if (status == "run")
+						emit gameRun();
 				}
 			}
 			else if (e.tagName() == "playerupdate")

@@ -128,9 +128,9 @@ signals:
 	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListDel(QString gameId);
 
-	void joinedGame();
-	void initGame();
-	void gameStarted();
+	void gameConfig();
+	void gameInit();
+	void gameRun();
 
 	void playerListClear();
 	void playerListEndUpdate(QString);

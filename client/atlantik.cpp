@@ -165,7 +165,7 @@ void Atlantik::readConfig()
 void Atlantik::newPlayer(Player *player)
 {
 	if (!m_board)
-		initGame();
+		initBoard();
 
 	m_board->addToken(player);
 
@@ -188,7 +188,7 @@ void Atlantik::newPlayer(Player *player)
 void Atlantik::newEstate(Estate *estate)
 {
 	if (!m_board)
-		initGame();
+		initBoard();
 
 	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 }
@@ -203,7 +203,7 @@ void Atlantik::newTrade(Trade *trade)
 void Atlantik::newAuction(Auction *auction)
 {
 	if (!m_board)
-		initGame();
+		initBoard();
 
 	m_board->addAuctionWidget(auction);
 }
@@ -263,14 +263,18 @@ void Atlantik::showSelectGame()
 
 void Atlantik::showSelectConfiguration()
 {
-	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
-	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
-	m_selectConfiguration->show();
 	if (m_selectGame)
 	{
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
+
+	if (m_selectConfiguration)
+		return;
+
+	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
+	m_selectConfiguration->show();
 
 	connect(m_atlantikNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
 	connect(m_atlantikNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
@@ -281,6 +285,40 @@ void Atlantik::showSelectConfiguration()
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
 	connect(m_selectConfiguration, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
+}
+
+void Atlantik::initBoard()
+{
+	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
+	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
+
+	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(insertEstateDetails(Estate *)));
+	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
+	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
+	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));
+	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
+	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
+}
+
+void Atlantik::showBoard()
+{
+	if (m_selectConfiguration)
+	{
+		delete m_selectConfiguration;
+		m_selectConfiguration = 0;
+	}
+
+	if (!m_board)
+		initBoard();
+
+	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+	m_board->show();
+
+	PortfolioView *portfolioView = 0;
+	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
+		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
+			portfolioView->buildPortfolio();
 }
 
 void Atlantik::slotNetworkConnected()
@@ -325,37 +363,6 @@ void Atlantik::slotNetworkError(int errnum)
 	initNetworkObject();
 }
 
-void Atlantik::initGame()
-{
-	// Create board widget and replace the game configuration widget.
-	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
-	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
-
-	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
-	m_board->show();
-
-	if (m_selectConfiguration)
-	{
-		delete m_selectConfiguration;
-		m_selectConfiguration = 0;
-	}
-
-	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(insertEstateDetails(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
-	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
-	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));
-	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
-	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
-}
-
-void Atlantik::gameStarted()
-{
-	PortfolioView *portfolioView = 0;
-	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
-		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
-			portfolioView->buildPortfolio();
-}
 
 void Atlantik::slotConfigure()
 {
@@ -487,9 +494,9 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
 
-	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(showSelectConfiguration()));
-	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
-	connect(m_atlantikNetwork, SIGNAL(gameStarted()), this, SLOT(gameStarted()));
+	connect(m_atlantikNetwork, SIGNAL(gameConfig()), this, SLOT(showSelectConfiguration()));
+	connect(m_atlantikNetwork, SIGNAL(gameInit()), this, SLOT(initBoard()));
+	connect(m_atlantikNetwork, SIGNAL(gameRun()), this, SLOT(showBoard()));
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
