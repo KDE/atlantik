@@ -56,6 +56,11 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	setFixedSize(QSize(ICONSIZE, ICONSIZE + KGlobalSettings::generalFont().pointSize()));
 }
 
+Token::~Token()
+{
+	delete m_image;
+}
+
 Player *Token::player()
 {
 	return m_player;

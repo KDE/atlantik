@@ -31,6 +31,7 @@ Q_OBJECT
 
 	public:
 		Token (Player *player, AtlantikBoard *parent, const char *name = 0);
+		~Token();
 		Player *player();
 		void setLocation(Estate *estate);
 		Estate *location() { return m_location; }
