@@ -174,20 +174,13 @@ void Atlantik::newPlayer(Player *player)
 	initBoard();
 	m_board->addToken(player);
 
-	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
-	m_portfolioViews.append(portfolioView);
+	addPortfolioView(player);
 
 	if (player->isSelf())
 		m_playerSelf = player;
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
-	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
-	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
-	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
-
-	m_portfolioLayout->addWidget(portfolioView);
-	portfolioView->show();
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -212,6 +205,13 @@ void Atlantik::newAuction(Auction *auction)
 void Atlantik::removeGUI(Player *player)
 {
 	// Find and remove portfolioview
+	PortfolioView *portfolioView = findPortfolioView(player);
+	if (portfolioView)
+	{
+		m_portfolioViews.remove(portfolioView);
+		delete portfolioView;
+	}
+
 	// TODO: Remove tokens from board
 }
 
@@ -507,10 +507,14 @@ void Atlantik::serverMsgsAppend(QString msg)
 
 void Atlantik::playerChanged(Player *player)
 {
-	if (player->gameId() == -1)
+	PortfolioView *portfolioView = findPortfolioView(player);
+	if (portfolioView && player->gameId() == -1)
 	{
-		// Find and remove portfolioview
+		m_portfolioViews.remove(portfolioView);
+		delete portfolioView;
 	}
+	else if (!portfolioView && player->gameId() != -1)
+		addPortfolioView(player);
 
 	if (player == m_playerSelf)
 	{
@@ -559,4 +563,27 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailCard()), m_atlantikNetwork, SLOT(jailCard()));
 	connect(this, SIGNAL(jailPay()), m_atlantikNetwork, SLOT(jailPay()));
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
+}
+
+void Atlantik::addPortfolioView(Player *player)
+{
+	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
+	m_portfolioViews.append(portfolioView);
+
+	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
+	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
+	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
+
+	m_portfolioLayout->addWidget(portfolioView);
+	portfolioView->show();
+}
+
+PortfolioView *Atlantik::findPortfolioView(Player *player)
+{
+	PortfolioView *portfolioView = 0;
+	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); (portfolioView = *it) ; ++it)
+		if (player == portfolioView->player())
+			return portfolioView;
+
+	return 0;
 }
