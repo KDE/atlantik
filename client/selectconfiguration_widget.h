@@ -47,18 +47,19 @@ public:
 		void connectPressed();
 		void slotClicked();
 
-	signals:
-		void startGame();
-		void joinConfiguration(int configurationId);
-		void newConfiguration();
-//		void statusChanged();
+signals:
+	void startGame();
+	void leaveGame();
+	void joinConfiguration(int configurationId);
+	void newConfiguration();
+//	void statusChanged();
 
 	private:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
 		QVGroupBox *m_playerGroupBox, *m_groupBox, *m_messageBox;
 		KListView *m_playerList;
-		KPushButton *m_connectButton;
+		KPushButton *m_backButton, *m_connectButton;
 };
 
 #endif

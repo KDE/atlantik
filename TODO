@@ -53,6 +53,7 @@ For 0.4.0
 v commandline parameters host, port and game supported (for auto-join)
 v kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
+v leave game option
 
 For 0.5.0
 ---------

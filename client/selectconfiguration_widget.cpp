@@ -36,7 +36,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerGroupBox = new QVGroupBox(i18n("Player List"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox); 
 
-
 	// List of  players
 	m_playerList = new KListView(m_playerGroupBox, "m_playerList");
 	m_playerList->addColumn(QString(i18n("Id")));
@@ -54,6 +53,11 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(buttonBox);
+
+	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave game"), this);
+	buttonBox->addWidget(m_backButton);
+
+	connect(m_backButton, SIGNAL(pressed()), this, SIGNAL(leaveGame()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 

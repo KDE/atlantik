@@ -47,6 +47,7 @@ private slots:
 	void getPlayerList();
 	void newGame(const QString &gameType);
 	void startGame();
+	void leaveGame();
 	void buyEstate();
 	void auctionEstate();
 	void estateToggleMortgage(Estate *estate);

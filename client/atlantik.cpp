@@ -14,8 +14,6 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <iostream>
-
 #include <errno.h>
 
 #include <qcolor.h>
@@ -25,7 +23,6 @@
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
-#include <kdebug.h>
 #include <klocale.h>
 #include <kstdgameaction.h>
 #include <kstdaction.h>
@@ -82,7 +79,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
 
-	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
+	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(showSelectConfiguration()));
 	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameStarted()), this, SLOT(gameStarted()));
 
@@ -154,12 +151,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	if (!host.isNull() && !port.isNull())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
-	{
-		m_selectServer = new SelectServer(m_mainWidget, "selectServer");
-		m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
-		m_selectServer->show();
-		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
-	}
+		showSelectServer();
 }
 
 void Atlantik::readConfig()
@@ -238,10 +230,73 @@ void Atlantik::removeGUI(Trade *trade)
 		delete tradeDisplay;
 }
 
+void Atlantik::showSelectServer()
+{
+	m_selectServer = new SelectServer(m_mainWidget, "selectServer");
+	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
+	m_selectServer->show();
+	if (m_selectGame)
+	{
+		delete m_selectGame;
+		m_selectGame = 0;
+	}
+	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+}
+
+void Atlantik::showSelectGame()
+{
+	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
+	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
+	m_selectGame->show();
+	if (m_selectServer)
+	{
+		delete m_selectServer;
+		m_selectServer = 0;
+
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	}
+	if (m_selectConfiguration)
+	{
+		delete m_selectConfiguration;
+		m_selectConfiguration = 0;
+
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	}
+
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+
+	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
+
+	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
+	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
+}
+
+void Atlantik::showSelectConfiguration()
+{
+	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
+	m_selectConfiguration->show();
+	if (m_selectGame)
+	{
+		delete m_selectGame;
+		m_selectGame = 0;
+	}
+
+	connect(m_atlantikNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
+	connect(m_atlantikNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(playerListEdit(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(playerListDel(QString)), m_selectConfiguration, SLOT(slotPlayerListDel(QString)));
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
+	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
+	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
+}
+
 void Atlantik::slotNetworkConnected()
 {
-	kdDebug() << "Atlantik::slotNetworkConnected()" << std::endl;
-
 	// We're connected, so let's make ourselves known.
 	m_atlantikNetwork->setName(m_config.playerName);
 
@@ -252,25 +307,7 @@ void Atlantik::slotNetworkConnected()
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
 	else
-	{
-		// Create select game widget and replace the select server widget.
-		m_selectGame = new SelectGame(m_mainWidget, "selectGame");
-		m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
-		m_selectGame->show();
-		if (m_selectServer)
-		{
-			delete m_selectServer;
-			m_selectServer = 0;
-		}
-
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-		connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
-		connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
-		connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
-
-		connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
-		connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
-	}
+		showSelectGame();
 }
 
 void Atlantik::slotNetworkError(int errnum)
@@ -295,26 +332,6 @@ void Atlantik::slotNetworkError(int errnum)
 	}
 
 	serverMsgsAppend(errMsg);
-}
-
-void Atlantik::slotJoinedGame()
-{
-	// Create configuration widget and replace the select game widget.
-	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
-	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
-	m_selectConfiguration->show();
-	if (m_selectGame)
-	{
-		delete m_selectGame;
-		m_selectGame = 0;
-	}
-
-	connect(m_atlantikNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
-	connect(m_atlantikNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListEdit(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListDel(QString)), m_selectConfiguration, SLOT(slotPlayerListDel(QString)));
-
-	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 }
 
 void Atlantik::initGame()

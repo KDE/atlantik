@@ -63,6 +63,11 @@ void AtlantikNetwork::startGame()
 	writeData(".gs");
 }
 
+void AtlantikNetwork::leaveGame()
+{
+	writeData(".gx");
+}
+
 void AtlantikNetwork::endTurn()
 {	writeData(".E");
 }

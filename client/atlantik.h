@@ -90,7 +90,13 @@ public:
 
 	AtlantikConfig config() { return m_config; }
 
+private slots:
+	void showSelectServer();
+	void showSelectGame();
+	void showSelectConfiguration();
+
 public slots:
+
 	/**
 	 * A network connection has been established, so we can show the game
 	 * list instead of the server list.
@@ -109,13 +115,6 @@ public slots:
 	/**
 	 * A game was succesfully created or joined, so we can show the
 	 * configuration dialog instead of the game list.
-	 *
-	 */
-	 void slotJoinedGame();
-
-	/**
- 	 * The game is starting, so we can show the game board instead of the
-	 * pre-game configuration.
 	 *
 	 */
 	 void initGame();

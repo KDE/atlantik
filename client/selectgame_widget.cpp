@@ -30,7 +30,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	Q_CHECK_PTR(m_mainLayout);
 
 	QVGroupBox *groupBox;
-	groupBox = new QVGroupBox(i18n("Start or Select a monopd Game"), this, "groupBox");
+	groupBox = new QVGroupBox(i18n("Create or Select a monopd Game"), this, "groupBox");
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games
@@ -51,7 +51,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Connect"), this);
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
@@ -74,12 +74,12 @@ void SelectGame::slotGameListAdd(QString gameId, QString name, QString descripti
 {
 	if (gameId == "-1")
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new %1 game").arg(name), description, "", "", gameType);
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Create a new %1 Game").arg(name), description, "", "", gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, i18n("Join %1 game #%2").arg(name).arg(gameId), description, gameId, players, gameType);
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Join %1 Game #%2").arg(name).arg(gameId), description, gameId, players, gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 	}
 
@@ -125,8 +125,15 @@ void SelectGame::slotGameListDel(QString gameId)
 
 void SelectGame::validateConnectButton()
 {
-	if (m_gameList->selectedItem())
+	if (QListViewItem *item = m_gameList->selectedItem())
+	{
+		if (int gameId = item->text(2).toInt())
+			m_connectButton->setText(i18n("Join Game"));
+		else
+			m_connectButton->setText(i18n("Create Game"));
+
 		m_connectButton->setEnabled(true);
+	}
 	else
 		m_connectButton->setEnabled(false);
 }
