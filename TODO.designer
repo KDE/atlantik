@@ -3,4 +3,3 @@
 - let you delete last card in a stack, it made designer crash, so delete
   doesn't do anything if there is only 1 card on stack
 - disable "Less properties" when there are no properties for a card
-- replace Estate #20 in "advanceto" pulldown with actual estate names
