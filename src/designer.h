@@ -33,7 +33,7 @@ class AtlanticDesigner : public KMainWindow
 	void save();
 	void changeEstate(int);
 	void changeEstate(Estate *);
-	void movePlayer(int);
+	void movePlayer(Estate *);
 
 	void smaller();
 	void larger();
@@ -52,7 +52,7 @@ class AtlanticDesigner : public KMainWindow
 	int max;
 	QStringList types;
 
-	Player *player;
+	Player *m_player;
 
 	bool isMod;
 };

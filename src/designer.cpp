@@ -31,9 +31,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	editor = new EstateEdit(this, "Estate Editor");
 	setCentralWidget(editor);
 
-	// our superstar!
-	player = new Player(1);
-	editor->addToken(player);
+	m_player = 0;
 
 	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	(void) KStdAction::open(this, SLOT(open()), actionCollection());
@@ -77,7 +75,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 
 AtlanticDesigner::~AtlanticDesigner()
 {
-	delete player;
+	delete m_player;
 }
 
 void AtlanticDesigner::openNew()
@@ -217,7 +215,11 @@ void AtlanticDesigner::openFile(const QString &filename)
 	}
 	
 	editor->setEstate(estates.first());
-	movePlayer(1);
+
+	// our superstar!
+	m_player = new Player(1);
+	editor->addToken(m_player);
+	movePlayer(estates.first());
 
 	isMod = false;
 	doCaption(false);
@@ -308,7 +310,7 @@ void AtlanticDesigner::changeEstate(int index)
 	(void) editor->saveEstate();
 
 	editor->setEstate(estates.at(index));
-	movePlayer(index + 1);
+	movePlayer(estates.at(index + 1));
 }
 
 void AtlanticDesigner::changeEstate(Estate *estate)
@@ -319,24 +321,15 @@ void AtlanticDesigner::changeEstate(Estate *estate)
 	(void) editor->saveEstate();
 
 	editor->setEstate(static_cast<ConfigEstate *>(estate));
-	movePlayer(estate->estateId());
+	movePlayer(estate);
 }
 
-void AtlanticDesigner::movePlayer(int estateId)
+void AtlanticDesigner::movePlayer(Estate *estate)
 {
-#warning port
-/*
-These two lines should be sufficient, board will soon have a working
-playerChanged() slot and will update the views itself.
+	m_player->setLocation(estate);
+	m_player->update();
 
-	player->setLocation(estate);
-	player->update();
-*/
-//	editor->slotMsgPlayerUpdateLocation(1, estateId, false);
-//	editor->raiseToken(1);
-//	editor->slotMoveToken();
-
-	estateAct->setCurrentItem(estateId - 1);
+	estateAct->setCurrentItem(estate->estateId() - 1);
 }
 
 void AtlanticDesigner::larger()
