@@ -52,6 +52,7 @@ public:
 	private slots:
 		void slotConnect();
 		void slotRefresh(bool useMonopigator = true);
+		void slotAddServer();
 		void slotLocalConnected();
 		void slotLocalError();
 		void monopigatorFinished();
@@ -68,7 +69,7 @@ private:
 		QLabel *status_label;
 		QRadioButton *m_localGameButton, *m_onlineGameButton;
 		KListView *m_serverList;
-		KPushButton *m_refreshButton, *m_connectButton;
+		KPushButton *m_addServerButton, *m_refreshButton, *m_connectButton;
 		Monopigator *m_monopigator;
 		KExtendedSocket *m_localSocket;
 		bool m_localServerAvailable;

@@ -19,6 +19,7 @@
 
 #include <kdialog.h>
 #include <kextendedsocket.h>
+#include <klineeditdlg.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -30,19 +31,9 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 	Q_CHECK_PTR(m_mainLayout);
 
 	QVButtonGroup *bgroup;
-//	bgroup = new QVButtonGroup(i18n("Start or select a monopd server"), this, "bgroup");
 	bgroup = new QVButtonGroup(i18n("Select monopd Server"), this, "bgroup");
 	bgroup->setExclusive(true);
 	m_mainLayout->addWidget(bgroup);
-
-	// Button for local games
-//	m_localGameButton = new QRadioButton(i18n("Start a local server"), bgroup, "m_localGameButton");
-//	connect(m_localGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
-
-	// Button for on-line games
-//	m_onlineGameButton = new QRadioButton(i18n("Select a server to play a game on-line"), bgroup, "m_onlineGameButton");
-//	m_localGameButton->setEnabled(true);
-//	connect(m_onlineGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
 
 	// List of servers
 	m_serverList = new KListView(bgroup, "m_serverList");
@@ -63,12 +54,19 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List"),
-                                                    useMonopigatorOnStart ? "reload" : "network"), this);
+	// Add Server
+	m_addServerButton = new KPushButton( KGuiItem(i18n("Add Server"), "bookmark_add"), this);
+	buttonBox->addWidget(m_addServerButton);
+
+	connect(m_addServerButton, SIGNAL(clicked()), this, SLOT(slotAddServer()));
+
+	// Server List / Refresh
+	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List"), useMonopigatorOnStart ? "reload" : "network"), this);
 	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
+	// Connect
 	m_connectButton = new KPushButton(BarIcon("forward", KIcon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
@@ -188,6 +186,17 @@ void SelectServer::slotRefresh(bool useMonopigator)
 	checkLocalServer();
 	if (useMonopigator)
 		initMonopigator();
+}
+
+void SelectServer::slotAddServer()
+{
+	KLineEditDlg dlg(i18n("Host:"), "", 0);
+	dlg.setCaption(i18n("Add monopd Server"));
+	dlg.enableButtonOK(false); // text is empty by default
+	if (!dlg.exec())
+		return;
+
+	// TODO: add a server entry for dlg.text()
 }
 
 void SelectServer::slotConnect()
