@@ -112,6 +112,8 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		quartzPainter.end();
 		delete quartzBuffer;
 
+		// TODO: steal blur code from kicker/taskbar/taskcontainer.cpp
+
 		int xText = (KGlobalSettings::generalFont().pointSize() * 2) + 5;
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize() * 2, QFont::Bold));

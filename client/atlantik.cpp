@@ -78,7 +78,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_roll->setEnabled(false);
 	m_buyEstate = new KAction(i18n("&Buy"), "atlantik_buy_estate", CTRL+Key_B, m_atlantikNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
-	m_auctionEstate = new KAction(i18n("&Auction"), "atlantik_auction_estate", CTRL+Key_A, m_atlantikNetwork, SLOT(auctionEstate()), actionCollection(), "auction_estate");
+	m_auctionEstate = new KAction(i18n("&Auction"), "auction", CTRL+Key_A, m_atlantikNetwork, SLOT(auctionEstate()), actionCollection(), "auction_estate");
 	m_auctionEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(m_atlantikNetwork, SLOT(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);

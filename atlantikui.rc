@@ -4,7 +4,7 @@
   <Menu name="move"><text>&amp;Move</text>
     <Action name="move_roll"/>
     <Action name="buy_estate"/>
-    <Action name="auction_estate"/>
+    <Action name="auction"/>
     <Action name="move_endturn"/>
     <Action name="move_jailcard"/>
     <Action name="move_jailpay"/>
@@ -17,6 +17,7 @@
 <ToolBar name="moveToolBar">
     <Action name="move_roll"/>
     <Action name="buy_estate"/>
+    <Action name="auction"/>
     <Action name="move_endturn"/>
     <Action name="move_jailpay"/>
 </ToolBar>
