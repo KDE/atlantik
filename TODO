@@ -30,6 +30,9 @@ v API: use disability to join game when size == MAX in gameupdate (games in
 v API: using playerupdate for player list in SelectConfiguration
 v API: make use of cleartext/clearbuttons attributes in display
 v don't connect to meta server unless user has configured to do so
+v use portfolioview instead of klistview for players during config
+  - remove pview when player leaves game
+  - remove pview when player is deleted
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio

@@ -38,18 +38,9 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	// Player list.
-	m_playerBox = new QVGroupBox(i18n("Player List"), this, "playerBox");
-	m_mainLayout->addWidget(m_playerBox); 
-
-	m_playerList = new KListView(m_playerBox, "m_playerList");
-	m_playerList->addColumn(QString(i18n("Name")));
-	m_playerList->addColumn(QString(i18n("Host")));
-	m_playerList->setAllColumnsShowFocus(true);
-	m_playerList->setFullWidth(true);
-//	m_mainLayout->addWidget(m_playerList);
-
-	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
+	// Game configuration.
+	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
+	m_mainLayout->addWidget(m_configBox); 
 
 	// Player buttons.
 	QHBoxLayout *playerButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
@@ -62,9 +53,8 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	connect(m_tokenButton, SIGNAL(clicked()), this, SLOT(slotTokenButtonClicked()));
 
-	// Game configuration.
-	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
-	m_mainLayout->addWidget(m_configBox); 
+	// Vertical spacer.
+	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	// Server buttons.
 	QHBoxLayout *serverButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
@@ -88,45 +78,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addWidget(status_label);
 }
 
-void SelectConfiguration::addPlayer(Player *player)
-{
-	QListViewItem *item = new QListViewItem(m_playerList, player->name(), player->host());
-	if (player->image() != "")
-		item->setPixmap(0, QPixmap(locate("appdata", "themes/default/tokens/" + player->image())));
-	else
-		item->setPixmap(0, QPixmap(SmallIcon("personal")));
-
-	m_items[player] = item;
-
-	connect(player, SIGNAL(changed(Player *)), this, SLOT(slotPlayerChanged(Player *)));
-}
-
-void SelectConfiguration::slotDelPlayer(Player *player)
-{
-	QListViewItem *item = m_items[player];
-	if (item)
-	{
-		delete item;
-		m_items[player] = 0;
-	}
-}
-
-void SelectConfiguration::slotPlayerChanged(Player *player)
-{
-	QListViewItem *item = m_items[player];
-	if (item)
-	{
-		item->setText(0, player->name());
-		item->setText(1, player->host());
-		if (player->image() != "")
-			item->setPixmap(0, QPixmap(locate("appdata", "themes/default/tokens/" + player->image())));
-		else
-			item->setPixmap(0, QPixmap(SmallIcon("personal")));
-
-		m_playerList->triggerUpdate();
-	}
-}
-
 void SelectConfiguration::connectClicked()
 {
 	status_label->setText(i18n("Game started. Retrieving full game data..."));
@@ -142,15 +93,6 @@ void SelectConfiguration::slotTokenButtonClicked()
 	m_tokenWidget->show();
 
 	connect(m_tokenWidget, SIGNAL(iconSelected(const QString &)), this, SLOT(slotTokenSelected(const QString &)));
-}
-
-void SelectConfiguration::slotClicked()
-{
-	delete m_messageBox;
-	m_playerBox->setEnabled(true);
-	m_configBox->setEnabled(true);
-	m_connectButton->setEnabled(true);
-	status_label->setEnabled(true);
 }
 
 void SelectConfiguration::slotTokenSelected(const QString &name)

@@ -173,9 +173,6 @@ void Atlantik::newPlayer(Player *player)
 	initBoard();
 	m_board->addToken(player);
 
-	if (m_selectConfiguration)
-		m_selectConfiguration->addPlayer(player);
-
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
 
