@@ -346,6 +346,8 @@ ChooseWidget::ChooseWidget(int id, Card *card, QWidget *parent, char *name)
 	this->id = id;
 	this->card = card;
 
+	value = 0;
+
 	QHBoxLayout *hlayout = new QHBoxLayout(this);
 	typeCombo = new KComboBox(this);
 	QStringList _types(i18n("Pay"));
@@ -400,7 +402,14 @@ void ChooseWidget::typeChanged(int i)
 	if (i < 4 || key == "payhouse" || key == "payhotel")
 		suffix = "$";
 	else if (key == "advanceto")
+	{
 		prefix = i18n("Estate #");
+
+		//number = false;
+		//delete value;
+		//value = 0;
+		//estate = new KComboBox(this);
+	}
 	else if (key == "advance" || key == "goback")
 		suffix = i18n("Estate(s)").prepend(" ");
 
@@ -454,11 +463,13 @@ CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(pare
 		kdDebug() << "adding to list: " << card->name << endl;
 		List->insertItem(card->name);
 	}
+
+	updateButtonsEnabled();
 }
 
 void CardView::more()
 {
-	if (List->count() <= 0)
+	if (!card)
 		return;
 
 	card->keys.append("pay");
@@ -471,18 +482,20 @@ void CardView::more()
 	layout->addWidget(newChooseWidget);
 
 	newChooseWidget->show();
+
+	updateButtonsEnabled();
 }
 
 void CardView::less()
 {
-	if (List->count()<= 0)
-		return;
-	if (choosies.count() <= 0)
+	if (List->count() <= 0 || choosies.count() <= 0)
 		return;
 
 	choosies.removeLast();
 	card->keys.pop_back();
 	card->values.pop_back();
+
+	updateButtonsEnabled();
 }
 
 void CardView::add()
@@ -501,6 +514,8 @@ void CardView::add()
 	List->setCurrentItem(0);
 
 	more();
+
+	updateButtonsEnabled();
 }
 
 void CardView::rename()
@@ -516,6 +531,8 @@ void CardView::rename()
 		stack->at(curItem)->name = name;
 		List->changeItem(name, curItem);
 	}
+
+	updateButtonsEnabled();
 }
 
 void CardView::del()
@@ -529,6 +546,8 @@ void CardView::del()
 	List->removeItem(curItem);
 	stack->remove(stack->at(curItem));
 	choosies.clear();
+
+	updateButtonsEnabled();
 }
 
 void CardView::selected(int i)
@@ -565,6 +584,18 @@ void CardView::selected(int i)
 		card->values.clear();
 		more();
 	}
+
+	updateButtonsEnabled();
+}
+
+void CardView::updateButtonsEnabled()
+{
+	int curItem = List->currentItem();
+	int count = List->count();
+	delButton->setEnabled(!(curItem < 0 || count <= 1));
+	renameButton->setEnabled(!(curItem < 0));
+	moreButton->setEnabled(card);
+	lessButton->setEnabled(!(count <= 0 || choosies.count() <= 0));
 }
 
 /////////////////////////////////

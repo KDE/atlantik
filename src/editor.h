@@ -141,6 +141,7 @@ class CardView : public QWidget
 	void rename();
 	void more();
 	void less();
+	void updateButtonsEnabled();
 
 	private:
 	QListBox *List;
