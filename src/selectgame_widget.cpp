@@ -1,5 +1,6 @@
 #include <qvgroupbox.h>
 #include <qradiobutton.h>
+#include <qhbox.h>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -31,9 +32,12 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new game"), "", "");
 	item->setPixmap(0, SmallIcon("filenew"));
 
-	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Connect"), this);
+	QHBox *buttonBox = new QHBox(this);
+	m_mainLayout->addWidget(buttonBox);
+
+	m_connectButton = new QPushButton(SmallIcon("forward"), i18n("Connect"), buttonBox);
 	m_connectButton->setEnabled(false);
-	m_mainLayout->addWidget(m_connectButton);
+//	m_mainLayout->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
 	

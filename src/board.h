@@ -28,6 +28,10 @@ Q_OBJECT
 		void slotMoveToken();
 		void slotResizeAftermath();
 
+	private slots:
+		void displayCenter();
+		void slotDisplayChanceCard(QString);
+
 	signals:
 		void tokenConfirmation(int location);
 
@@ -38,7 +42,7 @@ Q_OBJECT
 		void jumpToken(Token *, int destination, bool confirm=true);
 		void moveToken(Token *, int destination);
 
-		QWidget *spacer, *center;
+		QWidget *spacer, *m_center;
 		QGridLayout *m_gridLayout;
 		Token *move_token;
 		QTimer *m_timer;

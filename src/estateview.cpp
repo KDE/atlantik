@@ -52,7 +52,7 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
 {
-	if (p->isNull())
+	if (p==0 || p->isNull())
 		return 0;
 
 	QWMatrix m;
@@ -75,7 +75,7 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p)
 
 KPixmap *EstateView::rotatePixmap(KPixmap *p)
 {
-	if (p->isNull())
+	if (p==0 || p->isNull())
 		return 0;
 
 	QWMatrix m;
@@ -425,6 +425,12 @@ void EstateView::slotMenuAction(int item)
 void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2)
 {
 	QPainter px;
+
+	if (pi==0 || pi->isNull())
+	{
+		kdDebug() << "thanks for not painting on null objects" << endl;
+		return;
+	}
 
 	px.begin(pi);
 

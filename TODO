@@ -2,7 +2,7 @@
 + not implemented, medium priority
 ! not implemented, high priority
 ? bug should be fixed, not confirmed yet
-. in progress
+^ in progress
 v implemented
 V implemented and confirmed
 
@@ -26,6 +26,9 @@ Bugfixes
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
 - make PortfolioEstate have a relation with Estate like EstateView has
+v support for <display>
+  v type chancecard (attrs playerid, name and description)
+  ^ type cccard (attrs playerid, name and description)
 
 For 0.2.0
 ---------
@@ -119,4 +122,4 @@ For 1.x.y
   Simpsons, etc) will be supported for 1.0, but other more advanced options
   such as game configuration etcetera should be present. These items are not
   a requirement for inclusion in kdegames, but the 1.0 release should be
-  up-to-par with the original Windows version of the game.
+  up-to-par with the original Windows version of the game.n

@@ -8,6 +8,7 @@
 #include "player.h"
 #include "network.h"
 #include "config.h"
+#include "display_widget.h"
 
 extern QColor atlantik_greenbg;
 extern AtlantikConfig atlantikConfig;
@@ -40,9 +41,8 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 //	spacer = new QWidget(this);
 //	m_gridLayout->addWidget(spacer, 11, 11); // SE
 
-	center = new QWidget(this);
-	m_gridLayout->addMultiCellWidget(center, 1, 9, 1, 9);
-	center->setBackgroundColor(atlantik_greenbg);
+	m_center = 0;
+	displayCenter();
 
 	int i=0, orientation=North;
 
@@ -337,4 +337,29 @@ void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool
 				moveToken(token, estateId);
 		}
 	}
+}
+
+void AtlantikBoard::displayCenter()
+{
+	if (m_center != 0)
+		delete m_center;
+
+	m_center = new QWidget(this);
+	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
+	m_center->setBackgroundColor(atlantik_greenbg);
+	m_center->show();
+}
+
+void AtlantikBoard::slotDisplayChanceCard(QString description)
+{
+	kdDebug() << "displayChanceCard(" << description << ")" << endl;
+
+	if (m_center != 0)
+		delete m_center;
+	
+	m_center = new BoardDisplay(description, this);
+	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
+	m_center->show();
+
+	QTimer::singleShot(2000, this, SLOT(displayCenter()));
 }

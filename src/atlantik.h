@@ -3,7 +3,7 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qtextview.h>
+#include <qtextedit.h>
 #include <qlabel.h>
 
 #include <kmainwindow.h>
@@ -226,7 +226,7 @@ private:
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
-	QTextView *m_serverMsgs, *m_chatMsgs;
+	QTextEdit *m_serverMsgs, *m_chatMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_configure, *m_endTurn;
 

@@ -181,6 +181,12 @@ void GameNetwork::processNode(QDomNode n)
 					}
 				}
 			}
+			else if (e.tagName() == "display")
+			{
+				QString type = e.attributeNode(QString("type")).value();
+				if (type == "chancecard" ||type == "communitychestcard")
+					emit displayChanceCard(e.attributeNode(QString("description")).value());
+			}
 			else if (e.tagName() == "updategamelist")
 			{
 				QString type = e.attributeNode(QString("type")).value();

@@ -93,8 +93,9 @@ Atlantik::Atlantik () : KMainWindow ()
 //	m_portfolioLayout->addWidget(m_portfolioLabel);
 //	m_portfolioLabel->show();
 
-	// TextView for chat and status messages from server.
-	m_serverMsgs = new QTextView(m_mainWidget, "serverMsgs");
+	// Text view for chat and status messages from server.
+	m_serverMsgs = new QTextEdit(m_mainWidget, "serverMsgs");
+	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
 	m_serverMsgs->setFixedWidth(225);
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
@@ -202,9 +203,9 @@ void Atlantik::slotInitGame()
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->show();
 
-#warning port msgPlayerUpdateLocation connect
-	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+	connect(m_gameNetwork, SIGNAL(displayChanceCard(QString)), m_board, SLOT(slotDisplayChanceCard(QString)));
 	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
 	KMessageBox::information(this, i18n(
