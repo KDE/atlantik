@@ -32,6 +32,7 @@
 #include "config.h"
 
 extern AtlantikConfig atlantikConfig;
+extern QColor atlantik_lgray, atlantik_dgray;
 
 Atlantik::Atlantik () : KMainWindow ()
 {
@@ -163,8 +164,8 @@ void Atlantik::readConfig()
 
 	// Portfolio colors
 	config->setGroup("WM");
-	atlantikConfig.activeColor = config->readColorEntry("activeBackground", &black);
-	atlantikConfig.inactiveColor = config->readColorEntry("inactiveBlend", &black);
+	atlantikConfig.activeColor = config->readColorEntry("activeBackground", &atlantik_dgray);
+	atlantikConfig.inactiveColor = config->readColorEntry("inactiveBlend", &atlantik_lgray);
 
 }
 
