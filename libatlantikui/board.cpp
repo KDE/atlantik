@@ -411,7 +411,6 @@ void AtlantikBoard::displayText(QString caption, QString body)
 	if (m_center != 0)
 		delete m_center;
 	
-
 	BoardDisplay *display = new BoardDisplay(caption, body, this);
 	m_center = display;
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
@@ -422,10 +421,12 @@ void AtlantikBoard::displayText(QString caption, QString body)
 //	QTimer::singleShot(3000, this, SLOT(displayDefault()));
 }
 
-void AtlantikBoard::displayButton(QString command, QString caption)
+void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
 {
 	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_center))
-		display->addButton(command, caption);
+		display->addButton(command, caption, enabled);
+	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_center))
+		display->addButton(command, caption, enabled);
 }
 
 void AtlantikBoard::displayEstateDetails(Estate *estate)
@@ -437,7 +438,10 @@ void AtlantikBoard::displayEstateDetails(Estate *estate)
 	if (m_center != 0)
 		delete m_center;
 
-	m_center = new EstateDetails(estate, this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
-	m_center->show();
+	EstateDetails *display = new EstateDetails(estate, this);
+	m_center = display;
+	m_gridLayout->addMultiCellWidget(display, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
+	display->show();
+
+	connect(display, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 }

@@ -69,24 +69,8 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
-	// Network layer
-	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
-
-	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
-	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
-	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
-
-	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
-	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
-
-	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(showSelectConfiguration()));
-	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
-	connect(m_atlantikNetwork, SIGNAL(gameStarted()), this, SLOT(gameStarted()));
-
-	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
-	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(createGUI(Trade *)));
-	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
+	m_atlantikNetwork = 0;
+	initNetworkObject();
 
 	// Menu,toolbar: Move
 	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(rollDice()), actionCollection());
@@ -240,8 +224,11 @@ void Atlantik::showSelectServer()
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
-	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	if (m_atlantikNetwork)
+	{
+		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	}
 }
 
 void Atlantik::showSelectGame()
@@ -332,6 +319,9 @@ void Atlantik::slotNetworkError(int errnum)
 	}
 
 	serverMsgsAppend(errMsg);
+
+	// Re-init network object (not yet, KExtendedSocket does weird stuff)
+	// initNetworkObject();
 }
 
 void Atlantik::initGame()
@@ -350,7 +340,8 @@ void Atlantik::initGame()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(displayButton(QString, QString)), m_board, SLOT(displayButton(QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(displayEstateDetails(Estate *)));
+	connect(m_atlantikNetwork, SIGNAL(displayButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
 	connect(m_board, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
@@ -476,4 +467,33 @@ void Atlantik::playerChanged()
 	m_jailCard->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
 	m_jailPay->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
 	m_jailRoll->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
+}
+
+void Atlantik::initNetworkObject()
+{
+	if (m_atlantikNetwork)
+		delete m_atlantikNetwork;
+
+	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
+	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
+	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
+	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
+
+	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
+	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
+
+	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(showSelectConfiguration()));
+	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
+	connect(m_atlantikNetwork, SIGNAL(gameStarted()), this, SLOT(gameStarted()));
+
+	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
+	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
+	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(createGUI(Trade *)));
+	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
+
+	if (m_selectServer)
+	{
+		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	}
 }

@@ -20,6 +20,9 @@
 #include <qwidget.h>
 
 class QPixmap;
+class QHBoxLayout;
+class QVBoxLayout;
+class QVGroupBox;
 
 class KPixmap;
 
@@ -30,19 +33,31 @@ class EstateDetails : public QWidget
 {
 Q_OBJECT
 
-	public:
-		EstateDetails(Estate *estate, QWidget *parent, const char *name = 0);
-		Estate *estate() { return m_estate; }
+public:
+	EstateDetails(Estate *estate, QWidget *parent, const char *name = 0);
+	Estate *estate() { return m_estate; }
 
-	protected:
-		void paintEvent(QPaintEvent *);
-		void resizeEvent(QResizeEvent *);
+	void addButton(const QString command, const QString caption, bool enabled);
 
-	private:
-		Estate *m_estate;
-		QPixmap *m_pixmap;
-		KPixmap *m_quartzBlocks;
-		bool b_recreate, m_recreateQuartz;
+protected:
+	void paintEvent(QPaintEvent *);
+	void resizeEvent(QResizeEvent *);
+
+private slots:
+	void buttonPressed();
+
+signals:
+	void buttonCommand(QString);
+
+private:
+	Estate *m_estate;
+	QPixmap *m_pixmap;
+	KPixmap *m_quartzBlocks;
+	bool b_recreate, m_recreateQuartz;
+	QVBoxLayout *m_mainLayout;
+	QHBoxLayout *m_buttonBox;
+	QVGroupBox *m_textGroupBox;
+	QMap <QObject *, QString> m_buttonCommandMap;
 };
 
 #endif

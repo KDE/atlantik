@@ -116,7 +116,8 @@ signals:
 	void msgChat(QString, QString);
 
 	void displayText(QString title, QString description);
-	void displayButton(QString command, QString caption);
+	void displayEstate(Estate *);
+	void displayButton(QString command, QString caption, bool enabled);
 	void displayDefault();
 
 	void gameOption(QString title, QString type, QString value);

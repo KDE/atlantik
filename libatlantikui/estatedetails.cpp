@@ -16,11 +16,14 @@
 
 #include <qpainter.h>
 #include <qpixmap.h>
+#include <qlayout.h>
+#include <qvgroupbox.h>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpixmap.h>
+#include <kpushbutton.h>
 
 #include <estate.h>
 #include <estategroup.h>
@@ -38,6 +41,16 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 
 	m_quartzBlocks = 0;	
 	m_recreateQuartz = true;
+
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	Q_CHECK_PTR(m_mainLayout);
+
+	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+
+	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout->addItem(m_buttonBox); 
+
+	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
 
 void EstateDetails::paintEvent(QPaintEvent *)
@@ -183,4 +196,21 @@ void EstateDetails::resizeEvent(QResizeEvent *)
 {
 	m_recreateQuartz = true;
 	b_recreate = true;
+}
+
+void EstateDetails::addButton(QString command, QString caption, bool enabled)
+{
+	KPushButton *button = new KPushButton(caption, this);
+	m_buttonCommandMap[(QObject *)button] = command;
+	m_buttonBox->addWidget(button);
+
+	button->setEnabled(enabled);
+	button->show();
+
+	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
+}
+
+void EstateDetails::buttonPressed()
+{
+	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
 }

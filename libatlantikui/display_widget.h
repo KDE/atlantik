@@ -32,7 +32,7 @@ Q_OBJECT
 public:
 	BoardDisplay(const QString caption, const QString body, QWidget *parent, const char *name=0);
 
-	void addButton(const QString command, const QString caption);
+	void addButton(const QString command, const QString caption, bool enabled);
 
 private slots:
 	void buttonPressed();

@@ -37,12 +37,13 @@ BoardDisplay::BoardDisplay(const QString caption, const QString body, QWidget *p
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
 
-void BoardDisplay::addButton(QString command, QString caption)
+void BoardDisplay::addButton(QString command, QString caption, bool enabled)
 {
 	KPushButton *button = new KPushButton(caption, this);
 	m_buttonCommandMap[(QObject *)button] = command;
 	m_buttonBox->addWidget(button);
 
+	button->setEnabled(enabled);
 	button->show();
 
 	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));

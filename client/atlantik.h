@@ -177,6 +177,8 @@ public slots:
 	void playerChanged();
 
 private:
+	void initNetworkObject();
+
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;

@@ -284,7 +284,33 @@ void AtlantikNetwork::processNode(QDomNode n)
 					{
 						QDomElement eButton = nButtons.toElement();
 						if (!eButton.isNull() && eButton.tagName() == "button")
-							emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value());
+							emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+					}
+				}
+			}
+			else if (e.tagName() == "estatedisplay")
+			{
+				int estateId = -1;
+
+				a = e.attributeNode(QString("estateid"));
+				if (!a.isNull())
+				{
+					estateId = a.value().toInt();
+					Estate *estate;
+					if ((estate = m_estates[a.value().toInt()]))
+					{
+						emit displayEstate(estate);
+
+						for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+						{
+							QDomElement eButton = nButtons.toElement();
+							if (!eButton.isNull() && eButton.tagName() == "button")
+							{
+								QDomElement eButton = nButtons.toElement();
+								if (!eButton.isNull() && eButton.tagName() == "button")
+									emit displayButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+							}
+						}
 					}
 				}
 			}
@@ -511,7 +537,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					estateId = a.value().toInt();
-
+					
 					Estate *estate;
 					bool b_newEstate = false;
 					if (!(estate = m_estates[a.value().toInt()]))
