@@ -36,6 +36,8 @@ public:
 	Estate *destination() { return m_destination; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
+	void setMaster(bool master);
+	bool master() { return m_master; }
 	void setHasTurn(const bool hasTurn);
 	bool hasTurn() const { return m_hasTurn; }
 	void setCanRoll(bool canRoll);
@@ -60,7 +62,7 @@ signals:
 private:
 	int m_id;
 	bool m_changed, m_isSelf;
-	bool m_hasTurn, m_canRoll, m_canBuy, m_inJail;
+	bool m_master, m_hasTurn, m_canRoll, m_canBuy, m_inJail;
 	unsigned int m_money;
 	QString m_name, m_host, m_image;
 	Estate *m_location, *m_destination;

@@ -36,7 +36,6 @@ v API: using playerupdate for player list in SelectConfiguration
 - cards in portfolio
 - support for trading cards
 - Support .gd game description.
-- Support updateplayerlist master, only update changed QStrings
 - invite button
   - kaddressbook hooks
   - e-mail invites

@@ -421,6 +421,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setMoney(a.value().toInt());
 
+					a = e.attributeNode(QString("master"));
+					if (player && !a.isNull())
+						player->setMaster(a.value().toInt());
+
 					a = e.attributeNode(QString("hasturn"));
 					if (player && !a.isNull())
 						player->setHasTurn(a.value().toInt());
