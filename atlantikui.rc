@@ -10,9 +10,6 @@
     <Action name="move_jailpay"/>
     <Action name="move_jailroll"/>
   </Menu>
-  <Menu name="settings">
-    <Action name="designer"/>
-  </Menu>
 </MenuBar>
 <ToolBar name="moveToolBar">
     <Action name="move_roll"/>
