@@ -63,6 +63,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 	connect(m_gameNetwork, SIGNAL(tradeUpdatePlayerAdd(int, int)), this, SLOT(slotTradeUpdatePlayerAdd(int, int)));
+	connect(m_gameNetwork, SIGNAL(tradeUpdateEstate(int, int, int)), this, SLOT(slotTradeUpdateEstate(int, int, int)));
 
 	connect(m_gameNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
 	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
@@ -583,6 +584,17 @@ void Atlantik::slotTradeUpdatePlayerAdd(int tradeId, int playerId)
 	Player *player;
 	if ((trade = tradeMap[tradeId]) && (player = playerMap[playerId]))
 		trade->addPlayer(player);
+}
+
+void Atlantik::slotTradeUpdateEstate(int tradeId, int estateId, int playerId)
+{
+	Trade *trade = tradeMap[tradeId];
+	Player *player = playerMap[playerId];
+	Estate *estate = estateMap[estateId];
+
+#warning activate trade->updateEstate when implemented
+//	if (trade && estate)
+//		trade->updateEstate(estate, player);
 }
 
 void Atlantik::serverMsgsAppend(QString msg)

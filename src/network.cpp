@@ -3,6 +3,10 @@
 #include "network.moc"
 #include "atlantik.h"
 
+#include "trade.h"
+#include "estate.h"
+#include "player.h"
+
 GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, name)
 {
 	m_parentWindow = parent;
@@ -88,12 +92,14 @@ void GameNetwork::newTrade(int playerId)
 	writeData(msg);
 }
 
-void GameNetwork::cmdTradeToggleEstate(int tradeId, int estateId)
+void GameNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player)
 {
 	QString msg(".Te");
-	msg.append(QString::number(estateId));
+	msg.append(QString::number(trade ? trade->tradeId() : -1));
 	msg.append(":");
-	msg.append(QString::number(tradeId));
+	msg.append(QString::number(estate ? estate->estateId() : -1));
+	msg.append(":");
+	msg.append(QString::number(player ? player->playerId() : -1));
 	writeData(msg);
 }
 
@@ -454,9 +460,9 @@ void GameNetwork::processNode(QDomNode n)
 									{
 										int estateId = a.value().toInt();
 
-										a = e.attributeNode(QString("included"));
+										a = e.attributeNode(QString("targetplayer"));
 										if (!a.isNull())
-											emit msgTradeUpdateEstateIncluded(tradeId, estateId, (bool)(a.value().toInt()));
+											emit tradeUpdateEstate(tradeId, estateId, (a.value().toInt()));
 									}
 								}
 							}

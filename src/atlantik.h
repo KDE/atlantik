@@ -51,6 +51,12 @@ public:
 	 */
 	void serverMsgsAppend(QString msg);
 
+/*
+	Trade *tradeWithId(int);
+	Estate *estateWithId(int);
+	Player *playerWithId(int);
+*/
+
 public slots:
 	/**
 	 * A network connection has been established, so we can show the game
@@ -183,6 +189,7 @@ public slots:
 	void slotPlayerUpdateFinished(int playerId);
 
 	void slotTradeUpdatePlayerAdd(int tradeId, int playerId);
+	void slotTradeUpdateEstate(int tradeId, int estateId, int playerId);
 
 	/**
 	 * Stores the playerId corresponding to this instance of the client.

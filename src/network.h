@@ -8,6 +8,10 @@
 
 class Atlantik;
 
+class Trade;
+class Estate;
+class Player;
+
 class GameNetwork : public QSocket
 {
 Q_OBJECT
@@ -16,7 +20,6 @@ public:
 	GameNetwork(Atlantik *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
-	void cmdTradeToggleEstate(int tradeId, int estateId);
 	void cmdTradeSetMoney(int tradeId, int amount);
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
@@ -36,6 +39,7 @@ private slots:
 	void jailPay();
 	void jailRoll();
 	void newTrade(int playerId);
+	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 
 public slots:
 	void serverConnect(const QString host, int port);
@@ -123,9 +127,9 @@ signals:
 	 *
 	 * @param tradeId  Unique trade identifier
 	 * @param estateId Unique estate identifier
-	 * @param included Whether the estate is included
+	 * @param playerId Unique player identifier, -1 for no player (not included in trade)
 	 */
-	void msgTradeUpdateEstateIncluded(int tradeId, int estateId, bool included);
+	void tradeUpdateEstate(int tradeId, int estateId, int playerId);
 
 	/**
 	 * The trade has been accepted by all players!
