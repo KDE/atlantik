@@ -22,6 +22,7 @@ Q_OBJECT
 		void addToken(Player *player);
 		void raiseToken(int);
 		void indicateUnownedChanged();
+		QWidget *centerWidget() { return m_center; };
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
