@@ -107,7 +107,7 @@ void Token::playerChanged()
 
 void Token::updateGeometry()
 {
-	if (!(m_location && m_player))
+	if (!m_location)
 	{
 		hide();
 		return;
