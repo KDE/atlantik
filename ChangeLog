@@ -1,3 +1,10 @@
+2001-04-30
+----------
+
+- NewGameDialog is now a wizard. A connection to the server is made and a
+  list of available games to join fetched, using Qt's XML parsing
+  capabilities.
+
 2001-04-27
 ----------
 

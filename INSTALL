@@ -1,6 +1,8 @@
 Assuming you downloaded kdenonbeta from CVS:
 
-(cd ../kdenonbeta ; ./configure)
+(cd ../kdenonbeta && make -f Makefile.cvs && ./configure)
 cd kmonop && make && make install
 
-click on K->Games->Board->KMonop or run kmonop
+Then click on K->Games->Board->KMonop or run kmonop. Please note that KMonop
+is only a client, you will also need the monopd server running! See the
+README file for more details.

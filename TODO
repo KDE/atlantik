@@ -1,18 +1,56 @@
-Before import
-
-- Add autoconf/automake stuff. [semi-done, actually]
-- Add double buffering. [done for most widgets]
-- Have the board resize in such a way that only squares are allowed. [done]
-
 For 0.0.2
+---------
 
-- Turn newgamedlg into an actual dialog. [done]
+- Finish newgamedlg wizard:
+  - Serverlist needn't be real yet, no way to fetch it at the moment.
+  - Gamelist needs to be real and present an option to create a new game.
+  - Game configuration needn't be implemented yet, missing functionality in
+    monopd server.
+  - Game playerlist must be displayed and present an option to launch the
+    game.
+
+For 0.0.3
+---------
+
+- Fetch (default) game data from server (streetnames).
+- Don't overwrite estate pointer in board.cpp, actually have a nice array.
+- Portfolioview states should represent actual situation.
+- Draw tokens on board at actual position.
+- Allow rolling the dice and advancing over board (without actions).
 
 For 0.1.x
+---------
 
 - Make things work. ;-)
 - Do a thorough check on pointers and memory leaks.
 
-For 1.x
+For 0.2.x
+---------
 
-- See mailinglist.
+- Use i18n() for all messages. Until 0.2.x this is not recommendable because
+  too many strings will yet change and it would be a waste of time to
+  translate those strings. Once the game is working more or less, messages
+  are likely to freeze and translations are more than welcome. Note: strings
+  such as streetnames are not to be translated! It should be perfectly
+  normal to play a game in German with original US streetnames such as
+  Boardwalk.
+
+For 0.5.x
+---------
+
+- Have a playable, more or less stable game.
+
+For 0.6.x
+---------
+
+- Have a game suitable for inclusion in kdegames. Nice icons, stable code,
+  etcetera.
+
+For 1.0.0
+---------
+
+- See mailinglist. It is unlikely that themes (Star Wars, etc) will be
+  supported for 1.0, but other more advanced options such as game
+  configuration etcetera should be present. These items are not a
+  requirement for inclusion in kdegames, but the 1.0 release should be
+  up-to-par with the original Windows version of the game.
