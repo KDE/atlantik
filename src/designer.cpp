@@ -186,9 +186,17 @@ void AtlanticDesigner::changeEstate(Estate *estate)
 
 void AtlanticDesigner::movePlayer(int estateId)
 {
-	editor->slotMsgPlayerUpdateLocation(1, estateId, false);
-	editor->raiseToken(1);
-	editor->slotMoveToken();
+#warning port
+/*
+These two lines should be sufficient, board will soon have a working
+playerChanged() slot and will update the views itself.
+
+	player->setLocation(estate);
+	player->update();
+*/
+//	editor->slotMsgPlayerUpdateLocation(1, estateId, false);
+//	editor->raiseToken(1);
+//	editor->slotMoveToken();
 
 	estateAct->setCurrentItem(estateId - 1);
 }

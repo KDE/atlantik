@@ -26,7 +26,8 @@ void Token::playerChanged()
 {
 	kdDebug() << "Token::playerChanged()" << endl;
 	kdDebug() << "new geometry for token: " << m_player->location() << endl;
-	setGeometry(100, 100, 125, 125);
+	this->show();
+//	setGeometry(100, 100, 125, 125);
 }
 
 void Token::paintEvent(QPaintEvent *)

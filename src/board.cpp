@@ -137,7 +137,7 @@ void AtlantikBoard::addToken(Player *player)
 	Token *token = new Token(player, this, "token");
 	tokenMap[player->playerId()] = token;
 
-//	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
+	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
 
 	// Hide and don't position, because as long as we haven't reentered the
 	// event loop, the estate geometries are not correct anyway. Is this
@@ -149,6 +149,37 @@ void AtlantikBoard::addToken(Player *player)
 
 	// Timer to reinit the gameboard _after_ event loop
 	QTimer::singleShot(100, this, SLOT(slotResizeAftermath()));
+}
+
+void AtlantikBoard::playerChanged()
+{
+#warning implement decent AtlantikBoard::playerChanged to update tokens
+/*
+	kdDebug() << "Board::playerChanged()" << endl;
+	kdDebug() << "new geometry for token: " << m_player->location() << endl;
+	this->show();
+//	setGeometry(100, 100, 125, 125);
+
+	EstateView *estateView = estateViewMap[estateId];
+	Token *token = tokenMap[playerId];
+	
+	if (estateView && token)
+	{
+		if (token->isHidden())
+			token->show();
+
+		// Only take action when location has changed
+		if (token->location() != estateId)
+		{
+			if (directMove)
+				jumpToken(token, estateId, false);
+			else if (atlantikConfig.animateToken==false)
+				jumpToken(token, estateId);
+			else
+				moveToken(token, estateId);
+		}
+	}
+*/
 }
 
 void AtlantikBoard::jumpToken(Token *token, int estateId, bool confirm)
@@ -311,29 +342,6 @@ void AtlantikBoard::slotResizeAftermath()
 	{
 		m_timer->start(15);
 		m_resumeTimer=false;
-	}
-}
-
-void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool directMove)
-{
-	EstateView *estateView = estateViewMap[estateId];
-	Token *token = tokenMap[playerId];
-	
-	if (estateView && token)
-	{
-		if (token->isHidden())
-			token->show();
-
-		// Only take action when location has changed
-		if (token->location() != estateId)
-		{
-			if (directMove)
-				jumpToken(token, estateId, false);
-			else if (atlantikConfig.animateToken==false)
-				jumpToken(token, estateId);
-			else
-				moveToken(token, estateId);
-		}
 	}
 }
 

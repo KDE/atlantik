@@ -25,11 +25,11 @@ Q_OBJECT
 		QWidget *centerWidget() { return m_center; };
 
 	public slots:
-		void slotMsgPlayerUpdateLocation(int, int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
 
 	private slots:
+		void playerChanged();
 		void displayCenter();
 		void slotDisplayCard(QString, QString);
 
