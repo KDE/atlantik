@@ -41,6 +41,12 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, co
 	m_playerId = -1;
 
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
+	QObject::connect(this, SIGNAL(lookupFinished(int)),
+	                 this, SLOT(slotLookupFinished(int)));
+	QObject::connect(this, SIGNAL(connectionSuccess()),
+	                 this, SLOT(slotConnectionSuccess()));
+	QObject::connect(this, SIGNAL(connectionFailed(int)),
+	                 this, SLOT(slotConnectionFailed(int)));
 }
 
 void AtlantikNetwork::rollDice()
@@ -805,5 +811,21 @@ void AtlantikNetwork::serverConnect(const QString host, int port)
 {
 	setAddress(host, port);
 	enableRead(true);
+	emit msgInfo(i18n("Connecting to %1...").arg(host));
 	startAsyncConnect();
+}
+
+void AtlantikNetwork::slotLookupFinished(int count)
+{
+	emit msgInfo(i18n("Server host name lookup finished..."));
+}
+
+void AtlantikNetwork::slotConnectionSuccess()
+{
+	emit msgInfo(i18n("Connection established!"));
+}
+
+void AtlantikNetwork::slotConnectionFailed(int error)
+{
+	emit msgError(i18n("Connection failed! Error code: %1").arg(error));
 }

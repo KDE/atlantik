@@ -64,6 +64,9 @@ private slots:
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
 	void setImage(const QString &name);
+	void slotLookupFinished(int count);
+	void slotConnectionSuccess();
+	void slotConnectionFailed(int error);
 
 public slots:
 	void serverConnect(const QString host, int port);
