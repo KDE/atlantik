@@ -67,7 +67,6 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 //	m_mainLayout->addWidget(m_serverList);
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
-//	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClicked(QListViewItem *)));
 	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotConnect()));
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
@@ -99,16 +98,12 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
 	connect(m_monopigator, SIGNAL(timeout()), SLOT(monopigatorTimeout()));
 
-	// Until we have a good way to use start a local monopd server, disable this button
-//	m_localGameButton->setEnabled(false);
-
 	slotRefresh(useMonopigatorOnStart);
 }
 
 SelectServer::~SelectServer()
 {
 	delete m_monopigator;
-	delete m_localSocket;
 }
 
 void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
@@ -124,16 +119,6 @@ void SelectServer::initMonopigator()
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
-void SelectServer::checkCustomServer(const QString &host, int port)
-{
-	m_localSocket = new KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket);
-	connect(m_localSocket, SIGNAL(connectionSuccess()), this, SLOT(slotCustomConnected()));
-	connect(m_localSocket, SIGNAL(connectionFailed(int)), this, SLOT(slotCustomError()));
-	m_localSocket->setAddress(host, port);
-	m_localSocket->enableRead(true);
-	m_localSocket->startAsyncConnect();
-}
-
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
 	if (m_hideDevelopmentServers && version.contains("CVS"))
@@ -142,22 +127,6 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
-}
-
-void SelectServer::slotCustomConnected()
-{
-	m_localServerAvailable = true;
-
-	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, m_localSocket->host(), QString::number(9999), i18n("unknown"), i18n("unknown"), m_localSocket->port());
-	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
-	validateConnectButton();
-}
-
-void SelectServer::slotCustomError()
-{
-	m_localServerAvailable = false;
-
-	// TODO: fork server or offer option to do so
 }
 
 void SelectServer::monopigatorFinished()
@@ -172,47 +141,19 @@ void SelectServer::monopigatorTimeout()
 	m_refreshButton->setEnabled(true);
 }
 
-void SelectServer::validateRadioButtons()
-{
-	return;
-	if (m_serverList->childCount() > 0)
-	{
-		if (!m_onlineGameButton->isEnabled())
-			m_onlineGameButton->setEnabled(true);
-	}
-	else
-	{
-		if (m_onlineGameButton->isEnabled())
-			m_onlineGameButton->setEnabled(false);
-		m_serverList->clearSelection();
-	}
-}
-
 void SelectServer::validateConnectButton()
 {
-	validateRadioButtons();
-
 	if (m_serverList->selectedItem())
 		m_connectButton->setEnabled(true);
 	else
 		m_connectButton->setEnabled(false);
 }
 
-void SelectServer::slotListClicked(QListViewItem *item)
-{
-	// Simulate a user press
-	if(item && !m_onlineGameButton->isOn())
-		m_onlineGameButton->toggle();
-}
-
 void SelectServer::slotRefresh(bool useMonopigator)
 {
-	m_localServerAvailable = false;
-
 	m_serverList->clear();
 	validateConnectButton();
 
-	checkCustomServer("localhost", 1234);
 	if (useMonopigator)
 	{
 		m_refreshButton->setEnabled(false);

@@ -40,23 +40,19 @@ public:
 
 	void initPage();
 	void setHideDevelopmentServers(bool hideDevelopmentServers);
-		bool validateNext();
-		QString hostToConnect() const;
-		int portToConnect();
+	bool validateNext();
+	QString hostToConnect() const;
+	int portToConnect();
 
-	public slots:
-		void validateRadioButtons();
-		void validateConnectButton();
+public slots:
+	void validateConnectButton();
 
-		void slotMonopigatorAdd(QString host, QString port, QString version, int users);
-		void slotListClicked(QListViewItem *);
+	void slotMonopigatorAdd(QString host, QString port, QString version, int users);
 
 private slots:
 	void slotConnect();
 	void customConnect();
 	void slotRefresh(bool useMonopigator = true);
-	void slotCustomConnected();
-	void slotCustomError();
 	void monopigatorFinished();
 	void monopigatorTimeout();
 
@@ -64,18 +60,15 @@ signals:
 	void serverConnect(const QString host, int port);
 
 private:
-	void checkCustomServer(const QString &host, int port);
 	void initMonopigator();
 
 	QVBoxLayout *m_mainLayout;
 	QLabel *status_label;
-	QRadioButton *m_localGameButton, *m_onlineGameButton;
 	KListView *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
 	Monopigator *m_monopigator;
-	KExtendedSocket *m_localSocket;
-	bool m_localServerAvailable, m_hideDevelopmentServers;
+	bool m_hideDevelopmentServers;
 };
 
 #endif
