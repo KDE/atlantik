@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -16,6 +16,8 @@
 
 #include <iostream>
 
+#include <qtextcodec.h>
+#include <qtextstream.h>
 #include <qtimer.h>
 
 #include <kdebug.h>
@@ -37,7 +39,8 @@
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
 {
 	m_atlanticCore = atlanticCore;
-	m_parent = parent;
+	m_textStream = new QTextStream(this);
+	m_textStream->setCodec(QTextCodec::codecForName("utf8"));
 	m_playerId = -1;
 
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
@@ -47,6 +50,11 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, co
 	                 this, SLOT(slotConnectionSuccess()));
 	QObject::connect(this, SIGNAL(connectionFailed(int)),
 	                 this, SLOT(slotConnectionFailed(int)));
+}
+
+AtlantikNetwork::~AtlantikNetwork(void)
+{
+	delete m_textStream;
 }
 
 void AtlantikNetwork::rollDice()
@@ -219,7 +227,7 @@ void AtlantikNetwork::writeData(QString msg)
 	kdDebug() << "sending [" << msg << "]" << endl;
 	msg.append("\n");
 	if (socketStatus() == KExtendedSocket::connected)
-		writeBlock(msg.latin1(), strlen(msg.latin1()));
+		*m_textStream << msg;
 	else
 		kdDebug() << "warning: socket not connected!" << endl;
 }
@@ -228,11 +236,7 @@ void AtlantikNetwork::slotRead()
 {
 	if (canReadLine())
 	{
-		char *tmp = new char[1024 * 32];
-		readLine(tmp, 1024 * 32);
-		processMsg(tmp);
-		delete[] tmp;
-
+		processMsg(m_textStream->readLine());
 		// There might be more data
 		QTimer::singleShot(0, this, SLOT(slotRead()));
 	}

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,12 +30,15 @@ class EstateGroup;
 class Trade;
 class Auction;
 
+class QTextStream;
+
 class AtlantikNetwork : public KExtendedSocket
 {
 Q_OBJECT
 
 public:
 	AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent=0, const char *name=0);
+	virtual ~AtlantikNetwork(void);
 	void setName(QString name);
 	void cmdGamesList();
 	void cmdChat(QString msg);
@@ -160,7 +163,7 @@ private:
 	void processNode(QDomNode);
 
 	AtlanticCore *m_atlanticCore;
-	QObject *m_parent;
+	QTextStream *m_textStream;
 	QDomDocument msg;
 
 	int m_playerId;
