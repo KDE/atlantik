@@ -56,7 +56,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	types.append("street");
 	types.append("rr");
 	types.append("utility");
-	types.append("communitychest");
+	types.append("cc");
 	types.append("chance");
 	types.append("freeparking");
 	types.append("tojail");
@@ -244,7 +244,7 @@ void AtlanticDesigner::save()
 		}
 		*/
 
-		t << QString("[%1]\ntype=%2\ncolor=%3\nbgcolor=%4\n").arg(estate->name().latin1()).arg(*types.at(estate->type())).arg(estate->color().name()).arg(estate->bgColor().name());
+		t << QString("[%1]\ntype=%2\ncolor=%3\nbgcolor=%4\n").arg(estate->name()).arg(*types.at(estate->type())).arg(estate->color().name()).arg(estate->bgColor().name());
 		if (estate->group() >= 0)
 			t << "group=" << estate->group() << endl;
 		if (estate->price() >= 0)
