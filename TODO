@@ -30,6 +30,7 @@ Bugfixes
 - when a token is hidden because it has no associated estate, store a reminder to show it when
   a suitable estate is initialised (iterate player, player->estateView == 0 && estateId ==
   player->location)
+- update token geometry when player's jail status changed
 
 For 0.3.0
 ---------
@@ -55,6 +56,7 @@ v fix portfolio
   - Chance/CC cards in portfolio
   v do some relayouting based on the estategroup order
 - multiplayer support (multiple local players)
+v decent copyright and license notice in code and headers
 
 For 0.3.1
 ---------
