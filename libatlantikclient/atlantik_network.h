@@ -127,8 +127,8 @@ signals:
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void gameListClear();
 	void gameListEndUpdate();
-	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);
-	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
+	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
+	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
 	void gameListDel(QString gameId);
 
 	void gameConfig();
