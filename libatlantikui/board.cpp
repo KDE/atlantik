@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -321,7 +321,9 @@ void AtlantikBoard::jumpToken(Token *token)
 	if (token == m_movingToken)
 	{
 		m_timer->stop();
-		m_movingToken = 0;
+
+		if (!m_resumeTimer)
+			m_movingToken = 0;
 	}
 
 	emit tokenConfirmation(token->location());
