@@ -83,7 +83,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_moneyBox = new QSpinBox(0, 10000, 1, m_updateComponentBox);
 
 	QPtrList<Player> playerList = m_atlanticCore->players();
-	Player *player;
+	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
 	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
@@ -95,7 +95,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
-		if ((player = *it))
+		if ((player = *it) && player->gameId() == pSelf->gameId())
 		{
 			m_playerFromCombo->insertItem(player->name());
 			m_playerFromMap[m_playerFromCombo->count() - 1] = player;
