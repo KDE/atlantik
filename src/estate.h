@@ -40,9 +40,9 @@ public:
 
 signals:
 	void changed();
-	void estateToggleMortgage(int estateId);
-	void estateHouseBuy(int estateId);
-	void estateHouseSell(int estateId);
+	void estateToggleMortgage(Estate *estate);
+	void estateHouseBuy(Estate *estate);
+	void estateHouseSell(Estate *estate);
 
 private:
 	bool m_changed;

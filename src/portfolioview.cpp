@@ -50,65 +50,22 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 	y = 0;
 }
 
+Player *PortfolioView::player()
+{
+	return m_player;
+}
+
 void PortfolioView::addEstateView(Estate *estate)
 {
 	kdDebug() << "PortfolioView::addEstateView(" << estate->estateId() << ")" << endl;
-
 	int estateId = estate->estateId();
+	kdDebug() << "estate:" << estateId << " canBeOwned:" << estate->canBeOwned() << " groupId:" << estate->groupId() << endl;
 	if (!estate->canBeOwned() || !estate->groupId())
 	{
 //		portfolioEstateMap[estateId]=0;
 		return;
 	}
 
-/*
-	// Don't ask, it works. ;-)
-	switch(estateId)
-	{
-		case 3: case 9:
-		case 14: case 19:
-		case 24: case 29:
-		case 34: case 39:
-			x = PE_MARGINW + (2*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(estateId/5));
-			y = PE_MARGINH + (0*PE_DISTH) + m_nameLabel->height();
-			break;
-
-		case 1: case 8:
-		case 13: case 18:
-		case 23: case 27:
-		case 32: case 37:
-			x = PE_MARGINW + (1*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(estateId/5));
-			y = PE_MARGINH + (1*PE_DISTH) + m_nameLabel->height();
-			break;
-
-		case 6: case 11:
-		case 16: case 21:
-		case 26: case 31:
-			x = PE_MARGINW + (0*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(estateId/5));
-			y = PE_MARGINH + (2*PE_DISTH) + m_nameLabel->height();
-			break;
-			
-		case 5: case 15:
-		case 25: case 35:
-			x = 5+((2+PE_WIDTH)*(estateId/10));
-			y = PE_HEIGHT + PE_MARGINH + (3*PE_DISTH) + m_nameLabel->height();
-			break;
-
-		case 12:
-			x = ((2+PE_WIDTH)*5);
-			y = PE_HEIGHT + PE_MARGINH + (3*PE_DISTH) + m_nameLabel->height();
-			break;
-
-		case 28:
-			x = ((2+PE_WIDTH)*6);
-			y = PE_HEIGHT + PE_MARGINH + (3*PE_DISTH) + m_nameLabel->height();
-			break;
-
-		default:
-			x = 0; y = 0;
-	}
-
-*/
 //	if ((estateId / 10) * 18 > y)
 //	{
 		y = 18 * (1 + (estateId / 10));
@@ -125,6 +82,7 @@ void PortfolioView::addEstateView(Estate *estate)
 	x = 5 + 16 * ((estateId-1) % 10);
 
 	// Create PE
+	kdDebug() << "creating PE" << endl;
 	PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 	portfolioEstateMap[estateId] = portfolioEstate;
 
@@ -208,7 +166,7 @@ void PortfolioView::playerChanged()
 	name.setNum(m_player->playerId());
 	name.append(". " + m_player->name());
 	m_nameLabel->setText(name);
-	m_moneyLabel->setText(m_player->money());
+	m_moneyLabel->setText(QString::number(m_player->money()));
 #warning add label change check
 	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? atlantik_dgray : atlantik_lgray);
 	m_nameLabel->update();

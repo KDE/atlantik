@@ -4,13 +4,65 @@
 #include "atlantik.h"
 
 #include "trade.h"
+#include "trade_widget.h"
 #include "estate.h"
 #include "player.h"
 
 GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, name)
 {
-	m_parentWindow = parent;
+	m_mainWindow = parent;
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
+}
+
+QPtrList<Player> GameNetwork::players() const
+{
+	return m_players;
+}
+
+QPtrList<Estate> GameNetwork::estates() const
+{
+	return m_estates;
+}
+
+QPtrList<Trade> GameNetwork::trades() const
+{
+	return m_trades;
+}
+
+Player *GameNetwork::getPlayer(int playerId)
+{
+	Player *player;
+	for (QPtrListIterator<Player> i(m_players); *i; ++i)
+	{
+		player = dynamic_cast<Player*>(*i);
+		if (player->playerId() == playerId)
+			return player;
+	}
+	return 0;
+}
+
+Estate *GameNetwork::getEstate(int estateId)
+{
+	Estate *estate;
+	for (QPtrListIterator<Estate> i(m_estates); *i; ++i)
+	{
+		estate = dynamic_cast<Estate*>(*i);
+		if (estate->estateId() == estateId)
+			return estate;
+	}
+	return 0;
+}
+
+Trade *GameNetwork::getTrade(int tradeId)
+{
+	Trade *trade;
+	for (QPtrListIterator<Trade> i(m_trades); *i; ++i)
+	{
+		trade = dynamic_cast<Trade*>(*i);
+		if (trade->tradeId() == tradeId)
+			return trade;
+	}
+	return 0;
 }
 
 void GameNetwork::roll()
@@ -199,7 +251,7 @@ void GameNetwork::processNode(QDomNode n)
 					if (a.value() == "error")
 						emit msgError(e.attributeNode(QString("value")).value());
 					else if (a.value() == "info")
-						m_parentWindow->serverMsgsAppend( e.attributeNode(QString("value")).value() );
+						m_mainWindow->serverMsgsAppend( e.attributeNode(QString("value")).value() );
 					else if (a.value() == "chat")
 						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
 					else if (a.value() == "startgame")
@@ -271,14 +323,27 @@ void GameNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "client")
 			{
 				a = e.attributeNode(QString("playerid"));
-				if (!a.isNull())
-					emit setPlayerId(a.value().toInt());
+				Player *player;
+				if (!a.isNull() && (player = getPlayer(a.value().toInt())))
+					player->setIsSelf(true);
 			}
 			else if (e.tagName() == "newturn")
 			{
-				// Find out which player has the turn now
-				int player = e.attributeNode(QString("player")).value().toInt();
-				emit setTurn(player);
+				Player *player = getPlayer(e.attributeNode(QString("player")).value().toInt());
+				if (player)
+				{
+					// Update all objects
+					Player *p;
+					for (QPtrListIterator<Player> i(m_players); *i; ++i)
+					{
+						p = dynamic_cast<Player*>(*i);
+						if (p)
+							p->setHasTurn(p==player);
+					}
+
+					// Update view(s)
+					m_mainWindow->setTurn(player);
+				}
 			}
 			else if (e.tagName() == "gameupdate")
 			{
@@ -296,7 +361,7 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "playerupdate")
 			{
-				int playerId = -1, location = -1;
+				int playerId = -1;
 				bool directmove = false;
 
 				a = e.attributeNode(QString("playerid"));
@@ -304,39 +369,54 @@ void GameNetwork::processNode(QDomNode n)
 				{
 					playerId = a.value().toInt();
 
-					// Create player object and view
-					emit playerInit(playerId);
+					Player *player;
+					bool newPlayer = false;
+					if (!(player = getPlayer(playerId)))
+					{
+						// Create player object
+						player = new Player(playerId);
+						m_players.append(player);
+
+						newPlayer = true;
+					}
 
 					// Update player name
 					a = e.attributeNode(QString("name"));
-					if (!a.isNull())
-						emit msgPlayerUpdateName(playerId, a.value());
+					if (player && !a.isNull())
+						player->setName(a.value());
 
 					// Update player money
 					a = e.attributeNode(QString("money"));
-					if (!a.isNull())
-						emit msgPlayerUpdateMoney(playerId, a.value());
+					if (player && !a.isNull())
+						player->setMoney(a.value().toInt());
 
+					// Update whether player is jailed
 					a = e.attributeNode(QString("jailed"));
-					if (!a.isNull())
-						emit msgPlayerUpdateJailed(playerId, a.value());
+					if (player && !a.isNull())
+						player->setInJail(a.value());
 
 					// Update player location
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
-						location = a.value().toInt();
-
-					if (location != -1)
 					{
+						int location = a.value().toInt();
+
 						a = e.attributeNode(QString("directmove"));
 						if (!a.isNull())
 							directmove = a.value().toInt();
 
-						emit msgPlayerUpdateLocation(playerId, location, directmove);
+						player->setLocation(location);
 					}
 
-					kdDebug() << "emit playerUpdateFinished(" << playerId << ")" << endl;
-					emit playerUpdateFinished(playerId);
+					// Create view(s)
+					if (newPlayer)
+					{
+						kdDebug() << "telling mainwindow to create new player view:" << player->playerId() << endl;
+						m_mainWindow->addPlayer(player);
+					}
+
+					if (player)
+						player->update();
 				}
 			}
 			else if (e.tagName() == "estateupdate")
@@ -351,56 +431,75 @@ void GameNetwork::processNode(QDomNode n)
 					estateId = a.value().toInt();
 					kdDebug() << "ESTATEUPDATE id " << estateId << endl;
 
-					// Create estate object and view
-					kdDebug() << "emit estateInit(" << estateId << ")" << endl;
-					emit estateInit(estateId);
+					Estate *estate;
+					bool newEstate = false;
+					if (!(estate = getEstate(estateId)))
+					{
+						// Create estate object
+						estate = new Estate(estateId);
+						m_estates.append(estate);
+
+						connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
+						connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
+						connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
+
+						newEstate = true;
+					}
 
 					a = e.attributeNode(QString("name"));
-					if (!a.isNull())
-						emit msgEstateUpdateName(estateId, a.value());
+					if (estate && !a.isNull())
+						estate->setName(a.value());
 
 					a = e.attributeNode(QString("color"));
-					if (!a.isNull() && !a.value().isEmpty())
-						emit msgEstateUpdateColor(estateId, a.value());
+					if (estate && !a.isNull() && !a.value().isEmpty())
+						estate->setColor(a.value());
 
 					a = e.attributeNode(QString("bgcolor"));
-					if (!a.isNull())
-						emit msgEstateUpdateBgColor(estateId, a.value());
+					if (estate && !a.isNull())
+						estate->setBgColor(a.value());
 
 					a = e.attributeNode(QString("owner"));
-					if (!a.isNull())
-						emit msgEstateUpdateOwner(estateId, a.value().toInt());
+					Player *player;
+					if (estate && !a.isNull() && (player = getPlayer(a.value().toInt())))
+						estate->setOwner(player);
 
 					a = e.attributeNode(QString("houses"));
-					if (!a.isNull())
-						emit msgEstateUpdateHouses(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setHouses(a.value().toInt());
 
 					a = e.attributeNode(QString("mortgaged"));
-					if (!a.isNull())
-						emit msgEstateUpdateMortgaged(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setIsMortgaged(a.value().toInt());
 
 					a = e.attributeNode(QString("groupid"));
-					if (!a.isNull())
-						emit msgEstateUpdateGroupId(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setGroupId(a.value().toInt());
 
 					a = e.attributeNode(QString("can_toggle_mortgage"));
-					if (!a.isNull())
-						emit msgEstateUpdateCanToggleMortgage(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setCanToggleMortgage(a.value().toInt());
 
 					a = e.attributeNode(QString("can_be_owned"));
-					if (!a.isNull())
-						emit msgEstateUpdateCanBeOwned(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setCanBeOwned(a.value().toInt());
 
 					a = e.attributeNode(QString("can_buy_houses"));
-					if (!a.isNull())
-						emit estateUpdateCanBuyHouses(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setCanBuyHouses(a.value().toInt());
 
 					a = e.attributeNode(QString("can_sell_houses"));
-					if (!a.isNull())
-						emit estateUpdateCanSellHouses(estateId, a.value().toInt());
+					if (estate && !a.isNull())
+						estate->setCanSellHouses(a.value().toInt());
 
-					kdDebug() << "emit estateUpdateFinished(" << estateId << ")" << endl;
-					emit estateUpdateFinished(estateId);
+					// Create view(s)
+					if (newEstate)
+					{
+						kdDebug() << "telling mainwindow to create new estate view:" << estate->estateId() << endl;
+						m_mainWindow->addEstate(estate);
+					}
+
+					if (estate)
+						estate->update();
 				}
 			}
 			else if (e.tagName() == "tradeupdate")
@@ -409,14 +508,24 @@ void GameNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					int tradeId = a.value().toInt();
-					kdDebug() << "TRADEUPDATE id " << tradeId << endl;
 
-					// Create trade object and view
-					kdDebug() << "emit tradeInit(" << tradeId << ")" << endl;
-					emit tradeInit(tradeId);
+					Trade *trade;
+					if (!(trade = getTrade(tradeId)))
+					{
+						// Create trade object and view
+						trade = new Trade(this, tradeId);
+						m_trades.append(trade);
+
+						TradeDisplay *tradeDisplay = new TradeDisplay(trade, 0, "tradeDisplay");
+						tradeDisplay->setFixedSize(200, 200);
+						tradeDisplay->show();
+						
+						connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+
+						// m_board->addTradeView(trade);
+					}
 
 					QString type = e.attributeNode(QString("type")).value();
-
 					if (type=="new")
 					{
 						emit tradeUpdateActor(tradeId, e.attributeNode(QString("actor")).value().toInt());
@@ -427,8 +536,9 @@ void GameNetwork::processNode(QDomNode n)
 							QDomElement e_player = n_player.toElement();
 							if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
 							{
-								kdDebug() << "emit tradeUpdatePlayerAdd" << endl;
-								emit tradeUpdatePlayerAdd(tradeId, e_player.attributeNode(QString("playerid")).value().toInt());
+								Player *player = getPlayer(e_player.attributeNode(QString("playerid")).value().toInt());
+								if (trade && player)
+									trade->addPlayer(player);
 							}
 							n_player = n_player.nextSibling();
 						}
@@ -450,7 +560,7 @@ void GameNetwork::processNode(QDomNode n)
 
 										a = e.attributeNode(QString("accept"));
 										if (!a.isNull())
-											emit msgTradeUpdatePlayerAccept(tradeId, playerId, (bool)(a.value().toInt()));
+											emit msgTradeUpdatePlayerAccept(trade->tradeId(), playerId, (bool)(a.value().toInt()));
 									}
 								}
 								else if (e_child.tagName() == "tradeestate")
@@ -458,12 +568,31 @@ void GameNetwork::processNode(QDomNode n)
 									a = e.attributeNode(QString("estateid"));
 									if (!a.isNull())
 									{
-										int estateId = a.value().toInt();
-
+										Estate *estate = getEstate(a.value().toInt());
 										a = e.attributeNode(QString("targetplayer"));
 										if (!a.isNull())
-											emit tradeUpdateEstate(tradeId, estateId, (a.value().toInt()));
+										{
+											Player *player = getPlayer(a.value().toInt());
+											if (trade && estate)
+												trade->updateEstate(estate, player);
+										}
 									}
+								}
+								else if (e_child.tagName() == "trademoney")
+								{
+									Player *pFrom = 0, *pTo = 0;
+
+									a = e.attributeNode(QString("playerfrom"));
+									if (!a.isNull())
+										pFrom = getPlayer(a.value().toInt());
+
+									a = e.attributeNode(QString("playerto"));
+									if (!a.isNull())
+										pTo = getPlayer(a.value().toInt());
+
+									a = e.attributeNode(QString("money"));
+									if (trade && pFrom && pTo && !a.isNull())
+										trade->updateMoney(pFrom, pTo, a.value().toInt());
 								}
 							}
 							n_child = n_child.nextSibling();
@@ -476,7 +605,9 @@ void GameNetwork::processNode(QDomNode n)
 					else if (type=="rejected")
 						emit msgTradeUpdateRejected(tradeId, e.attributeNode(QString("actor")).value().toInt());
 
-					emit tradeUpdateFinished(tradeId);
+#warning create trade->update()
+//					if (trade)
+//						trade->update();
 				}
 			}
 			else

@@ -23,8 +23,8 @@ public:
 	bool inJail() const { return m_inJail; }
 	void setName(const QString _n);
 	QString name() const { return m_name; }
-	void setMoney(const QString _m);
-	QString money() const { return m_money; }
+	void setMoney(unsigned int _m);
+	unsigned int money() const { return m_money; }
 	void update(bool force = false);
 
 signals:
@@ -33,8 +33,9 @@ signals:
 private:
 	bool m_changed;
 	int m_playerId, m_location;
+	unsigned int m_money;
 	bool m_isSelf, m_hasTurn, m_inJail;
-	QString m_name, m_money;
+	QString m_name;
 };
 
 #endif

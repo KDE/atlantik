@@ -113,9 +113,9 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	estateViewMap[estateId] = estateView;
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
-	connect(estateView, SIGNAL(estateToggleMortgage(int)), estate, SIGNAL(estateToggleMortgage(int)));
-	connect(estateView, SIGNAL(estateHouseBuy(int)), estate, SIGNAL(estateHouseBuy(int)));
-	connect(estateView, SIGNAL(estateHouseSell(int)), estate, SIGNAL(estateHouseSell(int)));
+	connect(estateView, SIGNAL(estateToggleMortgage(Estate *)), estate, SIGNAL(estateToggleMortgage(Estate *)));
+	connect(estateView, SIGNAL(estateHouseBuy(Estate *)), estate, SIGNAL(estateHouseBuy(Estate *)));
+	connect(estateView, SIGNAL(estateHouseSell(Estate *)), estate, SIGNAL(estateHouseSell(Estate *)));
 
 	if (estateId<10)
 		m_gridLayout->addWidget(estateView, 10, 10-estateId);

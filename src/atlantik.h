@@ -5,6 +5,7 @@
 #include <qlayout.h>
 #include <qtextedit.h>
 #include <qlabel.h>
+#include <qptrlist.h>
 
 #include <kmainwindow.h>
 #include <kaction.h>
@@ -13,13 +14,15 @@
 #include "network.h"
 #include "portfolioview.h"
 #include "board.h"
-#include "player.h"
 #include "estate.h"
 #include "trade.h"
 
 class SelectServer;
 class SelectGame;
 class SelectConfiguration;
+
+class Player;
+class Estate;
 
 /**
  * Main Atlantik window.
@@ -51,11 +54,18 @@ public:
 	 */
 	void serverMsgsAppend(QString msg);
 
-/*
-	Trade *tradeWithId(int);
-	Estate *estateWithId(int);
-	Player *playerWithId(int);
-*/
+	void addPlayer(Player *);
+	void addEstate(Estate *);
+
+	/**
+	 * Updates various visualisation parts of the player at turn. If
+	 * playerId matches the stored playerId, toolbar buttons are
+	 * enabled, otherwise disabled. Raises the appropriate token on the
+	 * gameboard and visualises player at turn in the portfolioview.
+	 *
+	 * @param playerId Player identifier.
+	 */
+	void setTurn(Player *player);
 
 public slots:
 	/**
@@ -136,94 +146,6 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
-	void slotMsgPlayerUpdateLocation(int playerId, int estateId, bool);
-
-	/**
-	 * Updates the playername label in the appropriate player portfolio.
-	 *
-	 * @param playerId Player identifier.
-	 * @param name     Player name.
-	 */
-	void slotMsgPlayerUpdateName(int playerId, QString name);
-
-	void slotMsgPlayerUpdateJailed(int playerId, bool inJail);
-
-	/**
-	 * Updates the money label in the appropriate player portfolio.
-	 *
-	 * @param playerId Player identifier.
-	 * @param name     Amount of money.
-	 */
-	void slotMsgPlayerUpdateMoney(int playerId, QString money);
-
-	/**
-	 * Updates whether an estateview is owned in the appropriate player
-	 * portfolio and calls the appropriate method for the gameboard
-	 * member.
-	 *
-	 * @param estateId Estate identifier.
-	 * @param playerId Player identifier. A value of -1 equals unowned.
-	 */
-	void slotMsgEstateUpdateOwner(int estateId, int playerId);
-
-	void slotMsgEstateUpdateName(int, QString);
-	void slotMsgEstateUpdateColor(int, QString);
-	void slotMsgEstateUpdateBgColor(int, QString);
-	void slotMsgEstateUpdateHouses(int, int);
-	void slotMsgEstateUpdateGroupId(int, int);
-	void slotMsgEstateUpdateMortgaged(int, bool);
-	void slotMsgEstateUpdateCanToggleMortgage(int, bool);
-
-	/**
-	 * Tells estate object whether it can be owned or not.
-	 *
-	 * @param estateId Estate identifier.
-	 * @param canBeOwned Boolean.
-	 */
-	void slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned);
-
-	void slotEstateUpdateCanBuyHouses(int estateId, bool canBuyHouses);
-	void slotEstateUpdateCanSellHouses(int estateId, bool canSellHouses);
-
-	void slotEstateUpdateFinished(int estateId);
-	void slotPlayerUpdateFinished(int playerId);
-
-	void slotTradeUpdatePlayerAdd(int tradeId, int playerId);
-	void slotTradeUpdateEstate(int tradeId, int estateId, int playerId);
-	void slotTradeUpdateMoney(int tradeId, int playerFromId, int playerToId, unsigned int money);
-
-	/**
-	 * Stores the playerId corresponding to this instance of the client.
-	 *
-	 * @param playerId Player identifier.
-	 */
-	void slotSetPlayerId(int playerId);
-
-	/**
-	 * Updates various visualisation parts of the player at turn. If
-	 * playerId matches the stored playerId, toolbar buttons are
-	 * enabled, otherwise disabled. Raises the appropriate token on the
-	 * gameboard and visualises player at turn in the portfolioview.
-	 *
-	 * @param playerId Player identifier.
-	 */
-	void slotSetTurn(int playerId);
-
-	/**
-	 * A new player object and view must be initialized.
-	 *
-	 * @param playerId Playerid as used by the server daemon.
-	 */
-	 void slotPlayerInit(int playerId);
-
-	/**
-	 * A new estate object and view must be initialized.
-	 *
-	 * @param estateId Estateid as used by the server daemon.
-	 */
-	 void slotEstateInit(int estateId);
-
-	void slotTradeInit(int tradeid);
 
 private:
 	QWidget *m_mainWidget, *m_portfolioWidget;
@@ -246,10 +168,7 @@ private:
 	SelectGame *m_selectGame;
 	SelectConfiguration *m_selectConfiguration;
 
-	QMap<int, Player *> playerMap;
-	QMap<int, Estate *> estateMap;
-	QMap<int, Trade *> tradeMap;
-	QMap<int, PortfolioView *> portfolioMap;
+	QPtrList<PortfolioView> m_portfolioViews;
 };
 
 #endif

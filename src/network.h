@@ -4,7 +4,6 @@
 #include <qsocket.h>
 #include <qdom.h>
 #include <qptrlist.h>
-#include <qmap.h>
 
 class Atlantik;
 
@@ -23,6 +22,14 @@ public:
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
+
+	QPtrList<Estate> estates() const;
+	QPtrList<Player> players() const;
+	QPtrList<Trade> trades() const;
+
+	Player *getPlayer(int playerId);
+	Estate *getEstate(int estateId);
+	Trade *getTrade(int tradeId);
 
 private slots:
 	void roll();
@@ -68,40 +75,7 @@ signals:
 	void playerListEdit(QString, QString, QString);
 	void playerListDel(QString);
 
-	void msgPlayerUpdateName(int, QString);
-	void msgPlayerUpdateMoney(int, QString);
-	void msgPlayerUpdateJailed(int, bool);
-	void msgPlayerUpdateLocation(int, int, bool);
-	void playerUpdateFinished(int);
-	void msgEstateUpdateName(int, QString);
-	void msgEstateUpdateColor(int, QString);
-	void msgEstateUpdateBgColor(int, QString);
-	void msgEstateUpdateOwner(int, int);
-	void msgEstateUpdateHouses(int, int);
-	void msgEstateUpdateGroupId(int, int);
-	void msgEstateUpdateMortgaged(int, bool);
-	void msgEstateUpdateCanToggleMortgage(int, bool);
-	void msgEstateUpdateCanBeOwned(int, bool);
-	void estateUpdateCanBuyHouses(int, bool);
-	void estateUpdateCanSellHouses(int, bool);
-	void estateUpdateFinished(int);
-
-	/**
-	 * A new trade is created on the server or a current one is being updated.
-	 *
-	 * @param tradeId  Unique identifier of the trade
-	 */
-	void tradeInit(int tradeId);
-
 	void tradeUpdateActor(int tradeId, int playerId);
-
-	/**
-	 * A player should be added to the trade.
-	 *
-	 * @param tradeId  Unique identifier of the trade
-	 * @param playerId Player participating in the trade
-	 */
-	void tradeUpdatePlayerAdd(int tradeId, int playerId);
 
 	/**
 	 * Information from server whether a player accepts the trade as is.
@@ -111,25 +85,6 @@ signals:
 	 * @param accept   Whether the player accepts or not
 	 */
 	void msgTradeUpdatePlayerAccept(int tradeId, int playerId, bool accept);
-
-	/**
-	 * Information from server about the amount of money a player brings
-	 * into a trade.
-	 *
-	 * @param tradeId  Unique trade identifier
-	 * @param playerId Unique player identifier
-	 * @param money    Amount of money
-	 */
-	void tradeUpdateMoney(int tradeId, int playerFromId, int playerToId, unsigned int money);
-
-	/**
-	 * Information from server whether an estate is included in a trade or not.
-	 *
-	 * @param tradeId  Unique trade identifier
-	 * @param estateId Unique estate identifier
-	 * @param playerId Unique player identifier, -1 for no player (not included in trade)
-	 */
-	void tradeUpdateEstate(int tradeId, int estateId, int playerId);
 
 	/**
 	 * The trade has been accepted by all players!
@@ -155,33 +110,17 @@ signals:
 	 */
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
-	void tradeUpdateFinished(int tradeId);
-
-	/**
-	 * A new player object must be initialized.
-	 *
-	 * @param playerId Playerid for the new object
-	 */
-	void playerInit(int playerId);
-
-	/**
-	 * A new estate object must be initialized.
-	 *
-	 * @param estateId Estateid for the new object
-	 */
-	void estateInit(int estateId);
-
-	void setPlayerId(int);
-	void setTurn(int);
-
 private:
 	void writeData(QString msg);
 	void processMsg(QString);
 	void processNode(QDomNode);
 
-	Atlantik *m_parentWindow;
+	Atlantik *m_mainWindow;
 	QDomDocument msg;
-//	QPtrList<PortfolioView> portfolioViewList;
+
+	QPtrList<Player> m_players;
+	QPtrList<Estate> m_estates;
+	QPtrList<Trade> m_trades;
 };
 
 extern GameNetwork *gameNetwork;

@@ -45,7 +45,7 @@ void Player::setName(const QString _n)
 	}
 }
 
-void Player::setMoney(const QString _m)
+void Player::setMoney(unsigned int _m)
 {
 	if (m_money != _m)
 	{
