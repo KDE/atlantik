@@ -27,7 +27,7 @@ Player::Player(int playerId) : QObject()
 	m_name = "";
 	m_host = "";
 	m_changed = m_isSelf = false;
-	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
+	m_bankrupt = m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }
 
 void Player::setGame(int gameId)
@@ -53,6 +53,15 @@ void Player::setDestination(Estate *destination)
 	if (m_destination != destination)
 	{
 		m_destination = destination;
+		m_changed = true;
+	}
+}
+
+void Player::setBankrupt(bool bankrupt)
+{
+	if (m_bankrupt != bankrupt)
+	{
+		m_bankrupt = bankrupt;
 		m_changed = true;
 	}
 }

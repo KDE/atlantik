@@ -206,6 +206,8 @@ void AtlantikBoard::playerChanged(Player *player)
 	Token *token = findToken(player);
 	if (token)
 	{
+		if (player->isBankrupt())
+			token->hide();
 		if (player->hasTurn())
 			token->raise();
 
@@ -269,14 +271,15 @@ void AtlantikBoard::jumpToken(Token *token)
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
 
-	if (Player *player = token->player())
+	Player *player = token->player();
+	if (player)
 	{
 		player->setLocation(token->location());
 		player->setDestination(0);
-	}
 
-	if (token->isHidden())
-		token->show();
+		if (token->isHidden() && !player->isBankrupt())
+			token->show();
+	}
 
 	if (token == m_movingToken)
 	{

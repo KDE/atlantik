@@ -5,6 +5,8 @@
   after starting a game
 - removed buggy trademap in network code for decent ptrlist in core
 - memory management: reset complete core when going to select server page
+- store reconnection cookie
+- hide token when player goes bankrupt
 
 0.5.2
 -----
