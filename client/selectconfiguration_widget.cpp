@@ -140,7 +140,7 @@ void SelectConfiguration::connectPressed()
 		"You cannot start a game at the moment."
 		));
 
-	KPushButton *button = new KPushButton(i18n("Ok"), m_messageBox, "button");
+	KPushButton *button = new KPushButton(i18n("OK"), m_messageBox, "button");
 
 	m_playerBox->setEnabled(false);
 	m_configBox->setEnabled(false);
