@@ -7,7 +7,7 @@
 #include <kdialogbase.h>
 #include <kcolorbutton.h>
 #include <qlineedit.h>
-#include <qgroupbox.h>
+#include <qvgroupbox.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <qlayout.h>
@@ -105,7 +105,7 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 
 	layout->addStretch(2);
 
-	QGroupBox *colorGroupBox = new QGroupBox(m_center);
+	QVGroupBox *colorGroupBox = new QVGroupBox(i18n("Colors"), m_center);
 	layout->addWidget(colorGroupBox);
 	
 	QGridLayout *colorLayout = new QGridLayout(colorGroupBox, 2, 2, 6);
@@ -199,6 +199,36 @@ void EstateEdit::configure()
 		break;
 	}
 	dialog->show();
+}
+
+bool EstateEdit::upArrow()
+{
+	return (nameEdit->hasFocus() || typeCombo->hasFocus());
+}
+
+bool EstateEdit::downArrow()
+{
+	return upArrow();
+}
+
+bool EstateEdit::leftArrow()
+{
+	if (nameEdit->hasFocus())
+	{
+		nameEdit->setCursorPosition(nameEdit->cursorPosition() - 1);
+		return true;
+	}
+	return false;
+}
+
+bool EstateEdit::rightArrow()
+{
+	if (nameEdit->hasFocus())
+	{
+		nameEdit->setCursorPosition(nameEdit->cursorPosition() + 1);
+		return true;
+	}
+	return false;
 }
 
 /////////////////////////////////

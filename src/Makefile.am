@@ -16,7 +16,7 @@ KDE_ICON = atlantik
 
 METASOURCES = AUTO 
 
-data_DATA = defaultcity.conf
+data_DATA = defaultcity.conf designerui.rc
 datadir = $(kde_datadir)/atlantik
 
 messages: rc.cpp

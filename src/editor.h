@@ -56,6 +56,10 @@ class EstateEdit : public AtlantikBoard
 	public:
 	EstateEdit(QWidget *parent = 0, const char *name = 0);
 	ConfigEstate *theEstate() { return estate; }
+	bool upArrow();
+	bool downArrow();
+	bool leftArrow();
+	bool rightArrow();
 	
 	public slots:
 	void setEstate(ConfigEstate *);

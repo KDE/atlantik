@@ -27,7 +27,6 @@
 
 AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
-	max = 40;
 	estates.setAutoDelete(true);
 
 	editor = new EstateEdit(this, "Estate Editor");
@@ -41,21 +40,21 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	(void) KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
 	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
-	(void) KStdAction::copy(this, SLOT(copy()), actionCollection());
-	(void) KStdAction::paste(this, SLOT(paste()), actionCollection());
 
 	(void) new KAction(i18n("&Larger"), "zoom+", 0, this, SLOT(larger()), actionCollection(), "larger");
 	(void) new KAction(i18n("&Smaller"), "zoom-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
+	(void) KStdAction::copy(this, SLOT(copy()), actionCollection());
+	(void) KStdAction::paste(this, SLOT(paste()), actionCollection());
+	(void) new KAction(i18n("&Up"), Key_Up, this, SLOT(up()), actionCollection(), "up");
+	(void) new KAction(i18n("&Down"), Key_Down, this, SLOT(down()), actionCollection(), "down");
+	(void) new KAction(i18n("&Left"), Key_Left, this, SLOT(left()), actionCollection(), "left");
+	(void) new KAction(i18n("&Right"), Key_Right, this, SLOT(right()), actionCollection(), "right");
 
 	recentAct = KStdAction::openRecent(0, 0, actionCollection());
 	connect(recentAct, SIGNAL(urlSelected(const KURL &)), this, SLOT(openRecent(const KURL &)));
 	recentAct->loadEntries(KGlobal::config());
 
 	estateAct = new KListAction(i18n("Change estate"), 0, 0, 0, actionCollection(), "estate_num");
-	QStringList estates;
-	for (int i = 1; i <= max; i++)
-		estates.append(i18n("Jump to estate %1").arg(QString::number(i)));
-	estateAct->setItems(estates);
 	connect(estateAct, SIGNAL(activated(int)), SLOT(changeEstate(int)));
 
 	createGUI("designerui.rc");
@@ -154,9 +153,10 @@ void AtlanticDesigner::openFile(const QString &filename)
 	QTextStream t(&f);
 	QString s;
 
-	for (int i = 0; !t.atEnd(); i++)
+	int i;
+	for (i = 0; !t.atEnd(); i++)
 	{
-		QString tmps = (i == 0? t.readLine().stripWhiteSpace() : s);
+		QString tmps = (i == 0? t.readLine() : s).stripWhiteSpace();
 		QString name;
 		name = tmps.left(tmps.find("]"));
 		name = name.right(name.length() - name.find("[") - 1);
@@ -265,17 +265,28 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 		editor->addEstateView(estate);
 	}
+
+	max = i;
 	
 	editor->setEstate(estates.first());
 
-	// our superstar!
 	delete m_player;
+	// our superstar!
 	m_player = new Player(1);
 	editor->addToken(m_player);
 	QTimer::singleShot(1000, this, SLOT(setPlayerAtBeginning()));
 
 	isMod = false;
 	doCaption(false);
+	updateJumpMenu();
+}
+
+void AtlanticDesigner::updateJumpMenu()
+{
+	QStringList estates;
+	for (int i = 1; i <= max; i++)
+		estates.append(i18n("Jump to estate %1").arg(QString::number(i)));
+	estateAct->setItems(estates);
 }
 
 void AtlanticDesigner::setPlayerAtBeginning()
@@ -391,7 +402,7 @@ void AtlanticDesigner::changeEstate(int index)
 	(void) editor->saveEstate();
 
 	editor->setEstate(estates.at(index));
-	movePlayer(estates.at(index + 1));
+	movePlayer(estates.at(index));
 }
 
 void AtlanticDesigner::changeEstate(Estate *estate)
@@ -410,7 +421,8 @@ void AtlanticDesigner::movePlayer(Estate *estate)
 	m_player->setLocation(estate);
 	m_player->update();
 
-	estateAct->setCurrentItem(estate->estateId() - 1);
+	estateAct->setCurrentItem(estate->estateId());
+	editor->setFocus();
 }
 
 void AtlanticDesigner::larger()
@@ -432,6 +444,76 @@ void AtlanticDesigner::modified()
 void AtlanticDesigner::doCaption(bool modified)
 {
 	setCaption(i18n("Atlantic gameboard editor"), modified);
+}
+
+// now some fun functions ;)
+
+void AtlanticDesigner::up()
+{
+	if (editor->upArrow())
+		return;
+	int fourth = max / 4;
+	int estateId = editor->theEstate()->estateId() + 1;
+	int dest = estateId - 1;
+
+	if (estateId <= 2*fourth && estateId > fourth) // left side
+		dest++;
+	else if (estateId > (3*fourth + 1)) // right side
+		dest--;
+	else if (estateId == 1)
+		dest = max - 1;
+
+	changeEstate(dest);
+}
+
+void AtlanticDesigner::down()
+{
+	if (editor->downArrow())
+		return;
+	int fourth = max / 4;
+	int estateId = editor->theEstate()->estateId() + 1;
+	int dest = estateId - 1;
+
+	if (estateId <= (2*fourth + 1) && estateId > (fourth + 1)) // left side
+		dest--;
+	else if (estateId > 3*fourth && estateId < max) // right side
+		dest++;
+	else if (estateId == max)
+		dest = 0;
+
+	changeEstate(dest);
+}
+
+void AtlanticDesigner::left()
+{
+	if (editor->leftArrow())
+		return;
+	int fourth = max / 4;
+	int estateId = editor->theEstate()->estateId() + 1;
+	int dest = estateId - 1;
+
+	if (estateId <= fourth) // bottom
+		dest++;
+	else if (estateId > (2*fourth + 1) && estateId <= (3*fourth + 1)) // top
+		dest--;
+
+	changeEstate(dest);
+}
+
+void AtlanticDesigner::right()
+{
+	if (editor->rightArrow())
+		return;
+	int fourth = max / 4;
+	int estateId = editor->theEstate()->estateId() + 1;
+	int dest = estateId - 1;
+
+	if (estateId <= (fourth + 1) && estateId != 1) // bottom
+		dest--;
+	else if (estateId > 2*fourth && estateId <= 3*fourth) // top
+		dest++;
+
+	changeEstate(dest);
 }
 
 #include "designer.moc"

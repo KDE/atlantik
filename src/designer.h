@@ -41,8 +41,15 @@ class AtlanticDesigner : public KMainWindow
 	void movePlayer(Estate *);
 	void setPlayerAtBeginning();
 
+	void up();
+	void down();
+	void left();
+	void right();
+
 	void smaller();
 	void larger();
+
+	void updateJumpMenu();
 
 	private:
 	void openFile(const QString &);
