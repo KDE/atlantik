@@ -98,17 +98,18 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 			case 5: case 15:
 			case 25: case 35:
 				x = 5+((2+PE_WIDTH)*(i/10));
-				y = 26+lname->height();
+				y = PE_HEIGHT + PE_MARGINH + lname->height();
+				+lname->height();
 				break;
 
 			case 12:
 				x = ((2+PE_WIDTH)*5);
-				y = 26+lname->height();
+				y = PE_HEIGHT + PE_MARGINH + lname->height();
 				break;
 
 			case 28:
 				x = ((2+PE_WIDTH)*6);
-				y = 26+lname->height();
+				y = PE_HEIGHT + PE_MARGINH + lname->height();
 				break;
 
 			default:

@@ -27,6 +27,11 @@ bool ConfigDialog::indicateUnowned()
 	return configBoard->m_indicateUnowned->isChecked();
 }
 
+bool ConfigDialog::grayOutMortgaged()
+{
+	return configBoard->m_grayOutMortgaged->isChecked();
+}
+
 bool ConfigDialog::animateToken()
 {
 	return configBoard->m_animateToken->isChecked();
@@ -73,6 +78,15 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 		"property is for sale.\n");
 	QWhatsThis::add(m_indicateUnowned, message);
 
+	m_grayOutMortgaged = new QCheckBox(i18n("Gray out mortgaged properties"), box);
+
+	message=i18n(
+		"Gray out mortgaged properties\n\n"
+		"If checked, mortgaged properties on the board\n"
+		"will be coloured gray instead of the default\n"
+		"colour.\n");
+	QWhatsThis::add(m_grayOutMortgaged, message);
+
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
 
 	message=i18n(
@@ -92,5 +106,6 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 void ConfigBoard::reset()
 {
 	m_indicateUnowned->setChecked(kmonopConfig.indicateUnowned);
+	m_grayOutMortgaged->setChecked(kmonopConfig.grayOutMortgaged);
 	m_animateToken->setChecked(kmonopConfig.animateToken);
 }

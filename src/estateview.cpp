@@ -2,22 +2,29 @@
 #include <qpainter.h>
 #include <qtimer.h>
 #include <qwmatrix.h>
+#include <qpopupmenu.h>
 
 #warning remove iostream output
 #include <iostream.h>
 
 #include <kstddirs.h>
+#include <kpopupmenu.h>
 
 #include "estateview.h"
+#include "network.h"
 #include "config.h"
 
 extern QColor kmonop_greenbg, kmonop_redhotel, kmonop_greenhouse;
+extern QColor kmonop_lgray;
 extern KMonopConfig kmonopConfig;
 
-EstateView::EstateView(int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
+	m_id = id;
 	m_orientation = orientation;
 	m_canBeOwned = canBeOwned;
+	m_owned = false;
+	m_mortgaged = false;
 	m_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
@@ -90,7 +97,12 @@ void EstateView::setHouses(int _h)
 
 void EstateView::setMortgaged(bool _m)
 {
-	m_mortgaged = _m;
+	if (m_mortgaged != _m)
+	{
+		m_mortgaged = _m;
+		b_recreate = true;
+		update();
+	}
 }
 
 void EstateView::setOwned(bool _o)
@@ -98,6 +110,9 @@ void EstateView::setOwned(bool _o)
 	m_owned = _o;
 	updatePE();
 }
+
+bool EstateView::mortgaged() { return m_mortgaged; }
+bool EstateView::owned() { return m_owned; }
 
 void EstateView::updatePE()
 {
@@ -125,6 +140,12 @@ void EstateView::updatePE()
 	}
 }
 
+void EstateView::updateMortgaged()
+{
+	b_recreate = true;
+    update();
+}
+
 void EstateView::centerPortfolioEstate()
 {
 	if (pe!=0)
@@ -142,7 +163,12 @@ void EstateView::paintEvent(QPaintEvent *)
 		painter.begin(qpixmap, this);
 
 		painter.setPen(Qt::black);
-		painter.setBrush(kmonop_greenbg);
+
+		if (kmonopConfig.grayOutMortgaged==true && m_mortgaged)
+			painter.setBrush(kmonop_lgray);
+		else
+			painter.setBrush(kmonop_greenbg);
+
 		painter.drawRect(rect());
         
 		// Paint icon only when it exists and fits
@@ -251,7 +277,52 @@ void EstateView::resizeEvent(QResizeEvent *)
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
+void EstateView::mousePressEvent(QMouseEvent *e) 
+{
+	if (e->button()==RightButton)
+	{
+		KPopupMenu *rmbMenu = new KPopupMenu(this);
+		rmbMenu->insertTitle(estatename);
+		if (mortgaged())
+			rmbMenu->insertItem("Unmortgage", 0);
+		else
+			rmbMenu->insertItem("Mortgage", 0);
+
+		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
+//		rmbMenu->exec(QPoint(geometry.x(), geometry.y()));
+//		rmbMenu->exec(QPoint(pos()));
+
+		QPoint g = QCursor::pos();
+//		if (rmbMenu->height() < g.y())
+//			rmbMenu->exec(QPoint( g.x(), g.y() - rmbMenu->height()));
+//		else
+			rmbMenu->exec(g);
+	}
+}
+
 void EstateView::slotResizeAftermath()
 {
 	centerPortfolioEstate();
+}
+
+void EstateView::slotMenuAction(int item)
+{
+	QString cmd, loc;
+	loc.setNum(m_id);
+
+	cout << "slotMenu " << item << endl;
+	switch (item)
+	{
+		case 0:
+			if (mortgaged())
+				cmd.setLatin1(".m");
+			else
+				cmd.setLatin1(".u");
+			break;
+
+		default:
+			return;
+	}
+	cmd.append(loc);
+	gameNetwork->writeData(cmd.latin1());
 }

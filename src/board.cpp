@@ -6,6 +6,7 @@
 
 #include "board.moc"
 #include "estateview.h"
+#include "network.h"
 #include "config.h"
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
@@ -91,7 +92,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 		else if (i<40)
 			orientation = West;
 			
-		estate[i] = new EstateView(orientation, (color.isValid() || canBeOwned), color, icon, this, "estate");
+		estate[i] = new EstateView(i, orientation, (color.isValid() || canBeOwned), color, icon, this, "estate");
 
 		if (i==0)
 			layout->addMultiCellWidget(estate[i], 21, 23, 21, 23);
@@ -172,6 +173,15 @@ void KMonopBoard::indicateUnownedChanged()
 	for (i=0;i<40;i++)
 		if (estate[i]!=0)
 			estate[i]->updatePE();
+}
+
+void KMonopBoard::grayOutMortgagedChanged()
+{
+	int i=0;
+
+	for (i=0;i<40;i++)
+		if (estate[i]!=0 && estate[i]->mortgaged())
+			estate[i]->updateMortgaged();
 }
 
 void KMonopBoard::slotMoveToken()

@@ -7,7 +7,6 @@
 
 #include "config.h"
 #include "estateview.h"
-#include "network.h"
 #include "token.h"
 
 class KMonopBoard : public QWidget
@@ -19,6 +18,7 @@ Q_OBJECT
 		void setOwned(int, bool);
 		void raiseToken(int);
 		void indicateUnownedChanged();
+		void grayOutMortgagedChanged();
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);

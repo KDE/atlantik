@@ -90,6 +90,7 @@ void KMonop::readConfig()
 
 	config->setGroup("Board");
 	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
+	kmonopConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
 	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 }
 
@@ -136,6 +137,13 @@ void KMonop::slotUpdateConfig()
 		board->indicateUnownedChanged();
 	}
 
+	optBool = configDialog->grayOutMortgaged();
+	if (kmonopConfig.grayOutMortgaged != optBool)
+	{
+		kmonopConfig.grayOutMortgaged = optBool;
+		board->grayOutMortgagedChanged();
+	}
+
 	optBool = configDialog->animateToken();
 	if (kmonopConfig.animateToken != optBool)
 	{
@@ -147,6 +155,7 @@ void KMonop::slotUpdateConfig()
 
 	config->setGroup("Board");
 	config->writeEntry("IndicateUnowned", kmonopConfig.indicateUnowned);
+	config->writeEntry("GrayOutMortgaged", kmonopConfig.grayOutMortgaged);
 	config->writeEntry("AnimateToken", kmonopConfig.animateToken);
 
 	config->sync();

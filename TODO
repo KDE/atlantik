@@ -10,8 +10,16 @@ For 0.2.x
 - Support mortgages.
   V Network code.
   - Toolbar stuff.
-  - EstateView stuff.
-- Station(V)/utility/cc/chance(V) icons on gameboard
+  V EstateView stuff.
+- Icons on gameboard.
+  V Station
+  - Utility
+  - CC
+  V Chance
+  - Go
+  - FP
+  - Jail
+  - toJail
 - Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create

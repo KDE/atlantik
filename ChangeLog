@@ -1,3 +1,10 @@
+2001-06-25 (cap)
+----------
+
+- New config option: mortgaged properties can be grayed out on the gameboard
+- Slightly increased size of portfolio estates
+- Added RMB popup to estates with mortgage/unmortgage actions
+ 
 2001-06-24 (cap)
 ----------
 

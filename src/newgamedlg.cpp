@@ -4,6 +4,7 @@
 #include <qlabel.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
+#include <qlineedit.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
@@ -334,6 +335,12 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
+//	QLabel *header = new QLabel("<b>Game description</b>", this);
+//	layout->addWidget(header);
+
+//	QLineEdit *desc = new QLineEdit(this);
+//	layout->addWidget(desc);
+	
 	list = new QListView(this);
 
 	list->addColumn(QString("ClientId"));

@@ -14,13 +14,18 @@ class EstateView : public QWidget
 Q_OBJECT
 
 	public:
-		EstateView(int orientation, bool canBeOwned, const QColor &, const QString &, QWidget *parent, const char *name = 0);
+		EstateView(int id, int orientation, bool canBeOwned, const QColor &, const QString &, QWidget *parent, const char *name = 0);
 		QPixmap *initIcon(QString);
 		void setName(const char *);
 		void setHouses(int);
 		void setMortgaged(bool);
 		void setOwned(bool);
+
+		bool mortgaged();
+		bool owned();
+
 		void updatePE();
+		void updateMortgaged();
 
 	public slots:
 		void slotResizeAftermath();
@@ -28,6 +33,7 @@ Q_OBJECT
 	protected:
 		void paintEvent(QPaintEvent *);
 		void resizeEvent(QResizeEvent *);
+		void mousePressEvent(QMouseEvent *);
 
 	private:
 		void centerPortfolioEstate();
@@ -35,11 +41,14 @@ Q_OBJECT
 		QPixmap *qpixmap, *icon;
 		bool b_recreate;
 		bool m_owned, m_canBeOwned, m_mortgaged;
-		int m_orientation, m_houses;
+		int m_id, m_orientation, m_houses;
 		QColor m_color;
 		QLabel *lname;
 		QString estatename;
 		PortfolioEstate *pe;
+
+	private slots:
+		void slotMenuAction(int);
 };
 
 #endif

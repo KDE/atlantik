@@ -46,16 +46,17 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		if (owned)
 		{
 			painter.setPen(kmonop_dgray);
-			for (int y=5;y<=11;y+=2)
-				painter.drawLine(2, y, 9, y);
+			for (int y=5;y<=13;y+=2)
+				painter.drawLine(2, y, 10, y);
 
 			painter.setPen(Qt::white);
-			painter.drawPoint(7, 5);
-			painter.drawPoint(7, 7);
-			painter.drawPoint(5, 9);
+			painter.drawPoint(8, 5);
+			painter.drawPoint(8, 7);
 			painter.drawPoint(8, 9);
-			painter.drawPoint(3, 11);
+			painter.drawPoint(5, 11);
 			painter.drawPoint(9, 11);
+			painter.drawPoint(3, 13);
+			painter.drawPoint(10, 13);
 
 			painter.setPen(color);	
 			painter.setBrush(color);
