@@ -210,11 +210,12 @@ void AtlantikNetwork::jailCard()
 
 void AtlantikNetwork::writeData(QString msg)
 {
+	kdDebug() << "sending [" << msg << "]" << endl;
 	msg.append("\n");
 	if (socketStatus() == KExtendedSocket::connected)
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
 	else
-		kdDebug() << "could not send [" << msg << "]" << endl;
+		kdDebug() << "warning: socket not connected!" << endl;
 }
 
 void AtlantikNetwork::slotRead()
@@ -286,7 +287,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					Estate *estate;
 					estate = m_atlanticCore->findEstate(a.value().toInt());
 
-					emit displayDetails(e.attributeNode(QString("text")).value(), estate);
+					emit displayDetails(e.attributeNode(QString("text")).value(), e.attributeNode(QString("cleartext")).value().toInt(), e.attributeNode(QString("clearbuttons")).value().toInt(), estate);
 
 					bool hasButtons = false;
 					for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )

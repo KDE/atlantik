@@ -427,19 +427,19 @@ void AtlantikBoard::addCloseButton()
 		eDetails->addCloseButton();
 }
 
-void AtlantikBoard::insertDetails(QString text, Estate *estate)
+void AtlantikBoard::insertDetails(QString text, bool clearText, bool clearButtons, Estate *estate)
 {
 	EstateDetails *eDetails = 0;
 
 	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)))
 	{
-		if (eDetails->estate() == estate || !(eDetails->estate()))
-			eDetails->appendText(text);
-		else
-		{
+		if (clearText)
 			eDetails->setText(text);
+		else
+			eDetails->appendText(text);
+
+		if (clearButtons)
 			eDetails->clearButtons();
-		}
 
 		eDetails->setEstate(estate);
 		return;

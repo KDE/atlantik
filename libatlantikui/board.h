@@ -58,7 +58,7 @@ private slots:
 	void displayDefault();
 	void displayButton(QString command, QString caption, bool enabled);
 	void prependEstateDetails(Estate *);
-	void insertDetails(QString text, Estate *estate = 0);
+	void insertDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void addCloseButton();
 
 signals:
