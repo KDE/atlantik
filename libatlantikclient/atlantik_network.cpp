@@ -305,14 +305,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QDomElement eButton = nButtons.toElement();
 						if (!eButton.isNull() && eButton.tagName() == "button")
 						{
-							QDomElement eButton = nButtons.toElement();
-							if (!eButton.isNull() && eButton.tagName() == "button")
-							{
-								emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
-								hasButtons = true;
-							}
+							emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+							hasButtons = true;
 						}
 					}
+
 					if (!hasButtons)
 						emit addCloseButton();
 				}
