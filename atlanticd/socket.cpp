@@ -19,7 +19,7 @@
 
 #include "socket.moc"
 
-// static QTextStream cout(stdout, IO_WriteOnly);
+// static QTextStream std::cout(stdout, IO_WriteOnly);
 
 Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 {
@@ -29,7 +29,7 @@ Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 void Socket::readData()
 {
 	while(canReadLine())
-		cout << "ignoredLine(" << readLine().latin1() << ")" << endl;
+		std::cout << "ignoredLine(" << readLine().latin1() << ")" << std::endl;
 
 	if (bytesAvailable() > (1024 * 32))
 		flush();

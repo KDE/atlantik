@@ -233,10 +233,10 @@ void AtlantikBoard::addToken(Player *player, EstateView *estateView)
 
 void AtlantikBoard::playerChanged()
 {
-	kdDebug() << "Board::playerChanged()" << endl;
+	kdDebug() << "Board::playerChanged()" << std::endl;
 #warning implement decent AtlantikBoard::playerChanged to update tokens
 /*
-	kdDebug() << "new geometry for token: " << m_player->location() << endl;
+	kdDebug() << "new geometry for token: " << m_player->location() << std::endl;
 	this->show();
 //	setGeometry(100, 100, 125, 125);
 
@@ -264,7 +264,7 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 	if ( token==0 )
 		return;
 	
-	kdDebug() << "moving piece from " << token->location() << " to " << estateId << endl;
+	kdDebug() << "moving piece from " << token->location() << " to " << estateId << std::endl;
 
 	// Set token destination
 	move_token = token;
@@ -293,7 +293,7 @@ void AtlantikBoard::slotMoveToken()
 	int dest = 0; // move_token->location() + 1;
 	if (dest==(m_gridLayout->numRows() - 1)*4)
 		dest = 0;
-	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
+	kdDebug() << "going from " << move_token->location() << " to " << dest << std::endl;
 
 #warning port
 /*
@@ -317,9 +317,9 @@ void AtlantikBoard::slotMoveToken()
 		else
 			yDest = yCurrent;
 
-		kdDebug() << "TOKEN: we are @ " << xCurrent << "," << yCurrent << endl;
-		kdDebug() << "TOKEN: final to " << xFinal << "," << yFinal << endl;
-		kdDebug() << "TOKEN: going to " << xDest << "," << yDest << endl;
+		kdDebug() << "TOKEN: we are @ " << xCurrent << "," << yCurrent << std::endl;
+		kdDebug() << "TOKEN: final to " << xFinal << "," << yFinal << std::endl;
+		kdDebug() << "TOKEN: going to " << xDest << "," << yDest << std::endl;
 
 		if (xCurrent == xDest && yCurrent == yDest)
 		{
@@ -377,7 +377,7 @@ void AtlantikBoard::resizeEvent(QResizeEvent *e)
 
 void AtlantikBoard::slotResizeAftermath()
 {
-	kdDebug() << "AtlantikBoard::slotResizeAftermath" << endl;
+	kdDebug() << "AtlantikBoard::slotResizeAftermath" << std::endl;
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.

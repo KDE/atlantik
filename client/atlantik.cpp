@@ -236,7 +236,7 @@ void Atlantik::removeGUI(Trade *trade)
 
 void Atlantik::slotNetworkConnected()
 {
-	kdDebug() << "Atlantik::slotNetworkConnected()" << endl;
+	kdDebug() << "Atlantik::slotNetworkConnected()" << std::endl;
 
 	// We're connected, so let's make ourselves known.
 	m_atlantikNetwork->setName(m_config.playerName);

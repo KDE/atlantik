@@ -52,7 +52,7 @@ unsigned int Trade::acceptCount()
 
 void Trade::updateEstate(Estate *estate, Player *to)
 {
-	std::cout << "Trade::updateEstate" << endl;	
+	std::cout << "Trade::updateEstate" << std::endl;	
 	TradeEstate *t=0;
 	
 	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
@@ -94,7 +94,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 
 void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
-	std::cout << "Trade::updateMoney" << endl;	
+	std::cout << "Trade::updateMoney" << std::endl;	
 	TradeMoney *t=0;
 	
 	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
@@ -186,7 +186,7 @@ void TradeMoney::setMoney(unsigned int money)
 	if (m_money != money)
 	{
 		m_money = money;
-		cout << "TradeMoney::changed()" << endl;
+		std::cout << "TradeMoney::changed()" << std::endl;
 		emit changed(this);
 	}
 }
