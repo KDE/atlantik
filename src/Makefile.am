@@ -1,5 +1,5 @@
 bin_PROGRAMS = atlantik
-INCLUDES = $(all_includes) -I../libatlantic
+INCLUDES = $(all_includes) -I$(srcdir)/../libatlantic
 LDFLAGS = $(all_libraries) $(KDE_RPATH) -L../libatlantic
 LDADD = -latlantic -lkdegames $(LIB_KSYCOCA) $(LIB_KFILE) 
 
