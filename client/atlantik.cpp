@@ -813,7 +813,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 
 	int result = KMessageBox::Yes;
 	if ( gameSelf && !playerSelf->isBankrupt() )
-		result = KMessageBox::warningYesNo( this, i18n("You are currently part of an active game. Are you sure you want to close Atlantik? If you do, you forfeit the game."), i18n("Close and Forfeit?") );
+		result = KMessageBox::warningYesNo( this, i18n("You are currently part of an active game. Are you sure you want to close Atlantik? If you do, you forfeit the game."), i18n("Close & Forfeit?") );
 
 	if ( result == KMessageBox::Yes )
 	{
