@@ -9,6 +9,7 @@
 #include <ktmainwindow.h>
 #include <kaction.h>
 
+#include "configdlg.h"
 #include "newgamedlg.h"
 #include "network.h"
 #include "portfolioview.h"
@@ -25,6 +26,7 @@ class KMonop : public KTMainWindow
 		
 	public slots:
 		void slotNewGame();
+		void slotConfigure();
 		void slotRoll();
 		void slotBuy();
 		void slotSendMsg();
@@ -40,9 +42,11 @@ class KMonop : public KTMainWindow
 		QGridLayout *layout;
 		QTextView *output;
 		
-		KAction *roll_die, *buy_estate;
+		KAction *roll_die, *buy_estate, *config_kmonop;
 
 		NewGameWizard *wizard;
+		ConfigDialog *configDialog;
+
 		GameNetwork *netw;
 		PortfolioView *port[6];
 		KMonopBoard *board;

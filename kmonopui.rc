@@ -5,6 +5,9 @@
     <Action name="roll_die"/>
     <Action name="buy_estate"/>
   </Menu>
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Action name="config_kmonop"/>
+  </Menu>
 </MenuBar>
 <ToolBar name="moveToolBar">
     <Action name="roll_die"/>

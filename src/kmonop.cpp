@@ -12,13 +12,19 @@
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
 {
+	// Game actions
 	KStdAction::openNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
+	// Move actions
 	roll_die = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "roll_die");
 //	roll_die->setEnabled(false);
 	buy_estate = new KAction("&Buy estate", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
 //	buy_estate->setEnabled(false);
+
+	// Settings actions
+	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
+//	config_kmonop->setEnabled(false); // since its not done yet
 
 	createGUI();
 	toolBar(0)->setBarPos(KToolBar::Left);
@@ -68,6 +74,16 @@ void KMonop::slotNewGame()
 	wizard = 0;
 	if (result)
 		netw->writeData(".gs");
+}
+
+void KMonop::slotConfigure()
+{
+	if (configDialog == 0)
+	{
+		configDialog = new ConfigDialog(this);
+	}
+	configDialog->show();
+//	configDialog->raise();
 }
 
 void KMonop::slotRoll()

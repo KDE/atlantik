@@ -1,1 +1,2 @@
-KDE_ICON=AUTO
+kmonoptoolbardir = $(kde_datadir)/kmonop/icons
+kmonoptoolbar_ICON = AUTO
