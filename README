@@ -10,8 +10,8 @@ Contents
 1. Introduction
 ---------------
 
-Atlantik is a KDE client for playing games out of the Atlantic board game
-collection as offered by the Atlantic server daemon.
+Atlantik is a KDE client for playing Monopoly-like games on the monopd
+network.
 
 Purpose of the Atlantic board game is to acquire land in major cities in
 North America and Europe while being a transatlantic traveller. One of the
@@ -19,8 +19,7 @@ game modes plays like the popular real estate board game based on Atlantic
 City street names.
 
 Atlantik was previously known as KMonop and might still be refered to as
-such in some documentation. The Atlantic daemon was previously known as
-monopd and might also be refered to as such in some documentation.
+such in some documentation.
 
 2. Download
 -----------
@@ -29,7 +28,7 @@ Atlantik can be downloaded from
 
 http://capsi.com/atlantik/
 
-and the Atlantic daemon can be downloaded from
+and monopd can be downloaded from
 
 http://capsi.com/~cap/monopd/
 
