@@ -20,6 +20,7 @@ Q_OBJECT
 
 public:
 	AtlantikBoard(QWidget *parent, const char *name=0);
+	int heightForWidth(int);
 	void addEstateView(Estate *estate);
 	void addToken(Player *player);
 	void raiseToken(int);

@@ -24,16 +24,22 @@
 #include "designer.h"
 #include "estate.h"
 #include "editor.h"
+#include "board.h"
 
 AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
 	estates.setAutoDelete(true);
-
-	editor = new EstateEdit(this, "Estate Editor");
-	setCentralWidget(editor);
+	chanceStack.setAutoDelete(true);
+	ccStack.setAutoDelete(true);
 
 	m_player = 0;
 	copiedEstate = 0;
+
+	board = new AtlantikBoard(this, "Board");
+	QVBoxLayout *layout = new QVBoxLayout(board->centerWidget());
+	editor = new EstateEdit(&chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
+	layout->addWidget(editor);
+	setCentralWidget(board);
 
 	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	(void) KStdAction::open(this, SLOT(open()), actionCollection());
@@ -52,7 +58,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 
 	recentAct = KStdAction::openRecent(0, 0, actionCollection());
 	connect(recentAct, SIGNAL(urlSelected(const KURL &)), this, SLOT(openRecent(const KURL &)));
-	recentAct->loadEntries(KGlobal::config());
+	recentAct->loadEntries(KGlobal::config(), "Designer recent files");
 
 	estateAct = new KListAction(i18n("Change estate"), 0, 0, 0, actionCollection(), "estate_num");
 	connect(estateAct, SIGNAL(activated(int)), SLOT(changeEstate(int)));
@@ -122,7 +128,7 @@ void AtlanticDesigner::open()
 
 	filename = KFileDialog::getOpenFileName();
 
-	if (filename == QString::null)
+	if (filename.isNull())
 		return;
 
 	openFile(filename);
@@ -144,25 +150,51 @@ void AtlanticDesigner::openRecent(const KURL &url)
 
 void AtlanticDesigner::openFile(const QString &filename)
 {
-	estates.clear();
-
+	kdDebug() << "starting openFile\n";
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 		return;
 
+	estates.clear();
+	chanceStack.clear();
+	ccStack.clear();
+
 	QTextStream t(&f);
-	QString s;
+	QString s = t.readLine();
+	QString parsemode = QString::null;
 
 	int i;
-	for (i = 0; !t.atEnd(); i++)
+	for (i = 0; !t.atEnd();)
 	{
-		QString tmps = (i == 0? t.readLine() : s).stripWhiteSpace();
+		if (i < 100)
+			kdDebug() << "s is " << s << endl;
+		s = s.stripWhiteSpace();
+
+		if (s.isEmpty())
+		{
+			s = t.readLine();
+			continue;
+		}
+
 		QString name;
-		name = tmps.left(tmps.find("]"));
+
+		if (s.left(1) == "<")
+		{
+			parsemode = s.left(s.find(">"));
+			parsemode = parsemode.right(parsemode.length() - parsemode.find("<") - 1);
+			kdDebug() << "parsemode now is " << parsemode << endl;
+			s = t.readLine();
+			continue;
+		}
+
+		name = s.left(s.find("]"));
 		name = name.right(name.length() - name.find("[") - 1);
+		
 		if (name.isEmpty())
-			name = i18n("Empty");
-		//kdDebug() << "name is " << name << endl;;
+			name = i18n("No Name");
+		kdDebug() << "name is " << name << endl;
+
+		//// for estates
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
 		int type = 0;
 		int group = -1;
@@ -171,6 +203,9 @@ void AtlanticDesigner::openFile(const QString &filename)
 		int rent[6] = {-1, -1, -1, -1, -1, -1};
 		int tax = -1;
 		int taxPercentage = -1;
+		//// for cards
+		QStringList keys;
+		QValueList<int> values;
 
 		while (true)
 		{
@@ -178,31 +213,39 @@ void AtlanticDesigner::openFile(const QString &filename)
 				break;
 			s = t.readLine().stripWhiteSpace();
 
-			if (s.left(1) == "[")
+			kdDebug() << "s is " << s << endl;
+
+			if (s.left(1) == "[" || s.left(1) == "<")
 			{
+				kdDebug() << "breaking\n";
 				break;
 			}
 
 			int eqSign = s.find("=");
 			if (eqSign == -1)
+			{
 				continue;
+			}
 
 			QString key = s.left(eqSign);
 			QString value = s.right(s.length() - eqSign - 1);
 
+			//////////////////////////////// ESTATES
+			if (parsemode == "Estates")
+			{
 			if (key == "type")
 			{
 				//kdDebug() << "its a type!\n";
-				int i = 0;
+				int j = 0;
 				for (QStringList::Iterator it = types.begin(); it != types.end(); ++it)
 				{
 					//kdDebug() << (*it) << ", " << value << endl;
 					if ((*it) == value)
 					{
-						type = i;
+						type = j;
 						break;
 					}
-					i++;
+					j++;
 				}
 				//kdDebug() << "type is " << type << endl;
 			}
@@ -218,7 +261,9 @@ void AtlanticDesigner::openFile(const QString &filename)
 			{
 				int houses = key.right(1).toInt();
 				if (houses < 0 || houses > 5)
+				{
 					continue;
+				}
 				rent[houses] = value.toInt();
 			}
 			else if (key == "tax")
@@ -243,42 +288,92 @@ void AtlanticDesigner::openFile(const QString &filename)
 				bgColor.setNamedColor(value);
 				//kdDebug() << "bgcolor is " << bgColor.name() << endl;
 			}
+			} ///////////////////////////// END ESTATES
+
+			  ///////////////////////////// CARDS
+			else if (parsemode == "ChanceCards" || parsemode == "CCCards") 
+			{
+				kdDebug() << "in card area\n";
+				bool ok;
+				int v = value.toInt(&ok);
+				if (!ok)
+					continue;
+
+				if (key == "pay" && v < 0)
+				{
+					v *= -1;
+					key = "collect";
+				}
+				if (key == "payeach" && v < 0)
+				{
+					v *= -1;
+					key = "collecteach";
+				}
+				if (key == "advance" && v < 0)
+				{
+					v *= -1;
+					key = "goback";
+				}
+
+				kdDebug() << key << "=" << v << endl;
+				keys.append(key);
+				values.append(v);
+			}
 		}
 
-		ConfigEstate *estate = new ConfigEstate(i);
-		estate->setName(name);
-		estate->setColor(color);
-		estate->setBgColor(bgColor);
-		estate->setType(type);
-		estate->setGroup(group);
-		estate->setPrice(price);
-		estate->setHousePrice(housePrice);
-		for (int i = 0; i < 6; i++)
-			estate->setRent(i, rent[i]);
-		estate->setTax(tax);
-		estate->setTaxPercentage(taxPercentage);
-		estate->setChanged(false);
-		estates.append(estate);
+		if (parsemode == "Estates")
+		{
+			kdDebug() << "making estate (" << i << ")\n";
+			ConfigEstate *estate = new ConfigEstate(i);
+			estate->setName(name);
+			estate->setColor(color);
+			estate->setBgColor(bgColor);
+			estate->setType(type);
+			estate->setGroup(group);
+			estate->setPrice(price);
+			estate->setHousePrice(housePrice);
+			for (int j = 0; j < 6; j++)
+				estate->setRent(j, rent[j]);
+			estate->setTax(tax);
+			estate->setTaxPercentage(taxPercentage);
+			estate->setChanged(false);
+			estates.append(estate);
+	
+			connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
+			connect(estate, SIGNAL(changed()), this, SLOT(modified()));
+	
+			kdDebug() << "addEstateView\n";
+			board->addEstateView(estate);
 
-		connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
-		connect(estate, SIGNAL(changed()), this, SLOT(modified()));
+			kdDebug() << "incrementing i\n";
+			i++;
+		}
+		else if (parsemode = "ChanceCards" || parsemode == "CCCards")
+		{
+			Card *card = new Card();
+			card->name = name;
+			card->keys = keys;
+			card->values = values;
+			(parsemode == "ChanceCards"? chanceStack : ccStack).append(card);
+		}
+	}
 
-		editor->addEstateView(estate);
+	if (i < 4)
+	{
+			KMessageBox::detailedSorry(this, i18n("This board file is bad; cannot open."), i18n("There are only %1 estates specified in this file.").arg(i));
+			if (this->filename.isNull())
+				close();
+			return;
 	}
 
 	max = i;
-	
-	editor->setEstate(estates.first());
-
-	delete m_player;
-	// our superstar!
-	m_player = new Player(1);
-	editor->addToken(m_player);
-	QTimer::singleShot(1000, this, SLOT(setPlayerAtBeginning()));
 
 	isMod = false;
 	doCaption(false);
 	updateJumpMenu();
+	kdDebug() << "ending openFile\n";
+
+	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
 }
 
 void AtlanticDesigner::updateJumpMenu()
@@ -291,7 +386,12 @@ void AtlanticDesigner::updateJumpMenu()
 
 void AtlanticDesigner::setPlayerAtBeginning()
 {
+	delete m_player;
+	// our superstar!
+	m_player = new Player(1);
+	board->addToken(m_player);
 	movePlayer(estates.first());
+	editor->setEstate(estates.first());
 }
 
 void AtlanticDesigner::saveAs()
@@ -299,7 +399,7 @@ void AtlanticDesigner::saveAs()
 	QString oldfilename = filename;
 	filename = QString::null;
 	save();
-	if (filename == QString::null)
+	if (filename.isNull())
 		filename = oldfilename;
 	else
 		recentAct->addURL(QString("file:") + filename);
@@ -309,10 +409,10 @@ void AtlanticDesigner::save()
 {
 	//kdDebug() << "count is " << estates.count() << endl;
 	QString oldfilename = filename;
-	if (filename == QString::null)
+	if (filename.isNull())
 		filename = KFileDialog::getOpenFileName();
 
-	if (filename == QString::null)
+	if (filename.isNull())
 	{
 		filename = oldfilename;
 		return;
@@ -325,6 +425,8 @@ void AtlanticDesigner::save()
 		return;
 
 	QTextStream t(&f);
+
+	t << QString("<Estates>") << endl << endl;
 
 	ConfigEstate *estate = 0;
 	for (estate = estates.first(); estate; estate = estates.next())
@@ -355,7 +457,63 @@ void AtlanticDesigner::save()
 				t << "rent" << i << "=" << estate->rent(i) << endl;
 		}
 
+		t << endl;
+
 		//allNames.append(estate->name());
+	}
+
+	// now do the cards
+	
+	CardStack *stack = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		if (i == 0)
+		{
+			t << endl << QString("<ChanceCards>") << endl;
+			stack = &chanceStack;
+		}
+		else if (i == 1)
+		{
+			t << endl << QString("<CCCards>") << endl;
+			stack = &ccStack;
+		}
+
+		Card *card = 0;
+		for (card = stack->first(); card; card = stack->next())
+		{
+			t << endl << "[" << card->name << "]" << endl;
+			QValueList<int>::Iterator vit = card->values.begin();
+			for (QStringList::Iterator it = card->keys.begin(); it != card->keys.end(); ++it)
+			{
+				QString key = (*it);
+				int value = (*vit);
+
+				if (key == "collect")
+				{
+					value *= -1;
+					key = "pay";
+				}
+				if (key == "collecteach")
+				{
+					value *= -1;
+					key = "payeach";
+				}
+				if (key == "goback")
+				{
+					value *= -1;
+					key = "advance";
+				}
+
+				if (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil")
+				{
+					value = 1;
+				}
+				
+				t << key << "=" << value << endl;
+
+				++vit;
+			}
+		}
 	}
 
 	f.flush();
@@ -390,7 +548,7 @@ void AtlanticDesigner::closeEvent(QCloseEvent *e)
 	if (warnClose())
 		return;
 	saveMainWindowSettings(KGlobal::config(), "DesignerTopLevelWindow");
-	recentAct->saveEntries(KGlobal::config());
+	recentAct->saveEntries(KGlobal::config(), "Designer recent files");
 	e->accept();
 }
 
@@ -418,11 +576,10 @@ void AtlanticDesigner::changeEstate(Estate *estate)
 
 void AtlanticDesigner::movePlayer(Estate *estate)
 {
+	estateAct->setCurrentItem(estate->estateId());
+	board->setFocus();
 	m_player->setLocation(estate);
 	m_player->update();
-
-	estateAct->setCurrentItem(estate->estateId());
-	editor->setFocus();
 }
 
 void AtlanticDesigner::larger()

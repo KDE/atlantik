@@ -1,11 +1,10 @@
 #ifndef ATLANTIK_EDITOR_H
 #define ATLANTIK_EDITOR_H
 
-#include <kdialogbase.h>
 #include <kmainwindow.h>
 #include <qstring.h>
 #include <qcolor.h>
-#include "board.h"
+#include <qstringlist.h>
 #include "estate.h"
 
 class QCheckBox;
@@ -13,7 +12,6 @@ class QComboBox;
 class QSpinBox;
 class KColorButton;
 class QLineEdit;
-
 class KPushButton;
 
 // following enum taken from monopd/estate.h, and numbers all decreased by one
@@ -50,12 +48,21 @@ class ConfigEstate : public Estate
 	int m_taxPercentage;
 };
 
-class EstateEdit : public AtlantikBoard
+struct Card
+{
+	Card() { name = QString::null; }
+	QString name;
+	QStringList keys;
+	QValueList<int> values;
+};
+typedef QPtrList<Card> CardStack;
+
+class EstateEdit : public QWidget
 {
 	Q_OBJECT
 
 	public:
-	EstateEdit(QWidget *parent = 0, const char *name = 0);
+	EstateEdit(CardStack *, CardStack *, QWidget *parent = 0, const char *name = 0);
 	ConfigEstate *theEstate() { return estate; }
 	bool upArrow();
 	bool downArrow();
@@ -64,12 +71,13 @@ class EstateEdit : public AtlantikBoard
 	
 	public slots:
 	void setEstate(ConfigEstate *);
-	ConfigEstate *saveEstate();
+	ConfigEstate *saveEstate(bool superficial = false);
 
 	signals:
 	void somethingChanged();
-	void updateViews();
 	void modified();
+	void saveDialogSettings();
+	void updateDialogSettings(ConfigEstate *);
 	
 	private slots:
 	void configure();
@@ -77,26 +85,85 @@ class EstateEdit : public AtlantikBoard
 	private:
 	KColorButton *fgButton;
 	KColorButton *bgButton;
-	KPushButton *configureButton;
 	QComboBox *typeCombo;
 	QLineEdit *nameEdit;
 	QWidget *centerWidget;
+	QGridLayout *layout;
 
 	ConfigEstate *estate;
+	CardStack *chanceStack;
+	CardStack *ccStack;
+
+	QWidget *confDlg;
+	QWidget *oldConfDlg;
+	QWidget *reallyOldConfDlg;
 
 	QColor fg;
 	QColor bg;
+
+	EstateType oldType;
 };
 
-class TaxDlg : public KDialogBase
+class ChooseWidget : public QWidget
+{
+	Q_OBJECT
+	
+	public:
+	ChooseWidget(int id, Card *, QWidget *parent = 0, char *name = 0);
+
+	public slots:
+	void valueChanged(int);
+	void typeChanged(int);
+
+	private:
+	Card *card;
+	QComboBox *typeCombo;
+	QSpinBox *value;
+
+	int id;
+};
+
+class CardView : public QWidget
 {
 	Q_OBJECT
 
 	public:
-	TaxDlg(ConfigEstate *, QWidget *parent = 0, char *name = 0, bool modal = 0);
+	CardView(CardStack *, QWidget *parent = 0, char *name = 0);
 
-	protected slots:
+	private slots:
+	void selected(int);
+	void add();
+	void del();
+	void rename();
+	void more();
+	void less();
+
+	private:
+	QListBox *List;
+	KPushButton *addButton;
+	KPushButton *renameButton;
+	KPushButton *delButton;
+	KPushButton *moreButton;
+	KPushButton *lessButton;
+
+	QVBoxLayout *layout;
+
+	Card *card;
+
+	CardStack *stack;
+	QPtrList<ChooseWidget> choosies;
+};
+
+class TaxDlg : public QWidget
+{
+	Q_OBJECT
+
+	public:
+	TaxDlg(ConfigEstate *, QWidget *parent = 0, char *name = 0);
+
+	public slots:
 	void slotOk();
+	void slotUpdate(ConfigEstate *);
 
 	private:
 	ConfigEstate *estate;
@@ -104,15 +171,16 @@ class TaxDlg : public KDialogBase
 	QSpinBox *taxPercentage;
 };
 
-class StreetDlg : public KDialogBase
+class StreetDlg : public QWidget
 {
 	Q_OBJECT
 
 	public:
-	StreetDlg(ConfigEstate *, QWidget *parent = 0, char *name = 0, bool modal = 0);
+	StreetDlg(ConfigEstate *, QWidget *parent = 0, char *name = 0);
 
-	protected slots:
+	public slots:
 	void slotOk();
+	void slotUpdate(ConfigEstate *);
 
 	private:
 	ConfigEstate *estate;

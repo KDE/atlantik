@@ -1,6 +1,9 @@
 #include <qcombobox.h>
+#include <qvbox.h>
 #include <qlabel.h>
+#include <qframe.h>
 #include <qstringlist.h>
+#include <qvaluelist.h>
 #include <qspinbox.h>
 #include <qframe.h>
 #include <qlineedit.h>
@@ -8,15 +11,14 @@
 #include <qlayout.h>
 
 #include <kdebug.h>
+#include <klineeditdlg.h>
 #include <kdialogbase.h>
 #include <kcolorbutton.h>
-
 #include <klocale.h>
 #include <kpushbutton.h>
 
 #include "editor.h"
 #include "estate.h"
-#include "board.h"
 
 ConfigEstate::ConfigEstate(int estateId) : Estate(estateId)
 {
@@ -95,42 +97,54 @@ void ConfigEstate::setTaxPercentage(const int taxPercentage)
 
 ///////////////////////////
 
-EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent, name)
+QStringList types;
+
+EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	types.append("pay");
+	types.append("payeach");
+	types.append("collect");
+	types.append("collecteach");
+	types.append("advanceto");
+	types.append("advance");
+	types.append("goback");
+	types.append("tojail");
+	types.append("jailcard");
+	types.append("nextutil");
+	types.append("nextrr");
+	types.append("payhouse");
+	types.append("payhotel");
+
+	this->chanceStack = chanceStack;
+	this->ccStack = ccStack;
+
 	connect(this, SIGNAL(somethingChanged()), this, SLOT(saveEstate()));
 
-	QVBoxLayout *layout = new QVBoxLayout(m_center, 6);
-	nameEdit = new QLineEdit(m_center, "Name Edit");
-	layout->addWidget(nameEdit);
+	layout = new QGridLayout(this, 5, 1, 6, 3);
+	nameEdit = new QLineEdit(this, "Name Edit");
+	layout->addWidget(nameEdit, 0, 0);
 	connect(nameEdit, SIGNAL(returnPressed()), this, SIGNAL(somethingChanged()));
 
-	layout->addStretch(2);
+	confDlg = 0;
+	oldConfDlg = 0;
+	reallyOldConfDlg = 0;
 
-	QVGroupBox *colorGroupBox = new QVGroupBox(i18n("Colors"), m_center);
-	layout->addWidget(colorGroupBox);
+	QVGroupBox *colorGroupBox = new QVGroupBox(i18n("Colors"), this);
+	layout->addWidget(colorGroupBox, 2, 0);
 	
-	QGridLayout *colorLayout = new QGridLayout(colorGroupBox, 2, 2, 6);
-	colorLayout->addWidget(new QLabel(i18n("Foreground"), colorGroupBox), 0, 0);
+	(void) new QLabel(i18n("Foreground"), colorGroupBox);
 	fgButton = new KColorButton(colorGroupBox, "Foreground Button");
-	colorLayout->addWidget(fgButton, 1, 0);
 	connect(fgButton, SIGNAL(changed(const QColor &)), this, SIGNAL(somethingChanged()));
-	colorLayout->addWidget(new QLabel(i18n("Background"), colorGroupBox), 0, 1);
+	(void) new QLabel(i18n("Background"), colorGroupBox);
 	bgButton = new KColorButton(colorGroupBox, "Background Button");
-	colorLayout->addWidget(bgButton, 1, 1);
 	connect(bgButton, SIGNAL(changed(const QColor &)), this, SIGNAL(somethingChanged()));
 
-	layout->addStretch(3);
-
 	QHBoxLayout *typeLayout = new QHBoxLayout(layout, 6);
-	QLabel *typeLabel = new QLabel(i18n("Type"), m_center);
-	typeLayout->addWidget(typeLabel);
-	typeCombo = new QComboBox(false, m_center, "Type Combo");
-	typeLayout->addWidget(typeCombo);
+	QLabel *typeLabel = new QLabel(i18n("Type"), this);
+	typeLayout->addWidget(typeLabel, 3, 0);
+	typeCombo = new QComboBox(false, this, "Type Combo");
+	typeLayout->addWidget(typeCombo, 4, 0);
 	connect(typeCombo, SIGNAL(activated(int)), this, SIGNAL(somethingChanged()));
-
-	configureButton = new KPushButton(m_center);
-	layout->addWidget(configureButton);
-	connect(configureButton, SIGNAL(clicked()), this, SLOT(configure()));
 
 	QStringList types(i18n("Street"));
 	types.append(i18n("Railroad"));
@@ -149,57 +163,110 @@ EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent
 
 void EstateEdit::setEstate(ConfigEstate *estate)
 {
+	kdDebug() << "starting setEstate\n";
+
 	typeCombo->setCurrentItem(estate->type());
 	nameEdit->setText(estate->name());
-	fgButton->setColor(estate->color());
+	if (estate->color().isValid())
+		fgButton->setColor(estate->color());
 	bgButton->setColor(estate->bgColor());
 	this->estate = estate;
 
-	saveEstate();
+	saveEstate(true);
+
+	kdDebug() << "ending setEstate\n";
 }
 
-ConfigEstate *EstateEdit::saveEstate()
+ConfigEstate *EstateEdit::saveEstate(bool superficial)
 {
+	kdDebug() << "starting saveEstate\n";
 	if (!estate)
 		return 0;
-	int curType = typeCombo->currentItem();
-	estate->setType(curType);
-	estate->setName(nameEdit->text());
-	estate->setColor(fgButton->color());
-	estate->setBgColor(bgButton->color());
+
+	EstateType curType = (EstateType)typeCombo->currentItem();
+
+	if (!superficial)
+	{
+		emit saveDialogSettings();
+	
+		estate->setType(curType);
+		estate->setName(nameEdit->text());
+		if (estate->color().isValid())
+			fgButton->setColor(estate->color());
+		estate->setBgColor(bgButton->color());
+	}
 
 	if (curType != Street)
 	{
 		fgButton->setEnabled(false);
-		fgButton->setColor(QColor("zzzzzz"));
+		//fgButton->setColor(QColor("zzzzzz"));
 		estate->setColor(QColor("zzzzzz"));
 	}
 	else
 		fgButton->setEnabled(true);
 
-	configureButton->setText(i18n("Configure %1 properties...").arg(typeCombo->currentText()));
-	configureButton->setEnabled(curType == Street || curType == Tax);
+	if (!superficial)
+		estate->update();
 
-	estate->update();
+	if (superficial)
+		configure();
+
+	kdDebug() << "ending saveEstate\n";
 	return estate;
 }
 
 void EstateEdit::configure()
 {
-	KDialogBase *dialog;
-	switch (typeCombo->currentItem())
+	kdDebug() << "-------------- ::configure()\n";
+	if (oldType == typeCombo->currentItem())
 	{
-		case Street:
-		dialog = new StreetDlg(estate, this);
-		break;
-		case Tax:
-		dialog = new TaxDlg(estate, this);
-		break;
-		default:
+		kdDebug() << "returning early from configure\n";
+		emit updateDialogSettings(estate);
 		return;
-		break;
 	}
-	dialog->show();
+
+	kdDebug() << "starting configure\n";
+
+	if (reallyOldConfDlg)
+	{
+		kdDebug() << "deleting reallyOldConfDlg\n";
+		delete reallyOldConfDlg;
+	}
+	reallyOldConfDlg = oldConfDlg;
+
+	oldConfDlg = confDlg;
+	confDlg = 0;
+
+	switch ((EstateType)typeCombo->currentItem())
+	{
+	case Street:
+		confDlg = new StreetDlg(estate, this);
+		connect(this, SIGNAL(saveDialogSettings()), static_cast<StreetDlg *>(confDlg), SLOT(slotOk()));
+		connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<StreetDlg *>(confDlg), SLOT(slotUpdate(ConfigEstate *)));
+		break;
+	case Tax:
+		confDlg = new TaxDlg(estate, this);
+		connect(this, SIGNAL(saveDialogSettings()), static_cast<TaxDlg *>(confDlg), SLOT(slotOk()));
+		connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<TaxDlg *>(confDlg), SLOT(slotUpdate(ConfigEstate *)));
+		break;
+	case Chance:
+		confDlg = new CardView(chanceStack, this);
+		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
+		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
+		break;
+	case CommunityChest:
+		confDlg = new CardView(ccStack, this);
+		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
+		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
+		break;
+	default:
+		confDlg = new QWidget(this);
+	}
+	layout->addWidget(confDlg, 1, 0);
+	confDlg->show();
+
+	kdDebug() << "ending configure\n";
+	oldType = (EstateType)typeCombo->currentItem();
 }
 
 bool EstateEdit::upArrow()
@@ -234,84 +301,296 @@ bool EstateEdit::rightArrow()
 
 /////////////////////////////////
 
-TaxDlg::TaxDlg(ConfigEstate *estate, QWidget *parent, char *name, bool modal)
-	:KDialogBase(KDialogBase::TreeList, i18n("Configure %1").arg(estate->name()), Ok|Cancel, Ok, parent, name, modal)
+TaxDlg::TaxDlg(ConfigEstate *estate, QWidget *parent, char *name)
+	: QWidget(parent, name)
 {
-	this->estate = estate;
-
-	setHelp("atlantik/index.html", QString::null);
-
-	QFrame *TaxPage = addPage(i18n("Tax"));
-	QGridLayout *taxBox = new QGridLayout(TaxPage, 2, 2);
-	taxBox->addWidget(new QLabel(i18n("Fixed tax"), TaxPage), 0, 0);
-	taxBox->addWidget(tax = new QSpinBox(0, 3000, 1, TaxPage), 0, 1);
+	QGridLayout *taxBox = new QGridLayout(this, 2, 2);
+	taxBox->addWidget(new QLabel(i18n("Fixed tax"), this), 0, 0);
+	taxBox->addWidget(tax = new QSpinBox(0, 3000, 1, this), 0, 1);
 	tax->setSuffix("$");
-	tax->setValue(estate->tax());
-	taxBox->addWidget(new QLabel(i18n("Percentage tax"), TaxPage), 1, 0);
-	taxBox->addWidget(taxPercentage = new QSpinBox(0, 100, 1, TaxPage), 1, 1);
+	taxBox->addWidget(new QLabel(i18n("Percentage tax"), this), 1, 0);
+	taxBox->addWidget(taxPercentage = new QSpinBox(0, 100, 1, this), 1, 1);
 	taxPercentage->setSuffix("%");
-	taxPercentage->setValue(estate->taxPercentage());
+
+	slotUpdate(estate);
 }
 
 void TaxDlg::slotOk()
 {
 	estate->setTax(tax->value());
 	estate->setTaxPercentage(taxPercentage->value());
-	KDialogBase::slotOk();
+}
+
+void TaxDlg::slotUpdate(ConfigEstate *estate)
+{
+	this->estate = estate;
+	tax->setValue(estate->tax());
+	taxPercentage->setValue(estate->taxPercentage());
 }
 
 /////////////////////////////////
 
-StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name, bool modal)
-	:KDialogBase(KDialogBase::TreeList, i18n("Configure %1").arg(estate->name()), Ok|Cancel, Ok, parent, name, modal)
+ChooseWidget::ChooseWidget(int id, Card *card, QWidget *parent, char *name)
+	: QWidget (parent, name)
 {
-	this->estate = estate;
+	this->id = id;
+	this->card = card;
 
-	setHelp("atlantik/index.html", QString::null);
+	kdDebug() << "new choose widget, id is " << id << endl;
 
-	QFrame *RentPage = addPage(i18n("Rent"));
-	QGridLayout *rentBox = new QGridLayout(RentPage, 6, 2);
-	rentBox->addWidget(new QLabel(i18n("No houses"), RentPage), 0, 0);
-	rentBox->addWidget(new QLabel(i18n("One house"), RentPage), 1, 0);
-	rentBox->addWidget(new QLabel(i18n("Two houses"), RentPage), 2, 0);
-	rentBox->addWidget(new QLabel(i18n("Three houses"), RentPage), 3, 0);
-	rentBox->addWidget(new QLabel(i18n("Four houses"), RentPage), 4, 0);
-	rentBox->addWidget(new QLabel(i18n("One hotel"), RentPage), 5, 0);
-	rentBox->addWidget(houses0 = new QSpinBox(0, 3000, 1, RentPage), 0, 1);
-	rentBox->addWidget(houses1 = new QSpinBox(0, 3000, 1, RentPage), 1, 1);
-	rentBox->addWidget(houses2 = new QSpinBox(0, 3000, 1, RentPage), 2, 1);
-	rentBox->addWidget(houses3 = new QSpinBox(0, 3000, 1, RentPage), 3, 1);
-	rentBox->addWidget(houses4 = new QSpinBox(0, 3000, 1, RentPage), 4, 1);
-	rentBox->addWidget(houses5 = new QSpinBox(0, 3000, 1, RentPage), 5, 1);
+	QHBoxLayout *hlayout = new QHBoxLayout(this);
+	typeCombo = new QComboBox(this);
+	QStringList _types(i18n("Pay"));
+	_types.append(i18n("Pay each player"));
+	_types.append(i18n("Collect"));
+	_types.append(i18n("Collect from each player"));
+	_types.append(i18n("Advance to"));
+	_types.append(i18n("Advance"));
+	_types.append(i18n("Go back"));
+	_types.append(i18n("Go to jail"));
+	_types.append(i18n("Get out of jail free card"));
+	_types.append(i18n("Advance to nearest utility"));
+	_types.append(i18n("Advance to nearest railroad"));
+	_types.append(i18n("Pay for each house"));
+	_types.append(i18n("Pay for each hotel"));
+	typeCombo->insertStringList(_types);
+	hlayout->addWidget(typeCombo);
+	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeChanged(int)));
+
+	hlayout->addStretch();
+
+	value = new QSpinBox(0, 1000, 1, this);
+	hlayout->addWidget(value);
+	connect(value, SIGNAL(valueChanged(int)), this, SLOT(valueChanged(int)));
+}
+
+void ChooseWidget::valueChanged(int i)
+{
+	(*card->values.at(id)) = i;
+	value->setValue(i);
+}
+
+void ChooseWidget::typeChanged(int i)
+{
+	QString key = (*types.at(i));
+
+	(*card->keys.at(id)) = key;
+	typeCombo->setCurrentItem(i);
+
+	bool boolean = (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil");
+	if (boolean)
+	{
+		value->setValue(1);
+		valueChanged(1);
+	}
+	value->setEnabled(!boolean);
+
+	QString suffix = "";
+	QString prefix = "";
+	
+	// first for types are money, pay, payeach, collect, collecteach
+	if (i < 4 || key == "payhouse" || key == "payhotel")
+		suffix = "$";
+	else if (key == "advanceto")
+		prefix = i18n("Estate #");
+	else if (key == "advance" || key == "goback")
+		suffix = i18n("Estate(s)");
+
+	value->setPrefix(prefix);
+	value->setSuffix(suffix);
+}
+
+/////////////////////////////////
+
+CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(parent, name)
+{
+	this->stack = stack;
+
+	choosies.setAutoDelete(true);
+
+	layout = new QVBoxLayout(this, 2);
+	QHBoxLayout *hlayout = new QHBoxLayout(layout);
+
+	addButton = new KPushButton(i18n("&Add..."), this);
+	connect(addButton, SIGNAL(clicked()), this, SLOT(add()));
+	hlayout->addWidget(addButton);
+	hlayout->addStretch();
+	renameButton = new KPushButton(i18n("&Rename..."), this);
+	connect(renameButton, SIGNAL(clicked()), this, SLOT(rename()));
+	hlayout->addWidget(renameButton);
+	hlayout->addStretch();
+	delButton = new KPushButton(i18n("&Delete"), this);
+	connect(delButton, SIGNAL(clicked()), this, SLOT(del()));
+	hlayout->addWidget(delButton);
+
+	List = new QListBox(this);
+	List->setMinimumHeight(150); // gets squashed vertically w/o
+	layout->addWidget(List);
+	connect(List, SIGNAL(highlighted(int)), this, SLOT(selected(int)));
+
+	hlayout = new QHBoxLayout(layout);
+	moreButton = new KPushButton(i18n("&More properties"), this);
+	connect(moreButton, SIGNAL(clicked()), this, SLOT(more()));
+	hlayout->addWidget(moreButton);
+	lessButton = new KPushButton(i18n("&Less properties"), this);
+	connect(lessButton, SIGNAL(clicked()), this, SLOT(less()));
+	hlayout->addWidget(lessButton);
+
+	Card *card = 0;
+	for (card = stack->first(); card; card = stack->next())
+	{
+		List->insertItem(card->name, 0);
+	}
+
+	List->setCurrentItem(0);
+}
+
+void CardView::more()
+{
+	if (List->count()<= 0)
+		return;
+
+	card->keys.append("pay");
+	card->values.append(1);
+	ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
+
+	choosies.append(newChooseWidget);
+	layout->addWidget(newChooseWidget);
+
+	newChooseWidget->show();
+}
+
+void CardView::less()
+{
+	if (List->count()<= 0)
+		return;
+	if (choosies.count() <= 0)
+		return;
+
+	choosies.removeLast();
+	card->keys.pop_back();
+	card->values.pop_back();
+}
+
+void CardView::add()
+{
+	bool ok = false;
+	QString name = KLineEditDlg::getText(i18n("New card name:"), QString::null, &ok, this);
+	if (ok)
+		List->insertItem(name, 0);
+
+	choosies.clear();
+
+	Card *newCard = new Card;
+	newCard->name = name;
+	stack->prepend(newCard);
+
+	List->setCurrentItem(0);
+
+	more();
+}
+
+void CardView::rename()
+{
+	int curItem = List->currentItem();
+	if (curItem < 0)
+		return;
+
+	bool ok = false;;
+	QString name = KLineEditDlg::getText(i18n("New card name:"), List->text(curItem), &ok, this);
+	if (ok)
+	{
+		stack->at(curItem)->name = name;
+		List->changeItem(name, curItem);
+	}
+}
+
+void CardView::del()
+{
+	int curItem = List->currentItem();
+	if (curItem < 0)
+		return;
+	
+	List->removeItem(curItem);
+	stack->remove(stack->at(curItem));
+	List->setCurrentItem(0);
+
+	choosies.clear();
+	more();
+}
+
+void CardView::selected(int i)
+{
+	card = stack->at(i);
+	kdDebug() << "card is " << card->name << endl;
+	unsigned int num = card->keys.count();
+
+	choosies.clear();
+
+	QValueList<int>::Iterator vit = card->values.begin();
+	for (QStringList::Iterator it = card->keys.begin(); it != card->keys.end(); ++it)
+	{
+		ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
+
+		choosies.append(newChooseWidget);
+		layout->addWidget(newChooseWidget);
+
+		newChooseWidget->show();
+		 
+		choosies.last()->typeChanged(types.findIndex(*it));
+		choosies.last()->valueChanged(*vit);
+		++vit;
+	}
+
+	if (num == 0)
+	{
+		card->values.clear();
+		more();
+	}
+}
+
+/////////////////////////////////
+
+StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
+	: QWidget(parent, name)
+{
+	QVBoxLayout *bigbox = new QVBoxLayout(this);
+
+	QVGroupBox *RentPage = new QVGroupBox(i18n("Rent"), this);
+	bigbox->addWidget(RentPage);
+	QWidget *topRent = new QWidget(RentPage);
+	QGridLayout *rentBox = new QGridLayout(topRent, 6, 2);
+	rentBox->addWidget(new QLabel(i18n("No houses"), topRent), 0, 0);
+	rentBox->addWidget(new QLabel(i18n("One house"), topRent), 1, 0);
+	rentBox->addWidget(new QLabel(i18n("Two houses"), topRent), 2, 0);
+	rentBox->addWidget(new QLabel(i18n("Three houses"), topRent), 3, 0);
+	rentBox->addWidget(new QLabel(i18n("Four houses"), topRent), 4, 0);
+	rentBox->addWidget(new QLabel(i18n("One hotel"), topRent), 5, 0);
+	rentBox->addWidget(houses0 = new QSpinBox(0, 3000, 1, topRent), 0, 1);
+	rentBox->addWidget(houses1 = new QSpinBox(0, 3000, 1, topRent), 1, 1);
+	rentBox->addWidget(houses2 = new QSpinBox(0, 3000, 1, topRent), 2, 1);
+	rentBox->addWidget(houses3 = new QSpinBox(0, 3000, 1, topRent), 3, 1);
+	rentBox->addWidget(houses4 = new QSpinBox(0, 3000, 1, topRent), 4, 1);
+	rentBox->addWidget(houses5 = new QSpinBox(0, 3000, 1, topRent), 5, 1);
 	houses0->setSuffix(i18n("$"));
 	houses1->setSuffix(i18n("$"));
 	houses2->setSuffix(i18n("$"));
 	houses3->setSuffix(i18n("$"));
 	houses4->setSuffix(i18n("$"));
 	houses5->setSuffix(i18n("$"));
-	houses0->setValue(estate->rent(0));
-	houses1->setValue(estate->rent(1));
-	houses2->setValue(estate->rent(2));
-	houses3->setValue(estate->rent(3));
-	houses4->setValue(estate->rent(4));
-	houses5->setValue(estate->rent(5));
 
-	QFrame *PricesPage = addPage(i18n("Prices"));
-	QGridLayout *pricesBox = new QGridLayout(PricesPage, 2, 2);
-	pricesBox->addWidget(new QLabel(i18n("Price"), PricesPage), 0, 0);
-	pricesBox->addWidget(price = new QSpinBox(0, 3000, 25, PricesPage), 0, 1);
+	QGridLayout *pricesBox = new QGridLayout(bigbox, 2, 2);
+	pricesBox->addWidget(new QLabel(i18n("Price"), this), 0, 0);
+	pricesBox->addWidget(price = new QSpinBox(0, 3000, 25, this), 0, 1);
 	price->setSuffix(i18n("$"));
-	price->setValue(estate->price());
-	pricesBox->addWidget(new QLabel(i18n("House price"), PricesPage), 1, 0);
-	pricesBox->addWidget(housePrice = new QSpinBox(0, 3000, 25, PricesPage), 1, 1);
+	pricesBox->addWidget(new QLabel(i18n("House price"), this), 1, 0);
+	pricesBox->addWidget(housePrice = new QSpinBox(0, 3000, 25, this), 1, 1);
 	housePrice->setSuffix(i18n("$"));
-	housePrice->setValue(estate->housePrice());
 
-	QFrame *GroupPage = addPage(i18n("Group"));
-	QHBoxLayout *groupLayout = new QHBoxLayout(GroupPage, 6);
-	QLabel *groupLabel = new QLabel(i18n("Group"), GroupPage);
+	QHBoxLayout *groupLayout = new QHBoxLayout(bigbox, 6);
+	QLabel *groupLabel = new QLabel(i18n("Group"), this);
 	groupLayout->addWidget(groupLabel);
-	groupCombo = new QComboBox(false, GroupPage, "Group Combo");
+	groupCombo = new QComboBox(false, this, "Group Combo");
 	QStringList groups(i18n("None"));
 	for (int i = 0; i <= 20; i++)
 	{
@@ -319,7 +598,8 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name, bool mod
 	}
 	groupCombo->insertStringList(groups);
 	groupLayout->addWidget(groupCombo);
-	groupCombo->setCurrentItem(estate->group() + 1);
+
+	slotUpdate(estate);
 }
 
 void StreetDlg::slotOk()
@@ -333,7 +613,23 @@ void StreetDlg::slotOk()
 	estate->setPrice(price->value());
 	estate->setHousePrice(housePrice->value());
 	estate->setGroup(groupCombo->currentItem() - 1);
-	KDialogBase::slotOk();
+}
+
+void StreetDlg::slotUpdate(ConfigEstate *estate)
+{
+	this->estate = estate;
+
+	houses0->setValue(estate->rent(0));
+	houses1->setValue(estate->rent(1));
+	houses2->setValue(estate->rent(2));
+	houses3->setValue(estate->rent(3));
+	houses4->setValue(estate->rent(4));
+	houses5->setValue(estate->rent(5));
+
+	price->setValue(estate->price());
+	housePrice->setValue(estate->housePrice());
+
+	groupCombo->setCurrentItem(estate->group() + 1);
 }
 
 #include "editor.moc"

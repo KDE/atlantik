@@ -4,8 +4,10 @@
 #include <kmainwindow.h>
 #include <qstring.h>
 #include <qptrlist.h>
+#include <qvaluelist.h>
 
 #include "editor.h"
+#include "board.h"
 
 class EstateEdit;
 class QCloseEvent;
@@ -56,9 +58,13 @@ class AtlanticDesigner : public KMainWindow
 	bool warnClose();
 
 	EstateEdit *editor;
+	AtlantikBoard *board;
 	QPtrList<ConfigEstate> estates;
 	KListAction *estateAct;
 	KRecentFilesAction *recentAct;
+
+	CardStack chanceStack;
+	CardStack ccStack;
 
 	QString filename;
 

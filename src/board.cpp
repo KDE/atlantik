@@ -95,6 +95,11 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	kdDebug() << "ending board ctor" << endl;
 }
 
+int AtlantikBoard::heightForWidth(int width)
+{
+	return width;
+}
+
 QPtrList<EstateView> AtlantikBoard::estateViews()
 {
 	return m_estateViews;

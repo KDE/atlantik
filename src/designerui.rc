@@ -5,7 +5,7 @@
     <Action name="smaller"/>
     <Action name="larger"/>
   </Menu>
-  <Menu name="view">
+  <Menu name="go_web">
     <Action name="estate_num" />
     <Seperator/>
     <Action name="up"/>
