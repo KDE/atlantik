@@ -59,8 +59,15 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 	connect(m_gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 
+#ifndef USE_KDE
 	connect(m_gameNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
 	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
+#else
+	connect(m_gameNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
+	connect(m_gameNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
+	connect(m_gameNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkConnected()));
+#endif
+
 	connect(m_gameNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 	connect(m_gameNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
 
@@ -206,8 +213,7 @@ void Atlantik::slotNetworkError(int errno)
 {
 	QString errMsg(i18n("Error connecting: "));
 	
-#warning port to kextsock
-/*
+#ifndef USE_KDE
 	switch(errno)
 	{
 		case QSocket::ErrConnectionRefused:
@@ -226,7 +232,7 @@ void Atlantik::slotNetworkError(int errno)
 			errMsg.append(i18n("unknown error."));
 	}
 	serverMsgsAppend(errMsg);
-*/
+#endif
 }
 
 void Atlantik::slotJoinedGame()

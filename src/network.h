@@ -4,7 +4,7 @@
 #include <qdom.h>
 #include <qmap.h>
 
-#ifdef QT_ONLY
+#ifndef USE_KDE
 #include <qsocket.h>
 #else
 #include <kextsock.h>
@@ -17,10 +17,10 @@ class Trade;
 class Estate;
 class Player;
 
-//#ifdef QT_ONLY
-//class GameNetwork : public QSocket
+//#ifndef USE_KDE
+class GameNetwork : public QSocket
 //#else
-class GameNetwork : public KExtendedSocket
+//class GameNetwork : public KExtendedSocket
 //#endif
 {
 Q_OBJECT

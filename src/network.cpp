@@ -10,15 +10,12 @@
 #include "player.h"
 #include "estate.h"
 
-#ifdef QT_ONLY
+#ifndef USE_KDE
 GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : QSocket(parent, name)
-{
 #else
-GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : KExtendedSocket()
-{
-	setBufferSize(-1);
+GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
 #endif
-
+{
 	m_atlanticCore = atlanticCore;
 	m_mainWindow = parent;
 	m_clientId = m_playerId = -1;
@@ -161,7 +158,7 @@ void GameNetwork::jailCard()
 void GameNetwork::writeData(QString msg)
 {
 	msg.append("\n");
-#ifdef QT_ONLY
+#ifndef USE_KDE
 	if (state()==QSocket::Connection)
 #else
 	if (socketStatus()==KExtendedSocket::connected)
@@ -176,13 +173,15 @@ void GameNetwork::writeData(QString msg)
 
 void GameNetwork::slotRead()
 {
-#ifdef QT_ONLY
+	kdDebug() << "slotRead" << endl;
+#ifndef USE_KDE
 	while(canReadLine())
 		processMsg(readLine());
 #else
 	char *tmp = NULL;
 	while(canReadLine())
 	{
+		kdDebug() << "canReadLine!" << endl;
 		readLine(tmp, 1024 * 32);
 		processMsg(tmp);
 	}
@@ -615,7 +614,7 @@ void GameNetwork::processNode(QDomNode n)
 
 void GameNetwork::serverConnect(const QString host, int port)
 {
-#ifdef QT_ONLY
+#ifndef USE_KDE
 	connectToHost(host, port);
 #else
 	setAddress(host, port);
