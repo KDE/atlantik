@@ -8,7 +8,7 @@ extern QColor kmonop_lgray, kmonop_dgray;
 PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name) : QWidget(parent, name)
 {
     color = kmonop_lgray;
-    QSize s(12,14);
+    QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
 	owned = false;
     b_recreate = true;
@@ -46,14 +46,16 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		if (owned)
 		{
 			painter.setPen(kmonop_dgray);
-			for (int x=4;x<=10;x+=2)
-				painter.drawLine(2, x, 9, x);
+			for (int y=5;y<=11;y+=2)
+				painter.drawLine(2, y, 9, y);
 
 			painter.setPen(Qt::white);
-			painter.drawPoint(6, 4);
-			painter.drawPoint(7, 6);
-			painter.drawPoint(5, 8);
-			painter.drawPoint(8, 10);
+			painter.drawPoint(7, 5);
+			painter.drawPoint(7, 7);
+			painter.drawPoint(5, 9);
+			painter.drawPoint(8, 9);
+			painter.drawPoint(3, 11);
+			painter.drawPoint(9, 11);
 
 			painter.setPen(color);	
 			painter.setBrush(color);

@@ -3,6 +3,9 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
+
+#define PE_WIDTH	12
+#define	PE_HEIGHT	14
   
 class PortfolioEstate : public QWidget
 {

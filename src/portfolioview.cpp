@@ -2,6 +2,12 @@
 
 #include "portfolioview.h"
 
+#define PE_DISTW	4
+#define	PE_DISTH	4
+#define PE_SPACE	2
+#define PE_MARGINW	5
+#define PE_MARGINH	2
+
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg,
 kmonop_lgray;
@@ -63,34 +69,35 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 				color = QColor();
 		}
 
+		// Don't ask, it works. ;-)
 		switch(i)
 		{
 			case 3: case 9:
 			case 14: case 19:
 			case 24: case 29:
 			case 34: case 39:
-				x = 9+(18*(i/5));
-				y = 2+lname->height();
+				x = PE_MARGINW + (2*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(i/5));
+				y = PE_MARGINH + (0*PE_DISTH) + lname->height();
 				break;
 
 			case 1: case 8:
 			case 13: case 18:
 			case 23: case 27:
 			case 32: case 37:
-				x = 7+(18*(i/5));
-				y = 6+lname->height();
+				x = PE_MARGINW + (1*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(i/5));
+				y = PE_MARGINH + (1*PE_DISTH) + lname->height();
 				break;
 
 			case 6: case 11:
 			case 16: case 21:
 			case 26: case 31:
-				x = 5+(18*(i/5));
-				y = 10+lname->height();
+				x = PE_MARGINW + (0*PE_DISTW) + (((2*PE_DISTW)+PE_SPACE+PE_WIDTH)*(i/5));
+				y = PE_MARGINH + (2*PE_DISTH) + lname->height();
 				break;
 			
 			case 5: case 15:
 			case 25: case 35:
-				x = 5+(14*(i/10));
+				x = 5+((2+PE_WIDTH)*(i/10));
 				y = 26+lname->height();
 				break;
 			
