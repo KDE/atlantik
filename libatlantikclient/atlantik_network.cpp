@@ -212,7 +212,7 @@ void AtlantikNetwork::writeData(QString msg)
 
 void AtlantikNetwork::slotRead()
 {
-	kdDebug() << "slotRead" << endl;
+	kdDebug() << "slotRead, " << bytesAvailable() << " bytes available" << endl;
 #ifndef USE_KDE
 	while(canReadLine())
 		processMsg(readLine());
