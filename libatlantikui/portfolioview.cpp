@@ -1,7 +1,6 @@
 #include <qpainter.h>
 #include <qcursor.h>
 
-#include <kdebug.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
 
@@ -109,7 +108,6 @@ void PortfolioView::buildPortfolio()
 						firstPEprevGroup = portfolioEstate;
 					}
 
-					kdDebug() << "new PE, geometry to " << x << ", " << y << endl;
 					portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
 					portfolioEstate->show();
 

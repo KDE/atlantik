@@ -452,7 +452,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 				if (!a.isNull())
 				{
 					estateId = a.value().toInt();
-					kdDebug() << "ESTATEUPDATE id " << estateId << endl;
 
 					Estate *estate;
 					bool b_newEstate = false;
@@ -606,7 +605,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 								}
 								else if (e_child.tagName() == "tradeestate")
 								{
-									kdDebug() << "tradeestate" << endl;
 									a = e_child.attributeNode(QString("estateid"));
 									if (!a.isNull())
 									{
