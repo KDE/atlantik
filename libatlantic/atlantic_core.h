@@ -51,6 +51,7 @@ public:
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
+	Trade *findTrade(int tradeId);
 	void removeTrade(Trade *trade);
 
 	QPtrList<Auction> auctions();

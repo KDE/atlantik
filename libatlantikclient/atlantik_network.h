@@ -171,7 +171,6 @@ private:
 	int m_playerId;
 
 	QMap<Player *, int> m_playerLocationMap;
-	QMap<int, Trade *> m_trades;
 	QMap<int, Auction *> m_auctions;
 };
 
