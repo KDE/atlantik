@@ -39,6 +39,7 @@ Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const 
 
 	setLocation(location, false);
 	m_destination = 0;
+	m_inJail = false;
 
 	qpixmap = 0;
 	b_recreate = true;
@@ -89,6 +90,11 @@ void Token::playerChanged()
 				if (estateView->estate() == estate)
 				{
 					setLocation(estateView);
+					if (m_player->inJail() != m_inJail)
+					{
+						m_inJail = m_player->inJail();
+						updateGeometry();
+					}
 					break;
 				}
 			}
@@ -108,7 +114,7 @@ void Token::updateGeometry()
 	}
 
 	int x, y;
-	if (m_player->inJail())
+	if (m_inJail)
 	{
 		x = m_location->geometry().x() + m_location->width() - width() - 2;
 		y = m_location->geometry().y() + 2;

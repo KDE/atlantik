@@ -52,7 +52,7 @@ private:
 		Player *m_player;
 		EstateView *m_location, *m_destination;
 		AtlantikBoard *m_parentBoard;
-		bool b_recreate;
+		bool b_recreate, m_inJail;
 		QPixmap *qpixmap;
 };
 
