@@ -33,7 +33,7 @@
 
 extern "C"
 {
-	int kdemain( int, char **argv )
+	int KDE_EXPORT kdemain( int, char **argv )
 	{
 		KInstance instance( "kio_atlantik" );
 		AtlantikProtocol slave(argv[2], argv[3]);
