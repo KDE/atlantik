@@ -4,21 +4,27 @@ Comment=Atlantik
  
 [chat]
 Name=Chat
+Name[hu]=Csevegés
 Name[sv]=Chatt
 Comment=A player sends a chat message
+Comment[hu]=Egy játékos szöveges üzenetet küld
 Comment[sv]=En spelare skickar ett chattmeddelande
 default_presentation=1
 
 [newplayer]
 Name=New player
+Name[hu]=Új játékos
 Name[sv]=Ny spelare
 Comment=A new player joins the game
+Comment[hu]=Egy új játékos csatlakozik a játékhoz
 Comment[sv]=En ny spelare går med i spelet
 default_presentation=1
 
 [newgame]
 Name=New game
+Name[hu]=Új játék
 Name[sv]=Nytt spel
 Comment=A new game is created
+Comment[hu]=Új játék jön létre
 Comment[sv]=Ett nytt spel har skapats
 default_presentation=1
