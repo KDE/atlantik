@@ -1,23 +1,28 @@
-For 0.5.0
----------
+0.5.1
+-----
 
-v fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
-v player name change doesn't make it to trade money items
-v fixed token positioning on game start
-v fixes to work with monopd 0.6.0 API
+- fixed potential double initialization of gameboard
 
-2002-07-29 (atlantik-0.4.0)
-----------
+0.5.0
+-----
 
-v token geometry is now aware of estate colour captions
-v queue display widgets
-  v fix buttons, they have specific targets, not just the current widget
-  v delete buttons in EstateDetails::newUpdate()
-v commandline parameters host, port and game supported (for auto-join)
-v kio_atlantik allows for easy connecting from other applications
+- fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
+- player name change doesn't make it to trade money items
+- fixed token positioning on game start
+- fixes to work with monopd 0.6.0 API
+
+0.4.0
+-----
+
+- token geometry is now aware of estate colour captions
+- queue display widgets
+  - fix buttons, they have specific targets, not just the current widget
+  - delete buttons in EstateDetails::newUpdate()
+- commandline parameters host, port and game supported (for auto-join)
+- kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
-v leave game and leave server options
-v pre-game configuration
+- leave game and leave server options
+- pre-game configuration
 
 2002-07-08 (kaper)
 ----------
