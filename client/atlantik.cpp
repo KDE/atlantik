@@ -232,13 +232,13 @@ void Atlantik::showSelectServer()
 	if (m_selectGame)
 	{
 		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
 	initNetworkObject();
 
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 }
 
@@ -264,18 +264,17 @@ void Atlantik::showSelectGame()
 	{
 		delete m_selectServer;
 		m_selectServer = 0;
-
-		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	}
 	if (m_selectConfiguration)
 	{
 		delete m_selectConfiguration;
 		m_selectConfiguration = 0;
-
-		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	}
 
+	// Game list clear has a different meaning now
+	disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+
 	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
@@ -291,7 +290,6 @@ void Atlantik::showSelectConfiguration()
 	if (m_selectGame)
 	{
 		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 
 		delete m_selectGame;
 		m_selectGame = 0;
@@ -305,6 +303,7 @@ void Atlantik::showSelectConfiguration()
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(endConfigUpdate()), m_selectConfiguration, SLOT(slotEndUpdate()));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
@@ -333,7 +332,6 @@ void Atlantik::showBoard()
 	if (m_selectGame)
 	{
 		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 
 		delete m_selectGame;
 		m_selectGame = 0;
@@ -356,6 +354,8 @@ void Atlantik::showBoard()
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			portfolioView->buildPortfolio();
+
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 }
 
 void Atlantik::freezeBoard()
