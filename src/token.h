@@ -1,5 +1,5 @@
-#ifndef __KMONOP_TOKEN_H__
-#define __KMONOP_TOKEN_H__
+#ifndef ATLANTIK_TOKEN_H
+#define ATLANTIK_TOKEN_H
 
 #include <qwidget.h>
 #include <qpixmap.h>

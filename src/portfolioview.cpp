@@ -8,9 +8,9 @@
 #define PE_MARGINW	5
 #define PE_MARGINH	2
 
-extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
-kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg,
-kmonop_lgray, kmonop_dgray;
+extern QColor atlantik_dpurple, atlantik_lblue, atlantik_purple, atlantik_orange,
+atlantik_red, atlantik_yellow, atlantik_green, atlantik_blue, atlantik_greenbg,
+atlantik_lgray, atlantik_dgray;
 
 PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -23,7 +23,7 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	lname = new QLabel(this);
 	lname->setAlignment(Qt::AlignLeft);
 	lname->setGeometry(5, 0, width()/2, height());
-	lname->setBackgroundColor(kmonop_lgray);
+	lname->setBackgroundColor(atlantik_lgray);
 	lname->setMinimumSize(lname->sizeHint());
 	lname->setMaximumWidth(width()-10);
 	lname->setMaximumHeight(15);
@@ -32,7 +32,7 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	lcash = new QLabel(this);
 	lcash->setAlignment(Qt::AlignRight);
 	lcash->setGeometry(width()/2, 0, width()-5, height());
-	lcash->setBackgroundColor(kmonop_lgray);
+	lcash->setBackgroundColor(atlantik_lgray);
 	lcash->setMinimumSize(lcash->sizeHint());
 	lcash->setMaximumWidth(width()/2);
 	lcash->setMaximumHeight(15);
@@ -47,21 +47,21 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 		switch(i)
 		{
 			case 1: case 3:
-				color = kmonop_dpurple; break;
+				color = atlantik_dpurple; break;
 			case 6: case 8: case 9:
-				color = kmonop_lblue; break;
+				color = atlantik_lblue; break;
 			case 11: case 13: case 14:
-				color = kmonop_purple; break;
+				color = atlantik_purple; break;
 			case 16: case 18: case 19:
-				color = kmonop_orange; break;
+				color = atlantik_orange; break;
 			case 21: case 23: case 24:
-				color = kmonop_red; break;
+				color = atlantik_red; break;
 			case 26: case 27: case 29:
-				color = kmonop_yellow; break;
+				color = atlantik_yellow; break;
 			case 31: case 32: case 34:
-				color = kmonop_green; break;
+				color = atlantik_green; break;
 			case 37: case 39:
-				color = kmonop_blue; break;
+				color = atlantik_blue; break;
 			case 5: case 15: case 25: case 35:
 			case 12: case 28:
 				color = QColor(Qt::black);
@@ -153,9 +153,9 @@ void PortfolioView::setHasTurn(bool turn)
 
 	myHasTurn = turn;
 
-	lname->setBackgroundColor(myHasTurn ? kmonop_dgray : kmonop_lgray);
+	lname->setBackgroundColor(myHasTurn ? atlantik_dgray : atlantik_lgray);
 	lname->update();
-	lcash->setBackgroundColor(myHasTurn ? kmonop_dgray : kmonop_lgray);
+	lcash->setBackgroundColor(myHasTurn ? atlantik_dgray : atlantik_lgray);
 	lcash->update();
 
 //	b_recreate = true;

@@ -1,5 +1,5 @@
-#ifndef __KMONOP_MAIN_H__
-#define __KMONOP_MAIN_H__
+#ifndef ATLANTIK_MAIN_H
+#define ATLANTIK_MAIN_H
 
 int main(int, char *[]);
 

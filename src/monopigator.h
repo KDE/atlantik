@@ -1,5 +1,5 @@
-	#ifndef __KMONOP_MONOPIGATOR_H__
-#define __KMONOP_MONOPIGATOR_H__
+	#ifndef ATLANTIK_MONOPIGATOR_H
+#define ATLANTIK_MONOPIGATOR_H
 
 #include <qobject.h>
 #include <qbuffer.h>

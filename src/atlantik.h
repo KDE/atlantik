@@ -1,5 +1,5 @@
-#ifndef __KMONOP_KMONOP_H__
-#define __KMONOP_KMONOP_H__
+#ifndef ATLANTIK_ATLANTIK_H
+#define ATLANTIK_ATLANTIK_H
 
 #include <qwidget.h>
 #include <qlayout.h>

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kmonop" version="1">
+<kpartgui name="atlantik" version="1">
 <MenuBar>
   <Menu name="move"><text>&amp;Move</text>
     <Action name="move_roll"/>

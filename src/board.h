@@ -1,5 +1,5 @@
-#ifndef __KMONOP_BOARD_H__
-#define __KMONOP_BOARD_H__
+#ifndef ATLANTIK_BOARD_H
+#define ATLANTIK_BOARD_H
 
 #include <qwidget.h>
 #include <qtimer.h>

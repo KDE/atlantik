@@ -1,17 +1,17 @@
-bin_PROGRAMS = kmonop
-INCLUDES = -I$(top_srcdir)/libkdegames $(all_includes) 
+bin_PROGRAMS = atlantik
+INCLUDES = $(all_includes) 
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
-LDADD = $(top_builddir)/libkdegames/libkdegames.la $(LIB_KSYCOCA) $(LIB_KFILE) 
+LDADD = $(LIB_KSYCOCA) $(LIB_KFILE) 
 
 SUBDIRS =
 
-kmonop_SOURCES = main.cpp kmonop.cpp board.cpp configdlg.cpp estateview.cpp \
+atlantik_SOURCES = main.cpp atlantik.cpp board.cpp configdlg.cpp estateview.cpp \
 monopigator.cpp network.cpp newgamedlg.cpp portfolioestate.cpp \
 portfolioview.cpp token.cpp
 
-KDE_ICON = kmonop
+KDE_ICON = atlantik
 
 METASOURCES = AUTO 
 
 messages: rc.cpp
-	$(XGETTEXT) *.cpp -o $(podir)/kmonop.pot
+	$(XGETTEXT) *.cpp -o $(podir)/atlantik.pot

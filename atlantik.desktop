@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=atlantik -caption "%c" %i %m
+Icon=atlantik
+DocPath=atlantik/index.html
+Comment=KDE client for the Atlantic board game collection
+Terminal=0
+Name=Atlantik
+MapNotify=true 

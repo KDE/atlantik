@@ -1,19 +1,17 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
 
-// Use hardcoded path while in kdenonbeta
-// #include <kstdgameaction.h>
-#include "../../libkdegames/kstdgameaction.h"
+#include <kstdgameaction.h>
 
 #include <kstdaction.h>
 #include <ktoolbar.h>
 #include <kapp.h>
 #include <kconfig.h>
 
-#include "kmonop.moc"
+#include "atlantik.moc"
 #include "config.h"
 
-extern KMonopConfig kmonopConfig;
+extern KMonopConfig atlantikConfig;
 
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
@@ -27,7 +25,7 @@ KMonop::KMonop (const char *name) :
 	// Toolbar actions
 	m_roll = KStdGameAction::roll(this, SLOT(slotRoll()), actionCollection()); // No Ctrl-R at the moment
 	m_roll->setEnabled(false);
-	m_buyEstate = new KAction("&Buy", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
+	m_buyEstate = new KAction("&Buy", "atlantik_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
 	m_endTurn = KStdGameAction::endTurn(this, SLOT(slotEndTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
@@ -90,14 +88,14 @@ void KMonop::readConfig()
 	KConfig *config=kapp->config();
 
 	config->setGroup("Personalization");
-	kmonopConfig.playerName = config->readEntry("PlayerName", "KMonop");
+	atlantikConfig.playerName = config->readEntry("PlayerName", "KMonop");
 
 	config->setGroup("Board");
-	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
-	kmonopConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
-	kmonopConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
-	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
-	kmonopConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
+	atlantikConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
+	atlantikConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
+	atlantikConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
+	atlantikConfig.animateToken = config->readBoolEntry("AnimateToken", false);
+	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 }
 
 void KMonop::slotNewGame()
@@ -128,55 +126,55 @@ void KMonop::slotUpdateConfig()
 	QString optStr;
 
 	optStr = m_configDialog->playerName();
-	if (kmonopConfig.playerName != optStr)
+	if (atlantikConfig.playerName != optStr)
 	{
-		kmonopConfig.playerName = optStr;
+		atlantikConfig.playerName = optStr;
 		gameNetwork->cmdName(optStr);
 	}
 
 	optBool = m_configDialog->indicateUnowned();
-	if (kmonopConfig.indicateUnowned != optBool)
+	if (atlantikConfig.indicateUnowned != optBool)
 	{
-		kmonopConfig.indicateUnowned = optBool;
+		atlantikConfig.indicateUnowned = optBool;
 		m_board->indicateUnownedChanged();
 	}
 
 	optBool = m_configDialog->highliteUnowned();
-	if (kmonopConfig.highliteUnowned != optBool)
+	if (atlantikConfig.highliteUnowned != optBool)
 	{
-		kmonopConfig.highliteUnowned = optBool;
+		atlantikConfig.highliteUnowned = optBool;
 		redrawEstates = true;
 	}
 
 	optBool = m_configDialog->grayOutMortgaged();
-	if (kmonopConfig.grayOutMortgaged != optBool)
+	if (atlantikConfig.grayOutMortgaged != optBool)
 	{
-		kmonopConfig.grayOutMortgaged = optBool;
+		atlantikConfig.grayOutMortgaged = optBool;
 		redrawEstates = true;
 	}
 
 	optBool = m_configDialog->animateToken();
-	if (kmonopConfig.animateToken != optBool)
+	if (atlantikConfig.animateToken != optBool)
 	{
-		kmonopConfig.animateToken = optBool;
+		atlantikConfig.animateToken = optBool;
 	}
 
 	optBool = m_configDialog->quartzEffects();
-	if (kmonopConfig.quartzEffects != optBool)
+	if (atlantikConfig.quartzEffects != optBool)
 	{
-		kmonopConfig.quartzEffects = optBool;
+		atlantikConfig.quartzEffects = optBool;
 		redrawEstates = true;
 	}
 
 	config->setGroup("Personalization");
-	config->writeEntry("PlayerName", kmonopConfig.playerName);
+	config->writeEntry("PlayerName", atlantikConfig.playerName);
 
 	config->setGroup("Board");
-	config->writeEntry("IndicateUnowned", kmonopConfig.indicateUnowned);
-	config->writeEntry("HighliteUnowned", kmonopConfig.highliteUnowned);
-	config->writeEntry("GrayOutMortgaged", kmonopConfig.grayOutMortgaged);
-	config->writeEntry("AnimateToken", kmonopConfig.animateToken);
-	config->writeEntry("QuartzEffects", kmonopConfig.quartzEffects);
+	config->writeEntry("IndicateUnowned", atlantikConfig.indicateUnowned);
+	config->writeEntry("HighliteUnowned", atlantikConfig.highliteUnowned);
+	config->writeEntry("GrayOutMortgaged", atlantikConfig.grayOutMortgaged);
+	config->writeEntry("AnimateToken", atlantikConfig.animateToken);
+	config->writeEntry("QuartzEffects", atlantikConfig.quartzEffects);
 
 	config->sync();
 

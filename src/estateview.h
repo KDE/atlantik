@@ -1,5 +1,5 @@
-#ifndef __KMONOP_ESTATEVIEW_H__
-#define __KMONOP_ESTATEVIEW_H__
+#ifndef ATLANTIK_ESTATEVIEW_H
+#define ATLANTIK_ESTATEVIEW_H
 
 #include <qwidget.h>
 #include <qpixmap.h>

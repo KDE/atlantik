@@ -1,5 +1,5 @@
-#ifndef __KMONOP_NETWORK_H__
-#define __KMONOP_NETWORK_H__
+#ifndef ATLANTIK_NETWORK_H
+#define ATLANTIK_NETWORK_H
 
 #include <qsocket.h>
 #include <qdom.h>

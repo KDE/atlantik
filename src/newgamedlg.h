@@ -1,5 +1,5 @@
-#ifndef __KMONOP_NEWGAMEDLG_H__
-#define __KMONOP_NEWGAMEDLG_H__
+#ifndef ATLANTIK_NEWGAMEDLG_H
+#define ATLANTIK_NEWGAMEDLG_H
 
 #include <qlistview.h>
 #include <qstring.h>

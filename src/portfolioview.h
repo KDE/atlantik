@@ -1,5 +1,5 @@
-#ifndef __KMONOP_PORTFOLIOVIEW_H__
-#define __KMONOP_PORTFOLIOVIEW_H__
+#ifndef ATLANTIK_PORTFOLIOVIEW_H
+#define ATLANTIK_PORTFOLIOVIEW_H
 
 #include <qwidget.h>
 #include <qpixmap.h>

@@ -9,9 +9,9 @@
 #include "network.h"
 #include "config.h"
 
-extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
-kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
-extern KMonopConfig kmonopConfig;
+extern QColor atlantik_dpurple, atlantik_lblue, atlantik_purple, atlantik_orange,
+atlantik_red, atlantik_yellow, atlantik_green, atlantik_blue, atlantik_greenbg;
+extern KMonopConfig atlantikConfig;
 
 KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -30,7 +30,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 
 	center = new QWidget(this);
 	layout->addMultiCellWidget(center, 3, 20, 3, 20);
-	center->setBackgroundColor(kmonop_greenbg);
+	center->setBackgroundColor(atlantik_greenbg);
 
 	int i=0, orientation=North;
 
@@ -47,21 +47,21 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 		switch(i)
 		{
 			case 1: case 3:
-				color = kmonop_dpurple; break;
+				color = atlantik_dpurple; break;
 			case 6: case 8: case 9:
-				color = kmonop_lblue; break;
+				color = atlantik_lblue; break;
 			case 11: case 13: case 14:
-				color = kmonop_purple; break;
+				color = atlantik_purple; break;
 			case 16: case 18: case 19:
-				color = kmonop_orange; break;
+				color = atlantik_orange; break;
 			case 21: case 23: case 24:
-				color = kmonop_red; break;
+				color = atlantik_red; break;
 			case 26: case 27: case 29:
-				color = kmonop_yellow; break;
+				color = atlantik_yellow; break;
 			case 31: case 32: case 34:
-				color = kmonop_green; break;
+				color = atlantik_green; break;
 			case 37: case 39:
-				color = kmonop_blue; break;
+				color = atlantik_blue; break;
 
 			case 5: case 15: case 25: case 35:
 				icon = QString("train.png");
@@ -315,7 +315,7 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 		{
 			if (direct)
 				jumpToken(token[playerid], location, false);
-			else if(kmonopConfig.animateToken==false)
+			else if(atlantikConfig.animateToken==false)
 				jumpToken(token[playerid], location);
 			else
 				moveToken(token[playerid], location);

@@ -3,11 +3,11 @@
 
 #include "portfolioestate.h"
 
-extern QColor kmonop_lgray, kmonop_dgray;
+extern QColor atlantik_lgray, atlantik_dgray;
 
 PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-    color = kmonop_lgray;
+    color = atlantik_lgray;
     QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
 	owned = false;
@@ -40,12 +40,12 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
-		painter.setPen(kmonop_lgray);
+		painter.setPen(atlantik_lgray);
 		painter.setBrush(white);
 		painter.drawRect(rect());
 		if (owned)
 		{
-			painter.setPen(kmonop_dgray);
+			painter.setPen(atlantik_dgray);
 			for (int y=5;y<=13;y+=2)
 				painter.drawLine(2, y, 10, y);
 
@@ -63,8 +63,8 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		}
 		else
 		{
-			painter.setPen(kmonop_lgray);	
-			painter.setBrush(kmonop_lgray);
+			painter.setPen(atlantik_lgray);	
+			painter.setBrush(atlantik_lgray);
 		}
 		painter.drawRect(0,0,width(),3);
 		

@@ -10,42 +10,46 @@ Contents
 1. Introduction
 ---------------
 
-KMonop is a KDE client for playing the Monopoly boardgame using a monopd
-server.
+Atlantik is a KDE client for playing games out of the Atlantic board game
+collection as offered by the Atlantic server daemon.
+
+Purpose of the Atlantic board game is to acquire land in major cities in
+North America and Europe while being a transatlantic traveller. One of the
+game modes plays like the popular real estate board game based on Atlantic
+City street names.
+
+Atlantik was previously known as KMonop and might still be refered to as
+such in some documentation. The Atlantic daemon was previously known as
+monopd and might also be refered to as such in some documentation.
 
 2. Download
 -----------
 
-KMonop can be downloaded from
+Atlantik can be downloaded from
 
-http://capsi.com/kmonop/
+http://capsi.com/atlantik/
 
-and monopd can be downloaded from
+and the Atlantic daemon can be downloaded from
 
 http://capsi.com/~cap/monopd/
 
 However, the latest versions of both projects are found in CVS.
 
-KMonop is located in the CVS repository of the KDE project in the module
-kdenonbeta. See
-
-http://www.kde.org/anoncvs.html
-
-for instructions how to download KDE modules from CVS.
+Atlantik is located in the CVS repository of the KDE project in the module
+kdenonbeta. See http://www.kde.org/anoncvs.html for instructions how to
+download KDE modules from CVS.
 
 For more information on monopd CVS see the monopd pages on
-
 http://sourceforge.net/projects/monopd/
 
-Both monopd and KMonop are in heavy development and it is important to match
-versions when connecting to a game server. Two dedicated servers are
-available on monopd.capsi.com, one running the latest released version of
-monopd and one running the latest CVS version.
+Both monopd and Atlantik are in heavy development and it is important to match
+versions when connecting to a game server. One can choose a suitable server
+through the Monopigator interface.
 
 3. Mailinglist
 --------------
 
-There is a mailinglist available for discussion of KMonop development:
+There is a mailinglist available for discussion of Atlantik development:
 
 To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
 To post, send e-mail to: kmonop-devel@lists.capsi.com
@@ -66,35 +70,21 @@ priorities. It can be used as roadmap or checklist.
 
 Many people have expressed their concerns about possible copyrights and
 patents applicable to Monopoly games and the possible implications for
-KMonop development and distribution.
+Atlantik development and distribution.
 
-For example, on kde-core-devel:
+In our defense:
 
-On Mon, Aug 06, 2001 at 08:20:19PM -0400, Preston Brown wrote:
-> Just FYI: Parker Brothers _aggressively_ defends their trademark on
-> Monopoly. KMonop may or may not fly.
- 
-But how aggresively exactly?
- 
-* KMonop has been in existance since June 1998. It was inspired by `monopd',
-a game in the bsdgames package which has been part of my Slackware since at
-least 1995 - the manual page on monopd has March 25, 1993 as date.
- 
-A quick search on "Monopoly boardgame" on Google returns KMonop as #1 result
-and as #6 result on Altavista. As well as a multitude of other computer
-versions of real estate trading games more or less similar to Monopoly®.
-
-Apparently Parker Brothers has not attempted (or failed) to defend their
-trademark for almost a decade!
-
-* KMonop will ship with original artwork, designed to not resemble the
-Parker Brother's look and feel - KMonop implements a folk game.
+* Atlantik is NOT Monopoly! It's a completely different boardgame! It does
+however ship with a game which has a closer resemblance to Monoply and
+features the streets of Atlantic City, based on the folk game upon which
+Parker Brothers based their game. This clone will ship with original
+artwork, designed to not resemble the Parker Brothers' look and feel.
 
 Parker Brothers has no rights to this folk game other than their copyrighted
 visual enhancements, as confirmed by the U.S. Supreme Court.
 <http://www.antimonopoly.com/graphics/evolution.gif>
 
-* KMonop has little or no code which is aware of the game rules, street
+* Atlantik has little or no code which is aware of the game rules, street
 names, board layout or any other aspect of the game. It only visualizes
 these aspects during gameplay - much like a web browser visualizes Internet
 content.

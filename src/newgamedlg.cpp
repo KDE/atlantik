@@ -14,7 +14,7 @@
 
 #include "config.h"
 
-extern KMonopConfig kmonopConfig;
+extern KMonopConfig atlantikConfig;
 
 QString serverHost;
 int serverPort, gameId;
@@ -444,7 +444,7 @@ void ConfigureGame::initPage()
 	else
 		gameNetwork->cmdGameJoin(gameId);
 
-	gameNetwork->cmdName(kmonopConfig.playerName);
+	gameNetwork->cmdName(atlantikConfig.playerName);
 }
 
 bool ConfigureGame::validateNext()

@@ -9,9 +9,9 @@
 #include "config.h"
 #include "configdlg.moc"
 
-extern KMonopConfig kmonopConfig;
+extern KMonopConfig atlantikConfig;
 
-ConfigDialog::ConfigDialog(QWidget* parent, const char *name) : KDialogBase(IconList, i18n("Configure KMonop"), Ok|Cancel, Ok, parent, "config_kmonop", false)
+ConfigDialog::ConfigDialog(QWidget* parent, const char *name) : KDialogBase(IconList, i18n("Configure KMonop"), Ok|Cancel, Ok, parent, "config_atlantik", false)
 {
 	p_p13n = addPage(QString(i18n("Personalization")), QString(i18n("Personalization")), BarIcon("personal", KIcon::SizeMedium));
 	p_board = addPage(QString(i18n("Board")), QString(i18n("Board")), BarIcon("monop_board", KIcon::SizeMedium));
@@ -69,7 +69,7 @@ ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, 
 
 void ConfigPlayer::reset()
 {
-	m_playerName->setText(kmonopConfig.playerName);
+	m_playerName->setText(atlantikConfig.playerName);
 }
 
 ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, name)
@@ -119,9 +119,9 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 
 void ConfigBoard::reset()
 {
-	m_indicateUnowned->setChecked(kmonopConfig.indicateUnowned);
-	m_highliteUnowned->setChecked(kmonopConfig.highliteUnowned);
-	m_grayOutMortgaged->setChecked(kmonopConfig.grayOutMortgaged);
-	m_animateToken->setChecked(kmonopConfig.animateToken);
-	m_quartzEffects->setChecked(kmonopConfig.quartzEffects);
+	m_indicateUnowned->setChecked(atlantikConfig.indicateUnowned);
+	m_highliteUnowned->setChecked(atlantikConfig.highliteUnowned);
+	m_grayOutMortgaged->setChecked(atlantikConfig.grayOutMortgaged);
+	m_animateToken->setChecked(atlantikConfig.animateToken);
+	m_quartzEffects->setChecked(atlantikConfig.quartzEffects);
 }

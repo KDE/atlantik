@@ -9,11 +9,8 @@ V implemented and confirmed
 Wishlist
 --------
 
-Please put your uncategorized wishlist items for monopd/KMonop here and I
-will add them to the respective TODO's. Leave your name and e-mail if you
-desire.
-
-<jasonkb> titlebar now: "Monopoly for KDE - KMonop" is kinda redundant and useless.. perhaps "JasonKB - KMonop" ..? 
+Please put your uncategorized wishlist items here and I will add them to the
+respective TODO's. Leave your name and e-mail if you desire.
 
 <this space left blank intentionally>
 
@@ -64,7 +61,7 @@ For 0.2.1
   - code to load/scale appropriate icon
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
-  - does jumpToken (activated by monop timeout) cancel animation?
+  - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance
   V disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
@@ -73,6 +70,7 @@ For 0.2.1
 For 0.3.x
 ---------
 
+- More descriptive window titles
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
@@ -85,7 +83,7 @@ v Use i18n()
   - config.h
   - configdlg.h
   - estateview.h
-  V kmonop.h
+  V atlantik.h
   - main.h
   - network.h
   - newgamedlg.h
@@ -107,7 +105,7 @@ For 1.0.0
 - Have a game suitable for inclusion in kdegames. Nice icons, stable code,
   etcetera.
 - Version 1.0.0 should be released with KDE 2.3, so after the last 2.3 beta
-  KMonop version will be moved from 0.9.x to 1.0.0.
+  Atlantik version will be moved from 0.9.x to 1.0.0.
 
 For 1.x.y
 ---------

@@ -1,5 +1,5 @@
-#ifndef __KMONOP_CONFIG_H__
-#define __KMONOP_CONFIG_H__
+#ifndef ATLANTIK_CONFIG_H
+#define ATLANTIK_CONFIG_H
 
 #define	MAXPLAYERS	6
 #define VERSION		"pre-0.2.0"

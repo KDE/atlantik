@@ -1,5 +1,5 @@
-#ifndef __KMONOP_CONFIGDLG_H__
-#define __KMONOP_CONFIGDLG_H__
+#ifndef ATLANTIK_CONFIGDLG_H
+#define ATLANTIK_CONFIGDLG_H
 
 #include <qwidget.h>
 #include <qcheckbox.h>

@@ -5,7 +5,7 @@
 
 #include "token.h"
 
-extern QColor kmonop_greenbg;
+extern QColor atlantik_greenbg;
 
 Token::Token(QString id, QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -69,7 +69,7 @@ void Token::paintEvent(QPaintEvent *)
 	if (b_recreate)
 	{
 		delete qpixmap;
-		qpixmap = new QPixmap(locate("data", "kmonop/pics/token.png"));
+		qpixmap = new QPixmap(locate("data", "atlantik/pics/token.png"));
 
 		QPainter painter;
 		painter.begin(qpixmap, this);

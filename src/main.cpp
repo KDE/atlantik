@@ -5,21 +5,21 @@
 
 #include "main.h"
 #include "config.h"
-#include "kmonop.h"
+#include "atlantik.h"
 #include "colordefs.h"
 
-KMonopConfig kmonopConfig;
+KMonopConfig atlantikConfig;
 
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData(
-		"kmonop",
-		I18N_NOOP("KMonop"), VERSION,
-		I18N_NOOP("Monopoly board game"),
+		"atlantik",
+		I18N_NOOP("Atlantik"), VERSION,
+		I18N_NOOP("The Atlantic board game"),
 		KAboutData::License_GPL,
 		I18N_NOOP("(c) 2001 Rob Kaper"),
-		I18N_NOOP("KDE client for playing the Monopoly board game on monopd servers."),
-		"http://capsi.com/kmonop/"
+		I18N_NOOP("KDE client for playing games out of the collection of the Atlantic board game daemon."),
+		"http://capsi.com/atlantik/"
 		);
 
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("programming"), "cap@capsi.com", "http://capsi.com/");
@@ -30,13 +30,13 @@ int main(int argc, char *argv[])
 	KApplication kapplication;
 
 	if (kapplication.isRestored())
-		RESTORE(KMonop)
+		RESTORE(Atlantik)
 	else
 	{
-		KMonop *kmonop = new KMonop;
-		kmonop->setGeometry(0, 0, 640, 480);
-		kmonop->setCaption("Monopoly for KDE");
-		kmonop->show();
+		Atlantik *atlantik = new Atlantik;
+		atlantik->setGeometry(0, 0, 640, 480);
+		atlantik->setCaption(i18n("The Atlantic board game"));
+		atlantik->show();
 	}
 
 	return kapplication.exec();

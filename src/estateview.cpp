@@ -13,9 +13,9 @@
 #include "network.h"
 #include "config.h"
 
-extern QColor kmonop_greenbg, kmonop_redhotel, kmonop_greenhouse;
-extern QColor kmonop_lgray;
-extern KMonopConfig kmonopConfig;
+extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
+extern QColor atlantik_lgray;
+extern KMonopConfig atlantikConfig;
 
 EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
@@ -40,7 +40,7 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 	lname->hide();
 
 	pe = 0;
-	icon = new QPixmap(locate("data", "kmonop/pics/" + _icon));
+	icon = new QPixmap(locate("data", "atlantik/pics/" + _icon));
 	icon = rotatePixmap(icon);
 
 	// Initialize Quartz blocks, regardless of configuration (when user
@@ -170,7 +170,7 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured KMonop not to show them.
-	if (m_ownedByAny || !m_canBeOwned || kmonopConfig.indicateUnowned==false)
+	if (m_ownedByAny || !m_canBeOwned || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -220,12 +220,12 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		
-		if (kmonopConfig.grayOutMortgaged==true && m_mortgaged)
-			painter.setBrush(kmonop_lgray);
-		else if (kmonopConfig.highliteUnowned==true && m_canBeOwned && !m_ownedByAny)
+		if (atlantikConfig.grayOutMortgaged==true && m_mortgaged)
+			painter.setBrush(atlantik_lgray);
+		else if (atlantikConfig.highliteUnowned==true && m_canBeOwned && !m_ownedByAny)
 			painter.setBrush(Qt::white);
 		else
-			painter.setBrush(kmonop_greenbg);
+			painter.setBrush(atlantik_greenbg);
 
 		painter.drawRect(rect());
         
@@ -251,7 +251,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case North:
 					painter.drawRect(0, 0, width(), titleHeight);
 
-					if (kmonopConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, 1, *quartzBuffer);
@@ -262,13 +262,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_houses == 5)
 						{
 							// Hotel
-							painter.setBrush(kmonop_redhotel);
+							painter.setBrush(atlantik_redhotel);
 							painter.drawRect(2, 2, (width()/2)-4, (titleHeight)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(kmonop_greenhouse);
+							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
 							for( int i=0 ; i< m_houses ; i++ )
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
@@ -278,7 +278,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case South:
 					painter.drawRect(0, height()-(titleHeight), width(), titleHeight);
 
-					if (kmonopConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-titleHeight+1, *quartzBuffer);
@@ -289,13 +289,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_houses == 5)
 						{
 							// Hotel
-							painter.setBrush(kmonop_redhotel);
+							painter.setBrush(atlantik_redhotel);
 							painter.drawRect(2, (3*(titleHeight))+2, (width()/2)-4, (titleHeight)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(kmonop_greenhouse);
+							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
 							for( int i=0 ; i< m_houses ; i++ )
 								painter.drawRect(2+(i*(w+2)), (3*(titleHeight))+2, w, h);
@@ -305,7 +305,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case West:
 					painter.drawRect(0, 0, titleWidth, height());
 
-					if (kmonopConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
@@ -316,13 +316,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_houses == 5)
 						{
 							// Hotel
-							painter.setBrush(kmonop_redhotel);
+							painter.setBrush(atlantik_redhotel);
 							painter.drawRect(2, 2, (titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(kmonop_greenhouse);
+							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
 							for( int i=0 ; i< m_houses ; i++ )
 								painter.drawRect(2, 2+(i*(h+2)), w, h);
@@ -332,7 +332,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case East:
 					painter.drawRect(width()-(titleWidth), 0, titleWidth, height());
 
-					if (kmonopConfig.quartzEffects)
+					if (atlantikConfig.quartzEffects)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);
@@ -343,13 +343,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_houses == 5)
 						{
 							// Hotel
-							painter.setBrush(kmonop_redhotel);
+							painter.setBrush(atlantik_redhotel);
 							painter.drawRect((3*(titleWidth))+2, 2, (titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(kmonop_greenhouse);
+							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
 							for( int i=0 ; i< m_houses ; i++ )
 								painter.drawRect((3*(titleWidth))+2, 2+(i*(h+2)), w, h);
