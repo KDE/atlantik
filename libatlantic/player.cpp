@@ -23,10 +23,20 @@ Player::Player(int playerId) : QObject()
 	m_id = playerId;
 	m_location = 0;
 	m_money = 0;
+	m_gameId = -1;
 	m_name = "";
 	m_host = "";
 	m_changed = m_isSelf = false;
 	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
+}
+
+void Player::setGame(int gameId)
+{
+	if (m_gameId != gameId)
+	{
+		m_gameId = gameId;
+		m_changed = true;
+	}
 }
 
 void Player::setLocation(Estate *location)

@@ -69,6 +69,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 	initNetworkObject();
 
+	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(removeGUI(Player *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
 	// Menu,toolbar: Move
@@ -172,26 +173,17 @@ void Atlantik::newPlayer(Player *player)
 	if (m_selectConfiguration)
 		m_selectConfiguration->addPlayer(player);
 
-	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
-	m_portfolioViews.append(portfolioView);
+	addPortfolioView(player);
 
 	if (player->isSelf())
-	{
 		m_playerSelf = player;
-		connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
-	}
-	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
-	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
-	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
 
-	m_portfolioLayout->addWidget(portfolioView);
-	portfolioView->show();
+	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 }
 
 void Atlantik::newEstate(Estate *estate)
 {
 	initBoard();
-
 	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 }
 
@@ -205,8 +197,20 @@ void Atlantik::newTrade(Trade *trade)
 void Atlantik::newAuction(Auction *auction)
 {
 	initBoard();
-
 	m_board->addAuctionWidget(auction);
+}
+
+void Atlantik::removeGUI(Player *player)
+{
+	// Find and remove portfolioview
+	PortfolioView *portfolioView = findPortfolioView(player);
+	if (portfolioView)
+	{
+		m_portfolioViews.remove(portfolioView);
+		delete portfolioView;
+	}
+
+	// TODO: Remove tokens from board
 }
 
 void Atlantik::removeGUI(Trade *trade)
@@ -222,12 +226,14 @@ void Atlantik::showSelectServer()
 	m_selectServer->show();
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
 	initNetworkObject();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame())); // disconnect from selectGame implied by deletion above
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 }
 
@@ -263,7 +269,6 @@ void Atlantik::showSelectGame()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
 	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
@@ -278,6 +283,9 @@ void Atlantik::showSelectConfiguration()
 {
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
@@ -289,7 +297,6 @@ void Atlantik::showSelectConfiguration()
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
@@ -317,6 +324,9 @@ void Atlantik::showBoard()
 {
 	if (m_selectGame)
 	{
+		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
@@ -491,17 +501,29 @@ void Atlantik::serverMsgsAppend(QString msg)
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 }
 
-void Atlantik::playerChanged()
+void Atlantik::playerChanged(Player *player)
 {
-	m_roll->setEnabled(m_playerSelf->canRoll());
-	m_buyEstate->setEnabled(m_playerSelf->canBuy());
-	m_auctionEstate->setEnabled(m_playerSelf->canBuy());
+	PortfolioView *portfolioView = findPortfolioView(player);
+	if (portfolioView && player->gameId() == -1)
+	{
+		m_portfolioViews.remove(portfolioView);
+		delete portfolioView;
+	}
+	else if (!portfolioView && player->gameId() != -1)
+		addPortfolioView(player);
 
-	// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_usejailcard can_payjail can_jailroll yet
-	m_endTurn->setEnabled(m_playerSelf->hasTurn() && !(m_playerSelf->canRoll() || m_playerSelf->canBuy() || m_playerSelf->inJail()));
-	m_jailCard->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
-	m_jailPay->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
-	m_jailRoll->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
+	if (player == m_playerSelf)
+	{
+		m_roll->setEnabled(player->canRoll());
+		m_buyEstate->setEnabled(player->canBuy());
+		m_auctionEstate->setEnabled(player->canBuy());
+
+		// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_usejailcard can_payjail can_jailroll yet
+		m_endTurn->setEnabled(player->hasTurn() && !(player->canRoll() || player->canBuy() || player->inJail()));
+		m_jailCard->setEnabled(player->hasTurn() && player->inJail());
+		m_jailPay->setEnabled(player->hasTurn() && player->inJail());
+		m_jailRoll->setEnabled(player->hasTurn() && player->inJail());
+	}
 }
 
 void Atlantik::initNetworkObject()
@@ -520,6 +542,7 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
 
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameConfig()), this, SLOT(showSelectConfiguration()));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), this, SLOT(initBoard()));
 	connect(m_atlantikNetwork, SIGNAL(gameRun()), this, SLOT(showBoard()));
@@ -537,4 +560,27 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailCard()), m_atlantikNetwork, SLOT(jailCard()));
 	connect(this, SIGNAL(jailPay()), m_atlantikNetwork, SLOT(jailPay()));
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
+}
+
+void Atlantik::addPortfolioView(Player *player)
+{
+	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
+	m_portfolioViews.append(portfolioView);
+
+	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
+	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
+	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
+
+	m_portfolioLayout->addWidget(portfolioView);
+	portfolioView->show();
+}
+
+PortfolioView *Atlantik::findPortfolioView(Player *player)
+{
+	PortfolioView *portfolioView = 0;
+	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); (portfolioView = *it) ; ++it)
+		if (player == portfolioView->player())
+			return portfolioView;
+
+	return 0;
 }

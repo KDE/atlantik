@@ -30,6 +30,8 @@ public:
 	Player(int playerId);
 
 	int id() { return m_id; }
+	void setGame(int gameId);
+	int gameId() { return m_gameId; }
 	void setLocation(Estate *estate);
 	Estate *location() { return m_location; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
@@ -54,7 +56,7 @@ signals:
 	void changed(Player *player);
 
 private:
-	int m_id;
+	int m_id, m_gameId;
 	bool m_changed, m_isSelf;
 	bool m_hasTurn, m_canRoll, m_canBuy, m_inJail;
 	unsigned int m_money;

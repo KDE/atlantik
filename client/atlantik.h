@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -167,9 +167,10 @@ public slots:
 	void newTrade(Trade *trade);
 	void newAuction(Auction *auction);
 
+	void removeGUI(Player *player);
 	void removeGUI(Trade *trade);
 
-	void playerChanged();
+	void playerChanged(Player *player);
 
 signals:
 	void rollDice();
@@ -182,6 +183,8 @@ signals:
 
 private:
 	void initNetworkObject();
+	void addPortfolioView(Player *player);
+	PortfolioView *findPortfolioView(Player *player);
 
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
