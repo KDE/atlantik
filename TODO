@@ -20,10 +20,7 @@ Bugfixes
 - same for:
   - estates checking tokens upon estate init
   v portfolios checking estates upon player init
-v make PortfolioEstate have a relation with Estate like EstateView has
-  - rename to TinyEstateView
-  - remove hardcoded locations in portfolioview
-^ make PortfolioView have a relation with Player
+- rename PortfolioEstate to TinyEstateView
 v support for <display>
   v type chancecard (attrs playerid, name and description)
   ^ type cccard (attrs playerid, name and description)
@@ -44,6 +41,7 @@ For 0.2.0
   - buttons connect to network API
 - Different token placement when in jail
 - fix portfolio
+  - non street estates in portfolio
   - Chance/CC cards in portfolio
 - support auctions
 

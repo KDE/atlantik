@@ -27,10 +27,6 @@ public:
 	QPtrList<Player> players() const;
 	QPtrList<Trade> trades() const;
 
-	Player *getPlayer(int playerId);
-	Estate *getEstate(int estateId);
-	Trade *getTrade(int tradeId);
-
 private slots:
 	void roll();
 	void endTurn();
@@ -111,6 +107,10 @@ signals:
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
 private:
+	Player *getPlayer(int playerId);
+	Estate *getEstate(int estateId);
+	Trade *getTrade(int tradeId);
+
 	void writeData(QString msg);
 	void processMsg(QString);
 	void processNode(QDomNode);
