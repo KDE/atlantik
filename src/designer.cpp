@@ -389,6 +389,8 @@ void AtlanticDesigner::openFile(const QString &filename)
 					v *= -1;
 					key = "goback";
 				}
+				if (key == "advanceto")
+					v++;
 
 				kdDebug() << key << "=" << v << endl;
 				keys.append(key);
@@ -485,6 +487,7 @@ void AtlanticDesigner::saveAs()
 
 void AtlanticDesigner::save()
 {
+	(void) editor->saveEstate();
 	//kdDebug() << "count is " << estates.count() << endl;
 	QString oldfilename = filename;
 	if (filename.isNull())
@@ -517,23 +520,26 @@ void AtlanticDesigner::save()
 		}
 		*/
 
+		EstateType type = (EstateType)estate->type();
+
 		t << QString("[%1]\ntype=%2\nbgcolor=%4\n").arg(estate->name()).arg(*types.at(estate->type())).arg(estate->bgColor().name());
 		if (estate->color().isValid())
 			t << "color=" << estate->color().name() << endl;
-		if (estate->group() >= 0)
+		if (estate->group() >= 0 && type == Street)
 			t << "group=" << estate->group() << endl;
-		if (estate->price() >= 0)
+		if (estate->housePrice() >= 0 && type == Street)
+			t << "houseprice=" << estate->housePrice() << endl;
+		if (estate->price() >= 0 && type == Street)
 			t << "price=" << estate->price() << endl;
-		if (estate->tax() >= 0)
+		if (estate->tax() >= 0 && type == Tax)
 			t << "tax=" << estate->tax() << endl;
-		if (estate->taxPercentage() >= 0)
+		if (estate->taxPercentage() >= 0 && type == Tax)
 			t << "taxpercentage=" << estate->taxPercentage() << endl;
 
-		for (int i = 0; i < 6; i++)
-		{
-			if (estate->rent(i) >= 0)
-				t << "rent" << i << "=" << estate->rent(i) << endl;
-		}
+		if (type == Street)
+			for (int i = 0; i < 6; i++)
+				if (estate->rent(i) >= 0)
+					t << "rent" << i << "=" << estate->rent(i) << endl;
 
 		t << endl;
 
@@ -581,6 +587,8 @@ void AtlanticDesigner::save()
 					value *= -1;
 					key = "advance";
 				}
+				if (key == "advanceto")
+					value--;
 
 				if (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil")
 				{
