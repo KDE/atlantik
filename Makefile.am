@@ -2,7 +2,7 @@ INCLUDES = $(all_includes)
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
-SUBDIRS = atlanticd src pics
+SUBDIRS = atlanticd atlanticdesigner src pics
 
 EXTRA_DIST = atlantik.desktop
 
