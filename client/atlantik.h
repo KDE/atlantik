@@ -113,7 +113,7 @@ public slots:
 	 void slotNetworkConnected();
 
 	/**
-	 * An error occured while setting up the network connection. Inform the
+	 * An error occurred while setting up the network connection. Inform the
 	 * user.
 	 *
 	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
