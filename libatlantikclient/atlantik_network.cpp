@@ -363,6 +363,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value(), eOption.attributeNode(QString("edit")).value(), eOption.attributeNode(QString("command")).value());
 					}
 				}
+				emit endConfigUpdate();
 			}
 			else if (e.tagName() == "gameupdate")
 			{

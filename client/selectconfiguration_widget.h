@@ -37,6 +37,7 @@ Q_OBJECT
 
 public:
 	SelectConfiguration(QWidget *parent, const char *name=0);
+	~SelectConfiguration();
 
 	void initPage();
 	void setCanStart(const bool &canStart);
@@ -49,6 +50,7 @@ private slots:
 	void slotTokenSelected(const QString &name);
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void optionChanged();
+	void slotEndUpdate();
 
 signals:
 	void startGame();
@@ -61,7 +63,7 @@ signals:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QLabel *status_label;
+	QLabel *m_statusLabel;
 	QVGroupBox *m_configBox, *m_messageBox;
 	KPushButton *m_backButton, *m_startButton, *m_tokenButton;
 	QMap <QObject *, QString> m_optionCommandMap;
