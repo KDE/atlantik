@@ -3,6 +3,12 @@
 
 - Show mortgage and house prices/values on estate views.
 
+0.7.2 (KDE 3.3.2)
+-----
+
+- Proper use of host and port in kio_atlantik: fixes problems with
+  invitations sent by newer clients.
+
 0.7.1 (KDE 3.3.1)
 -----
 
