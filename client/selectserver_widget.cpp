@@ -139,6 +139,7 @@ void SelectServer::slotLocalError()
 void SelectServer::monopigatorFinished()
 {
 	status_label->setText(i18n("Retrieved server list."));
+	m_refreshButton->setEnabled(true);
 }
 
 void SelectServer::monopigatorTimeout()
