@@ -202,10 +202,12 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged(Player *player)
 {
+	kdDebug() << "playerChanged: playerLoc " << (player->location() ? player->location()->name() : "none") << endl;
 	// Update token
 	Token *token = findToken(player);
 	if (token)
 	{
+		kdDebug() << "playerChanged: tokenLoc " << (token->location() ? token->location()->name() : "none") << endl;
 		if (player->hasTurn())
 			token->raise();
 
@@ -255,6 +257,13 @@ void AtlantikBoard::jumpToken(Token *token)
 
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
+
+	if (Player *player = token->player())
+	{
+		player->setLocation(token->location());
+		player->setDestination(0);
+	}
+
 	if (token->isHidden())
 		token->show();
 
