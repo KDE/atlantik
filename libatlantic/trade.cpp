@@ -32,6 +32,12 @@ void Trade::addPlayer(Player *player)
 	m_playerAcceptMap[player] = false;
 }
 
+void Trade::removePlayer(Player *player)
+{
+	mPlayers.remove(player);
+	m_playerAcceptMap[player] = false;
+}
+
 QPtrList<Player> Trade::players() const
 {
 	return mPlayers;

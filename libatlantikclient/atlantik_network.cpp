@@ -262,6 +262,7 @@ void AtlantikNetwork::processMsg(QString str)
 	}
 	QDomNode n = e.firstChild();
 	processNode(n);
+	m_atlanticCore->printDebug();
 }
 
 void AtlantikNetwork::processNode(QDomNode n)
@@ -670,7 +671,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 							{
 								Player *player = m_atlanticCore->findPlayer(e_player.attributeNode(QString("playerid")).value().toInt());
 								if (trade && player)
+								{
 									trade->addPlayer(player);
+									QObject::connect(m_atlanticCore, SIGNAL(removePlayer(Player *)), trade, SLOT(removePlayer(Player *)));
+								}
 							}
 							n_player = n_player.nextSibling();
 						}
