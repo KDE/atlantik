@@ -25,6 +25,8 @@
 #include <kio/job.h>
 #include <kurl.h>
 
+class KLatencyTimer;
+
 class Monopigator : public QObject
 {
 Q_OBJECT
@@ -52,11 +54,19 @@ private:
 	KIO::Job *m_job;
 };
 
-class MonopigatorEntry : public QListViewItem
+class MonopigatorEntry : public QObject, public QListViewItem
 {
+Q_OBJECT
+
 public:
-	MonopigatorEntry(QListView *parent, QString host, QString version, QString users, QString port);
+	MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port);
 	int compare(QListViewItem *i, int col, bool ascending) const;
+
+private slots:
+	void updateLatency(int msec);
+
+private:
+	KLatencyTimer *m_latencyTimer;
 };
 
 #endif

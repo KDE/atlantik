@@ -16,6 +16,8 @@
 
 #include <qdom.h>
 
+#include <klatencytimer.h>
+
 #include "monopigator.moc"
 #include "main.h"
 
@@ -103,13 +105,25 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 	}
 }
 
-MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString version, QString users, QString port) : QListViewItem(parent, host, version, users, port)
+MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port) : QObject(), QListViewItem(parent, host, latency, version, users, port)
 {
+	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
+	m_latencyTimer->setHost(host);
+
+	connect(m_latencyTimer, SIGNAL(answer(int)), this, SLOT(updateLatency(int)));
+
+	m_latencyTimer->start();
+}
+
+void MonopigatorEntry::updateLatency(int msec)
+{
+	setText(1, QString::number(msec));
 }
 
 int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const
 {
-	if (col == 2)
+	// Colums 1 and 3 are integers (latency and users)
+	if (col == 1 || col == 3)
 	{
 		int myVal = text(col).toInt(), iVal = i->text(col).toInt();
 		if (myVal == iVal)

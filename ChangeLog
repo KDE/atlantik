@@ -6,6 +6,7 @@
 - support for KNotify events
 - option to hide development servers (on by default)
 - gui to connect to custom server
+- klatencytimer: support for server ping times
 
 0.5.3
 -----
