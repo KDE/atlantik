@@ -32,7 +32,7 @@ v move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
 - Option to configure toolbars (at least be able to save size/text settings)
-- More descriptive window titles
+v More descriptive window titles
 v money updates from network don't make it to a gui update
 v request playerlist after joining game
 

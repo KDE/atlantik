@@ -47,6 +47,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
+	setCaption(i18n("Trade %1").arg(trade->tradeId()));
+
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
 	m_updateComponentBox = new QHGroupBox(i18n("Add Component"), this);
