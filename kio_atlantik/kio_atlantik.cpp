@@ -48,14 +48,13 @@ void AtlantikProtocol::get( const KURL& url )
 	*proc << "atlantik";
 
 #ifdef KDE_3_1_FEATURES
-	QString host = KProcess::quote(url.queryItem("host"));
-	QString port = KProcess::quote(url.queryItem("port"));
+	QString host = KProcess::quote( url.hasHost() ? url.host() : url.queryItem("host") );
 	QString game = KProcess::quote(url.queryItem("game"));
 #else
-	QString host = url.queryItem("host"));
-	QString port = url.queryItem("port"));
+	QString host = url.hasHost() ? url.host() : url.queryItem("host");
 	QString game = url.queryItem("game"));
 #endif
+	QString port = QString::number( url.port() ? url.port() : 1234 );
 
 	if (!host.isNull() && !port.isNull())
 	{
