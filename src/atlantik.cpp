@@ -214,7 +214,13 @@ void Atlantik::slotInitGame()
 
 	KMessageBox::information(this, i18n(
 		"Atlantik and monopd are undergoing a few major changes at the moment.\n"
-		"Unpredictable behavior might occur during your game."
+		"Unpredictable behavior might occur during your game.\n\n"
+		"Known issues:\n"
+		"- tokens are not shown correctly until first rolling of dice\n"
+		"- token movement animation not implemented\n"
+		"- all estates have northward orientation\n"
+		"- portfolioviews are still hardcoded and arenot updated\n"
+		"- atlantic theme is not completely implemented server-side\n"
 		));
 }
 
