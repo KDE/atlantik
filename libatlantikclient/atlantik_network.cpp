@@ -381,6 +381,18 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit gameEnd();
 				}
 			}
+			else if (e.tagName() == "deleteplayer")
+			{
+				a = e.attributeNode(QString("playerid"));
+				if (!a.isNull())
+				{
+					int playerId = a.value().toInt();
+
+					Player *player = m_atlanticCore->findPlayer(playerId);
+					if (player)
+						m_atlanticCore->removePlayer(player);
+				}
+			}
 			else if (e.tagName() == "playerupdate")
 			{
 				int playerId = -1;
@@ -474,7 +486,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					int groupId = a.value().toInt();
 
-					EstateGroup *estateGroup;
+					EstateGroup *estateGroup = 0;
 					bool b_newEstateGroup = false;
 					
 					if (!(estateGroup = m_atlanticCore->findEstateGroup(groupId)))
@@ -512,17 +524,16 @@ void AtlantikNetwork::processNode(QDomNode n)
 					bool b_newEstate = false;
 
 					// FIXME: allow any estateId, GUI should not use it to determin its geometry
-					if (estateId >=0 && estateId < 100 && !(estate = m_atlanticCore->findEstate(a.value().toInt())))
+					if (estateId >= 0 && estateId < 100 && !(estate = m_atlanticCore->findEstate(a.value().toInt())))
 					{
 						// Create estate object
 						estate = m_atlanticCore->newEstate(estateId);
+						b_newEstate = true;
 
 						QObject::connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
 						QObject::connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
 						QObject::connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
 						QObject::connect(estate, SIGNAL(newTrade(Player *)), this, SLOT(newTrade(Player *)));
-
-						b_newEstate = true;
 
 						// Players without estate should get one
 						Player *player = 0;
@@ -793,7 +804,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	kdDebug() << "AtlantikNetwork::serverConnect(" << host << ", " << QString::number(port) << ")" << endl;
 	setAddress(host, port);
 	enableRead(true);
 	startAsyncConnect();
