@@ -1,0 +1,6 @@
+Atlantik uses KExtendedSocket to connect to monopd servers. Due to a bug in
+KBufferedIO in kdelibs-3.0.0, you might experience unexplained crashes when
+using Atlantik with KDE 3.0 release.
+
+It is recommended to run Atlantik with at least KDE 3.0.1 or a CVS version
+of HEAD more recent than April 30, 2002.

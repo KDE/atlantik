@@ -18,7 +18,6 @@ Bugfixes
   to any of those updates
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
-v KExtendedSocket errorcodes/port
 - bugs from Neil's trial report
   - No notification of when someone got sent to jail
   - Should display in console chance/community chest cards (reenable that optionally?)

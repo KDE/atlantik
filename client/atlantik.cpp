@@ -14,6 +14,8 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#include <errno.h>
+
 #include <qcolor.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
@@ -37,12 +39,6 @@
 
 #include <board.h>
 #include <trade_widget.h>
-
-#define USE_KDE 1
-
-#ifdef USE_KDE
-#include <errno.h>
-#endif
 
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
@@ -77,13 +73,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 
-#ifndef USE_KDE
-	connect(m_atlantikNetwork, SIGNAL(connected()), this, SLOT(slotNetworkConnected()));
-	connect(m_atlantikNetwork, SIGNAL(error(int)), this, SLOT(slotNetworkError(int)));
-#else
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
-#endif
 
 	connect(m_atlantikNetwork, SIGNAL(joinedGame()), this, SLOT(slotJoinedGame()));
 	connect(m_atlantikNetwork, SIGNAL(initGame()), this, SLOT(initGame()));
@@ -262,25 +253,6 @@ void Atlantik::slotNetworkError(int errnum)
 {
 	QString errMsg(i18n("Error connecting: "));
 	
-#ifndef USE_KDE
-	switch(errnum)
-	{
-		case QSocket::ErrConnectionRefused:
-			errMsg.append(i18n("connection refused by host."));
-			break;
-
-		case QSocket::ErrHostNotFound:
-			errMsg.append(i18n("host not found."));
-			break;
-
-		case QSocket::ErrSocketRead:
-			errMsg.append(i18n("could not read data."));
-			break;
-
-		default:
-			errMsg.append(i18n("unknown error."));
-	}
-#else
 	switch (m_atlantikNetwork->status())
 	{
 		case IO_ConnectError:
@@ -297,7 +269,7 @@ void Atlantik::slotNetworkError(int errnum)
 		default:
 			errMsg.append(i18n("unknown error."));
 	}
-#endif
+
 	serverMsgsAppend(errMsg);
 }
 

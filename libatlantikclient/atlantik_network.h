@@ -20,13 +20,7 @@
 #include <qdom.h>
 #include <qmap.h>
 
-#define USE_KDE 1
-
-#ifndef USE_KDE
-#include <qsocket.h>
-#else
 #include <kextsock.h>
-#endif
 
 class AtlanticCore;
 
@@ -36,11 +30,7 @@ class EstateGroup;
 class Trade;
 class Auction;
 
-//#ifndef USE_KDE
-//class AtlantikNetwork : public QSocket
-//#else
 class AtlantikNetwork : public KExtendedSocket
-//#endif
 {
 Q_OBJECT
 

@@ -25,19 +25,13 @@
 #include <trade.h>
 #include <auction.h>
 
-#define USE_KDE 1
-
 #include "atlantik_network.h"
 #include "atlantik_network.moc"
 
 //#include "atlantik.h"
 //#include "trade_widget.h"
 
-#ifndef USE_KDE
-AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : QSocket(parent, name)
-#else
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
-#endif
 {
 	m_atlanticCore = atlanticCore;
 	m_parent = parent;
@@ -197,11 +191,7 @@ void AtlantikNetwork::jailCard()
 void AtlantikNetwork::writeData(QString msg)
 {
 	msg.append("\n");
-#ifndef USE_KDE
-	if (state()==QSocket::Connection)
-#else
-	if (socketStatus()==KExtendedSocket::connected)
-#endif
+	if (socketStatus() == KExtendedSocket::connected)
 	{
 		kdDebug() << "out [" << msg << "]" << endl;
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
@@ -213,10 +203,6 @@ void AtlantikNetwork::writeData(QString msg)
 void AtlantikNetwork::slotRead()
 {
 	kdDebug() << "slotRead, " << bytesAvailable() << " bytes available" << endl;
-#ifndef USE_KDE
-	while(canReadLine())
-		processMsg(readLine());
-#else
 	char *tmp = new char[1024 * 32];
 	while(canReadLine())
 	{
@@ -225,7 +211,6 @@ void AtlantikNetwork::slotRead()
 		processMsg(tmp);
 	}
 	delete[] tmp;
-#endif
 
 	// Maximum message size. Messages won't get bigger than 32k anyway, so
 	// if we didn't receive a newline by now, we probably won't anyway.
@@ -735,11 +720,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-#ifndef USE_KDE
-	connectToHost(host, port);
-#else
 	setAddress(host, port);
 	enableRead(true);
 	startAsyncConnect();
-#endif
 }
