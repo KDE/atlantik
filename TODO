@@ -14,10 +14,7 @@ Bugfixes
 - player name change doesn't make it to trade money items
 - Update messages views after resize.
 - Token should not have to know about EstateView, views could be independent
-- bugs from Neil's trial report
-  - Should display in console chance/community chest cards (reenable that optionally?)
-  ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
-  - Trying to get out of jail before turn starts gives ERR (monopd)
+? roll button not enabled after using jail card?
 - find a good starting location for tokens
 
 For 0.3.1
