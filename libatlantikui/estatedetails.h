@@ -36,6 +36,7 @@ Q_OBJECT
 
 public:
 	EstateDetails(Estate *estate, QWidget *parent, const char *name = 0);
+	~EstateDetails();
 	Estate *estate() { return m_estate; }
 
 	void addButton(const QString command, const QString caption, bool enabled);

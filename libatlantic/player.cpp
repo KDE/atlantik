@@ -21,6 +21,8 @@
 Player::Player() : QObject()
 {
 	m_location = 0;
+	m_money = 0;
+	m_name = "";
 	m_changed = m_isSelf = false;
 	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }

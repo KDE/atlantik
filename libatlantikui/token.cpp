@@ -41,14 +41,16 @@ Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const 
 	m_player = player;
 	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
-	setLocation(location, false);
-	m_destination = 0;
 	m_inJail = false;
+	m_location = location;
+	m_destination = 0;
 
 	qpixmap = 0;
 	b_recreate = true;
 
 	setFixedSize(QSize(26, 26));
+
+	updateGeometry();
 }
 
 Player *Token::player()

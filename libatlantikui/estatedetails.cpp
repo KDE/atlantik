@@ -57,6 +57,12 @@ EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
 
+EstateDetails::~EstateDetails()
+{
+	delete m_pixmap;
+	delete m_quartzBlocks;
+}
+
 void EstateDetails::paintEvent(QPaintEvent *)
 {
 	if (m_recreateQuartz)
