@@ -29,6 +29,10 @@ v kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
 v leave game and leave server options
 v pre-game configuration
+
+For 0.5.0
+---------
+
 - fancy widgets
   - generic (caption and description)
   ^ estate
@@ -42,10 +46,6 @@ v pre-game configuration
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance
-
-For 0.5.0
----------
-
 - invite button
   - kaddressbook hooks
   - e-mail invites
