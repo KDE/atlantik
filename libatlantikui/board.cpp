@@ -202,14 +202,14 @@ void AtlantikBoard::addToken(Player *player)
 		return;
 	}
 
-	Player *playerSelf = m_atlanticCore->playerSelf();
-	if (playerSelf)
+	Player *playerSelf = 0;
+	if (m_atlanticCore)
+		playerSelf = m_atlanticCore->playerSelf();
+
+	if (playerSelf && playerSelf->gameId() != player->gameId() )
 	{
-		if (playerSelf->gameId() != player->gameId())
-		{
-			kdDebug() << "addToken - not in same game" << endl;
-			return;
-		}
+		kdDebug() << "addToken ignored - not in same game as playerSelf" << endl;
+		return;
 	}
 	else
 		kdDebug() << "addToken - no playerSelf" << endl;
@@ -228,7 +228,9 @@ void AtlantikBoard::playerChanged(Player *player)
 {
 	kdDebug() << "playerChanged: playerLoc " << (player->location() ? player->location()->name() : "none") << endl;
 
-	Player *playerSelf = m_atlanticCore->playerSelf();
+	Player *playerSelf = 0;
+	if (m_atlanticCore)
+		playerSelf = m_atlanticCore->playerSelf();
 
 	// Update token
 	Token *token = findToken(player);
@@ -371,6 +373,13 @@ QPoint AtlantikBoard::calculateTokenDestination(Token *token, Estate *eDest)
 
 void AtlantikBoard::slotMoveToken()
 {
+	// Requires a core with estates to operate on
+	if (!m_atlanticCore)
+	{
+		kdDebug() << "slotMoveToken ignored - no atlanticCore" << endl;
+		return;
+	}
+
 	// Do we actually have a token to move?
 	if (!m_movingToken)
 	{
