@@ -1,3 +1,13 @@
+0.7.0
+-----
+
+- Event log
+- Use of KStatusBar
+- Game master can boot other players to lounge during game setup (#52631)
+- Support gameupdate tag, deprecate updategamelist (requires monopd >= 0.9.0)
+- Support individual configupdate tags
+- Show estate names on board (#61858)
+
 0.6.0
 -----
 

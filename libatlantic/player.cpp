@@ -21,23 +21,28 @@
 Player::Player(int playerId) : QObject()
 {
 	m_id = playerId;
-	m_gameId = -1;
+	m_game = 0;
 	m_name = "";
 	m_host = "";
 	m_image = "";
 	m_location = m_destination = 0;
 	m_money = 0;
 	m_changed = m_isSelf = false;
-	m_master = m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_canAuction = m_canUseCard = m_inJail = false;
+	m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_canAuction = m_canUseCard = m_inJail = false;
 }
 
-void Player::setGame(int gameId)
+void Player::setGame(Game *game)
 {
-	if (m_gameId != gameId)
+	if (m_game != game)
 	{
-		m_gameId = gameId;
+		m_game = game;
 		m_changed = true;
 	}
+}
+
+Game *Player::game()
+{
+	return m_game;
 }
 
 void Player::setLocation(Estate *location)
@@ -54,15 +59,6 @@ void Player::setDestination(Estate *destination)
 	if (m_destination != destination)
 	{
 		m_destination = destination;
-		m_changed = true;
-	}
-}
-
-void Player::setMaster(bool master)
-{
-	if (m_master != master)
-	{
-		m_master = master;
 		m_changed = true;
 	}
 }

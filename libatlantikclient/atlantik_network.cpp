@@ -16,6 +16,7 @@
 
 #include <iostream>
 
+#include <qdom.h>
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <qtimer.h>
@@ -24,17 +25,15 @@
 #include <klocale.h>
 
 #include <atlantic_core.h>
-#include <player.h>
+#include <auction.h>
+#include <configoption.h>
 #include <estate.h>
 #include <estategroup.h>
+#include <game.h>
+#include <player.h>
 #include <trade.h>
-#include <auction.h>
 
 #include "atlantik_network.h"
-#include "atlantik_network.moc"
-
-//#include "atlantik.h"
-//#include "trade_widget.h"
 
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
 {
@@ -118,16 +117,6 @@ void AtlantikNetwork::estateHouseSell(Estate *estate)
 	writeData(QString(".hs%1").arg(estate ? estate->id() : -1));
 }
 
-void AtlantikNetwork::cmdGamesList()
-{
-	writeData(".gl");
-}
-
-void AtlantikNetwork::getPlayerList()
-{
-	writeData(".gp");
-}
-
 void AtlantikNetwork::newGame(const QString &gameType)
 {
 	writeData(QString(".gn%1").arg(gameType));
@@ -146,6 +135,11 @@ void AtlantikNetwork::cmdChat(QString msg)
 void AtlantikNetwork::newTrade(Player *player)
 {
 	writeData(QString(".Tn%1").arg(player ? player->id() : -1));
+}
+
+void AtlantikNetwork::kickPlayer(Player *player)
+{
+	writeData(QString(".gk%1").arg(player ? player->id() : -1));
 }
 
 void AtlantikNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *player)
@@ -193,9 +187,14 @@ void AtlantikNetwork::jailCard()
 	writeData(".jc");
 }
 
+void AtlantikNetwork::changeOption(int configId, const QString &value)
+{
+	writeData( QString(".gc%1:%2").arg(configId).arg(value) );
+}
+
 void AtlantikNetwork::writeData(QString msg)
 {
-	kdDebug() << "sending [" << msg << "]" << endl;
+	emit networkEvent(msg, "1rightarrow");
 	msg.append("\n");
 	if (socketStatus() == KExtendedSocket::connected)
 		*m_textStream << msg;
@@ -220,11 +219,13 @@ void AtlantikNetwork::slotRead()
 	}
 }
 
-void AtlantikNetwork::processMsg(QString str)
+void AtlantikNetwork::processMsg(const QString &msg)
 {
-	kdDebug() << "processing msg: " + str << endl;
-	msg.setContent(str);
-	QDomElement e = msg.documentElement();
+	emit networkEvent(msg, "1leftarrow");
+
+	QDomDocument dom;
+	dom.setContent(msg);
+	QDomElement e = dom.documentElement();
 	if (e.tagName() != "monopd")
 	{
 		// Invalid data, request full update from server
@@ -245,7 +246,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 		QDomElement e = n.toElement();
 		if(!e.isNull())
 		{
-			if (e.tagName() == "msg")
+			if (e.tagName() == "server")
+				emit receivedHandshake();
+			else if (e.tagName() == "msg")
 			{
 				a = e.attributeNode(QString("type"));
 				if (!a.isNull())
@@ -286,47 +289,48 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit addCloseButton();
 				}
 			}
-			else if (e.tagName() == "updategamelist")
-			{
-				QString type = e.attributeNode(QString("type")).value();
-				if (type == "full")
-					emit gameListClear();
-
-				QDomNode n_game = n.firstChild();
-				while(!n_game.isNull())
-				{
-					QDomElement e_game = n_game.toElement();
-					if (!e_game.isNull() && e_game.tagName() == "game")
-					{
-						if (type=="del")
-							emit gameListDel(e_game.attributeNode(QString("id")).value());
-						else if (type=="edit")
-							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("name")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("canbejoined")).value().toInt());
-						else if (type=="add" || type=="full")
-							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("name")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("canbejoined")).value().toInt());
-					}
-					n_game = n_game.nextSibling();
-				}
-				if (type == "full")
-					emit gameListEndUpdate();
-			}
 			else if (e.tagName() == "client")
 			{
 				a = e.attributeNode(QString("playerid"));
 				if (!a.isNull())
-				{
 					m_playerId = a.value().toInt();
-					// TODO: move to Atlantik::slotNetworkConnected(), not needed on auto-join
-					cmdGamesList();
-				}
+
 				a = e.attributeNode(QString("cookie"));
 				if (!a.isNull())
 					emit clientCookie(a.value());
 			}
 			else if (e.tagName() == "configupdate")
 			{
-				int gameId = -1;
+				int configId = -1;
+				a = e.attributeNode(QString("configid"));
+				if (!a.isNull())
+				{
+					configId = a.value().toInt();
+					ConfigOption *configOption;
+					if (!(configOption = m_atlanticCore->findConfigOption(configId)))
+						configOption = m_atlanticCore->newConfigOption( configId );
 
+					a = e.attributeNode(QString("name"));
+					if (configOption && !a.isNull())
+						configOption->setName(a.value());
+
+					a = e.attributeNode(QString("description"));
+					if (configOption && !a.isNull())
+						configOption->setDescription(a.value());
+
+					a = e.attributeNode(QString("edit"));
+					if (configOption && !a.isNull())
+						configOption->setEdit(a.value().toInt());
+
+					a = e.attributeNode(QString("value"));
+					if (configOption && !a.isNull())
+						configOption->setValue(a.value());
+
+					if (configOption)
+						configOption->update();
+				}
+
+				int gameId = -1;
 				a = e.attributeNode(QString("gameid"));
 				if (!a.isNull())
 				{
@@ -337,8 +341,20 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (!eOption.isNull() && eOption.tagName() == "option")
 							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value(), eOption.attributeNode(QString("edit")).value(), eOption.attributeNode(QString("command")).value());
 					}
+					emit endConfigUpdate();
 				}
-				emit endConfigUpdate();
+			}
+			else if (e.tagName() == "deletegame")
+			{
+				a = e.attributeNode(QString("gameid"));
+				if (!a.isNull())
+				{
+					int gameId = a.value().toInt();
+
+					Game *game = m_atlanticCore->findGame(gameId);
+					if (game)
+						m_atlanticCore->removeGame(game);
+				}
 			}
 			else if (e.tagName() == "gameupdate")
 			{
@@ -349,20 +365,60 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					gameId = a.value().toInt();
 
-					kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(m_atlanticCore->playerSelf() ? m_atlanticCore->playerSelf()->gameId() : -2) << endl;
+					if ( m_atlanticCore->playerSelf() && m_atlanticCore->playerSelf()->game() )
+						kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(m_atlanticCore->playerSelf()->game()->id()) << endl;
+					else
+						kdDebug() << "gameupdate for " << QString::number(gameId) << endl;
+
+
+					Game *game = 0;
+					if (gameId == -1)
+					{
+						a = e.attributeNode(QString("gametype"));
+						if ( !a.isNull() && !(game = m_atlanticCore->findGame(a.value())) )
+							game = m_atlanticCore->newGame(gameId, a.value());
+					}
+					else if (!(game = m_atlanticCore->findGame(gameId)))
+						game = m_atlanticCore->newGame(gameId);
+
+					a = e.attributeNode(QString("canbejoined"));
+					if (game && !a.isNull())
+						game->setCanBeJoined(a.value().toInt());
+
+					a = e.attributeNode(QString("description"));
+					if (game && !a.isNull())
+						game->setDescription(a.value());
+
+					a = e.attributeNode(QString("name"));
+					if (game && !a.isNull())
+						game->setName(a.value());
+
+					a = e.attributeNode(QString("players"));
+					if (game && !a.isNull())
+						game->setPlayers(a.value().toInt());
+
+					a = e.attributeNode(QString("master"));
+					if (game && !a.isNull())
+					{
+						// Ensure setMaster succeeds by creating player if necessary
+						Player *player = m_atlanticCore->findPlayer( a.value().toInt() );
+						if ( !player )
+							player = m_atlanticCore->newPlayer( a.value().toInt() );
+						game->setMaster( player );
+					}
 
 					QString status = e.attributeNode(QString("status")).value();
 					if (status == "config")
-					{
 						emit gameConfig();
-						getPlayerList();
-					}
 					else if (status == "init")
 						emit gameInit();
 					else if (status == "run")
 						emit gameRun();
 					else if (status == "end")
 						emit gameEnd();
+
+					if (game)
+						game->update();
 				}
 			}
 			else if (e.tagName() == "deleteplayer")
@@ -387,17 +443,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					playerId = a.value().toInt();
 
 					Player *player;
-					bool b_newPlayer = false;
 					if (!(player = m_atlanticCore->findPlayer(playerId)))
-					{
-						// Create player object
-						player = m_atlanticCore->newPlayer(playerId);
-
-						if (playerId == m_playerId)
-							player->setIsSelf(true);
-
-						b_newPlayer = true;
-					}
+						player = m_atlanticCore->newPlayer( playerId, (m_playerId == playerId) );
 
 					// Update player name
 					a = e.attributeNode(QString("name"));
@@ -407,7 +454,19 @@ void AtlantikNetwork::processNode(QDomNode n)
 					// Update player game
 					a = e.attributeNode(QString("game"));
 					if (player && !a.isNull())
-						player->setGame(a.value().toInt());
+					{
+						int gameId = a.value().toInt();
+						if (gameId == -1)
+							player->setGame( 0 );
+						else
+						{
+							// Ensure setGame succeeds by creating game if necessary
+							Game *game = m_atlanticCore->findGame(a.value().toInt());
+							if (!game)
+								game = m_atlanticCore->newGame(a.value().toInt()); // 
+							player->setGame( game );
+						}
+					}
 
 					// Update player host
 					a = e.attributeNode(QString("host"));
@@ -423,10 +482,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("money"));
 					if (player && !a.isNull())
 						player->setMoney(a.value().toInt());
-
-					a = e.attributeNode(QString("master"));
-					if (player && !a.isNull())
-						player->setMaster(a.value().toInt());
 
 					a = e.attributeNode(QString("bankrupt"));
 					if (player && !a.isNull())
@@ -491,14 +546,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						}
 					}
 
-					// Emit signal so GUI implementations can create view(s)
-					// TODO:  port to atlanticcore and create view there
 					if (player)
-					{
-						if (b_newPlayer)
-							emit newPlayer(player);
 						player->update();
-					}
 				}
 			}
 			else if (e.tagName() == "estategroupupdate")
@@ -617,6 +666,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (estate && !a.isNull())
 						estate->setPrice(a.value().toInt());
 
+					a = e.attributeNode(QString("money"));
+					if (estate && !a.isNull())
+						estate->setMoney(a.value().toInt());
+
 					// Emit signal so GUI implementations can create view(s)
 					// TODO:  port to atlanticcore and create view there
 					if (estate)
@@ -635,7 +688,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 					int tradeId = a.value().toInt();
 
 					Trade *trade = m_atlanticCore->findTrade(tradeId);
-					bool b_newTrade = false;
 					if (!trade)
 					{
 						// Create trade object
@@ -645,7 +697,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
 						QObject::connect(trade, SIGNAL(reject(Trade *)), this, SLOT(tradeReject(Trade *)));
 						QObject::connect(trade, SIGNAL(accept(Trade *)), this, SLOT(tradeAccept(Trade *)));
-						b_newTrade = true;
 					}
 
 					a = e.attributeNode(QString("revision"));
@@ -688,7 +739,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						Player *player = m_atlanticCore->findPlayer(e.attributeNode(QString("actor")).value().toInt());
 						if (trade)
 							trade->reject(player);
-						if (player && player->isSelf())
+						if ( player && player == m_atlanticCore->playerSelf() )
 						{
 							m_atlanticCore->removeTrade(trade);
 							trade = 0;
@@ -754,14 +805,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						}
 					}
 
-					// Emit signal so GUI implementations can create view(s)
-					// TODO:  port to atlanticcore and create view there
 					if (trade)
-					{
-						if (b_newTrade)
-							emit newTrade(trade);
 						trade->update();
-					}
 				}
 			}
 			else if (e.tagName() == "auctionupdate")
@@ -831,21 +876,23 @@ void AtlantikNetwork::serverConnect(const QString host, int port)
 {
 	setAddress(host, port);
 	enableRead(true);
-	emit msgInfo(i18n("Connecting to %1...").arg(host));
+	emit msgStatus(i18n("Connecting to %1:%2...").arg(host).arg(QString::number(port)), "connect_creating");
 	startAsyncConnect();
 }
 
 void AtlantikNetwork::slotLookupFinished(int count)
 {
-	emit msgInfo(i18n("Server host name lookup finished..."));
+	emit msgStatus(i18n("Server host name lookup finished..."));
 }
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
-	emit msgInfo(i18n("Connection established!"));
+	emit msgStatus(i18n("Connected to %1:%2.").arg(host()).arg(port()), "connect_established");
 }
 
 void AtlantikNetwork::slotConnectionFailed(int error)
 {
-	emit msgError(i18n("Connection failed! Error code: %1").arg(error));
+	emit msgStatus(i18n("Connection failed! Error code: %1").arg(error), "connect_no");
 }
+
+#include "atlantik_network.moc"

@@ -59,8 +59,7 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 	m_infoListView->setSorting(-1);
 	m_mainLayout->addWidget(m_infoListView);
 
-	if (!text.isEmpty())
-		appendText(text);
+	appendText(text);
 
 	m_buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	m_buttonBox->setMargin(0);
@@ -207,6 +206,37 @@ void EstateDetails::resizeEvent(QResizeEvent *)
 	b_recreate = true;
 }
 
+void EstateDetails::addDetails()
+{
+	if (m_estate)
+	{
+		QListViewItem *infoText = 0;
+
+		// Price
+		if (m_estate->price())
+		{
+			infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1").arg(m_estate->price()));
+			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+		}
+
+		// Owner, houses, isMortgaged
+		if (m_estate && m_estate->canBeOwned())
+		{
+			infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+			if (m_estate->isOwned())
+			{
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1").arg(m_estate->houses()));
+				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
+				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+			}
+		}
+	}
+}
+
 void EstateDetails::addButton(QString command, QString caption, bool enabled)
 {
 	KPushButton *button = new KPushButton(caption, this);
@@ -214,6 +244,15 @@ void EstateDetails::addButton(QString command, QString caption, bool enabled)
 	m_buttonCommandMap[(QObject *)button] = command;
 	m_buttonBox->addWidget(button);
 
+	if (m_estate)
+	{
+		QColor bgColor, fgColor;
+		bgColor = m_estate->bgColor().light(110);
+		fgColor = ( bgColor.red() + bgColor.green() + bgColor.blue() < 255 ) ? Qt::white : Qt::black;
+
+		button->setPaletteForegroundColor( fgColor );
+		button->setPaletteBackgroundColor( bgColor );
+	}
 	button->setEnabled(enabled);
 	button->show();
 
@@ -237,38 +276,7 @@ void EstateDetails::setEstate(Estate *estate)
 	{
 		m_estate = estate;
 
-		setPaletteBackgroundColor(m_estate ? m_estate->bgColor() : Qt::white);
-
-		QString columnText = m_estate ? m_estate->name() : QString::null;
-		m_infoListView->setColumnText(0, columnText);
-
-		// Price
-		if (m_estate)
-		{
-			QListViewItem *infoText = 0;
-
-			if (m_estate->price())
-			{
-				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1").arg(m_estate->price()));
-				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
-			}
-
-			// Owner, houses, isMortgaged
-			if (m_estate && m_estate->canBeOwned())
-			{
-				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
-
-				if (m_estate->isOwned())
-				{
-					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1").arg(m_estate->houses()));
-					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
-
-					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
-				}
-			}
-		}
+		m_infoListView->setColumnText( 0, m_estate ? m_estate->name() : QString::null );
 
 		b_recreate = true;
 		update();
@@ -283,13 +291,16 @@ void EstateDetails::setText(QString text)
 
 void EstateDetails::appendText(QString text)
 {
+	if ( text.isEmpty() )
+		return;
+
 	QListViewItem *infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), text);
 	if (text.contains("rolls"))
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 
-    m_infoListView->ensureVisible(0, m_infoListView->contentsHeight());
+    m_infoListView->ensureItemVisible( infoText );
 }
 
 void EstateDetails::clearButtons()

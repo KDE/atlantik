@@ -17,10 +17,12 @@
 #ifndef LIBATLANTIK_NETWORK_H
 #define LIBATLANTIK_NETWORK_H
 
-#include <qdom.h>
 #include <qmap.h>
 
 #include <kextsock.h>
+
+class QDomNode;
+class QTextStream;
 
 class AtlanticCore;
 
@@ -30,8 +32,6 @@ class EstateGroup;
 class Trade;
 class Auction;
 
-class QTextStream;
-
 class AtlantikNetwork : public KExtendedSocket
 {
 Q_OBJECT
@@ -40,14 +40,12 @@ public:
 	AtlantikNetwork(AtlanticCore *atlanticCore);
 	virtual ~AtlantikNetwork(void);
 	void setName(QString name);
-	void cmdGamesList();
 	void cmdChat(QString msg);
 
 private slots:
 	void writeData(QString msg);
 	void rollDice();
 	void endTurn();
-	void getPlayerList();
 	void newGame(const QString &gameType);
 	void reconnect(const QString &cookie);
 	void startGame();
@@ -61,6 +59,7 @@ private slots:
 	void jailPay();
 	void jailRoll();
 	void newTrade(Player *player);
+	void kickPlayer(Player *player);
 	void tokenConfirmation(Estate *);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo);
@@ -68,6 +67,7 @@ private slots:
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
 	void setImage(const QString &name);
+	void changeOption(int, const QString &value);
 	void slotLookupFinished(int count);
 	void slotConnectionSuccess();
 	void slotConnectionFailed(int error);
@@ -76,19 +76,8 @@ public slots:
 	void serverConnect(const QString host, int port);
 	void joinGame(int gameId);
 	void slotRead();
-		
+
 signals:
-
-	/**
-	 * A new player was created. This signal might be replaced with one in
-	 * the AtlanticCore class in the future, but it is here now because we
-	 * do not want GUI implementations to create a view until the
-	 * playerupdate message has been fully parsed.
-	 *
-	 * @param player	Created Player object.
-	 */
-	void newPlayer(Player *player);
-
 	/**
 	 * A new estate was created. This signal might be replaced with one in
 	 * the AtlanticCore class in the future, but it is here now because we
@@ -109,19 +98,11 @@ signals:
 	 */
 	void newEstateGroup(EstateGroup *estateGroup);
 
-	/**
-	 * A new trade was created. This signal might be replaced with one in
-	 * the AtlanticCore class in the future, but it is here now because we
-	 * do not want GUI implementations to create a view until the
-	 * tradeupdate message has been fully parsed.
-	 *
-	 * @param trade	Created Trade object.
-	 */
-	void newTrade(Trade *trade);
-
 	void msgInfo(QString);
 	void msgError(QString);
 	void msgChat(QString, QString);
+	void msgStatus(const QString &data, const QString &icon = QString::null);
+	void networkEvent(const QString &data, const QString &icon);
 
 	void displayDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void addCommandButton(QString command, QString caption, bool enabled);
@@ -129,12 +110,6 @@ signals:
 
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void endConfigUpdate();
-
-	void gameListClear();
-	void gameListEndUpdate();
-	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
-	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
-	void gameListDel(QString gameId);
 
 	void gameConfig();
 	void gameInit();
@@ -160,15 +135,15 @@ signals:
 
 	void newAuction(Auction *auction);
 	void auctionCompleted(Auction *auction);
+	void receivedHandshake();
 	void clientCookie(QString cookie);
 
 private:
-	void processMsg(QString);
+	void processMsg(const QString &msg);
 	void processNode(QDomNode);
 
 	AtlanticCore *m_atlanticCore;
 	QTextStream *m_textStream;
-	QDomDocument msg;
 
 	int m_playerId;
 

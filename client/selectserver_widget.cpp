@@ -14,6 +14,7 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#include <qlabel.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <qsizepolicy.h>
@@ -87,10 +88,6 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
-//	Status indicator
-	status_label = new QLabel(this);
-	m_mainLayout->addWidget(status_label);
-
 	// Monopigator
 	m_monopigator = new Monopigator();
 
@@ -114,7 +111,8 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
-	status_label->setText(i18n("Retrieving server list..."));
+	emit msgStatus(i18n("Retrieving server list..."));
+
 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
@@ -131,13 +129,13 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 
 void SelectServer::monopigatorFinished()
 {
-	status_label->setText(i18n("Retrieved server list."));
+	emit msgStatus(i18n("Retrieved server list."));
 	m_refreshButton->setEnabled(true);
 }
 
 void SelectServer::monopigatorTimeout()
 {
-	status_label->setText(i18n("Error while retrieving the server list."));
+	emit msgStatus(i18n("Error while retrieving the server list."));
 	m_refreshButton->setEnabled(true);
 }
 

@@ -95,7 +95,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
-		if ((player = *it) && player->gameId() == pSelf->gameId())
+		if ((player = *it) && player->game() == pSelf->game())
 		{
 			m_playerFromCombo->insertItem(player->name());
 			m_playerFromMap[m_playerFromCombo->count() - 1] = player;

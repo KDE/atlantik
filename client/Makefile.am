@@ -3,9 +3,9 @@ INCLUDES = -I$(top_srcdir)/libkdegames -I$(srcdir)/../libatlantic -I$(srcdir)/..
 atlantik_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 atlantik_LDADD = ../libatlantikui/libatlantikui.la ../libatlantikclient/libatlantikclient.la $(LIB_KDEGAMES) $(LIB_KIO) 
 
-atlantik_SOURCES = atlantik.cpp configdlg.cpp main.cpp monopigator.cpp \
-	selectconfiguration_widget.cpp selectgame_widget.cpp \
-	selectserver_widget.cpp tokenwidget.cpp
+atlantik_SOURCES = atlantik.cpp configdlg.cpp event.cpp eventlogwidget.cpp \
+	main.cpp monopigator.cpp selectconfiguration_widget.cpp \
+	selectgame_widget.cpp selectserver_widget.cpp tokenwidget.cpp
 
 KDE_ICON = atlantik
 

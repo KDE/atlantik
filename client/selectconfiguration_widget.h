@@ -20,7 +20,6 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
-#include <qlabel.h>
 
 #include <klistview.h>
 #include <kpushbutton.h>
@@ -28,6 +27,9 @@
 class QCheckBox;
 class QListViewItem;
 
+class AtlanticCore;
+class ConfigOption;
+class Game;
 class Player;
 class TokenWidget;
 
@@ -36,8 +38,7 @@ class SelectConfiguration : public QWidget
 Q_OBJECT
 
 public:
-	SelectConfiguration(QWidget *parent, const char *name=0);
-	~SelectConfiguration();
+	SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent, const char *name=0);
 
 	void setCanStart(const bool &canStart);
 	QString hostToConnect() const;
@@ -46,28 +47,37 @@ public:
 private slots:
 	void slotTokenButtonClicked();
 	void slotTokenSelected(const QString &name);
+	void addConfigOption(ConfigOption *configOption);
+	void changeOption();
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
+	void optionChanged(ConfigOption *configOption);
 	void optionChanged();
 	void slotEndUpdate();
 	void initGame();
+	void playerChanged(Player *player);
+	void gameChanged(Game *game);
 
 signals:
 	void startGame();
 	void leaveGame();
 	void joinConfiguration(int configurationId);
 	void newConfiguration();
+	void changeOption(int configId, const QString &value);
 	void buttonCommand(QString);
 	void iconSelected(const QString &);
-//	void statusChanged();
+	void statusMessage(const QString &message);
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QLabel *m_statusLabel;
 	QVGroupBox *m_configBox, *m_messageBox;
 	KPushButton *m_backButton, *m_startButton, *m_tokenButton;
 	QMap <QObject *, QString> m_optionCommandMap;
+	QMap <QObject *, ConfigOption *> m_configMap;
+	QMap <ConfigOption *, QCheckBox *> m_configBoxMap;
 	QMap <QString, QCheckBox *> m_checkBoxMap;
 	QMap <Player *, QListViewItem *> m_items;
+	Game *m_game;
+	AtlanticCore *m_atlanticCore;
 	TokenWidget *m_tokenWidget;
 };
 

@@ -1,6 +1,9 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="atlantik" version="1">
+<kpartgui name="atlantik" version="2">
 <MenuBar>
+  <Menu name="game"><text>&amp;Game</text>
+    <Action name="showeventlog"/>
+  </Menu>
   <Menu name="move"><text>&amp;Move</text>
     <Action name="move_roll"/>
     <Action name="buy_estate"/>

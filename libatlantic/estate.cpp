@@ -27,6 +27,7 @@ Estate::Estate(int estateId) : QObject()
 	m_owner = 0;
 	m_houses = 0;
 	m_price = 0;
+	m_money = 0;
 	m_estateGroup = 0;
 	m_changed = m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
 	m_bgColor = QColor();
@@ -136,6 +137,20 @@ void Estate::setCanToggleMortgage(const bool canToggleMortgage)
 		m_canToggleMortgage = canToggleMortgage;
 		m_changed = true;
 	}
+}
+
+void Estate::setMoney(int money)
+{
+	if (m_money != money)
+	{
+		m_money = money;
+		m_changed = true;
+	}
+}
+
+int Estate::money()
+{
+	return m_money;
 }
 
 void Estate::update(bool force)

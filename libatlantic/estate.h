@@ -56,6 +56,8 @@ public:
 	QColor bgColor() const { return m_bgColor; }
 	void setPrice(const unsigned int price) { m_price = price; }
 	unsigned int price() const { return m_price; }
+	void setMoney(int money);
+	int money();
 	void update(bool force = false);
 
 signals:
@@ -75,6 +77,7 @@ private:
 	Player *m_owner;
 	EstateGroup *m_estateGroup;
 	unsigned int m_houses, m_price;
+	int m_money;
 	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
 	QColor m_bgColor, m_color;
 };

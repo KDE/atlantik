@@ -26,14 +26,19 @@
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 
+#include <atlantic_core.h>
+#include <configoption.h>
+#include <game.h>
 #include <player.h>
 
 #include "tokenwidget.h"
 #include "selectconfiguration_widget.moc"
 
-SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QWidget(parent, name)
+SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent, const char *name) : QWidget(parent, name)
 {
+	m_atlanticCore = atlanticCore;
 	m_tokenWidget = 0;
+	m_game = 0;
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
@@ -69,23 +74,20 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	m_startButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
 	serverButtons->addWidget(m_startButton);
+	m_startButton->setEnabled(false);
 
 	connect(m_startButton, SIGNAL(clicked()), this, SIGNAL(startGame()));
 
-    // Status indicator.
-	m_statusLabel = new QLabel(this);
-	m_statusLabel->setText(i18n("Retrieving configuration list..."));
-	m_mainLayout->addWidget(m_statusLabel);
-}
-
-SelectConfiguration::~SelectConfiguration()
-{
-	delete m_statusLabel;
+	Player *playerSelf = m_atlanticCore->playerSelf();
+	playerChanged(playerSelf);
+	connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+	
+	emit statusMessage(i18n("Retrieving configuration list..."));
 }
 
 void SelectConfiguration::initGame()
 {
-	m_statusLabel->setText(i18n("Game started. Retrieving full game data..."));
+	emit statusMessage(i18n("Game started. Retrieving full game data..."));
 }
 
 void SelectConfiguration::slotTokenButtonClicked()
@@ -108,6 +110,21 @@ void SelectConfiguration::slotTokenSelected(const QString &name)
 	m_tokenWidget->close();
 //	m_tokenWidget->deleteLater(); // FIXME: crashes?
 	m_tokenWidget = 0;
+}
+
+void SelectConfiguration::addConfigOption(ConfigOption *configOption)
+{
+	// FIXME: only bool types supported!
+	QCheckBox *checkBox = new QCheckBox(configOption->description(), m_configBox, "checkbox");
+	m_configMap[(QObject *)checkBox] = configOption;
+	m_configBoxMap[configOption] = checkBox;
+	
+	checkBox->setChecked( configOption->value().toInt() );
+	checkBox->setEnabled( configOption->edit() && m_atlanticCore->selfIsMaster() );
+	checkBox->show();
+
+	connect(checkBox, SIGNAL(clicked()), this, SLOT(changeOption()));
+	connect(configOption, SIGNAL(changed(ConfigOption *)), this, SLOT(optionChanged(ConfigOption *)));
 }
 
 void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)
@@ -137,6 +154,27 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value,
 	// TODO: Enable edit for master only
 }
 
+void SelectConfiguration::changeOption()
+{
+	ConfigOption *configOption = m_configMap[(QObject *)QObject::sender()];
+	if (configOption)
+	{
+		kdDebug() << "checked " << ((QCheckBox *)QObject::sender())->isChecked() << endl;
+		emit changeOption( configOption->id(), QString::number( ((QCheckBox *)QObject::sender())->isChecked() ) );
+	}
+}
+
+void SelectConfiguration::optionChanged(ConfigOption *configOption)
+{
+	QCheckBox *checkBox = m_configBoxMap[configOption];
+	if (checkBox)
+	{
+		checkBox->setText( configOption->description() );
+		checkBox->setChecked( configOption->value().toInt() );
+		checkBox->setEnabled( configOption->edit() && m_atlanticCore->selfIsMaster() );
+	}
+}
+
 void SelectConfiguration::optionChanged()
 {
 	QString command = m_optionCommandMap[(QObject *)QObject::sender()];
@@ -150,10 +188,31 @@ void SelectConfiguration::optionChanged()
 
 void SelectConfiguration::slotEndUpdate()
 {
-	m_statusLabel->setText(i18n("Retrieved configuration list."));
+	emit statusMessage(i18n("Retrieved configuration list."));
 }
 
-void SelectConfiguration::setCanStart(const bool &canStart)
+void SelectConfiguration::playerChanged(Player *player)
 {
-	m_startButton->setEnabled(canStart);
+	kdDebug() << "playerChanged" << endl;
+
+	if (player->game() != m_game)
+	{
+		kdDebug() << "playerChanged::change" << endl;
+
+		if (m_game)
+			disconnect(m_game, SIGNAL(changed(Game *)), this, SLOT(gameChanged(Game *)));
+
+		m_game = player->game();
+
+		if (m_game)
+			connect(m_game, SIGNAL(changed(Game *)), this, SLOT(gameChanged(Game *)));
+	}
+}
+
+void SelectConfiguration::gameChanged(Game *game)
+{
+	m_startButton->setEnabled( game->master() == m_atlanticCore->playerSelf() );
+
+	for (QMapIterator<ConfigOption *, QCheckBox *> it = m_configBoxMap.begin() ; it != m_configBoxMap.end() ; ++it)
+		(*it)->setEnabled( it.key()->edit() && m_atlanticCore->selfIsMaster() );
 }

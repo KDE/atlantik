@@ -19,9 +19,6 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qlabel.h>
-
-#include <qtextview.h>
 
 #include <kpixmap.h>
 
@@ -58,7 +55,9 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 		void mousePressEvent(QMouseEvent *);
 
-	private:
+private:
+	void updateToolTip();
+
 		QPixmap *rotatePixmap(QPixmap *);
 		KPixmap *rotatePixmap(KPixmap *);
 		void drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2);
@@ -71,7 +70,6 @@ Q_OBJECT
 		bool b_recreate, m_recreateQuartz;
 		int m_titleWidth, m_titleHeight;
 		EstateOrientation m_orientation;
-		QTextView *lname;
 		PortfolioEstate *pe;
 
 	private slots:

@@ -56,6 +56,8 @@ struct AtlantikConfig
 	QColor activeColor, inactiveColor;
 };
 
+class EventLog;
+class EventLogWidget;
 class SelectServer;
 class SelectGame;
 class SelectConfiguration;
@@ -105,6 +107,8 @@ private slots:
 	void showBoard();
 	void freezeBoard();
 	void clientCookie(QString cookie);
+	void sendHandshake();
+	void statusBarClick(int);
 
 public slots:
 
@@ -113,7 +117,7 @@ public slots:
 	 * list instead of the server list.
 	 *
 	 */
-	 void slotNetworkConnected();
+	void slotNetworkConnected();
 
 	/**
 	 * An error occurred while setting up the network connection. Inform the
@@ -121,13 +125,21 @@ public slots:
 	 *
 	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
 	 */
-	 void slotNetworkError(int errnum);
+	void slotNetworkError(int errnum);
 
+	void networkClosed(int status);
+	 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.
 	 *
 	 */
 	void slotConfigure();
+
+	/**
+	 * Opens the event log widget.
+	 *
+	 */
+	void showEventLog();
 
 	/**
 	 * Opens the KNotify dialog for configuration events.
@@ -158,6 +170,8 @@ public slots:
 	 * @param msg The message to be appended.
 	 */
 	void slotMsgInfo(QString msg);
+
+	void slotMsgStatus(const QString &message, const QString &icon = QString::null);
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the
@@ -197,6 +211,7 @@ signals:
 	void jailRoll();
 
 private:
+	void initEventLog();
 	void initNetworkObject();
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
@@ -210,7 +225,8 @@ private:
 	QTextEdit *m_serverMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
-		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure;
+		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
+		*m_showEventLog;
 
 	AtlanticCore *m_atlanticCore;
 	AtlantikNetwork *m_atlantikNetwork;
@@ -221,6 +237,8 @@ private:
 	SelectServer *m_selectServer;
 	SelectGame *m_selectGame;
 	SelectConfiguration *m_selectConfiguration;
+	EventLog *m_eventLog;
+	EventLogWidget *m_eventLogWidget;
 
 	QPtrList<PortfolioView> m_portfolioViews;
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;

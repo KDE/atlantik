@@ -205,7 +205,7 @@ void AtlantikBoard::addToken(Player *player)
 	if (m_atlanticCore)
 		playerSelf = m_atlanticCore->playerSelf();
 
-	if (playerSelf && playerSelf->gameId() != player->gameId() )
+	if (playerSelf && playerSelf->game() != player->game() )
 	{
 		kdDebug() << "addToken ignored - not in same game as playerSelf" << endl;
 		return;
@@ -236,7 +236,7 @@ void AtlantikBoard::playerChanged(Player *player)
 	if (token)
 	{
 		kdDebug() << "playerChanged: tokenLoc " << (token->location() ? token->location()->name() : "none") << endl;
-		if (player->isBankrupt() || (playerSelf && playerSelf->gameId() != player->gameId()) )
+		if (player->isBankrupt() || (playerSelf && playerSelf->game() != player->game()) )
 			token->hide();
 		if (player->hasTurn())
 			token->raise();
@@ -554,18 +554,36 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	if (!estate)
 		return;
 
-	EstateDetails *eDetails = new EstateDetails(estate, QString::null, this);
+	EstateDetails *eDetails = 0;
+
+	if (m_displayQueue.getFirst() == m_lastServerDisplay)
+	{
+		eDetails = new EstateDetails(estate, QString::null, this);
+		m_displayQueue.prepend(eDetails);
+
+		connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
+		connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
+	}
+	else
+	{
+		eDetails = dynamic_cast<EstateDetails*> ( m_displayQueue.getFirst() );
+		if (eDetails)
+		{
+			eDetails->setEstate(estate);
+			eDetails->setText( QString::null );
+			// eDetails->clearButtons();
+		}
+		else
+		{
+			kdDebug() << "manual estatedetails with first in queue neither server nor details" << endl;
+			return;
+		}
+	}
+
+	eDetails->addDetails();
 	eDetails->addCloseButton();
 
-	if (m_displayQueue.getFirst() != m_lastServerDisplay)
-		m_displayQueue.removeFirst();
-
-	m_displayQueue.prepend(eDetails);
 	updateCenter();
-
-	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
-	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
-
 }
 
 void AtlantikBoard::updateCenter()

@@ -250,13 +250,24 @@ void PortfolioView::playerChanged()
 
 void PortfolioView::mousePressEvent(QMouseEvent *e)
 {
-	if (e->button()==RightButton && !m_player->isSelf() && m_portfolioEstates.count() )
+	Player *playerSelf = m_atlanticCore->playerSelf();
+
+	if ( e->button()==RightButton && (m_player != playerSelf) )
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_player->name());
 
-		// Start trade
-		rmbMenu->insertItem(i18n("Request Trade with %1").arg(m_player->name()), 0);
+		if ( m_portfolioEstates.count() )
+		{
+			// Start trade
+			rmbMenu->insertItem(i18n("Request Trade with %1").arg(m_player->name()), 0);
+		}
+		else
+		{
+			// Kick player
+			rmbMenu->insertItem(i18n("Boot player %1 to lounge").arg(m_player->name()), 0);
+			rmbMenu->setItemEnabled( 0, m_atlanticCore->selfIsMaster() );
+		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		QPoint g = QCursor::pos();
@@ -269,7 +280,10 @@ void PortfolioView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-		emit newTrade(m_player);
+		if ( m_portfolioEstates.count() )
+			emit newTrade(m_player);
+		else
+			emit kickPlayer(m_player);
 		break;
 	}
 }

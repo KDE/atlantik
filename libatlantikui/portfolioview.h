@@ -50,6 +50,7 @@ protected:
 
 signals:
 	void newTrade(Player *player);
+	void kickPlayer(Player *player);
 	void estateClicked(Estate *);
 
 private slots:

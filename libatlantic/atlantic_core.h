@@ -21,8 +21,10 @@
 #include <qptrlist.h>
 
 class Player;
+class ConfigOption;
 class Estate;
 class EstateGroup;
+class Game;
 class Trade;
 class Auction;
 
@@ -35,13 +37,23 @@ public:
 
 	void reset(bool deletePermanents = false);
 
+	bool selfIsMaster() const;
+
 	void setPlayerSelf(Player *player);
 	Player *playerSelf();
 
 	QPtrList<Player> players();
-	Player *newPlayer(int playerId);
+	Player *newPlayer(int playerId, const bool &playerSelf = false);
 	Player *findPlayer(int playerId);
 	void removePlayer(Player *player);
+
+	QPtrList<Game> games();
+	Game *newGame(int gameId, const QString &type = QString::null);
+	Game *findGame(const QString &type); // finds game types
+	Game *findGame(int gameId); // finds actual games
+	Game *gameSelf();
+	void removeGame(Game *game);
+	void emitGames();
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
@@ -61,21 +73,31 @@ public:
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
+	ConfigOption *newConfigOption(int configId);
+	void removeConfigOption(ConfigOption *configOption);
+	ConfigOption *findConfigOption(int configId);
+
 	void printDebug();
 
 signals:
+	void createGUI(Player *player);
 	void removeGUI(Player *player);
-	void deletePlayer(Player *player);
+	void createGUI(Game *game);
+	void removeGUI(Game *game);
+	void createGUI(Trade *trade);
 	void removeGUI(Trade *trade);
-	void deleteTrade(Trade *trade);
+	void createGUI(ConfigOption *configOption);
+	void removeGUI(ConfigOption *configOption);
 
 private:
 	Player *m_playerSelf;
 	QPtrList<Player> m_players;
+	QPtrList<Game> m_games;
 	QPtrList<Estate> m_estates;
 	QPtrList<EstateGroup> m_estateGroups;
 	QPtrList<Trade> m_trades;
 	QPtrList<Auction> m_auctions;
+	QPtrList<ConfigOption> m_configOptions;
 };
 
 #endif

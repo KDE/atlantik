@@ -21,11 +21,13 @@
 #include <qcursor.h>
 
 #include <kdebug.h>
-
-#include <kpixmapeffect.h>
-#include <kstandarddirs.h>
-#include <kpopupmenu.h>
+#include <kdialogbase.h>
+#include <kglobalsettings.h>
 #include <klocale.h>
+#include <kpixmapeffect.h>
+#include <kpopupmenu.h>
+#include <kstandarddirs.h>
+#include <kstringhandler.h>
 
 #include <player.h>
 #include <estate.h>
@@ -51,23 +53,31 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	m_quartzBlocks = 0;	
 	m_recreateQuartz = true;
 
-	lname = new QTextView(this);
-	lname->setBackgroundMode(Qt::NoBackground);
-	lname->setAlignment(Qt::AlignCenter);
-	lname->setMinimumSize(lname->sizeHint());
-	lname->setMinimumWidth(width()-5);
-	lname->setMinimumHeight(height()-20);
-	lname->setMaximumWidth(width()-5);
-	lname->setMaximumHeight(height()-20);
-	lname->hide();
-
 	pe = 0;
 	updatePE();
 
 	icon = new QPixmap(locate("data", "atlantik/pics/" + _icon));
 	icon = rotatePixmap(icon);
 
-	QToolTip::add(this, m_estate->name());
+	updateToolTip();
+}
+
+void EstateView::updateToolTip()
+{
+	QToolTip::remove(this);
+
+	if ( m_estate )
+	{
+		QString toolTip = m_estate->name();
+		if ( m_estate->isOwned() )
+			toolTip.append( "\n" + i18n("Owner: %1").arg( m_estate->owner()->name() ) );
+		else if ( m_estate->canBeOwned() )
+			toolTip.append( "\n" + i18n("Price: %1").arg( m_estate->price() ) );
+		else if ( m_estate->money() )
+			toolTip.append( "\n" + i18n("Money: %1").arg( m_estate->money() ) );
+
+		QToolTip::add( this, toolTip );
+	}
 }
 
 void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
@@ -177,14 +187,13 @@ void EstateView::updatePE()
 
 void EstateView::estateChanged()
 {
-	lname->setText(m_estate->name());
-	QToolTip::remove(this);
-	QToolTip::add(this, m_estate->name());
+	updateToolTip();
 
 	b_recreate = true;
 	m_recreateQuartz = true;
-    update();
-    updatePE();
+
+	update();
+	updatePE();
 }
 
 void EstateView::repositionPortfolioEstate()
@@ -375,9 +384,23 @@ void EstateView::paintEvent(QPaintEvent *)
 					}
 					break;
 			}
+
+
 			quartzPainter.end();
 			delete quartzBuffer;
 		}
+
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
+//		painter.drawText(0, height()/2-15, m_estate->name().section(" ", 0, 0));
+		if (m_estate->color().isValid() && m_orientation == West)
+			painter.drawText( width()/4 + 2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), 3*width()/4 ) );
+		else if (m_estate->color().isValid() && m_orientation == East)
+			painter.drawText(2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), 3*width()/4 ) );
+		else
+			painter.drawText(2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), width() ) );
+
+//		painter.drawText(0, height()/2+15, m_estate->name().section(" ", 2, 2));
+
 		b_recreate = false;
 	}
 	bitBlt(this, 0, 0, qpixmap);
@@ -455,13 +478,6 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 
 void EstateView::slotResizeAftermath()
 {
-	lname->setAlignment(Qt::AlignCenter);
-	lname->setMinimumSize(lname->sizeHint());
-	lname->setMinimumWidth(width()-5);
-	lname->setMinimumHeight(height()-20);
-	lname->setMaximumWidth(width()-5);
-	lname->setMaximumHeight(height()-20);
-	
 	repositionPortfolioEstate();
 }
 

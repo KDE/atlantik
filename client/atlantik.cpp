@@ -21,15 +21,19 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
 
+#include <kaboutapplication.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <klocale.h>
 #include <knotifyclient.h>
 #include <knotifydialog.h>
+#include <kstatusbar.h>
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
+
+#include <kdebug.h>
 
 #include <atlantic_core.h>
 #include <auction.h>
@@ -43,6 +47,8 @@
 #include <board.h>
 #include <trade_widget.h>
 
+#include "eventlogwidget.h"
+#include "main.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
@@ -54,6 +60,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Toolbar: Game
 //	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
+	m_showEventLog = new KAction(i18n("Show Event &Log"), "atlantik_showeventlog", CTRL+Key_L, this, SLOT(showEventLog()), actionCollection(), "showeventlog");
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Settings
@@ -63,6 +70,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	// Initialize pointers to 0L
 	m_configDialog = 0;
 	m_board = 0;
+	m_eventLogWidget = 0;
 	m_selectServer = 0;
 	m_selectGame = 0;
 	m_selectConfiguration = 0;
@@ -70,10 +78,13 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Game and network core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
-	initNetworkObject();
-
+	connect(m_atlanticCore, SIGNAL(createGUI(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(removeGUI(Player *)));
+	connect(m_atlanticCore, SIGNAL(createGUI(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
+
+	initEventLog();
+	initNetworkObject();
 
 	// Menu,toolbar: Move
 	m_roll = KStdGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
@@ -93,6 +104,9 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Mix code and XML into GUI
 	KMainWindow::createGUI();
+	KMainWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
+	KMainWindow::statusBar()->insertItem(QString::null, 1);
+	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -179,9 +193,6 @@ void Atlantik::readConfig()
 
 void Atlantik::newPlayer(Player *player)
 {
-	if (player->isSelf())
-		m_atlanticCore->setPlayerSelf(player);
-
 	initBoard();
 	m_board->addToken(player);
 	addPortfolioView(player);
@@ -194,7 +205,7 @@ void Atlantik::newPlayer(Player *player)
 	connect(player, SIGNAL(gainedTurn()), this, SLOT(gainedTurn()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
-	KNotifyClient::event("newplayer");
+	KNotifyClient::event(this->winId(), "newplayer");
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -235,29 +246,34 @@ void Atlantik::removeGUI(Trade *trade)
 
 void Atlantik::showSelectServer()
 {
+	if (m_selectServer)
+		return;
+
 	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget, "selectServer");
 	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
 	m_selectServer->show();
 
 	if (m_selectGame)
 	{
-		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
 
 	m_atlanticCore->reset(true);
-
 	initNetworkObject();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
 }
 
 void Atlantik::showSelectGame()
 {
-	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
+	if (m_selectGame)
+		return;
+
+	m_selectGame = new SelectGame(m_atlanticCore, m_mainWidget, "selectGame");
+	m_atlanticCore->emitGames();
+
 	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
 	m_selectGame->show();
 
@@ -284,47 +300,36 @@ void Atlantik::showSelectGame()
 		m_selectConfiguration = 0;
 	}
 
-	// Game list clear has a different meaning now
-	disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
-	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString, bool)));
-	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString, bool)));
-	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
-	connect(m_atlantikNetwork, SIGNAL(gameListEndUpdate()), m_selectGame, SLOT(slotGameListEndUpdate()));
-
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
 	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
 	connect(m_selectGame, SIGNAL(leaveServer()), this, SLOT(showSelectServer()));
+	connect(m_selectGame, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
 }
 
 void Atlantik::showSelectConfiguration()
 {
+	if (m_selectConfiguration)
+		return;
+
 	if (m_selectGame)
 	{
-		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
 
-	if (m_selectConfiguration)
-		return;
-
-	Player *playerSelf = m_atlanticCore->playerSelf();
-	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
-	m_selectConfiguration->setCanStart(playerSelf ? playerSelf->master() : false);
+	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget, "selectConfiguration");
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), m_selectConfiguration, SLOT(addConfigOption(ConfigOption *)));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(endConfigUpdate()), m_selectConfiguration, SLOT(slotEndUpdate()));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), m_selectConfiguration, SLOT(initGame()));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));
 	connect(m_selectConfiguration, SIGNAL(leaveGame()), m_atlantikNetwork, SLOT(leaveGame()));
+	connect(m_selectConfiguration, SIGNAL(changeOption(int, const QString &)), m_atlantikNetwork, SLOT(changeOption(int, const QString &)));
 	connect(m_selectConfiguration, SIGNAL(buttonCommand(QString)), m_atlantikNetwork, SLOT(writeData(QString)));
 	connect(m_selectConfiguration, SIGNAL(iconSelected(const QString &)), m_atlantikNetwork, SLOT(setImage(const QString &)));
+	connect(m_selectConfiguration, SIGNAL(statusMessage(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
 }
 
 void Atlantik::initBoard()
@@ -346,8 +351,6 @@ void Atlantik::showBoard()
 {
 	if (m_selectGame)
 	{
-		disconnect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
 		delete m_selectGame;
 		m_selectGame = 0;
 	}
@@ -369,8 +372,6 @@ void Atlantik::showBoard()
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			portfolioView->buildPortfolio();
-
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 }
 
 void Atlantik::freezeBoard()
@@ -383,17 +384,12 @@ void Atlantik::freezeBoard()
 
 void Atlantik::slotNetworkConnected()
 {
-	// We're connected, so let's make ourselves known.
-	m_atlantikNetwork->setName(m_config.playerName);
-
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	QCString game = args->getOption("game");	
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
-	else
-		showSelectGame();
 }
 
 void Atlantik::slotNetworkError(int errnum)
@@ -423,6 +419,20 @@ void Atlantik::slotNetworkError(int errnum)
 	initNetworkObject();
 }
 
+void Atlantik::networkClosed(int status)
+{
+	switch( status )
+	{
+	case KBufferedIO::involuntary:
+		slotMsgStatus( i18n("Connection with server %1:%2 lost.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
+		showSelectServer();
+		break;
+	default:
+		if ( !m_atlantikNetwork->host().isEmpty() )
+			slotMsgStatus( i18n("Disconnected from %1:%2.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
+		break;
+	}
+}
 
 void Atlantik::slotConfigure()
 {
@@ -431,6 +441,13 @@ void Atlantik::slotConfigure()
 	m_configDialog->show();
 	
 	connect(m_configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
+}
+
+void Atlantik::showEventLog()
+{
+	if (!m_eventLogWidget)
+		m_eventLogWidget = new EventLogWidget(m_eventLog, 0);
+	m_eventLogWidget->show();
 }
 
 void Atlantik::configureNotifications()
@@ -549,6 +566,12 @@ void Atlantik::slotMsgError(QString msg)
 	serverMsgsAppend("Error: " + msg);
 }
 
+void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
+{
+	KMainWindow::statusBar()->changeItem(message, 1);
+	m_eventLog->addEvent(message, icon);
+}
+
 void Atlantik::slotMsgChat(QString player, QString msg)
 {
 	if (m_config.chatTimestamps)
@@ -558,7 +581,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
-	KNotifyClient::event("chat");
+	KNotifyClient::event(this->winId(), "chat");
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
@@ -578,24 +601,28 @@ void Atlantik::playerChanged(Player *player)
 	if (player == playerSelf)
 	{
 		// We changed ourselves..
-
 		PortfolioView *portfolioView = 0;
 		for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			{
 				// Clear all portfolios if we're not in game
-				if ( player->gameId() == -1 )
+				if ( !player->game() )
 					portfolioView->clearPortfolio();
 
 				// Show players in our game, hide the rest
-				if ( portfolioView->player()->gameId() == playerSelf->gameId() )
+				Player *pTmp = portfolioView->player();
+				if (pTmp->game() == playerSelf->game())
 					portfolioView->show();
 				else
 					portfolioView->hide();
 			}
-
-		if (m_selectConfiguration)
-			m_selectConfiguration->setCanStart(player->master());
+		if (!player->game())
+			showSelectGame();
+		else
+		{
+			if ( !m_board || m_board->isHidden() )
+				showSelectConfiguration();
+		}
 
 		m_roll->setEnabled(player->canRoll());
 		m_buyEstate->setEnabled(player->canBuy());
@@ -613,19 +640,24 @@ void Atlantik::playerChanged(Player *player)
 		// his/her portfolioView.
 		if (playerSelf)
 		{
-			if (player->gameId() == playerSelf->gameId())
+			if (player->game() == playerSelf->game())
 				portfolioView->show();
 			else
 				portfolioView->hide();
 		}
-		else if (player->gameId() == -1)
+		else if ( !player->game() )
 			portfolioView->hide();
 	}
 }
 
 void Atlantik::gainedTurn()
 {
-	KNotifyClient::event("gainedturn");
+	KNotifyClient::event(this->winId(), "gainedturn");
+}
+
+void Atlantik::initEventLog()
+{
+	m_eventLog = new EventLog();
 }
 
 void Atlantik::initNetworkObject()
@@ -639,23 +671,25 @@ void Atlantik::initNetworkObject()
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore);
 	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
+	connect(m_atlantikNetwork, SIGNAL(msgStatus(const QString &, const QString &)), this, SLOT(slotMsgStatus(const QString &, const QString &)));
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
+	connect(m_atlantikNetwork, SIGNAL(closed(int)), this, SLOT(networkClosed(int)));
 
-	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
+	connect(m_atlantikNetwork, SIGNAL(receivedHandshake()), this, SLOT(sendHandshake()));
+
 	connect(m_atlantikNetwork, SIGNAL(gameConfig()), this, SLOT(showSelectConfiguration()));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), this, SLOT(initBoard()));
 	connect(m_atlantikNetwork, SIGNAL(gameRun()), this, SLOT(showBoard()));
 	connect(m_atlantikNetwork, SIGNAL(gameEnd()), this, SLOT(freezeBoard()));
 
-	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	connect(m_atlantikNetwork, SIGNAL(clientCookie(QString)), this, SLOT(clientCookie(QString)));
+	connect(m_atlantikNetwork, SIGNAL(networkEvent(const QString &, const QString &)), m_eventLog, SLOT(addEvent(const QString &, const QString &)));
 
 	connect(this, SIGNAL(rollDice()), m_atlantikNetwork, SLOT(rollDice()));
 	connect(this, SIGNAL(buyEstate()), m_atlantikNetwork, SLOT(buyEstate()));
@@ -688,6 +722,22 @@ void Atlantik::clientCookie(QString cookie)
 	config->sync();
 }
 
+void Atlantik::sendHandshake()
+{
+	m_atlantikNetwork->setName(m_config.playerName);
+}
+
+void Atlantik::statusBarClick(int item)
+{
+	if ( item == 0 )
+	{
+		KAboutApplication dialog(kapp->aboutData(), this);
+		dialog.exec();
+	}
+	else if ( item == 1)
+		showEventLog();
+}
+
 PortfolioView *Atlantik::addPortfolioView(Player *player)
 {
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
@@ -695,6 +745,7 @@ PortfolioView *Atlantik::addPortfolioView(Player *player)
 
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
+	connect(portfolioView, SIGNAL(kickPlayer(Player *)), m_atlantikNetwork, SLOT(kickPlayer(Player *)));
 	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(prependEstateDetails(Estate *)));
 
 	m_portfolioLayout->addWidget(portfolioView);

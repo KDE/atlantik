@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -19,44 +19,45 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qlabel.h>
 
 #include <klistview.h>
 #include <kpushbutton.h>
+
+class AtlanticCore;
+class Game;
+class Player;
 
 class SelectGame : public QWidget
 {
 Q_OBJECT
 
 public:
-	SelectGame(QWidget *parent, const char *name=0);
+	SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *name=0);
 
 	void initPage();
-		bool validateNext();
-		QString hostToConnect() const;
-		int portToConnect();
-
-	public slots:
-		void validateConnectButton();
-
-		void slotGameListClear();
-		void slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
-		void slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType, bool canBeJoined);
-		void slotGameListDel(QString gameId);
+	bool validateNext();
+	QString hostToConnect() const;
+	int portToConnect();
 
 private slots:
 	void connectClicked();
-	void slotGameListEndUpdate();
+	void addGame(Game *game);
+	void delGame(Game *game);
+	void updateGame(Game *game);
+	void playerChanged(Player *player);
+	void validateConnectButton();
 
-	signals:
-		void joinGame(int gameId);
-		void newGame(const QString &gameType);
-		void leaveServer();
-//		void statusChanged();
+signals:
+	void joinGame(int gameId);
+	void newGame(const QString &gameType);
+	void leaveServer();
+	void msgStatus(const QString &status);
 
 private:
+	QListViewItem *findItem(Game *game);
+
+	AtlanticCore *m_atlanticCore;
 	QVBoxLayout *m_mainLayout;
-	QLabel *m_statusLabel;
 	KListView *m_gameList;
 	KPushButton *m_connectButton;
 };

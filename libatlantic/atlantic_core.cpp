@@ -16,20 +16,22 @@
 
 #include <iostream>
 
-#include "atlantic_core.moc"
+#include "atlantic_core.h"
 
-#include "player.h"
+#include "auction.h"
+#include "configoption.h"
 #include "estate.h"
 #include "estategroup.h"
+#include "game.h"
+#include "player.h"
 #include "trade.h"
-#include "auction.h"
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
 	m_playerSelf = 0;
 }
 
-void AtlanticCore::reset(bool deletePlayers)
+void AtlanticCore::reset(bool deletePermanents)
 {
 	m_auctions.setAutoDelete(true);
 	m_auctions.clear();
@@ -40,6 +42,9 @@ void AtlanticCore::reset(bool deletePlayers)
 	m_estateGroups.setAutoDelete(true);
 	m_estateGroups.clear();
 	m_estateGroups.setAutoDelete(false);
+	m_configOptions.setAutoDelete(true);
+	m_configOptions.clear();
+	m_configOptions.setAutoDelete(false);
 
 	Trade *trade = 0;
 	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
@@ -52,7 +57,7 @@ void AtlanticCore::reset(bool deletePlayers)
 	Player *player = 0;
 	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 	{
-		if (deletePlayers)
+		if (deletePermanents)
 		{
 			emit removeGUI(player);
 			player->deleteLater();
@@ -63,11 +68,24 @@ void AtlanticCore::reset(bool deletePlayers)
 			player->setDestination(0);
 		}
 	}
-	if (deletePlayers)
+	if (deletePermanents)
 	{
 		m_players.clear();
 		m_playerSelf = 0;
+
+		Game *game = 0;
+		for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		{
+			emit removeGUI(game);
+			game->deleteLater();
+		}
+		m_games.clear();
 	}
+}
+
+bool AtlanticCore::selfIsMaster() const
+{
+	return (m_playerSelf && m_playerSelf->game() && m_playerSelf->game()->master() == m_playerSelf);
 }
 
 void AtlanticCore::setPlayerSelf(Player *player)
@@ -85,10 +103,19 @@ QPtrList<Player> AtlanticCore::players()
 	return m_players;
 }
 
-Player *AtlanticCore::newPlayer(int playerId)
+Player *AtlanticCore::newPlayer(int playerId, const bool &playerSelf)
 {
 	Player *player = new Player(playerId);
 	m_players.append(player);
+
+	if (playerSelf)
+	{
+		player->setIsSelf(playerSelf);
+		m_playerSelf = player;
+	}
+
+	emit createGUI(player);
+
 	return player;
 }
 
@@ -107,6 +134,65 @@ void AtlanticCore::removePlayer(Player *player)
 	m_players.remove(player);
 	emit removeGUI(player);
 	player->deleteLater();
+}
+
+QPtrList<Game> AtlanticCore::games()
+{
+	return m_games;
+}
+
+Game *AtlanticCore::newGame(int gameId, const QString &type)
+{
+	Game *game = new Game(gameId);
+	m_games.append(game);
+
+	if ( !type.isNull() )
+		game->setType(type);
+
+	emit createGUI(game);
+
+	return game;
+}
+
+Game *AtlanticCore::findGame(const QString &type)
+{
+	Game *game = 0;
+	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		if (game->id() == -1 && game->type() == type)
+			return game;
+
+	return 0;
+}
+
+Game *AtlanticCore::findGame(int gameId)
+{
+	if (gameId == -1)
+		return 0;
+
+	Game *game = 0;
+	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		if (game->id() == gameId)
+			return game;
+
+	return 0;
+}
+
+Game *AtlanticCore::gameSelf()
+{
+	return( m_playerSelf ? m_playerSelf->game() : 0 );
+}
+
+void AtlanticCore::removeGame(Game *game)
+{
+	m_games.remove(game);
+	emit removeGUI(game);
+	game->deleteLater();
+}
+
+void AtlanticCore::emitGames()
+{
+	for (QPtrListIterator<Game> it(m_games); (*it) ; ++it)
+		emit createGUI( (*it) );
 }
 
 QPtrList<Estate> AtlanticCore::estates()
@@ -178,6 +264,9 @@ Trade *AtlanticCore::newTrade(int tradeId)
 {
 	Trade *trade = new Trade(tradeId);
 	m_trades.append(trade);
+
+	emit createGUI(trade);
+
 	return trade;
 }
 
@@ -216,14 +305,45 @@ void AtlanticCore::delAuction(Auction *auction)
 	delete auction;
 }
 
+ConfigOption *AtlanticCore::newConfigOption(int configId)
+{
+	ConfigOption *configOption = new ConfigOption(configId);
+	m_configOptions.append(configOption);
+
+	emit createGUI(configOption);
+
+	return configOption;
+}
+
+void AtlanticCore::removeConfigOption(ConfigOption *configOption)
+{
+	m_configOptions.remove(configOption);
+	emit removeGUI(configOption);
+	configOption->deleteLater();
+}
+
+ConfigOption *AtlanticCore::findConfigOption(int configId)
+{
+	ConfigOption *configOption = 0;
+	for (QPtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+		if (configOption->id() == configId)
+			return configOption;
+
+	return 0;
+}
+
 void AtlanticCore::printDebug()
 {
 	Player *player = 0;
 	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 		if (player == m_playerSelf)
-			std::cout << "PS: " << player->name().latin1() << ", game " << QString::number(player->gameId()).latin1() << std::endl;
+			std::cout << "PS: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
 		else
-			std::cout << " P: " << player->name().latin1() << ", game " << QString::number(player->gameId()).latin1() << std::endl;
+			std::cout << " P: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
+
+	Game *game = 0;
+	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		std::cout << " G: " << QString::number(game->id()).latin1() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).latin1() << std::endl;
 
 	Estate *estate = 0;
 	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
@@ -235,10 +355,15 @@ void AtlanticCore::printDebug()
 
 	Auction *auction = 0;
 	for (QPtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
-		std::cout << "A: " << QString::number(auction->auctionId()).latin1() << std::endl;
+		std::cout << " A: " << QString::number(auction->auctionId()).latin1() << std::endl;
 
 	Trade *trade = 0;
 	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
-		std::cout << "T: " << QString::number(trade->tradeId()).latin1() << std::endl;
+		std::cout << " T: " << QString::number(trade->tradeId()).latin1() << std::endl;
 
+	ConfigOption *configOption = 0;
+	for (QPtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+		std::cout << "CO:" << QString::number(configOption->id()).latin1() << " " << configOption->name().latin1() << " " << configOption->value().latin1() << std::endl;
 }
+
+#include "atlantic_core.moc"

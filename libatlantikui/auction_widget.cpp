@@ -61,7 +61,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	QPtrList<Player> playerList = m_atlanticCore->players();
 	for (QPtrListIterator<Player> it(playerList); *it; ++it)
 	{
-		if ((player = *it) && player->gameId() == pSelf->gameId())
+		if ( (player = *it) && player->game() == pSelf->game() )
 		{
 			item = new KListViewItem(m_playerList, player->name(), QString("0"));
 			item->setPixmap(0, QPixmap(SmallIcon("personal")));

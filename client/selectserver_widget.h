@@ -20,7 +20,6 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
-#include <qlabel.h>
 
 #include <klineedit.h>
 #include <klistview.h>
@@ -58,12 +57,12 @@ private slots:
 
 signals:
 	void serverConnect(const QString host, int port);
+	void msgStatus(const QString &message);
 
 private:
 	void initMonopigator();
 
 	QVBoxLayout *m_mainLayout;
-	QLabel *status_label;
 	KListView *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;

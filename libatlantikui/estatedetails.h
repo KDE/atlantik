@@ -41,6 +41,7 @@ public:
 	~EstateDetails();
 	Estate *estate() { return m_estate; }
 
+	void addDetails();
 	void addButton(const QString command, const QString caption, bool enabled);
 	void addCloseButton();
 	void setEstate(Estate *estate);

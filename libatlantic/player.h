@@ -21,6 +21,7 @@
 #include <qstring.h>
 
 class Estate;
+class Game;
 
 class Player : public QObject
 {
@@ -30,16 +31,14 @@ public:
 	Player(int playerId);
 
 	int id() { return m_id; }
-	void setGame(int gameId);
-	int gameId() { return m_gameId; }
+	void setGame(Game *game);
+	Game *game();
 	void setLocation(Estate *location);
 	Estate *location() { return m_location; }
 	void setDestination(Estate *destination);
 	Estate *destination() { return m_destination; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
-	void setMaster(bool master);
-	bool master() { return m_master; }
 	void setBankrupt(bool bankrupt);
 	bool isBankrupt() { return m_bankrupt; }
 	void setHasDebt(bool hasDebt);
@@ -71,11 +70,12 @@ signals:
 	void gainedTurn();
 
 private:
-	int m_id, m_gameId;
+	int m_id;
 	bool m_changed, m_isSelf;
-	bool m_master, m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_canUseCard, m_inJail;
+	bool m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_canUseCard, m_inJail;
 	unsigned int m_money;
 	QString m_name, m_host, m_image;
+	Game *m_game;
 	Estate *m_location, *m_destination;
 };
 
