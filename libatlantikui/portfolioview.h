@@ -18,7 +18,7 @@ class PortfolioView : public QWidget
 Q_OBJECT
 
 public:
-	PortfolioView(Player *_player, QWidget *parent, const char *name = 0);
+	PortfolioView(Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
 	void addEstateView(Estate *estate);
 
 	Player *player();

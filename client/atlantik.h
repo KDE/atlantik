@@ -17,6 +17,22 @@
 class AtlanticCore;
 class AtlantikNetwork;
 
+struct AtlantikConfig
+{
+	// Personalization options
+	QString playerName;
+
+	// Board options
+	bool indicateUnowned;
+	bool highliteUnowned;
+	bool darkenMortgaged;
+	bool quartzEffects;
+	bool animateTokens;
+
+	// Portfolio colors
+	QColor activeColor, inactiveColor;
+};
+
 class SelectServer;
 class SelectGame;
 class SelectConfiguration;
@@ -55,6 +71,8 @@ public:
 	 * @param msg Message to be appended.
 	 */
 	void serverMsgsAppend(QString msg);
+
+	AtlantikConfig config() { return m_config; }
 
 public slots:
 	/**
@@ -170,6 +188,7 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	AtlantikNetwork *m_atlantikNetwork;
+	AtlantikConfig m_config;
 
 	Player *m_playerSelf;
 

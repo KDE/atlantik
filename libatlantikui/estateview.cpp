@@ -19,12 +19,15 @@
 #include "estateview.moc"
 #include "config.h"
 
-EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
 
-#warning add old atlantikConfig members as arguments
+	m_indicateUnowned = indicateUnowned;
+	m_highliteUnowned = highliteUnowned;
+	m_darkenMortgaged = darkenMortgaged;
+	m_quartzEffects = quartzEffects;
 
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -51,6 +54,38 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 	icon = rotatePixmap(icon);
 
 	QToolTip::add(this, m_estate->name());
+}
+
+void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
+{
+	if (m_indicateUnowned != indicateUnowned)
+	{
+		m_indicateUnowned = indicateUnowned;
+		b_recreate = true;
+		updatePE();
+	}
+
+	if (m_highliteUnowned != highliteUnowned)
+	{
+		m_highliteUnowned = highliteUnowned;
+		b_recreate = true;
+	}
+
+	if (m_darkenMortgaged != darkenMortgaged)
+	{
+		m_darkenMortgaged = darkenMortgaged;
+		b_recreate = true;
+	}
+
+	if (m_quartzEffects != quartzEffects)
+	{
+		m_quartzEffects = quartzEffects;
+		b_recreate = true;
+//		m_recreateQuartz = true;
+	}
+
+	if (b_recreate || m_recreateQuartz)
+		update();
 }
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
@@ -126,10 +161,9 @@ void EstateView::updatePE()
 
 void EstateView::estateChanged()
 {
-#warning is this the correct place for name label updates?
+	lname->setText(m_estate->name());
 	QToolTip::remove(this);
 	QToolTip::add(this, m_estate->name());
-	lname->setText(m_estate->name());
 
 	b_recreate = true;
 	m_recreateQuartz = true;
@@ -338,7 +372,6 @@ void EstateView::resizeEvent(QResizeEvent *)
 	m_recreateQuartz = true;
 	b_recreate = true;
 
-
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
@@ -397,9 +430,6 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 
 void EstateView::slotResizeAftermath()
 {
-#warning are these necessary here?
-//	m_titleWidth = width()/4;
-//	m_titleHeight = height()/4;
 	lname->setAlignment(Qt::AlignCenter);
 	lname->setMinimumSize(lname->sizeHint());
 	lname->setMinimumWidth(width()-5);

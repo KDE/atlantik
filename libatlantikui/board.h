@@ -10,12 +10,11 @@
 #include "token.h"
 
 class AtlanticCore;
+class Auction;
+class Estate;
+class Player;
 
 class EstateView;
-
-class Player;
-class Estate;
-class Auction;
 
 class AtlantikBoard : public QWidget
 {
@@ -25,8 +24,9 @@ public:
 	enum DisplayMode { Play, Edit };
 
 	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
+	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
 	int heightForWidth(int);
-	void addEstateView(Estate *estate);
+	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
 	void addToken(Player *player);
 	void indicateUnownedChanged();
@@ -64,6 +64,7 @@ private:
 	QTimer *m_timer;
 	bool m_resumeTimer;
 
+	bool m_animateTokens;
 	int m_maxEstates;
 
 	QPtrList<EstateView> m_estateViews;

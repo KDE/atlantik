@@ -11,5 +11,5 @@ For 0.2.1
 ---------
 
 - support <Board>'s go= instead of type=go in <Estate>
-- when libatlantikui exists, make designer a seperate app again
+- libatlantikui exists, make designer a seperate app again
 - remove type= entirely (depends on proper monopd groups)

@@ -22,13 +22,10 @@
 #include <board.h>
 #include <trade_widget.h>
 
-#include "config.h"
 #include "designer.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
-
-extern AtlantikConfig atlantikConfig;
 
 Atlantik::Atlantik () : KMainWindow ()
 {
@@ -148,22 +145,21 @@ void Atlantik::readConfig()
 
 	// Personalization configuration
 	config->setGroup("Personalization");
-	atlantikConfig.playerName = config->readEntry("PlayerName", "Atlantik");
+	m_config.playerName = config->readEntry("PlayerName", "Atlantik");
 
 	// Board configuration
 	config->setGroup("Board");
-	atlantikConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
-	atlantikConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
-	atlantikConfig.darkenMortgaged = config->readBoolEntry("DarkenMortgaged", true);
-	atlantikConfig.animateToken = config->readBoolEntry("AnimateToken", false);
-	atlantikConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
+	m_config.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
+	m_config.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
+	m_config.darkenMortgaged = config->readBoolEntry("DarkenMortgaged", true);
+	m_config.animateTokens = config->readBoolEntry("AnimateToken", false);
+	m_config.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 
 	// Portfolio colors
 	config->setGroup("WM");
-	QColor activeDefault(205, 205, 205), inactiveDefault(153, 153, 153);
-	atlantikConfig.activeColor = config->readColorEntry("activeBackground", &activeDefault);
-	atlantikConfig.inactiveColor = config->readColorEntry("inactiveBlend", &inactiveDefault);
-
+	QColor activeDefault(204, 204, 204), inactiveDefault(153, 153, 153);
+	m_config.activeColor = config->readColorEntry("activeBackground", &activeDefault);
+	m_config.inactiveColor = config->readColorEntry("inactiveBlend", &inactiveDefault);
 }
 
 void Atlantik::newPlayer(Player *player)
@@ -173,7 +169,7 @@ void Atlantik::newPlayer(Player *player)
 
 	m_board->addToken(player);
 
-	PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
+	PortfolioView *portfolioView = new PortfolioView(player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
 
 	Estate *estate;
@@ -199,7 +195,7 @@ void Atlantik::newEstate(Estate *estate)
 	if (!m_board)
 		initGame();
 
-	m_board->addEstateView(estate);
+	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 
 	PortfolioView *portfolioView;
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
@@ -231,7 +227,7 @@ void Atlantik::removeGUI(Trade *trade)
 void Atlantik::slotNetworkConnected()
 {
 	// We're connected, so let's make ourselves known.
-	m_atlantikNetwork->cmdName(atlantikConfig.playerName);
+	m_atlantikNetwork->cmdName(m_config.playerName);
 
 	// Create select game widget and replace the select server widget.
 	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
@@ -302,8 +298,11 @@ void Atlantik::initGame()
 {
 	// Create board widget and replace the game configuration widget.
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
+	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
+
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->show();
+
 	if (m_selectConfiguration)
 	{
 		delete m_selectConfiguration;
@@ -326,71 +325,65 @@ void Atlantik::slotConfigure()
 void Atlantik::slotUpdateConfig()
 {
 	KConfig *config=kapp->config();
-	bool optBool, redrawEstates = false;
+	bool optBool, configChanged = false;
 	QString optStr;
 
 	optStr = m_configDialog->playerName();
-	if (atlantikConfig.playerName != optStr)
+	if (m_config.playerName != optStr)
 	{
-		atlantikConfig.playerName = optStr;
+		m_config.playerName = optStr;
 		m_atlantikNetwork->cmdName(optStr);
 	}
 
 	optBool = m_configDialog->indicateUnowned();
-	if (atlantikConfig.indicateUnowned != optBool)
+	if (m_config.indicateUnowned != optBool)
 	{
-		atlantikConfig.indicateUnowned = optBool;
-		if (m_board)
-			m_board->indicateUnownedChanged();
+		m_config.indicateUnowned = optBool;
+		configChanged = true;
 	}
 
 	optBool = m_configDialog->highliteUnowned();
-	if (atlantikConfig.highliteUnowned != optBool)
+	if (m_config.highliteUnowned != optBool)
 	{
-		atlantikConfig.highliteUnowned = optBool;
-		redrawEstates = true;
+		m_config.highliteUnowned = optBool;
+		configChanged = true;
 	}
 
 	optBool = m_configDialog->darkenMortgaged();
-	if (atlantikConfig.darkenMortgaged != optBool)
+	if (m_config.darkenMortgaged != optBool)
 	{
-		atlantikConfig.darkenMortgaged = optBool;
-		redrawEstates = true;
+		m_config.darkenMortgaged = optBool;
+		configChanged = true;
 	}
 
 	optBool = m_configDialog->animateToken();
-	if (atlantikConfig.animateToken != optBool)
+	if (m_config.animateTokens != optBool)
 	{
-		atlantikConfig.animateToken = optBool;
+		m_config.animateTokens = optBool;
+		configChanged = true;
 	}
 
 	optBool = m_configDialog->quartzEffects();
-	if (atlantikConfig.quartzEffects != optBool)
+	if (m_config.quartzEffects != optBool)
 	{
-		atlantikConfig.quartzEffects = optBool;
-		redrawEstates = true;
+		m_config.quartzEffects = optBool;
+		configChanged = true;
 	}
 
 	config->setGroup("Personalization");
-	config->writeEntry("PlayerName", atlantikConfig.playerName);
+	config->writeEntry("PlayerName", m_config.playerName);
 
 	config->setGroup("Board");
-	config->writeEntry("IndicateUnowned", atlantikConfig.indicateUnowned);
-	config->writeEntry("HighliteUnowned", atlantikConfig.highliteUnowned);
-	config->writeEntry("DarkenMortgaged", atlantikConfig.darkenMortgaged);
-	config->writeEntry("AnimateToken", atlantikConfig.animateToken);
-	config->writeEntry("QuartzEffects", atlantikConfig.quartzEffects);
+	config->writeEntry("IndicateUnowned", m_config.indicateUnowned);
+	config->writeEntry("HighliteUnowned", m_config.highliteUnowned);
+	config->writeEntry("DarkenMortgaged", m_config.darkenMortgaged);
+	config->writeEntry("AnimateToken", m_config.animateTokens);
+	config->writeEntry("QuartzEffects", m_config.quartzEffects);
 
 	config->sync();
 
-	if (redrawEstates)
-	{
-		Estate *estate;
-		QPtrList<Estate> estates = m_atlanticCore->estates();
-		for (QPtrListIterator<Estate> it(estates); *it; ++it)
-			if ((estate = dynamic_cast<Estate*>(*it)))
-				estate->update(true);
-	}
+	if (configChanged)
+		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 }
 
 void Atlantik::slotSendMsg()

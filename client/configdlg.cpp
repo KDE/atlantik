@@ -6,54 +6,59 @@
 #include <kiconloader.h>
 #include <klocale.h>
 
-#include "config.h"
+#include "atlantik.h"
 #include "configdlg.moc"
 
-extern AtlantikConfig atlantikConfig;
-
-ConfigDialog::ConfigDialog(QWidget* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
+ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
 {
+	m_parent = parent;
 	p_p13n = addPage(QString(i18n("Personalization")), QString(i18n("Personalization")), BarIcon("personal", KIcon::SizeMedium));
 	p_board = addPage(QString(i18n("Board")), QString(i18n("Board")), BarIcon("monop_board", KIcon::SizeMedium));
 
-	configPlayer = new ConfigPlayer(p_p13n, "configPlayer");
-	configBoard = new ConfigBoard(p_board, "configBoard");
+	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
+	configBoard = new ConfigBoard(this, p_board, "configBoard");
 
 	setMinimumSize(sizeHint());
 }
 
 bool ConfigDialog::indicateUnowned()
 {
-	return configBoard->m_indicateUnowned->isChecked();
+	return configBoard->indicateUnowned();
 }
 
 bool ConfigDialog::highliteUnowned()
 {
-	return configBoard->m_highliteUnowned->isChecked();
+	return configBoard->highliteUnowned();
 }
 
 bool ConfigDialog::darkenMortgaged()
 {
-	return configBoard->m_darkenMortgaged->isChecked();
+	return configBoard->darkenMortgaged();
 }
 
 bool ConfigDialog::animateToken()
 {
-	return configBoard->m_animateToken->isChecked();
+	return configBoard->animateToken();
 }
 
 bool ConfigDialog::quartzEffects()
 {
-	return configBoard->m_quartzEffects->isChecked();
+	return configBoard->quartzEffects();
 }
 
 QString ConfigDialog::playerName()
 {
-	return configPlayer->m_playerName->text();
+	return configPlayer->playerName();
 }
 
-ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, name)
+AtlantikConfig ConfigDialog::config()
 {
+	return m_parent->config();
+}
+
+ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+{
+	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
 
 	QLabel *label = new QLabel("Player name:", parent);	
@@ -67,13 +72,19 @@ ConfigPlayer::ConfigPlayer(QWidget* parent, const char *name) : QWidget(parent, 
 	reset();
 }
 
-void ConfigPlayer::reset()
+QString ConfigPlayer::playerName()
 {
-	m_playerName->setText(atlantikConfig.playerName);
+	return m_playerName->text();
 }
 
-ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, name)
+void ConfigPlayer::reset()
 {
+	m_playerName->setText(m_configDialog->config().playerName);
+}
+
+ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+{
+	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
 
 	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game status feedback"), parent);
@@ -117,11 +128,36 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 	reset();
 }
 
+bool ConfigBoard::indicateUnowned()
+{
+	return m_indicateUnowned->isChecked();
+}
+
+bool ConfigBoard::highliteUnowned()
+{
+	return m_highliteUnowned->isChecked();
+}
+
+bool ConfigBoard::darkenMortgaged()
+{
+	return m_darkenMortgaged->isChecked();
+}
+
+bool ConfigBoard::animateToken()
+{
+	return m_animateToken->isChecked();
+}
+
+bool ConfigBoard::quartzEffects()
+{
+	return m_quartzEffects->isChecked();
+}
+
 void ConfigBoard::reset()
 {
-	m_indicateUnowned->setChecked(atlantikConfig.indicateUnowned);
-	m_highliteUnowned->setChecked(atlantikConfig.highliteUnowned);
-	m_darkenMortgaged->setChecked(atlantikConfig.darkenMortgaged);
-	m_animateToken->setChecked(atlantikConfig.animateToken);
-	m_quartzEffects->setChecked(atlantikConfig.quartzEffects);
+	m_indicateUnowned->setChecked(m_configDialog->config().indicateUnowned);
+	m_highliteUnowned->setChecked(m_configDialog->config().highliteUnowned);
+	m_darkenMortgaged->setChecked(m_configDialog->config().darkenMortgaged);
+	m_animateToken->setChecked(m_configDialog->config().animateTokens);
+	m_quartzEffects->setChecked(m_configDialog->config().quartzEffects);
 }

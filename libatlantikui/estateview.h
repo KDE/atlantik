@@ -21,7 +21,8 @@ class EstateView : public QWidget
 Q_OBJECT
 
 	public:
-		EstateView(Estate *estate, int orientation, const QString &, QWidget *parent, const char *name = 0);
+		EstateView(Estate *estate, int orientation, const QString &, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name = 0);
+		void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects);
 		Estate *estate() { return m_estate; }
 		void updatePE();
 

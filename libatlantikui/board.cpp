@@ -9,19 +9,17 @@
 
 #include <atlantik_network.h>
 
-#include "board.moc"
-#include "estateview.h"
-#include "config.h"
-#include "display_widget.h"
 #include "auction_widget.h"
-
-//extern AtlantikConfig atlantikConfig;
+#include "display_widget.h"
+#include "estateview.h"
+#include "board.moc"
 
 AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_atlanticCore = atlanticCore;
 	m_maxEstates = maxEstates;
 	m_mode = mode;
+	m_animateTokens = false;
 
 	int sideLen = maxEstates/4;
 
@@ -93,14 +91,19 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 		}
 	}
 
-/*
-	QString label;
-	for(i=0;i<MAXPLAYERS;i++)
-	{
-		label.setNum(i);
-	}
-*/
 	kdDebug() << "ending board ctor" << endl;
+}
+
+void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
+{
+	if (m_animateTokens != animateTokens)
+		m_animateTokens = animateTokens;
+
+	// Update EstateViews
+	EstateView *estateView;
+	for (QPtrListIterator<EstateView> it(m_estateViews); *it; ++it)
+		if ((estateView = dynamic_cast<EstateView*>(*it)))
+			estateView->setViewProperties(indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects);
 }
 
 int AtlantikBoard::heightForWidth(int width)
@@ -126,7 +129,7 @@ EstateView *AtlantikBoard::getEstateView(Estate *estate)
 	return 0;
 }
 
-void AtlantikBoard::addEstateView(Estate *estate)
+void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
 {
 	QString icon = QString();
 	int estateId = estate->estateId(), orientation = North;
@@ -141,7 +144,7 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	else //if (estateId < 4*sideLen)
 		orientation = West;
 	
-	EstateView *estateView = new EstateView(estate, orientation, icon, this, "estateview");
+	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects, this, "estateview");
 	m_estateViews.append(estateView);
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
@@ -214,7 +217,7 @@ void AtlantikBoard::playerChanged()
 		{
 			if (directMove)
 				jumpToken(token, estateView, false);
-			else if (atlantikConfig.animateToken==false)
+			else if (m_animateTokens==false)
 				jumpToken(token, estateView);
 			else
 				moveToken(token, estateId);
@@ -258,16 +261,6 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 
 	// Start timer
 	m_timer->start(15);
-}
-
-void AtlantikBoard::indicateUnownedChanged()
-{
-	EstateView *estateView;
-	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
-	{
-		if ((estateView = dynamic_cast<EstateView*>(*i)))
-			estateView->updatePE();
-	}
 }
 
 void AtlantikBoard::slotMoveToken()

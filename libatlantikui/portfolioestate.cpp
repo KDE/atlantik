@@ -11,8 +11,6 @@ PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwne
 	m_player = player;
 	m_alwaysOwned = alwaysOwned;
 
-#warning add old Qcolor properties as arguments
-
     QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
 

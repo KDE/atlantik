@@ -4,10 +4,7 @@
 #include <kapplication.h>
 
 #include "main.h"
-#include "config.h"
 #include "atlantik.h"
-
-AtlantikConfig atlantikConfig;
 
 int main(int argc, char *argv[])
 {

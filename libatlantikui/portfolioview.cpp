@@ -17,11 +17,11 @@
 #define PE_MARGINW	5
 #define PE_MARGINH	2
 
-PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioView::PortfolioView(Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_player = player;
-
-#warning add old atlantikConfig members as argument
+	m_activeColor = activeColor;
+	m_inactiveColor = inactiveColor;
 
 	b_recreate = true;
 	qpixmap = 0;
@@ -79,7 +79,7 @@ void PortfolioView::addEstateView(Estate *estate)
 	x = 5 + 16 * ((estateId-1) % 10);
 
 	// Create PE
-	PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
+	PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 	portfolioEstateMap[estateId] = portfolioEstate;
 
 	// Find last of this group
