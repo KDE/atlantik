@@ -58,6 +58,7 @@ Comment[tr]=Sıra şimdi sizde
 Comment[uz]=Энди сиз юрийсиз
 Comment[wa]=C' est a vos asteure
 Comment[xx]=xxIt is your turn nowxx
+Comment[zh_TW]=該您擲骰子了
 [chat]
 Name=Chat
 Name[bg]=Чат
@@ -80,6 +81,7 @@ Name[sv]=Chatt
 Name[tr]=Muhabbet
 Name[uz]=Чат
 Name[xx]=xxChatxx
+Name[zh_TW]=聊天
 Comment=A player sends a chat message
 Comment[bg]=Играч изпраща съобщение
 Comment[ca]=Un jugador envia un missatge de xat
@@ -106,6 +108,7 @@ Comment[tr]=Oyuncu bir mesaj gönderdi
 Comment[uz]=Ўйинчи хабар жўнатаяпти
 Comment[wen]=Hrajer sćele chatowu powěsć
 Comment[xx]=xxA player sends a chat messagexx
+Comment[zh_TW]=一個玩家送出了一條聊天訊息
 default_presentation=1
 
 [newplayer]
@@ -138,6 +141,7 @@ Name[uz]=Янги ўйинчи
 Name[wa]=Novea djoweu
 Name[wen]=Nowy hrajer
 Name[xx]=xxNew playerxx
+Name[zh_TW]=新玩家
 Comment=A new player joins the game
 Comment[bg]=Нов играч се присъединява към играта
 Comment[ca]=Un nou jugador s'uneix a la partida
@@ -166,6 +170,7 @@ Comment[uz]=Ўйинга янги ўйинчи қўшилаяпти
 Comment[wa]=On novea djoweu s' a raloyî å djeu
 Comment[wen]=Nowy hrajer so přizamknje
 Comment[xx]=xxA new player joins the gamexx
+Comment[zh_TW]=一個新玩家加入此遊戲
 default_presentation=1
 
 [newgame]
@@ -198,6 +203,7 @@ Name[uz]=Янги ўйин
 Name[wa]=Novea djeu
 Name[wen]=Nowa hra
 Name[xx]=xxNew gamexx
+Name[zh_TW]=新遊戲
 Comment=A new game is created
 Comment[bg]=Създадена е нова игра
 Comment[ca]=Es crea una nova partida
@@ -225,4 +231,5 @@ Comment[uz]=Янги ўйин яратилаяпти
 Comment[wa]=On novea djeu a stî enondé
 Comment[wen]=Nowa hra je so stworiła
 Comment[xx]=xxA new game is createdxx
+Comment[zh_TW]=一個新遊戲開啟完成
 default_presentation=1
