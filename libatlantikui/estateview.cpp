@@ -74,9 +74,9 @@ void EstateView::updateToolTip()
 		{
 			toolTip.append( "\n" + i18n("Owner: %1").arg( m_estate->owner()->name() ) );
 			if ( m_estate->isMortgaged() )
-				toolTip.append( "\n" + i18n("Unmortage Price: %1").arg( m_estate->unmortgagePrice() ) );
+				toolTip.append( "\n" + i18n("Unmortgage Price: %1").arg( m_estate->unmortgagePrice() ) );
 		     	else
-		     		toolTip.append( "\n" + i18n("Mortage Value: %1").arg( m_estate->mortgagePrice() ) );	
+		     		toolTip.append( "\n" + i18n("Mortgage Value: %1").arg( m_estate->mortgagePrice() ) );	
 			if ( m_estate->canSellHouses() )
 				toolTip.append( "\n" + i18n("House Value: %1").arg( m_estate->houseSellPrice() ) );
 			if ( m_estate->canBuyHouses() )
