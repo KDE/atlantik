@@ -53,7 +53,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 //	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClicked(QListViewItem *)));
-	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
+	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
@@ -65,13 +65,13 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	m_refreshButton = new KPushButton(BarIcon("reload", KIcon::SizeSmall), i18n("Refresh"), this);
 	buttonBox->addWidget(m_refreshButton);
 
-	connect(m_refreshButton, SIGNAL(pressed()), this, SLOT(initMonopigator()));
+	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(initMonopigator()));
 
 	m_connectButton = new KPushButton(BarIcon("forward", KIcon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
-	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
+	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 	
     // Status indicator
 	status_label = new QLabel(this);
@@ -154,7 +154,7 @@ void SelectServer::slotListClicked(QListViewItem *item)
 		m_onlineGameButton->toggle();
 }
 
-void SelectServer::connectPressed()
+void SelectServer::connectClicked()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
 		emit serverConnect(item->text(0), item->text(3).toInt());

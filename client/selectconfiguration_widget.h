@@ -46,7 +46,7 @@ public:
 		void slotPlayerListDel(QString playerId);
 
 private slots:
-	void connectPressed();
+	void connectClicked();
 	void slotClicked();
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void optionChanged();

@@ -46,7 +46,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerList->setFullWidth(true);
 //	m_mainLayout->addWidget(m_playerList);
 
-	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
+	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
 
 	// Game configuration.
 	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
@@ -58,14 +58,14 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave game"), this);
 	buttonBox->addWidget(m_backButton);
 
-	connect(m_backButton, SIGNAL(pressed()), this, SIGNAL(leaveGame()));
+	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
 	buttonBox->addWidget(m_connectButton);
 
-	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
+	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 	
     // Status indicator
 	status_label = new QLabel(this);
@@ -120,7 +120,7 @@ void SelectConfiguration::slotPlayerListDel(QString playerId)
 //	emit statusChanged();
 }
 
-void SelectConfiguration::connectPressed()
+void SelectConfiguration::connectClicked()
 {
 	emit startGame();
 	return;

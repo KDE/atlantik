@@ -45,7 +45,7 @@ public:
 		void slotGameListDel(QString gameId);
 
 	private slots:
-		void connectPressed();
+		void connectClicked();
 
 	signals:
 		void joinGame(int gameId);

@@ -50,7 +50,7 @@ public:
 		void slotListClicked(QListViewItem *);
 
 	private slots:
-		void connectPressed();
+		void connectClicked();
 		void monopigatorFinished();
 
 	signals:

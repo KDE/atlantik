@@ -43,7 +43,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 //	m_mainLayout->addWidget(m_gameList);
 
 	connect(m_gameList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
+	connect(m_gameList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
 	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
@@ -53,7 +53,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
 
-	connect(backButton, SIGNAL(pressed()), this, SIGNAL(leaveServer()));
+	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
@@ -61,7 +61,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
-	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
+	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 	
     // Status indicator
 	m_statusLabel = new QLabel(this);
@@ -144,7 +144,7 @@ void SelectGame::validateConnectButton()
 		m_connectButton->setEnabled(false);
 }
 
-void SelectGame::connectPressed()
+void SelectGame::connectClicked()
 {
 	if (QListViewItem *item = m_gameList->selectedItem())
 	{
