@@ -33,11 +33,11 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 //	bgroup = new QVButtonGroup(i18n("Start or select a monopd server"), this, "bgroup");
 	bgroup = new QVButtonGroup(i18n("Select monopd Server"), this, "bgroup");
 	bgroup->setExclusive(true);
-	m_mainLayout->addWidget(bgroup); 
+	m_mainLayout->addWidget(bgroup);
 
 	// Button for local games
 //	m_localGameButton = new QRadioButton(QString(i18n("Start a local server")), bgroup, "m_localGameButton");
-//	connect(m_localGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton())); 
+//	connect(m_localGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
 
 	// Button for on-line games
 //	m_onlineGameButton = new QRadioButton(QString(i18n("Select a server to play a game on-line")), bgroup, "m_onlineGameButton");
@@ -59,11 +59,12 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(buttonBox); 
+	m_mainLayout->addItem(buttonBox);
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_refreshButton = new KPushButton( (useMonopigatorOnStart ? BarIcon("reload", KIcon::SizeSmall) : BarIcon("network", KIcon::SizeSmall)), (useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List")), this);
+	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List"),
+                                                    useMonopigatorOnStart ? "reload" : "network"), this);
 	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
@@ -73,7 +74,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
-	
+
     // Status indicator
 	status_label = new QLabel(this);
 	m_mainLayout->addWidget(status_label);
@@ -100,9 +101,7 @@ void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
 	status_label->setText(i18n("Retrieving server list..."));
-	m_refreshButton->setText(i18n("Refresh"));
-	// FIXME: change pixmap
-	// m_refreshButton->setPixmap(BarIcon("reload", KIcon::SizeSmall));
+	m_refreshButton->setGuiItem(KGuiItem(i18n("Refresh"), "reload"));
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
