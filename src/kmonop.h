@@ -7,6 +7,7 @@
 #include <qdom.h>
 
 #include <ktmainwindow.h>
+#include <kaction.h>
 
 #include "newgamedlg.h"
 #include "network.h"
@@ -23,6 +24,7 @@ class KMonop : public KTMainWindow
 		
 	public slots:
 		void slotNewGame();
+		void slotRoll();
 		void slotSendMsg();
 		void slotMsgError(QString);
 		void slotMsgInfo(QString);
@@ -35,6 +37,9 @@ class KMonop : public KTMainWindow
 		QLineEdit *input;
 		QGridLayout *layout;
 		QTextView *output;
+		
+		KAction *move_roll;
+
 		NewGameWizard *wizard;
 		GameNetwork *netw;
 		PortfolioView *port[6];

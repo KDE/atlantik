@@ -37,7 +37,7 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 
 	int i=0,j=0,x=0,y=0;
 //	paint.drawRect(rect());
-	for(i=0;i<40;i++)
+	for(i=39;i>=0;i--)
 	{
 		switch(i)
 		{
@@ -65,26 +65,26 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 
 		switch(i)
 		{
-			case 1: case 6:
-			case 11: case 16:
-			case 21: case 26:
-			case 31: case 37:
-				x = 5+(18*(i/5));
+			case 3: case 9:
+			case 14: case 19:
+			case 24: case 29:
+			case 34: case 39:
+				x = 9+(18*(i/5));
 				y = 2+lname->height();
 				break;
 
-			case 3: case 8:
+			case 1: case 8:
 			case 13: case 18:
 			case 23: case 27:
-			case 32: case 39:
+			case 32: case 37:
 				x = 7+(18*(i/5));
 				y = 6+lname->height();
 				break;
 
-			case 9: case 14:
-			case 19: case 24:
-			case 29: case 34:
-				x = 9+(18*(i/5));
+			case 6: case 11:
+			case 16: case 21:
+			case 26: case 31:
+				x = 5+(18*(i/5));
 				y = 10+lname->height();
 				break;
 			

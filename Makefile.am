@@ -2,7 +2,7 @@ INCLUDES = $(all_includes)
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
-SUBDIRS = src
+SUBDIRS = src pics
 
 EXTRA_DIST = kmonop.desktop
 

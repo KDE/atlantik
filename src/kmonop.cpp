@@ -2,7 +2,7 @@
 #include <iostream.h>
 
 #include <kstdaction.h>
-#include <kaction.h>
+#include <ktoolbar.h>
 #include <kapp.h>
 
 #include "kmonop.moc"
@@ -15,7 +15,11 @@ KMonop::KMonop (const char *name) :
 	KStdAction::openNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
+	move_roll = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "move_roll");
+//	move_roll->setEnabled(false);
+
 	createGUI();
+	toolBar(0)->setBarPos(KToolBar::Left);
 
 	wizard = 0;
 	netw = new GameNetwork(this, "network");
@@ -61,6 +65,11 @@ void KMonop::slotNewGame()
 	wizard = 0;
 	if (result)
 		netw->writeData(".gs");
+}
+
+void KMonop::slotRoll()
+{
+	netw->writeData(".r");
 }
 
 void KMonop::slotSendMsg()
