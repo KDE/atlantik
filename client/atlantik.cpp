@@ -253,8 +253,10 @@ void Atlantik::showSelectGame()
 	// Reset core and GUI
 	if (m_board)
 	{
-		delete m_board;
-		m_board = 0;
+		m_board->hide();
+		m_board->reset();
+//		delete m_board;
+//		m_board = 0;
 
 		m_portfolioViews.clear();
 		m_atlanticCore->reset();
@@ -349,6 +351,7 @@ void Atlantik::showBoard()
 		initBoard();
 
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+	m_board->displayDefault();
 	m_board->show();
 
 	PortfolioView *portfolioView = 0;

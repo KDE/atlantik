@@ -80,6 +80,15 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 
 AtlantikBoard::~AtlantikBoard()
 {
+	reset();
+}
+
+void AtlantikBoard::reset()
+{
+	m_tokens.clear();
+	m_estateViews.clear();
+	m_displayQueue.clear();
+	m_lastServerDisplay = 0;
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)

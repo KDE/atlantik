@@ -41,6 +41,7 @@ public:
 
 	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
 	~AtlantikBoard();
+	void reset();
 
 	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
 	int heightForWidth(int);
@@ -56,10 +57,10 @@ public:
 public slots:
 	void slotMoveToken();
 	void slotResizeAftermath();
+	void displayDefault();
 
 private slots:
 	void playerChanged(Player *player);
-	void displayDefault();
 	void displayButton(QString command, QString caption, bool enabled);
 	void prependEstateDetails(Estate *);
 	void insertDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
