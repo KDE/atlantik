@@ -23,6 +23,7 @@ Player::Player() : QObject()
 	m_location = 0;
 	m_money = 0;
 	m_name = "";
+	m_host = "";
 	m_changed = m_isSelf = false;
 	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }
@@ -77,6 +78,15 @@ void Player::setName(const QString _n)
 	if (m_name != _n)
 	{
 		m_name = _n;
+		m_changed = true;
+	}
+}
+
+void Player::setHost(const QString &host)
+{
+	if (m_host != host)
+	{
+		m_host = host;
 		m_changed = true;
 	}
 }
