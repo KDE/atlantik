@@ -7,7 +7,7 @@ Bugfixes
   doesn't do anything if there is only 1 card on stack
 - disable "Less properties" when there are no properties for a card
 
-For 0.2.1
+For 0.3.0
 ---------
 
 - support <Board>'s go= instead of type=go in <Estate>
