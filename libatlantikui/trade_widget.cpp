@@ -40,7 +40,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_editTypeCombo->insertItem(i18n("Estate"));
 	m_editTypeCombo->insertItem(i18n("Money"));
 
-	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setEditType(int)));
+	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
 
 	m_estateCombo = new KComboBox(m_updateComponentBox);
 	QPtrList<Estate> estateList = m_atlanticCore->estates();
@@ -51,10 +51,11 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 		{
 			m_estateCombo->insertItem(estate->name());
 			m_estateMap[m_estateCombo->count() - 1] = estate;
+			m_estateRevMap[estate] = m_estateCombo->count() - 1;
 		}
 	}
 
-	connect(m_estateCombo, SIGNAL(activated(int)), this, SLOT(setEditEstate(int)));
+	connect(m_estateCombo, SIGNAL(activated(int)), this, SLOT(setEstateCombo(int)));
 
 	m_moneyBox = new QSpinBox(0, 10000, 1, m_updateComponentBox);
 
@@ -102,6 +103,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_componentList->addColumn("Player");
 	m_componentList->addColumn("Item");
 
+	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *, const QPoint&)));
+	connect(m_componentList, SIGNAL(clicked(QListViewItem *)), this, SLOT(setCombos(QListViewItem *)));
+
 	QHBoxLayout *actionBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	listCompBox->addItem(actionBox);
 
@@ -136,10 +140,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(this, SIGNAL(reject(Trade *)), m_trade, SIGNAL(reject(Trade *)));
 	connect(this, SIGNAL(accept(Trade *)), m_trade, SIGNAL(accept(Trade *)));
 
-	setEditType(m_editTypeCombo->currentItem());
-	setEditEstate(m_estateCombo->currentItem());
-
-	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *, const QPoint&)));
+	setTypeCombo(m_editTypeCombo->currentItem());
+	setEstateCombo(m_estateCombo->currentItem());
 
 	m_contextTradeItem = 0;
 }
@@ -216,7 +218,7 @@ void TradeDisplay::tradeRejected(Player *player)
 	// TODO: add/enable close button
 }
 
-void TradeDisplay::setEditType(int index)
+void TradeDisplay::setTypeCombo(int index)
 {
 	switch (index)
 	{
@@ -229,7 +231,7 @@ void TradeDisplay::setEditType(int index)
 		m_moneyBox->hide();
 		m_moneyBox->setMaximumWidth(0);
 
-		setEditEstate(m_estateCombo->currentItem()); // re-init From player
+		setEstateCombo(m_estateCombo->currentItem()); // also updates playerfromCombo
 		m_playerFromCombo->setEnabled(false);
 
 		m_updateButton->setEnabled( m_estateCombo->count() > 0 );
@@ -253,10 +255,31 @@ void TradeDisplay::setEditType(int index)
 	}
 }
 
-void TradeDisplay::setEditEstate(int index)
+void TradeDisplay::setEstateCombo(int index)
 {
+	if (m_estateCombo->currentItem() != index)
+		m_estateCombo->setCurrentItem(index);
+
 	if (Estate *estate = m_estateMap[index])
 		m_playerFromCombo->setCurrentItem( m_playerFromRevMap[estate->owner()] );
+}
+
+void TradeDisplay::setCombos(QListViewItem *i)
+{
+	TradeItem *item = m_componentRevMap[(KListViewItem *)(i)];
+	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(item))
+	{
+		setTypeCombo(0);
+		setEstateCombo( m_estateRevMap[tradeEstate->estate()] ); // also updates playerFromCombo
+		m_playerTargetCombo->setCurrentItem( m_playerTargetRevMap[tradeEstate->to()] );
+	}
+	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(item))
+	{
+		setTypeCombo(1);
+		m_moneyBox->setValue( tradeMoney->money() );
+		m_playerFromCombo->setCurrentItem(  m_playerFromRevMap[tradeMoney->from()] );
+		m_playerTargetCombo->setCurrentItem(  m_playerTargetRevMap[tradeMoney->to()] );
+	}
 }
 
 void TradeDisplay::updateComponent()
@@ -298,7 +321,7 @@ void TradeDisplay::accept()
 	emit accept(m_trade);
 }
 
-void TradeDisplay::contextMenu(KListView *l, QListViewItem *i, const QPoint& p)
+void TradeDisplay::contextMenu(KListView *, QListViewItem *i, const QPoint& p)
 {
 	m_contextTradeItem = m_componentRevMap[(KListViewItem *)(i)];
 
@@ -310,7 +333,7 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *i, const QPoint& p)
 	rmbMenu->exec(p);
 }
 
-void TradeDisplay::contextMenuClicked(int index)
+void TradeDisplay::contextMenuClicked(int)
 {
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
 		emit updateEstate(m_trade, tradeEstate->estate(), 0);

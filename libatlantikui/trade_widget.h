@@ -37,8 +37,9 @@ private slots:
 	void tradeChanged();
 	void tradeRejected(Player *);
 
-	void setEditType(int);
-	void setEditEstate(int);
+	void setTypeCombo(int);
+	void setEstateCombo(int);
+	void setCombos(QListViewItem *i);
 
 	void updateComponent();
 	void reject();
@@ -66,9 +67,11 @@ private:
 	Trade *mTrade, *m_trade;
 	TradeItem *m_contextTradeItem;
 
+	// TODO: Wouldn't QPair make more sense here?
 	QMap<TradeItem *, KListViewItem *> m_componentMap;
 	QMap<KListViewItem *, TradeItem *> m_componentRevMap;
 	QMap<int, Estate *> m_estateMap;
+	QMap<Estate *, int> m_estateRevMap;
 	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;
 	QMap<Player *, int> m_playerFromRevMap, m_playerTargetRevMap;
 };

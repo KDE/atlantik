@@ -24,11 +24,6 @@ Bugfixes
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
   - Trying to get out of jail before turn starts gives ERR (monopd / disable icons)
 
-For 0.2.0
----------
-
-- lmb context on tradeitems should update values of comboboxes/spinner
-
 For 0.2.1
 ---------
 
