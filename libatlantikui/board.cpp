@@ -242,7 +242,12 @@ void AtlantikBoard::playerChanged(Player *player)
 		if (token->inJail() != player->inJail())
 		{
 			token->setInJail(player->inJail());
-			jump = true;
+
+			// If any status such as jail is ever allowed to
+			// change in the future, during movement, this needs
+			// to be addressed in moveToken and subsequent steps.
+			if (token != m_movingToken)
+				jump = true;
 		}
 			
 		if (token->location() != player->location())
