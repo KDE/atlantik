@@ -480,12 +480,12 @@ void AtlanticDesigner::save()
 	{
 		if (i == 0)
 		{
-			t << endl << QString("<ChanceCards>") << endl;
+			t << endl << QString("<Chance_Cards>") << endl;
 			stack = &chanceStack;
 		}
 		else if (i == 1)
 		{
-			t << endl << QString("<CCCards>") << endl;
+			t << endl << QString("<CC_Cards>") << endl;
 			stack = &ccStack;
 		}
 
