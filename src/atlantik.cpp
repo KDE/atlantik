@@ -604,6 +604,6 @@ void Atlantik::slotTradeUpdateMoney(int tradeId, int playerFromId, int playerToI
 void Atlantik::serverMsgsAppend(QString msg)
 {
 	// Use append, not setText(old+new) because that one doesn't wrap
-	m_serverMsgs->append(msg);
+	m_serverMsgs->append(msg+"<br>");
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 }
