@@ -44,7 +44,7 @@ public:
 
 	QPtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
-	void delTrade(Trade *trade);
+	void removeTrade(Trade *trade);
 
 	QPtrList<Auction> auctions();
 	Auction *newAuction(int auctionId, Estate *estate);
@@ -54,6 +54,10 @@ public:
 
 signals:
 	void removeGUI(Trade *trade);
+	void deleteTrade(Trade *trade);
+
+private slots:
+	void slotDeleteTrade(Trade *trade);
 
 private:
 	QPtrList<Player> m_players;

@@ -17,18 +17,10 @@ Bugfixes
 - find a good starting location for tokens
 - all player/core dependencies in Board should only be there in Mode::Play
 
-For 0.4.0
+For 0.4.1
 ---------
 
-v token geometry is now aware of estate colour captions
-v queue display widgets
-  v fix buttons, they have specific targets, not just the current widget
-  v delete buttons in EstateDetails::newUpdate()
-v commandline parameters host, port and game supported (for auto-join)
-v kio_atlantik allows for easy connecting from other applications
-  (kopete/kmail)
-v leave game and leave server options
-v pre-game configuration
+v fixed dangling pointer for removeGUI(Trade *) in AtlanticCore
 
 For 0.5.0
 ---------

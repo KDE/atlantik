@@ -24,6 +24,7 @@
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
+	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
 
 QPtrList<Player> AtlanticCore::players()
@@ -74,10 +75,15 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	return trade;
 }
 
-void AtlanticCore::delTrade(Trade *trade)
+void AtlanticCore::removeTrade(Trade *trade)
 {
 	m_trades.remove(trade);
 	emit removeGUI(trade);
+	emit deleteTrade(trade);
+}
+
+void AtlanticCore::slotDeleteTrade(Trade *trade)
+{	
 	delete trade;
 }
 

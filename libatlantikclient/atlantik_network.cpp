@@ -682,7 +682,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 					else if (type=="accepted" && trade)
 					{
-						m_atlanticCore->delTrade(trade);
+						m_atlanticCore->removeTrade(trade);
+						m_trades[tradeId] = 0;
 						trade = 0;
 					}
 					else if (type=="completed" && trade)
@@ -694,7 +695,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 							trade->reject(player);
 						if (player && player->isSelf())
 						{
-							m_atlanticCore->delTrade(trade);
+							m_atlanticCore->removeTrade(trade);
 							m_trades[tradeId] = 0;
 							trade = 0;
 						}

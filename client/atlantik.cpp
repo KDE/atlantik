@@ -108,6 +108,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Text view for chat and status messages from server.
 	m_serverMsgs = new QTextEdit(m_mainWidget, "serverMsgs");
+	m_serverMsgs->setTextFormat(QTextEdit::PlainText);
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
 	m_serverMsgs->setFixedWidth(225);
@@ -446,7 +447,7 @@ void Atlantik::slotMsgError(QString msg)
 
 void Atlantik::slotMsgChat(QString player, QString msg)
 {
-	serverMsgsAppend("<b>" + player + ":</b> " + msg);
+	serverMsgsAppend(player + ": " + msg);
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
