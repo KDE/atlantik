@@ -16,11 +16,9 @@ Bugfixes
 For 0.2.0
 ---------
 
-- no global vars
-v move data objects to libatlantic
 - seperate engine from network (network uses engine, not other way around,
   engine could also be used without network in atlanticdesigner)
-  - move network layer to libatlantikcore
+  - move network layer to libatlantiknetwork
   - kmainwindow should own network and core and connect them
     - later: kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui
@@ -36,6 +34,7 @@ v move data objects to libatlantic
 For 0.2.1
 ---------
 
+- remove config global var
 v support for <display>
   v type chancecard (attrs playerid, name and description)
   ^ type cccard (attrs playerid, name and description)

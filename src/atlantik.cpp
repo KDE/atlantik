@@ -13,6 +13,10 @@
  
 #include "atlantik.moc"
 #include "board.h"
+
+#include "atlantic_core.h"
+#include "network.h"
+
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
@@ -44,8 +48,11 @@ Atlantik::Atlantik () : KMainWindow ()
 	// Initialize pointers to 0L
 	m_configDialog = 0;
 
+	// Game core
+	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
+
 	// Network layer
-	m_gameNetwork = new GameNetwork(this, "gameNetwork");
+	m_gameNetwork = new GameNetwork(m_atlanticCore, this, "gameNetwork");
 
 	connect(m_gameNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
 	connect(m_gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
@@ -143,7 +150,7 @@ void Atlantik::addPlayer(Player *player)
 	m_portfolioViews.append(portfolioView);
 
 	Estate *estate;
-	QPtrList<Estate> estates = m_gameNetwork->estates();
+	QPtrList<Estate> estates = m_atlanticCore->estates();
 	for (QPtrListIterator<Estate> it(estates); *it; ++it)
 		if ((estate = dynamic_cast<Estate*>(*it)))
 			portfolioView->addEstateView(estate);
@@ -320,7 +327,7 @@ void Atlantik::slotUpdateConfig()
 	if (redrawEstates)
 	{
 		Estate *estate;
-		QPtrList<Estate> estates = m_gameNetwork->estates();
+		QPtrList<Estate> estates = m_atlanticCore->estates();
 		for (QPtrListIterator<Estate> it(estates); *it; ++it)
 			if ((estate = dynamic_cast<Estate*>(*it)))
 				estate->update(true);

@@ -1,6 +1,8 @@
 #include <kdebug.h>
 
 #include "network.moc"
+
+#include "atlantic_core.h"
 #include "atlantik.h"
 
 #include "trade.h"
@@ -8,70 +10,20 @@
 #include "player.h"
 #include "estate.h"
 
-GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, name)
+GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const char *name) : QSocket(parent, name)
 {
+	m_atlanticCore = atlanticCore;
 	m_mainWindow = parent;
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-QPtrList<Player> GameNetwork::players()
-{
-	return m_players;
-}
-
-QPtrList<Estate> GameNetwork::estates()
-{
-	return m_estates;
-}
-
-QPtrList<Trade> GameNetwork::trades()
-{
-	return m_trades;
-}
-
 Player *GameNetwork::self()
 {
-	QPtrList<Player> pl=players();
+	QPtrList<Player> pl = m_atlanticCore->players();
 	for (QPtrListIterator<Player> i(pl); *i; ++i)
 	{
 		if ((*i)->isSelf())
 			return *i;
-	}
-	return 0;
-}
-
-Player *GameNetwork::getPlayer(int playerId)
-{
-	Player *player;
-	for (QPtrListIterator<Player> i(m_players); *i; ++i)
-	{
-		player = dynamic_cast<Player*>(*i);
-		if (player->playerId() == playerId)
-			return player;
-	}
-	return 0;
-}
-
-Estate *GameNetwork::getEstate(int estateId)
-{
-	Estate *estate;
-	for (QPtrListIterator<Estate> i(m_estates); *i; ++i)
-	{
-		estate = dynamic_cast<Estate*>(*i);
-		if (estate->estateId() == estateId)
-			return estate;
-	}
-	return 0;
-}
-
-Trade *GameNetwork::getTrade(int tradeId)
-{
-	Trade *trade;
-	for (QPtrListIterator<Trade> i(m_trades); *i; ++i)
-	{
-		trade = dynamic_cast<Trade*>(*i);
-		if (trade->tradeId() == tradeId)
-			return trade;
 	}
 	return 0;
 }
@@ -335,15 +287,17 @@ void GameNetwork::processNode(QDomNode n)
 			{
 				a = e.attributeNode(QString("playerid"));
 				Player *player;
-				if (!a.isNull() && (player = getPlayer(a.value().toInt())))
+				if (!a.isNull() && (player = m_players[a.value().toInt()]))
 					player->setIsSelf(true);
 			}
 			else if (e.tagName() == "newturn")
 			{
-				Player *player = getPlayer(e.attributeNode(QString("player")).value().toInt());
+				Player *player = m_players[e.attributeNode(QString("player")).value().toInt()];
 				if (player)
 				{
 					// Update all objects
+#warning port to atlanticcore
+/*
 					Player *p;
 					for (QPtrListIterator<Player> i(m_players); *i; ++i)
 					{
@@ -351,6 +305,7 @@ void GameNetwork::processNode(QDomNode n)
 						if (p)
 							p->setHasTurn(p==player);
 					}
+*/
 
 					// Update view(s)
 					m_mainWindow->setTurn(player);
@@ -381,11 +336,11 @@ void GameNetwork::processNode(QDomNode n)
 
 					Player *player;
 					bool newPlayer = false;
-					if (!(player = getPlayer(playerId)))
+					if (!(player = m_players[playerId]))
 					{
 						// Create player object
-						player = new Player(playerId);
-						m_players.append(player);
+						player = m_atlanticCore->newPlayer(playerId);
+						m_players[playerId] = player;
 
 						newPlayer = true;
 					}
@@ -409,7 +364,7 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
 					{
-						Estate *estate = getEstate(a.value().toInt());
+						Estate *estate = m_estates[a.value().toInt()];
 						bool directMove = false;
 
 						a = e.attributeNode(QString("directmove"));
@@ -422,9 +377,7 @@ void GameNetwork::processNode(QDomNode n)
 
 					// Create view(s)
 					if (newPlayer)
-					{
 						m_mainWindow->addPlayer(player);
-					}
 
 					if (player)
 						player->update();
@@ -442,11 +395,11 @@ void GameNetwork::processNode(QDomNode n)
 
 					Estate *estate;
 					bool newEstate = false;
-					if (!(estate = getEstate(estateId)))
+					if (!(estate = m_estates[a.value().toInt()]))
 					{
 						// Create estate object
-						estate = new Estate(estateId);
-						m_estates.append(estate);
+						estate = m_atlanticCore->newEstate(estateId);
+						m_estates[estateId] = estate;
 
 						connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
 						connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
@@ -469,7 +422,7 @@ void GameNetwork::processNode(QDomNode n)
 
 					a = e.attributeNode(QString("owner"));
 					Player *player;
-					if (estate && !a.isNull() && (player = getPlayer(a.value().toInt())))
+					if (estate && !a.isNull() && (player = m_players[a.value().toInt()]))
 						estate->setOwner(player);
 
 					a = e.attributeNode(QString("houses"));
@@ -502,9 +455,7 @@ void GameNetwork::processNode(QDomNode n)
 
 					// Create view(s)
 					if (newEstate)
-					{
 						m_mainWindow->addEstate(estate);
-					}
 
 					if (estate)
 						estate->update();
@@ -518,11 +469,11 @@ void GameNetwork::processNode(QDomNode n)
 					int tradeId = a.value().toInt();
 
 					Trade *trade;
-					if (!(trade = getTrade(tradeId)))
+					if (!(trade = m_trades[tradeId]))
 					{
 						// Create trade object and view
-						trade = new Trade(tradeId);
-						m_trades.append(trade);
+						trade = m_atlanticCore->newTrade(tradeId);
+						m_trades[tradeId] = trade;
 
 						connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 #warning todo connect tradeupdatemoney
@@ -548,7 +499,7 @@ void GameNetwork::processNode(QDomNode n)
 							QDomElement e_player = n_player.toElement();
 							if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
 							{
-								Player *player = getPlayer(e_player.attributeNode(QString("playerid")).value().toInt());
+								Player *player = m_players[e_player.attributeNode(QString("playerid")).value().toInt()];
 								if (trade && player)
 									trade->addPlayer(player);
 							}
@@ -580,11 +531,11 @@ void GameNetwork::processNode(QDomNode n)
 									a = e.attributeNode(QString("estateid"));
 									if (!a.isNull())
 									{
-										Estate *estate = getEstate(a.value().toInt());
+										Estate *estate = m_estates[a.value().toInt()];
 										a = e.attributeNode(QString("targetplayer"));
 										if (!a.isNull())
 										{
-											Player *player = getPlayer(a.value().toInt());
+											Player *player = m_players[a.value().toInt()];
 											if (trade && estate)
 												trade->updateEstate(estate, player);
 										}
@@ -596,11 +547,11 @@ void GameNetwork::processNode(QDomNode n)
 
 									a = e.attributeNode(QString("playerfrom"));
 									if (!a.isNull())
-										pFrom = getPlayer(a.value().toInt());
+										pFrom = m_players[a.value().toInt()];
 
 									a = e.attributeNode(QString("playerto"));
 									if (!a.isNull())
-										pTo = getPlayer(a.value().toInt());
+										pTo = m_players[a.value().toInt()];
 
 									a = e.attributeNode(QString("money"));
 									if (trade && pFrom && pTo && !a.isNull())

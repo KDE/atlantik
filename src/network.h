@@ -4,7 +4,9 @@
 #include <qsocket.h>
 #include <qdom.h>
 #include <qptrlist.h>
+#include <qmap.h>
 
+class AtlanticCore;
 class Atlantik;
 
 class Trade;
@@ -16,17 +18,13 @@ class GameNetwork : public QSocket
 Q_OBJECT
 
 public:
-	GameNetwork(Atlantik *parent=0, const char *name=0);
+	GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent=0, const char *name=0);
 	void cmdName(QString name);
 	void cmdGamesList();
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
 
-	QPtrList<Estate> estates();
-	QPtrList<Player> players();
-	QPtrList<Trade> trades();
-	
 	Player *self();
 
 private slots:
@@ -109,20 +107,17 @@ signals:
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
 private:
-	Player *getPlayer(int playerId);
-	Estate *getEstate(int estateId);
-	Trade *getTrade(int tradeId);
-
 	void writeData(QString msg);
 	void processMsg(QString);
 	void processNode(QDomNode);
 
+	AtlanticCore *m_atlanticCore;
 	Atlantik *m_mainWindow;
 	QDomDocument msg;
 
-	QPtrList<Player> m_players;
-	QPtrList<Estate> m_estates;
-	QPtrList<Trade> m_trades;
+	QMap<int, Player *> m_players;
+	QMap<int, Estate *> m_estates;
+	QMap<int, Trade *> m_trades;
 };
 
 #endif

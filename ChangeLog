@@ -2,6 +2,7 @@
 ----------
 
 - moved Trade to libatlantic
+- libatlantic now includes AtlanticCore wrapper
 
 2001-12-17 (kaper)
 ----------

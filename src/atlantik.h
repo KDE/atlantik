@@ -11,11 +11,13 @@
 #include <kaction.h>
 
 #include "configdlg.h"
-#include "network.h"
 #include "portfolioview.h"
 #include "board.h"
 #include "estate.h"
 #include "trade.h"
+
+class AtlanticCore;
+class GameNetwork;
 
 class SelectServer;
 class SelectGame;
@@ -165,6 +167,7 @@ private:
 		*m_jailCard, *m_jailPay, *m_jailRoll,
 		*m_configure;
 
+	AtlanticCore *m_atlanticCore;
 	GameNetwork *m_gameNetwork;
 
 	ConfigDialog *m_configDialog;
