@@ -65,7 +65,6 @@ signals:
 	void msgEstateUpdateName(int, QString);
 	void msgEstateUpdateColor(int, QString);
 	void msgEstateUpdateBgColor(int, QString);
-	void msgEstateUpdateBackgroundColor(int, QString);
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
 	void msgEstateUpdateMortgaged(int, bool);

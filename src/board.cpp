@@ -5,6 +5,7 @@
 #include "board.moc"
 #include "estateview.h"
 #include "estate.h"
+#include "player.h"
 #include "network.h"
 #include "config.h"
 
@@ -105,6 +106,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		}
 	}
 
+/*
 	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
 	{
@@ -113,6 +115,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		jumpToken(token[i], 0, false);
 		token[i]->hide();
 	}
+*/
 	kdDebug() << "ending board ctor" << endl;
 }
 
@@ -147,6 +150,13 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	}
 
 	estateView->show();
+}
+
+void AtlantikBoard::addToken(Player *player)
+{
+	Token *token = new Token(this, "token");
+	token->show();
+	jumpToken(token, 0, false);
 }
 
 void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)

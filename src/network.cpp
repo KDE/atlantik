@@ -315,19 +315,12 @@ void GameNetwork::processNode(QDomNode n)
 						emit msgEstateUpdateName(estateid, a.value());
 
 					a = e.attributeNode(QString("color"));
-					if (!a.isNull())
+					if (!a.isNull() && !a.value().isEmpty())
 						emit msgEstateUpdateColor(estateid, a.value());
 
 					a = e.attributeNode(QString("bgcolor"));
 					if (!a.isNull())
 						emit msgEstateUpdateBgColor(estateid, a.value());
-
-					a = e.attributeNode(QString("bgcolor"));
-					if (!a.isNull())
-					{
-						kdDebug() << "emit bgcolor" << endl;
-						emit msgEstateUpdateBackgroundColor(estateid, a.value());
-					}
 
 					a = e.attributeNode(QString("owner"));
 					if (!a.isNull())

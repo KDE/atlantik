@@ -143,6 +143,8 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
+	void slotMsgPlayerUpdateLocation(int playerId, int estateId, bool);
+
 	/**
 	 * Updates the playername label in the appropriate player portfolio.
 	 *
@@ -172,7 +174,6 @@ public slots:
 	void slotMsgEstateUpdateName(int, QString);
 	void slotMsgEstateUpdateColor(int, QString);
 	void slotMsgEstateUpdateBgColor(int, QString);
-	void slotMsgEstateUpdateBackgroundColor(int, QString);
 	void slotMsgEstateUpdateHouses(int, int);
 	void slotMsgEstateUpdateMortgaged(int, bool);
 	void slotMsgEstateUpdateCanToggleMortgage(int, bool);

@@ -7,7 +7,7 @@
 
 extern QColor atlantik_greenbg;
 
-Token::Token(QString id, QWidget *parent, const char *name) : QWidget(parent, name)
+Token::Token(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -15,8 +15,7 @@ Token::Token(QString id, QWidget *parent, const char *name) : QWidget(parent, na
 	qpixmap = 0;
 
 	setFixedSize(QSize(26, 26));
-
-	myId = id;
+	myId = QString("");
 	myLoc = myDest = 0;
 }
 
@@ -44,6 +43,7 @@ void Token::moveTo(int loc)
 {
 	int X = geometry().x();
 	int Y = geometry().y();
+#warning port Token::moveTo
 /*
 	int x = estate[loc]->geometry().center().x() - (width()/2);
 	int y = estate[loc]->geometry().center().y() - (height()/2);

@@ -1,6 +1,6 @@
-#include "player.h"
+#include "player.moc"
 
-Player::Player(int playerId)
+Player::Player(int playerId) : QObject()
 {
 	m_playerId = playerId;
 	m_isSelf = false;

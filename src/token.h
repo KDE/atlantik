@@ -7,7 +7,7 @@
 class Token : public QWidget
 {
 	public:
-		Token (QString, QWidget *parent, const char *name = 0);
+		Token (QWidget *parent, const char *name = 0);
 		void setLocation(int);
 		int location();
 		void setDestination(int);

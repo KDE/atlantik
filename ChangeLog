@@ -9,6 +9,7 @@
 - No longer using fixed geometry.
 - Dynamic (server guided) colour support for estates.
 - Board configuration settings update properly again.
+- Starting Player / Token relationship as we did for Estate / EstateView
 
 2001-11-05 (kaper)
 ----------

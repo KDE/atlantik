@@ -2,6 +2,8 @@
 #include <qscrollbar.h>
 #include <qcolor.h>
 
+#include <kdebug.h>
+
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
@@ -58,7 +60,6 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateColor(int, QString)), this, SLOT(slotMsgEstateUpdateColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBgColor(int, QString)), this, SLOT(slotMsgEstateUpdateBgColor(int, QString)));
-	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBackgroundColor(int, QString)), this, SLOT(slotMsgEstateUpdateBackgroundColor(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
@@ -208,6 +209,7 @@ void Atlantik::slotInitGame()
 
 #warning port msgPlayerUpdateLocation connect
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
 	KMessageBox::information(this, i18n(
@@ -333,6 +335,13 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
+void Atlantik::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool something)
+{
+	Player *player = playerMap[playerId];
+	if (player)
+		player->setLocation(estateId);
+}
+
 void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
 {
 	Player *player = playerMap[playerid];
@@ -376,6 +385,7 @@ void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
 void Atlantik::slotMsgEstateUpdateColor(int estateId, QString colorStr)
 {
 	QColor color;
+	kdDebug() << "setting color " << colorStr << endl;
 	color.setNamedColor(colorStr);
 	
 	if (Estate *estate = estateMap[estateId])
@@ -389,12 +399,6 @@ void Atlantik::slotMsgEstateUpdateBgColor(int estateId, QString colorStr)
 
 	if (Estate *estate = estateMap[estateId])
 		estate->setBgColor(color);
-}
-
-void Atlantik::slotMsgEstateUpdateBackgroundColor(int estateId, QString color)
-{
-	if (Estate *estate = estateMap[estateId])
-		estate->setBgColor(QColor(color));
 }
 
 void Atlantik::slotMsgEstateUpdateHouses(int estateId, int houses)
@@ -475,6 +479,8 @@ void Atlantik::slotPlayerInit(int playerid)
 		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
 		m_portfolioLayout->addWidget(fpv);
 		fpv->show();
+
+		m_board->addToken(player);
 	}
 }
 
