@@ -48,6 +48,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	m_serverList->addColumn(QString(i18n("Host")));
 	m_serverList->addColumn(QString(i18n("Version")));
 	m_serverList->addColumn(QString(i18n("Users")));
+	m_serverList->setAllColumnsShowFocus(true);
 //	m_mainLayout->addWidget(m_serverList);
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));

@@ -42,6 +42,8 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
 	m_playerList->addColumn(QString(i18n("Host")));
+	m_playerList->setAllColumnsShowFocus(true);
+	m_playerList->setFullWidth(true);
 //	m_mainLayout->addWidget(m_playerList);
 
 	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));

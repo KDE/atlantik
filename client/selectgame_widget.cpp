@@ -39,6 +39,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	m_gameList->addColumn(QString(i18n("Description")));
 	m_gameList->addColumn(QString(i18n("Id")));
 	m_gameList->addColumn(QString(i18n("Players")));
+	m_gameList->setAllColumnsShowFocus(true);
 //	m_mainLayout->addWidget(m_gameList);
 
 	connect(m_gameList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
