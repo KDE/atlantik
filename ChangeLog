@@ -90,7 +90,7 @@
 2002-06-27 (kaper)
 ----------
 
-- recently commited some changes to be up-to-date with some API monopd
+- recently committed some changes to be up-to-date with some API monopd
   changes
 - generalised BoardDisplay::displayCard() into displayText() so I can fix
   the missing jail notification bug
