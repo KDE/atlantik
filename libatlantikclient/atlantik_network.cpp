@@ -340,8 +340,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 			{
 				a = e.attributeNode(QString("clientid"));
 				if (!a.isNull())
+				{
 					m_clientId = a.value().toInt();
-				cmdGamesList();
+					cmdGamesList();
+				}
 			}
 			else if (e.tagName() == "newturn")
 			{
