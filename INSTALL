@@ -1,10 +1,4 @@
-If you downloaded a snapshot:
-
-cd src && make -f Makefile.noncvs
-
-run ./kmonop
-
-If you downloaded kdenonbeta from CVS:
+Assuming you downloaded kdenonbeta from CVS:
 
 (cd ../kdenonbeta ; ./configure)
 cd kmonop && make && make install

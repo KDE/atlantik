@@ -1,6 +1,17 @@
 KMonop is a KDE client for playing the Monopoly boardgame using a monopd
-server. KMonop is very alpha: it polished nor functional. The same actually
-also applies for the server and the network code the server relies on.
+server. The program is very alpha at the moment: it is polished nor
+functional. The same actually applies for the server and the network code
+the server relies on.
 
-KMonop is currently only available from KDE CVS.
+KMonop is currently only available from KDE CVS, in the kdenonbeta module.
 monopd can be downloaded from http://capsi.com/~cap/monopd/
+
+Please note that at the moment it is not yet possible to play games! All you
+can do is load the program and think "that's a nice interface" and exit.
+
+There is a mailinglist available for discussion of kmonop development:
+
+Subscribe: kmonop-devel-subscribe@lists.capsi.com
+Post: kmonop-devel@lists.capsi.com
+
+At the moment this list also covers the development of the server.

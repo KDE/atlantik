@@ -1,6 +1,17 @@
-- Turn newgamedlg into an actual dialog.
+Before import
+
 - Add autoconf/automake stuff. [semi-done, actually]
-- Add double buffering.
-- Have the board resize in such a way that only squares are allowed.
+- Add double buffering. [done for most widgets]
+- Have the board resize in such a way that only squares are allowed. [done]
+
+For 0.0.2
+
+- Turn newgamedlg into an actual dialog.
+
+For 0.1.x
 
 - Make things work. ;-)
+
+For 1.x
+
+- See mailinglist.
