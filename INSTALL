@@ -1,16 +1,30 @@
-You downloaded Atlantik from CVS
---------------------------------
+Contents
+--------
 
-cd $(srcdir)/kdegames && make -f Makefile.cvs && ./configure
-cd $(srcdir)/kdegames/atlantik && make && make install
+	1. Compiling the CVS version
+	2. Compiling a release tarball
+	3. Installing a finished build
+	4. Starting the application
 
-You downloaded a release tarball
---------------------------------
+1. Compiling the CVS version
+----------------------------
 
-./configure && make && make install
+cd kdegames && make -f Makefile.cvs && ./configure && cd atlantik && make
 
-Running the game
-----------------
+2. Compiling a release tarball
+------------------------------
+
+cd atlantik-x.y.z && ./configure && make
+
+3. Installing a finished build
+------------------------------
+
+As root;
+
+make install
+
+4. Starting the application
+---------------------------
 
 Click on K->Games->Board->Atlantik or run atlantik from konsole or minicli.
 
