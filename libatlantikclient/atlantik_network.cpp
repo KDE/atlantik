@@ -594,12 +594,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 							n_child = n_child.nextSibling();
 						}
 					}
-					else if (type=="accepted")
-						emit msgTradeUpdateAccepted(tradeId);
-					else if (type=="completed")
-						emit msgTradeUpdateCompleted(tradeId);
-					else if (type=="rejected")
-						emit msgTradeUpdateRejected(tradeId, e.attributeNode(QString("actor")).value().toInt());
+					else if (type=="accepted" && trade)
+						emit msgTradeUpdateAccepted(trade);
+					else if (type=="completed" && trade)
+						emit msgTradeUpdateCompleted(trade);
+					else if (type=="rejected" && trade)
+						emit msgTradeUpdateRejected(trade, e.attributeNode(QString("actor")).value().toInt());
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set

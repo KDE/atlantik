@@ -125,26 +125,26 @@ signals:
 	/**
 	 * The trade has been accepted by all players!
 	 *
-	 * @param tradeId  Unique trade identifier
+	 * @param trade Trade
 	 */
-	void msgTradeUpdateAccepted(int tradeId);
+	void msgTradeUpdateAccepted(Trade *trade);
 
 	/**
 	 * The trade has been completed. Emitted after all necessary estate and
 	 * player updates are processed.
 	 *
-	 * @param tradeId  Unique trade identifier
+	 * @param trade Trade
 	 */
-	void msgTradeUpdateCompleted(int tradeId);
+	void msgTradeUpdateCompleted(Trade *trade);
 
 	/**
 	 * One of the players rejected the trade and the trade object has been
 	 * deleted from the server.
 	 *
-	 * @param tradeId  Unique trade identifier
+	 * @param trade Trade
 	 * @param playerId Unique player identifier of rejecting player
 	 */
-	void msgTradeUpdateRejected(int tradeId, int playerId);
+	void msgTradeUpdateRejected(Trade *trade, int playerId);
 
 	void newAuction(Auction *auction);
 	void auctionCompleted(Auction *auction);
