@@ -1,7 +1,8 @@
 #ifndef ATLANTIK_ESTATE_H
 #define ATLANTIK_ESTATE_H
 
-#include "estateview.h"
+#include <qobject.h>
+#include <qcolor.h>
 
 class Player;
 

@@ -25,11 +25,15 @@ Bugfixes
 For 0.1.2
 ---------
 
-- kapp should own gui(kmainwindow), network and core and connect them
+- kmainwindow should own network and core and connect them
+  - later: kapp should own gui(kmainwindow), network and core and connect them
 - no global vars
 - seperate engine from network (network uses engine, not other way around,
   engine could also be used without network in atlanticdesigner)
 - move data objects to libatlantic, make sure its qt-only (for Atlantic/E)
+  v estate
+  v player
+  - trade
 - move network layer to libatlantikcore
 - move all but mainwindow to libatlantikui
   Atlantik then uses atlantikui, which talks to atlantikcore, which uses

@@ -1,4 +1,4 @@
-#include <kdebug.h>
+//#include <kdebug.h>
 
 #include "estate.h"
 #include "estate.moc"

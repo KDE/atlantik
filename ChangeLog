@@ -2,6 +2,7 @@
 ----------
 
 - moved object management to Network class
+- moved Estate and Player to libatlantic
 
 2001-12-16 (kaper)
 ----------

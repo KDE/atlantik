@@ -1,4 +1,4 @@
-#include <kdebug.h>
+//#include <kdebug.h>
 
 #include "player.moc"
 
@@ -10,7 +10,7 @@ Player::Player(int playerId) : QObject()
 
 void Player::setLocation(const int estateId)
 {
-	kdDebug() << "Player::setLocation" << endl;
+//	kdDebug() << "Player::setLocation" << endl;
 	if (m_location != estateId)
 	{
 		m_location = estateId;

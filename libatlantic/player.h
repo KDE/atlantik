@@ -1,9 +1,8 @@
 #ifndef ATLANTIK_PLAYER_H
 #define ATLANTIK_PLAYER_H
 
+#include <qobject.h>
 #include <qstring.h>
-
-#include <portfolioview.h>
 
 class Player : public QObject
 {
