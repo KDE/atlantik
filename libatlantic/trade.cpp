@@ -36,7 +36,7 @@ void Trade::addTradeItem(TradeItem *i)
 
 void Trade::updateEstate(Estate *estate, Player *player)
 {
-	cout << "Trade::updateEstate" << endl;	
+	std::cout << "Trade::updateEstate" << endl;	
 	TradeEstate *t=0;
 	
 	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
@@ -52,10 +52,10 @@ void Trade::updateEstate(Estate *estate, Player *player)
 	{
 		if (player)
 		{
-			cout << "gonna emit tradeChanged" << endl;
+			std::cout << "gonna emit tradeChanged" << endl;
 			if (t->to()==player) return;
 			t->setTo(player);
-			cout << "emit tradeChanged" << endl;
+			std::cout << "emit tradeChanged" << endl;
 			emit tradeChanged(t);
 		}
 		else
@@ -71,7 +71,7 @@ void Trade::updateEstate(Estate *estate, Player *player)
 		t=new TradeEstate(estate, this, player);
 		
 		mTradeItems.append(t);
-			cout << "emit tradeAdded" << endl;
+			std::cout << "emit tradeAdded" << endl;
 		emit tradeAdded(t);
 	}
 }
