@@ -205,6 +205,9 @@ void AtlantikNetwork::writeData(QString msg)
 
 void AtlantikNetwork::slotRead()
 {
+	if ( socketStatus() != KExtendedSocket::connected )
+		return;
+
 	if (canReadLine())
 	{
 		processMsg(m_textStream->readLine());
