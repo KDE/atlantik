@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -30,9 +30,11 @@ ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(Ico
 	m_parent = parent;
 	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", KIcon::SizeMedium));
 	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", KIcon::SizeMedium));
+	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", KIcon::SizeMedium));
 
 	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
 	configBoard = new ConfigBoard(this, p_board, "configBoard");
+	configMonopigator = new ConfigMonopigator(this, p_monopigator, "configMonopigator");
 
 	setMinimumSize(sizeHint());
 }
@@ -67,6 +69,11 @@ QString ConfigDialog::playerName()
 	return configPlayer->playerName();
 }
 
+bool ConfigDialog::connectOnStart()
+{
+	return configMonopigator->connectOnStart();
+}
+
 AtlantikConfig ConfigDialog::config()
 {
 	return m_parent->config();
@@ -96,6 +103,34 @@ QString ConfigPlayer::playerName()
 void ConfigPlayer::reset()
 {
 	m_playerName->setText(m_configDialog->config().playerName);
+}
+
+ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+{
+	m_configDialog = configDialog;
+	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+
+	m_connectOnStart = new QCheckBox(i18n("Request list of Internet servers on start-up"), parent);
+	layout->addWidget(m_connectOnStart);
+
+	QString message=i18n(
+		"If checked, Atlantik connects to a meta server on start-up to\n"
+		"request a list of Internet servers.\n");
+	QWhatsThis::add(m_connectOnStart, message);
+
+	layout->addStretch(1);
+
+	reset();
+}
+
+bool ConfigMonopigator::connectOnStart()
+{
+	return m_connectOnStart->isChecked();
+}
+
+void ConfigMonopigator::reset()
+{
+	m_connectOnStart->setChecked(m_configDialog->config().connectOnStart);
 }
 
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)

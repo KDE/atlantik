@@ -24,7 +24,7 @@
 
 #include "selectserver_widget.moc"
 
-SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
+SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
@@ -63,7 +63,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_refreshButton = new KPushButton(BarIcon("reload", KIcon::SizeSmall), i18n("Refresh"), this);
+	m_refreshButton = new KPushButton( (useMonopigatorOnStart ? BarIcon("reload", KIcon::SizeSmall) : BarIcon("network", KIcon::SizeSmall)), (useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List")), this);
 	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
@@ -87,7 +87,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	// Until we have a good way to use start a local monopd server, disable this button
 //	m_localGameButton->setEnabled(false);
 
-	slotRefresh();
+	slotRefresh(useMonopigatorOnStart);
 }
 
 SelectServer::~SelectServer()
@@ -100,6 +100,9 @@ void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
 	status_label->setText(i18n("Retrieving server list..."));
+	m_refreshButton->setText(i18n("Refresh"));
+	// FIXME: change pixmap
+	// m_refreshButton->setPixmap(BarIcon("reload", KIcon::SizeSmall));
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
@@ -176,7 +179,7 @@ void SelectServer::slotListClicked(QListViewItem *item)
 		m_onlineGameButton->toggle();
 }
 
-void SelectServer::slotRefresh()
+void SelectServer::slotRefresh(bool useMonopigator)
 {
 	m_localServerAvailable = false;
 
@@ -184,7 +187,8 @@ void SelectServer::slotRefresh()
 	validateConnectButton();
 
 	checkLocalServer();
-	initMonopigator();
+	if (useMonopigator)
+		initMonopigator();
 }
 
 void SelectServer::slotConnect()

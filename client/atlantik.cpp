@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -157,6 +157,10 @@ void Atlantik::readConfig()
 	m_config.animateTokens = config->readBoolEntry("AnimateToken", false);
 	m_config.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 
+	// Meta server configuation
+	config->setGroup("Monopigator");
+	m_config.connectOnStart = config->readBoolEntry("ConnectOnStart", false);
+
 	// Portfolio colors
 	config->setGroup("WM");
 	QColor activeDefault(204, 204, 204), inactiveDefault(153, 153, 153);
@@ -216,7 +220,7 @@ void Atlantik::removeGUI(Trade *trade)
 
 void Atlantik::showSelectServer()
 {
-	m_selectServer = new SelectServer(m_mainWidget, "selectServer");
+	m_selectServer = new SelectServer(m_config.connectOnStart, m_mainWidget, "selectServer");
 	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
 	m_selectServer->show();
 	if (m_selectGame)
@@ -438,6 +442,13 @@ void Atlantik::slotUpdateConfig()
 		configChanged = true;
 	}
 
+	optBool = m_configDialog->connectOnStart();
+	if (m_config.connectOnStart != optBool)
+	{
+		m_config.connectOnStart = optBool;
+		configChanged = true;
+	}
+
 	config->setGroup("Personalization");
 	config->writeEntry("PlayerName", m_config.playerName);
 
@@ -447,6 +458,9 @@ void Atlantik::slotUpdateConfig()
 	config->writeEntry("DarkenMortgaged", m_config.darkenMortgaged);
 	config->writeEntry("AnimateToken", m_config.animateTokens);
 	config->writeEntry("QuartzEffects", m_config.quartzEffects);
+
+	config->setGroup("Monopigator");
+	config->writeEntry("ConnectOnStart", m_config.connectOnStart);
 
 	config->sync();
 

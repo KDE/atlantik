@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -64,6 +64,22 @@ private:
 	QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_darkenMortgaged, *m_animateToken, *m_quartzEffects;
 };
 
+class ConfigMonopigator : public QWidget
+{
+Q_OBJECT
+
+public:
+	ConfigMonopigator(ConfigDialog *dialog, QWidget *parent, const char *name = 0);
+
+	bool connectOnStart();
+
+private:
+	void reset();
+
+	ConfigDialog *m_configDialog;
+	QCheckBox *m_connectOnStart;
+};
+
 class ConfigDialog : public KDialogBase
 {
 Q_OBJECT
@@ -78,12 +94,14 @@ public:
 	bool quartzEffects();
 	AtlantikConfig config();
 	QString playerName();
+	bool connectOnStart();
 
 private:
 	Atlantik *m_parent;
-	QFrame *p_p13n, *p_board;
+	QFrame *p_p13n, *p_board, *p_monopigator;
 	ConfigPlayer *configPlayer;
 	ConfigBoard *configBoard;
+	ConfigMonopigator *configMonopigator;
 };
 
 #endif

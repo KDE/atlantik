@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -44,6 +44,9 @@ struct AtlantikConfig
 	bool darkenMortgaged;
 	bool quartzEffects;
 	bool animateTokens;
+
+	// Meta server options
+	bool connectOnStart;
 
 	// Portfolio colors
 	QColor activeColor, inactiveColor;

@@ -30,6 +30,7 @@ v API: use disability to join game when size == MAX in gameupdate (games in
   updategamelist now have canbejoined boolean attribute)
 v API: using playerupdate for player list in SelectConfiguration
 v API: make use of cleartext/clearbuttons attributes in display
+v don't connect to meta server unless user has configured to do so
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio

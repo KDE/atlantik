@@ -34,7 +34,7 @@ class SelectServer : public QWidget
 Q_OBJECT
 
 public:
-	SelectServer(QWidget *parent, const char *name=0);
+	SelectServer(bool useMonopigatorOnStart, QWidget *parent, const char *name=0);
 	virtual ~SelectServer();
 
 	void initPage();
@@ -51,7 +51,7 @@ public:
 
 	private slots:
 		void slotConnect();
-		void slotRefresh();
+		void slotRefresh(bool useMonopigator = true);
 		void slotLocalConnected();
 		void slotLocalError();
 		void monopigatorFinished();
