@@ -1,6 +1,7 @@
 #include <kdebug.h>
 
 #include "estate.h"
+#include "estate.moc"
 #include "player.h"
 
 Estate::Estate(int estateId) : QObject()
