@@ -176,6 +176,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	list->addColumn(i18n("Description"));
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
+	connect(list, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotGamelistClicked(QListViewItem *)));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	layout->addWidget(list);
 
@@ -189,6 +190,8 @@ void SelectGame::initPage()
 {
 	validateButtons();
 	bnew->setChecked(true);
+	list->setCurrentItem(0);
+	list->clearSelection();
 
 	status_label->setText(i18n("Connecting to server..."));
 
@@ -314,6 +317,13 @@ void SelectGame::slotGamelistEndUpdate(QString type)
 		status_label->setText(i18n("Fetched list of games."));
 
 	emit statusChanged();
+}
+
+void SelectGame::slotGamelistClicked(QListViewItem *item)
+{
+	// simulate a user press
+	if(item && !bjoin->isOn())
+		bjoin->toggle();
 }
 
 void SelectGame::slotInitPage()

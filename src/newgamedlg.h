@@ -55,6 +55,8 @@ Q_OBJECT
 
 		void slotInitPage();
 
+		void slotGamelistClicked(QListViewItem *);
+
 	signals:
 		void statusChanged();
 
