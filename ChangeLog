@@ -8,6 +8,12 @@
 - Support individual configupdate tags
 - Show estate names on board (#61858)
 
+0.6.3
+-----
+
+- bugfix: avoid crash when unresolvable hosts are in the meta server list
+- bugfix: fix crash when network core is reset while readbuffer isn't empty
+
 0.6.1
 -----
 
