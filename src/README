@@ -3,18 +3,11 @@ the first time:
 
 - the new game wizard is no longer a dialog, but for historic reasons it is
   still in the files newgamedlg.[cpp|h]
-
-- there are no entities such as player. Atlantik was not designed to
-  actually play a Monopoly game! (hm, no?) No! It was designed to interact
-  with a monopd server which plays the game. And it was designed to
-  visualize that game.
-
-  Future versions might include a player class for the sake of convenience,
-  but at the moment the interaction with the server is - in a way - more
-  straightforward: if a player joins the game, we don't create a player
-  instance ourselves but we simply add a portfolioview.
-
-  (this is already backfiring on me and making trades difficult, I guess
-  there will be classes such as Player soon to cache some server data. They
-  will however remain generic to minimize necessary client code
-  modifications in the event of changes of the server code)
+- The Atlantik class initially manages widgets and objects.
+- Objects such as Player manage the content of their own views (such as
+  portfolioview) once they are created (Atlantik should create object and
+  their respective widgets simultaneously).
+- GameNetwork interacts with the server daemon. It has several public
+  methods which can be used to send data to the server and it sends several
+  signals. Atlantik's slots listen for player/object management related
+  signals and objects themselves listen for content/data related signals.

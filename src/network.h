@@ -6,8 +6,6 @@
 #include <qptrlist.h>
 #include <qmap.h>
 
-#include "player.h"
-
 class GameNetwork : public QSocket
 {
 Q_OBJECT
@@ -54,8 +52,8 @@ signals:
 	void playerlistEdit(QString, QString, QString);
 	void playerlistDel(QString);
 
-	void msgPlayerUpdateName(Player *, QString);
-	void msgPlayerUpdateMoney(Player *, QString);
+	void msgPlayerUpdateName(int, QString);
+	void msgPlayerUpdateMoney(int, QString);
 	void msgPlayerUpdateLocation(int, int, bool);
 	void msgEstateUpdateName(int, QString);
 	void msgEstateUpdateOwner(int, int);
@@ -133,11 +131,11 @@ signals:
 	void msgTradeUpdateRejected(int tradeId, int playerId);
 
 	/**
-	 * A new player object has been created and a viewport is required.
+	 * A new player object must be initialized.
 	 *
-	 * @param player Pointer to player object
+	 * @param playerid Playerid for the new object
 	 */
-	void createPortfolio(Player *player);
+	void playerInit(int playerid);
 
 	void setPlayerId(int);
 	void setTurn(int);
@@ -148,8 +146,6 @@ private:
 	void processNode(QDomNode);
 
 	QDomDocument msg;
-	QPtrList<Player> playerList;
-	QMap<int, Player *> playerMap;
 //	QPtrList<PortfolioView> portfolioViewList;
 };
 

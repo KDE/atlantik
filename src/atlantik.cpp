@@ -49,11 +49,14 @@ Atlantik::Atlantik () :
 	connect(gameNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 	connect(gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(Player *, QString)), this, SLOT(slotMsgPlayerUpdateName(Player *, QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(Player *, QString)), this, SLOT(slotMsgPlayerUpdateMoney(Player *, QString)));
+	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
+	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
+
+	// Management of data objects (players, games, estates)
+	playerList.setAutoDelete(true);
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -66,7 +69,7 @@ Atlantik::Atlantik () :
 	m_mainLayout->addWidget(m_portfolioWidget, 0, 0);
 	m_portfolioWidget->show();
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
-	connect(gameNetwork, SIGNAL(createPortfolio(Player *)), this, SLOT(slotCreatePortfolio(Player *)));
+	connect(gameNetwork, SIGNAL(playerInit(int)), this, SLOT(slotPlayerInit(int)));
 
 	// Nice label
 	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
@@ -241,9 +244,11 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void Atlantik::slotMsgPlayerUpdateName(Player *player, QString name)
+void Atlantik::slotMsgPlayerUpdateName(int playerid, QString name)
 {
-	player->setName(name);
+	Player *player = playerMap[playerid];
+	if (player)
+		player->setName(name);
 
 // TODO: port to player class
 //		QString label;
@@ -252,9 +257,11 @@ void Atlantik::slotMsgPlayerUpdateName(Player *player, QString name)
 //		m_portfolioArray[playerid]->setName(label);
 }
 
-void Atlantik::slotMsgPlayerUpdateMoney(Player *player, QString money)
+void Atlantik::slotMsgPlayerUpdateMoney(int playerid, QString money)
 {
-	player->setMoney("$ " + money);
+	Player *player = playerMap[playerid];
+	if (player)
+		player->setMoney("$ " + money);
 }
 
 void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)
@@ -309,12 +316,21 @@ void Atlantik::slotSetTurn(int playerid)
 */
 }
 
-void Atlantik::slotCreatePortfolio(Player *player)
+void Atlantik::slotPlayerInit(int playerid)
 {
-	PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
-	m_portfolioLayout->addWidget(fpv);
-	fpv->show();
-	player->setView(fpv);
+	Player *player;
+	if (!(player = playerMap[playerid]))
+	{
+		cout << "adding new player to list and to dict at pos " << playerid << endl;
+		player = new Player();
+		playerList.append(player);
+		playerMap[playerid] = player;
+
+		PortfolioView *fpv = new PortfolioView(m_portfolioWidget);
+		m_portfolioLayout->addWidget(fpv);
+		fpv->show();
+		player->setView(fpv);
+	}
 }
 
 void Atlantik::serverMsgsAppend(QString msg)

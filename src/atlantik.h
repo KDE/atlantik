@@ -126,7 +126,7 @@ public slots:
 	 * @param playerid Player identifier.
 	 * @param name     Player name.
 	 */
-	void slotMsgPlayerUpdateName(Player *player, QString name);
+	void slotMsgPlayerUpdateName(int playerid, QString name);
 
 	/**
 	 * Updates the money label in the appropriate player portfolio.
@@ -134,7 +134,7 @@ public slots:
 	 * @param playerid Player identifier.
 	 * @param name     Amount of money.
 	 */
-	void slotMsgPlayerUpdateMoney(Player *player, QString money);
+	void slotMsgPlayerUpdateMoney(int playerid, QString money);
 
 	/**
 	 * Updates whether an estateview is owned in the appropriate player
@@ -164,12 +164,11 @@ public slots:
 	void slotSetTurn(int playerid);
 
 	/**
-	 * A new player object has been created by the game network and we
-	 * require a viewport for it. Creates the portfolioview. 
+	 * A new player object and view must be initialized.
 	 *
-	 * @param player Pointer to player object.
+	 * @param playerid Playerid as used by the server daemon.
 	 */
-	 void slotCreatePortfolio(Player *player);
+	 void slotPlayerInit(int playerid);
 
 private:
 	/**
@@ -194,6 +193,10 @@ private:
 	AtlantikBoard *m_board;
 
 	int m_myPlayerId;
+
+	QPtrList<Player> playerList;
+	QMap<int, Player *> playerMap;
+
 };
 
 #endif
