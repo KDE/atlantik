@@ -37,6 +37,7 @@ Name[tg]=Gained Чархиш
 Name[tr]=Karlı Sıra
 Name[wa]=Djeu wangnî
 Name[xx]=xxGained Turnxx
+Name[zh_CN]=获得一次机会
 Name[zh_TW]=增加的回合
 Comment=It is your turn now
 Comment[bg]=Ваш ред е
@@ -69,6 +70,7 @@ Comment[tr]=Sıra şimdi sizde
 Comment[uz]=Энди сиз юрийсиз
 Comment[wa]=C' est a vos asteure
 Comment[xx]=xxIt is your turn nowxx
+Comment[zh_CN]=轮到您了
 Comment[zh_TW]=該您擲骰子了
 [chat]
 Name=Chat
