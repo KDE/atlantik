@@ -22,6 +22,7 @@
 #include <kapp.h>
 
 #include <kbuttonbox.h>
+#include <kmessagebox.h>
 #include <klocale.h>
 
 #include "newgamedlg.moc"
@@ -78,13 +79,14 @@ void NewGameDialog::slotConnect()
 	QListViewItem *item;
 	if ((item = list->selectedItem()))
 	{
-		cout << "item selected" << endl;
+		KMessageBox::sorry(0, QString("Network code has not yet been completed."), "Action unsupported");
 	}
 	else
-		cout << "nothing selected" << endl;
+		KMessageBox::sorry(0, QString(i18n("You did not select a server to connect to.")), "Select a server");
 }
 
 void NewGameDialog::slotCancel()
 {
 	cout << "bcancel clicked" << endl;
+	hide();
 }

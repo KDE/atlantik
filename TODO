@@ -11,6 +11,7 @@ For 0.0.2
 For 0.1.x
 
 - Make things work. ;-)
+- Do a thorough check on pointers and memory leaks.
 
 For 1.x
 
