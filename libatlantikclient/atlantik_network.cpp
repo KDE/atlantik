@@ -502,8 +502,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 						estate->setBgColor(a.value());
 
 					a = e.attributeNode(QString("owner"));
-					Player *player;
-					if (estate && !a.isNull() && (player = m_playerMap[a.value().toInt()]))
+					Player *player = m_playerMap[a.value().toInt()];
+					if (estate && !a.isNull())
 						estate->setOwner(player);
 
 					a = e.attributeNode(QString("houses"));
