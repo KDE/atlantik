@@ -47,8 +47,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(buttonBox);
+	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 
 	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
@@ -62,7 +61,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
-	
+
     // Status indicator
 	m_statusLabel = new QLabel(this);
 	m_statusLabel->setText(i18n("Retrieving game list..."));

@@ -29,6 +29,7 @@ Q_OBJECT
 
 public:
 	Monopigator();
+	~Monopigator();
 	void loadData(const KURL &);
 
 signals:
@@ -43,6 +44,7 @@ private:
 	void processData(const QByteArray &, bool = true);
 
 	QBuffer *m_downloadData;
+	KIO::Job *m_job;
 };
 
 #endif
