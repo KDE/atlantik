@@ -511,6 +511,17 @@ void Atlantik::slotPlayerInit(int playerId)
 		PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
 		portfolioMap[playerId] = portfolioView;
 
+		Estate *estate;
+		for (QMap<int, Estate *>::Iterator i=estateMap.begin() ; i != estateMap.end() ; ++i)
+			{
+				kdDebug() << "estate entry found" << endl;
+				if ((estate = *i))
+				{
+					kdDebug() << "portfolioView->addEstateView" << endl;
+					portfolioView->addEstateView(estate);
+				}
+			}
+
 		connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
 
 		m_portfolioLayout->addWidget(portfolioView);
@@ -520,6 +531,7 @@ void Atlantik::slotPlayerInit(int playerId)
 
 void Atlantik::slotEstateInit(int estateId)
 {
+	kdDebug() << "Atlantik::slotEstateInit(" << estateId << ")" << endl;
 	Estate *estate;
 	if (!(estate = estateMap[estateId]))
 	{
@@ -532,6 +544,17 @@ void Atlantik::slotEstateInit(int estateId)
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);
+
+		PortfolioView *portfolioView;
+		for (QMap<int, PortfolioView *>::Iterator i=portfolioMap.begin() ; i != portfolioMap.end() ; ++i)
+			{
+				kdDebug() << "portfolio entry found" << endl;
+				if ((portfolioView = *i))
+				{
+					kdDebug() << "portfolioView->addEstateView" << endl;
+					portfolioView->addEstateView(estate);
+				}
+			}
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "portfolioestate.h"
 
 class Player;
+class Estate;
 
 class PortfolioView : public QWidget
 {
@@ -16,10 +17,11 @@ Q_OBJECT
 
 	public:
 		PortfolioView(Player *player, QWidget *parent, const char *name = 0);
+		void addEstateView(Estate *estate);
 		void setOwned(int, bool);
 
-	protected:
-		void paintEvent(QPaintEvent *);
+//	protected:
+//		void paintEvent(QPaintEvent *);
 	
 private slots:
 	void playerChanged();
@@ -29,7 +31,7 @@ private slots:
 		QPixmap *qpixmap;
 		bool b_recreate;
 		QLabel *m_nameLabel, *m_moneyLabel;
-		QMap<int, PortfolioEstate*> portfolioMap;
+		QMap<int, PortfolioEstate*> portfolioEstateMap;
 };
 
 #endif

@@ -22,6 +22,9 @@ v double occurance of titleWidth/Height in EstateView
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
+- same for:
+  - estates checking tokens upon estate init
+  v portfolios checking estates upon player init
 - make PortfolioEstate have a relation with Estate like EstateView has
 ^ make PortfolioView have a relation with Player
 v support for <display>
@@ -34,14 +37,17 @@ For 0.2.0
 - gameNetwork API
   - commands
     - .D
-- leaving jail GUI (commandlist plugin for display_widget)
+- leaving jail GUI
+  v menubar
+  - commandlist plugin for display_widget
   - class skeleton
   - buttons for each command
   - show instead of empty widget
   - availability influences buttons
   - buttons connect to network API
 - Different token placement when in jail
-- Chance/CC cards in portfolio
+- fix portfolio
+  - Chance/CC cards in portfolio
 - support auctions
 
 For 0.2.1
