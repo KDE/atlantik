@@ -14,14 +14,22 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <qserversocket.h>
-
 #ifndef SERVERSOCKET_H
 #define SERVERSOCKET_H
+
+#include <qserversocket.h>
+
+class AtlanticClient;
+
 class ServerSocket : public QServerSocket
 {
+Q_OBJECT
+
 public:
 	ServerSocket(int port, int backlog);
 	void newConnection(int socket);
+
+signals:
+	void newClient(AtlanticClient *client);
 };
 #endif

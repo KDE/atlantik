@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -14,17 +14,23 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#ifndef CLIENT_H
+#define CLIENT_H
+
 #include <qsocket.h>
-#ifndef SOCKET_H
-#define SOCKET_H
-class Socket : public QSocket
+
+class AtlanticClient : public QSocket
 {
 Q_OBJECT
 
 public:
-	Socket(QObject *parent = 0, const char *name = 0);
+	AtlanticClient(QObject *parent = 0, const char *name = 0);
+	void sendData(const QString &data);
 
 private slots:
 	void readData();
+
+signals:
+	void clientInput(AtlanticClient *client, const QString &data);
 };
 #endif

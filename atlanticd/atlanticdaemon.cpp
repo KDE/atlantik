@@ -20,12 +20,16 @@
 
 #include <atlantic_core.h>
 
+#include "atlanticclient.h"
+#include "atlanticdaemon.h"
 #include "atlanticdaemon.moc"
 #include "serversocket.h"
 
 AtlanticDaemon::AtlanticDaemon()
 {
 	m_serverSocket = new ServerSocket(1234, 100);
+	connect(m_serverSocket, SIGNAL(newClient(AtlanticClient *)), this, SLOT(newClient(AtlanticClient *)));
+
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 
 	// Create socket for Monopigator
@@ -43,12 +47,21 @@ void AtlanticDaemon::monopigatorRegister()
 
 void AtlanticDaemon::monopigatorConnected()
 {
-	QString get;
-	get = "GET /register.php?host=capsi.com&port=1234&version=atlanticd-prototype HTTP/1.1\nHost: gator.monopd.net\n\n";
-
+	QString get = "GET /register.php?host=capsi.com&port=1234&version=atlanticd-prototype HTTP/1.1\nHost: gator.monopd.net\n\n";
 	m_monopigatorSocket->writeBlock(get.latin1(), get.length());
 	m_monopigatorSocket->close();
 
-	// Monopigator clears old entries, so keep registering every 90s
-	QTimer::singleShot(90000, this, SLOT(monopigatorRegister()));
+	// Monopigator clears old entries, so keep registering every 180s
+	QTimer::singleShot(180000, this, SLOT(monopigatorRegister()));
+}
+
+void AtlanticDaemon::newClient(AtlanticClient *client)
+{
+	m_clients.append(client);
+
+	connect(client, SIGNAL(clientInput(AtlanticClient *, const QString &)), this, SLOT(clientInput(AtlanticClient *, const QString &)));
+}
+
+void AtlanticDaemon::clientInput(AtlanticClient *client, const QString &data)
+{
 }

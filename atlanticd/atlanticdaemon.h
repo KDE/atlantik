@@ -17,10 +17,12 @@
 #ifndef	ATLANTIC_ATLANTICDAEMON_H
 #define	ATLANTIC_ATLANTICDAEMON_H
 
+#include <qptrlist.h>
+
 class QSocket;
 
 class AtlanticCore;
-
+class AtlanticClient;
 class ServerSocket;
 
 class AtlanticDaemon : public QObject
@@ -33,12 +35,14 @@ public:
 private slots:
 	void monopigatorRegister();
 	void monopigatorConnected();
+	void newClient(AtlanticClient *client);
+	void clientInput(AtlanticClient *client, const QString &data);
 
 private:
 	QSocket *m_monopigatorSocket;
 	ServerSocket *m_serverSocket;
 	AtlanticCore *m_atlanticCore;
-
+	QPtrList<AtlanticClient> m_clients;
 };
 
 #endif

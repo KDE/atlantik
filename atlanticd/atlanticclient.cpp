@@ -17,22 +17,24 @@
 #include <qtextstream.h>
 #include <qtimer.h>
 
-#include "socket.h"
-#include "socket.moc"
+#include "atlanticclient.h"
+#include "atlanticclient.moc"
 
-Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
+AtlanticClient::AtlanticClient(QObject *parent, const char *name) : QSocket(parent, name)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(readData()));
 }
 
-void Socket::readData()
+void AtlanticClient::sendData(const QString &data)
+{
+	writeBlock(data.latin1(), data.length());
+}
+
+void AtlanticClient::readData()
 {
 	if (canReadLine())
 	{
-		char *tmp = new char[1024 * 32];
-		readLine(tmp, 1024 * 32);
-		// processMsg(tmp);
-		delete[] tmp;
+		emit clientInput(this, readLine());
 
 		// There might be more data
 		QTimer::singleShot(0, this, SLOT(readData()));

@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -14,8 +14,8 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
+#include "atlanticclient.h"
 #include "serversocket.h"
-#include "socket.h"
 
 ServerSocket::ServerSocket(int port, int backlog) : QServerSocket(port, backlog)
 {
@@ -23,12 +23,8 @@ ServerSocket::ServerSocket(int port, int backlog) : QServerSocket(port, backlog)
 
 void ServerSocket::newConnection(int socket)
 {
-	Socket *newSocket = new Socket(this, "socket");
-	newSocket->setSocket(socket);
+	AtlanticClient *client = new AtlanticClient(this, "socket");
+	client->setSocket(socket);
 
-	QString intro;
-	intro = "<monopd><server name=\"atlanticd\" version=\"prototype\"/><client clientid=\"-1\" cookie=\"?\"/></monopd>\n";
-	newSocket->writeBlock(intro.latin1(), intro.length());
-	// TODO:  send list of supported games
-	// TODO:  send list of available games
+	emit newClient(client);
 }
