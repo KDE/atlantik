@@ -9,6 +9,7 @@
 
 #include <kstddirs.h>
 #include <kpopupmenu.h>
+#include <klocale.h>
 
 #include "estateview.h"
 #include "network.h"

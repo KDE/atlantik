@@ -17,4 +17,5 @@ rcdir = $(kde_datadir)/kmonop
 rc_DATA = kmonopui.rc
 
 messages: rc.cpp
-	$(XGETTEXT) src/*.cpp -o $(podir)/kmonop.pot
+	$(EXTRACTRC) *ui.rc >> rc.cpp
+	$(XGETTEXT) rc.cpp src/*.cpp -o $(podir)/kmonop.pot

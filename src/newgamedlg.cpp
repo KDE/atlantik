@@ -260,7 +260,7 @@ void SelectGame::slotConnectionError(int errno)
 
 void SelectGame::slotConnected()
 {
-	status_label->setText(i18n("Connected to server.")));
+	status_label->setText(i18n("Connected to server."));
 	emit statusChanged();
 }
 
