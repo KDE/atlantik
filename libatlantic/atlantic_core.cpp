@@ -42,9 +42,10 @@ void AtlanticCore::reset()
 	m_players.setAutoDelete(true);
 	m_players.clear();
 	m_players.setAutoDelete(false);
-	m_trades.setAutoDelete(true);
-	m_trades.clear();
-	m_trades.setAutoDelete(false);
+
+	Trade *trade = 0;
+	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+		removeTrade(trade);
 }
 
 QPtrList<Player> AtlanticCore::players()
@@ -151,6 +152,16 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	Trade *trade = new Trade(tradeId);
 	m_trades.append(trade);
 	return trade;
+}
+
+Trade *AtlanticCore::findTrade(int tradeId)
+{
+	Trade *trade = 0;
+	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+		if (trade->tradeId() == tradeId)
+			return trade;
+
+	return 0;
 }
 
 void AtlanticCore::removeTrade(Trade *trade)

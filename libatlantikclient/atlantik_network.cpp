@@ -614,13 +614,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					int tradeId = a.value().toInt();
 
-					Trade *trade;
+					Trade *trade = m_atlanticCore->findTrade(tradeId);
 					bool b_newTrade = false;
-					if (!(trade = m_trades[tradeId]))
+					if (!trade)
 					{
 						// Create trade object
 						trade = m_atlanticCore->newTrade(tradeId);
-						m_trades[tradeId] = trade;
 
 						QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
@@ -655,7 +654,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 					else if (type=="completed" && trade)
 					{
 						m_atlanticCore->removeTrade(trade);
-						m_trades[tradeId] = 0;
 						trade = 0;
 					}
 					else if (type=="rejected")
@@ -666,7 +664,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (player && player->isSelf())
 						{
 							m_atlanticCore->removeTrade(trade);
-							m_trades[tradeId] = 0;
 							trade = 0;
 						}
 					}

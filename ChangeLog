@@ -1,3 +1,10 @@
+0.5.3
+-----
+
+- fix problem where sometimes the select game widget appears
+  after starting a game
+- removed buggy trademap in network code for decent ptrlist in core
+
 0.5.2
 -----
 
