@@ -101,6 +101,9 @@ public:
 	Trade(int tradeId);
 	int tradeId() { return m_tradeId; }
 
+	void setRevision(int revision);
+	int revision();
+
 	void addPlayer(Player *player);
 	void removePlayer(Player *player);
 	
@@ -156,7 +159,7 @@ signals:
 
 private:
 	bool m_changed, m_rejected;
-	int m_tradeId;
+	int m_tradeId, m_revision;
 
 	QPtrList<Player> mPlayers;
 	QMap<Player *, bool> m_playerAcceptMap;

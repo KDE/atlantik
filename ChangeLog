@@ -9,6 +9,7 @@
 - hide token when player goes bankrupt
 - prevent player from building/unmortgaging when in debt
 - disable auction/usecard menu item when not available (requires monopd >= 0.8.1)
+- make use of trade revisions (monopd >= 0.8.2 recommended)
 
 0.5.2
 -----
