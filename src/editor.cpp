@@ -181,6 +181,7 @@ ConfigEstate *EstateEdit::saveEstate()
 		groupCombo->setCurrentItem(0);
 
 	configureButton->setText(i18n("Configure %1 properties...").arg(typeCombo->currentText()));
+	configureButton->setEnabled(curType == Street || curType == Tax);
 
 	estate->update();
 	return estate;

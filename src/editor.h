@@ -15,7 +15,7 @@ class QSpinBox;
 class KColorButton;
 class QLineEdit;
 
-// taken from monopd/estate.h
+// following enum taken from monopd/estate.h, and numbers all decreased by one
 enum EstateType { Street=0, RR=1, Utility=2, CommunityChest=3, Chance=4, FreeParking=5, ToJail=6, Tax=7, Airport=8, Jail=9, Go=10, Other=11 };
 
 class ConfigEstate : public Estate
