@@ -17,7 +17,6 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
-#include <qregexp.h>
 #include <qsizepolicy.h>
 #include <qvbuttongroup.h>
 #include <qhgroupbox.h>
@@ -92,11 +91,9 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	// Monopigator
 	m_monopigator = new Monopigator();
 
-	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
+	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, QString, int)));
 	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
 	connect(m_monopigator, SIGNAL(timeout()), SLOT(monopigatorTimeout()));
-
-	slotRefresh(useMonopigatorOnStart);
 }
 
 SelectServer::~SelectServer()
@@ -106,7 +103,11 @@ SelectServer::~SelectServer()
 
 void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 {
-	m_hideDevelopmentServers = hideDevelopmentServers;
+	if ( m_hideDevelopmentServers != hideDevelopmentServers )
+	{
+		m_hideDevelopmentServers = hideDevelopmentServers;
+		emit showDevelopmentServers( !m_hideDevelopmentServers );
+	}
 }
 
 void SelectServer::initMonopigator()
@@ -118,13 +119,17 @@ void SelectServer::initMonopigator()
 	m_monopigator->loadData(KURL( "http://monopd.unixcode.org/"));
 }
 
-void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
+void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)
 {
-	if (m_hideDevelopmentServers && version.find( QRegExp("(CVS|-dev)") ) != -1 )
-		return;
-
-	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port);
+	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port, ip);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
+
+	if ( item->isDev() )
+	{
+		item->setVisible( !m_hideDevelopmentServers );
+		connect(this, SIGNAL(showDevelopmentServers(bool)), item, SLOT(showDevelopmentServers(bool)));
+	}
+
 	validateConnectButton();
 }
 

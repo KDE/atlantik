@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
 
 	// Patches and artists
-	aboutData.addCredit("Thiago Macieira", I18N_NOOP("KExtendedSocket support, KLatencyTimer"), "thiagom@wanadoo.fr");
+	aboutData.addCredit("Thiago Macieira", I18N_NOOP("KExtendedSocket support"), "thiagom@wanadoo.fr");
 	aboutData.addCredit("Albert Astals Cid", I18N_NOOP("various patches"), "tsdgeos@terra.es");
 
 	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");

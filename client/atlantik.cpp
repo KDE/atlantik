@@ -306,6 +306,8 @@ void Atlantik::showSelectServer()
 
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
+
+	m_selectServer->slotRefresh( m_config.connectOnStart );
 }
 
 void Atlantik::showSelectGame()

@@ -16,9 +16,9 @@
 
 #include <qdom.h>
 #include <qptrlist.h>
+#include <qregexp.h>
 
 #include <kextendedsocket.h>
-#include <klatencytimer.h>
 
 #include "monopigator.moc"
 #include "main.h"
@@ -99,7 +99,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 				if(!e.isNull())
 				{
 					if (e.tagName() == "server")
-						emit monopigatorAdd(e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value(), e.attributeNode(QString("version")).value(), e.attributeNode(QString("users")).value().toInt());
+						emit monopigatorAdd(e.attributeNode(QString("ip")).value(), e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value(), e.attributeNode(QString("version")).value(), e.attributeNode(QString("users")).value().toInt());
 				}
 				n = n.nextSibling();
 			}
@@ -108,30 +108,32 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 	}
 }
 
-MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port) : QObject(), QListViewItem(parent, host, latency, version, users, port)
+MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), QListViewItem(parent, host, latency, version, users, port)
 {
-//	setEnabled(false);
+	m_isDev = ( version.find( QRegExp("(CVS|-dev)") ) != -1 ) ? true : false;
+
+	setEnabled(false);
 	parent->sort();
 
-	QPtrList<KAddressInfo> addresses = KExtendedSocket::lookup(host, port);
-	addresses.setAutoDelete(true);
-	m_latencyTimer = new KLatencyTimer(port.toInt(), this, "latencyTimer");
-
-	if ( addresses.count() )
-	{
-		m_latencyTimer->setHost(addresses.first()->address());
-
-		connect(m_latencyTimer, SIGNAL(answer(int)), this, SLOT(updateLatency(int)));
-		m_latencyTimer->start();
-	}
+	if ( !ip.isEmpty() )
+		host = ip;
+	m_latencySocket = new KExtendedSocket( host, port.toInt(), KExtendedSocket::inputBufferedSocket | KExtendedSocket::noResolve );
+	connect(m_latencySocket, SIGNAL(lookupFinished(int)), this, SLOT(resolved()));
+	connect(m_latencySocket, SIGNAL(connectionSuccess()), this, SLOT(connected()));
+	m_latencySocket->startAsyncConnect();
 }
 
-void MonopigatorEntry::updateLatency(int msec)
+void MonopigatorEntry::resolved()
 {
-	setText(1, QString::number(msec));
-//	setEnabled(true);
+	time.start();
+}
 
+void MonopigatorEntry::connected()
+{
+	setText( 1, QString::number(time.elapsed()) );
+	setEnabled(true);
 	listView()->sort();
+	delete m_latencySocket;
 }
 
 int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const
@@ -148,4 +150,15 @@ int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const
 			return -1;
 	}
 	return key( col, ascending ).compare( i->key( col, ascending) );
+}
+
+bool MonopigatorEntry::isDev() const
+{
+	return m_isDev;
+}
+
+void MonopigatorEntry::showDevelopmentServers(bool show)
+{
+	if ( isVisible() != show )
+		setVisible(show);
 }

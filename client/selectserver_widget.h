@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -45,19 +45,19 @@ public:
 
 public slots:
 	void validateConnectButton();
-
-	void slotMonopigatorAdd(QString host, QString port, QString version, int users);
+	void slotRefresh(bool useMonopigator = true);
+	void slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users);
 
 private slots:
 	void slotConnect();
 	void customConnect();
-	void slotRefresh(bool useMonopigator = true);
 	void monopigatorFinished();
 	void monopigatorTimeout();
 
 signals:
 	void serverConnect(const QString host, int port);
 	void msgStatus(const QString &message);
+	void showDevelopmentServers(bool show);
 
 private:
 	void initMonopigator();
