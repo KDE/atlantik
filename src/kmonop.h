@@ -48,7 +48,6 @@ class KMonop : public KTMainWindow
 	
 	private:
 		void serverMsgsAppend(QString);
-		void chatMsgsAppend(QString);
 
 		QWidget *main;
 		QLineEdit *input;
