@@ -30,6 +30,7 @@ Bugfixes
 - as soon as a token is created, launch a singleshot timer to make sure the
   event loop is entered first and thus the estates have their correct
   geometry to move to
+- make PortfolioEstate have a relation with Estate like EstateView has
 
 For 0.2.0
 ---------

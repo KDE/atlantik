@@ -20,7 +20,6 @@ Q_OBJECT
 		AtlantikBoard(QWidget *parent, const char *name=0);
 		void addEstateView(Estate *estate);
 		void addToken(Player *player);
-		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();
 

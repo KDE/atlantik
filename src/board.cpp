@@ -9,8 +9,7 @@
 #include "network.h"
 #include "config.h"
 
-extern QColor atlantik_dpurple, atlantik_lblue, atlantik_purple, atlantik_orange,
-atlantik_red, atlantik_yellow, atlantik_green, atlantik_blue, atlantik_greenbg;
+extern QColor atlantik_greenbg;
 extern AtlantikConfig atlantikConfig;
 
 AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -59,23 +58,6 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 
 		switch(i)
 		{
-			case 1: case 3:
-				color = atlantik_dpurple; break;
-			case 6: case 8: case 9:
-				color = atlantik_lblue; break;
-			case 11: case 13: case 14:
-				color = atlantik_purple; break;
-			case 16: case 18: case 19:
-				color = atlantik_orange; break;
-			case 21: case 23: case 24:
-				color = atlantik_red; break;
-			case 26: case 27: case 29:
-				color = atlantik_yellow; break;
-			case 31: case 32: case 34:
-				color = atlantik_green; break;
-			case 37: case 39:
-				color = atlantik_blue; break;
-
 			case 5: case 15: case 25: case 35:
 				icon = QString("train.png");
 				canBeOwned = true;
@@ -123,36 +105,33 @@ void AtlantikBoard::addEstateView(Estate *estate)
 {
 	bool canBeOwned = false;
 	QString icon = QString();
+	int estateId = estate->estateId(), orientation = North;
 
-	EstateView *estateView = new EstateView(estate, North, icon, this, "estateview");
-	estateViewMap[estate->estateId()] = estateView;
+	if (estateId < 10)
+		orientation = North;
+	else if (estateId < 20)
+		orientation = East;
+	else if (estateId < 30)
+		orientation = South;
+	else if (estateId < 40)
+		orientation = West;
+	
+	EstateView *estateView = new EstateView(estate, orientation, icon, this, "estateview");
+	estateViewMap[estateId] = estateView;
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 	connect(estateView, SIGNAL(estateToggleMortgage(int)), estate, SIGNAL(estateToggleMortgage(int)));
 	connect(estateView, SIGNAL(estateHouseBuy(int)), estate, SIGNAL(estateHouseBuy(int)));
 	connect(estateView, SIGNAL(estateHouseSell(int)), estate, SIGNAL(estateHouseSell(int)));
 
-	int estateId = estate->estateId();
 	if (estateId<10)
-	{
 		m_gridLayout->addWidget(estateView, 10, 10-estateId);
-//		orientation = North;
-	}
 	else if (estateId<20)
-	{
 		m_gridLayout->addWidget(estateView, 20-estateId, 0);
-//		orientation = East;
-	}
 	else if (estateId<30)
-	{
 		m_gridLayout->addWidget(estateView, 0, estateId-20);
-//		orientation = South;
-	}
 	else
-	{
 		m_gridLayout->addWidget(estateView, estateId-30, 10);
-//		orientation = West;
-	}
 
 	estateView->show();
 }
@@ -206,14 +185,6 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 
 	// Start timer
 	m_timer->start(10);
-}
-
-void AtlantikBoard::setOwned(int estateId, bool byAny, bool byThisClient)
-{
-//	EstateView *estateView = estateViewMap[estateId];
-#warning port Board::setOwned
-//	if (estateId>=0 && estateId<40)
-//		estate[estateId]->setOwned(byAny, byThisClient);
 }
 
 void AtlantikBoard::raiseToken(int id)

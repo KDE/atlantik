@@ -213,9 +213,8 @@ void Atlantik::slotInitGame()
 		"Known issues:\n"
 		"- tokens are not shown correctly until first rolling of dice\n"
 		"- token movement animation not implemented\n"
-		"- all estates have northward orientation\n"
 		"- portfolioviews are still hardcoded and arenot updated\n"
-		"- atlantic theme is not completely implemented server-side\n"
+		"- atlantic theme is not completely implemented server-side"
 		));
 }
 

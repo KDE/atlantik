@@ -17,7 +17,7 @@
 #include "network.h"
 #include "config.h"
 
-extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
+extern QColor atlantik_redhotel, atlantik_greenhouse;
 extern QColor atlantik_lgray;
 extern AtlantikConfig atlantikConfig;
 
