@@ -81,12 +81,13 @@ signals:
 	void estateUpdateFinished(int);
 
 	/**
-	 * A new trade is created on the server.
+	 * A new trade is created on the server or a current one is being updated.
 	 *
 	 * @param tradeId  Unique identifier of the trade
-	 * @param playerId Player who initiates the trade
 	 */
-	void tradeInit(int tradeId, int playerId);
+	void tradeInit(int tradeId);
+
+	void tradeUpdateActor(int tradeId, int playerId);
 
 	/**
 	 * A player should be added to the trade.
@@ -147,6 +148,8 @@ signals:
 	 * @param playerId Unique player identifier of rejecting player
 	 */
 	void msgTradeUpdateRejected(int tradeId, int playerId);
+
+	void tradeUpdateFinished(int tradeId);
 
 	/**
 	 * A new player object must be initialized.

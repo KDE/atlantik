@@ -384,68 +384,80 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "tradeupdate")
 			{
-				QString type = e.attributeNode(QString("type")).value();
-				int tradeid = e.attributeNode(QString("tradeid")).value().toInt();
-
-				if (type=="new")
+				a = e.attributeNode(QString("tradeid"));
+				if (!a.isNull())
 				{
-					emit tradeInit(tradeid, e.attributeNode(QString("actor")).value().toInt());
+					int tradeId = a.value().toInt();
+					kdDebug() << "TRADEUPDATE id " << tradeId << endl;
 
-					QDomNode n_player = n.firstChild();
-					while(!n_player.isNull())
+					// Create trade object and view
+					kdDebug() << "emit tradeInit(" << tradeId << ")" << endl;
+					emit tradeInit(tradeId);
+
+					QString type = e.attributeNode(QString("type")).value();
+
+					if (type=="new")
 					{
-						QDomElement e_player = n_player.toElement();
-						if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
-							emit msgTradeUpdatePlayerAdd(tradeid, e_player.attributeNode(QString("playerid")).value().toInt());
-						n_player = n_player.nextSibling();
-					}
-				}
-				else if (type=="edit")
-				{
-					QDomNode n_child = n.firstChild();
-					while(!n_child.isNull())
-					{
-						QDomElement e_child = n_child.toElement();
-						if (!e_child.isNull())
+						emit tradeUpdateActor(tradeId, e.attributeNode(QString("actor")).value().toInt());
+
+						QDomNode n_player = n.firstChild();
+						while(!n_player.isNull())
 						{
-							if (e_child.tagName() == "tradeplayer")
-							{
-								a = e.attributeNode(QString("playerid"));
-								if (!a.isNull())
-								{
-									int playerId = a.value().toInt();
-
-									a = e.attributeNode(QString("accept"));
-									if (!a.isNull())
-										emit msgTradeUpdatePlayerAccept(tradeid, playerId, (bool)(a.value().toInt()));
-
-									a = e.attributeNode(QString("money"));
-									if (!a.isNull())
-										emit msgTradeUpdatePlayerMoney(tradeid, playerId, a.value().toInt());
-								}
-							}
-							else if (e_child.tagName() == "tradeestate")
-							{
-								a = e.attributeNode(QString("estateid"));
-								if (!a.isNull())
-								{
-									int estateId = a.value().toInt();
-
-									a = e.attributeNode(QString("included"));
-									if (!a.isNull())
-										emit msgTradeUpdateEstateIncluded(tradeid, estateId, (bool)(a.value().toInt()));
-								}
-							}
+							QDomElement e_player = n_player.toElement();
+							if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
+								emit msgTradeUpdatePlayerAdd(tradeId, e_player.attributeNode(QString("playerid")).value().toInt());
+							n_player = n_player.nextSibling();
 						}
-						n_child = n_child.nextSibling();
 					}
+					else if (type=="edit")
+					{
+						QDomNode n_child = n.firstChild();
+						while(!n_child.isNull())
+						{
+							QDomElement e_child = n_child.toElement();
+							if (!e_child.isNull())
+							{
+								if (e_child.tagName() == "tradeplayer")
+								{
+									a = e.attributeNode(QString("playerid"));
+									if (!a.isNull())
+									{
+										int playerId = a.value().toInt();
+
+										a = e.attributeNode(QString("accept"));
+										if (!a.isNull())
+											emit msgTradeUpdatePlayerAccept(tradeId, playerId, (bool)(a.value().toInt()));
+
+										a = e.attributeNode(QString("money"));
+										if (!a.isNull())
+											emit msgTradeUpdatePlayerMoney(tradeId, playerId, a.value().toInt());
+									}
+								}
+								else if (e_child.tagName() == "tradeestate")
+								{
+									a = e.attributeNode(QString("estateid"));
+									if (!a.isNull())
+									{
+										int estateId = a.value().toInt();
+
+										a = e.attributeNode(QString("included"));
+										if (!a.isNull())
+											emit msgTradeUpdateEstateIncluded(tradeId, estateId, (bool)(a.value().toInt()));
+									}
+								}
+							}
+							n_child = n_child.nextSibling();
+						}
+					}
+					else if (type=="accepted")
+						emit msgTradeUpdateAccepted(tradeId);
+					else if (type=="completed")
+						emit msgTradeUpdateCompleted(tradeId);
+					else if (type=="rejected")
+						emit msgTradeUpdateRejected(tradeId, e.attributeNode(QString("actor")).value().toInt());
+
+					emit tradeUpdateFinished(tradeId);
 				}
-				else if (type=="accepted")
-					emit msgTradeUpdateAccepted(tradeid);
-				else if (type=="completed")
-					emit msgTradeUpdateCompleted(tradeid);
-				else if (type=="rejected")
-					emit msgTradeUpdateRejected(tradeid, e.attributeNode(QString("actor")).value().toInt());
 			}
 			else
 				kdDebug() << "ignored TAG: " << e.tagName() << endl;

@@ -18,6 +18,8 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 
+#include "trade_widget.h"
+
 #include "config.h"
 
 extern AtlantikConfig atlantikConfig;
@@ -90,6 +92,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_gameNetwork, SIGNAL(playerInit(int)), this, SLOT(slotPlayerInit(int)));
 	connect(m_gameNetwork, SIGNAL(estateInit(int)), this, SLOT(slotEstateInit(int)));
+	connect(m_gameNetwork, SIGNAL(tradeInit(int)), this, SLOT(slotTradeInit(int)));
 
 	// Nice label
 //	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
@@ -533,6 +536,25 @@ void Atlantik::slotEstateInit(int estateId)
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);
+	}
+}
+
+void Atlantik::slotTradeInit(int tradeId)
+{
+	Trade *trade;
+	if (!(trade = tradeMap[tradeId]))
+	{
+		trade = new Trade(tradeId);
+
+//		connect(trade, SIGNAL(tradeToggleMortgage(int)), m_gameNetwork, SLOT(tradeToggleMortgage(int)));
+
+		tradeMap[tradeId] = trade;
+
+		kdDebug() << "adding trade display" << endl;
+		TradeDisplay *tradeDisplay = new TradeDisplay(0, "tradewindow");
+		tradeDisplay->show();
+
+//		m_board->addTradeView(trade);
 	}
 }
 

@@ -15,6 +15,7 @@
 #include "board.h"
 #include "player.h"
 #include "estate.h"
+#include "trade.h"
 
 class SelectServer;
 class SelectGame;
@@ -227,6 +228,8 @@ public slots:
 	 */
 	 void slotEstateInit(int estateId);
 
+	void slotTradeInit(int tradeid);
+
 private:
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
@@ -248,6 +251,7 @@ private:
 
 	QMap<int, Player *> playerMap;
 	QMap<int, Estate *> estateMap;
+	QMap<int, Trade *> tradeMap;
 	QMap<int, PortfolioView *> portfolioMap;
 };
 
