@@ -35,7 +35,7 @@ void Socket::readData()
 		delete[] tmp;
 
 		// There might be more data
-		QTimer::singleShot(0, this, SLOT(slotRead()));
+		QTimer::singleShot(0, this, SLOT(readData()));
 	}
 	else
 	{
