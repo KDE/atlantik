@@ -17,6 +17,7 @@ public:
 	void setOwner(Player *player);
 	const bool isOwned();
 	const bool isOwnedBySelf();
+	Player *owner() { return m_owner; }
 	void setHouses(unsigned int houses);
 	unsigned int houses() { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);

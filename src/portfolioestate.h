@@ -8,19 +8,21 @@
 #define	PE_HEIGHT	16
 
 class Estate;
+class Player;
   
 class PortfolioEstate : public QWidget
 {
 Q_OBJECT
 
 public:
-	PortfolioEstate(Estate *estate, bool alwaysOwned, QWidget *parent, const char *name = 0);
+	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name = 0);
 
 	protected:
 		void paintEvent(QPaintEvent *);
 
 	private:
 		Estate *m_estate;
+		Player *m_player;
 		QPixmap *qpixmap;
 		bool b_recreate, m_alwaysOwned;
 

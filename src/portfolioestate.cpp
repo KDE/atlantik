@@ -6,9 +6,10 @@
 
 extern QColor atlantik_lgray, atlantik_dgray;
 
-PortfolioEstate::PortfolioEstate(Estate *estate, bool alwaysOwned, QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_estate = estate;
+	m_player = player;
 	m_alwaysOwned = alwaysOwned;
 
     QSize s(PE_WIDTH, PE_HEIGHT);
@@ -36,7 +37,7 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		painter.setPen(atlantik_lgray);
 		painter.setBrush(white);
 		painter.drawRect(rect());
-		if (m_alwaysOwned || m_estate->isOwned())
+		if (m_alwaysOwned || (m_estate && m_estate->isOwned() && m_player == m_estate->owner()))
 		{
 			painter.setPen(atlantik_dgray);
 			for (int y=5;y<=13;y+=2)

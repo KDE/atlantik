@@ -98,7 +98,7 @@ void PortfolioView::addEstateView(Estate *estate)
 
 	if (x>0 || y>0)
 	{
-		PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, false, this, "portfolioestate");
+		PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 		portfolioEstateMap[estateId] = portfolioEstate;
 		portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
 

@@ -116,7 +116,7 @@ void EstateView::updatePE()
 		{
 			// Display a coloured portfolioestate to indicate property is
 			// for sale
-			pe = new PortfolioEstate(m_estate, true, this, "board-portfolioestate");
+			pe = new PortfolioEstate(m_estate, 0, true, this, "board-portfolioestate");
 			repositionPortfolioEstate();
 
 			pe->show();
