@@ -57,14 +57,9 @@ Player *PortfolioView::player()
 
 void PortfolioView::addEstateView(Estate *estate)
 {
-	kdDebug() << "PortfolioView::addEstateView(" << estate->estateId() << ")" << endl;
 	int estateId = estate->estateId();
-	kdDebug() << "estate:" << estateId << " canBeOwned:" << estate->canBeOwned() << " groupId:" << estate->groupId() << endl;
 	if (!estate->canBeOwned() || !estate->groupId())
-	{
-//		portfolioEstateMap[estateId]=0;
 		return;
-	}
 
 //	if ((estateId / 10) * 18 > y)
 //	{
@@ -82,7 +77,6 @@ void PortfolioView::addEstateView(Estate *estate)
 	x = 5 + 16 * ((estateId-1) % 10);
 
 	// Create PE
-	kdDebug() << "creating PE" << endl;
 	PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 	portfolioEstateMap[estateId] = portfolioEstate;
 
@@ -159,8 +153,6 @@ void PortfolioView::paintEvent(QPaintEvent *)
 
 void PortfolioView::playerChanged()
 {
-	kdDebug() << "PortfolioView::playerChanged" << endl;
-
 #warning is this the correct place for label updates?
 	QString name;
 	name.setNum(m_player->playerId());

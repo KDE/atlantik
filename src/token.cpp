@@ -47,7 +47,6 @@ void Token::setDestination(EstateView *estateView)
 
 void Token::playerChanged()
 {
-	kdDebug() << "Token::playerChanged()" << endl;
 	if (Estate *estate = m_player->location())
 	{
 		EstateView *estateView;

@@ -137,7 +137,6 @@ void Atlantik::readConfig()
 
 void Atlantik::addPlayer(Player *player)
 {
-	kdDebug() << "Atlantik::addPlayer:" << player->playerId() << endl;
 	m_board->addToken(player);
 
 	PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
@@ -145,7 +144,6 @@ void Atlantik::addPlayer(Player *player)
 
 	Estate *estate;
 	QPtrList<Estate> estates = m_gameNetwork->estates();
-//	kdDebug() << "estates size is " << estates.count() << endl;
 	for (QPtrListIterator<Estate> it(estates); *it; ++it)
 		if ((estate = dynamic_cast<Estate*>(*it)))
 			portfolioView->addEstateView(estate);
@@ -159,19 +157,12 @@ void Atlantik::addPlayer(Player *player)
 
 void Atlantik::addEstate(Estate *estate)
 {
-	kdDebug() << "Atlantik::addEstate:" << estate->estateId() << endl;
 	m_board->addEstateView(estate);
 
 	PortfolioView *portfolioView;
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
-	{
-		kdDebug() << "iterating portfolios" << endl;
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
-		{
-			kdDebug() << "Atlantik: portfolioView->addEstateView:" << estate->estateId() << endl;
 			portfolioView->addEstateView(estate);
-		}
-	}
 }
 
 void Atlantik::slotNetworkConnected()
@@ -328,14 +319,11 @@ void Atlantik::slotUpdateConfig()
 
 	if (redrawEstates)
 	{
-#warning emit redrawEstates for config change
-/*
-		for(unsigned int estateId=0; estateId < estateMap.size() ; estateId++)
-		{
-			Estate *estate = estateMap[estateId];
-			estate->update(true);
-		}
-*/
+		Estate *estate;
+		QPtrList<Estate> estates = m_gameNetwork->estates();
+		for (QPtrListIterator<Estate> it(estates); *it; ++it)
+			if ((estate = dynamic_cast<Estate*>(*it)))
+				estate->update(true);
 	}
 }
 

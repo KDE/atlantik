@@ -50,8 +50,6 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 	icon = rotatePixmap(icon);
 
 	QToolTip::add(this, m_estate->name());
-
-	kdDebug() << "end of estateview ctor" << endl;
 }
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
@@ -127,8 +125,6 @@ void EstateView::updatePE()
 
 void EstateView::estateChanged()
 {
-	kdDebug() << "EstateView::estateChanged" << endl;
-
 #warning is this the correct place for name label updates?
 	QToolTip::remove(this);
 	QToolTip::add(this, m_estate->name());
@@ -427,10 +423,7 @@ void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, con
 	QPainter px;
 
 	if (pi==0 || pi->isNull())
-	{
-		kdDebug() << "thanks for not painting on null objects" << endl;
 		return;
-	}
 
 	px.begin(pi);
 

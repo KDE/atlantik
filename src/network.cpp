@@ -423,7 +423,6 @@ void GameNetwork::processNode(QDomNode n)
 					// Create view(s)
 					if (newPlayer)
 					{
-						kdDebug() << "telling mainwindow to create new player view:" << player->playerId() << endl;
 						m_mainWindow->addPlayer(player);
 					}
 
@@ -433,8 +432,6 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "estateupdate")
 			{
-				kdDebug() << "ESTATEUPDATE" << endl;
-
 				int estateId = -1;
 
 				a = e.attributeNode(QString("estateid"));
@@ -506,7 +503,6 @@ void GameNetwork::processNode(QDomNode n)
 					// Create view(s)
 					if (newEstate)
 					{
-						kdDebug() << "telling mainwindow to create new estate view:" << estate->estateId() << endl;
 						m_mainWindow->addEstate(estate);
 					}
 
@@ -637,6 +633,5 @@ void GameNetwork::processNode(QDomNode n)
 
 void GameNetwork::serverConnect(const QString host, int port)
 {
-	kdDebug() << "connecting to " << host << ":" << port << endl;
 	connectToHost(host, port);
 }
