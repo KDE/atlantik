@@ -40,8 +40,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 //	spacer = new QWidget(this);
 //	m_gridLayout->addWidget(spacer, 11, 11); // SE
 
-	m_center = new QWidget(this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, 10, 1, 10);
+	m_center = 0;
 	displayCenter();
 
 	QColor color;
