@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -23,6 +23,10 @@
 
 #include <kdialogbase.h>
 
+class QString;
+
+class KPushButton;
+
 class Atlantik;
 class ConfigDialog;
 
@@ -36,12 +40,19 @@ public:
 	ConfigPlayer(ConfigDialog *configDialog, QWidget *parent, const char *name=0);
 
 	QString playerName();
+	QString playerImage();
+
+private slots:
+	void chooseImage();
 
 private:
+	void setImage();
 	void reset();
 
 	ConfigDialog *m_configDialog;
 	QLineEdit *m_playerName;
+	QString m_playerImage;
+	KPushButton *m_playerIcon;
 };
 
 class ConfigBoard : public QWidget
@@ -112,6 +123,7 @@ public:
 	bool quartzEffects();
 	AtlantikConfig config();
 	QString playerName();
+	QString playerImage();
 	bool connectOnStart();
 	bool hideDevelopmentServers();
 

@@ -65,7 +65,6 @@ private slots:
 	void tradeReject(Trade *trade);
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
-	void setImage(const QString &name);
 	void changeOption(int, const QString &value);
 	void slotLookupFinished(int count);
 	void slotConnectionSuccess();
@@ -76,6 +75,7 @@ public slots:
 	void joinGame(int gameId);
 	void leaveGame();
 	void slotRead();
+	void setImage(const QString &name);
 
 signals:
 	/**

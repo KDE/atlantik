@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,7 +31,6 @@ class AtlanticCore;
 class ConfigOption;
 class Game;
 class Player;
-class TokenWidget;
 
 class SelectConfiguration : public QWidget
 {
@@ -45,8 +44,6 @@ public:
 	int portToConnect();
 
 private slots:
-	void slotTokenButtonClicked();
-	void slotTokenSelected(const QString &name);
 	void addConfigOption(ConfigOption *configOption);
 	void changeOption();
 	void gameOption(QString title, QString type, QString value, QString edit, QString command);
@@ -70,7 +67,7 @@ signals:
 private:
 	QVBoxLayout *m_mainLayout;
 	QVGroupBox *m_configBox, *m_messageBox;
-	KPushButton *m_backButton, *m_startButton, *m_tokenButton;
+	KPushButton *m_backButton, *m_startButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QObject *, ConfigOption *> m_configMap;
 	QMap <ConfigOption *, QCheckBox *> m_configBoxMap;
@@ -78,7 +75,6 @@ private:
 	QMap <Player *, QListViewItem *> m_items;
 	Game *m_game;
 	AtlanticCore *m_atlanticCore;
-	TokenWidget *m_tokenWidget;
 };
 
 #endif

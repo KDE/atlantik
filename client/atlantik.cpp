@@ -221,6 +221,7 @@ void Atlantik::readConfig()
 	// Personalization configuration
 	config->setGroup("Personalization");
 	m_config.playerName = config->readEntry("PlayerName", "Atlantik");
+	m_config.playerImage = config->readEntry("PlayerImage", "cube.png");
 
 	// Board configuration
 	config->setGroup("Board");
@@ -525,6 +526,13 @@ void Atlantik::slotUpdateConfig()
 		m_atlantikNetwork->setName(optStr);
 	}
 
+	optStr = m_configDialog->playerImage();
+	if (m_config.playerImage != optStr)
+	{
+		m_config.playerImage = optStr;
+		m_atlantikNetwork->setImage(optStr);
+	}
+
 	optBool = m_configDialog->indicateUnowned();
 	if (m_config.indicateUnowned != optBool)
 	{
@@ -582,6 +590,7 @@ void Atlantik::slotUpdateConfig()
 
 	config->setGroup("Personalization");
 	config->writeEntry("PlayerName", m_config.playerName);
+	config->writeEntry("PlayerImage", m_config.playerImage);
 
 	config->setGroup("Board");
 	config->writeEntry("IndicateUnowned", m_config.indicateUnowned);
@@ -775,6 +784,7 @@ void Atlantik::clientCookie(QString cookie)
 void Atlantik::sendHandshake()
 {
 	m_atlantikNetwork->setName(m_config.playerName);
+	m_atlantikNetwork->setImage(m_config.playerImage);
 
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();

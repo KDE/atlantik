@@ -40,7 +40,7 @@ struct AtlantikConfig
 	bool chatTimestamps;
 
 	// Personalization options
-	QString playerName;
+	QString playerName, playerImage;
 
 	// Board options
 	bool indicateUnowned;

@@ -19,8 +19,23 @@
 #include <qwhatsthis.h>
 #include <qlabel.h>
 
+#include <kdeversion.h>
+#undef KDE_3_1_FEATURES
+#undef KDE_3_3_FEATURES
+#if defined(KDE_MAKE_VERSION)
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,0)
+#define KDE_3_1_FEATURES
+#endif
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,2,90)
+#define KDE_3_3_FEATURES
+#endif
+#endif
+
+#include <kicondialog.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <kpushbutton.h>
+#include <kstandarddirs.h>
 
 #include "atlantik.h"
 #include "configdlg.moc"
@@ -76,6 +91,11 @@ QString ConfigDialog::playerName()
 	return configPlayer->playerName();
 }
 
+QString ConfigDialog::playerImage()
+{
+	return configPlayer->playerImage();
+}
+
 bool ConfigDialog::connectOnStart()
 {
 	return configMonopigator->connectOnStart();
@@ -102,6 +122,14 @@ ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const ch
 	m_playerName = new QLineEdit(parent);
 	layout->addWidget(m_playerName);
 
+	QLabel *label2 = new QLabel(i18n("Player image:"), parent);
+	layout->addWidget(label2);
+                
+	m_playerIcon = new KPushButton(parent, "playerIcon");
+	layout->addWidget(m_playerIcon);
+
+	connect( m_playerIcon, SIGNAL(clicked()), this, SLOT(chooseImage()) );
+                                        
 	layout->addStretch(1);
 
 	reset();
@@ -112,9 +140,46 @@ QString ConfigPlayer::playerName()
 	return m_playerName->text();
 }
 
+QString ConfigPlayer::playerImage()
+{
+	return m_playerImage;
+}
+void ConfigPlayer::chooseImage()
+{
+	KIconDialog iconDialog( this, "iconDialog" );
+#ifdef KDE_3_1_FEATURES
+	iconDialog.setCustomLocation( locate("appdata", "themes/default/tokens/") );
+#endif
+		
+#ifdef KDE_3_3_FEATURES
+	iconDialog.setup( KIcon::Desktop, KIcon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
+#else
+	iconDialog.setup( KIcon::Desktop, KIcon::Application, false, 0, true ); // begin with user icons
+#endif
+
+	QString image = iconDialog.openDialog();
+
+	if ( image.isEmpty() )
+		return;
+
+	QStringList splitPath = QStringList::split( '/', image );
+	m_playerImage = splitPath[ splitPath.count()-1 ];
+
+	setImage();
+}
+
+void ConfigPlayer::setImage()
+{
+	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_playerImage);
+	if (KStandardDirs::exists(filename))
+		m_playerIcon->setPixmap( QPixmap(filename) );
+}
+															
 void ConfigPlayer::reset()
 {
 	m_playerName->setText(m_configDialog->config().playerName);
+	m_playerImage = m_configDialog->config().playerImage;
+	setImage();
 }
 
 ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)

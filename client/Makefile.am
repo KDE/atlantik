@@ -6,7 +6,7 @@ atlantik_DEPENDENCIES = $(LIB_KDEGAMES_DEP)
 
 atlantik_SOURCES = atlantik.cpp configdlg.cpp event.cpp eventlogwidget.cpp \
 	main.cpp monopigator.cpp selectconfiguration_widget.cpp \
-	selectgame_widget.cpp selectserver_widget.cpp tokenwidget.cpp
+	selectgame_widget.cpp selectserver_widget.cpp
 
 KDE_ICON = atlantik
 

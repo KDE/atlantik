@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -31,13 +31,11 @@
 #include <game.h>
 #include <player.h>
 
-#include "tokenwidget.h"
 #include "selectconfiguration_widget.moc"
 
 SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_atlanticCore = atlanticCore;
-	m_tokenWidget = 0;
 	m_game = 0;
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
@@ -52,11 +50,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	playerButtons->setMargin(0);
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	m_tokenButton = new KPushButton(SmallIcon("personal"), i18n("Select Token..."), this);
-	playerButtons->addWidget(m_tokenButton);
-
-	connect(m_tokenButton, SIGNAL(clicked()), this, SLOT(slotTokenButtonClicked()));
 
 	// Vertical spacer.
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
@@ -88,28 +81,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 void SelectConfiguration::initGame()
 {
 	emit statusMessage(i18n("Game started. Retrieving full game data..."));
-}
-
-void SelectConfiguration::slotTokenButtonClicked()
-{
-	if (m_tokenWidget)
-	{
-		m_tokenWidget->show();
-		return;
-	}
-
-	m_tokenWidget = new TokenWidget(0);
-	m_tokenWidget->show();
-
-	connect(m_tokenWidget, SIGNAL(iconSelected(const QString &)), this, SLOT(slotTokenSelected(const QString &)));
-}
-
-void SelectConfiguration::slotTokenSelected(const QString &name)
-{
-	emit iconSelected(name);
-	m_tokenWidget->close();
-//	m_tokenWidget->deleteLater(); // FIXME: crashes?
-	m_tokenWidget = 0;
 }
 
 void SelectConfiguration::addConfigOption(ConfigOption *configOption)
