@@ -26,6 +26,7 @@ Bugfixes
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
   - Trying to get out of jail before turn starts gives ERR (monopd / disable icons)
 - clicking estate on portfolio should update central widget
+- tradeitems in widget are still not changed when player name changes
 
 For 0.3.0
 ---------
@@ -35,8 +36,6 @@ For 0.3.0
 - kapp should own gui(kmainwindow), network and core and connect them
 v move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
-- different modes for *views: Play and Edit, for example EstateView should
-  have a RMB canBeOwned option in Edit mode, but not in Play mode.
 - turn AtlantikConfig into real class instead of struct
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
 v support for <display>
