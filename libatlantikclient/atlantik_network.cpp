@@ -541,7 +541,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 						}
 					}
 					else if (type=="accepted" && trade)
-						emit msgTradeUpdateAccepted(trade);
+					{
+						m_atlanticCore->delTrade(trade);
+						trade = 0;
+					}
 					else if (type=="completed" && trade)
 						emit msgTradeUpdateCompleted(trade);
 					else if (type=="rejected")
@@ -550,7 +553,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (trade)
 							trade->reject(player);
 						if (player && player->isSelf())
+						{
 							m_atlanticCore->delTrade(trade);
+							trade = 0;
+						}
 					}
 					else
 					{
@@ -662,7 +668,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					}
 					else if (type=="completed")
+					{
 						m_atlanticCore->delAuction(auction);
+						auction = 0;
+					}
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore, but somehow dont create view until all properties are set

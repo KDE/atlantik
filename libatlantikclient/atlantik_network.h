@@ -114,13 +114,6 @@ signals:
 	void tradeUpdateActor(int tradeId, int playerId);
 
 	/**
-	 * The trade has been accepted by all players!
-	 *
-	 * @param trade Trade
-	 */
-	void msgTradeUpdateAccepted(Trade *trade);
-
-	/**
 	 * The trade has been completed. Emitted after all necessary estate and
 	 * player updates are processed.
 	 *

@@ -28,15 +28,12 @@ Bugfixes
 For 0.2.0
 ---------
 
-^ complete trades
- ^ widget (display)
-   - completing trade widget when trade is accepted
- ^ widget (edit)
-   - lmb context on tradeitems should update values of comboboxes/spinner
+- lmb context on tradeitems should update values of comboboxes/spinner
 
 For 0.2.1
 ---------
 
+- re-order comboboxes in trade widget
 - kapp should own gui(kmainwindow), network and core and connect them
 - move all but mainwindow to libatlantikui
   (ui -> core -> net -> core -> ui)
@@ -86,7 +83,7 @@ For 0.3.0
 - Fix token movement bugs:
   - does jumpToken (activated by monopd timeout) cancel animation?
   - animation speed should depend on board size and movement distance
-  V disable roll/buy toolbar buttons depending on game status
+  v disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
       - monopd requires diffed command availability
 
