@@ -89,7 +89,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_endTurn->setEnabled(false);
 	m_jailCard = new KAction(i18n("Use card to leave jail"), "altantik_move_jail_card", 0, m_atlantikNetwork, SLOT(jailCard()), actionCollection(), "move_jailcard");
 	m_jailCard->setEnabled(false);
-	m_jailPay = new KAction(i18n("&Pay to leave jail"), "altantik_move_jail_pay", CTRL+Key_P, m_atlantikNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
+	m_jailPay = new KAction(i18n("&Pay to leave jail"), "jail_pay", CTRL+Key_P, m_atlantikNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
 	m_jailPay->setEnabled(false);
 	m_jailRoll = new KAction(i18n("&Roll to leave jail"), "altantik_move_jail_roll", CTRL+Key_R, m_atlantikNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
 	m_jailRoll->setEnabled(false);

@@ -18,5 +18,6 @@
     <Action name="move_roll"/>
     <Action name="buy_estate"/>
     <Action name="move_endturn"/>
+    <Action name="move_jailpay"/>
 </ToolBar>
 </kpartgui>

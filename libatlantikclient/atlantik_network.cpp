@@ -391,7 +391,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					// Update whether player is jailed
 					a = e.attributeNode(QString("jailed"));
 					if (player && !a.isNull())
-						player->setInJail(a.value());
+						player->setInJail(a.value().toInt());
 
 					// Update player location
 					a = e.attributeNode(QString("location"));
