@@ -19,7 +19,6 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qlabel.h>
 #include <qmap.h>
 
 #include "portfolioestate.h"
@@ -42,7 +41,8 @@ public:
 	Player *player();
 
 protected:
-//		void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *);
+	void resizeEvent(QResizeEvent *);
 	void mousePressEvent(QMouseEvent *);
 
 signals:
@@ -54,13 +54,15 @@ private slots:
 	void slotMenuAction(int item);
 
 private:
+	void loadIcon();
+
 	AtlanticCore *m_atlanticCore;
 	Player *m_player;
 	PortfolioEstate *m_lastPE;
 	QColor m_activeColor, m_inactiveColor;
-	QPixmap *qpixmap;
+	QPixmap *qpixmap, *m_image;
+	QString m_imageName;
 	bool b_recreate;
-	QLabel *m_nameLabel, *m_moneyLabel;
 	QMap<int, PortfolioEstate*> portfolioEstateMap;
 };
 

@@ -18,7 +18,8 @@
 #define ATLANTIK_TOKEN_H
 
 #include <qwidget.h>
-#include <qpixmap.h>
+
+class QPixmap;
 
 class Player;
 class Estate;
@@ -46,12 +47,15 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 
 private:
+		void loadIcon();
+
 		Player *m_player;
 		Estate *m_location, *m_destination;
 		bool m_inJail;
 		AtlantikBoard *m_parentBoard;
 		bool b_recreate;
-		QPixmap *qpixmap;
+		QPixmap *qpixmap, *m_image;
+		QString m_imageName;
 };
 
 #endif

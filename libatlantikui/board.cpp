@@ -43,6 +43,8 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_animateTokens = false;
 	m_lastServerDisplay = 0;
 
+	setMinimumSize(QSize(500, 500));
+
 	int sideLen = maxEstates/4;
 
 	// Animated token movement

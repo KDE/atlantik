@@ -114,7 +114,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_serverMsgs->setTextFormat(QTextEdit::PlainText);
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
-	m_serverMsgs->setFixedWidth(225);
+	m_serverMsgs->setMinimumWidth(200);
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
 	// LineEdit to enter commands and chat messages.
@@ -240,8 +240,14 @@ void Atlantik::showSelectGame()
 	m_selectGame->show();
 
 	// Reset core and GUI
-	m_atlanticCore->reset();
-	m_portfolioViews.clear();
+	if (m_board)
+	{
+		delete m_board;
+		m_board = 0;
+
+		m_portfolioViews.clear();
+		m_atlanticCore->reset();
+	}
 
 	if (m_selectServer)
 	{

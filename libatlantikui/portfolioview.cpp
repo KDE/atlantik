@@ -17,8 +17,13 @@
 #include <qpainter.h>
 #include <qcursor.h>
 
+#include <kdebug.h>
+#include <kdialogbase.h>
+#include <kiconeffect.h>
+#include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpopupmenu.h>
+#include <kstddirs.h>
 
 #include <atlantic_core.h>
 #include <config.h>
@@ -33,6 +38,7 @@
 #define PE_SPACE	2
 #define PE_MARGINW	5
 #define PE_MARGINH	2
+#define ICONSIZE	48
 
 PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -42,32 +48,15 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	m_inactiveColor = inactiveColor;
 	m_lastPE = 0;
 
-	b_recreate = true;
-	qpixmap = 0;
-
-	setFixedSize(QSize(225, 100));
 	setBackgroundColor(Qt::white);
-	
-	m_nameLabel = new QLabel(this);
-	m_nameLabel->setAlignment(Qt::AlignLeft);
-	m_nameLabel->setGeometry(5, 0, width()/2, height());
-	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_nameLabel->setMinimumSize(m_nameLabel->sizeHint());
-	m_nameLabel->setMaximumWidth(width()-10);
-	m_nameLabel->setMaximumHeight(15);
-	m_nameLabel->show();
 
-	m_moneyLabel = new QLabel(this);
-	m_moneyLabel->setAlignment(Qt::AlignRight);
-	m_moneyLabel->setGeometry(width()/2, 0, width()-5, height());
-	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_moneyLabel->setMinimumSize(m_moneyLabel->sizeHint());
-	m_moneyLabel->setMaximumWidth(width()/2);
-	m_moneyLabel->setMaximumHeight(15);
-	m_moneyLabel->show();
+	qpixmap = 0;
+	b_recreate = true;
 
-	// TODO: call buildPortfolio? Although, we should be able to assume no
-	// new estates or players are introduced after the game has been started
+	// Init icon
+	m_image = 0;
+	m_imageName = "hamburger";
+	loadIcon();
 }
 
 Player *PortfolioView::player()
@@ -81,6 +70,9 @@ void PortfolioView::buildPortfolio()
 	// Loop through estate groups in order
 	QPtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
 	PortfolioEstate *lastPE = 0, *firstPEprevGroup = 0;
+
+	int x = 100, y = 25, marginHint = 5, bottom;
+	bottom = ICONSIZE - PE_HEIGHT - marginHint;
 
 	EstateGroup *estateGroup;
 	for (QPtrListIterator<EstateGroup> it(estateGroups); *it; ++it)
@@ -102,22 +94,25 @@ void PortfolioView::buildPortfolio()
 					portfolioEstateMap[estate->id()] = portfolioEstate;
 
  					connect(portfolioEstate, SIGNAL(estateClicked(Estate *)), this, SIGNAL(estateClicked(Estate *)));
-					int x, y;
 					if (lastPE)
 					{
 						x = lastPE->x() + 2;
 						y = lastPE->y() + 4;
+						if (y > bottom)
+							bottom = y;
 					}
 					else if (firstPEprevGroup)
 					{
 						x = firstPEprevGroup->x() + PE_WIDTH + 8;
-						y = 18;
+						y = 20 + marginHint;
 						firstPEprevGroup = portfolioEstate;
 					}
 					else
 					{
-						x = 5;
-						y = 18;
+						x = ICONSIZE + marginHint;
+						y = 20 + marginHint;
+						if (y > bottom)
+							bottom = y;
 						firstPEprevGroup = portfolioEstate;
 					}
 
@@ -131,9 +126,43 @@ void PortfolioView::buildPortfolio()
 			}
 		}
 	}
+	setMinimumWidth(x + PE_WIDTH + marginHint);
+	setMinimumHeight(bottom + PE_HEIGHT + marginHint);
 }
 
-/*
+void PortfolioView::loadIcon()
+{
+	if (m_imageName == m_player->image())
+		return;
+	m_imageName = m_player->image();
+
+	delete m_image;
+	m_image = 0;
+
+	m_image = new QPixmap(locate("data", "atlantik/themes/default/tokens/hamburger.png"));
+
+	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+	if (KStandardDirs::exists(filename))
+		m_image = new QPixmap(filename);
+
+	if (!m_image)
+	{
+		m_imageName = "hamburger";
+
+		filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+		if (KStandardDirs::exists(filename))
+			m_image = new QPixmap(filename);
+	}
+
+	QWMatrix m;
+	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
+	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
+	*scaledPixmap = m_image->xForm(m);
+
+	delete m_image;
+	m_image = scaledPixmap;
+}
+
 void PortfolioView::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
@@ -144,21 +173,40 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
+		painter.setPen(Qt::white);
+		painter.setBrush(Qt::white);
+		painter.drawRect(rect());
+
+		painter.setPen(m_player->hasTurn() ? m_activeColor : Qt::black);
+		painter.setBrush(m_player->hasTurn() ? m_activeColor : Qt::black);
+		painter.drawRect(0, 0, width(), 20);
+		
+		if (m_image)
+		{
+			painter.setPen(Qt::black);
+			painter.setBrush(Qt::white);
+			painter.drawRect(0, 0, ICONSIZE, ICONSIZE);
+
+			painter.drawPixmap(0, 0, *m_image);
+		}
+
+		painter.setPen(Qt::white);
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
+		painter.drawText(ICONSIZE + KDialog::marginHint(), 15, m_player->name());
+
 		b_recreate = false;
 	}
 	bitBlt(this, 0, 0, qpixmap);
 }
-*/
+
+void PortfolioView::resizeEvent(QResizeEvent *)
+{
+	b_recreate = true;
+}
 
 void PortfolioView::playerChanged()
 {
-	m_nameLabel->setText(m_player->name());
-	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_nameLabel->update();
-
-	m_moneyLabel->setText(QString::number(m_player->money()));
-	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
-	m_moneyLabel->update();
+	loadIcon();
 
 	b_recreate = true;
 	update();

@@ -422,6 +422,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setName(a.value());
 
+					// Update player image/token
+					a = e.attributeNode(QString("image"));
+					if (player && !a.isNull())
+						player->setImage(a.value());
+
 					// Update player money
 					a = e.attributeNode(QString("money"));
 					if (player && !a.isNull())

@@ -17,6 +17,7 @@
 #include <iostream>
 
 #include <qpainter.h>
+#include <qpixmap.h>
 #include <qfont.h>
 
 #include <kdebug.h>
@@ -29,6 +30,8 @@
 #include "player.h"
 
 #include "token.moc"
+
+#define ICONSIZE	32
 
 Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
@@ -46,7 +49,12 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	qpixmap = 0;
 	b_recreate = true;
 
-	setFixedSize(QSize(26, 26));
+	// Init icon
+	m_image = 0;
+	m_imageName = "hamburger";
+	loadIcon();
+
+	setFixedSize(QSize(ICONSIZE, ICONSIZE + KGlobalSettings::generalFont().pointSize()));
 }
 
 Player *Token::player()
@@ -68,8 +76,44 @@ void Token::setDestination(Estate *estateView)
 
 void Token::playerChanged()
 {
+	loadIcon();
+
 	b_recreate = true;
 	update();
+}
+
+void Token::loadIcon()
+{
+	kdDebug() << "loadicon [" << m_imageName << "][" << m_player->image() << "]" << endl;
+
+	if (m_imageName != m_player->image())
+		m_imageName = m_player->image();
+	else
+		return;
+
+	delete m_image;
+	m_image = 0;
+
+	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+	if (KStandardDirs::exists(filename))
+		m_image = new QPixmap(filename);
+
+	if (!m_image)
+	{
+		m_imageName = "hamburger";
+
+		filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName + ".png");
+		if (KStandardDirs::exists(filename))
+			m_image = new QPixmap(filename);
+	}
+
+	QWMatrix m;
+	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
+	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
+	*scaledPixmap = m_image->xForm(m);
+
+	delete m_image;
+	m_image = scaledPixmap;
 }
 
 void Token::paintEvent(QPaintEvent *)
@@ -77,16 +121,27 @@ void Token::paintEvent(QPaintEvent *)
 	if (b_recreate)
 	{
 		delete qpixmap;
-		qpixmap = new QPixmap(locate("data", "atlantik/pics/token.png"));
+		qpixmap = new QPixmap(width(), height());
 
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
-		painter.drawPixmap(0, 0, *qpixmap);
+        if (m_image)
+		{
+			painter.setPen(Qt::black);
+			painter.setBrush(Qt::white);
+			painter.drawRect(0, 0, ICONSIZE, ICONSIZE);
+
+			painter.drawPixmap(0, 0, *m_image);
+		}
 
 		painter.setPen(Qt::black);
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
-		painter.drawText(2, height()-2, m_player->name());
+		painter.setBrush(Qt::black);
+		painter.drawRect(0, ICONSIZE, width(), KGlobalSettings::generalFont().pointSize());
+
+		painter.setPen(Qt::white);
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::DemiBold));
+		painter.drawText(1, height()-1, m_player->name());
 
 		b_recreate = false;
 	}
