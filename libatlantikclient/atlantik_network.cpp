@@ -192,9 +192,10 @@ void AtlantikNetwork::tradeAccept(Trade *trade)
 {
 	QString msg(".Ta");
 	msg.append(QString::number(trade ? trade->tradeId() : -1));
+	msg.append(":");
+	msg.append(QString::number(trade ? trade->revision() : -1));
 	writeData(msg);
 }
-
 
 void AtlantikNetwork::auctionBid(Auction *auction, int amount)
 {
@@ -679,6 +680,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(accept(Trade *)), this, SLOT(tradeAccept(Trade *)));
 						b_newTrade = true;
 					}
+
+					a = e.attributeNode(QString("revision"));
+					if (trade && !a.isNull())
+						trade->setRevision(a.value().toInt());
 
 					QString type = e.attributeNode(QString("type")).value();
 					if (type=="new")

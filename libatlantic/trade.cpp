@@ -22,7 +22,18 @@
 Trade::Trade(int tradeId)
 {
 	m_tradeId = tradeId;
+	m_revision = 0;
 	m_changed = m_rejected = false;
+}
+
+void Trade::setRevision(int revision)
+{
+	m_revision = revision;
+}
+
+int Trade::revision()
+{
+	return m_revision;
 }
 
 void Trade::addPlayer(Player *player)
