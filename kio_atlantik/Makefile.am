@@ -1,5 +1,4 @@
 INCLUDES = $(all_includes)
-LDFLAGS = $(all_libraries) $(KDE_RPATH)
 METASOURCES = AUTO
 
 kde_module_LTLIBRARIES = kio_atlantik.la
