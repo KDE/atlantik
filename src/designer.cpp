@@ -122,6 +122,8 @@ void AtlanticDesigner::initBoard()
 	editor = new EstateEdit(&chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
 	layout->addWidget(editor);
 
+	editor->setReady(false);
+
 	board->show();
 	editor->show();
 }

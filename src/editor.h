@@ -69,6 +69,7 @@ class EstateEdit : public QWidget
 	bool leftArrow();
 	bool rightArrow();
 	void aboutToDie();
+	void setReady(bool);
 	
 	public slots:
 	void setEstate(ConfigEstate *);
@@ -103,6 +104,8 @@ class EstateEdit : public QWidget
 	QColor bg;
 
 	EstateType oldType;
+
+	bool ready;
 };
 
 class ChooseWidget : public QWidget

@@ -12,6 +12,7 @@
 
 #include <kcombobox.h>
 #include <kdebug.h>
+#include <kdialog.h>
 #include <klineeditdlg.h>
 #include <kdialogbase.h>
 #include <kcolorbutton.h>
@@ -118,6 +119,7 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 
 	this->chanceStack = chanceStack;
 	this->ccStack = ccStack;
+	ready = false;
 
 	connect(this, SIGNAL(somethingChanged()), this, SLOT(saveEstate()));
 
@@ -176,21 +178,28 @@ void EstateEdit::aboutToDie()
 	confDlg = 0;
 }
 
+void EstateEdit::setReady(bool ready)
+{
+	this->ready = ready;
+}
+
 void EstateEdit::setEstate(ConfigEstate *estate)
 {
-	typeCombo->setCurrentItem(estate->type());
 	nameEdit->setText(estate->name());
+	typeCombo->setCurrentItem(estate->type());
 	if (estate->color().isValid())
 		fgButton->setColor(estate->color());
 	bgButton->setColor(estate->bgColor());
 	this->estate = estate;
+
+	ready = true;
 
 	saveEstate(true);
 }
 
 ConfigEstate *EstateEdit::saveEstate(bool superficial)
 {
-	if (!estate)
+	if (!estate || !ready)
 		return 0;
 
 	EstateType curType = (EstateType)typeCombo->currentItem();
@@ -406,7 +415,7 @@ CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(pare
 
 	choosies.setAutoDelete(true);
 
-	layout = new QVBoxLayout(this, 2);
+	layout = new QVBoxLayout(this, KDialog::spacingHint());
 	QHBoxLayout *hlayout = new QHBoxLayout(layout);
 
 	addButton = new KPushButton(i18n("&Add..."), this);
@@ -562,12 +571,13 @@ void CardView::selected(int i)
 StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
 	: QWidget(parent, name)
 {
-	QVBoxLayout *bigbox = new QVBoxLayout(this);
+	QVBoxLayout *bigbox = new QVBoxLayout(this, KDialog::spacingHint());
 
 	QVGroupBox *RentPage = new QVGroupBox(i18n("&Rent by # of houses"), this);
+	RentPage->setInsideSpacing(KDialog::spacingHint());
 	bigbox->addWidget(RentPage);
 	QWidget *topRent = new QWidget(RentPage);
-	QGridLayout *rentBox = new QGridLayout(topRent, 2, 7);
+	QGridLayout *rentBox = new QGridLayout(topRent, 2, 7, KDialog::spacingHint());
 	rentBox->addWidget(new QLabel(i18n("None"), topRent), 0, 0);
 	rentBox->addWidget(new QLabel(i18n("One"), topRent), 0, 1);
 	rentBox->setColStretch(1, 1);
@@ -593,7 +603,7 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
 	houses4->setSuffix(i18n("$"));
 	houses5->setSuffix(i18n("$"));
 
-	QGridLayout *pricesBox = new QGridLayout(bigbox, 2, 2);
+	QGridLayout *pricesBox = new QGridLayout(bigbox, 2, 2, KDialog::spacingHint());
 	pricesBox->addWidget(new QLabel(i18n("Price"), this), 0, 0);
 	pricesBox->addWidget(price = new QSpinBox(0, 3000, 25, this), 0, 1);
 	price->setSuffix(i18n("$"));
@@ -601,7 +611,7 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
 	pricesBox->addWidget(housePrice = new QSpinBox(0, 3000, 25, this), 1, 1);
 	housePrice->setSuffix(i18n("$"));
 
-	QHBoxLayout *groupLayout = new QHBoxLayout(bigbox, 6);
+	QHBoxLayout *groupLayout = new QHBoxLayout(bigbox, KDialog::spacingHint());
 	QLabel *groupLabel = new QLabel(i18n("Group"), this);
 	groupLayout->addWidget(groupLabel);
 	groupCombo = new KComboBox(false, this, "Group Combo");
