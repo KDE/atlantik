@@ -14,15 +14,7 @@ Please put your uncategorized wishlist items for monopd/KMonop here and I
 will add them to the respective TODO's. Leave your name and e-mail if you
 desire.
 
-<Neil> try scaling those icons along with the board, Workzilla
-<Neil> as-is they're way too small when maximized on 1152x864
-
-<malte> Capzilla|atwork: and maybe a visualization of whom something belongs to on the map or at least if it's yours
-
 <jasonkb> titlebar now: "Monopoly for KDE - KMonop" is kinda redundant and useless.. perhaps "JasonKB - KMonop" ..? 
-
-
-
 
 <this space left blank intentionally>
 
@@ -65,9 +57,7 @@ For 0.2.x
   - Tax (- 16, - 32, - 48, - 64)
   - Houses (- 16, - 32, - 48, - 64)
   - Hotels (- 16, - 32, - 48, - 64)
-- Port new game wizard away from KWizard again, our network validation code
-  makes using a pre-defined wizard a difficult task, it's easier to create
-  our own widget.
+  - code to load/scale appropriate icon
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
   - does jumpToken (activated by monop timeout) cancel animation?
@@ -79,6 +69,9 @@ For 0.2.x
 For 0.3.x
 ---------
 
+- Port new game wizard away from KWizard again, our network validation code
+  makes using a pre-defined wizard a difficult task, it's easier to create
+  our own widget.
 - Game configuration (when it appears in monopd)
 v Use i18n()
 - Fetch serverlist via Monopigator kind of interface.
@@ -96,6 +89,7 @@ v Use i18n()
   - portfolioestate.h
   - portfolioview.h
   - token.h
+- Visualization of owners on board itself
 
 For 0.9.x
 ---------
