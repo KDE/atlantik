@@ -4,6 +4,8 @@
 - bugfix: don't interrupt token movement when player leaves jail on doubles
 - bugfix: add m_atlanticCore checks in Board, fixes some Atlantik Designer
   crashes
+- bugfix: don't show players from other games in auction and trade widgets
+  on monopd 0.9.0 servers
 
 0.5.3
 -----
