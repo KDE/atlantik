@@ -346,11 +346,11 @@ void EstateView::slotMenuAction(int item)
 			break;
 
 		case 1:
-			cmd.setLatin1(".bh");
+			cmd.setLatin1(".hb");
 			break;
 
 		case 2:
-			cmd.setLatin1(".s");
+			cmd.setLatin1(".hs");
 			break;
 			
 		default:

@@ -32,11 +32,12 @@ Bugfixes
 For 0.2.x
 ---------
 
-t Support .gd game description.
+- Support .gd game description.
 - Support leaving jail.
   - GUI
   - Network
   - Different token placement when in jail?
+- Chance/CC cards in portfolio.
 - Icons on gameboard.
   - Utility
   - FP

@@ -3,6 +3,7 @@
 
 - Using KStdGameAction more and more (requires kdenonbeta version for roll
   action)
+- Updated to be compatible with recent monopd API changes
 
 2001-06-29 (cap)
 ----------
