@@ -30,9 +30,9 @@ class BoardDisplay : public QWidget
 Q_OBJECT
 
 public:
-	BoardDisplay(const QString caption, const QString body, QWidget *parent, const char *name=0);
+	BoardDisplay(const QString &caption, const QString &body, QWidget *parent, const char *name=0);
 
-	void addButton(const QString command, const QString caption, bool enabled);
+	void addButton(const QString &command, const QString &caption, bool enabled);
 
 private slots:
 	void buttonPressed();
@@ -42,8 +42,6 @@ signals:
 	void buttonCommand(QString);
 
 private:
-	QTextEdit *m_label;
-	QVBoxLayout *m_mainLayout;
 	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
 	QMap <QObject *, QString> m_buttonCommandMap;

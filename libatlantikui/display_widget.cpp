@@ -20,27 +20,26 @@
  
 #include "display_widget.moc"
 
-BoardDisplay::BoardDisplay(const QString caption, const QString body, QWidget *parent, const char *name) : QWidget(parent, name)
+BoardDisplay::BoardDisplay(const QString &caption, const QString &body, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
-	Q_CHECK_PTR(m_mainLayout);
+	QVBoxLayout *mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 
 	m_textGroupBox = new QVGroupBox(caption, this, "groupBox");
-	m_mainLayout->addWidget(m_textGroupBox); 
+	mainLayout->addWidget(m_textGroupBox); 
 
-	m_label = new QTextEdit(body, NULL, m_textGroupBox);
-	m_label->setReadOnly(true);
+	QTextEdit *label = new QTextEdit(body, NULL, m_textGroupBox);
+	label->setReadOnly(true);
 
 	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(m_buttonBox); 
+	mainLayout->addItem(m_buttonBox); 
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 }
 
-void BoardDisplay::addButton(QString command, QString caption, bool enabled)
+void BoardDisplay::addButton(const QString &command, const QString &caption, bool enabled)
 {
 	KPushButton *button = new KPushButton(caption, this);
-	m_buttonCommandMap[(QObject *)button] = command;
+	m_buttonCommandMap[button] = command;
 	m_buttonBox->addWidget(button);
 
 	button->setEnabled(enabled);
@@ -51,7 +50,8 @@ void BoardDisplay::addButton(QString command, QString caption, bool enabled)
 
 void BoardDisplay::buttonPressed()
 {
-	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
+	QObject *o = QObject::sender();
+	emit buttonCommand(m_buttonCommandMap[o]);
 }
 
 void BoardDisplay::slotClicked()
