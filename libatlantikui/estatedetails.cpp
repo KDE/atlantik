@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,6 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 
 	m_buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	m_buttonBox->setMargin(0);
-	m_mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
