@@ -30,8 +30,8 @@ Q_OBJECT
 public:
 	Estate(int estateId);
 	int estateId() const { return m_estateId; }
-	void setName(const QString name);
-	QString name() const { return m_name; }
+	void setName(QString name);
+	QString name() const;
 	void setEstateGroup(EstateGroup *estateGroup);
 	EstateGroup *estateGroup() { return m_estateGroup; }
 	void setOwner(Player *player);
@@ -50,9 +50,9 @@ public:
 	bool isMortgaged() const { return m_isMortgaged; }
 	void setCanToggleMortgage(const bool canToggleMortgage);
 	bool canToggleMortgage() const { return m_canToggleMortgage; }
-	void setColor(const QColor color);
+	void setColor(QColor color);
 	QColor color() const { return m_color; }
-	void setBgColor(const QColor color);
+	void setBgColor(QColor color);
 	QColor bgColor() const { return m_bgColor; }
 	void setPrice(const unsigned int price) { m_price = price; }
 	unsigned int price() const { return m_price; }

@@ -70,7 +70,7 @@ void Estate::setHouses(unsigned int houses)
 		m_changed = true;
 }
 
-void Estate::setName(const QString name)
+void Estate::setName(QString name)
 {
 	if (m_name != name)
 	{
@@ -79,7 +79,12 @@ void Estate::setName(const QString name)
 	}
 }
 
-void Estate::setColor(const QColor color)
+QString Estate::name() const
+{
+	return m_name;
+}
+
+void Estate::setColor(QColor color)
 {
 	if (m_color != color)
 	{
@@ -88,7 +93,7 @@ void Estate::setColor(const QColor color)
 	}
 }
 
-void Estate::setBgColor(const QColor color)
+void Estate::setBgColor(QColor color)
 {
 	if (m_bgColor != color)
 	{
