@@ -265,7 +265,7 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 		else
 		{
 			// Kick player
-			rmbMenu->insertItem(i18n("Boot player %1 to lounge").arg(m_player->name()), 0);
+			rmbMenu->insertItem(i18n("Boot Player %1 to Lounge").arg(m_player->name()), 0);
 			rmbMenu->setItemEnabled( 0, m_atlanticCore->selfIsMaster() );
 		}
 
