@@ -53,6 +53,8 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	qpixmap = 0;
 	b_recreate = true;
 
+	setMinimumHeight(20);
+
 	// Init icon
 	m_image = 0;
 	m_imageName = "hamburger.png";
@@ -127,7 +129,9 @@ void PortfolioView::buildPortfolio()
 		}
 	}
 	setMinimumWidth(x + PE_WIDTH + marginHint);
-	setMinimumHeight(bottom + PE_HEIGHT + marginHint);
+	int minHeight = bottom + PE_HEIGHT + marginHint;
+	if (minHeight > minimumHeight())
+		setMinimumHeight(minHeight);
 }
 
 void PortfolioView::loadIcon()
@@ -148,12 +152,19 @@ void PortfolioView::loadIcon()
 
 	if (!m_image)
 	{
+		return;
+
+/*
 		m_imageName = "hamburger.png";
 
 		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 		if (KStandardDirs::exists(filename))
 			m_image = new QPixmap(filename);
+*/
 	}
+	else if (ICONSIZE > minimumHeight())
+		setMinimumHeight(ICONSIZE);
+
 
 	QWMatrix m;
 	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
