@@ -5,9 +5,15 @@ Comment[wa]=Atlantike
 
 [gainedturn]
 Name=Gained Turn
+Name[da]=Vundet tur
+Name[hu]=Nyert forduló
 Name[sv]=Du vann omgången
+Name[wa]=Djeu wangnî
 Comment=It is your turn now
+Comment[da]=Det er din tur nu
+Comment[hu]=Most Ön következik
 Comment[sv]=Det är din tur nu
+Comment[wa]=C' est a vos asteure
 [chat]
 Name=Chat
 Name[bg]=Чат
@@ -47,6 +53,7 @@ Comment[hu]=Egy új játékos csatlakozik a játékhoz
 Comment[pt_BR]=Um novo jogador entrou no jogo
 Comment[sv]=En ny spelare går med i spelet
 Comment[tr]=Yeni bir oyuncu oyuna girdi
+Comment[wa]=On novea djoweu s' a raloyî å djeu
 Comment[wen]=Nowy hrajer so přizamknje
 default_presentation=1
 
@@ -71,5 +78,6 @@ Comment[hu]=Új játék jön létre
 Comment[pt_BR]=Um novo jogo foi criado
 Comment[sv]=Ett nytt spel har skapats
 Comment[tr]=Yeni bir oyun başlatıldı
+Comment[wa]=On novea djeu a stî enondé
 Comment[wen]=Nowa hra je so stworiła
 default_presentation=1
