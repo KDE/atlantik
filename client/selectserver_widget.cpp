@@ -90,7 +90,7 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 void SelectServer::monopigatorFinished()
 {
 	// TODO : remove, this is temporarily until there is a good way to fork a server
-	QListViewItem *item = new QListViewItem(m_serverList, "localhost", 1234, "unknown");
+	QListViewItem *item = new QListViewItem(m_serverList, "localhost", QString::number(1234), "unknown");
 	item->setPixmap(0, BarIcon("atlantik", 16));
 	validateConnectButton();
 	status_label->setText(i18n("Retrieved server list."));
