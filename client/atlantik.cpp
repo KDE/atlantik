@@ -189,6 +189,7 @@ void Atlantik::newPlayer(Player *player)
 	}
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
+	connect(portfolioView, SIGNAL(estateClicked(Estate *)), m_board, SLOT(displayEstateDetails(Estate *)));
 
 	m_portfolioLayout->addWidget(portfolioView);
 	portfolioView->show();

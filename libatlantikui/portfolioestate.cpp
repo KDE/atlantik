@@ -86,3 +86,9 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 	}
 	bitBlt(this, 0, 0, &m_pixmap);
 }
+
+void PortfolioEstate::mousePressEvent(QMouseEvent *e) 
+{
+	if (e->button()==LeftButton)
+		emit estateClicked(m_estate);
+}

@@ -35,17 +35,21 @@ public:
 	Estate *estate() { return m_estate; }
 	static QPixmap drawPixmap(Estate *estate, Player *player = 0, bool alwaysOwned = true);
 
-	protected:
-		void paintEvent(QPaintEvent *);
-
-	private:
-		Estate *m_estate;
-		Player *m_player;
-		QPixmap m_pixmap;
-		bool b_recreate, m_alwaysOwned;
+protected:
+	void paintEvent(QPaintEvent *);
+	void mousePressEvent(QMouseEvent *);
 
 private slots:
 	void estateChanged();
+
+signals:
+	void estateClicked(Estate *estate);
+
+private:
+	Estate *m_estate;
+	Player *m_player;
+	QPixmap m_pixmap;
+	bool b_recreate, m_alwaysOwned;
 };
 
 #endif
