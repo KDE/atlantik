@@ -43,7 +43,7 @@ public:
 	int heightForWidth(int);
 	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
-	void addToken(Player *player);
+	void addToken(Player *player, EstateView *location = 0);
 	void indicateUnownedChanged();
 	QWidget *centerWidget() { return m_center; };
 	QPtrList<EstateView> estateViews();

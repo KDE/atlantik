@@ -27,21 +27,23 @@
 #include "board.h"
 #include "estateview.h"
 
-Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
+Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering
+
+	m_parentBoard = parent;
+	connect(this, SIGNAL(tokenConfirmation(Estate *)), m_parentBoard, SIGNAL(tokenConfirmation(Estate *)));
 
 	m_player = player;
 	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
-	m_parentBoard = parent;
-	connect(this, SIGNAL(tokenConfirmation(Estate *)), m_parentBoard, SIGNAL(tokenConfirmation(Estate *)));
+	setLocation(location, false);
+	m_destination = 0;
 
 	qpixmap = 0;
 	b_recreate = true;
 
 	setFixedSize(QSize(26, 26));
-	m_location = m_destination = 0;
 }
 
 Player *Token::player()
@@ -49,11 +51,11 @@ Player *Token::player()
 	return m_player;
 }
 
-void Token::setLocation(EstateView *estateView, bool confirm)
+void Token::setLocation(EstateView *location, bool confirm)
 {
-	if (m_location != estateView)
+	if (m_location != location)
 	{
-		m_location = estateView;
+		m_location = location;
 		updateGeometry();
 
 		if (confirm)

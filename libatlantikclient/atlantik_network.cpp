@@ -193,21 +193,16 @@ void AtlantikNetwork::writeData(QString msg)
 {
 	msg.append("\n");
 	if (socketStatus() == KExtendedSocket::connected)
-	{
-		kdDebug() << "out [" << msg << "]" << endl;
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
-	}
 	else
-		kdDebug() << "not [" << msg << "]" << endl;
+		kdDebug() << "could not send [" << msg << "]" << endl;
 }
 
 void AtlantikNetwork::slotRead()
 {
-	kdDebug() << "slotRead, " << bytesAvailable() << " bytes available" << endl;
 	char *tmp = new char[1024 * 32];
 	while(canReadLine())
 	{
-		kdDebug() << "canReadLine!" << endl;
 		readLine(tmp, 1024 * 32);
 		processMsg(tmp);
 	}
@@ -227,6 +222,8 @@ void AtlantikNetwork::processMsg(QString str)
 	if (e.tagName() != "monopd")
 	{
 		KMessageBox::detailedError(0, i18n("Atlantik received an invalid response from the monopd server you are connected to. This might cause unexpected behavior."), i18n("The following XML data does not conform to the monopd protocol:\n\n%1").arg(str), i18n("Invalid Response From Server"));
+		// Request full update from server
+		writeData(".f");
 		return;
 	}
 	QDomNode n = e.firstChild();
@@ -420,6 +417,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
 					{
+						m_playerLocationMap[player] = a.value().toInt();
+
 						Estate *estate = m_estates[a.value().toInt()];
 						bool directMove = false;
 
@@ -489,6 +488,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QObject::connect(estate, SIGNAL(newTrade(Player *)), this, SLOT(newTrade(Player *)));
 
 						b_newEstate = true;
+
+						// Players without estate should get one
+						Player *player = 0;
+						QPtrList<Player> playerList = m_atlanticCore->players();
+						for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+							if (m_playerLocationMap[player] == estate->estateId())
+								player->setLocation(estate);
 					}
 
 					a = e.attributeNode(QString("name"));
@@ -666,6 +672,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 										pTo = m_playerMap[a.value().toInt()];
 
 									a = e_child.attributeNode(QString("money"));
+									kdDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << endl;
 									if (trade && pFrom && pTo && !a.isNull())
 										trade->updateMoney(a.value().toInt(), pFrom, pTo);
 								}

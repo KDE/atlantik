@@ -177,11 +177,21 @@ QString TradeEstate::text() const
 	return mEstate->name();
 }
 
-TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to) : TradeItem(trade, from, to), mMoney(money)
+TradeMoney::TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to) : TradeItem(trade, from, to), m_money(money)
 {
+}
+
+void TradeMoney::setMoney(unsigned int money)
+{
+	if (m_money != money)
+	{
+		m_money = money;
+		cout << "TradeMoney::changed()" << endl;
+		emit changed(this);
+	}
 }
 
 QString TradeMoney::text() const
 {
-	return QString("$%1").arg(mMoney);
+	return QString("$%1").arg(m_money);
 }

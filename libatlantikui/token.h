@@ -30,7 +30,7 @@ class Token : public QWidget
 Q_OBJECT
 
 	public:
-		Token (Player *player, AtlantikBoard *parent, const char *name = 0);
+		Token (Player *player, EstateView *location, AtlantikBoard *parent, const char *name = 0);
 		Player *player();
 		void setLocation(EstateView *estateView, bool confirm = true);
 		EstateView *location() { return m_location; }

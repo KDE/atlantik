@@ -14,8 +14,6 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <kdebug.h>
-
 #include <kdialog.h>
 #include <klocale.h>
 #include <kpushbutton.h>
@@ -52,7 +50,6 @@ void BoardDisplay::addButton(QString command, QString caption)
 
 void BoardDisplay::buttonPressed()
 {
-	kdDebug() << "emiting button" << endl;
 	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
 }
 

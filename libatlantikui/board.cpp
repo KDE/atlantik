@@ -19,6 +19,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 
+#include <atlantic_core.h>
 #include <player.h>
 #include <estate.h>
 #include <auction.h>
@@ -107,8 +108,6 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 				break;
 		}
 	}
-
-	kdDebug() << "ending board ctor" << endl;
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
@@ -185,6 +184,12 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 		m_gridLayout->addWidget(estateView, estateId-3*sideLen, sideLen);
 
 	estateView->show();
+
+	Player *player = 0;
+	QPtrList<Player> playerList = m_atlanticCore->players();
+	for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+	 	if (player->location() == estate)
+			addToken(player);
 }
 
 void AtlantikBoard::addAuctionWidget(Auction *auction)
@@ -199,13 +204,24 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 	connect(auction, SIGNAL(completed()), this, SLOT(displayDefault()));
 }
 
-void AtlantikBoard::addToken(Player *player)
+void AtlantikBoard::addToken(Player *player, EstateView *estateView)
 {
-	kdDebug() << "AtlantikBoard::addToken" << endl;
+	EstateView *evTmp = 0;
+	if (!estateView)
+	{
+		for (QPtrListIterator<EstateView> it(m_estateViews); (evTmp = *it) ; ++it)
+			if (evTmp->estate() == player->location())
+			{
+				estateView = evTmp;
+				break;
+			}
+	}
 
-	Token *token = new Token(player, this, "token");
+	if (!estateView)
+		return;
+
+	Token *token = new Token(player, estateView, this, "token");
 	tokenMap[player] = token;
-
 	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
 
 	// Timer to reinit the gameboard _after_ event loop
@@ -363,12 +379,9 @@ void AtlantikBoard::slotResizeAftermath()
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-	Token *token;
-	for (QMap<Player *, Token *>::Iterator it=tokenMap.begin() ; it != tokenMap.end() ; ++it)
-	{
-		if ((token = *it))
-			token->updateGeometry();
-	}
+	Token *token = 0;
+	for (QMap<Player *, Token *>::Iterator it=tokenMap.begin() ; it != tokenMap.end() && (token = *it) ; ++it)
+		token->updateGeometry();
 
 	// Restart the timer that was stopped in resizeEvent
 	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())

@@ -317,7 +317,7 @@ void Atlantik::initGame()
 
 void Atlantik::gameStarted()
 {
-	PortfolioView *portfolioView;
+	PortfolioView *portfolioView = 0;
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			portfolioView->buildPortfolio();

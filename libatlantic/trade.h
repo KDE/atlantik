@@ -52,7 +52,6 @@ private slots:
 private:
 	Player *mFrom, *mTo;
 	Trade *mTrade;
-
 };
 
 class TradeEstate : public TradeItem
@@ -76,16 +75,21 @@ private:
 
 class TradeMoney : public TradeItem
 {
+Q_OBJECT
+
 public:
 	TradeMoney(unsigned int money, Trade *trade, Player *from, Player *to);
 
-	unsigned int money() const { return mMoney; }
-	void setMoney(unsigned int money) { mMoney = money; }
+	unsigned int money() const { return m_money; }
+	void setMoney(unsigned int money);
 	
 	virtual QString text() const;
 
+signals:
+	void changed(TradeItem *tradeItem);
+
 private:
-	unsigned int mMoney;
+	unsigned int m_money;
 };
 
 

@@ -11,22 +11,19 @@ monopd API changes
 Bugfixes
 --------
 
-- money updates from network don't make it to a gui update
+- player name change doesn't make it to trade money items
 - Update messages views after resize.
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
-- estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - bugs from Neil's trial report
   - Should display in console chance/community chest cards (reenable that optionally?)
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
   - Trying to get out of jail before turn starts gives ERR (monopd)
 - clicking estate on portfolio should update central widget
-- when a token is hidden because it has no associated estate, store a reminder to show it when
-  a suitable estate is initialised (iterate player, player->estateView == 0 && estateId ==
-  player->location)
 - update token geometry when player's jail status changed
+- find a good starting location for tokens
 
 For 0.3.1
 ---------
@@ -39,6 +36,7 @@ v move all but mainwindow to libatlantikui
 - is it necessary to keep AtlantikConfig at all? animateToken could be used in Board only, for example
 - Option to configure toolbars (at least be able to save size/text settings)
 - More descriptive window titles
+v money updates from network don't make it to a gui update
 
 For 0.4.0
 ---------
