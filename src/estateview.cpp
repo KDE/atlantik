@@ -336,9 +336,9 @@ void EstateView::slotMenuAction(int item)
 	{
 		case 0:
 			if (mortgaged())
-				cmd.setLatin1(".m");
-			else
 				cmd.setLatin1(".u");
+			else
+				cmd.setLatin1(".m");
 			break;
 
 		case 1:
