@@ -67,10 +67,6 @@ signals:
 	void removeGUI(Trade *trade);
 	void deleteTrade(Trade *trade);
 
-private slots:
-	void slotDeletePlayer(Player *player);
-	void slotDeleteTrade(Trade *trade);
-
 private:
 	Player *m_playerSelf;
 	QPtrList<Player> m_players;
