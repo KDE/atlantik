@@ -11,7 +11,7 @@
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
-	CHECK_PTR(m_mainLayout);
+	Q_CHECK_PTR(m_mainLayout);
 
 	QVGroupBox *groupBox;
 	groupBox = new QVGroupBox(i18n("Start or select a monopd game"), this, "groupBox");

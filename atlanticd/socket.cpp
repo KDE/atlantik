@@ -13,7 +13,7 @@ Socket::Socket(QObject *parent, const char *name) : QSocket(parent, name)
 void Socket::readData()
 {
 	while(canReadLine())
-		cout << "ignoredLine(" << readLine() << ")" << endl;
+		cout << "ignoredLine(" << readLine().latin1() << ")" << endl;
 
 	if (bytesAvailable() > (1024 * 32))
 		flush();

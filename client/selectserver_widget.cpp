@@ -10,7 +10,7 @@
 SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
-	CHECK_PTR(m_mainLayout);
+	Q_CHECK_PTR(m_mainLayout);
 
 	QVButtonGroup *bgroup;
 //	bgroup = new QVButtonGroup(i18n("Start or select a monopd server"), this, "bgroup");

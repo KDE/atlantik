@@ -27,7 +27,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
-	CHECK_PTR(m_mainLayout);
+	Q_CHECK_PTR(m_mainLayout);
 
 	// Player list
 	Estate *estate = auction->estate();

@@ -12,7 +12,7 @@
 SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
-	CHECK_PTR(m_mainLayout);
+	Q_CHECK_PTR(m_mainLayout);
 
 	// Player list.
 	m_playerGroupBox = new QVGroupBox(i18n("Player list"), this, "groupBox");
