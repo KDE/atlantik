@@ -109,8 +109,9 @@ void KMonop::slotWrite()
 
 void KMonop::slotNewGame()
 {
-	NewGameDialog dialog(0, "newgame", 1);
-	int result = dialog.exec();
+	int result;
+	NewGameWizard wizard(this, "newgame", 1);
+	result = wizard.exec();
 }
 
 void KMonop::slotCloseNewGameDlg()

@@ -1,6 +1,5 @@
 #include <qlayout.h>
 #include <qpainter.h>
-#include <iostream.h>
 
 #include "board.moc"
 #include "estateview.h"
@@ -10,7 +9,6 @@ kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
 
 KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	cout << "created kmonopboard" << endl;
 	setMinimumWidth(160);
 	setMinimumHeight(160);
 

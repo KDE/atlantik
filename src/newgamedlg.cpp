@@ -8,7 +8,77 @@
 
 #include "newgamedlg.moc"
 
-NewGameDialog::NewGameDialog(QWidget *parent, const char *name = 0, bool modal = true) : KDialog( parent, name, modal )
+NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
+{
+	select_server = new QWidget(this);
+	QVBoxLayout *qbox = new QVBoxLayout(select_server);
+	CHECK_PTR(qbox);
+	
+	list = new QListView(select_server);
+
+	QListViewItem *item;
+	item = new QListViewItem(list, "localhost", "1234", "0");
+//	item = new QListViewItem(list, "monopd.capsi.com", "1234", "0");
+
+	QString column;
+	column.setLatin1("Server", strlen("Server"));
+	list->addColumn(column);
+	column.setLatin1("Port", strlen("Port"));
+	list->addColumn(column);
+	column.setLatin1("Users", strlen("Users"));
+	list->addColumn(column);
+
+	qbox->addWidget(list);
+
+	// Belongs in select_server class
+	connect(list, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(slotListClick(QListViewItem *)));
+	connect(list, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClick(QListViewItem *)));
+	connect(list, SIGNAL(pressed(QListViewItem *)), this, SLOT(slotListClick(QListViewItem *)));
+
+	// Belongs here
+	connect(this, SIGNAL(selected(const QString &)), this, SLOT(slotInit(const QString &)));
+
+	addPage(select_server, QString("Select a game server to connect to:"));
+	setHelpEnabled(select_server, false);
+	setNextEnabled(select_server, false);
+
+	select_game = new SelectGame(this, "select_game");
+	addPage(select_game, QString("Select or create a game:"));
+	setHelpEnabled(select_game, false);
+}
+
+NewGameWizard::~NewGameWizard()
+{
+}
+
+void NewGameWizard::slotListClick(QListViewItem *item)
+{
+	if (list->selectedItem())
+		setNextEnabled(select_server, true);
+	else
+		setNextEnabled(select_server, false);
+}
+
+void NewGameWizard::slotInit(const QString &_name)
+{
+	cout << "page that should receive init: [" << _name << "]" << endl;
+	if (title(select_server) == _name)
+		cout << "that would be select_server" << endl;
+	if (title(select_game) == _name)
+		cout << "that would be select_game" << endl;
+}
+
+SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
+{
+	QVBoxLayout *layout = new QVBoxLayout(this);
+	CHECK_PTR(layout);
+	
+	QLabel *header_label = new QLabel(this);
+	header_label->setText("No network connection to server made yet.");
+	layout->addWidget(header_label);
+}
+
+NewGameDialog::NewGameDialog(QWidget *parent, const char *name, bool modal) : KDialog(parent, name, modal)
 {
 	QVBoxLayout *qbox = new QVBoxLayout(this, marginHint(), spacingHint());
 	CHECK_PTR(qbox);

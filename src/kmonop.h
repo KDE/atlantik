@@ -1,3 +1,6 @@
+#ifndef __KMONOP_KMONOP_H__
+#define __KMONOP_KMONOP_H__
+
 #include <ktmainwindow.h>
 #include <qtextview.h>
 #include <qsocket.h>
@@ -27,3 +30,5 @@ class KMonop : public KTMainWindow
 		QLineEdit *server;
 		QTextView *output;
 };
+
+#endif

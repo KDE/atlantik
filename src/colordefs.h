@@ -16,4 +16,5 @@ QColor kmonop_dgray(153, 153, 153);
 QColor kmonop_greenbg(204, 255, 204);
 
 QColor kmonop_greenhouse(0, 255, 0);
+
 #endif
