@@ -395,28 +395,6 @@ void Atlantik::slotMsgStartGame(QString msg)
 	serverMsgsAppend("START: " + msg);
 }
 
-void Atlantik::setTurn(Player *player)
-{
-#warning port to playerupdate
-/*
-	if (player && player->isSelf())
-	{
-		m_endTurn->setEnabled(true);
-		m_jailCard->setEnabled(true);
-		m_jailPay->setEnabled(true);
-		m_jailRoll->setEnabled(true);
-	}
-	else
-	{
-		m_endTurn->setEnabled(false);
-		m_jailCard->setEnabled(false);
-		m_jailRoll->setEnabled(false);
-		m_jailPay->setEnabled(false);
-	}
-	m_board->raiseToken(player->playerId());
-*/
-}
-
 void Atlantik::serverMsgsAppend(QString msg)
 {
 	// Use append, not setText(old+new) because that one doesn't wrap
@@ -434,4 +412,10 @@ void Atlantik::playerChanged()
 {
 	m_roll->setEnabled(m_playerSelf->canRoll());
 	m_buyEstate->setEnabled(m_playerSelf->canBuy());
+	m_endTurn->setEnabled(m_playerSelf->hasTurn() && !(m_playerSelf->canRoll() || m_playerSelf->canBuy()));
+
+	// Could be more finetuned, but monopd doesn't send can_usejailcard can_payjail can_jailroll yet
+	m_jailCard->setEnabled(m_playerSelf->inJail());
+	m_jailPay->setEnabled(m_playerSelf->inJail());
+	m_jailRoll->setEnabled(m_playerSelf->inJail());
 }

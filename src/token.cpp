@@ -47,6 +47,9 @@ void Token::setDestination(EstateView *estateView)
 
 void Token::playerChanged()
 {
+	if (m_player->hasTurn())
+		raise();
+
 	if (Estate *estate = m_player->location())
 	{
 		EstateView *estateView;

@@ -244,12 +244,6 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 	m_timer->start(15);
 }
 
-void AtlantikBoard::raiseToken(int tokenId)
-{
-	if (Token *token = tokenMap[tokenId])
-		token->raise();
-}
-
 void AtlantikBoard::indicateUnownedChanged()
 {
 	EstateView *estateView;

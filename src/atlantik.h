@@ -55,17 +55,6 @@ public:
 	 */
 	void serverMsgsAppend(QString msg);
 
-
-	/**
-	 * Updates various visualisation parts of the player at turn. If
-	 * playerId matches the stored playerId, toolbar buttons are
-	 * enabled, otherwise disabled. Raises the appropriate token on the
-	 * gameboard and visualises player at turn in the portfolioview.
-	 *
-	 * @param playerId Player identifier.
-	 */
-	void setTurn(Player *player);
-
 public slots:
 	/**
 	 * Start the designer.

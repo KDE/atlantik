@@ -23,7 +23,6 @@ public:
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
 	void addToken(Player *player);
-	void raiseToken(int);
 	void indicateUnownedChanged();
 	QWidget *centerWidget() { return m_center; };
 	QPtrList<EstateView> estateViews();
