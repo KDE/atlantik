@@ -16,6 +16,8 @@
 
 #include <iostream>
 
+#include <qtimer.h>
+
 #include <kdebug.h>
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -206,18 +208,23 @@ void AtlantikNetwork::writeData(QString msg)
 
 void AtlantikNetwork::slotRead()
 {
-	char *tmp = new char[1024 * 32];
-	while(canReadLine())
+	if (canReadLine())
 	{
+		char *tmp = new char[1024 * 32];
 		readLine(tmp, 1024 * 32);
 		processMsg(tmp);
-	}
-	delete[] tmp;
+		delete[] tmp;
 
-	// Maximum message size. Messages won't get bigger than 32k anyway, so
-	// if we didn't receive a newline by now, we probably won't anyway.
-	if (bytesAvailable() > (1024 * 32))
-		flush();
+		// There might be more data
+		QTimer::singleShot(0, this, SLOT(slotRead()));
+	}
+	else
+	{
+		// Maximum message size. Messages won't get bigger than 32k anyway, so
+		// if we didn't receive a newline by now, we probably won't anyway.
+		if (bytesAvailable() > (1024 * 32))
+			flush();
+	}
 }
 
 void AtlantikNetwork::processMsg(QString str)
