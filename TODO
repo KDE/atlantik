@@ -28,6 +28,7 @@ v support for KNotify events
 - cards in portfolio
 - support for trading cards
 - Support .gd game description.
+- support .es (sell estate), depends on game::allowestatesales
 
 For 0.7.0
 ---------
