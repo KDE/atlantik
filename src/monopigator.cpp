@@ -55,6 +55,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 				}
 				n = n.nextSibling();
 			}
+			emit finished();
 		}
 	}
 }

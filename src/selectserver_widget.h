@@ -32,6 +32,7 @@ public:
 
 	private slots:
 		void connectPressed();
+		void monopigatorFinished();
 
 	signals:
 		void serverConnect(const QString host, int port);

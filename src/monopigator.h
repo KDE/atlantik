@@ -18,6 +18,7 @@ public:
 signals:
 	void monopigatorClear();
 	void monopigatorAdd(QString host, QString port, QString version);
+	void finished();
 
 private slots:
 	void slotData(KIO::Job *, const QByteArray &);
