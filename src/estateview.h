@@ -28,6 +28,8 @@ Q_OBJECT
 		void resizeEvent(QResizeEvent *);
 
 	private:
+		void centerPortfolioEstate();
+
 		QPixmap *qpixmap, *icon;
 		bool b_recreate;
 		QColor color;		

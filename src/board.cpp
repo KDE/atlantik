@@ -22,7 +22,6 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 	connect(qtimer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	resume_timer = false;
 
-
 	QGridLayout *layout = new QGridLayout(this, 25, 25);
 
 	spacer = new QWidget(this);
@@ -97,9 +96,6 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 			layout->addMultiCellWidget(estate[i], 0, 2, 21, 23);
 		else
 			layout->addMultiCellWidget(estate[i], ((i-30)*2)+1, ((i-30)*2)+2, 21, 23);
-
-//		estate[i]->setMinimumWidth(w);
-//		estate[i]->setMinimumHeight(h);
 	}
 
 	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
@@ -110,10 +106,8 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 
 void KMonopBoard::jumpToken(Token *token, int to)
 {
-	int x=0, y=0;
-	
-	x = estate[to]->geometry().center().x() - (token->width()/2);
-	y = estate[to]->geometry().center().y() - (token->height()/2);
+	int x = estate[to]->geometry().center().x() - (token->width()/2);
+	int y = estate[to]->geometry().center().y() - (token->height()/2);
 
 	token->setLocation(to);
 	token->setGeometry(x, y, token->width(), token->height());
@@ -150,7 +144,10 @@ void KMonopBoard::slotMoveToken()
 
 	// Do we actually have a token to move?
 	if (move_token==0)
+	{
+		qtimer->stop();
 		return;
+	}
 
 	// Where are we?
 	curX = move_token->geometry().x();
@@ -163,8 +160,8 @@ void KMonopBoard::slotMoveToken()
 		dest = 0;
 	cout << "going from " << move_token->location() << " to " << dest << endl;
 
-	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
-	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
+	destX = (estate[dest]->width() - move_token->width()) / 2;
+	destY = (estate[dest]->height() - move_token->height()) / 2;
 	cout << "going to " << destX << "," << destY << endl;
 
 	if (curX == destX && curY == destY)
@@ -176,6 +173,7 @@ void KMonopBoard::slotMoveToken()
 		{
 			// We have arrived at our _final_ destination!
 			qtimer->stop();
+			move_token = 0;
 		}
 		return;
 	}
