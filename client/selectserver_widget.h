@@ -46,7 +46,7 @@ public:
 		void validateConnectButton();
 
 		void slotMonopigatorClear();
-		void slotMonopigatorAdd(QString host, QString port, QString version);
+		void slotMonopigatorAdd(QString host, QString port, QString version, int users);
 		void slotListClicked(QListViewItem *);
 
 	private slots:

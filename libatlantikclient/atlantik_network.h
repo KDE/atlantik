@@ -41,7 +41,7 @@ public:
 	void cmdChat(QString msg);
 
 private slots:
-	void roll();
+	void rollDice();
 	void endTurn();
 	void newGame(const QString &gameType);
 	void joinGame(int gameId);

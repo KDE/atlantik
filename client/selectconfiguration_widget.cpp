@@ -34,9 +34,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_playerGroupBox = new QVGroupBox(i18n("Player List"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox); 
 
-	// Game configuration.
-	m_groupBox = new QVGroupBox(i18n("Game Configuration"), this, "groupBox");
-	m_mainLayout->addWidget(m_groupBox); 
 
 	// List of  players
 	m_playerList = new KListView(m_playerGroupBox, "m_playerList");
@@ -47,9 +44,11 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	connect(m_playerList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
 
-	// Add new configuration option to list view
-//	QListViewItem *item = new QListViewItem(m_configurationList, i18n("Start a new configuration"), "");
-//	item->setPixmap(0, SmallIcon("filenew"));
+#if 0
+	// Game configuration.
+	m_groupBox = new QVGroupBox(i18n("Game Configuration"), this, "groupBox");
+	m_mainLayout->addWidget(m_groupBox); 
+#endif
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(buttonBox);

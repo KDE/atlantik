@@ -70,7 +70,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 				if(!e.isNull())
 				{
 					if (e.tagName() == "server")
-						emit monopigatorAdd(e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value(), e.attributeNode(QString("version")).value());
+						emit monopigatorAdd(e.attributeNode(QString("host")).value(), e.attributeNode(QString("port")).value(), e.attributeNode(QString("version")).value(), e.attributeNode(QString("users")).value().toInt());
 				}
 				n = n.nextSibling();
 			}

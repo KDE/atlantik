@@ -57,6 +57,7 @@ v fix portfolio
   v do some relayouting based on the estategroup order
 - multiplayer support (multiple local players)
 v decent copyright and license notice in code and headers
+v add usercount support within monopigator
 
 For 0.3.1
 ---------

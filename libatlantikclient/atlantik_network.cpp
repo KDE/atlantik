@@ -40,7 +40,7 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, co
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
-void AtlantikNetwork::roll()
+void AtlantikNetwork::rollDice()
 {	writeData(".r");
 }
 

@@ -33,7 +33,7 @@ public:
 
 signals:
 	void monopigatorClear();
-	void monopigatorAdd(QString host, QString port, QString version);
+	void monopigatorAdd(QString host, QString port, QString version, int users);
 	void finished();
 
 private slots:

@@ -48,6 +48,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	m_serverList->addColumn(QString(i18n("Host")));
 	m_serverList->addColumn(QString(i18n("Port")));
 	m_serverList->addColumn(QString(i18n("Version")));
+	m_serverList->addColumn(QString(i18n("Users")));
 //	m_mainLayout->addWidget(m_serverList);
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
@@ -80,7 +81,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	monopigator = new Monopigator();
 
 	connect(monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
-	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString, QString)));
+	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
 	connect(monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
 
 	// Until we have a good way to use start a local monopd server, disable this button
@@ -103,9 +104,9 @@ void SelectServer::slotMonopigatorClear()
 //	emit statusChanged();
 }
 
-void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
+void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
-	QListViewItem *item = new QListViewItem(m_serverList, host, port, version);
+	QListViewItem *item = new QListViewItem(m_serverList, host, port, version, (users == -1) ? i18n("unknown") : QString::number(users));
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 }
