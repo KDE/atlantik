@@ -55,7 +55,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start game"), this);
+	m_connectButton = new KPushButton(SmallIcon("forward"), i18n("Start Game"), this);
 	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
