@@ -40,6 +40,11 @@ AtlanticDaemon::AtlanticDaemon()
 	monopigatorRegister();
 }
 
+AtlanticDaemon::~AtlanticDaemon()
+{
+    delete m_monopigatorSocket;
+}
+
 void AtlanticDaemon::monopigatorRegister()
 {
 	m_monopigatorSocket->connectToHost("gator.monopd.net", 80);

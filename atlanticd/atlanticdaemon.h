@@ -31,7 +31,7 @@ Q_OBJECT
 
 public:
 	AtlanticDaemon();
-
+    ~AtlanticDaemon();
 private slots:
 	void monopigatorRegister();
 	void monopigatorConnected();
