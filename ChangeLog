@@ -1,3 +1,9 @@
+2001-12-19 (kaper)
+----------
+
+- Better toolbar disable/enable code (API changes in monopd)
+- Bugfixes for m_playerSelf
+
 2001-12-18 (kaper)
 ----------
 

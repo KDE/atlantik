@@ -47,6 +47,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
+	m_playerSelf = 0;
 
 	// Game core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
@@ -155,6 +156,11 @@ void Atlantik::addPlayer(Player *player)
 		if ((estate = dynamic_cast<Estate*>(*it)))
 			portfolioView->addEstateView(estate);
 
+	if (player->isSelf())
+	{
+		m_playerSelf = player;
+		connect(player, SIGNAL(changed()), this, SLOT(playerChanged()));
+	}
 	connect(player, SIGNAL(changed()), portfolioView, SLOT(playerChanged()));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_gameNetwork, SLOT(newTrade(Player *)));
 
@@ -362,8 +368,6 @@ void Atlantik::setTurn(Player *player)
 {
 	if (player && player->isSelf())
 	{
-		m_roll->setEnabled(true);
-		m_buyEstate->setEnabled(true);
 		m_endTurn->setEnabled(true);
 		m_jailCard->setEnabled(true);
 		m_jailPay->setEnabled(true);
@@ -371,8 +375,6 @@ void Atlantik::setTurn(Player *player)
 	}
 	else
 	{
-		m_roll->setEnabled(false);
-		m_buyEstate->setEnabled(false);
 		m_endTurn->setEnabled(false);
 		m_jailCard->setEnabled(false);
 		m_jailRoll->setEnabled(false);
@@ -392,4 +394,10 @@ void Atlantik::startDesigner()
 {
 	   AtlanticDesigner *designer = new AtlanticDesigner(this, "Designer");
 	   designer->show();
+}
+
+void Atlantik::playerChanged()
+{
+	m_roll->setEnabled(m_playerSelf->canRoll());
+	m_buyEstate->setEnabled(m_playerSelf->canBuy());
 }

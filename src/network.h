@@ -3,7 +3,6 @@
 
 #include <qsocket.h>
 #include <qdom.h>
-#include <qptrlist.h>
 #include <qmap.h>
 
 class AtlanticCore;
@@ -24,8 +23,6 @@ public:
 	void cmdTradeAccept(int tradeId);
 	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
-
-	Player *self();
 
 private slots:
 	void roll();
@@ -114,6 +111,8 @@ private:
 	AtlanticCore *m_atlanticCore;
 	Atlantik *m_mainWindow;
 	QDomDocument msg;
+
+	int m_clientId, m_playerId;
 
 	QMap<int, Player *> m_players;
 	QMap<int, Estate *> m_estates;

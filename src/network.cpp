@@ -14,18 +14,9 @@ GameNetwork::GameNetwork(AtlanticCore *atlanticCore, Atlantik *parent, const cha
 {
 	m_atlanticCore = atlanticCore;
 	m_mainWindow = parent;
-	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
-}
+	m_clientId = m_playerId = -1;
 
-Player *GameNetwork::self()
-{
-	QPtrList<Player> pl = m_atlanticCore->players();
-	for (QPtrListIterator<Player> i(pl); *i; ++i)
-	{
-		if ((*i)->isSelf())
-			return *i;
-	}
-	return 0;
+	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
 void GameNetwork::roll()
@@ -275,7 +266,15 @@ void GameNetwork::processNode(QDomNode n)
 							emit playerListEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
 						{
-							kdDebug() << "emit GameNetwork::playerListAdd" << endl;
+							int playerId = -1;
+							a = e_player.attributeNode(QString("playerid"));
+							if (!a.isNull())
+								playerId = a.value().toInt();
+
+							a = e_player.attributeNode(QString("clientid"));
+							if (!a.isNull() && a.value().toInt() == m_clientId)
+								m_playerId = playerId;
+							
 							emit playerListAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						}
 					}
@@ -285,10 +284,9 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "client")
 			{
-				a = e.attributeNode(QString("playerid"));
-				Player *player;
-				if (!a.isNull() && (player = m_players[a.value().toInt()]))
-					player->setIsSelf(true);
+				a = e.attributeNode(QString("clientid"));
+				if (!a.isNull())
+					m_clientId = a.value().toInt();
 			}
 			else if (e.tagName() == "newturn")
 			{
@@ -345,6 +343,10 @@ void GameNetwork::processNode(QDomNode n)
 						newPlayer = true;
 					}
 
+					// Check if this is us
+					if (player && player->playerId() == m_playerId)
+						player->setIsSelf(true);
+
 					// Update player name
 					a = e.attributeNode(QString("name"));
 					if (player && !a.isNull())
@@ -354,6 +356,16 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("money"));
 					if (player && !a.isNull())
 						player->setMoney(a.value().toInt());
+
+					// Update whether player can roll
+					a = e.attributeNode(QString("can_roll"));
+					if (player && !a.isNull())
+						player->setCanRoll(a.value().toInt());
+
+					// Update whether player can buy
+					a = e.attributeNode(QString("can_buyestate"));
+					if (player && !a.isNull())
+						player->setCanBuy(a.value().toInt());
 
 					// Update whether player is jailed
 					a = e.attributeNode(QString("jailed"));

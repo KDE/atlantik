@@ -153,6 +153,7 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
+	void playerChanged();
 
 private:
 	QWidget *m_mainWidget, *m_portfolioWidget;
@@ -169,6 +170,8 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	GameNetwork *m_gameNetwork;
+
+	Player *m_playerSelf;
 
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;

@@ -7,7 +7,8 @@
 Player::Player(int playerId) : QObject()
 {
 	m_playerId = playerId;
-	m_changed = m_isSelf = m_hasTurn = false;
+	m_changed = m_isSelf = false;
+	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }
 
 void Player::setLocation(Estate *location)
@@ -24,6 +25,24 @@ void Player::setHasTurn(const bool hasTurn)
 	if (m_hasTurn != hasTurn)
 	{
 		m_hasTurn = hasTurn;
+		m_changed = true;
+	}
+}
+
+void Player::setCanRoll(bool canRoll)
+{
+	if (m_canRoll != canRoll)
+	{
+		m_canRoll = canRoll;
+		m_changed = true;
+	}
+}
+
+void Player::setCanBuy(bool canBuy)
+{
+	if (m_canBuy != canBuy)
+	{
+		m_canBuy = canBuy;
 		m_changed = true;
 	}
 }
