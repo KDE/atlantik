@@ -99,7 +99,7 @@ void PortfolioView::buildPortfolio()
 			Estate *estate;
 			for (QPtrListIterator<Estate> it(estates); *it; ++it)
 			{
-				if ((estate = *it) && estate->group() == estateGroup->name())
+				if ((estate = *it) && estate->estateGroup() == estateGroup)
 				{
 					// Create PE
 					PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");

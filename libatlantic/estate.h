@@ -20,6 +20,7 @@
 #include <qobject.h>
 #include <qcolor.h>
 
+class EstateGroup;
 class Player;
 
 class Estate : public QObject
@@ -31,8 +32,8 @@ public:
 	int estateId() const { return m_estateId; }
 	void setName(const QString name);
 	QString name() const { return m_name; }
-	void setGroup(const QString group);
-	QString group() const { return m_group; }
+	void setEstateGroup(EstateGroup *estateGroup);
+	EstateGroup *estateGroup() { return m_estateGroup; }
 	void setOwner(Player *player);
 	bool isOwned() const;
 	bool isOwnedBySelf() const;
@@ -68,8 +69,9 @@ protected:
 	int m_estateId;
 
 private:
-	QString m_name, m_group;
+	QString m_name;
 	Player *m_owner;
+	EstateGroup *m_estateGroup;
 	unsigned int m_houses;
 	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
 	QColor m_bgColor, m_color;

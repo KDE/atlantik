@@ -7,7 +7,6 @@ monopd API change
 ------------------
 
 - playerupdate's jailcard stuff is now outofjailcards=<int>
-- Estate::m_group should be EstateGroup *, not QString
 
 Bugfixes
 --------

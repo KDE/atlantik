@@ -30,10 +30,10 @@ Estate::Estate(int estateId) : QObject()
 	m_color = QColor();
 }
 
-void Estate::setGroup(const QString group)
+void Estate::setEstateGroup(EstateGroup *estateGroup)
 {
-	if (m_group != group)
-		m_group = group;
+	if (m_estateGroup != estateGroup)
+		m_estateGroup = estateGroup;
 }
 
 void Estate::setOwner(Player *player)
