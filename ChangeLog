@@ -8,6 +8,7 @@
   state (buggy, at least).
 - No longer using fixed geometry.
 - Dynamic (server guided) colour support for estates.
+- Board configuration settings update properly again.
 
 2001-11-05 (kaper)
 ----------

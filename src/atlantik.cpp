@@ -285,7 +285,13 @@ void Atlantik::slotUpdateConfig()
 	config->sync();
 
 	if (redrawEstates)
-		m_board->redrawEstates();
+	{
+		for(int estateId=0; estateId < estateMap.size() ; estateId++)
+		{
+			Estate *estate = estateMap[estateId];
+			estate->update(true);
+		}
+	}
 }
 
 void Atlantik::slotRoll()

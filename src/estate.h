@@ -27,7 +27,7 @@ public:
 	const QColor color() { return m_color; }
 	void setBgColor(const QColor color);
 	const QColor bgColor() { return m_bgColor; }
-	void update();
+	void update(bool force = false);
 
 signals:
 	void changed();

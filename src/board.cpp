@@ -199,16 +199,6 @@ void AtlantikBoard::indicateUnownedChanged()
 //			estate[i]->updatePE();
 }
 
-void AtlantikBoard::redrawEstates()
-{
-	int i=0;
-
-#warning port Board::redrawEstates
-//	for (i=0;i<40;i++)
-//		if (estate[i]!=0 && ( !(estate[i]->ownedByAny()) || estate[i]->mortgaged() ))
-//			estate[i]->redraw();
-}
-
 void AtlantikBoard::slotMoveToken()
 {
 	int dest;

@@ -21,7 +21,6 @@ Q_OBJECT
 		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();
-		void redrawEstates();
 
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);

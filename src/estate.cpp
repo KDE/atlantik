@@ -80,10 +80,10 @@ void Estate::setCanToggleMortgage(const bool canToggleMortgage)
 		m_canToggleMortgage = canToggleMortgage;
 }
 
-void Estate::update()
+void Estate::update(bool force = false)
 {
 	kdDebug() << "Estate::update()" << endl;
-	if (m_changed)
+	if (m_changed || force)
 	{
 		kdDebug() << "emit Estate::changed()" << endl;
 		emit changed();
