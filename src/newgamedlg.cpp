@@ -116,7 +116,8 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	QListViewItem *item;
 	item = new QListViewItem(list, "localhost", "1234", "In case you run monopd locally");
 	item = new QListViewItem(list, "monopd.capsi.com", "1234", "monopd 0.1.0, use with KMonop 0.1.0");
-	item = new QListViewItem(list, "monopd.capsi.com", "1235", "monopd CVS, use with KMonop from CVS");
+//	item = new QListViewItem(list, "monopd.capsi.com", "1235", "monopd 0.2.0, use with KMonop 0.2.0");
+	item = new QListViewItem(list, "monopd.capsi.com", "1236", "monopd CVS, use with KMonop from CVS");
 }
 
 bool SelectServer::validateNext()

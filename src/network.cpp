@@ -15,7 +15,7 @@ void GameNetwork::cmdRoll()
 }
 
 void GameNetwork::cmdBuyEstate()
-{	writeData(".be");
+{	writeData(".eb");
 }
 
 void GameNetwork::cmdGameStart()
@@ -23,7 +23,7 @@ void GameNetwork::cmdGameStart()
 }
 
 void GameNetwork::cmdEndTurn()
-{	writeData(".e");
+{	writeData(".E");
 }
 
 void GameNetwork::cmdName(QString name)

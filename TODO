@@ -26,7 +26,7 @@ Bugfixes
   too small.
 - double occurance of titleWidth/Height in EstateView
 
-For 0.2.x
+For 0.2.0
 ---------
 
 - gameNetwork API
@@ -40,12 +40,17 @@ For 0.2.x
     v trades
     - estateupdate::can_buyhouse
     - estateupdate::can_sellhouse
-- Support .gd game description.
-- Support updateplayerlist master, only update changed QStrings
 - Support leaving jail
   - GUI
   - Different token placement when in jail
 - Chance/CC cards in portfolio
+- support auctions
+
+For 0.2.1
+---------
+
+- Support .gd game description.
+- Support updateplayerlist master, only update changed QStrings
 - New (original) icons on gameboard
   - Chance (- 16, - 32, - 48, - 64)
   - Comm.Chest (- 16, - 32, - 48, - 64)
