@@ -33,8 +33,8 @@
 AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
 	estates.setAutoDelete(true);
-	//chanceStack.setAutoDelete(true);
-	//ccStack.setAutoDelete(true);
+	chanceStack.setAutoDelete(true);
+	ccStack.setAutoDelete(true);
 	
 	firstBoard = true;
 
