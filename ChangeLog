@@ -6,7 +6,8 @@
   crashes
 - bugfix: don't show players from other games in auction and trade widgets
   on monopd 0.9.0 servers
-- bugfix: removed possible crash when leaving game configuration widget (#66498)
+- bugfix: valgrind found two crash conditions when leaving game
+  configuration widget or auction widget (#66498)
 
 0.5.3
 -----
