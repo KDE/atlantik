@@ -1,4 +1,6 @@
 #include <kdebug.h>
+#include <klocale.h>
+#include <kmessagebox.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -217,7 +219,7 @@ void AtlantikNetwork::processMsg(QString str)
 	QDomElement e = msg.documentElement();
 	if (e.tagName() != "monopd")
 	{
-		kdDebug() << "invalid message: " << str << endl;
+		KMessageBox::detailedError(0, i18n("Atlantik received an invalid response from the monopd server you are connected to. This might cause unexpected behavior."), i18n("The following XML data does not conform to the monopd protocol:\n\n%1").arg(str), i18n("Invalid response from server"));
 		return;
 	}
 	QDomNode n = e.firstChild();
