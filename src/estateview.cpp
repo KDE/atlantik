@@ -11,7 +11,7 @@
 #include "estateview.h"
 #include "config.h"
 
-extern QColor kmonop_greenbg, kmonop_greenhouse;
+extern QColor kmonop_greenbg, kmonop_redhotel, kmonop_greenhouse;
 extern KMonopConfig kmonopConfig;
 
 EstateView::EstateView(int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
@@ -159,31 +159,83 @@ void EstateView::paintEvent(QPaintEvent *)
 //					painter.setPen(Qt::black);
 //					painter.setFont(QFont("helvetica", 10));
 //					painter.drawText(0, height()/4, width(), height()/2, (Qt::AlignHCenter | Qt::AlignTop), estatename, estatename.length());
-					if (m_houses>0)
+					if (m_houses > 0)
 					{
 						if (m_houses == 5)
 						{
 							// Hotel
+							painter.setBrush(kmonop_redhotel);
+							painter.drawRect(2, 2, (width()/2)-4, (height()/4)-4);
 						}
 						else
 						{
+							// Houses
 							painter.setBrush(kmonop_greenhouse);
-							int h = (height()/4)-4, w = (width()/4)-2;
+							int h = (height()/4)-4, w = (width()/4)-4;
 							for( int i=0 ; i< m_houses ; i++ )
-							{
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
-							}
 						}
 					}
 					break;
 				case South:
 					painter.drawRect(0, height()-(height()/4), width(), height()/4);
+					if (m_houses > 0)
+					{
+						if (m_houses == 5)
+						{
+							// Hotel
+							painter.setBrush(kmonop_redhotel);
+							painter.drawRect(2, (3*(height()/4))+2, (width()/2)-4, (height()/4)-4);
+						}
+						else
+						{
+							// Houses
+							painter.setBrush(kmonop_greenhouse);
+							int h = (height()/4)-4, w = (width()/4)-4;
+							for( int i=0 ; i< m_houses ; i++ )
+								painter.drawRect(2+(i*(w+2)), (3*(height()/4))+2, w, h);
+						}
+					}
 					break;
 				case West:
 					painter.drawRect(0, 0, width()/4, height());
+					if (m_houses > 0)
+					{
+						if (m_houses == 5)
+						{
+							// Hotel
+							painter.setBrush(kmonop_redhotel);
+							painter.drawRect(2, 2, (width()/4)-4, (height()/2)-4);
+						}
+						else
+						{
+							// Houses
+							painter.setBrush(kmonop_greenhouse);
+							int h = (height()/4)-4, w = (width()/4)-4;
+							for( int i=0 ; i< m_houses ; i++ )
+								painter.drawRect(2, 2+(i*(h+2)), w, h);
+						}
+					}
 					break;
 				case East:
 					painter.drawRect(width()-(width()/4), 0, width()/4, height());
+					if (m_houses > 0)
+					{
+						if (m_houses == 5)
+						{
+							// Hotel
+							painter.setBrush(kmonop_redhotel);
+							painter.drawRect((3*(width()/4))+2, 2, (width()/4)-4, (height()/2)-4);
+						}
+						else
+						{
+							// Houses
+							painter.setBrush(kmonop_greenhouse);
+							int h = (height()/4)-4, w = (width()/4)-4;
+							for( int i=0 ; i< m_houses ; i++ )
+								painter.drawRect((3*(width()/4))+2, 2+(i*(h+2)), w, h);
+						}
+					}
 					break;
 			}
 		}

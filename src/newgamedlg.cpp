@@ -14,11 +14,16 @@
 #include "config.h"
 
 extern KMonopConfig kmonopConfig;
- 
+
+QString serverHost;
+int serverPort, gameId;
+
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard(parent, name, modal, f)
 {
 	// Select server page
 	select_server = new SelectServer(this, "select_server");
+	serverHost = select_server->hostToConnect();
+	serverPort = select_server->portToConnect();
 
 	addPage(select_server, QString("Select a game server to connect to:"));
 	setHelpEnabled(select_server, false);
@@ -26,7 +31,8 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 
 	// Select game page
 	select_game = new SelectGame(this, "select_game");
-	select_game->setGameHost(select_server->hostToConnect());
+	gameId = select_game->gameToJoin();
+
 	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
 
 	addPage(select_game, QString("Select or create a game:"));
@@ -35,7 +41,6 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 
 	// Configure game page
 	configure_game = new ConfigureGame(this, "configure_game");
-	configure_game->setGameId(select_game->gameToJoin());
 
 	addPage(configure_game, QString("Game configuration and list of players"));
 	setHelpEnabled(configure_game, false);
@@ -56,16 +61,19 @@ void NewGameWizard::slotValidateNext()
 
 	if (select_server->validateNext())
 	{
+		serverHost = select_server->hostToConnect();
+		serverPort = select_server->portToConnect();
+
 		setNextEnabled(select_server, true);
-		select_game->setGameHost(select_server->hostToConnect());
 	}
 	else
 		setNextEnabled(select_server, false);
 
 	if (select_game->validateNext())
 	{
+		gameId = select_game->gameToJoin();
+
 		setNextEnabled(select_game, true);
-		configure_game->setGameId(select_game->gameToJoin());
 	}
 	else
 		setNextEnabled(select_game, false);
@@ -97,7 +105,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	list = new QListView(this);
 	list->addColumn(QString("Server"));
 	list->addColumn(QString("Port"));
-	list->addColumn(QString("Users"));
+	list->addColumn(QString("Description"));
 	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
@@ -105,8 +113,9 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	// Until Monopigator works, add some servers manually
 	QListViewItem *item;
-	item = new QListViewItem(list, "localhost", "1234", "0");
-	item = new QListViewItem(list, "monopd.capsi.com", "1234", "0");
+	item = new QListViewItem(list, "localhost", "1234", "In case you run monopd locally");
+	item = new QListViewItem(list, "monopd.capsi.com", "1234", "monopd 0.1.0, use with KMonop 0.1.0");
+	item = new QListViewItem(list, "monopd.capsi.com", "1235", "monopd CVS, use with KMonop from CVS");
 }
 
 bool SelectServer::validateNext()
@@ -122,7 +131,15 @@ QString SelectServer::hostToConnect() const
 	if (QListViewItem *item = list->selectedItem())
 		return item->text(0);
 	else
-		return QString("0");
+		return QString();
+}
+
+int SelectServer::portToConnect()
+{
+	if (QListViewItem *item = list->selectedItem())
+		return item->text(1).toInt();
+	else
+		return 0;
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -176,17 +193,12 @@ void SelectGame::initPage()
 
 	// TODO: Only connect when no connection is made yet, only fetch when
 	// connection is already made.
-	gameNetwork->connectToHost(gameHost, 1234);
+	gameNetwork->connectToHost(serverHost, serverPort);
 
 	// TODO: What if connection cannot be made?
 
 	// Fetch list of games
 	gameNetwork->writeData(".gl");
-}
-
-void SelectGame::setGameHost(const QString &_host)
-{
-	gameHost = _host;
 }
 
 void SelectGame::validateButtons()
@@ -214,14 +226,14 @@ bool SelectGame::validateNext()
 		return false;
 }
 
-QString SelectGame::gameToJoin() const
+int SelectGame::gameToJoin()
 {
 	if (bnew->isChecked())
-		return QString("0");
+		return 0;
 	else if (QListViewItem *item = list->selectedItem())
-		return item->text(0);
+		return item->text(0).toInt();
 	else
-		return QString("0");
+		return 0;
 }
 
 void SelectGame::slotConnectionError(int errno)
@@ -310,7 +322,7 @@ void SelectGame::slotInitPage()
 
 ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	game_id = QString("0");
+	gameId = 0;
 
 	connect(this, SIGNAL(statusChanged()), parent, SLOT(slotValidateNext()));
 	connect(gameNetwork, SIGNAL(playerlistUpdate(QString)), this, SLOT(slotPlayerlistUpdate(QString)));
@@ -390,7 +402,7 @@ void ConfigureGame::slotPlayerlistEndUpdate(QString type)
 
 void ConfigureGame::initPage()
 {
-	if (game_id == "0")
+	if (gameId == 0)
 	{
 		// Create a new game
 		gameNetwork->writeData(".gn");
@@ -398,16 +410,12 @@ void ConfigureGame::initPage()
 	else
 	{
 		// Join existing game
-		QString str(".gj");
-		str.append(game_id);
+		QString str(".gj"), id;
+		id.setNum(gameId);
+		str.append(id);
 		gameNetwork->writeData(str.latin1());
 	}
 	gameNetwork->writeData(".n" + kmonopConfig.playerName);
-}
-
-void ConfigureGame::setGameId(const QString &_id)
-{
-	game_id = _id;
 }
 
 bool ConfigureGame::validateNext()

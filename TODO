@@ -6,12 +6,12 @@ For 0.2.x
 - Support buying houses.
   V Network code.
   - Toolbar stuff.
-  - EstateView stuff.
+  V EstateView stuff.
 - Support mortgages.
   V Network code.
   - Toolbar stuff.
   - EstateView stuff.
-- Station(v)/utility/cc/chance(v) icons on gameboard
+- Station(V)/utility/cc/chance(V) icons on gameboard
 - Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
@@ -23,7 +23,7 @@ For 0.2.x
     monopd should be able to issue a "well then stop playing and just set the
     board as it should be)
   - animation speed should depend on board size and movement distance
-  v disable roll/buy toolbar buttons depending on game status
+  V disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
 
 For 0.3.x

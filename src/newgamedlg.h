@@ -19,6 +19,7 @@ Q_OBJECT
 		void initPage();
 		bool validateNext();
 		QString hostToConnect() const;
+		int portToConnect();
 
 //	public slots:
 //		void slotFetchedServerList(QDomNode);
@@ -38,10 +39,9 @@ Q_OBJECT
 	public:
 		SelectGame(QWidget *parent, const char *name=0);
 		void initPage();
-		void setGameHost(const QString &);
 		void validateButtons();
 		bool validateNext();
-		QString gameToJoin() const;
+		int gameToJoin();
 
 	public slots:
 		void slotConnectionError(int);
@@ -62,7 +62,6 @@ Q_OBJECT
 		QRadioButton *bnew, *bjoin;
 		QListView *list;
 		QLabel *status_label;
-		QString gameHost;
 };
 
 class ConfigureGame : public QWidget
@@ -72,7 +71,6 @@ Q_OBJECT
 	public:
 		ConfigureGame(QWidget *parent, const char *name=0);
 		void initPage();
-		void setGameId(const QString &);
 		bool validateNext();
 
 	public slots:
@@ -88,7 +86,6 @@ Q_OBJECT
 	private:
 		QListView *list;
 		QLabel *status_label;
-		QString game_id;
 };
 
 class NewGameWizard : public KWizard

@@ -1,9 +1,16 @@
-2001-06-21
+2001-06-24 (cap)
+----------
+
+- Server port no longer hardcoded, added extra default server (running
+  monopd CVS).
+- Game board visualization of houses and hotels!
+
+2001-06-21 (cap)
 ----------
 
 - Network code parses <estateupdate> attribs houses and mortgaged.
 
-2001-06-19
+2001-06-19 (cap)
 ----------
 
 - Added "end turn" button.
