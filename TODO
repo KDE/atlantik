@@ -21,7 +21,7 @@ Bugfixes
 - estates should check whether they need to init tokens upon estate init
 - Token should not have to know about EstateView, views could be independent
 - bugs from Neil's trial report
-  - No notification of when someone got sent to jail
+  v No notification of when someone got sent to jail
   - Should display in console chance/community chest cards (reenable that optionally?)
   - Kagato (income tax) doesn't charge me.. it's set to 10% or $200 (monopd)
   ? Hm, my turn came, I used get out of jail free, said I could roll, but only X was active (monopd)
