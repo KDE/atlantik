@@ -86,8 +86,10 @@ void SelectConfiguration::slotPlayerListEdit(QString playerId, QString name, QSt
 	{
 		if (item->text(0) == playerId)
 		{
-			item->setText(1, name);
-			item->setText(2, host);
+			if (!name.isEmpty())
+				item->setText(1, name);
+			if (!host.isEmpty())
+				item->setText(2, host);
 			m_playerList->triggerUpdate();
 			return;
 		}

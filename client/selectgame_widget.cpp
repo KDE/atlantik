@@ -93,9 +93,11 @@ void SelectGame::slotGameListEdit(QString gameId, QString name, QString descript
 	{
 		if (item->text(2) == gameId)
 		{
-			item->setText(1, description);
+			if (!description.isEmpty())
+				item->setText(1, description);
 			item->setText(3, players);
-			item->setText(4, gameType);
+			if (!gameType.isEmpty())
+				item->setText(4, gameType);
 			m_gameList->triggerUpdate();
 			return;
 		}
