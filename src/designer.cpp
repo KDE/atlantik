@@ -119,7 +119,7 @@ void AtlanticDesigner::initBoard()
 	board = new AtlantikBoard(this, "Board");
 	setCentralWidget(board);
 	layout = new QVBoxLayout(board->centerWidget());
-	editor = new EstateEdit(&chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
+	editor = new EstateEdit(&estates, &chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
 	layout->addWidget(editor);
 
 	editor->setReady(false);
@@ -389,8 +389,6 @@ void AtlanticDesigner::openFile(const QString &filename)
 					v *= -1;
 					key = "goback";
 				}
-				if (key == "advanceto")
-					v++;
 
 				kdDebug() << key << "=" << v << endl;
 				keys.append(key);
@@ -587,8 +585,6 @@ void AtlanticDesigner::save()
 					value *= -1;
 					key = "advance";
 				}
-				if (key == "advanceto")
-					value--;
 
 				if (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil")
 				{

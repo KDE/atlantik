@@ -47,6 +47,7 @@ class ConfigEstate : public Estate
 	int m_tax;
 	int m_taxPercentage;
 };
+typedef QPtrList<ConfigEstate> EstateList;
 
 struct Card
 {
@@ -62,7 +63,7 @@ class EstateEdit : public QWidget
 	Q_OBJECT
 
 	public:
-	EstateEdit(CardStack *, CardStack *, QWidget *parent = 0, const char *name = 0);
+	EstateEdit(EstateList *, CardStack *, CardStack *, QWidget *parent = 0, const char *name = 0);
 	ConfigEstate *theEstate() { return estate; }
 	bool upArrow();
 	bool downArrow();
@@ -92,6 +93,8 @@ class EstateEdit : public QWidget
 	QWidget *centerWidget;
 	QGridLayout *layout;
 
+	EstateList *estates;
+
 	ConfigEstate *estate;
 	CardStack *chanceStack;
 	CardStack *ccStack;
@@ -113,16 +116,24 @@ class ChooseWidget : public QWidget
 	Q_OBJECT
 	
 	public:
-	ChooseWidget(int id, Card *, QWidget *parent = 0, char *name = 0);
+	ChooseWidget(EstateList *, int id, Card *, QWidget *parent = 0, char *name = 0);
 
 	public slots:
-	void valueChanged(int);
 	void typeChanged(int);
+	void valueChanged(int);
+	void estateChanged(int);
 
 	private:
 	Card *card;
 	KComboBox *typeCombo;
 	QSpinBox *value;
+	KComboBox *estate;
+	bool number;
+	bool prevNumber;
+	bool init;
+	QHBoxLayout *hlayout;
+
+	EstateList *estates;
 
 	int id;
 };
@@ -132,7 +143,7 @@ class CardView : public QWidget
 	Q_OBJECT
 
 	public:
-	CardView(CardStack *, QWidget *parent = 0, char *name = 0);
+	CardView(EstateList *, CardStack *, QWidget *parent = 0, char *name = 0);
 
 	private slots:
 	void selected(int);
@@ -150,6 +161,8 @@ class CardView : public QWidget
 	KPushButton *delButton;
 	KPushButton *moreButton;
 	KPushButton *lessButton;
+
+	EstateList *estates;
 
 	QVBoxLayout *layout;
 

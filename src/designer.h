@@ -63,7 +63,7 @@ class AtlanticDesigner : public KMainWindow
 	QGuardedPtr<EstateEdit> editor;
 	QGuardedPtr<QVBoxLayout> layout;
 	QGuardedPtr<AtlantikBoard> board;
-	QPtrList<ConfigEstate> estates;
+	EstateList estates;
 	KListAction *estateAct;
 	KRecentFilesAction *recentAct;
 

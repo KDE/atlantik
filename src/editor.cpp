@@ -101,7 +101,7 @@ void ConfigEstate::setTaxPercentage(const int taxPercentage)
 
 QStringList types;
 
-EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *parent, const char *name) : QWidget(parent, name)
+EstateEdit::EstateEdit(EstateList *estates, CardStack *chanceStack, CardStack *ccStack, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	types.append("pay");
 	types.append("payeach");
@@ -119,6 +119,7 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 
 	this->chanceStack = chanceStack;
 	this->ccStack = ccStack;
+	this->estates = estates;
 	ready = false;
 
 	connect(this, SIGNAL(somethingChanged()), this, SLOT(saveEstate()));
@@ -261,12 +262,12 @@ void EstateEdit::configure()
 		connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<TaxDlg *>(confDlg), SLOT(slotUpdate(ConfigEstate *)));
 		break;
 	case Chance:
-		confDlg = new CardView(chanceStack, this);
+		confDlg = new CardView(estates, chanceStack, this);
 		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
 		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
 		break;
 	case CommunityChest:
-		confDlg = new CardView(ccStack, this);
+		confDlg = new CardView(estates, ccStack, this);
 		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
 		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
 		break;
@@ -340,15 +341,22 @@ void TaxDlg::slotUpdate(ConfigEstate *estate)
 
 /////////////////////////////////
 
-ChooseWidget::ChooseWidget(int id, Card *card, QWidget *parent, char *name)
+ChooseWidget::ChooseWidget(EstateList *estates, int id, Card *card, QWidget *parent, char *name)
 	: QWidget (parent, name)
 {
 	this->id = id;
 	this->card = card;
+	this->estates = estates;
+
+	value = 0;
+	estate = 0;
+	number = true;
+	prevNumber = true;
+	init = true;
 
 	value = 0;
 
-	QHBoxLayout *hlayout = new QHBoxLayout(this);
+	hlayout = new QHBoxLayout(this);
 	typeCombo = new KComboBox(this);
 	QStringList _types(i18n("Pay"));
 	_types.append(i18n("Pay each player"));
@@ -368,16 +376,23 @@ ChooseWidget::ChooseWidget(int id, Card *card, QWidget *parent, char *name)
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeChanged(int)));
 
 	hlayout->addStretch();
-
-	value = new QSpinBox(0, 1000, 1, this);
-	hlayout->addWidget(value);
-	connect(value, SIGNAL(valueChanged(int)), this, SLOT(valueChanged(int)));
 }
 
 void ChooseWidget::valueChanged(int i)
 {
+	if (!value)
+		return;
 	(*card->values.at(id)) = i;
 	value->setValue(i);
+}
+
+void ChooseWidget::estateChanged(int i)
+{
+	if (!estate)
+		return;
+	kdDebug() << "estateChanged, and changing\n";
+	(*card->values.at(id)) = i;
+	estate->setCurrentItem(i);
 }
 
 void ChooseWidget::typeChanged(int i)
@@ -386,6 +401,53 @@ void ChooseWidget::typeChanged(int i)
 
 	(*card->keys.at(id)) = key;
 	typeCombo->setCurrentItem(i);
+
+	number = key != "advanceto";
+
+	if (prevNumber == number && !init)
+		goto Skipped;
+
+	if (number)
+	{
+		kdDebug() << "initting number\n";
+		delete estate;
+		estate = 0;
+		kdDebug() << "estate deleted\n";
+
+		value = new QSpinBox(0, 1000, 1, this);
+		
+		kdDebug() << "adding widget\n";
+		hlayout->addWidget(value);
+		connect(value, SIGNAL(valueChanged(int)), this, SLOT(valueChanged(int)));
+
+		value->show();
+	}
+	else
+	{
+		kdDebug() << "deleting value\n";
+		delete value;
+		value = 0;
+		kdDebug() << "making combobox\n";
+		estate = new KComboBox(this);
+		ConfigEstate *curestate = 0;
+		QStringList estateStrings;
+		for (curestate = estates->first(); curestate; curestate = estates->next())
+			estateStrings.append(curestate->name());
+		estate->insertStringList(estateStrings);
+		connect(estate, SIGNAL(activated(int)), this, SLOT(estateChanged(int)));
+
+		kdDebug() << "adding estate\n";
+		hlayout->addWidget(estate);
+		estate->show();
+	}
+
+	prevNumber = number;
+
+Skipped:
+	init = false;
+
+	if (!number)
+		return;
 
 	bool boolean = (key == "jailcard" || key == "tojail" || key == "nextrr" || key == "nextutil");
 	if (boolean)
@@ -401,15 +463,6 @@ void ChooseWidget::typeChanged(int i)
 	// first for types are money, pay, payeach, collect, collecteach
 	if (i < 4 || key == "payhouse" || key == "payhotel")
 		suffix = "$";
-	else if (key == "advanceto")
-	{
-		prefix = i18n("Estate #");
-
-		//number = false;
-		//delete value;
-		//value = 0;
-		//estate = new KComboBox(this);
-	}
 	else if (key == "advance" || key == "goback")
 		suffix = i18n("Estate(s)").prepend(" ");
 
@@ -419,9 +472,10 @@ void ChooseWidget::typeChanged(int i)
 
 /////////////////////////////////
 
-CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(parent, name)
+CardView::CardView(EstateList *estates, CardStack *stack, QWidget *parent, char *name) : QWidget(parent, name)
 {
 	this->stack = stack;
+	this->estates = estates;
 
 	choosies.setAutoDelete(true);
 
@@ -473,8 +527,8 @@ void CardView::more()
 		return;
 
 	card->keys.append("pay");
-	card->values.append(1);
-	ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
+	card->values.append(0);
+	ChooseWidget *newChooseWidget = new ChooseWidget(estates, choosies.count(), card, this);
 	newChooseWidget->typeChanged(0);
 	newChooseWidget->valueChanged(0);
 
@@ -563,15 +617,16 @@ void CardView::selected(int i)
 	for (QStringList::Iterator it = card->keys.begin(); it != card->keys.end(); ++it)
 	{
 		kdDebug() << "creating a choser, id " << choosies.count() << endl;
-		ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
+		ChooseWidget *newChooseWidget = new ChooseWidget(estates, choosies.count(), card, this);
 
 		choosies.append(newChooseWidget);
 		layout->addWidget(newChooseWidget);
 
 		newChooseWidget->show();
 
-		choosies.last()->typeChanged(types.findIndex(*it));
-		choosies.last()->valueChanged(*vit);
+		newChooseWidget->typeChanged(types.findIndex(*it));
+		newChooseWidget->valueChanged(*vit);
+		newChooseWidget->estateChanged(*vit);
 
 		kdDebug() << "chooser made\n";
 
