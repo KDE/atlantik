@@ -269,7 +269,7 @@ void SelectGame::slotGamelistEdit(QString id, QString players)
 	{
 		if (item->text(0) == id)
 		{
-			item->setText(0, players);
+			item->setText(1, players);
 			list->triggerUpdate();
 			return;
 		}
