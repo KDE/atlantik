@@ -482,3 +482,4 @@ void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, con
 	px.fillRect( 22, 9, 3, 3, c2.light(120));
 	px.fillRect( 22, 13, 3, 3, c2.light(110) );
 }
+#include "estateview.moc"
