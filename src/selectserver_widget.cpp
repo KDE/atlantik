@@ -27,7 +27,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 //	connect(m_onlineGameButton, SIGNAL(stateChanged(int)), this, SLOT(validateConnectButton()));
 
 	// List of servers
-	m_serverList = new QListView(bgroup, "m_serverList");
+	m_serverList = new KListView(bgroup, "m_serverList");
 	m_serverList->addColumn(QString(i18n("Host")));
 	m_serverList->addColumn(QString(i18n("Port")));
 	m_serverList->addColumn(QString(i18n("Version")));

@@ -18,7 +18,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games
-	m_gameList = new QListView(groupBox, "m_gameList");
+	m_gameList = new KListView(groupBox, "m_gameList");
 	m_gameList->addColumn(QString(i18n("Description")));
 	m_gameList->addColumn(QString(i18n("Game type")));
 	m_gameList->addColumn(QString(i18n("Id")));

@@ -22,7 +22,7 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addWidget(m_groupBox); 
 
 	// List of  players
-	m_playerList = new QListView(m_playerGroupBox, "m_playerList");
+	m_playerList = new KListView(m_playerGroupBox, "m_playerList");
 	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
 	m_playerList->addColumn(QString(i18n("Host")));

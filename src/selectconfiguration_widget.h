@@ -4,9 +4,9 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
-#include <qlistview.h>
 #include <qlabel.h>
 
+#include <klistview.h>
 #include <kpushbutton.h>
 
 class SelectConfiguration : public QWidget
@@ -41,7 +41,7 @@ public:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
 		QVGroupBox *m_playerGroupBox, *m_groupBox, *m_messageBox;
-		QListView *m_playerList;
+		KListView *m_playerList;
 		KPushButton *m_connectButton;
 };
 

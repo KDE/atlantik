@@ -4,9 +4,10 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
-#include <qlistview.h>
 #include <qpushbutton.h>
 #include <qtextedit.h>
+
+#include <klistview.h>
 
 class AuctionWidget : public QWidget
 {

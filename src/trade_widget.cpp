@@ -20,7 +20,7 @@
 class PlayerListViewItem : public QListViewItem
 {
 public:
-	PlayerListViewItem(QListView *parent, Player *p, const QString &str)
+	PlayerListViewItem(KListView *parent, Player *p, const QString &str)
 		: QListViewItem(parent, str), mPlayer(p)
 	{}
 	
@@ -70,7 +70,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	mPlayerList->header()->hide();
 	mPlayerList->addColumn("nutin'!");
 	mPlayerList->setRootIsDecorated(true);
-	mPlayerList->setResizeMode(QListView::AllColumns);
+	mPlayerList->setResizeMode(KListView::AllColumns);
 	
 	
 	connect(trade, SIGNAL(playerAdded(Player *)),

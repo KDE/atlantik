@@ -4,9 +4,9 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
-#include <qlistview.h>
 #include <qlabel.h>
 
+#include <klistview.h>
 #include <kpushbutton.h>
 
 #include "monopigator.h"
@@ -45,7 +45,7 @@ public:
 		QVBoxLayout *m_mainLayout;
 		QLabel *status_label;
 		QRadioButton *m_localGameButton, *m_onlineGameButton;
-		QListView *m_serverList;
+		KListView *m_serverList;
 		KPushButton *m_refreshButton, *m_connectButton;
 		Monopigator *monopigator;
 };

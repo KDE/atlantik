@@ -4,7 +4,6 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
-#include <qlistview.h>
 #include <qpushbutton.h>
 #include <qtextedit.h>
 

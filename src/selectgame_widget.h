@@ -3,9 +3,9 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qlistview.h>
 #include <qlabel.h>
 
+#include <klistview.h>
 #include <kpushbutton.h>
 
 class SelectGame : public QWidget
@@ -41,7 +41,7 @@ private:
 
 	QVBoxLayout *m_mainLayout;
 	QLabel *status_label;
-	QListView *m_gameList;
+	KListView *m_gameList;
 	KPushButton *m_connectButton;
 };
 
