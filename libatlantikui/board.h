@@ -6,7 +6,6 @@
 #include <qlayout.h>
 #include <qptrlist.h>
 
-#include "config.h"
 #include "token.h"
 
 class AtlanticCore;
