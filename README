@@ -5,6 +5,7 @@ Contents
 2. Download
 3. Mailinglist
 4. Roadmap
+5. Copyrights and patents
 
 1. Introduction
 ---------------
@@ -19,11 +20,11 @@ KMonop can be downloaded from
 
 http://capsi.com/kmonop/
 
-and monopd snapshots can be downloaded from
+and monopd can be downloaded from
 
 http://capsi.com/~cap/monopd/
 
-However, the latest versions of both projects are are found in CVS.
+However, the latest versions of both projects are found in CVS.
 
 KMonop is located in the CVS repository of the KDE project in the module
 kdenonbeta. See
@@ -44,7 +45,7 @@ monopd and one running the latest CVS version.
 3. Mailinglist
 --------------
 
-There is a mailinglist available for discussion of kmonop development:
+There is a mailinglist available for discussion of KMonop development:
 
 To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
 To post, send e-mail to: kmonop-devel@lists.capsi.com
@@ -57,3 +58,20 @@ other monopd-compatible clients.
 
 The TODO file gives a nice approximation of desired functionality and
 priorities. It can be used as roadmap or checklist.
+
+5. Copyrights and patents
+-------------------------
+
+Many people have expressed their concerns about possible copyrights and
+patents applicable to Monopoly games and the possible implications for
+KMonop development.
+
+All possible coyrighted artwork in KMonop has been replaced by original
+artwork. Parker Brothers has no rights to this folk game other than their
+visual enhancements, as confirmed by the U.S. Supreme Court.
+<http://www.antimonopoly.com/graphics/evolution.gif>
+
+Furthermore, KMonop has little or no code which is aware of the game rules,
+streetnames or board layout. These aspects of the game are all collected in
+the monopd daemon and are only visualized by KMonop during gameplay - much
+like a webbrowser visualizes Internet content.
