@@ -7,6 +7,7 @@
 - memory management: reset complete core when going to select server page
 - store reconnection cookie
 - hide token when player goes bankrupt
+- prevent player from building/unmortgaging when in debt
 
 0.5.2
 -----

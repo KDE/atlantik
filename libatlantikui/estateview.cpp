@@ -400,14 +400,21 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 
 		if (m_estate->isOwnedBySelf())
 		{
+			Player *player = m_estate->owner();
+
 			// Mortgage toggle
 			if (m_estate->isMortgaged())
+			{
 				rmbMenu->insertItem(i18n("Unmortgage"), 0);
+				if (!m_estate->canToggleMortgage() || player->hasDebt())
+					rmbMenu->setItemEnabled(0, false);
+			}
 			else
+			{
 				rmbMenu->insertItem(i18n("Mortgage"), 0);
-
-			if (!(m_estate->canToggleMortgage()))
-				rmbMenu->setItemEnabled(0, false);
+				if (!m_estate->canToggleMortgage())
+					rmbMenu->setItemEnabled(0, false);
+			}
 
 			// Estate construction
 			if (m_estate->houses()>=4)
@@ -415,7 +422,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 			else
 				rmbMenu->insertItem(i18n("Build House"), 1);
 
-			if (!(m_estate->canBuyHouses()))
+			if (!m_estate->canBuyHouses() || player->hasDebt())
 				rmbMenu->setItemEnabled(1, false);
 
 			// Estate destruction
