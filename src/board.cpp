@@ -98,6 +98,7 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 			layout->addMultiCellWidget(estate[i], ((i-30)*2)+1, ((i-30)*2)+2, 21, 23);
 	}
 
+	connect(netw, SIGNAL(msgMoveToken(int, int)), this, SLOT(slotMsgMoveToken(int, int)));
 	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
 
 	for(i=0;i<MAXPLAYERS;i++)
@@ -168,6 +169,11 @@ void KMonopBoard::slotMoveToken()
 	{
 		// We have arrived at our destination!
 		move_token->setLocation(dest);
+		QString msg(".t"), loc;
+		loc.setNum(dest);
+		msg.append(loc);
+		cout << "msg is " << msg << endl;
+		netw->writeData(msg.latin1());
 
 		if (move_token->destination() == move_token->location())
 		{
@@ -242,6 +248,30 @@ void KMonopBoard::slotResizeAftermath()
 	}
 }
 
+void KMonopBoard::slotMsgMoveToken(int player, int location)
+{
+	// Adjust player because our array is 0-indexed.
+	player--;
+
+	// Maximum of six players, right? Check with monopd, possibly fetch
+	// number first and make portfolio overviews part of QHLayout to allow
+	// any theoretically number.
+
+	if (player >= 0 && player < MAXPLAYERS)
+	{
+		if(token[player]==0)
+		{
+			token[player] = new Token(QString("" + player), this, "token");
+			jumpToken(token[player], 0);
+			token[player]->show();
+		}
+
+		// Only move when location has changed
+		if (token[player]->location() != location)
+			moveToken(token[player], location);
+	}
+}
+
 void KMonopBoard::slotMsgPlayerUpdate(QDomNode n)
 {
 	QDomAttr a_id, a_location;
@@ -267,11 +297,6 @@ void KMonopBoard::slotMsgPlayerUpdate(QDomNode n)
 				jumpToken(token[id], 0);
 				token[id]->show();
 			}
-
-			a_location = e.attributeNode(QString("location"));
-			// Only move when location has changed
-			if (!a_location.isNull() && token[id]->location()!=a_location.value().toInt())
-				moveToken(token[id], a_location.value().toInt());
 		}
 	}
 }

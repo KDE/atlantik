@@ -19,6 +19,7 @@ Q_OBJECT
 		void raiseToken(int);
 
 	public slots:
+		void slotMsgMoveToken(int, int);
 		void slotMsgPlayerUpdate(QDomNode);
 		void slotMoveToken();
 		void slotResizeAftermath();

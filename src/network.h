@@ -29,6 +29,7 @@ Q_OBJECT
 		void addToPlayerList(QString, QString);
 		void msgPlayerUpdate(QDomNode);
 		void msgEstateUpdate(int, int);
+		void msgMoveToken(int, int);
 		void setPlayerId(int);
 		void setTurn(int);
 

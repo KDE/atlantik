@@ -1,3 +1,9 @@
+2001-06-01
+----------
+
+- Added parsing of <movetoken> command which is new in monopd
+- Sending .t# command to monopd which is now required during token movement
+
 2001-05-30
 ----------
 

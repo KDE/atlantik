@@ -116,6 +116,12 @@ void GameNetwork::processNode(QDomNode n)
 				int owner = e.attributeNode(QString("owner")).value().toInt();
 				emit msgEstateUpdate(id, owner);
 			}
+			else if (e.tagName() == "movetoken")
+			{
+				int player = e.attributeNode(QString("player")).value().toInt();
+				int location = e.attributeNode(QString("location")).value().toInt();
+				emit msgMoveToken(player, location);
+			}
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);
