@@ -108,7 +108,12 @@ void EstateView::setMortgaged(bool _m)
 
 void EstateView::setOwned(bool _o)
 {
-	m_owned = _o;
+	if (m_owned != _o)
+	{
+		m_owned = _m;
+		b_recreate = true;
+		update();
+	}
 	updatePE();
 }
 
