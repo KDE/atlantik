@@ -39,7 +39,7 @@ void GameNetwork::processMsg(QString str)
 
 void GameNetwork::processNode(QDomNode n)
 {
-//	QDomAttr a;
+	QDomAttr a;
 
 	while(!n.isNull())
 	{
@@ -48,9 +48,18 @@ void GameNetwork::processNode(QDomNode n)
 		if(!e.isNull())
 		{
 			cout << "node is element: " << e.tagName() << endl;
-//			a = e.attributeNode(QString("id"));
-//			if(!a.isNull())
-//				cout << "has id" << endl;
+			if (e.tagName() == "gamelist")
+			{
+				cout << "found gamelist ! " << endl;
+				emit fetchedGameList(e);
+			}
+			if (e.tagName() == "game")
+			{
+				cout << "found game     ! " << endl;
+			}
+			a = e.attributeNode(QString("id"));
+			if(!a.isNull())
+				cout << "node has attr  : (id) : " << a.value() << endl;
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);

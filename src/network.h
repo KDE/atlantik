@@ -14,6 +14,9 @@ Q_OBJECT
 	public slots:
 		void slotWrite(const char *);
 		void slotRead();
+		
+	signals:
+		void fetchedGameList(QDomNode);
 
 	private:
 		void processMsg(QString);

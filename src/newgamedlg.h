@@ -4,9 +4,13 @@
 #include <qlistview.h>
 #include <qpushbutton.h>
 #include <qstring.h>
+#include <qdom.h>
+#include <qradiobutton.h>
 
 #include <kwizard.h>
 #include <kdialogbase.h>
+
+#include "network.h"
 
 class SelectGame : public QWidget
 {
@@ -15,9 +19,24 @@ Q_OBJECT
 	public:
 		SelectGame(QWidget *parent, const char *name=0);
 		void initPage();
+		bool validateNext();
 
 	public slots:
 		void slotConnected();	
+		void slotFetchedGameList(QDomNode);
+
+	private:
+		QRadioButton *bnew, *bjoin;
+		QListView *list;
+		QLabel *status_label;
+		GameNetwork *netw;
+};
+
+
+class ConfigureGame : public QWidget
+{
+	public:
+		ConfigureGame(QWidget *parent, const char *name=0);
 
 	private:
 		QLabel *status_label;
@@ -32,13 +51,15 @@ Q_OBJECT
 		~NewGameWizard(void);
 
 	public slots:
-		void slotListClick(QListViewItem *);
+		void slotListClick();
+		void slotValidateNext();
 		void slotInit(const QString &);
 
 	private:
 		QListView *list;
 		QWidget *select_server;
 		SelectGame *select_game;
+		ConfigureGame *configure_game;
 };
 
 class Server
