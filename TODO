@@ -36,6 +36,10 @@ v API: using playerupdate for player list in SelectConfiguration
 - cards in portfolio
 - support for trading cards
 - Support .gd game description.
+
+For 0.7.0
+---------
+
 - invite button
   - kaddressbook hooks
   - e-mail invites
