@@ -1,5 +1,6 @@
 #include <qsocket.h>
-
+#ifndef SOCKET_H
+#define SOCKET_H
 class Socket : public QSocket
 {
 Q_OBJECT
@@ -10,4 +11,4 @@ public:
 private slots:
 	void readData();
 };
-
+#endif
