@@ -1,11 +1,7 @@
-For 0.1.0
----------
-
-- Station(v)/utility/cc/chance(v) icons on gameboard
-
 For 0.2.x
 ---------
 
+- Station(v)/utility/cc/chance(v) icons on gameboard
 - Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
