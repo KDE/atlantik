@@ -5,6 +5,7 @@
 - don't connect to meta server unless user has configured to do so
 - support for KNotify events
 - option to hide development servers (on by default)
+- gui to connect to custom server
 
 0.5.3
 -----

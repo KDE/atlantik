@@ -14,12 +14,14 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <qvbuttongroup.h>
+#include <qlayout.h>
 #include <qradiobutton.h>
+#include <qsizepolicy.h>
+#include <qvbuttongroup.h>
+#include <qhgroupbox.h>
 
 #include <kdialog.h>
 #include <kextendedsocket.h>
-#include <klineeditdlg.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -32,8 +34,25 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	QVButtonGroup *bgroup;
-	bgroup = new QVButtonGroup(i18n("Select monopd Server"), this, "bgroup");
+	// Custom server group
+	QHGroupBox *customGroup = new QHGroupBox(i18n("Enter custom monopd Server"), this, "customGroup");
+	m_mainLayout->addWidget(customGroup);
+
+	QLabel *hostLabel = new QLabel(i18n("Hostname"), customGroup);
+
+	m_hostEdit = new KLineEdit(customGroup);
+	m_hostEdit->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
+
+	QLabel *portLabel = new QLabel(i18n("Port"), customGroup);
+
+	m_portEdit = new KLineEdit(QString::number(1234), customGroup);
+	m_portEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));
+
+	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"), customGroup);
+	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
+
+	// Server list group
+	QVButtonGroup *bgroup = new QVButtonGroup(i18n("Select monopd Server"), this, "bgroup");
 	bgroup->setExclusive(true);
 	m_mainLayout->addWidget(bgroup);
 
@@ -54,14 +73,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	// Add Server
-	m_addServerButton = new KPushButton( KGuiItem(i18n("Add Server"), "bookmark_add"), this);
-	buttonBox->addWidget(m_addServerButton);
-
-	connect(m_addServerButton, SIGNAL(clicked()), this, SLOT(slotAddServer()));
-
 	// Server List / Refresh
-	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Refresh") : i18n("Server List"), useMonopigatorOnStart ? "reload" : "network"), this);
+	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Reload Server List") : i18n("Get Server List"), useMonopigatorOnStart ? "reload" : "network"), this);
 	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
@@ -73,7 +86,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
-    // Status indicator
+//	Status indicator
 	status_label = new QLabel(this);
 	m_mainLayout->addWidget(status_label);
 
@@ -105,7 +118,7 @@ void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
 	status_label->setText(i18n("Retrieving server list..."));
-	m_refreshButton->setGuiItem(KGuiItem(i18n("Refresh"), "reload"));
+	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
 	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
@@ -205,19 +218,14 @@ void SelectServer::slotRefresh(bool useMonopigator)
 	}
 }
 
-void SelectServer::slotAddServer()
-{
-	KLineEditDlg dlg(i18n("Host:"), "", 0);
-	dlg.setCaption(i18n("Add monopd Server"));
-	dlg.enableButtonOK(false); // text is empty by default
-	if (!dlg.exec())
-		return;
-
-	checkCustomServer(dlg.text(), 1234);
-}
-
 void SelectServer::slotConnect()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
 		emit serverConnect(item->text(0), item->text(3).toInt());
+}
+
+void SelectServer::customConnect()
+{
+	if (!m_hostEdit->text().isEmpty() && !m_portEdit->text().isEmpty())
+		emit serverConnect(m_hostEdit->text(), m_portEdit->text().toInt());
 }

@@ -22,6 +22,7 @@
 #include <qradiobutton.h>
 #include <qlabel.h>
 
+#include <klineedit.h>
 #include <klistview.h>
 #include <kpushbutton.h>
 
@@ -50,18 +51,17 @@ public:
 		void slotMonopigatorAdd(QString host, QString port, QString version, int users);
 		void slotListClicked(QListViewItem *);
 
-	private slots:
-		void slotConnect();
-		void slotRefresh(bool useMonopigator = true);
-		void slotAddServer();
-		void slotCustomConnected();
-		void slotCustomError();
-		void monopigatorFinished();
-		void monopigatorTimeout();
+private slots:
+	void slotConnect();
+	void customConnect();
+	void slotRefresh(bool useMonopigator = true);
+	void slotCustomConnected();
+	void slotCustomError();
+	void monopigatorFinished();
+	void monopigatorTimeout();
 
-	signals:
-		void serverConnect(const QString host, int port);
-//		void statusChanged();
+signals:
+	void serverConnect(const QString host, int port);
 
 private:
 	void checkCustomServer(const QString &host, int port);
@@ -71,7 +71,8 @@ private:
 	QLabel *status_label;
 	QRadioButton *m_localGameButton, *m_onlineGameButton;
 	KListView *m_serverList;
-	KPushButton *m_addServerButton, *m_refreshButton, *m_connectButton;
+	KLineEdit *m_hostEdit, *m_portEdit;
+	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
 	Monopigator *m_monopigator;
 	KExtendedSocket *m_localSocket;
 	bool m_localServerAvailable, m_hideDevelopmentServers;
