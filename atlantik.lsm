@@ -1,7 +1,7 @@
 Begin4
 Title:		Atlantik
-Version:	0.1.1
-Entered-date:	2001-12-09
+Version:	0.2.0
+Entered-date:	2002-03-05
 Description:	Atlantik is a KDE client for playing games out of the
 		Atlantic board game collection as offered by the Atlantic
 		server daemon.
@@ -10,8 +10,8 @@ Author:		Rob Kaper <cap@capsi.com>
 Maintained-by:	Rob Kaper <cap@capsi.com>
 		Atlantik developers <kmonop-devel@lists.capsi.com>
 Primary-site:	capsi.com/~cap/atlantik/
-		524kB atlantik-0.1.1.tar.gz
-		375kB atlantik-0.1.1.tar.bz2
+		511kB atlantik-0.2.0.tar.gz
+		362kB atlantik-0.2.0.tar.bz2
 Platforms:	Linux,UNIX,KDE,libkdegames
 Copying-policy:	GPL
 End
