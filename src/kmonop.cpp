@@ -235,9 +235,19 @@ void KMonop::slotMsgEstateUpdateOwner(int estateid, int playerid)
 {
 	if (estateid < 40 && playerid < MAXPLAYERS)
 	{
-		if (port[playerid]!=0)
-			port[playerid]->setOwned(estateid, true);
-		board->setOwned(estateid, true);
+		if (playerid == -1)
+		{
+			for(int i=0;i<MAXPLAYERS;i++)
+				if (port[i]!=0)
+					port[i]->setOwned(estateid, false);
+			board->setOwned(estateid, false);
+		}
+		else
+		{
+			if (port[playerid]!=0)
+				port[playerid]->setOwned(estateid, true);
+			board->setOwned(estateid, true);
+		}
 	}
 }
 
