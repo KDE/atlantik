@@ -228,7 +228,7 @@ void Atlantik::slotNetworkConnected()
 	kdDebug() << "Atlantik::slotNetworkConnected()" << endl;
 
 	// We're connected, so let's make ourselves known.
-	m_atlantikNetwork->cmdName(m_config.playerName);
+	m_atlantikNetwork->setName(m_config.playerName);
 
 	// Create select game widget and replace the select server widget.
 	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
@@ -241,8 +241,8 @@ void Atlantik::slotNetworkConnected()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString)));
+	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
 
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
@@ -339,7 +339,7 @@ void Atlantik::slotUpdateConfig()
 	if (m_config.playerName != optStr)
 	{
 		m_config.playerName = optStr;
-		m_atlantikNetwork->cmdName(optStr);
+		m_atlantikNetwork->setName(optStr);
 	}
 
 	optBool = m_configDialog->indicateUnowned();

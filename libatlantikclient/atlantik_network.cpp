@@ -63,8 +63,9 @@ void AtlantikNetwork::endTurn()
 {	writeData(".E");
 }
 
-void AtlantikNetwork::cmdName(QString name)
+void AtlantikNetwork::setName(QString name)
 {
+	// Almost deprecated, will be replaced by libmonopdprotocol
 	QString msg(".n");
 	msg.append(name);
 	writeData(msg);
@@ -275,9 +276,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 						if (type=="del")
 							emit gameListDel(e_game.attributeNode(QString("id")).value());
 						else if (type=="edit")
-							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("name")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value(), e_game.attributeNode(QString("gametype")).value());
 						else if (type=="add" || type=="full")
-							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("name")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value(), e_game.attributeNode(QString("gametype")).value());
 					}
 					n_game = n_game.nextSibling();
 				}

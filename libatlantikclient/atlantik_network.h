@@ -36,7 +36,7 @@ Q_OBJECT
 
 public:
 	AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent=0, const char *name=0);
-	void cmdName(QString name);
+	void setName(QString name);
 	void cmdGamesList();
 	void cmdChat(QString msg);
 
@@ -116,8 +116,8 @@ signals:
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);
-	void gameListAdd(QString gameId, QString gameType, QString description, QString players);
-	void gameListEdit(QString gameId, QString gameType, QString description, QString players);
+	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);
+	void gameListEdit(QString gameId, QString name, QString description, QString players, QString gameType);
 	void gameListDel(QString gameId);
 	void joinedGame();
 	void initGame();

@@ -35,8 +35,8 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 
 	// List of games
 	m_gameList = new KListView(groupBox, "m_gameList");
+	m_gameList->addColumn(QString(i18n("Game")));
 	m_gameList->addColumn(QString(i18n("Description")));
-	m_gameList->addColumn(QString(i18n("Game type")));
 	m_gameList->addColumn(QString(i18n("Id")));
 	m_gameList->addColumn(QString(i18n("Players")));
 //	m_mainLayout->addWidget(m_gameList);
@@ -70,24 +70,23 @@ void SelectGame::slotGameListClear()
 //	emit statusChanged();
 }
 
-void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString description, QString players)
+void SelectGame::slotGameListAdd(QString gameId, QString name, QString description, QString players, QString gameType)
 {
 	if (gameId == "-1")
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new %1 game").arg(description), gameType, "", "");
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new %1 game").arg(name), description, "", "", gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, description, gameType, gameId, players);
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Join %1 game #%2").arg(name).arg(gameId), description, gameId, players, gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 	}
 
 	validateConnectButton();
 }
 
-void SelectGame::slotGameListEdit(QString gameId, QString gameType, QString description, QString
- players)
+void SelectGame::slotGameListEdit(QString gameId, QString name, QString description, QString players, QString gameType)
 {
 	QListViewItem *item = m_gameList->firstChild();
 	while (item)
@@ -95,8 +94,8 @@ void SelectGame::slotGameListEdit(QString gameId, QString gameType, QString desc
 		if (item->text(2) == gameId)
 		{
 			item->setText(1, description);
-			item->setText(2, gameType);
 			item->setText(3, players);
+			item->setText(4, gameType);
 			m_gameList->triggerUpdate();
 			return;
 		}
@@ -137,6 +136,6 @@ void SelectGame::connectPressed()
 		if (int gameId = item->text(2).toInt())
 			emit joinGame(gameId);
 		else
-			emit newGame(item->text(1));
+			emit newGame(item->text(4));
 	}
 }

@@ -105,6 +105,7 @@ void PortfolioView::buildPortfolio()
 					PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 					portfolioEstateMap[estate->estateId()] = portfolioEstate;
 
+//					connect(portfolioEstate, SIGNAL(LMBClicked(Estate *)), board, SLOT(displayEstateDetails(Estate *)));
 					int x, y;
 					if (lastPE)
 					{
