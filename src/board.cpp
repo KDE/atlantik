@@ -108,8 +108,7 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 		label.setNum(i+1);
 		token[i] = new Token(label, this, "token");
 		jumpToken(token[i], 0);
-#warning do hide until startgame message / playerlist final parsing
-//		token[i]->hide();
+		token[i]->hide();
 	}
 }
 
@@ -262,6 +261,9 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 
 	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
 	{
+		if (token[playerid]->isHidden())
+			token[playerid]->show();
+
 		// Only take action when location has changed
 		if (token[playerid]->location() != location)
 		{

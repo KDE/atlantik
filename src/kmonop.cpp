@@ -70,8 +70,7 @@ KMonop::KMonop (const char *name) :
 	{
 		port[i] = new PortfolioView(main);
 		layout->addWidget(port[i], i, 0);
-#warning we should hide this, but playerupdate wont show it again and playerlist final isnt used for this yet
-//		port[i]->hide();
+		port[i]->hide();
 	}
 
 	setView(main);
@@ -155,8 +154,11 @@ void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
 
 	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
 	{
+		if (port[playerid]->isHidden())
+			port[playerid]->show();
+
 		QString label;
-		label.setNum(playerid);
+		label.setNum(playerid+1);
 		label.append(". " + name);
 		port[playerid]->setName(label);
 	}
@@ -167,7 +169,12 @@ void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 	playerid--;
 
 	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
+	{
+		if (port[playerid]->isHidden())
+			port[playerid]->show();
+
 		port[playerid]->setCash("$ " + money);
+	}
 }
 
 void KMonop::slotMsgEstateUpdate(int id, int owner)

@@ -1,14 +1,17 @@
 2001-06-05
 ----------
 
+- More PlayerUpdate* changes.
+
+2001-06-05
+----------
+
 - Added parsing of <msg type="chat"> message which is new in monopd.
   Chatting can thus be done through the console (lineedit field) now.
 - Some changes to configure dialog, none that influence behavior though.
 - Got tired of passing netw through all classes, it's pretty general anyway
   so I made it a general variable.
 - PlayerUpdate* changes (movetoken was removed from monopd API)
-- No longer using playerupdate to initialize portfolios and tokens (have yet
-  to create playerlist=final code for that, though)
 
 2001-06-01
 ----------
