@@ -45,7 +45,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	// Server buttons.
 	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	serverButtons->setMargin(0);
-	m_mainLayout->addItem(serverButtons);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
 	serverButtons->addWidget(m_backButton);
