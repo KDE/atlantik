@@ -44,13 +44,11 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	m_center = 0;
 	displayCenter();
 
-	int i=0, orientation=North;
-
 	QColor color;
 	QString icon;
 	bool canBeOwned;
 
-	for (i=0;i<40;i++)
+	for (int i=0;i<40;i++)
 	{
 		color = QColor();
 		icon = QString();
@@ -100,7 +98,6 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 
 void AtlantikBoard::addEstateView(Estate *estate)
 {
-	bool canBeOwned = false;
 	QString icon = QString();
 	int estateId = estate->estateId(), orientation = North;
 
@@ -196,7 +193,7 @@ void AtlantikBoard::raiseToken(int tokenId)
 
 void AtlantikBoard::indicateUnownedChanged()
 {
-	for (int estateId=0 ; estateId < estateViewMap.size() ; estateId++)
+	for (unsigned int estateId=0 ; estateId < estateViewMap.size() ; estateId++)
 		if (EstateView *estateView = estateViewMap[estateId])
 			estateView->updatePE();
 }
@@ -302,9 +299,9 @@ void AtlantikBoard::slotResizeAftermath()
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-	for (int i=0 ; i < tokenMap.size() ; i++)
+	for (unsigned int tokenId=0 ; tokenId < tokenMap.size() ; tokenId++)
 	{
-		if (Token *token = tokenMap[i])
+		if (Token *token = tokenMap[tokenId])
 			jumpToken(token, token->location(), false);
 	}
 

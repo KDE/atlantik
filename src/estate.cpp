@@ -105,7 +105,7 @@ void Estate::setCanToggleMortgage(const bool canToggleMortgage)
 		m_canToggleMortgage = canToggleMortgage;
 }
 
-void Estate::update(bool force = false)
+void Estate::update(bool force)
 {
 	if (m_changed || force)
 	{

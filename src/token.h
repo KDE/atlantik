@@ -16,7 +16,6 @@ Q_OBJECT
 		const int location() { return m_location; }
 		void setDestination(int destination) { m_destination = destination; }
 		const int destination() { return m_destination; }
-		void moveTo(int);
 
 	private slots:
 		void playerChanged();

@@ -305,7 +305,7 @@ void Atlantik::slotUpdateConfig()
 
 	if (redrawEstates)
 	{
-		for(int estateId=0; estateId < estateMap.size() ; estateId++)
+		for(unsigned int estateId=0; estateId < estateMap.size() ; estateId++)
 		{
 			Estate *estate = estateMap[estateId];
 			estate->update(true);
@@ -486,7 +486,7 @@ void Atlantik::slotSetTurn(int playerId)
 
 	for (QMap<int, Player *>::Iterator i=playerMap.begin() ; i != playerMap.end() ; ++i)
 	{
-		if (player = *i)
+		if ((player = *i))
 		{
 #warning port Atlantik::slotSetTurn
 //			player->setHasTurn(player->playerId()==playerId);
