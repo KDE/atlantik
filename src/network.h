@@ -44,9 +44,6 @@ private slots:
 	void jailRoll();
 	void newTrade(Player *player);
 	void tokenConfirmation(Estate *);
-
-#warning should not be public
-public:
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
 

@@ -246,8 +246,9 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 		GivingListViewItem *i=static_cast<GivingListViewItem*>(item);
 		QPopupMenu menu(this);
 		menu.insertItem(i18n("Trade &Money"), 0);
-		
-		QPtrList<Estate> estateList=trade()->network()->estates();
+
+#warning we cant be sure there is a network, wait for engine to be seperated from network
+		QPtrList<Estate> estateList; // =trade()->network()->estates();
 		QMap<int, Estate*> id;
 		QPopupMenu estates(this);
 		

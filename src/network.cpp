@@ -525,8 +525,12 @@ void GameNetwork::processNode(QDomNode n)
 					if (!(trade = getTrade(tradeId)))
 					{
 						// Create trade object and view
-						trade = new Trade(this, tradeId);
+						trade = new Trade(tradeId);
 						m_trades.append(trade);
+
+						connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
+#warning todo connect tradeupdatemoney
+//	void tradeUpdateMoney(Trade *trade, Player *pFrom, Player *pTo, unsigned int money);
 
 						TradeDisplay *tradeDisplay = new TradeDisplay(trade, 0, "tradeDisplay");
 						tradeDisplay->setFixedSize(200, 200);
