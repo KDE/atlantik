@@ -7,7 +7,7 @@
 
 BoardDisplay::BoardDisplay(const QString type, const QString description, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint());
+	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 	CHECK_PTR(m_mainLayout);
 
 	// Player list.

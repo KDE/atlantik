@@ -39,6 +39,7 @@ private slots:
 	void playerChanged();
 	void displayCenter();
 	void slotDisplayCard(QString, QString);
+	void displayEstateDetails(Estate *);
 
 signals:
 	void tokenConfirmation(Estate *estate);

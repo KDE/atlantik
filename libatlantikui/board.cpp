@@ -1,6 +1,7 @@
 #include <qpainter.h>
 
 #include <kdebug.h>
+#include <klocale.h>
 
 #include <player.h>
 #include <estate.h>
@@ -152,6 +153,7 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	connect(estateView, SIGNAL(estateHouseBuy(Estate *)), estate, SIGNAL(estateHouseBuy(Estate *)));
 	connect(estateView, SIGNAL(estateHouseSell(Estate *)), estate, SIGNAL(estateHouseSell(Estate *)));
 	connect(estateView, SIGNAL(newTrade(Player *)), estate, SIGNAL(newTrade(Player *)));
+	connect(estateView, SIGNAL(LMBClicked(Estate *)), this, SLOT(displayEstateDetails(Estate *)));
 
 	if (estateId<sideLen)
 		m_gridLayout->addWidget(estateView, sideLen, sideLen-estateId);
@@ -412,4 +414,19 @@ void AtlantikBoard::slotDisplayCard(QString type, QString description)
 	m_center->show();
 
 	QTimer::singleShot(3000, this, SLOT(displayCenter()));
+}
+
+void AtlantikBoard::displayEstateDetails(Estate *estate)
+{
+	if (!estate)
+		return;
+
+	// TODO: store m_center, it might be an auction or something else we'd like to restore
+	if (m_center != 0)
+		delete m_center;
+
+//	m_center = new EstateDetails(estate, this);
+	m_center = new BoardDisplay(estate->name(), i18n("Houses: %1\nOwner: %1\n").arg(estate->houses()).arg(estate->owner() ? estate->owner()->name() : i18n("unowned")), this);
+	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
+	m_center->show();
 }
