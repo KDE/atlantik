@@ -159,7 +159,7 @@ void KMonop::slotRoll()
 
 void KMonop::slotBuy()
 {
-	gameNetwork->writeData(".b");
+	gameNetwork->writeData(".be");
 }
 
 void KMonop::slotEndTurn()

@@ -1,12 +1,21 @@
 For 0.2.x
 ---------
 
+- Support .gd game description.
+- Support leaving jail.
+- Support buying houses.
+  V Network code.
+  - Toolbar stuff.
+  - EstateView stuff.
+- Support mortgages.
+  V Network code.
+  - Toolbar stuff.
+  - EstateView stuff.
 - Station(v)/utility/cc/chance(v) icons on gameboard
 - Game configuration (when it appears in monopd)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
-- Make things work. ;-)
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
   - monopd allows new commands before we're done moving, we require a "done"

@@ -38,6 +38,8 @@ Q_OBJECT
 		void msgPlayerUpdateLocation(int, int, bool);
 		void msgEstateUpdateName(int, QString);
 		void msgEstateUpdateOwner(int, int);
+		void msgEstateUpdateHouses(int, int);
+		void msgEstateUpdateMortgage(int, bool);
 
 		void setPlayerId(int);
 		void setTurn(int);

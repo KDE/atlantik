@@ -23,6 +23,8 @@ Q_OBJECT
 	public slots:
 		void slotMsgPlayerUpdateLocation(int, int, bool);
 		void slotMsgEstateUpdateName(int, QString);
+		void slotMsgEstateUpdateHouses(int, int);
+		void slotMsgEstateUpdateMortgage(int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
 

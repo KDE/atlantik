@@ -113,6 +113,8 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 
 	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
+	connect(gameNetwork, SIGNAL(msgEstateUpdateMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateMortgage(int, bool)));
 
 	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
@@ -302,7 +304,17 @@ void KMonopBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool d
 void KMonopBoard::slotMsgEstateUpdateName(int estateid, QString name)
 {
 	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
-	{
 		estate[estateid]->setName(name);
-	}
+}
+
+void KMonopBoard::slotMsgEstateUpdateHouses(int estateid, int houses)
+{
+	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
+		estate[estateid]->setHouses(houses);
+}
+
+void KMonopBoard::slotMsgEstateUpdateMortgage(int estateid, bool mortgaged)
+{
+	if (estateid>=0 && estateid < 40 && estate[estateid]!=0)
+		estate[estateid]->setMortgaged(mortgaged);
 }

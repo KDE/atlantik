@@ -174,6 +174,14 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("owner"));
 					if (!a.isNull())
 						emit msgEstateUpdateOwner(estateid, a.value().toInt());
+
+					a = e.attributeNode(QString("houses"));
+					if (!a.isNull())
+						emit msgEstateUpdateHouses(estateid, a.value().toInt());
+
+					a = e.attributeNode(QString("mortgaged"));
+					if (!a.isNull())
+						emit msgEstateUpdateMortgage(estateid, a.value().toInt());
 				}
 			}
 		}

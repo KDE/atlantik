@@ -18,6 +18,7 @@ Q_OBJECT
 		QPixmap *initIcon(QString);
 		void setName(const char *);
 		void setHouses(int);
+		void setMortgaged(bool);
 		void setOwned(bool);
 		void updatePE();
 
@@ -33,12 +34,11 @@ Q_OBJECT
 
 		QPixmap *qpixmap, *icon;
 		bool b_recreate;
-		bool _owned, _canBeOwned;
-		QColor _color;		
+		bool m_owned, m_canBeOwned, m_mortgaged;
+		int m_orientation, m_houses;
+		QColor m_color;
 		QLabel *lname;
 		QString estatename;
-		int _orientation;
-		int houses;
 		PortfolioEstate *pe;
 };
 

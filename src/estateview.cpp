@@ -16,9 +16,9 @@ extern KMonopConfig kmonopConfig;
 
 EstateView::EstateView(int orientation, bool canBeOwned, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
-	_orientation = orientation;
-	_canBeOwned = canBeOwned;
-	_color = color;
+	m_orientation = orientation;
+	m_canBeOwned = canBeOwned;
+	m_color = color;
 
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -52,7 +52,7 @@ QPixmap *EstateView::initIcon(QString name)
 	QPixmap *icon = new QPixmap(locate("data", "kmonop/pics/" + name));
 	QWMatrix m;
 
-	switch(_orientation)
+	switch(m_orientation)
 	{
 		case East:
 			m.rotate(90);
@@ -78,14 +78,24 @@ void EstateView::setName(const char *n)
 */
 }
 
-void EstateView::setHouses(int _houses)
+void EstateView::setHouses(int _h)
 {
-	houses = _houses;
+	if (m_houses != _h)
+	{
+		m_houses = _h;
+		b_recreate = true;
+		update();
+	}
 }
 
-void EstateView::setOwned(bool owned)
+void EstateView::setMortgaged(bool _m)
 {
-	_owned = owned;
+	m_mortgaged = _m;
+}
+
+void EstateView::setOwned(bool _o)
+{
+	m_owned = _o;
 	updatePE();
 }
 
@@ -93,20 +103,19 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured KMonop not to show them.
-	if (_owned || !_canBeOwned || kmonopConfig.indicateUnowned==false)
+	if (m_owned || !m_canBeOwned || kmonopConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
 	}
-//	else if (kmonopConfig.indicateUnowned==true)
-else
+	else
 	{
 		if (pe==0)
 		{
 			// Display a coloured portfolioestate in the center to indicate
 			// property is for sale
 			pe = new PortfolioEstate(this);
-			pe->setColor(_color);
+			pe->setColor(m_color);
 			pe->setOwned(true);
 			centerPortfolioEstate();
 			pe->show();
@@ -140,19 +149,19 @@ void EstateView::paintEvent(QPaintEvent *)
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
-		if (_color.isValid())
+		if (m_color.isValid())
 		{
-			painter.setBrush(_color);
-			switch(_orientation)
+			painter.setBrush(m_color);
+			switch(m_orientation)
 			{
 				case North:
 					painter.drawRect(0, 0, width(), height()/4);
 //					painter.setPen(Qt::black);
 //					painter.setFont(QFont("helvetica", 10));
 //					painter.drawText(0, height()/4, width(), height()/2, (Qt::AlignHCenter | Qt::AlignTop), estatename, estatename.length());
-					if (houses>0)
+					if (m_houses>0)
 					{
-						if (houses == 5)
+						if (m_houses == 5)
 						{
 							// Hotel
 						}
@@ -160,7 +169,7 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							painter.setBrush(kmonop_greenhouse);
 							int h = (height()/4)-4, w = (width()/4)-2;
-							for( int i=0 ; i<houses ; i++ )
+							for( int i=0 ; i< m_houses ; i++ )
 							{
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
 							}
