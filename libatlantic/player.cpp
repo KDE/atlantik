@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,7 @@
 Player::Player(int playerId) : QObject()
 {
 	m_id = playerId;
+	m_gameId = -1;
 	m_name = "";
 	m_host = "";
 	m_image = "";
@@ -28,6 +29,15 @@ Player::Player(int playerId) : QObject()
 	m_money = 0;
 	m_changed = m_isSelf = false;
 	m_master = m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
+}
+
+void Player::setGame(int gameId)
+{
+	if (m_gameId != gameId)
+	{
+		m_gameId = gameId;
+		m_changed = true;
+	}
 }
 
 void Player::setLocation(Estate *location)

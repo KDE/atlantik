@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,8 @@ public:
 	Player(int playerId);
 
 	int id() { return m_id; }
+	void setGame(int gameId);
+	int gameId() { return m_gameId; }
 	void setLocation(Estate *estate);
 	Estate *location() { return m_location; }
 	void setDestination(Estate *estate);
@@ -60,7 +62,7 @@ signals:
 	void changed(Player *player);
 
 private:
-	int m_id;
+	int m_id, m_gameId;
 	bool m_changed, m_isSelf;
 	bool m_master, m_hasTurn, m_canRoll, m_canBuy, m_inJail;
 	unsigned int m_money;
