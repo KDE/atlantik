@@ -164,7 +164,7 @@ void SelectServer::slotRefresh(bool useMonopigator)
 void SelectServer::slotConnect()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
-		emit serverConnect(item->text(0), item->text(3).toInt());
+		emit serverConnect(item->text(0), item->text(4).toInt());
 }
 
 void SelectServer::customConnect()
