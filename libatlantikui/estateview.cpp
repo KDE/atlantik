@@ -21,6 +21,7 @@
 #include <qcursor.h>
 
 #include <kdebug.h>
+#include <kdeversion.h>
 #include <kdialogbase.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
@@ -390,16 +391,21 @@ void EstateView::paintEvent(QPaintEvent *)
 			delete quartzBuffer;
 		}
 
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
-//		painter.drawText(0, height()/2-15, m_estate->name().section(" ", 0, 0));
-		if (m_estate->color().isValid() && m_orientation == West)
-			painter.drawText( width()/4 + 2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), 3*width()/4 ) );
-		else if (m_estate->color().isValid() && m_orientation == East)
-			painter.drawText(2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), 3*width()/4 ) );
+		QFont font = QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal );
+		painter.setFont(font);
+		QString estateName = m_estate->name();
+#if defined(KDE_MAKE_VERSION)
+#if KDE_VERSION >= KDE_MAKE_VERSION(3,2,0)
+                if ( m_estate->color().isValid() && ( m_orientation == West || m_orientation == East ) )
+			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), 3*width()/4 );
 		else
-			painter.drawText(2, height()/2, KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold ) ), width() ) );
-
-//		painter.drawText(0, height()/2+15, m_estate->name().section(" ", 2, 2));
+			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), width() );
+#endif
+#endif
+		if (m_estate->color().isValid() && m_orientation == West)
+                        painter.drawText( width()/4 + 2, height()/2, estateName );
+		else
+			painter.drawText(2, height()/2, estateName );
 
 		b_recreate = false;
 	}
