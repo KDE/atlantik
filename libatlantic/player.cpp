@@ -27,7 +27,7 @@ Player::Player(int playerId) : QObject()
 	m_name = "";
 	m_host = "";
 	m_changed = m_isSelf = false;
-	m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
+	m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_canAuction = m_inJail = false;
 }
 
 void Player::setGame(int gameId)
@@ -98,6 +98,15 @@ void Player::setCanBuy(bool canBuy)
 	if (m_canBuy != canBuy)
 	{
 		m_canBuy = canBuy;
+		m_changed = true;
+	}
+}
+
+void Player::setCanAuction(bool canAuction)
+{
+	if (m_canAuction != canAuction)
+	{
+		m_canAuction = canAuction;
 		m_changed = true;
 	}
 }

@@ -8,6 +8,7 @@
 - store reconnection cookie
 - hide token when player goes bankrupt
 - prevent player from building/unmortgaging when in debt
+- disable auction menu item when auctions are not available (requires monopd >= 0.8.1)
 
 0.5.2
 -----
