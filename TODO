@@ -28,9 +28,6 @@ Bugfixes
 For 0.2.0
 ---------
 
-- kapp should own gui(kmainwindow), network and core and connect them
-- move all but mainwindow to libatlantikui
-  (ui -> core -> net -> core -> ui)
 ^ complete trades
  ^ widget (display)
    - reseting accept on change (depends on monopd)
@@ -44,6 +41,9 @@ For 0.2.0
 For 0.2.1
 ---------
 
+- kapp should own gui(kmainwindow), network and core and connect them
+- move all but mainwindow to libatlantikui
+  (ui -> core -> net -> core -> ui)
 - different modes for *views: Play and Edit, for example EstateView should
   have a RMB canBeOwned option in Edit mode, but not in Play mode.
 - remove config global var
