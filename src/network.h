@@ -95,7 +95,7 @@ signals:
 	 * @param tradeId  Unique identifier of the trade
 	 * @param playerId Player participating in the trade
 	 */
-	void msgTradeUpdatePlayerAdd(int tradeId, int playerId);
+	void tradeUpdatePlayerAdd(int tradeId, int playerId);
 
 	/**
 	 * Information from server whether a player accepts the trade as is.

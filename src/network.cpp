@@ -405,7 +405,10 @@ void GameNetwork::processNode(QDomNode n)
 						{
 							QDomElement e_player = n_player.toElement();
 							if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
-								emit msgTradeUpdatePlayerAdd(tradeId, e_player.attributeNode(QString("playerid")).value().toInt());
+							{
+								kdDebug() << "emit tradeUpdatePlayerAdd" << endl;
+								emit tradeUpdatePlayerAdd(tradeId, e_player.attributeNode(QString("playerid")).value().toInt());
+							}
 							n_player = n_player.nextSibling();
 						}
 					}

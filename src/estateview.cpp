@@ -34,11 +34,14 @@ EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QW
 	m_quartzBlocks = 0;	
 	m_recreateQuartz = true;
 
-	lname = new QLabel(this);
-	lname->setAlignment(Qt::AlignLeft);
+	lname = new QTextView(this);
+	lname->setBackgroundMode(Qt::NoBackground);
+	lname->setAlignment(Qt::AlignCenter);
 	lname->setMinimumSize(lname->sizeHint());
-	lname->setMaximumWidth(width());
-	lname->setMaximumHeight(15);
+	lname->setMinimumWidth(width()-5);
+	lname->setMinimumHeight(height()-20);
+	lname->setMaximumWidth(width()-5);
+	lname->setMaximumHeight(height()-20);
 	lname->hide();
 
 	pe = 0;
@@ -331,7 +334,8 @@ void EstateView::resizeEvent(QResizeEvent *)
 {
 	m_recreateQuartz = true;
 	b_recreate = true;
-	
+
+
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
@@ -380,6 +384,12 @@ void EstateView::slotResizeAftermath()
 #warning are these necessary here?
 //	m_titleWidth = width()/4;
 //	m_titleHeight = height()/4;
+	lname->setAlignment(Qt::AlignCenter);
+	lname->setMinimumSize(lname->sizeHint());
+	lname->setMinimumWidth(width()-5);
+	lname->setMinimumHeight(height()-20);
+	lname->setMaximumWidth(width()-5);
+	lname->setMaximumHeight(height()-20);
 	
 	repositionPortfolioEstate();
 }

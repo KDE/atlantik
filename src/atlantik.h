@@ -197,6 +197,8 @@ public slots:
 	void slotEstateUpdateFinished(int estateId);
 	void slotPlayerUpdateFinished(int playerId);
 
+	void slotTradeUpdatePlayerAdd(int tradeId, int playerId);
+
 	/**
 	 * Stores the playerId corresponding to this instance of the client.
 	 *

@@ -8,8 +8,6 @@
 #include "token.moc"
 #include "player.h"
 
-extern QColor atlantik_greenbg;
-
 Token::Token(Player *player, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	setBackgroundMode(NoBackground); // avoid flickering

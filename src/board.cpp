@@ -10,7 +10,6 @@
 #include "config.h"
 #include "display_widget.h"
 
-extern QColor atlantik_greenbg;
 extern AtlantikConfig atlantikConfig;
 
 AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -343,7 +342,6 @@ void AtlantikBoard::displayCenter()
 
 	m_center = new QWidget(this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
-	m_center->setBackgroundColor(atlantik_greenbg);
 	m_center->show();
 }
 

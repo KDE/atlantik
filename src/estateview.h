@@ -5,6 +5,8 @@
 #include <qpixmap.h>
 #include <qlabel.h>
 
+#include <qtextview.h>
+
 #include <kpixmap.h>
 
 #include "portfolioestate.h"
@@ -45,7 +47,7 @@ Q_OBJECT
 		KPixmap *m_quartzBlocks;
 		bool b_recreate, m_recreateQuartz;
 		int m_orientation, m_titleWidth, m_titleHeight;
-		QLabel *lname;
+		QTextView *lname;
 		PortfolioEstate *pe;
 
 	private slots:
