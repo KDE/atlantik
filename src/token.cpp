@@ -21,27 +21,7 @@ Token::Token(Player *player, QWidget *parent, const char *name) : QWidget(parent
 
 	setFixedSize(QSize(26, 26));
 	myId = QString("");
-	myLoc = myDest = 0;
-}
-
-void Token::setLocation(int _loc)
-{
-	myLoc = _loc;
-}
-
-int Token::location()
-{
-	return myLoc;
-}
-
-void Token::setDestination(int _dest)
-{
-	myDest = _dest;
-}
-
-int Token::destination()
-{
-	return myDest;
+	m_location = m_destination = 0;
 }
 
 void Token::moveTo(int loc)
@@ -72,6 +52,7 @@ void Token::moveTo(int loc)
 void Token::playerChanged()
 {
 	kdDebug() << "Token::playerChanged()" << endl;
+	kdDebug() << "new geometry for token: " << m_player->location() << endl;
 	setGeometry(100, 100, 125, 125);
 }
 

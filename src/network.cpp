@@ -308,6 +308,7 @@ void GameNetwork::processNode(QDomNode n)
 					estateid = a.value().toInt();
 
 					// Create estate object and view
+					kdDebug() << "emit estateInit(" << estateid << ")" << endl;
 					emit estateInit(estateid);
 
 					a = e.attributeNode(QString("name"));
@@ -342,6 +343,7 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeOwned(estateid, a.value().toInt());
 
+					kdDebug() << "emit estateUpdateFinished(" << estateid << ")" << endl;
 					emit estateUpdateFinished(estateid);
 				}
 			}

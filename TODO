@@ -27,6 +27,9 @@ Bugfixes
 - store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
   (which creates the listview connected to the related signals) is sent prior
   to any of those updates
+- as soon as a token is created, launch a singleshot timer to make sure the
+  event loop is entered first and thus the estates have their correct
+  geometry to move to
 
 For 0.2.0
 ---------

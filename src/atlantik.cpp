@@ -74,8 +74,8 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(initGame()), this, SLOT(slotInitGame()));
 
 	// Management of data objects (players, games, estates)
-	playerList.setAutoDelete(true);
-	estateList.setAutoDelete(true);
+//	playerList.setAutoDelete(true);
+//	estateList.setAutoDelete(true);
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
@@ -474,7 +474,7 @@ void Atlantik::slotPlayerInit(int playerid)
 	if (!(player = playerMap[playerid]))
 	{
 		player = new Player(playerid);
-		playerList.append(player);
+//		playerList.append(player);
 		playerMap[playerid] = player;
 
 		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
@@ -491,7 +491,7 @@ void Atlantik::slotEstateInit(int estateId)
 	if (!(estate = estateMap[estateId]))
 	{
 		estate = new Estate(estateId);
-		estateList.append(estate);
+//		estateList.append(estate);
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);

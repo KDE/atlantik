@@ -44,6 +44,9 @@ Q_OBJECT
 		Token *move_token;
 		QTimer *m_timer;
 		bool m_resumeTimer;
+
+		QMap<int, EstateView *> estateViewMap;
+		QMap<int, Token *> tokenMap;
 };
 
 #endif

@@ -12,10 +12,10 @@ Q_OBJECT
 
 	public:
 		Token (Player *player, QWidget *parent, const char *name = 0);
-		void setLocation(int);
-		int location();
-		void setDestination(int);
-		int destination();
+		void setLocation(int location) { m_location = location; }
+		const int location() { return m_location; }
+		void setDestination(int destination) { m_destination = destination; }
+		const int destination() { return m_destination; }
 		void moveTo(int);
 
 	private slots:
@@ -30,7 +30,7 @@ Q_OBJECT
 		bool b_recreate;
 		QPixmap *qpixmap;
 		QString myId;
-		int myLoc, myDest;
+		int m_location, m_destination;
 };
 
 #endif

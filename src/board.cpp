@@ -125,6 +125,8 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	QString icon = QString();
 
 	EstateView *estateView = new EstateView(estate, North, icon, this, "estateview");
+	estateViewMap[estate->estateId()] = estateView;
+
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 
 	int estateId = estate->estateId();
@@ -154,38 +156,50 @@ void AtlantikBoard::addEstateView(Estate *estate)
 
 void AtlantikBoard::addToken(Player *player)
 {
-	Token *token = new Token(player, this, "token");
-	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
+	kdDebug() << "AtlantikBoard::addToken" << endl;
 
-	token->show();
+	Token *token = new Token(player, this, "token");
+	tokenMap[player->playerId()] = token;
+
+//	connect(player, SIGNAL(changed()), token, SLOT(playerChanged()));
+
+	// Hide and don't position, because as long as we haven't reentered the
+	// event loop, the estate geometries are not correct anyway. Is this
+	// even solvable having playerupdate and estateupdate in the same
+	// initial message from monopd?
+	token->hide();
 	jumpToken(token, 0, false);
 }
 
-void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
+void AtlantikBoard::jumpToken(Token *token, int estateId, bool confirm)
 {
-#warning port Board::jumpToken
-	int x=0, y=0;
-//	int x = estate[destination]->geometry().center().x() - (token->width()/2);
-//	int y = estate[destination]->geometry().center().y() - (token->height()/2);
+	kdDebug() << "AtlantikBoard::jumpToken(" << estateId << ", "  << confirm << ")" << endl;
 
-	token->setLocation(destination);
-	token->setGeometry(x, y, token->width(), token->height());
+	if (EstateView *estateView = estateViewMap[estateId])
+	{
+		int x = estateView->geometry().center().x() - (token->width()/2);
+		int y = estateView->geometry().center().y() - (token->height()/2);
+		kdDebug() << "jumpToken says x is " << x << " and y is " << y << endl;
 
-	// Confirm location to server.
-	if (confirm)
-		emit tokenConfirmation(destination);
+		token->setLocation(estateId);
+		token->setGeometry(x, y, token->width(), token->height());
+
+		// Confirm location to server.
+		if (confirm)
+			emit tokenConfirmation(estateId);
+	}
 }
 
-void AtlantikBoard::moveToken(Token *token, int destination)
+void AtlantikBoard::moveToken(Token *token, int estateId)
 {
 	if ( token==0 )
 		return;
 	
-	kdDebug() << "moving piece from " << token->location() << " to " << destination << endl;
+	kdDebug() << "moving piece from " << token->location() << " to " << estateId << endl;
 
 	// Set token destination
 	move_token = token;
-	move_token->setDestination(destination);
+	move_token->setDestination(estateId);
 
 	// Start timer
 	m_timer->start(10);
@@ -330,26 +344,28 @@ void AtlantikBoard::slotResizeAftermath()
 	}
 }
 
-void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerid, int location, bool direct)
+void AtlantikBoard::slotMsgPlayerUpdateLocation(int playerId, int estateId, bool directMove)
 {
-#warning remove AtlantikBoard::slotMsgPlayerUpdateLocation
-/*
-	if (playerid>=0 && playerid < MAXPLAYERS && token[playerid]!=0)
+	EstateView *estateView = estateViewMap[estateId];
+	Token *token = tokenMap[playerId];
+	
+	if (estateView && token)
 	{
-		if (token[playerid]->isHidden())
-			token[playerid]->show();
+		if (token->isHidden())
+			token->show();
 
 		// Only take action when location has changed
-		if (token[playerid]->location() != location)
+		if (token->location() != estateId)
 		{
-			if (direct)
-				jumpToken(token[playerid], location, false);
-			else if(atlantikConfig.animateToken==false)
-				jumpToken(token[playerid], location);
+			if (directMove)
+				jumpToken(token, estateId, false);
+			else if (atlantikConfig.animateToken==false)
+				jumpToken(token, estateId);
 			else
-				moveToken(token[playerid], location);
+				jumpToken(token, estateId);
+#warning reenable moveToken
+//				moveToken(token, estateId);
 		}
 	}
-*/
 }
 
