@@ -39,7 +39,7 @@ KMonop::KMonop (const char *name) :
 	layout = new QGridLayout(main, 8, 2);
 
 	output = new QTextView(main, "output");
-	output->setMinimumWidth(250);
+	output->setFixedWidth(225);
 
 	input = new QLineEdit(main, "input");
 	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));

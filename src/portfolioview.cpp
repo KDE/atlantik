@@ -17,7 +17,7 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	b_recreate = true;
 	qpixmap = 0;
 
-	setFixedSize(QSize(200, 75));
+	setFixedSize(QSize(225, 75));
 	setBackgroundColor(Qt::white);
 	
 	lname = new QLabel(this);
