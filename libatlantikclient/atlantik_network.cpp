@@ -277,29 +277,26 @@ void AtlantikNetwork::processNode(QDomNode n)
 				{
 					estateId = a.value().toInt();
 					Estate *estate;
-					if ((estate = m_atlanticCore->findEstate(a.value().toInt())))
-					{
-						emit displayDetails(e.attributeNode(QString("text")).value(), estate);
+					estate = m_atlanticCore->findEstate(a.value().toInt());
 
-						bool hasButtons = false;
-						for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+					emit displayDetails(e.attributeNode(QString("text")).value(), estate);
+
+					bool hasButtons = false;
+					for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() )
+					{
+						QDomElement eButton = nButtons.toElement();
+						if (!eButton.isNull() && eButton.tagName() == "button")
 						{
 							QDomElement eButton = nButtons.toElement();
 							if (!eButton.isNull() && eButton.tagName() == "button")
 							{
-								QDomElement eButton = nButtons.toElement();
-								if (!eButton.isNull() && eButton.tagName() == "button")
-								{
-									emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
-									hasButtons = true;
-								}
+								emit addCommandButton(eButton.attributeNode(QString("command")).value(), eButton.attributeNode(QString("caption")).value(), eButton.attributeNode(QString("enabled")).value().toInt());
+								hasButtons = true;
 							}
 						}
-						if (!hasButtons)
-							emit addCloseButton();
 					}
-					else
-						displayDefault();
+					if (!hasButtons)
+						emit addCloseButton();
 				}
 			}
 			else if (e.tagName() == "updategamelist")

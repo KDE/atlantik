@@ -3,12 +3,12 @@ lib_LTLIBRARIES = libatlantikui.la
 libatlantikui_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-info 0:0:0
 libatlantikui_la_LIBADD = ../libatlantic/libatlantic.la $(LIB_KIO)
 
-libatlantikui_la_SOURCES = auction_widget.cpp board.cpp display_widget.cpp \
+libatlantikui_la_SOURCES = auction_widget.cpp board.cpp \
 	estatedetails.cpp estateview.cpp portfolioestate.cpp portfolioview.cpp token.cpp \
 	trade_widget.cpp
 
 libatlantikuiincludedir = $(includedir)/atlantik/ui
-libatlantikuiinclude_HEADERS =  auction_widget.h board.h display_widget.h \
+libatlantikuiinclude_HEADERS =  auction_widget.h board.h \
 	estatedetails.h estateview.h portfolioestate.h portfolioview.h token.h \
 	trade_widget.h
 

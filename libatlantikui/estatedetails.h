@@ -37,12 +37,15 @@ class EstateDetails : public QWidget
 Q_OBJECT
 
 public:
-	EstateDetails(QString text, Estate *estate, QWidget *parent, const char *name = 0);
+	EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name = 0);
 	Estate *estate() { return m_estate; }
 
 	void addButton(const QString command, const QString caption, bool enabled);
 	void addCloseButton();
-	void newUpdate(QString text);
+	void setEstate(Estate *estate);
+	void setText(QString text);
+	void appendText(QString text);
+	void clearButtons();
 
 protected:
 	void paintEvent(QPaintEvent *);

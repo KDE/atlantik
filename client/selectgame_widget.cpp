@@ -85,7 +85,7 @@ void SelectGame::slotGameListAdd(QString gameId, QString name, QString descripti
 {
 	if (gameId == "-1")
 	{
-		QListViewItem *item = new QListViewItem(m_gameList, i18n("Create new %1 Game").arg(name), description, "", "", gameType);
+		QListViewItem *item = new QListViewItem(m_gameList, i18n("Create new %1 Game").arg(name), description, QString::null, QString::null, gameType);
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else

@@ -116,7 +116,6 @@ signals:
 	void msgChat(QString, QString);
 
 	void displayDetails(QString text, Estate *estate = 0);
-	void displayDefault();
 	void addCommandButton(QString command, QString caption, bool enabled);
 	void addCloseButton();
 

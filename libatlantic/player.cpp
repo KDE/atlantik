@@ -22,6 +22,7 @@ Player::Player(int playerId) : QObject()
 {
 	m_id = playerId;
 	m_location = 0;
+	m_money = 0;
 	m_changed = m_isSelf = false;
 	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }
@@ -80,11 +81,11 @@ void Player::setName(const QString _n)
 	}
 }
 
-void Player::setMoney(unsigned int _m)
+void Player::setMoney(unsigned int money)
 {
-	if (m_money != _m)
+	if (m_money != money)
 	{
-		m_money = _m;
+		m_money = money;
 		m_changed = true;
 	}
 }

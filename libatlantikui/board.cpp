@@ -17,6 +17,7 @@
 #include <iostream>
 
 #include <qpainter.h>
+#include <qstring.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -27,7 +28,6 @@
 #include <auction.h>
 
 #include "auction_widget.h"
-#include "display_widget.h"
 #include "estatedetails.h"
 #include "estateview.h"
 
@@ -406,10 +406,8 @@ void AtlantikBoard::displayDefault()
 		m_displayQueue.prepend(new QWidget(this));
 		break;
 	case 1:
-		if (m_displayQueue.getFirst() == m_lastServerDisplay)
-			m_lastServerDisplay = 0;
-		m_displayQueue.removeFirst();
-		m_displayQueue.prepend(new QWidget(this));
+		if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
+			display->setEstate(0);
 		break;
 	default:
 		if (m_displayQueue.getFirst() == m_lastServerDisplay)
@@ -422,65 +420,45 @@ void AtlantikBoard::displayDefault()
 
 void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
 {
-	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_lastServerDisplay))
-		display->addButton(command, caption, enabled);
-	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
+	if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
 		display->addButton(command, caption, enabled);
 }
 
 void AtlantikBoard::addCloseButton()
 {
-	BoardDisplay *bDisplay = 0;
 	EstateDetails *eDetails = 0;
-	if ((bDisplay = dynamic_cast<BoardDisplay*>(m_lastServerDisplay)) && bDisplay != m_displayQueue.getLast())
-		bDisplay->addCloseButton();
-	else if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.getLast())
+	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.getLast())
 		eDetails->addCloseButton();
 }
 
 void AtlantikBoard::insertDetails(QString text, Estate *estate)
 {
-	if (!estate)
-	{
-		kdDebug() << "insertDetails called with empty estate" << endl;
-		return;
-	}
-
 	EstateDetails *eDetails = 0;
 
-	// This might just be a update
-	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails->estate() == estate)
+	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)))
 	{
-		eDetails->newUpdate(text);
+		if (eDetails->estate() == estate || !(eDetails->estate()))
+			eDetails->appendText(text);
+		else
+		{
+			eDetails->setText(text);
+			eDetails->clearButtons();
+		}
+
+		eDetails->setEstate(estate);
 		return;
 	}
 
 	if (m_displayQueue.getFirst() != m_lastServerDisplay)
 		m_displayQueue.removeFirst();
-	else
-	{
-		if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_lastServerDisplay))
-			display->addCloseButton();
-		else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
-			display->addCloseButton();
-	}
 
-	eDetails = new EstateDetails(text, estate, this);
+	eDetails = new EstateDetails(estate, text, this);
 	m_lastServerDisplay = eDetails;
 	connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 	connect(eDetails, SIGNAL(buttonClose()), this, SLOT(displayDefault()));
 
-	// Don't overwrite possible chance cards or previous estates
-	int uid = 0;
-	if (BoardDisplay *display = dynamic_cast<BoardDisplay*>(m_displayQueue.getFirst()))
-		uid = 1;
-	else if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_displayQueue.getFirst()))
-		uid = 1;
-	
-	m_displayQueue.insert(uid, eDetails);
-
-	if (uid == 0)
-		updateCenter();
+	m_displayQueue.insert(0, eDetails);
+	updateCenter();
 }
 
 void AtlantikBoard::prependEstateDetails(Estate *estate)
@@ -488,7 +466,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	if (!estate)
 		return;
 
-	EstateDetails *eDetails = new EstateDetails(QString(), estate, this);
+	EstateDetails *eDetails = new EstateDetails(estate, QString::null, this);
 	eDetails->addCloseButton();
 
 	if (m_displayQueue.getFirst() != m_lastServerDisplay)

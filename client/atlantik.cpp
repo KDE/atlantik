@@ -301,7 +301,6 @@ void Atlantik::initBoard()
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 
 	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, Estate *)), m_board, SLOT(insertDetails(QString, Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
 	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
@@ -455,7 +454,7 @@ void Atlantik::slotUpdateConfig()
 void Atlantik::slotSendMsg()
 {
 	m_atlantikNetwork->cmdChat(m_input->text());
-	m_input->setText("");
+	m_input->setText(QString::null);
 }
 
 void Atlantik::slotMsgInfo(QString msg)

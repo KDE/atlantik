@@ -41,7 +41,9 @@ Token::Token(Player *player, EstateView *location, AtlantikBoard *parent, const 
 	m_player = player;
 	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
+	m_location = 0;
 	setLocation(location, false);
+
 	m_destination = 0;
 	m_inJail = false;
 

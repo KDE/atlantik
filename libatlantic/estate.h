@@ -29,9 +29,9 @@ Q_OBJECT
 
 public:
 	Estate(int estateId);
-	int id() const { return m_id; }
-	void setName(const QString name);
-	QString name() const { return m_name; }
+	int id() { return m_id; }
+	void setName(QString name);
+	QString name();
 	void setEstateGroup(EstateGroup *estateGroup);
 	EstateGroup *estateGroup() { return m_estateGroup; }
 	void setOwner(Player *player);
