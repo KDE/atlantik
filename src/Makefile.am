@@ -5,8 +5,9 @@ LDADD = $(LIB_KSYCOCA) $(LIB_KFILE) $(top_builddir)/libkdegames/libkdegames.la
 
 SUBDIRS =
 
-kmonop_SOURCES = main.cpp kmonop.cpp board.cpp configdlg.cpp estateview.cpp network.cpp \
-newgamedlg.cpp portfolioestate.cpp portfolioview.cpp token.cpp
+kmonop_SOURCES = main.cpp kmonop.cpp board.cpp configdlg.cpp estateview.cpp \
+monopigator.cpp network.cpp newgamedlg.cpp portfolioestate.cpp \
+portfolioview.cpp token.cpp
 
 KDE_ICON = kmonop
 

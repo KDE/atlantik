@@ -88,9 +88,8 @@ void NewGameWizard::slotValidateNext()
 void NewGameWizard::slotInit(const QString &_name)
 {
 	cout << "initPage: " << _name << endl;
-#warning create SelectServer::initPage();
-//	if (title(select_server) == _name)
-//		select_server->initPage();
+	if (title(select_server) == _name)
+		select_server->initPage();
 	if (title(select_game) == _name)
 		select_game->initPage();
 	if (title(configure_game) == _name)
@@ -112,12 +111,18 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
 	layout->addWidget(list);
 
-	// Until Monopigator works, add some servers manually
-	QListViewItem *item;
-	item = new QListViewItem(list, "localhost", "1234", "In case you run monopd locally");
-	item = new QListViewItem(list, "monopd.capsi.com", "1234", "monopd 0.1.0, use with KMonop 0.1.0");
-//	item = new QListViewItem(list, "monopd.capsi.com", "1235", "monopd 0.2.0, use with KMonop 0.2.0");
-	item = new QListViewItem(list, "monopd.capsi.com", "1236", "monopd CVS, use with KMonop from CVS");
+	monopigator = new Monopigator();
+
+	connect(monopigator, SIGNAL(monopigatorServer(QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString)));
+}
+
+void SelectServer::initPage()
+{
+	list->setCurrentItem(0);
+	list->clearSelection();
+
+//	status_label->setText(i18n("Fetching list of servers..."));
+	monopigator->loadData("http://monopd.capsi.com/monopigator.php");
 }
 
 bool SelectServer::validateNext()
@@ -142,6 +147,11 @@ int SelectServer::portToConnect()
 		return item->text(1).toInt();
 	else
 		return 0;
+}
+
+void SelectServer::slotMonopigatorAdd(QString host, QString port)
+{
+	new QListViewItem(list, host, port, "fetched through monopigator");
 }
 
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)

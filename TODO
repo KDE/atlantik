@@ -1,4 +1,3 @@
-t in the works
 - not implemented, low priority
 + not implemented, medium priority
 ! not implemented, high priority
@@ -79,7 +78,6 @@ For 0.3.x
   our own widget.
 - Game configuration (when it appears in monopd)
 v Use i18n()
-- Fetch serverlist via Monopigator kind of interface.
 - Have a playable, more or less stable game.
 - Code documentation
   - board.h

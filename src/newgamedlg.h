@@ -9,6 +9,7 @@
 #include <kdialogbase.h>
 
 #include "network.h"
+#include "monopigator.h"
 
 class SelectServer : public QWidget
 {
@@ -21,8 +22,9 @@ Q_OBJECT
 		QString hostToConnect() const;
 		int portToConnect();
 
-//	public slots:
+	public slots:
 //		void slotFetchedServerList(QDomNode);
+		void slotMonopigatorAdd(QString host, QString port);
 
 	signals:
 		void statusChanged();
@@ -30,6 +32,7 @@ Q_OBJECT
 	private:
 		QListView *list;
 		QLabel *status_label;
+		Monopigator *monopigator;
 };
 
 class SelectGame : public QWidget
