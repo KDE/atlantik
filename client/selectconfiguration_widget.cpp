@@ -171,6 +171,7 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value)
 	{
 		QCheckBox *checkBox = new QCheckBox(title, m_configBox, "checkbox");
 		checkBox->setChecked(value.toInt());
+		checkBox->setEnabled(false); // monopd doesn'tsupport editing yet
 		checkBox->show();
 	}
 	else
