@@ -5,7 +5,8 @@ EXTRA_DIST = atlantik.desktop
 
 KDE_ICON = atlantik
 
-xdg_apps_DATA = atlantik.desktop
+appsdir = $(kde_appsdir)/Games/Board
+apps_DATA = atlantik.desktop
 
 rcdir = $(kde_datadir)/atlantik
 rc_DATA = atlantikui.rc eventsrc
