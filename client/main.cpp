@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		KAboutData::License_GPL,
 		I18N_NOOP("(c) 1998-2002 Rob Kaper"),
 		I18N_NOOP("KDE client for playing Monopoly-like games on the monopd network."),
-		"http://capsi.com/atlantik/"
+		"http://unixcode.org/atlantik/"
 		);
 
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
