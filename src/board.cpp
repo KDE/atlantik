@@ -187,21 +187,17 @@ void AtlantikBoard::moveToken(Token *token, int estateId)
 	m_timer->start(10);
 }
 
-void AtlantikBoard::raiseToken(int id)
+void AtlantikBoard::raiseToken(int tokenId)
 {
-#warning port AtlantikBoard::raiseToken
-//	if (id>=0 && id<MAXPLAYERS && token[id]!=0)
-//		token[id]->raise();
+	if (Token *token = tokenMap[tokenId])
+		token->raise();
 }
 
 void AtlantikBoard::indicateUnownedChanged()
 {
-#warning port Board::indicateUnownedChaged
-	int i=0;
-
-//	for (i=0;i<40;i++)
-//		if (estate[i]!=0)
-//			estate[i]->updatePE();
+	for (int estateId=0 ; estateId < estateViewMap.size() ; estateId++)
+		if (EstateView *estateView = estateViewMap[estateId])
+			estateView->updatePE();
 }
 
 void AtlantikBoard::slotMoveToken()

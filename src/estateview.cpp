@@ -161,6 +161,9 @@ void EstateView::repositionPortfolioEstate()
 
 void EstateView::paintEvent(QPaintEvent *)
 {
+	int titleHeight = height()/4;
+	int titleWidth = width()/4;
+
 	if (m_recreateQuartz)
 	{
 		if (m_quartzBlocks)
@@ -169,7 +172,12 @@ void EstateView::paintEvent(QPaintEvent *)
 		if (m_estate->color().isValid())
 		{
 			m_quartzBlocks = new KPixmap();
-			m_quartzBlocks->resize(25, 18);
+
+			if (m_orientation == North || m_orientation == South)
+				m_quartzBlocks->resize(25, titleHeight-2);
+			else
+				m_quartzBlocks->resize(25, titleWidth-2);
+
 			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 		}
@@ -203,16 +211,11 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (m_estate->color().isValid())
 		{
-			int titleHeight = height()/4;
-			int titleWidth = width()/4;
-
 			KPixmap* quartzBuffer = new KPixmap;
 			if (m_orientation == North || m_orientation == South)
-//				quartzBuffer->resize(25, titleHeight-2);
-				quartzBuffer->resize(25, 18);
+				quartzBuffer->resize(25, titleHeight-2);
 			else
-//				quartzBuffer->resize(titleWidth-2, 25);
-				quartzBuffer->resize(18, 25);
+				quartzBuffer->resize(titleWidth-2, 25);
 
 			QPainter quartzPainter;
 			quartzPainter.begin(quartzBuffer, this);
@@ -339,6 +342,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 void EstateView::resizeEvent(QResizeEvent *)
 {
+	m_recreateQuartz = true;
 	b_recreate = true;
 	
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));

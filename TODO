@@ -18,8 +18,6 @@ Bugfixes
 --------
 
 - Update messages views after resize.
-- Quartz effects on maximized high resolutions are buggy because KPixmap is
-  too small.
 - double occurance of titleWidth/Height in EstateView
 - <Capzilla> hm, if one playerupdate contains 5 updates, my widgets redraw for each change now
   <Capzilla> maybe i should send a redraw command only upon leaving the playerupdate node

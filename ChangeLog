@@ -2,6 +2,7 @@
 ----------
 
 - EstateViews have correct orientation again.
+- Fixed weird Quartz behavior on large resolutions.
 
 2001-11-11 (kaper)
 ----------

@@ -458,12 +458,11 @@ void Atlantik::slotSetTurn(int playerId)
 
 #warning port slotSetTurn
 /*
-	for(int i=0 ; i<MAXPLAYERS ; i++)
+	for (int i=0 ; i < playerMap.size() < i++)
 	{
-		if (m_portfolioArray[i]!=0)
-		{
+		if (Player *player = playerMap[i])
+			player->setHasTurn(i==playerId);
 			m_portfolioArray[i]->setHasTurn(i==playerid ? true : false);
-		}
 	}
 */
 }
