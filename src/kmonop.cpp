@@ -23,6 +23,7 @@
 #include "kmonop.moc"
 #include "portfolioview.h"
 #include "board.h"
+#include "newgamedlg.h"
 
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
@@ -105,21 +106,8 @@ void KMonop::slotWrite()
 
 void KMonop::slotNewGame()
 {
-	new NewGameDialog(0);
-/*
-	if (ngd)
-	{
-		if (ngd->isHidden())
-			ngd->show();
-		ngd->setActiveWindow();
-		ngd->raise();
-	}
-	else
-	{
-		ngd = new NewGameDialog(0);  
-		ngd->show();
-	}
-*/
+	NewGameDialog dialog(0, "newgame", 1);
+	int result = dialog.exec();
 }
 
 void KMonop::slotCloseNewGameDlg()
