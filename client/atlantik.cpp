@@ -65,8 +65,9 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_playerSelf = 0;
 	m_atlantikNetwork = 0;
 
-	// Game core
+	// Game and network core
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
+	initNetworkObject();
 
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
@@ -132,10 +133,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	QCString host = args->getOption("host");	
 	QCString port = args->getOption("port");	
 	if (!host.isNull() && !port.isNull())
-	{
-		initNetworkObject();
 		m_atlantikNetwork->serverConnect(host, port.toInt());
-	}
 	else
 		showSelectServer();
 }
@@ -227,6 +225,9 @@ void Atlantik::showSelectServer()
 		m_selectGame = 0;
 	}
 	initNetworkObject();
+
+	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame())); // disconnect from selectGame implied by deletion above
+	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 }
 
 void Atlantik::showSelectGame()
@@ -476,8 +477,6 @@ void Atlantik::initNetworkObject()
 	{
 		m_atlantikNetwork->reset();
 		return;
-		m_atlantikNetwork->closeNow();
-		delete m_atlantikNetwork;
 	}
 
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
@@ -504,10 +503,4 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailCard()), m_atlantikNetwork, SLOT(jailCard()));
 	connect(this, SIGNAL(jailPay()), m_atlantikNetwork, SLOT(jailPay()));
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
-	
-	if (m_selectServer)
-	{
-		connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
-		connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
-	}
 }
