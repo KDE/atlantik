@@ -8,6 +8,8 @@
 
 #include "portfolioestate.h"
 
+class QColor;
+
 class Player;
 class Estate;
 
@@ -34,6 +36,7 @@ private slots:
 
 	private:
 		Player *m_player;
+		QColor m_activeColor, m_inactiveColor;
 		QPixmap *qpixmap;
 		bool b_recreate;
 		QLabel *m_nameLabel, *m_moneyLabel;

@@ -15,7 +15,7 @@
 #include "display_widget.h"
 #include "auction_widget.h"
 
-extern AtlantikConfig atlantikConfig;
+//extern AtlantikConfig atlantikConfig;
 
 AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name) : QWidget(parent, name)
 {

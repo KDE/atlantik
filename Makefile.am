@@ -2,7 +2,7 @@ INCLUDES = $(all_includes)
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
-COMPILE_FIRST = libatlantic libatlantikclient
+COMPILE_FIRST = libatlantic libatlantikclient libatlantikui
 SUBDIRS = $(COMPILE_FIRST) client atlanticd pics
 
 EXTRA_DIST = atlantik.desktop
@@ -19,6 +19,3 @@ rc_DATA = atlantikui.rc
 
 messages: rc.cpp
 	$(XGETTEXT) `find . -name '*.cpp'` -o $(podir)/atlantik.pot
-
-install-data-local:
-	rm -f $(kde_appsdir)/Games/Board/kmonop.desktop

@@ -1,8 +1,8 @@
 #ifndef ATLANTIK_PORTFOLIOESTATE_H
 #define ATLANTIK_PORTFOLIOESTATE_H
 
-#include <qwidget.h>
 #include <qpixmap.h>
+#include <qwidget.h>
 
 #define PE_WIDTH	13
 #define	PE_HEIGHT	16

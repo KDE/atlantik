@@ -49,6 +49,7 @@ Q_OBJECT
 		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
+		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
 		int m_orientation, m_titleWidth, m_titleHeight;
 		QTextView *lname;

@@ -19,14 +19,12 @@
 #include "estateview.moc"
 #include "config.h"
 
-extern QColor atlantik_redhotel, atlantik_greenhouse;
-extern QColor atlantik_lgray;
-extern AtlantikConfig atlantikConfig;
-
 EstateView::EstateView(Estate *estate, int orientation, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
+
+#warning add old atlantikConfig members as arguments
 
 	setBackgroundMode(NoBackground); // avoid flickering
 
@@ -105,7 +103,7 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured Atlantik not to show them.
-	if (m_estate->isOwned() || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
+	if (m_estate->isOwned() || !m_estate->canBeOwned() || m_indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -184,14 +182,16 @@ void EstateView::paintEvent(QPaintEvent *)
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
+		QColor greenHouse(0, 255, 0);
+		QColor redHotel(255, 51, 51);
 		QPainter painter;
 		painter.begin(qpixmap, this);
 
 		painter.setPen(Qt::black);
 		
-		if (atlantikConfig.darkenMortgaged==true && m_estate->isMortgaged())
+		if (m_darkenMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(m_estate->bgColor().light(10));
-		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
+		else if (m_highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
 			painter.setBrush(m_estate->bgColor().light(190));
 		else
 			painter.setBrush(m_estate->bgColor());
@@ -219,7 +219,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case North:
 					painter.drawRect(0, 0, width(), m_titleHeight);
 
-					if (atlantikConfig.quartzEffects && m_quartzBlocks)
+					if (m_quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, 1, *quartzBuffer);
@@ -230,13 +230,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_estate->houses() == 5)
 						{
 							// Hotel
-							painter.setBrush(atlantik_redhotel);
+							painter.setBrush(redHotel);
 							painter.drawRect(2, 2, (width()/2)-4, (m_titleHeight)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(atlantik_greenhouse);
+							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
@@ -246,7 +246,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case South:
 					painter.drawRect(0, height()-(m_titleHeight), width(), m_titleHeight);
 
-					if (atlantikConfig.quartzEffects && m_quartzBlocks)
+					if (m_quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-m_titleHeight+1, *quartzBuffer);
@@ -257,13 +257,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_estate->houses() == 5)
 						{
 							// Hotel
-							painter.setBrush(atlantik_redhotel);
+							painter.setBrush(redHotel);
 							painter.drawRect(2, (3*(m_titleHeight))+2, (width()/2)-4, (m_titleHeight)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(atlantik_greenhouse);
+							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), (3*(m_titleHeight))+2, w, h);
@@ -273,7 +273,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case West:
 					painter.drawRect(0, 0, m_titleWidth, height());
 
-					if (atlantikConfig.quartzEffects && m_quartzBlocks)
+					if (m_quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
@@ -284,13 +284,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_estate->houses() == 5)
 						{
 							// Hotel
-							painter.setBrush(atlantik_redhotel);
+							painter.setBrush(redHotel);
 							painter.drawRect(2, 2, (m_titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(atlantik_greenhouse);
+							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2, 2+(i*(h+2)), w, h);
@@ -300,7 +300,7 @@ void EstateView::paintEvent(QPaintEvent *)
 				case East:
 					painter.drawRect(width()-(m_titleWidth), 0, m_titleWidth, height());
 
-					if (atlantikConfig.quartzEffects && m_quartzBlocks)
+					if (m_quartzEffects && m_quartzBlocks)
 					{
 						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
 						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);
@@ -311,13 +311,13 @@ void EstateView::paintEvent(QPaintEvent *)
 						if (m_estate->houses() == 5)
 						{
 							// Hotel
-							painter.setBrush(atlantik_redhotel);
+							painter.setBrush(redHotel);
 							painter.drawRect((3*(m_titleWidth))+2, 2, (m_titleWidth)-4, (height()/2)-4);
 						}
 						else
 						{
 							// Houses
-							painter.setBrush(atlantik_greenhouse);
+							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect((3*(m_titleWidth))+2, 2+(i*(h+2)), w, h);

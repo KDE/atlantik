@@ -15,6 +15,4 @@ libatlantic_la_SOURCES = atlantic_core.cpp auction.cpp estate.cpp \
 noinst_HEADERS = atlantic_core.h auction.h estate.h player.h trade.h
 
 METASOURCES = AUTO 
-
-messages: rc.cpp
-	$(XGETTEXT) *.cpp -o $(podir)/libatlantic.pot
+ 

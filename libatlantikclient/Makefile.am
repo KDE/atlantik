@@ -8,6 +8,3 @@ libatlantiknetwork_la_SOURCES = atlantik_network.cpp
 noinst_HEADERS = atlantik_network.h
 
 METASOURCES = AUTO
-
-messages: rc.cpp
-	$(XGETTEXT) *.cpp -o $(podir)/libatlantik_network.pot

@@ -6,7 +6,6 @@
 #include "main.h"
 #include "config.h"
 #include "atlantik.h"
-#include "colordefs.h"
 
 AtlantikConfig atlantikConfig;
 

@@ -17,12 +17,11 @@
 #define PE_MARGINW	5
 #define PE_MARGINH	2
 
-extern AtlantikConfig atlantikConfig;
-extern QColor atlantik_lgray;
-
 PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_player = player;
+
+#warning add old atlantikConfig members as argument
 
 	b_recreate = true;
 	qpixmap = 0;
@@ -33,7 +32,7 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 	m_nameLabel = new QLabel(this);
 	m_nameLabel->setAlignment(Qt::AlignLeft);
 	m_nameLabel->setGeometry(5, 0, width()/2, height());
-	m_nameLabel->setBackgroundColor(atlantik_lgray);
+	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
 	m_nameLabel->setMinimumSize(m_nameLabel->sizeHint());
 	m_nameLabel->setMaximumWidth(width()-10);
 	m_nameLabel->setMaximumHeight(15);
@@ -42,7 +41,7 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 	m_moneyLabel = new QLabel(this);
 	m_moneyLabel->setAlignment(Qt::AlignRight);
 	m_moneyLabel->setGeometry(width()/2, 0, width()-5, height());
-	m_moneyLabel->setBackgroundColor(atlantik_lgray);
+	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
 	m_moneyLabel->setMinimumSize(m_moneyLabel->sizeHint());
 	m_moneyLabel->setMaximumWidth(width()/2);
 	m_moneyLabel->setMaximumHeight(15);
@@ -161,11 +160,11 @@ void PortfolioView::playerChanged()
 	name.append(". " + m_player->name());
 
 	m_nameLabel->setText(name);
-	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? atlantikConfig.activeColor : atlantikConfig.inactiveColor);
+	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
 	m_nameLabel->update();
 
 	m_moneyLabel->setText(QString::number(m_player->money()));
-	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? atlantikConfig.activeColor : atlantikConfig.inactiveColor);
+	m_moneyLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
 	m_moneyLabel->update();
 
 	b_recreate = true;
