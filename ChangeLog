@@ -1,4 +1,4 @@
-2001-06-17 (cap)
+2001-06-17 (cap) (0.1.0 release)
 ----------
 
 - Happy birthday Katy. Love, Rob.
@@ -6,6 +6,7 @@
 - Some internal code changes.
 - Added support for <updategamelist type="edit">
 - Added support for <updateplayerlist> which replaced <playerlist>
+- Tagged 0.1.0 release
 
 2001-06-10
 ----------
