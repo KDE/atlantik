@@ -28,3 +28,5 @@ void ServerSocket::newConnection(int socket)
 
 	emit newClient(client);
 }
+
+#include "serversocket.moc"
