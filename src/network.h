@@ -51,8 +51,8 @@ signals:
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);
-	void gameListAdd(QString gameId, QString description, QString players);
-	void gameListEdit(QString gameId, QString description, QString players);
+	void gameListAdd(QString gameId, QString gameType, QString description, QString players);
+	void gameListEdit(QString gameId, QString gameType, QString description, QString players);
 	void gameListDel(QString gameId);
 	void joinedGame();
 	void initGame();

@@ -16,6 +16,7 @@ Q_OBJECT
 
 public:
 	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name = 0);
+	Estate *estate() { return m_estate; }
 
 	protected:
 		void paintEvent(QPaintEvent *);

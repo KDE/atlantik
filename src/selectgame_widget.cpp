@@ -2,6 +2,7 @@
 #include <qradiobutton.h>
 #include <qhbox.h>
 
+#include <kdebug.h>
 #include <klocale.h>
 #include <kiconloader.h>
  
@@ -19,6 +20,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	// List of games
 	m_gameList = new QListView(groupBox, "m_gameList");
 	m_gameList->addColumn(QString(i18n("Description")));
+	m_gameList->addColumn(QString(i18n("Game type")));
 	m_gameList->addColumn(QString(i18n("Id")));
 	m_gameList->addColumn(QString(i18n("Players")));
 //	m_mainLayout->addWidget(m_gameList);
@@ -59,23 +61,24 @@ void SelectGame::slotGameListClear()
 //	emit statusChanged();
 }
 
-void SelectGame::slotGameListAdd(QString gameId, QString description, QString players)
+void SelectGame::slotGameListAdd(QString gameId, QString gameType, QString description, QString players)
 {
-	QListViewItem *item = new QListViewItem(m_gameList, description, gameId, players);
+	QListViewItem *item = new QListViewItem(m_gameList, description, gameType, gameId, players);
 	item->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 
 	validateConnectButton();
 }
 
-void SelectGame::slotGameListEdit(QString gameId, QString description, QString players)
+void SelectGame::slotGameListEdit(QString gameId, QString gameType, QString description, QString players)
 {
 	QListViewItem *item = m_gameList->firstChild();
 	while (item)
 	{
-		if (item->text(0) == gameId)
+		if (item->text(2) == gameId)
 		{
 			item->setText(1, description);
-			item->setText(2, players);
+			item->setText(2, gameType);
+			item->setText(3, players);
 			m_gameList->triggerUpdate();
 			return;
 		}
@@ -90,7 +93,7 @@ void SelectGame::slotGameListDel(QString gameId)
 	QListViewItem *item = m_gameList->firstChild();
 	while (item)
 	{
-		if (item->text(1) == gameId)
+		if (item->text(2) == gameId)
 		{
 			delete item;
 			return;
@@ -113,7 +116,7 @@ void SelectGame::connectPressed()
 {
 	if (QListViewItem *item = m_gameList->selectedItem())
 	{
-		if (int gameId = item->text(1).toInt())
+		if (int gameId = item->text(2).toInt())
 			emit joinGame(gameId);
 		else
 			emit newGame();

@@ -21,7 +21,7 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 	b_recreate = true;
 	qpixmap = 0;
 
-	setFixedSize(QSize(225, 75));
+	setFixedSize(QSize(225, 100));
 	setBackgroundColor(Qt::white);
 	
 	m_nameLabel = new QLabel(this);
@@ -41,6 +41,10 @@ PortfolioView::PortfolioView(Player *player, QWidget *parent, const char *name) 
 	m_moneyLabel->setMaximumWidth(width()/2);
 	m_moneyLabel->setMaximumHeight(15);
 	m_moneyLabel->show();
+	
+	m_lastGroupId = 0;
+	x = 0;
+	y = 0;
 }
 
 void PortfolioView::addEstateView(Estate *estate)
@@ -48,9 +52,9 @@ void PortfolioView::addEstateView(Estate *estate)
 	kdDebug() << "PortfolioView::addEstateView(" << estate->estateId() << ")" << endl;
 
 	int estateId = estate->estateId();
-	if (!estate->canBeOwned())
+	if (!estate->canBeOwned() || !estate->groupId())
 	{
-		portfolioEstateMap[estateId]=0;
+//		portfolioEstateMap[estateId]=0;
 		return;
 	}
 
@@ -102,11 +106,73 @@ void PortfolioView::addEstateView(Estate *estate)
 	}
 
 */
-	int x = 20 * (estateId % 10);
-	int y = 20 * (estateId / 10);
+//	if ((estateId / 10) * 18 > y)
+//	{
+		y = 18 * (1 + (estateId / 10));
+//		x = 0;
+//	}
 
+	if (m_lastGroupId >= estate->groupId())
+		x += 18;
+	else
+	{
+		x += 36;
+		m_lastGroupId = estate->groupId();
+	}
+	x = 5 + 16 * ((estateId-1) % 10);
+
+	// Create PE
 	PortfolioEstate *portfolioEstate =new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
 	portfolioEstateMap[estateId] = portfolioEstate;
+
+	// Find last of this group
+	PortfolioEstate *tmpPE = 0, *lastPE = 0;
+	for (QMap<int, PortfolioEstate *>::Iterator i=portfolioEstateMap.begin() ; i != portfolioEstateMap.end() ; ++i)
+		{
+			if ((tmpPE = *i))
+			{
+				if (tmpPE->estate() == estate)
+					break;
+				if (tmpPE->estate()->groupId() == estate->groupId())
+					lastPE = tmpPE;
+			}
+		}
+
+	// Place this one on top of it
+	if (lastPE)
+	{
+		kdDebug() << "last of same group" << endl;
+		x = lastPE->x()+2;
+		y = lastPE->y()+4;
+	}
+	// Else, find last
+	else
+	{
+		for (QMap<int, PortfolioEstate *>::Iterator i=portfolioEstateMap.begin() ; i != portfolioEstateMap.end() ; ++i)
+			{
+				if ((tmpPE = *i))
+				{
+					if (tmpPE->estate() == estate)
+						break;
+					lastPE = tmpPE;
+				}
+			}
+		// Place this one next to it
+		if (lastPE)
+		{
+			kdDebug() << "last of any" << endl;
+			x = lastPE->x() + 18;
+			y = 18;
+		}
+		// Else use first placement
+		else
+		{
+			kdDebug() << "default" << endl;
+			x = 5;
+			y = 18;
+		}
+	}
+	kdDebug() << "setting geometry to " << x << ", " << y << endl;
 	portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
 
 	connect(estate, SIGNAL(changed()), portfolioEstate, SLOT(estateChanged()));

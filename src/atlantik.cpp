@@ -168,8 +168,8 @@ void Atlantik::slotNetworkConnected()
 	}
 
 	connect(m_gameNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString)));
-	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString)));
 	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
 
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_gameNetwork, SLOT(joinGame(int)));

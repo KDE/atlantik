@@ -217,9 +217,9 @@ void GameNetwork::processNode(QDomNode n)
 						if (type=="del")
 							emit gameListDel(e_game.attributeNode(QString("id")).value());
 						else if (type=="edit")
-							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
 						else if (type=="add" || type=="full")
-							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
+							emit gameListAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("gametype")).value(), e_game.attributeNode(QString("description")).value(), e_game.attributeNode(QString("players")).value());
 					}
 					n_game = n_game.nextSibling();
 				}
@@ -481,5 +481,6 @@ void GameNetwork::processNode(QDomNode n)
 
 void GameNetwork::serverConnect(const QString host, int port)
 {
+	kdDebug() << "connecting to " << host << ":" << port << endl;
 	connectToHost(host, port);
 }
