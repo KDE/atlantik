@@ -2,6 +2,7 @@
 IconName=atlantik
 Comment=Atlantik
 Comment[wa]=Atlantike
+Comment[xx]=xxAtlantikxx
 
 [gainedturn]
 Name=Gained Turn
@@ -9,11 +10,13 @@ Name[da]=Vundet tur
 Name[hu]=Nyert forduló
 Name[sv]=Du vann omgången
 Name[wa]=Djeu wangnî
+Name[xx]=xxGained Turnxx
 Comment=It is your turn now
 Comment[da]=Det er din tur nu
 Comment[hu]=Most Ön következik
 Comment[sv]=Det är din tur nu
 Comment[wa]=C' est a vos asteure
+Comment[xx]=xxIt is your turn nowxx
 [chat]
 Name=Chat
 Name[bg]=Чат
@@ -21,6 +24,7 @@ Name[hu]=Csevegés
 Name[pt_BR]=Bate-papo
 Name[sv]=Chatt
 Name[tr]=Muhabbet
+Name[xx]=xxChatxx
 Comment=A player sends a chat message
 Comment[bg]=Играч изпраща съобщение
 Comment[da]=En spiller sender en chat-besked
@@ -30,6 +34,7 @@ Comment[pt_BR]=Um jogador enviou uma mensagem
 Comment[sv]=En spelare skickar ett chattmeddelande
 Comment[tr]=Oyuncu bir mesaj gönderdi
 Comment[wen]=Hrajer sćele chatowu powěsć
+Comment[xx]=xxA player sends a chat messagexx
 default_presentation=1
 
 [newplayer]
@@ -44,6 +49,7 @@ Name[sv]=Ny spelare
 Name[tr]=Yeni oynatıcı
 Name[wa]=Novea djoweu
 Name[wen]=Nowy hrajer
+Name[xx]=xxNew playerxx
 Comment=A new player joins the game
 Comment[bg]=Нов играч се присъединява към играта
 Comment[da]=En ny spiller går med i spillet
@@ -55,6 +61,7 @@ Comment[sv]=En ny spelare går med i spelet
 Comment[tr]=Yeni bir oyuncu oyuna girdi
 Comment[wa]=On novea djoweu s' a raloyî å djeu
 Comment[wen]=Nowy hrajer so přizamknje
+Comment[xx]=xxA new player joins the gamexx
 default_presentation=1
 
 [newgame]
@@ -69,6 +76,7 @@ Name[sv]=Nytt spel
 Name[tr]=Yeni oyun
 Name[wa]=Novea djeu
 Name[wen]=Nowa hra
+Name[xx]=xxNew gamexx
 Comment=A new game is created
 Comment[bg]=Създадена е нова игра
 Comment[da]=Et nyt spil bliver oprettet
@@ -80,4 +88,5 @@ Comment[sv]=Ett nytt spel har skapats
 Comment[tr]=Yeni bir oyun başlatıldı
 Comment[wa]=On novea djeu a stî enondé
 Comment[wen]=Nowa hra je so stworiła
+Comment[xx]=xxA new game is createdxx
 default_presentation=1
