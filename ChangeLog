@@ -1,3 +1,18 @@
+2001-12-20 (katz)
+---------
+
+Designer:
+- gets its first entry in ChangeLog, because designer has been
+  on the whole useless before this
+- supports chance and cc cards; loads and saves properly
+- doesn't crash in random places
+- loads and saves in Cap's new format
+- fix probs with the swallowed dialogs
+- don't use defaultcity.conf in openNew(); make board with
+  user's KDE colors! pretty :-) doesn'twork tho, neil will fix
+- use KComboBox now QComboBox
+- maybe some other things?
+
 2001-12-20 (kaper)
 ----------
 

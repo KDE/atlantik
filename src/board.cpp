@@ -28,8 +28,8 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	{
 		if (i==0 || i==10)
 		{
-			m_gridLayout->setRowStretch(i, 3);
-			m_gridLayout->setColStretch(i, 3);
+			m_gridLayout->setRowStretch(i, 4);
+			m_gridLayout->setColStretch(i, 4);
 		}
 		else
 		{

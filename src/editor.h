@@ -8,7 +8,7 @@
 #include "estate.h"
 
 class QCheckBox;
-class QComboBox;
+class KComboBox;
 class QSpinBox;
 class KColorButton;
 class QLineEdit;
@@ -68,6 +68,7 @@ class EstateEdit : public QWidget
 	bool downArrow();
 	bool leftArrow();
 	bool rightArrow();
+	void aboutToDie();
 	
 	public slots:
 	void setEstate(ConfigEstate *);
@@ -85,7 +86,7 @@ class EstateEdit : public QWidget
 	private:
 	KColorButton *fgButton;
 	KColorButton *bgButton;
-	QComboBox *typeCombo;
+	KComboBox *typeCombo;
 	QLineEdit *nameEdit;
 	QWidget *centerWidget;
 	QGridLayout *layout;
@@ -117,7 +118,7 @@ class ChooseWidget : public QWidget
 
 	private:
 	Card *card;
-	QComboBox *typeCombo;
+	KComboBox *typeCombo;
 	QSpinBox *value;
 
 	int id;
@@ -192,7 +193,7 @@ class StreetDlg : public QWidget
 	QSpinBox *houses5;
 	QSpinBox *price;
 	QSpinBox *housePrice;
-	QComboBox *groupCombo;
+	KComboBox *groupCombo;
 };
 
 #endif

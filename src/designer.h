@@ -5,6 +5,7 @@
 #include <qstring.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
+#include <qguardedptr.h>
 
 #include "editor.h"
 #include "board.h"
@@ -56,9 +57,12 @@ class AtlanticDesigner : public KMainWindow
 	private:
 	void openFile(const QString &);
 	bool warnClose();
+	void initBoard();
+	bool firstBoard;
 
-	EstateEdit *editor;
-	AtlantikBoard *board;
+	QGuardedPtr<EstateEdit> editor;
+	QGuardedPtr<QVBoxLayout> layout;
+	QGuardedPtr<AtlantikBoard> board;
 	QPtrList<ConfigEstate> estates;
 	KListAction *estateAct;
 	KRecentFilesAction *recentAct;

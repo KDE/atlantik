@@ -1,4 +1,4 @@
-#include <qcombobox.h>
+#include <kcombobox.h>
 #include <qvbox.h>
 #include <qlabel.h>
 #include <qframe.h>
@@ -8,6 +8,7 @@
 #include <qframe.h>
 #include <qlineedit.h>
 #include <qvgroupbox.h>
+#include <qhgroupbox.h>
 #include <qlayout.h>
 
 #include <kdebug.h>
@@ -120,7 +121,7 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 
 	connect(this, SIGNAL(somethingChanged()), this, SLOT(saveEstate()));
 
-	layout = new QGridLayout(this, 5, 1, 6, 3);
+	layout = new QGridLayout(this, 6, 1, 6, 3);
 	nameEdit = new QLineEdit(this, "Name Edit");
 	layout->addWidget(nameEdit, 0, 0);
 	connect(nameEdit, SIGNAL(returnPressed()), this, SIGNAL(somethingChanged()));
@@ -129,8 +130,11 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 	oldConfDlg = 0;
 	reallyOldConfDlg = 0;
 
-	QVGroupBox *colorGroupBox = new QVGroupBox(i18n("Colors"), this);
-	layout->addWidget(colorGroupBox, 2, 0);
+	layout->addWidget(new QWidget(this), 2, 0);
+	layout->setRowStretch(2, 1);
+
+	QHGroupBox *colorGroupBox = new QHGroupBox(i18n("&Colors"), this);
+	layout->addWidget(colorGroupBox, 3, 0);
 	
 	(void) new QLabel(i18n("Foreground"), colorGroupBox);
 	fgButton = new KColorButton(colorGroupBox, "Foreground Button");
@@ -141,9 +145,9 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 
 	QHBoxLayout *typeLayout = new QHBoxLayout(layout, 6);
 	QLabel *typeLabel = new QLabel(i18n("Type"), this);
-	typeLayout->addWidget(typeLabel, 3, 0);
-	typeCombo = new QComboBox(false, this, "Type Combo");
-	typeLayout->addWidget(typeCombo, 4, 0);
+	typeLayout->addWidget(typeLabel, 4, 0);
+	typeCombo = new KComboBox(false, this, "Type Combo");
+	typeLayout->addWidget(typeCombo, 5, 0);
 	connect(typeCombo, SIGNAL(activated(int)), this, SIGNAL(somethingChanged()));
 
 	QStringList types(i18n("Street"));
@@ -161,10 +165,19 @@ EstateEdit::EstateEdit(CardStack *chanceStack, CardStack *ccStack, QWidget *pare
 	typeCombo->insertStringList(types);
 }
 
+void EstateEdit::aboutToDie()
+{
+	kdDebug() << "aboutToDie()\n";
+	delete reallyOldConfDlg;
+	reallyOldConfDlg = 0;
+	delete oldConfDlg;
+	oldConfDlg = 0;
+	delete confDlg;
+	confDlg = 0;
+}
+
 void EstateEdit::setEstate(ConfigEstate *estate)
 {
-	kdDebug() << "starting setEstate\n";
-
 	typeCombo->setCurrentItem(estate->type());
 	nameEdit->setText(estate->name());
 	if (estate->color().isValid())
@@ -173,13 +186,10 @@ void EstateEdit::setEstate(ConfigEstate *estate)
 	this->estate = estate;
 
 	saveEstate(true);
-
-	kdDebug() << "ending setEstate\n";
 }
 
 ConfigEstate *EstateEdit::saveEstate(bool superficial)
 {
-	kdDebug() << "starting saveEstate\n";
 	if (!estate)
 		return 0;
 
@@ -191,8 +201,7 @@ ConfigEstate *EstateEdit::saveEstate(bool superficial)
 	
 		estate->setType(curType);
 		estate->setName(nameEdit->text());
-		if (estate->color().isValid())
-			fgButton->setColor(estate->color());
+		estate->setColor(fgButton->color());
 		estate->setBgColor(bgButton->color());
 	}
 
@@ -208,28 +217,20 @@ ConfigEstate *EstateEdit::saveEstate(bool superficial)
 	if (!superficial)
 		estate->update();
 
-	if (superficial)
-		configure();
-
-	kdDebug() << "ending saveEstate\n";
+	configure();
 	return estate;
 }
 
 void EstateEdit::configure()
 {
-	kdDebug() << "-------------- ::configure()\n";
 	if (oldType == typeCombo->currentItem())
 	{
-		kdDebug() << "returning early from configure\n";
 		emit updateDialogSettings(estate);
 		return;
 	}
 
-	kdDebug() << "starting configure\n";
-
 	if (reallyOldConfDlg)
 	{
-		kdDebug() << "deleting reallyOldConfDlg\n";
 		delete reallyOldConfDlg;
 	}
 	reallyOldConfDlg = oldConfDlg;
@@ -265,7 +266,6 @@ void EstateEdit::configure()
 	layout->addWidget(confDlg, 1, 0);
 	confDlg->show();
 
-	kdDebug() << "ending configure\n";
 	oldType = (EstateType)typeCombo->currentItem();
 }
 
@@ -336,10 +336,8 @@ ChooseWidget::ChooseWidget(int id, Card *card, QWidget *parent, char *name)
 	this->id = id;
 	this->card = card;
 
-	kdDebug() << "new choose widget, id is " << id << endl;
-
 	QHBoxLayout *hlayout = new QHBoxLayout(this);
-	typeCombo = new QComboBox(this);
+	typeCombo = new KComboBox(this);
 	QStringList _types(i18n("Pay"));
 	_types.append(i18n("Pay each player"));
 	_types.append(i18n("Collect"));
@@ -394,7 +392,7 @@ void ChooseWidget::typeChanged(int i)
 	else if (key == "advanceto")
 		prefix = i18n("Estate #");
 	else if (key == "advance" || key == "goback")
-		suffix = i18n("Estate(s)");
+		suffix = i18n("Estate(s)").prepend(" ");
 
 	value->setPrefix(prefix);
 	value->setSuffix(suffix);
@@ -424,7 +422,8 @@ CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(pare
 	hlayout->addWidget(delButton);
 
 	List = new QListBox(this);
-	List->setMinimumHeight(150); // gets squashed vertically w/o
+	List->setMinimumHeight(50); // gets squashed vertically w/o
+	List->setMaximumHeight(80); // gets spreeaaaaad vertically w/o
 	layout->addWidget(List);
 	connect(List, SIGNAL(highlighted(int)), this, SLOT(selected(int)));
 
@@ -432,27 +431,31 @@ CardView::CardView(CardStack *stack, QWidget *parent, char *name) : QWidget(pare
 	moreButton = new KPushButton(i18n("&More properties"), this);
 	connect(moreButton, SIGNAL(clicked()), this, SLOT(more()));
 	hlayout->addWidget(moreButton);
-	lessButton = new KPushButton(i18n("&Less properties"), this);
+	hlayout->addStretch();
+	lessButton = new KPushButton(i18n("&Fewer properties"), this);
 	connect(lessButton, SIGNAL(clicked()), this, SLOT(less()));
 	hlayout->addWidget(lessButton);
+
+	kdDebug() << "loading cards...\n";
 
 	Card *card = 0;
 	for (card = stack->first(); card; card = stack->next())
 	{
-		List->insertItem(card->name, 0);
+		kdDebug() << "adding to list: " << card->name << endl;
+		List->insertItem(card->name);
 	}
-
-	List->setCurrentItem(0);
 }
 
 void CardView::more()
 {
-	if (List->count()<= 0)
+	if (List->count() <= 0)
 		return;
 
 	card->keys.append("pay");
 	card->values.append(1);
 	ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
+	newChooseWidget->typeChanged(0);
+	newChooseWidget->valueChanged(0);
 
 	choosies.append(newChooseWidget);
 	layout->addWidget(newChooseWidget);
@@ -508,42 +511,47 @@ void CardView::rename()
 void CardView::del()
 {
 	int curItem = List->currentItem();
-	if (curItem < 0)
+	
+	// for some reason, crashes if count == 0
+	if (curItem < 0 || List->count() <= 1)
 		return;
 	
 	List->removeItem(curItem);
 	stack->remove(stack->at(curItem));
-	List->setCurrentItem(0);
-
 	choosies.clear();
-	more();
 }
 
 void CardView::selected(int i)
 {
-	card = stack->at(i);
-	kdDebug() << "card is " << card->name << endl;
-	unsigned int num = card->keys.count();
-
 	choosies.clear();
+
+	kdDebug() << "selected (" << i << ")\n";
+	card = stack->at(i);
+	unsigned int num = card->keys.count();
+	kdDebug() << "num is " << num << endl;
 
 	QValueList<int>::Iterator vit = card->values.begin();
 	for (QStringList::Iterator it = card->keys.begin(); it != card->keys.end(); ++it)
 	{
+		kdDebug() << "creating a choser, id " << choosies.count() << endl;
 		ChooseWidget *newChooseWidget = new ChooseWidget(choosies.count(), card, this);
 
 		choosies.append(newChooseWidget);
 		layout->addWidget(newChooseWidget);
 
 		newChooseWidget->show();
-		 
+
 		choosies.last()->typeChanged(types.findIndex(*it));
 		choosies.last()->valueChanged(*vit);
+
+		kdDebug() << "chooser made\n";
+
 		++vit;
 	}
 
 	if (num == 0)
 	{
+		kdDebug() << "doing more\n";
 		card->values.clear();
 		more();
 	}
@@ -556,22 +564,28 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
 {
 	QVBoxLayout *bigbox = new QVBoxLayout(this);
 
-	QVGroupBox *RentPage = new QVGroupBox(i18n("Rent"), this);
+	QVGroupBox *RentPage = new QVGroupBox(i18n("&Rent by # of houses"), this);
 	bigbox->addWidget(RentPage);
 	QWidget *topRent = new QWidget(RentPage);
-	QGridLayout *rentBox = new QGridLayout(topRent, 6, 2);
-	rentBox->addWidget(new QLabel(i18n("No houses"), topRent), 0, 0);
-	rentBox->addWidget(new QLabel(i18n("One house"), topRent), 1, 0);
-	rentBox->addWidget(new QLabel(i18n("Two houses"), topRent), 2, 0);
-	rentBox->addWidget(new QLabel(i18n("Three houses"), topRent), 3, 0);
-	rentBox->addWidget(new QLabel(i18n("Four houses"), topRent), 4, 0);
-	rentBox->addWidget(new QLabel(i18n("One hotel"), topRent), 5, 0);
-	rentBox->addWidget(houses0 = new QSpinBox(0, 3000, 1, topRent), 0, 1);
+	QGridLayout *rentBox = new QGridLayout(topRent, 2, 7);
+	rentBox->addWidget(new QLabel(i18n("None"), topRent), 0, 0);
+	rentBox->addWidget(new QLabel(i18n("One"), topRent), 0, 1);
+	rentBox->setColStretch(1, 1);
+	rentBox->addWidget(new QLabel(i18n("Two"), topRent), 0, 2);
+	rentBox->setColStretch(2, 2);
+	rentBox->addWidget(new QLabel(i18n("Three"), topRent), 0, 3);
+	rentBox->setColStretch(3, 3);
+	rentBox->addWidget(new QLabel(i18n("Four"), topRent), 0, 4);
+	rentBox->setColStretch(4, 4);
+	rentBox->addWidget(new QLabel(i18n("Hotel"), topRent), 0, 5);
+	rentBox->setColStretch(5, 5);
+
+	rentBox->addWidget(houses0 = new QSpinBox(0, 3000, 1, topRent), 1, 0);
 	rentBox->addWidget(houses1 = new QSpinBox(0, 3000, 1, topRent), 1, 1);
-	rentBox->addWidget(houses2 = new QSpinBox(0, 3000, 1, topRent), 2, 1);
-	rentBox->addWidget(houses3 = new QSpinBox(0, 3000, 1, topRent), 3, 1);
-	rentBox->addWidget(houses4 = new QSpinBox(0, 3000, 1, topRent), 4, 1);
-	rentBox->addWidget(houses5 = new QSpinBox(0, 3000, 1, topRent), 5, 1);
+	rentBox->addWidget(houses2 = new QSpinBox(0, 3000, 1, topRent), 1, 2);
+	rentBox->addWidget(houses3 = new QSpinBox(0, 3000, 1, topRent), 1, 3);
+	rentBox->addWidget(houses4 = new QSpinBox(0, 3000, 1, topRent), 1, 4);
+	rentBox->addWidget(houses5 = new QSpinBox(0, 3000, 1, topRent), 1, 5);
 	houses0->setSuffix(i18n("$"));
 	houses1->setSuffix(i18n("$"));
 	houses2->setSuffix(i18n("$"));
@@ -590,7 +604,7 @@ StreetDlg::StreetDlg(ConfigEstate *estate, QWidget *parent, char *name)
 	QHBoxLayout *groupLayout = new QHBoxLayout(bigbox, 6);
 	QLabel *groupLabel = new QLabel(i18n("Group"), this);
 	groupLayout->addWidget(groupLabel);
-	groupCombo = new QComboBox(false, this, "Group Combo");
+	groupCombo = new KComboBox(false, this, "Group Combo");
 	QStringList groups(i18n("None"));
 	for (int i = 0; i <= 20; i++)
 	{

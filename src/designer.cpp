@@ -1,7 +1,10 @@
 #include <kmainwindow.h>
+#include <kconfig.h>
 #include <qptrlist.h>
+#include <qguardedptr.h>
 #include <qtimer.h>
 #include <kglobal.h>
+#include <qpoint.h>
 #include <klocale.h>
 #include <kurl.h>
 #include <qfile.h>
@@ -29,17 +32,16 @@
 AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
 	estates.setAutoDelete(true);
-	chanceStack.setAutoDelete(true);
-	ccStack.setAutoDelete(true);
+	//chanceStack.setAutoDelete(true);
+	//ccStack.setAutoDelete(true);
+	
+	firstBoard = true;
 
 	m_player = 0;
 	copiedEstate = 0;
-
-	board = new AtlantikBoard(this, "Board");
-	QVBoxLayout *layout = new QVBoxLayout(board->centerWidget());
-	editor = new EstateEdit(&chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
-	layout->addWidget(editor);
-	setCentralWidget(board);
+	editor = 0;
+	board = 0;
+	layout = 0;
 
 	(void) KStdAction::close(this, SLOT(close()), actionCollection());
 	(void) KStdAction::open(this, SLOT(open()), actionCollection());
@@ -93,13 +95,76 @@ AtlanticDesigner::~AtlanticDesigner()
 	delete m_player;
 }
 
+void AtlanticDesigner::initBoard()
+{
+	// let her say her prayers (if she's alive)
+	if (!firstBoard)
+		editor->aboutToDie();
+
+	firstBoard = false;
+
+	delete editor;
+	delete board;
+	delete layout;
+
+	estates.clear();
+	chanceStack.setAutoDelete(true);
+	chanceStack.clear();
+	chanceStack.setAutoDelete(false);
+	ccStack.setAutoDelete(true);
+	ccStack.clear();
+	ccStack.setAutoDelete(false);
+
+	board = new AtlantikBoard(this, "Board");
+	setCentralWidget(board);
+	layout = new QVBoxLayout(board->centerWidget());
+	editor = new EstateEdit(&chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
+	layout->addWidget(editor);
+
+	board->show();
+	editor->show();
+}
+
 void AtlanticDesigner::openNew()
 {
 	if (warnClose())
 		return;
 	filename = QString::null;
-	KStandardDirs *dirs = KGlobal::dirs();
-	openFile(dirs->findResource("appdata", "defaultcity.conf"));
+
+	initBoard();
+
+	KConfig *config = kapp->config();
+	config->setGroup("General");
+	QColor fg, bg;
+	bg = config->readColorEntry("windowBackground", &white);
+	fg = config->readColorEntry("background", &gray);
+
+	for(int i = 0; i < 40; ++i)
+	{
+		ConfigEstate *estate = new ConfigEstate(i);
+		estate->setName(i18n("New Estate"));
+		estate->setColor(fg);
+		estate->setBgColor(bg);
+		estate->setPrice(100);
+		estate->setHousePrice(50);
+		for (int i = 0; i < 6; ++i)
+			estate->setRent(i, 10 * (i + 1));
+		estate->setChanged(false);
+		estates.append(estate);
+	
+		connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
+		connect(estate, SIGNAL(changed()), this, SLOT(modified()));
+	
+		board->addEstateView(estate);
+	}
+
+	max = 40;
+
+	isMod = false;
+	doCaption(false);
+	updateJumpMenu();
+
+	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
 }
 
 bool AtlanticDesigner::warnClose()
@@ -154,10 +219,8 @@ void AtlanticDesigner::openFile(const QString &filename)
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 		return;
-
-	estates.clear();
-	chanceStack.clear();
-	ccStack.clear();
+	
+	initBoard();
 
 	QTextStream t(&f);
 	QString s = t.readLine();
@@ -365,7 +428,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 			card->name = name;
 			card->keys = keys;
 			card->values = values;
-			(parseMode == Chance_Cards ? chanceStack : ccStack).append(card);
+			(parseMode == Chance_Cards ? chanceStack : ccStack).prepend(card);
 		}
 	}
 
