@@ -25,6 +25,7 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <knotifyclient.h>
+#include <knotifydialog.h>
 #include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
@@ -56,6 +57,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	// Toolbar: Settings
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	KStdAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
@@ -413,6 +415,11 @@ void Atlantik::slotConfigure()
 	m_configDialog->show();
 	
 	connect(m_configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
+}
+
+void Atlantik::configureNotifications()
+{
+	KNotifyDialog::configure(this);
 }
 
 void Atlantik::slotUpdateConfig()

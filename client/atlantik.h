@@ -125,6 +125,12 @@ public slots:
 	void slotConfigure();
 
 	/**
+	 * Opens the KNotify dialog for configuration events.
+	 *
+	 */
+	void configureNotifications();
+
+	/**
 	 * Reads values from configuration dialog and stores them into
 	 * global configuration struct. If values have changed, appropriate
 	 * methods within the application are called. Configuration is saved
