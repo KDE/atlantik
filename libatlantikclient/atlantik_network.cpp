@@ -740,6 +740,6 @@ void AtlantikNetwork::serverConnect(const QString host, int port)
 #else
 	setAddress(host, port);
 	enableRead(true);
-	connect();
+	startAsyncConnect();
 #endif
 }
