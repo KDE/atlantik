@@ -76,6 +76,16 @@ signals:
 	 */
 	void newEstate(Estate *estate);
 
+	/**
+	 * A new trade was created. This signal might be replaced with one in
+	 * the AtlanticCore class in the future, but it is here now because we
+	 * do not want GUI implementations to create a view until the
+	 * tradeupdate message has been fully parsed.
+	 *
+	 * @param trade	Point to created trade object.
+	 */
+	void newTrade(Trade *trade);
+
 	void msgInfo(QString);
 	void msgError(QString);
 	void msgChat(QString, QString);

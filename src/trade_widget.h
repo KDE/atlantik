@@ -3,9 +3,11 @@
 
 #include <qwidget.h>
 
+class AtlanticCore;
+
 class GivingListViewItem;
 class PlayerListViewItem;
-class  TradeListViewItem;
+class TradeListViewItem;
 
 class KListView;
 class QListViewItem;
@@ -18,7 +20,7 @@ class TradeDisplay : public QWidget
 Q_OBJECT
 
 public:
-	TradeDisplay(Trade *trade, QWidget *parent=0, const char *name = 0);
+	TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent=0, const char *name = 0);
 
 	Trade *trade() { return mTrade; }
 
@@ -38,6 +40,8 @@ private slots:
 	void contextMenu(KListView *l, QListViewItem *i);
 	
 private:
+	AtlanticCore *m_atlanticCore;
+
 	KListView *mPlayerList;
 	Trade *mTrade;
 };

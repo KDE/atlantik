@@ -1,8 +1,7 @@
 2001-12-20 (kaper)
 ----------
 
-- Moved network stuff to libatlantiknetwork, this disables TradeDisplays for
-  the moment, until those are rewritten to remove unwanted dependencies.
+- Moved network stuff to libatlantiknetwork
 
 2001-12-19 (kaper)
 ----------

@@ -15,14 +15,15 @@
 #include "board.h"
 
 #include <atlantic_core.h>
+#include <player.h>
+#include <estate.h>
+#include <trade.h>
+
 #include <atlantik_network.h>
 
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
-
-#include "player.h"
-#include "estate.h"
 
 #include "trade_widget.h"
 
@@ -74,6 +75,7 @@ Atlantik::Atlantik () : KMainWindow ()
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
+	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
 
 	// Toolbar: Move
 	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
@@ -187,6 +189,17 @@ void Atlantik::newEstate(Estate *estate)
 	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			portfolioView->addEstateView(estate);
+}
+
+void Atlantik::newTrade(Trade *trade)
+{
+	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0, "tradeDisplay");
+	tradeDisplay->setFixedSize(200, 200);
+	tradeDisplay->show();
+						
+	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
+
+	// m_board->addTradeView(trade);
 }
 
 void Atlantik::slotNetworkConnected()
@@ -384,6 +397,8 @@ void Atlantik::slotMsgStartGame(QString msg)
 
 void Atlantik::setTurn(Player *player)
 {
+#warning port to playerupdate
+/*
 	if (player && player->isSelf())
 	{
 		m_endTurn->setEnabled(true);
@@ -399,6 +414,7 @@ void Atlantik::setTurn(Player *player)
 		m_jailPay->setEnabled(false);
 	}
 	m_board->raiseToken(player->playerId());
+*/
 }
 
 void Atlantik::serverMsgsAppend(QString msg)

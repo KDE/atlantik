@@ -393,6 +393,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					// Emit signal so GUI implementations can create view(s)
+#warning port to atlanticcore, but somehow dont create view until all properties are set
 					if (b_newPlayer)
 						emit newPlayer(player);
 
@@ -471,6 +472,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						estate->setCanSellHouses(a.value().toInt());
 
 					// Emit signal so GUI implementations can create view(s)
+#warning port to atlanticcore, but somehow dont create view until all properties are set
 					if (b_newEstate)
 						emit newEstate(estate);
 
@@ -486,6 +488,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					int tradeId = a.value().toInt();
 
 					Trade *trade;
+					bool b_newTrade = false;
 					if (!(trade = m_trades[tradeId]))
 					{
 						// Create trade object and view
@@ -495,16 +498,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						QObject::connect(trade, SIGNAL(tradeUpdateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)), this, SLOT(tradeUpdateMoney(Trade *, Player *, Player *, unsigned int)));
 
-#warning port away tradedisplay
-/*
-						TradeDisplay *tradeDisplay = new TradeDisplay(trade, 0, "tradeDisplay");
-						tradeDisplay->setFixedSize(200, 200);
-						tradeDisplay->show();
-						
-						QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
-
-						// m_board->addTradeView(trade);
-*/
+						b_newTrade = true;
 					}
 
 					QString type = e.attributeNode(QString("type")).value();
@@ -587,9 +581,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 					else if (type=="rejected")
 						emit msgTradeUpdateRejected(tradeId, e.attributeNode(QString("actor")).value().toInt());
 
-#warning create trade->update()
-//					if (trade)
-//						trade->update();
+					// Emit signal so GUI implementations can create view(s)
+#warning port to atlanticcore, but somehow dont create view until all properties are set
+					if (b_newTrade)
+						emit newTrade(trade);
+
+					if (trade)
+						trade->update();
 				}
 			}
 			else

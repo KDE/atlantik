@@ -50,6 +50,9 @@ void AtlanticCore::setCurrentTurn(Player *player)
 	{
 		p = dynamic_cast<Player *>(*i);
 		if (p)
+		{
 			p->setHasTurn(p==player);
+			p->update();
+		}
 	}
 }

@@ -5,6 +5,8 @@
 Trade::Trade(int tradeId)
 {
 	m_tradeId = tradeId;
+
+	m_changed = false;
 }
 
 void Trade::addPlayer(Player *player)
@@ -74,6 +76,14 @@ void Trade::updateMoney(Player *from, Player *to, unsigned int money)
 
 }
 
+void Trade::update(bool force)
+{
+	if (m_changed || force)
+	{
+		emit changed();
+		m_changed = false;
+	}
+}
 
 TradeItem::TradeItem(Trade *trade, Player *from, Player *to)
 	: mFrom(from), mTo(to), mTrade(trade)
@@ -123,6 +133,3 @@ void TradeCash::destroyCommand()
 {
 
 }
-
-
-

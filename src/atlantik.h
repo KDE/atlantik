@@ -13,8 +13,6 @@
 #include "configdlg.h"
 #include "portfolioview.h"
 #include "board.h"
-#include "estate.h"
-#include "trade.h"
 
 class AtlanticCore;
 class AtlantikNetwork;
@@ -25,6 +23,7 @@ class SelectConfiguration;
 
 class Player;
 class Estate;
+class Trade;
 
 /**
  * Main Atlantik window.
@@ -158,8 +157,10 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
-	void newPlayer(Player *);
-	void newEstate(Estate *);
+	void newPlayer(Player *player);
+	void newEstate(Estate *estate);
+	void newTrade(Trade *trade);
+
 	void playerChanged();
 
 private:

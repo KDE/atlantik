@@ -33,7 +33,7 @@ public:
 	virtual void createCommand()=0;
 	
 	virtual void destroyCommand()=0;
-	
+
 private:
 	Player *mFrom, *mTo;
 	Trade *mTrade;
@@ -127,10 +127,13 @@ private slots:
 	void changed(TradeItem *i) { emit tradeChanged(i); }
 
 public:
+	void update(bool force = false);
 	void updateEstate(Estate *estate, Player *player);
 	void updateMoney(Player *from, Player *to, unsigned int money);
 	
 signals:
+	void changed();
+
 	void playerAdded(Player *);
 	void playerRemoved(Player *);
 
@@ -141,6 +144,7 @@ signals:
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 
 private:
+	bool m_changed;
 	int m_tradeId;
 
 	QPtrList<Player> mPlayers;

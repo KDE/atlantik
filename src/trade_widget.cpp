@@ -10,10 +10,12 @@
 #include <kdialogbase.h>
 #include <klineedit.h>
 
+#include <atlantic_core.h>
+#include <player.h>
+#include <estate.h>
+#include <trade.h>
+
 #include "trade_widget.moc"
-#include "trade.h"
-#include "player.h"
-#include "estate.h"
 
 class PlayerListViewItem : public QListViewItem
 {
@@ -57,9 +59,11 @@ private:
 	TradeItem *mTrade;
 };
 
-TradeDisplay::TradeDisplay(Trade *trade, QWidget *parent, const char *name)
+TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent, const char *name)
 	: QWidget(parent, name), mTrade(trade)
 {
+	m_atlanticCore = atlanticCore;
+
 	(new QHBoxLayout(this, 11, 6))->setAutoAdd(true);
 	
 	mPlayerList = new KListView(this, "playerlist");
@@ -248,8 +252,7 @@ void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
 		QPopupMenu menu(this);
 		menu.insertItem(i18n("Trade &Money"), 0);
 
-#warning we cant be sure there is a network, wait for engine to be seperated from network
-		QPtrList<Estate> estateList; // =trade()->network()->estates();
+		QPtrList<Estate> estateList = m_atlanticCore->estates();
 		QMap<int, Estate*> id;
 		QPopupMenu estates(this);
 		
