@@ -217,7 +217,7 @@ void AtlantikBoard::playerChanged(Player *player)
 			jump = true;
 		}
 			
-		else if (token->location() != player->location())
+		if (token->location() != player->location())
 		{
 			token->setLocation(player->location());
 			jump = true;
@@ -280,7 +280,7 @@ void AtlantikBoard::moveToken(Token *token)
 QPoint AtlantikBoard::calculateTokenDestination(Token *token, Estate *eDest)
 {
 		if (!eDest)
-			eDest = token->player()->location();
+			eDest = token->location();
 
 		EstateView *evDest = findEstateView(eDest);
 		if (!evDest)
