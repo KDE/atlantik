@@ -85,7 +85,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_jailCard->setEnabled(false);
 	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), "jail_pay", CTRL+Key_P, m_atlantikNetwork, SLOT(jailPay()), actionCollection(), "move_jailpay");
 	m_jailPay->setEnabled(false);
-	m_jailRoll = new KAction(i18n("&Roll to Leave Jail"), "altantik_move_jail_roll", CTRL+Key_R, m_atlantikNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
+	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), "altantik_move_jail_roll", CTRL+Key_J, m_atlantikNetwork, SLOT(jailRoll()), actionCollection(), "move_jailroll");
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
