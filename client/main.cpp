@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	{
 		Atlantik *atlantik = new Atlantik;
 		atlantik->setMinimumSize(640, 480);
-		atlantik->setCaption(i18n("The Atlantic board game"));
+		atlantik->setCaption(i18n("The Atlantic Board Game"));
 		atlantik->show();
 	}
 
