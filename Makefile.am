@@ -3,7 +3,7 @@ LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 
 COMPILE_FIRST = libatlantic libatlantikclient libatlantikui
-SUBDIRS = $(COMPILE_FIRST) client atlanticd pics
+SUBDIRS = $(COMPILE_FIRST) client pics
 
 EXTRA_DIST = atlantik.desktop
 
