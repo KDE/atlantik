@@ -50,15 +50,14 @@ through the Monopigator interface.
 --------------
 
 There are mailinglists available for discussion of Atlantik development. The
-kmonop-devel list (named kmonop for historic reasons) is for general
-discussion and development of the codebase, the atlantik-artists list is for
-the development of GFX/SFX for Atlantik.
+atlantik-devel list is for general discussion and development of the
+codebase, the atlantik-artists list is for the development of GFX/SFX for
+Atlantik.
 
-To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
-To post, send e-mail to: kmonop-devel@lists.capsi.com
+See http://mail.kde.org/mailman/listinfo/atlantik-devel
+and http://mail.kde.org/mailman/listinfo/atlantik-artists
 
-To subscribe, send e-mail to: atlantik-artists-subscribe@lists.capsi.com
-To post, send e-mail to: atlantik-artists@lists.capsi.com
+on information on subscribing, posting and list archives.
 
 There is a seperate mailinglist for monopd related discussion:
 
