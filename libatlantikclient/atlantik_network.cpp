@@ -433,6 +433,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setBankrupt(a.value().toInt());
 
+					a = e.attributeNode(QString("hasdebt"));
+					if (player && !a.isNull())
+						player->setHasDebt(a.value().toInt());
+
 					a = e.attributeNode(QString("hasturn"));
 					if (player && !a.isNull())
 						player->setHasTurn(a.value().toInt());
