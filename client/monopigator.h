@@ -32,7 +32,6 @@ public:
 	void loadData(const KURL &);
 
 signals:
-	void monopigatorClear();
 	void monopigatorAdd(QString host, QString port, QString version, int users);
 	void finished();
 

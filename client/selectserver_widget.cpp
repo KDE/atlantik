@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -18,6 +18,7 @@
 #include <qradiobutton.h>
 
 #include <kdialog.h>
+#include <kextendedsocket.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -53,7 +54,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 //	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClicked(QListViewItem *)));
-	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
+	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotConnect()));
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
@@ -65,43 +66,51 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 	m_refreshButton = new KPushButton(BarIcon("reload", KIcon::SizeSmall), i18n("Refresh"), this);
 	buttonBox->addWidget(m_refreshButton);
 
-	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(initMonopigator()));
+	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	m_connectButton = new KPushButton(BarIcon("forward", KIcon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
-	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
+	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 	
     // Status indicator
 	status_label = new QLabel(this);
 	m_mainLayout->addWidget(status_label);
 
 	// Monopigator
-	monopigator = new Monopigator();
+	m_monopigator = new Monopigator();
 
-	connect(monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
-	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
-	connect(monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
+	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, int)));
+	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
 
 	// Until we have a good way to use start a local monopd server, disable this button
 //	m_localGameButton->setEnabled(false);
 
-	initMonopigator();
+	slotRefresh();
+}
+
+SelectServer::~SelectServer()
+{
+	delete m_monopigator;
+	delete m_localSocket;
 }
 
 void SelectServer::initMonopigator()
 {
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
 	status_label->setText(i18n("Retrieving server list..."));
-	monopigator->loadData("http://gator.monopd.net/");
+	m_monopigator->loadData("http://gator.monopd.net/");
 }
 
-void SelectServer::slotMonopigatorClear()
+void SelectServer::checkLocalServer()
 {
-	m_serverList->clear();
-	validateConnectButton();
-//	emit statusChanged();
+	m_localSocket = new KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket);
+	connect(m_localSocket, SIGNAL(connectionSuccess()), this, SLOT(slotLocalConnected()));
+	connect(m_localSocket, SIGNAL(connectionFailed(int)), this, SLOT(slotLocalError()));
+	m_localSocket->setAddress("localhost", 1234);
+	m_localSocket->enableRead(true);
+	m_localSocket->startAsyncConnect();
 }
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
@@ -111,12 +120,25 @@ void SelectServer::slotMonopigatorAdd(QString host, QString port, QString versio
 	validateConnectButton();
 }
 
-void SelectServer::monopigatorFinished()
+void SelectServer::slotLocalConnected()
 {
-	// TODO : remove, this is temporarily until there is a good way to fork a server
+	m_localServerAvailable = true;
+
 	QListViewItem *item = new QListViewItem(m_serverList, "localhost", i18n("unknown"), i18n("unknown"), QString::number(1234));
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
+
 	validateConnectButton();
+}
+
+void SelectServer::slotLocalError()
+{
+	m_localServerAvailable = false;
+
+	// TODO: fork server or offer option to do so
+}
+
+void SelectServer::monopigatorFinished()
+{
 	status_label->setText(i18n("Retrieved server list."));
 }
 
@@ -154,7 +176,18 @@ void SelectServer::slotListClicked(QListViewItem *item)
 		m_onlineGameButton->toggle();
 }
 
-void SelectServer::connectClicked()
+void SelectServer::slotRefresh()
+{
+	m_localServerAvailable = false;
+
+	m_serverList->clear();
+	validateConnectButton();
+
+	checkLocalServer();
+	initMonopigator();
+}
+
+void SelectServer::slotConnect()
 {
 	if (QListViewItem *item = m_serverList->selectedItem())
 		emit serverConnect(item->text(0), item->text(3).toInt());

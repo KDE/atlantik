@@ -61,8 +61,6 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 			if (eTop.tagName() != "monopigator")
 				return;
 
-			emit monopigatorClear();
-
 			QDomNode n = eTop.firstChild();
 			while(!n.isNull())
 			{
