@@ -21,13 +21,25 @@ Bugfixes
   - estates checking tokens upon estate init
   v portfolios checking estates upon player init
 - rename PortfolioEstate to TinyEstateView
-v support for <display>
-  v type chancecard (attrs playerid, name and description)
-  ^ type cccard (attrs playerid, name and description)
+- mainwindow should own network, dont have global vars
+
+For 0.1.2
+---------
+
+- move network and data objects to libatlantikcore, make sure its qt-only
+  (for Atlantic/E)
+- move all but mainwindow to libatlantikui
+- complete trades
+ v network api
+ ^ trade object
+ - widget
 
 For 0.2.0
 ---------
 
+v support for <display>
+  v type chancecard (attrs playerid, name and description)
+  ^ type cccard (attrs playerid, name and description)
 - gameNetwork API
   - commands
     - .D
