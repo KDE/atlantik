@@ -100,15 +100,15 @@ For 0.9.x
 ---------
 
 - Beta series.
-- Move to kdegames during 3.0/3.1 alpha's and prepare for 1.0.0 release for
-  3.0/3.1 final.
+- Move to kdegames during 3.1 alpha's and prepare for 1.0.0 release for
+  3.1 final.
 
 For 1.0.0
 ---------
 
 - Have a game suitable for inclusion in kdegames. Nice icons, stable code,
   etcetera.
-- Version 1.0.0 should be released with KDE 3.0 or 3.1, so after the last
+- Version 1.0.0 should be released with KDE 3.1, so after the last
   beta Atlantik version will be moved from 0.9.x to 1.0.0.
 
 For 1.x.y
