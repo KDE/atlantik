@@ -19,7 +19,7 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qmap.h>
+#include <qptrlist.h>
 
 #include "portfolioestate.h"
 
@@ -36,8 +36,11 @@ Q_OBJECT
 
 public:
 	PortfolioView(AtlanticCore *core, Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
+	~PortfolioView();
+
 	void buildPortfolio();
-    ~PortfolioView();
+	void clearPortfolio();
+
 	Player *player();
 
 protected:
@@ -63,7 +66,7 @@ private:
 	QPixmap *qpixmap, *m_image;
 	QString m_imageName;
 	bool b_recreate;
-	QMap<int, PortfolioEstate*> portfolioEstateMap;
+	QPtrList<PortfolioEstate> m_portfolioEstates;
 };
 
 #endif

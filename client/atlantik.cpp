@@ -577,15 +577,18 @@ void Atlantik::playerChanged(Player *player)
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (player == playerSelf)
 	{
-		// We changed ourselves, see if other players (that we know
-		// about) have the same gameId..
+		// We changed ourselves..
 
 		PortfolioView *portfolioView = 0;
 		for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			{
-				Player *pTmp = portfolioView->player();
-				if (pTmp->gameId() == playerSelf->gameId())
+				// Clear all portfolios if we're not in game
+				if ( player->gameId() == -1 )
+					portfolioView->clearPortfolio();
+
+				// Show players in our game, hide the rest
+				if ( portfolioView->player()->gameId() == playerSelf->gameId() )
 					portfolioView->show();
 				else
 					portfolioView->hide();

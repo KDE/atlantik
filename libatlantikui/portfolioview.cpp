@@ -1,4 +1,4 @@
-// Copyright (c) 2002 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -48,11 +48,11 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	m_inactiveColor = inactiveColor;
 	m_lastPE = 0;
 
-	setBackgroundColor(Qt::white);
-
 	qpixmap = 0;
 	b_recreate = true;
 
+	m_portfolioEstates.setAutoDelete(true);
+	setBackgroundColor(Qt::white);
 	setMinimumHeight(ICONSIZE);
 
 	// Init icon
@@ -63,8 +63,9 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 
 PortfolioView::~PortfolioView()
 {
-    delete m_image;
-    delete qpixmap;
+	clearPortfolio();
+	delete m_image;
+	delete qpixmap;
 }
 
 Player *PortfolioView::player()
@@ -74,7 +75,9 @@ Player *PortfolioView::player()
 
 void PortfolioView::buildPortfolio()
 {
-	// TODO: clear current portfolioEstateMap
+	if ( m_portfolioEstates.count() )
+		clearPortfolio();
+
 	// Loop through estate groups in order
 	QPtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
 	PortfolioEstate *lastPE = 0, *firstPEprevGroup = 0;
@@ -99,7 +102,7 @@ void PortfolioView::buildPortfolio()
 				{
 					// Create PE
 					PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
-					portfolioEstateMap[estate->id()] = portfolioEstate;
+					m_portfolioEstates.append(portfolioEstate);
 
  					connect(portfolioEstate, SIGNAL(estateClicked(Estate *)), this, SIGNAL(estateClicked(Estate *)));
 					if (lastPE)
@@ -138,6 +141,11 @@ void PortfolioView::buildPortfolio()
 	int minHeight = bottom + PE_HEIGHT + marginHint;
 	if (minHeight > minimumHeight())
 		setMinimumHeight(minHeight);
+}
+
+void PortfolioView::clearPortfolio()
+{
+	m_portfolioEstates.clear();
 }
 
 void PortfolioView::loadIcon()
@@ -211,7 +219,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
 		painter.drawText(ICONSIZE + KDialog::marginHint(), 15, m_player->name());
 
-		if (portfolioEstateMap.size())
+		if ( m_portfolioEstates.count() )
 			painter.drawText(width() - 50, 15, QString::number(m_player->money()));
 		else
 		{
@@ -242,7 +250,7 @@ void PortfolioView::playerChanged()
 
 void PortfolioView::mousePressEvent(QMouseEvent *e)
 {
-	if (e->button()==RightButton && !m_player->isSelf() && portfolioEstateMap.size())
+	if (e->button()==RightButton && !m_player->isSelf() && m_portfolioEstates.count() )
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_player->name());
