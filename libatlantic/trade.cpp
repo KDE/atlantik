@@ -22,8 +22,7 @@
 Trade::Trade(int tradeId)
 {
 	m_tradeId = tradeId;
-
-	m_changed = false;
+	m_changed = m_rejected = false;
 }
 
 void Trade::addPlayer(Player *player)
@@ -141,6 +140,7 @@ void Trade::updateAccept(Player *player, bool accept)
 
 void Trade::reject(Player *player)
 {
+	m_rejected = true;
 	emit rejected(player);
 }
 
