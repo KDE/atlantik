@@ -28,7 +28,7 @@ class BoardDisplay : public QWidget
 Q_OBJECT
 
 public:
-	BoardDisplay(const QString type, const QString description, QWidget *parent, const char *name=0);
+	BoardDisplay(const QString caption, const QString body, QWidget *parent, const char *name=0);
 
 private slots:
 	void slotClicked();
@@ -36,7 +36,7 @@ private slots:
 private:
 	QTextEdit *m_label;
 	QVBoxLayout *m_mainLayout;
-	QVGroupBox *m_playerGroupBox;
+	QVGroupBox *m_textGroupBox;
 };
 
 #endif

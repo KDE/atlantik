@@ -55,7 +55,7 @@ public slots:
 private slots:
 	void playerChanged();
 	void displayCenter();
-	void displayCard(QString, QString);
+	void displayText(QString caption, QString body);
 	void displayEstateDetails(Estate *);
 
 signals:

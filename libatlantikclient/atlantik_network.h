@@ -112,7 +112,7 @@ signals:
 	void msgError(QString);
 	void msgChat(QString, QString);
 
-	void displayCard(QString, QString);
+	void displayText(QString, QString);
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);

@@ -388,14 +388,12 @@ void AtlantikBoard::displayCenter()
 	m_center->show();
 }
 
-void AtlantikBoard::displayCard(QString type, QString description)
+void AtlantikBoard::displayText(QString caption, QString body)
 {
-	kdDebug() << "displayCard(" << type << ", " << description << ")" << endl;
-
 	if (m_center != 0)
 		delete m_center;
 	
-	m_center = new BoardDisplay(type, description, this);
+	m_center = new BoardDisplay(caption, body, this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 

@@ -259,7 +259,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 			{
 				QString type = e.attributeNode(QString("type")).value();
 				if (1 || type == "foo")
-					emit displayCard(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
+					emit displayText(e.attributeNode(QString("name")).value(), e.attributeNode(QString("description")).value());
 			}
 			else if (e.tagName() == "updategamelist")
 			{
@@ -398,7 +398,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					// Update whether player is jailed
 					a = e.attributeNode(QString("jailed"));
 					if (player && !a.isNull())
+					{
 						player->setInJail(a.value().toInt());
+						// TODO: emit signal with player ptr so board can setText and display something
+					}
 
 					// Update player location
 					a = e.attributeNode(QString("location"));
