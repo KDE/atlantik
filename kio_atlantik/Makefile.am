@@ -1,4 +1,4 @@
-INCLUDES = $(all_includes)
+INCLUDES = -I$(top_srcdir)/atlantik/libatlantic $(all_includes)
 METASOURCES = AUTO
 
 kde_module_LTLIBRARIES = kio_atlantik.la

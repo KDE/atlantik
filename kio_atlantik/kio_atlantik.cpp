@@ -30,10 +30,11 @@
 #include <kprocess.h>
 
 #include "kio_atlantik.h"
+#include "libatlantic_export.h"
 
 extern "C"
 {
-	int KDE_EXPORT kdemain( int, char **argv )
+	int LIBATLANTIC_EXPORT kdemain( int, char **argv )
 	{
 		KInstance instance( "kio_atlantik" );
 		AtlantikProtocol slave(argv[2], argv[3]);
