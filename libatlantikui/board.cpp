@@ -185,11 +185,14 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 	estateView->show();
 
-	Player *player = 0;
-	QPtrList<Player> playerList = m_atlanticCore->players();
-	for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
-	 	if (player->location() == estate)
-			addToken(player);
+	if (m_atlanticCore)
+	{
+		Player *player = 0;
+		QPtrList<Player> playerList = m_atlanticCore->players();
+		for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+			if (player->location() == estate)
+				addToken(player);
+	}
 }
 
 void AtlantikBoard::addAuctionWidget(Auction *auction)
