@@ -53,8 +53,8 @@ void EstateView::setOwned(bool owned)
 {
 	if (owned)
 	{
-		if (pe!=0 && pe->isVisible())
-			pe->hide();
+		delete pe;
+		pe = 0;
 	}
 	else
 	{
