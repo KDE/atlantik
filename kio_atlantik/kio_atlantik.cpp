@@ -15,11 +15,9 @@
 // Boston, MA 02111-1307, USA.
 
 #include <stdlib.h>
+
 #include <qtextstream.h>
 
-#include <kio/slavebase.h>
-#include <kinstance.h>
-#include <kdebug.h>
 #include <kdeversion.h>
 #undef KDE_3_1_FEATURES
 #ifdef KDE_MAKE_VERSION
@@ -27,6 +25,8 @@
 #define KDE_3_1_FEATURES
 #endif
 #endif
+#include <kio/slavebase.h>
+#include <kinstance.h>
 #include <kprocess.h>
 
 #include "kio_atlantik.h"
@@ -48,20 +48,19 @@ void AtlantikProtocol::get( const KURL& url )
 	*proc << "atlantik";
 
 #ifdef KDE_3_1_FEATURES
-	QString host = KProcess::quote(url.queryItem("host"));
-	QString port = KProcess::quote(url.queryItem("port"));
-	QString game = KProcess::quote(url.queryItem("game"));
+	QString host = url.hasHost() ? url.host() : KProcess::quote( url.queryItem("host") );
 #else
-	QString host = url.queryItem("host"));
-	QString port = url.queryItem("port"));
-	QString game = url.queryItem("game"));
+	QString host = url.hasHost() ? url.host() : url.queryItem("host");
 #endif
+	QString port = QString::number( url.port() ? url.port() : 1234 );
+	int game = url.queryItem("game").toInt();
+	QString gameString = game ? QString::number( game ) : QString::null;
 
 	if (!host.isNull() && !port.isNull())
 	{
 		*proc << "--host" << host << "--port" << port;
-		if (!game.isNull())
-			*proc << "--game" << game;
+		if (!gameString.isNull())
+			*proc << "--game" << gameString;
 	}
 
 	proc->start(KProcess::DontCare);

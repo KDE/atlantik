@@ -1,3 +1,9 @@
+0.7.2
+-----
+
+- Proper use of host and port in kio_atlantik: fixes problems with
+  invitations sent by newer clients.
+
 0.7.1
 -----
 
