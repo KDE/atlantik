@@ -158,8 +158,8 @@ public slots:
 	 */
 	void slotMsgStartGame(QString msg);
 
-	void addPlayer(Player *);
-	void addEstate(Estate *);
+	void newPlayer(Player *);
+	void newEstate(Estate *);
 	void playerChanged();
 
 private:
