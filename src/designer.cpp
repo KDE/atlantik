@@ -107,7 +107,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 	for (int i = 1; !t.atEnd(); i++)
 	{
 		QString name = (i == 1? t.readLine() : s).mid(1, s.length() - 2);
-		kdDebug() << "name is " << name << endl;;
+		//kdDebug() << "name is " << name << endl;;
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
 		int type = 0;
 		int group = -1;
@@ -137,11 +137,11 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 			if (key == "type")
 			{
-				kdDebug() << "its a type!\n";
+				//kdDebug() << "its a type!\n";
 				int i = 0;
 				for (QStringList::Iterator it = types.begin(); it != types.end(); ++it)
 				{
-					kdDebug() << (*it) << ", " << value << endl;
+					//kdDebug() << (*it) << ", " << value << endl;
 					if ((*it) == value)
 					{
 						type = i;
@@ -149,7 +149,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 					}
 					i++;
 				}
-				kdDebug() << "type is " << type << endl;
+				//kdDebug() << "type is " << type << endl;
 			}
 			else if (key == "price")
 			{
@@ -181,12 +181,12 @@ void AtlanticDesigner::openFile(const QString &filename)
 			else if (key == "color")
 			{
 				color.setNamedColor(value);
-				kdDebug() << "color is " << color.name() << endl;
+				//kdDebug() << "color is " << color.name() << endl;
 			}
 			else if (key == "bgcolor")
 			{
 				bgColor.setNamedColor(value);
-				kdDebug() << "bgcolor is " << bgColor.name() << endl;
+				//kdDebug() << "bgcolor is " << bgColor.name() << endl;
 			}
 		}
 
@@ -218,7 +218,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 void AtlanticDesigner::save()
 {
-	kdDebug() << "count is " << estates.count() << endl;
+	//kdDebug() << "count is " << estates.count() << endl;
 	if (filename == QString::null)
 		filename = KFileDialog::getOpenFileName();
 
@@ -262,7 +262,7 @@ void AtlanticDesigner::save()
 
 		//allNames.append(estate->name());
 
-		kdDebug() << "done with " << estate->name() << endl;
+		//kdDebug() << "done with " << estate->name() << endl;
 	}
 
 	f.flush();
@@ -293,8 +293,8 @@ void AtlanticDesigner::closeEvent(QCloseEvent *e)
 
 void AtlanticDesigner::changeEstate(int index)
 {
-	kdDebug() << index << endl;
-	kdDebug() << "count is " << estates.count() << endl;
+	//kdDebug() << index << endl;
+	//kdDebug() << "count is " << estates.count() << endl;
 
 	(void) editor->saveEstate();
 
