@@ -213,4 +213,13 @@ void AtlanticCore::printDebug()
 	EstateGroup *estateGroup = 0;
 	for (QPtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
 		std::cout << "EG: " << estateGroup->name().latin1() << std::endl;
+
+	Auction *auction = 0;
+	for (QPtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
+		std::cout << "A: " << QString::number(auction->auctionId()).latin1() << std::endl;
+
+	Trade *trade = 0;
+	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+		std::cout << "T: " << QString::number(trade->tradeId()).latin1() << std::endl;
+
 }
