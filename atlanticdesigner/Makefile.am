@@ -1,4 +1,4 @@
-INCLUDES = $(all_includes)
+INCLUDES = $(all_includes) -l../src/
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
 LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
 

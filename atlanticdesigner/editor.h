@@ -4,6 +4,7 @@
 #include <kmainwindow.h>
 #include <qstring.h>
 #include <qcolor.h>
+#include <board.h>
 
 class QCheckBox;
 class QComboBox;
@@ -19,7 +20,7 @@ struct Estate
 	int num;
 };
 
-class EstateEdit : public QWidget
+class EstateEdit : public AtlantikBoard
 {
 	Q_OBJECT
 
@@ -35,6 +36,8 @@ class EstateEdit : public QWidget
 	KColorButton *bgButton;
 	QComboBox *typeCombo;
 	QLineEdit *nameEdit;
+	AtlantikBoard *board;
+	QWidget *centerWidget;
 
 	QColor fg;
 	QColor bg;

@@ -7,25 +7,31 @@
 #include <kdebug.h>
 #include <qlayout.h>
 
+#include <board.h>
 #include "editor.h"
 
-EstateEdit::EstateEdit(QWidget *parent, const char *name) : QWidget(parent, name)
+EstateEdit::EstateEdit(QWidget *parent, const char *name) : AtlantikBoard(parent, name)
 {
-	QVBoxLayout *layout = new QVBoxLayout(this, 6);
-	nameEdit = new QLineEdit(this, "Name Edit");
+	QVBoxLayout *hugeLayout = new QVBoxLayout(this);
+	board = new AtlantikBoard(this, "Editing Board");
+	hugeLayout->addWidget(board);
+	centerWidget = board->centerWidget();
+
+	QVBoxLayout *layout = new QVBoxLayout(centerWidget, 6);
+	nameEdit = new QLineEdit(centerWidget, "Name Edit");
 	layout->addWidget(nameEdit);
 	
 	QHBoxLayout *colorLayout = new QHBoxLayout(layout, 6);
-	fgButton = new KColorButton(this, "Foreground Button");
+	fgButton = new KColorButton(centerWidget, "Foreground Button");
 	colorLayout->addWidget(fgButton);
-	bgButton = new KColorButton(this, "Background Button");
+	bgButton = new KColorButton(centerWidget, "Background Button");
 	colorLayout->addWidget(bgButton);
 	//layout->addStretch();
 
 	QHBoxLayout *typeLayout = new QHBoxLayout(layout, 6);
-	QLabel *typeLabel = new QLabel(i18n("Type"), this);
+	QLabel *typeLabel = new QLabel(i18n("Type"), centerWidget);
 	typeLayout->addWidget(typeLabel);
-	typeCombo = new QComboBox(false, this, "Type Combo");
+	typeCombo = new QComboBox(false, centerWidget, "Type Combo");
 	typeLayout->addWidget(typeCombo);
 
 	QStringList types(i18n("Street"));
