@@ -225,7 +225,10 @@ void GameNetwork::processNode(QDomNode n)
 						else if (type=="edit")
 							emit playerListEdit(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
 						else if (type=="add" || type=="full")
+						{
+							kdDebug() << "emit GameNetwork::playerListAdd" << endl;
 							emit playerListAdd(e_player.attributeNode(QString("clientid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+						}
 					}
 					n_player = n_player.nextSibling();
 				}
@@ -337,6 +340,8 @@ void GameNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("can_be_owned"));
 					if (!a.isNull())
 						emit msgEstateUpdateCanBeOwned(estateid, a.value().toInt());
+
+					emit estateUpdateFinished(estateid);
 				}
 			}
 			else if (e.tagName() == "tradeupdate")

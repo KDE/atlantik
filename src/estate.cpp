@@ -1,3 +1,5 @@
+#include <kdebug.h>
+
 #include "estate.h"
 #include "player.h"
 
@@ -15,8 +17,7 @@ void Estate::setOwner(Player *player)
 	if (m_owner != player)
 	{
 		m_owner = player;
-#warning emit signal changed here
-//		m_estateView->setOwned( (m_owner ? true : false), ( (m_owner && m_owner->isSelf() ) ? true : false) );
+		m_changed = true;
 	}
 }
 
@@ -24,8 +25,7 @@ void Estate::setHouses(unsigned int houses)
 {
 	if (m_houses != houses)
 		m_houses = houses;
-#warning emit signal changed here
-//		m_estateView->redraw();
+		m_changed = true;
 }
 
 void Estate::setName(const QString name)
@@ -33,9 +33,7 @@ void Estate::setName(const QString name)
 	if (m_name != name)
 	{
 		m_name = name;
-#warning emit signal changed here
-		// TODO: Update view? Done?
-//		m_estateView->redraw();
+		m_changed = true;
 	}
 }
 
@@ -44,8 +42,7 @@ void Estate::setBgColor(const QColor color)
 	if (m_bgColor != color)
 	{
 		m_bgColor = color;
-#warning emit signal changed here
-//		m_estateView->redraw();
+		m_changed = true;
 	}
 }
 
@@ -63,9 +60,7 @@ void Estate::setIsMortgaged(const bool isMortgaged)
 	if (m_isMortgaged != isMortgaged)
 	{
 		m_isMortgaged = isMortgaged;
-		// TODO: Update view? Done?
-#warning emit signal changed here
-//		m_estateView->redraw();
+		m_changed = true;
 	}
 }
 
@@ -73,4 +68,15 @@ void Estate::setCanToggleMortgage(const bool canToggleMortgage)
 {
 	if (m_canToggleMortgage != canToggleMortgage)
 		m_canToggleMortgage = canToggleMortgage;
+}
+
+void Estate::update()
+{
+	kdDebug() << "Estate::update()" << endl;
+	if (m_changed)
+	{
+		kdDebug() << "emit Estate::changed()" << endl;
+		emit changed();
+		m_changed = false;
+	}
 }

@@ -3,6 +3,7 @@
 
 - First changes to replace KMessageBox with in-window widget.
 - Starting games is possible again.
+- Connected Estate::changed to EstateView::estateChanged.
 
 2001-11-05 (kaper)
 ----------

@@ -1,5 +1,7 @@
 #include <qradiobutton.h>
 
+#include <kdebug.h>
+
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
@@ -56,6 +58,7 @@ void SelectConfiguration::slotPlayerListClear()
 
 void SelectConfiguration::slotPlayerListAdd(QString playerId, QString name, QString host)
 {
+	kdDebug() << "SelectConfiguration::slotPlayerListAdd" << endl;
 	QListViewItem *item = new QListViewItem(m_playerList, playerId, name, host);
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
 

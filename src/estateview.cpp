@@ -12,7 +12,7 @@
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-#include "estateview.h"
+#include "estateview.moc"
 #include "estate.h"
 #include "network.h"
 #include "config.h"
@@ -149,8 +149,23 @@ void EstateView::updatePE()
 	}
 }
 
+void EstateView::estateChanged()
+{
+	kdDebug() << "EstateView::estateChanged" << endl;
+
+	// TODO: is this the correct place for name label updates?
+	QToolTip::remove(this);
+	QToolTip::add(this, m_estate->name());
+	lname->setText(m_estate->name());
+
+	b_recreate = true;
+    update();
+}
+
 void EstateView::redraw()
 {
+	kdDebug() << "EstateView::redraw" << endl;
+
 	// TODO: is this the correct place for name label updates?
 	QToolTip::remove(this);
 	QToolTip::add(this, m_estate->name());
@@ -445,4 +460,3 @@ void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, con
 	px.fillRect( 22, 9, 3, 3, c2.light(120));
 	px.fillRect( 22, 13, 3, 3, c2.light(110) );
 }
-#include "estateview.moc"

@@ -24,7 +24,9 @@ Bugfixes
 - <Capzilla> hm, if one playerupdate contains 5 updates, my widgets redraw for each change now
   <Capzilla> maybe i should send a redraw command only upon leaving the playerupdate node
   <odinhuntr> that's what I do.
-
+- store <updateplayerlist> data, we cannot guarantee that <joinedgame/>
+  (which creates the listview connected to the related signals) is sent prior
+  to any of those updates
 
 For 0.2.0
 ---------

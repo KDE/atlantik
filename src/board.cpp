@@ -123,8 +123,7 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	QString icon = QString();
 
 	EstateView *estateView = new EstateView(estate, North, color, icon, this, "estateview");
-#warning estate and estateview should be connected
-//	connect(estate, SIGNAL(changed()), estateView, SLOT(update()));
+	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 
 	int estateId = estate->estateId();
 	if (estateId<10)

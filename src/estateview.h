@@ -53,6 +53,7 @@ Q_OBJECT
 
 	private slots:
 		void slotMenuAction(int);
+		void estateChanged();
 };
 
 #endif

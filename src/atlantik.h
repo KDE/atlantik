@@ -181,7 +181,9 @@ public slots:
 	 * @param estateId Estate identifier.
 	 * @param canBeOwned Boolean.
 	 */
-	 void slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned);
+	void slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned);
+
+	void slotEstateUpdateFinished(int estateId);
 
 	/**
 	 * Stores the playerid corresponding to this instance of the client.

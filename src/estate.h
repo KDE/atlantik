@@ -25,11 +25,13 @@ public:
 	const bool canToggleMortgage() { return m_canToggleMortgage; }
 	void setBgColor(const QColor color);
 	const QColor bgColor() { return m_bgColor; }
+	void update();
 
 signals:
 	void changed();
 
 private:
+	bool m_changed;
 	int m_estateId;
 	QString m_name;
 	Player *m_owner;

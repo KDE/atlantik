@@ -61,6 +61,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
+	connect(m_gameNetwork, SIGNAL(estateUpdateFinished(int)), this, SLOT(slotEstateUpdateFinished(int)));
 	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
@@ -386,6 +387,12 @@ void Atlantik::slotMsgEstateUpdateCanBeOwned(int estateId, bool canBeOwned)
 {
 	if (Estate *estate = estateMap[estateId])
 		estate->setCanBeOwned(canBeOwned);
+}
+
+void Atlantik::slotEstateUpdateFinished(int estateId)
+{
+	if (Estate *estate = estateMap[estateId])
+		estate->update();
 }
 
 void Atlantik::slotSetPlayerId(int playerId)
