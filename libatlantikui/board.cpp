@@ -246,6 +246,19 @@ void AtlantikBoard::playerChanged(Player *player)
 		addToken(player);
 }
 
+void AtlantikBoard::removeToken(Player *player)
+{
+	Token *token = findToken(player);
+
+	if (token == m_movingToken)
+	{
+		m_timer->stop();
+		m_movingToken = 0;
+	}
+
+	m_tokens.remove(token);
+}
+
 void AtlantikBoard::jumpToken(Token *token)
 {
 	if (!token || !token->location())
