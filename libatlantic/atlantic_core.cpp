@@ -24,6 +24,7 @@
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
+	connect(this, SIGNAL(deletePlayer(Player *)), this, SLOT(slotDeletePlayer(Player *)));
 	connect(this, SIGNAL(deleteTrade(Trade *)), this, SLOT(slotDeleteTrade(Trade *)));
 }
 
@@ -66,6 +67,19 @@ Player *AtlanticCore::findPlayer(int playerId)
 			return player;
 
 	return 0;
+}
+
+void AtlanticCore::removePlayer(Player *player)
+{
+	m_players.remove(player);
+	emit removeGUI(player);
+	emit deletePlayer(player);
+	delete player;
+}
+
+void AtlanticCore::slotDeletePlayer(Player *player)
+{
+	delete player;
 }
 
 QPtrList<Estate> AtlanticCore::estates()

@@ -417,6 +417,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 					if (player && !a.isNull())
 						player->setName(a.value());
 
+					// Update player game
+					a = e.attributeNode(QString("game"));
+					if (player && !a.isNull())
+						player->setGame(a.value().toInt());
+
 					// Update player host
 					a = e.attributeNode(QString("host"));
 					if (player && !a.isNull())

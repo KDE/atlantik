@@ -170,9 +170,10 @@ public slots:
 	void newTrade(Trade *trade);
 	void newAuction(Auction *auction);
 
+	void removeGUI(Player *player);
 	void removeGUI(Trade *trade);
 
-	void playerChanged();
+	void playerChanged(Player *player);
 
 signals:
 	void rollDice();

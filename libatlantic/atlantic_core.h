@@ -38,6 +38,7 @@ public:
 	QPtrList<Player> players();
 	Player *newPlayer(int playerId);
 	Player *findPlayer(int playerId);
+	void removePlayer(Player *player);
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);
@@ -57,10 +58,13 @@ public:
 	void delAuction(Auction *auction);
 
 signals:
+	void removeGUI(Player *player);
+	void deletePlayer(Player *player);
 	void removeGUI(Trade *trade);
 	void deleteTrade(Trade *trade);
 
 private slots:
+	void slotDeletePlayer(Player *player);
 	void slotDeleteTrade(Trade *trade);
 
 private:

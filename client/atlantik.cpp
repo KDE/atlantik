@@ -69,6 +69,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 	initNetworkObject();
 
+	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(removeGUI(Player *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
 	// Menu,toolbar: Move
@@ -177,10 +178,9 @@ void Atlantik::newPlayer(Player *player)
 	m_portfolioViews.append(portfolioView);
 
 	if (player->isSelf())
-	{
 		m_playerSelf = player;
-		connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
-	}
+
+	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	connect(player, SIGNAL(changed(Player *)), portfolioView, SLOT(playerChanged()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 	connect(portfolioView, SIGNAL(newTrade(Player *)), m_atlantikNetwork, SLOT(newTrade(Player *)));
@@ -207,6 +207,12 @@ void Atlantik::newAuction(Auction *auction)
 {
 	initBoard();
 	m_board->addAuctionWidget(auction);
+}
+
+void Atlantik::removeGUI(Player *player)
+{
+	// Find and remove portfolioview
+	// TODO: Remove tokens from board
 }
 
 void Atlantik::removeGUI(Trade *trade)
@@ -499,17 +505,25 @@ void Atlantik::serverMsgsAppend(QString msg)
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 }
 
-void Atlantik::playerChanged()
+void Atlantik::playerChanged(Player *player)
 {
-	m_roll->setEnabled(m_playerSelf->canRoll());
-	m_buyEstate->setEnabled(m_playerSelf->canBuy());
-	m_auctionEstate->setEnabled(m_playerSelf->canBuy());
+	if (player->gameId() == -1)
+	{
+		// Find and remove portfolioview
+	}
 
-	// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_usejailcard can_payjail can_jailroll yet
-	m_endTurn->setEnabled(m_playerSelf->hasTurn() && !(m_playerSelf->canRoll() || m_playerSelf->canBuy() || m_playerSelf->inJail()));
-	m_jailCard->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
-	m_jailPay->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
-	m_jailRoll->setEnabled(m_playerSelf->hasTurn() && m_playerSelf->inJail());
+	if (player == m_playerSelf)
+	{
+		m_roll->setEnabled(player->canRoll());
+		m_buyEstate->setEnabled(player->canBuy());
+		m_auctionEstate->setEnabled(player->canBuy());
+
+		// TODO: Should be more finetuned, but monopd doesn't send can_endturn can_usejailcard can_payjail can_jailroll yet
+		m_endTurn->setEnabled(player->hasTurn() && !(player->canRoll() || player->canBuy() || player->inJail()));
+		m_jailCard->setEnabled(player->hasTurn() && player->inJail());
+		m_jailPay->setEnabled(player->hasTurn() && player->inJail());
+		m_jailRoll->setEnabled(player->hasTurn() && player->inJail());
+	}
 }
 
 void Atlantik::initNetworkObject()
