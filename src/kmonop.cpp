@@ -97,6 +97,7 @@ void KMonop::readConfig()
 	kmonopConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
 	kmonopConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
 	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
+	kmonopConfig.quartzEffects = config->readBoolEntry("QuartzEffects", true);
 }
 
 void KMonop::slotNewGame()
@@ -160,6 +161,13 @@ void KMonop::slotUpdateConfig()
 		kmonopConfig.animateToken = optBool;
 	}
 
+	optBool = m_configDialog->quartzEffects();
+	if (kmonopConfig.quartzEffects != optBool)
+	{
+		kmonopConfig.quartzEffects = optBool;
+		redrawEstates = true;
+	}
+
 	config->setGroup("Personalization");
 	config->writeEntry("PlayerName", kmonopConfig.playerName);
 
@@ -168,6 +176,7 @@ void KMonop::slotUpdateConfig()
 	config->writeEntry("HighliteUnowned", kmonopConfig.highliteUnowned);
 	config->writeEntry("GrayOutMortgaged", kmonopConfig.grayOutMortgaged);
 	config->writeEntry("AnimateToken", kmonopConfig.animateToken);
+	config->writeEntry("QuartzEffects", kmonopConfig.quartzEffects);
 
 	config->sync();
 

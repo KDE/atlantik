@@ -42,6 +42,11 @@ bool ConfigDialog::animateToken()
 	return configBoard->m_animateToken->isChecked();
 }
 
+bool ConfigDialog::quartzEffects()
+{
+	return configBoard->m_quartzEffects->isChecked();
+}
+
 QString ConfigDialog::playerName()
 {
 	return configPlayer->m_playerName->text();
@@ -94,10 +99,15 @@ ConfigBoard::ConfigBoard(QWidget* parent, const char *name) : QWidget(parent, na
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
 	message=i18n(
-		"Animate token movement\n\n"
 		"If checked, tokens will move across the board\n"
 		"instead of jumping directly to their new location.\n");
 	QWhatsThis::add(m_animateToken, message);
+
+	m_quartzEffects = new QCheckBox(i18n("Quartz effects"), box);
+	message=i18n(
+		"If checked, the coloured headers of street estates on the board"
+		"will have a Quartz effect similar to the Quartz KWin style.\n");
+	QWhatsThis::add(m_quartzEffects, message);
 
 //	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
 //	layout->addWidget(box);
@@ -113,4 +123,5 @@ void ConfigBoard::reset()
 	m_highliteUnowned->setChecked(kmonopConfig.highliteUnowned);
 	m_grayOutMortgaged->setChecked(kmonopConfig.grayOutMortgaged);
 	m_animateToken->setChecked(kmonopConfig.animateToken);
+	m_quartzEffects->setChecked(kmonopConfig.quartzEffects);
 }

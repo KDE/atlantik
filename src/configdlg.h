@@ -34,7 +34,7 @@ friend class ConfigDialog;
 	private:
 		void reset();
 
-		QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_grayOutMortgaged, *m_animateToken;
+		QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_grayOutMortgaged, *m_animateToken, *m_quartzEffects;
 };
 
 class ConfigDialog : public KDialogBase
@@ -43,10 +43,13 @@ class ConfigDialog : public KDialogBase
 
 	public:
 		ConfigDialog(QWidget *parent, const char *name=0);
+
 		bool indicateUnowned();
 		bool highliteUnowned();
 		bool grayOutMortgaged();
 		bool animateToken();
+		bool quartzEffects();
+
 		QString playerName();
 
 	private:

@@ -43,7 +43,7 @@ Q_OBJECT
 		void repositionPortfolioEstate();
 
 		QPixmap *qpixmap, *icon;
-		KPixmap *m_headerBlocks;
+		KPixmap *m_quartzBlocks;
 		bool b_recreate;
 		bool m_owned, m_canBeOwned, m_mortgaged;
 		int m_id, m_orientation, m_houses, m_titleWidth, m_titleHeight;

@@ -14,6 +14,7 @@ struct KMonopConfig
 	bool highliteUnowned;
 	bool grayOutMortgaged;
 	bool animateToken;
+	bool quartzEffects;
 };
 
 #endif

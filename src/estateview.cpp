@@ -45,13 +45,14 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 	icon = new QPixmap(locate("data", "kmonop/pics/" + _icon));
 	icon = rotatePixmap(icon);
 
-	// Initialize Quartz blocks
-	m_headerBlocks = new KPixmap();
-	m_headerBlocks->resize(25, 18);
+	// Initialize Quartz blocks, regardless of configuration (when user
+	// enabled effects pixmaps must've been initialized)
+	m_quartzBlocks = new KPixmap();
+	m_quartzBlocks->resize(25, 18);
 	if (color.isValid())
 	{
-		drawQuartzBlocks(m_headerBlocks, *m_headerBlocks, color.light(60), color);
-		m_headerBlocks = rotatePixmap(m_headerBlocks);
+		drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, color.light(60), color);
+		m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 	}
 
 	setName("");
@@ -221,13 +222,12 @@ void EstateView::paintEvent(QPaintEvent *)
 			int titleHeight = height()/4;
 			int titleWidth = width()/4;
 
-			KPixmap* titleBuffer = new KPixmap;
+			KPixmap* quartzBuffer = new KPixmap;
 			if (m_orientation == North || m_orientation == South)
-				titleBuffer->resize(25, titleHeight-2);
+				quartzBuffer->resize(25, titleHeight-2);
 			else
-				titleBuffer->resize(titleWidth-2, 25);
-
-			QPainter titlePainter(titleBuffer, this);
+				quartzBuffer->resize(titleWidth-2, 25);
+			QPainter quartzPainter(quartzBuffer, this);
 
 			painter.setBrush(m_color);
 			switch(m_orientation)
@@ -235,8 +235,11 @@ void EstateView::paintEvent(QPaintEvent *)
 				case North:
 					painter.drawRect(0, 0, width(), titleHeight);
 
-					titlePainter.drawPixmap(0, 0, *m_headerBlocks);
-					painter.drawPixmap(1, 1, *titleBuffer);
+					if (kmonopConfig.quartzEffects)
+					{
+						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
+						painter.drawPixmap(1, 1, *quartzBuffer);
+					}
 
 					if (m_houses > 0)
 					{
@@ -259,8 +262,11 @@ void EstateView::paintEvent(QPaintEvent *)
 				case South:
 					painter.drawRect(0, height()-(titleHeight), width(), titleHeight);
 
-					titlePainter.drawPixmap(0, 0, *m_headerBlocks);
-					painter.drawPixmap(width()-titleBuffer->width()-1, height()-titleHeight+1, *titleBuffer);
+					if (kmonopConfig.quartzEffects)
+					{
+						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
+						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-titleHeight+1, *quartzBuffer);
+					}
 
 					if (m_houses > 0)
 					{
@@ -283,8 +289,11 @@ void EstateView::paintEvent(QPaintEvent *)
 				case West:
 					painter.drawRect(0, 0, titleWidth, height());
 
-					titlePainter.drawPixmap(0, 0, *m_headerBlocks);
-					painter.drawPixmap(1, height()-titleBuffer->height()-1, *titleBuffer);
+					if (kmonopConfig.quartzEffects)
+					{
+						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
+						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
+					}
 
 					if (m_houses > 0)
 					{
@@ -307,8 +316,11 @@ void EstateView::paintEvent(QPaintEvent *)
 				case East:
 					painter.drawRect(width()-(titleWidth), 0, titleWidth, height());
 
-					titlePainter.drawPixmap(0, 0, *m_headerBlocks);
-					painter.drawPixmap(width()-titleBuffer->width()-1, 1, *titleBuffer);
+					if (kmonopConfig.quartzEffects)
+					{
+						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
+						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);
+					}
 
 					if (m_houses > 0)
 					{
@@ -329,8 +341,8 @@ void EstateView::paintEvent(QPaintEvent *)
 					}
 					break;
 			}
-			titlePainter.end();
-			delete titleBuffer;
+			quartzPainter.end();
+			delete quartzBuffer;
 		}
 		b_recreate = false;
 	}
