@@ -12,6 +12,7 @@
 - make use of trade revisions (monopd >= 0.8.2 recommended)
 - don't tell game has started when it has not
 - sort user column in server list by number, not alphabetically
+- show non-game users when not in a game
 
 0.5.2
 -----

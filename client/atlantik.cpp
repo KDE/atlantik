@@ -169,8 +169,11 @@ void Atlantik::newPlayer(Player *player)
 {
 	initBoard();
 	m_board->addToken(player);
-
 	addPortfolioView(player);
+
+	// Player::changed() is not connected until later this method, so
+	// we'd better force an update.
+	playerChanged(player);
 
 	if (player->isSelf())
 		m_playerSelf = player;
@@ -252,7 +255,7 @@ void Atlantik::showSelectGame()
 //		delete m_board;
 //		m_board = 0;
 
-		m_portfolioViews.clear();
+		// m_portfolioViews.clear();
 		m_atlanticCore->reset();
 	}
 
@@ -509,13 +512,25 @@ void Atlantik::serverMsgsAppend(QString msg)
 void Atlantik::playerChanged(Player *player)
 {
 	PortfolioView *portfolioView = findPortfolioView(player);
-	if (portfolioView && player->gameId() == -1)
-		m_portfolioViews.remove(portfolioView);
-	else if (!portfolioView && player->gameId() != -1)
-		addPortfolioView(player);
+	if (!portfolioView)
+		portfolioView = addPortfolioView(player);
 
 	if (player == m_playerSelf)
 	{
+		// We changed ourselves, see if other players (that we know
+		// about) have the same gameId..
+
+		PortfolioView *portfolioView = 0;
+		for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
+			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
+			{
+				Player *pTmp = portfolioView->player();
+				if (pTmp->gameId() == m_playerSelf->gameId())
+					portfolioView->show();
+				else
+					portfolioView->hide();
+			}
+
 		if (m_selectConfiguration)
 			m_selectConfiguration->setCanStart(player->master());
 
@@ -528,6 +543,20 @@ void Atlantik::playerChanged(Player *player)
 		m_jailCard->setEnabled(player->canUseCard());
 		m_jailPay->setEnabled(player->hasTurn() && player->inJail());
 		m_jailRoll->setEnabled(player->hasTurn() && player->inJail());
+	}
+	else
+	{
+		// Another player changed, check if we need to show or hide
+		// his/her portfolioView.
+		if (m_playerSelf)
+		{
+			if (player->gameId() == m_playerSelf->gameId())
+				portfolioView->show();
+			else
+				portfolioView->hide();
+		}
+		else if (player->gameId() == -1)
+			portfolioView->hide();
 	}
 }
 
@@ -591,7 +620,7 @@ void Atlantik::clientCookie(QString cookie)
 	config->sync();
 }
 
-void Atlantik::addPortfolioView(Player *player)
+PortfolioView *Atlantik::addPortfolioView(Player *player)
 {
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
@@ -602,6 +631,8 @@ void Atlantik::addPortfolioView(Player *player)
 
 	m_portfolioLayout->addWidget(portfolioView);
 	portfolioView->show();
+
+	return portfolioView;
 }
 
 PortfolioView *Atlantik::findPortfolioView(Player *player)
