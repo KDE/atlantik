@@ -86,7 +86,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	// Menu,toolbar: Move
-	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(roll()), actionCollection()); // No Ctrl-R at the moment
+	m_roll = KStdGameAction::roll(m_atlantikNetwork, SLOT(rollDice()), actionCollection());
 	m_roll->setEnabled(false);
 	m_buyEstate = new KAction(i18n("&Buy"), "atlantik_buy_estate", CTRL+Key_B, m_atlantikNetwork, SLOT(buyEstate()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
