@@ -27,6 +27,15 @@ void Player::setHasTurn(const bool hasTurn)
 	}
 }
 
+void Player::setInJail(const bool inJail)
+{
+	if (m_inJail != inJail)
+	{
+		m_inJail = inJail;
+		m_changed = true;
+	}
+}
+
 void Player::setName(const QString _n)
 {
 	if (m_name != _n)

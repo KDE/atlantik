@@ -19,6 +19,8 @@ public:
 	const bool isSelf() { return m_isSelf; }
 	void setHasTurn(const bool hasTurn);
 	const bool hasTurn() { return m_hasTurn; }
+	void setInJail(const bool inJail);
+	const bool inJail() { return m_inJail; }
 	void setName(const QString _n);
 	const QString name() { return m_name; }
 	void setMoney(const QString _m);
@@ -31,7 +33,7 @@ signals:
 private:
 	bool m_changed;
 	int m_playerId, m_location;
-	bool m_isSelf, m_hasTurn;
+	bool m_isSelf, m_hasTurn, m_inJail;
 	QString m_name, m_money;
 };
 

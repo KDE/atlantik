@@ -140,6 +140,8 @@ public slots:
 	 */
 	void slotMsgPlayerUpdateName(int playerId, QString name);
 
+	void slotMsgPlayerUpdateJailed(int playerId, bool inJail);
+
 	/**
 	 * Updates the money label in the appropriate player portfolio.
 	 *

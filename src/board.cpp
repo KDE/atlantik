@@ -152,6 +152,7 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::jumpToken(Token *token, int estateId, bool confirm)
 {
+#warning AtlantikBoard::jumpToken doesnt know about player->inJail()
 	kdDebug() << "AtlantikBoard::jumpToken(" << token->destination() << ", "  << confirm << ")" << endl;
 
 	if (EstateView *estateView = estateViewMap[estateId])

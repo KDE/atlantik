@@ -66,6 +66,7 @@ signals:
 
 	void msgPlayerUpdateName(int, QString);
 	void msgPlayerUpdateMoney(int, QString);
+	void msgPlayerUpdateJailed(int, bool);
 	void msgPlayerUpdateLocation(int, int, bool);
 	void playerUpdateFinished(int);
 	void msgEstateUpdateName(int, QString);

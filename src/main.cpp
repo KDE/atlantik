@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 		"http://capsi.com/atlantik/"
 		);
 
-	aboutData.addAuthor("Rob Kaper", I18N_NOOP("programming"), "cap@capsi.com", "http://capsi.com/");
-	aboutData.addAuthor("Bart Szyszka", I18N_NOOP("artwork"), "bart@gigabee.com", "http://www.gigabee.com/");
+	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
+	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
 

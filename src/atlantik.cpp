@@ -46,6 +46,7 @@ Atlantik::Atlantik () : KMainWindow ()
 	connect(m_gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateJailed(int, bool)), this, SLOT(slotMsgPlayerUpdateJailed(int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
 	connect(m_gameNetwork, SIGNAL(msgEstateUpdateColor(int, QString)), this, SLOT(slotMsgEstateUpdateColor(int, QString)));
@@ -358,6 +359,13 @@ void Atlantik::slotMsgPlayerUpdateMoney(int playerId, QString money)
 	Player *player = playerMap[playerId];
 	if (player)
 		player->setMoney("$ " + money);
+}
+
+void Atlantik::slotMsgPlayerUpdateJailed(int playerId, bool inJail)
+{
+	Player *player = playerMap[playerId];
+	if (player)
+		player->setInJail(inJail);
 }
 
 void Atlantik::slotMsgEstateUpdateOwner(int estateId, int playerId)

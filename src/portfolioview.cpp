@@ -120,7 +120,6 @@ void PortfolioView::setOwned(int id, bool owned)
 
 void PortfolioView::paintEvent(QPaintEvent *)
 {
-
 	if (b_recreate)
 	{
 		delete qpixmap;

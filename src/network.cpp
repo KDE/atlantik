@@ -304,6 +304,10 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgPlayerUpdateMoney(playerId, a.value());
 
+					a = e.attributeNode(QString("jailed"));
+					if (!a.isNull())
+						emit msgPlayerUpdateJailed(playerId, a.value());
+
 					// Update player location
 					a = e.attributeNode(QString("location"));
 					if (!a.isNull())
