@@ -1,0 +1,3 @@
+The purpose of atlanticd is to provide a monopd-compatible server, for
+inclusion with the Atlantik client.
+

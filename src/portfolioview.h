@@ -4,6 +4,7 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qlabel.h>
+#include <qmap.h>
 
 #include "portfolioestate.h"
 
@@ -26,8 +27,9 @@ class PortfolioView : public QWidget
 		QPixmap *qpixmap;
 		bool b_recreate;
 		QLabel *lname, *lmoney;
-		PortfolioEstate *estate[40];
+//		PortfolioEstate *estate[40];
 		bool myHasTurn;
+		QMap<int, PortfolioEstate*> portfolioMap;
 };
 
 #endif

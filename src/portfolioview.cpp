@@ -41,7 +41,8 @@ PortfolioView::PortfolioView(Player *parentPlayer, QWidget *parent, const char *
 	lmoney->setMaximumWidth(width()/2);
 	lmoney->setMaximumHeight(15);
 	lmoney->show();
-
+#warning port PortfolioView::PortfolioView
+/*
 	QColor color;
 
 	int i=0,j=0,x=0,y=0;
@@ -130,7 +131,7 @@ PortfolioView::PortfolioView(Player *parentPlayer, QWidget *parent, const char *
 		else
 			estate[i]=0;
 	}
-
+*/
 	setHasTurn(false);
 }
 
@@ -149,8 +150,11 @@ void PortfolioView::setMoney(const char *m)
 
 void PortfolioView::setOwned(int id, bool owned)
 {
+#warning port PortfolioView::setOwned
+/*
 	if (estate[id]!=0)
 		estate[id]->setOwned(owned);
+*/
 }
 
 void PortfolioView::setHasTurn(bool turn)
