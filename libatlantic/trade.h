@@ -121,8 +121,8 @@ public:
 		for (QPtrListIterator<Player> i(mPlayers()); *i; ++i)
 		{
 			if (
-					(*i)->from()==from
-					&& (*i)->to()==to
+					i.current()->from()==from
+					&& i.current()->to()==to
 					&& dynamic_cast<Player*>(*i)
 				)
 			{
