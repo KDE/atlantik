@@ -564,10 +564,21 @@ void Atlantik::clientCookie(QString cookie)
 {
 	KConfig *config = kapp->config();
 
-	config->setGroup("Reconnection");
-	config->writeEntry("Host", m_atlantikNetwork->host());
-	config->writeEntry("Port", m_atlantikNetwork->port());
-	config->writeEntry("Cookie", cookie);
+	if (cookie.isNull())
+	{
+		if (config->hasGroup("Reconnection"))
+			config->deleteGroup("Reconnection", true);
+	}
+	else if (m_atlantikNetwork)
+	{
+		config->setGroup("Reconnection");
+		config->writeEntry("Host", m_atlantikNetwork->host());
+		config->writeEntry("Port", m_atlantikNetwork->port());
+		config->writeEntry("Cookie", cookie);
+	}
+	else
+		return;
+
 	config->sync();
 }
 
