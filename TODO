@@ -13,14 +13,7 @@ For 0.0.2
   v Upon startgame, use playerupdate to init/update portfolios. Final
     playerlist is already deprecated then. ;-)
 - Fetch (default) game data from server (streetnames).
-v Move most of the dom parsing back to network.cpp and emit more specialized
-  signals such as moveToken(id, pos);
-v Property for sale visualisation:
-  - also for utilities
-  v also for stations
 - Station(v)/utility/cc/chance(v) icons on gameboard
-v Config options working:
-  - passing through changes
 
 For 0.1.x
 ---------
@@ -37,7 +30,7 @@ For 0.1.x
     board as it should be)
   - animation speed should depend on board size and movement distance
   v disable roll/buy toolbar buttons depending on game status
-    - at the moment based on turn, most be more precise
+    - at the moment based on turn, must be more precise
 
 For 0.2.x
 ---------

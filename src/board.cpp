@@ -66,6 +66,14 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, na
 				icon = QString("train.png");
 				canBeOwned = true;
 				break;
+			case 12:
+				icon = QString("energy.png");
+				canBeOwned = true;
+				break;
+			case 28:
+				icon = QString("water.png");
+				canBeOwned = true;
+				break;
 			case 7: case 36:
 				icon = QString("qmark-red.png");
 				break;
