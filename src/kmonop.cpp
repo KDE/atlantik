@@ -301,7 +301,8 @@ void KMonop::slotSetTurn(int playerid)
 
 void KMonop::serverMsgsAppend(QString msg)
 {
-	m_serverMsgs->append(msg);
+	// done instead of append - also fixed in Qt 3
+	m_serverMsgs->setText(m_serverMsgs->text() + msg);
 	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 #warning fixed in qt 3.0
 	m_serverMsgs->viewport()->update();
