@@ -2,6 +2,7 @@
 -----
 
 - fixed potential double initialization of gameboard
+- don't crash when removing money from a trade
 
 0.5.0
 -----
