@@ -4,6 +4,8 @@
 - Happy birthday Katy. Love, Rob.
 - Integrated recent monopd updates.
 - Some internal code changes.
+- Added support for <updategamelist type="edit">
+- Added support for <updateplayerlist> which replaced <playerlist>
 
 2001-06-10
 ----------

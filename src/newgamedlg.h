@@ -46,10 +46,13 @@ Q_OBJECT
 	public slots:
 		void slotConnectionError(int);
 		void slotConnected();
+
 		void slotGamelistUpdate(QString);
 		void slotGamelistEndUpdate(QString);
 		void slotGamelistAdd(QString, QString);
+		void slotGamelistEdit(QString, QString);
 		void slotGamelistDel(QString);
+
 		void slotInitPage();
 
 	signals:
@@ -73,11 +76,14 @@ Q_OBJECT
 		bool validateNext();
 
 	public slots:
-		void slotClearPlayerList();
-		void slotAddToPlayerList(QString, QString);
+		void slotPlayerlistUpdate(QString);
+		void slotPlayerlistEndUpdate(QString);
+		void slotPlayerlistAdd(QString, QString, QString);
+		void slotPlayerlistEdit(QString, QString, QString);
+		void slotPlayerlistDel(QString);
 
 	signals:
-		void playerListChanged();
+		void statusChanged();
 
 	private:
 		QListView *list;

@@ -24,15 +24,21 @@ Q_OBJECT
 		void gamelistUpdate(QString);
 		void gamelistEndUpdate(QString);
 		void gamelistAdd(QString, QString);
+		void gamelistEdit(QString, QString);
 		void gamelistDel(QString);
 
-		void clearPlayerList();
-		void addToPlayerList(QString, QString);
+		void playerlistUpdate(QString);
+		void playerlistEndUpdate(QString);
+		void playerlistAdd(QString, QString, QString);
+		void playerlistEdit(QString, QString, QString);
+		void playerlistDel(QString);
+
 		void msgPlayerUpdateName(int, QString);
 		void msgPlayerUpdateMoney(int, QString);
 		void msgPlayerUpdateLocation(int, int, bool);
 		void msgEstateUpdateName(int, QString);
 		void msgEstateUpdateOwner(int, int);
+
 		void setPlayerId(int);
 		void setTurn(int);
 

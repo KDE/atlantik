@@ -1,12 +1,6 @@
 For 0.1.0
 ---------
 
-- Finish newgamedlg wizard:
-  v Game playerlist must be displayed and present an option to launch the
-    game. (display works, although server code doesn't not yet inform
-    regarding people leaving)
-    - playerlist --> playerlistupdate, three types "add,del,full"
-    - slot*Update(v gl - pl), slot*Add (v-), slot*Del (v-), slot*EndUpdate (v-)
 - Station(v)/utility/cc/chance(v) icons on gameboard
 
 For 0.2.x

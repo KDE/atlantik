@@ -78,12 +78,37 @@ void GameNetwork::processNode(QDomNode n)
 					{
 						if (type=="del")
 							emit gamelistDel(e_game.attributeNode(QString("id")).value());
+						else if (type=="edit")
+							emit gamelistEdit(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("players")).value());
 						else if (type=="add" || type=="full")
 							emit gamelistAdd(e_game.attributeNode(QString("id")).value(), e_game.attributeNode(QString("players")).value());
 					}
 					n_game = n_game.nextSibling();
 				}
 				emit gamelistEndUpdate(type);
+			}
+			else if (e.tagName() == "updateplayerlist")
+			{
+				QString type = e.attributeNode(QString("type")).value();
+
+				emit playerlistUpdate(type);
+
+				QDomNode n_player = n.firstChild();
+				while(!n_player.isNull())
+				{
+					QDomElement e_player = n_player.toElement();
+					if (!e_player.isNull() && e_player.tagName() == "player")
+					{
+						if (type=="del")
+							emit playerlistDel(e_player.attributeNode(QString("playerid")).value());
+						else if (type=="edit")
+							emit playerlistEdit(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+						else if (type=="add" || type=="full")
+							emit playerlistAdd(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+					}
+					n_player = n_player.nextSibling();
+				}
+				emit playerlistEndUpdate(type);
 			}
 			else if (e.tagName() == "client")
 			{
@@ -96,21 +121,6 @@ void GameNetwork::processNode(QDomNode n)
 				// Find out which player has the turn now
 				int player = e.attributeNode(QString("player")).value().toInt();
 				emit setTurn(player);
-			}
-			else if (e.tagName() == "playerlist")
-			{
-				emit clearPlayerList();
-
-				QDomNode n_player = n.firstChild();
-				while(!n_player.isNull())
-				{
-					QDomElement e_player = n_player.toElement();
-					if (!e_player.isNull() && e_player.tagName() == "player")
-					{
-						emit addToPlayerList(e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
-					}
-					n_player = n_player.nextSibling();
-				}
 			}
 			else if (e.tagName() == "playerupdate")
 			{

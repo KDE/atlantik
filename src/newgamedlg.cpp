@@ -32,8 +32,6 @@ NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFla
 	// Configure game page
 	configure_game = new ConfigureGame(this, "configure_game");
 	configure_game->setGameId(select_game->gameToJoin());
-	connect(gameNetwork, SIGNAL(clearPlayerList()), configure_game, SLOT(slotClearPlayerList()));
-	connect(gameNetwork, SIGNAL(addToPlayerList(QString, QString)), configure_game, SLOT(slotAddToPlayerList(QString, QString)));
 
 	addPage(configure_game, QString("Game configuration and list of players"));
 	setHelpEnabled(configure_game, false);
@@ -131,6 +129,7 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(gameNetwork, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
 	connect(gameNetwork, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
 	connect(gameNetwork, SIGNAL(gamelistAdd(QString, QString)), this, SLOT(slotGamelistAdd(QString, QString)));
+	connect(gameNetwork, SIGNAL(gamelistEdit(QString, QString)), this, SLOT(slotGamelistEdit(QString, QString)));
 	connect(gameNetwork, SIGNAL(gamelistDel(QString)), this, SLOT(slotGamelistDel(QString)));
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
@@ -263,6 +262,21 @@ void SelectGame::slotGamelistAdd(QString id, QString players)
 	list->triggerUpdate();
 }
 
+void SelectGame::slotGamelistEdit(QString id, QString players)
+{
+	QListViewItem *item = list->firstChild();
+	while (item)
+	{
+		if (item->text(0) == id)
+		{
+			item->setText(0, players);
+			list->triggerUpdate();
+			return;
+		}
+		item = item->nextSibling();
+	}
+}
+
 void SelectGame::slotGamelistDel(QString id)
 {
 	QListViewItem *item = list->firstChild();
@@ -294,7 +308,12 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 {
 	game_id = QString("0");
 
-	connect(this, SIGNAL(playerListChanged()), parent, SLOT(slotValidateNext()));
+	connect(this, SIGNAL(statusChanged()), parent, SLOT(slotValidateNext()));
+	connect(gameNetwork, SIGNAL(playerlistUpdate(QString)), this, SLOT(slotPlayerlistUpdate(QString)));
+	connect(gameNetwork, SIGNAL(playerlistEndUpdate(QString)), this, SLOT(slotPlayerlistEndUpdate(QString)));
+	connect(gameNetwork, SIGNAL(playerlistAdd(QString, QString, QString)), this, SLOT(slotPlayerlistAdd(QString, QString, QString)));
+	connect(gameNetwork, SIGNAL(playerlistEdit(QString, QString, QString)), this, SLOT(slotPlayerlistEdit(QString, QString, QString)));
+	connect(gameNetwork, SIGNAL(playerlistDel(QString)), this, SLOT(slotPlayerlistDel(QString)));
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
@@ -309,6 +328,59 @@ ConfigureGame::ConfigureGame(QWidget *parent, const char *name) : QWidget(parent
 	status_label = new QLabel(this);
 	status_label->setText("Configuration of the game is not yet supported by the monopd server.\nGames will be played using the standard rules.");
 	layout->addWidget(status_label);
+}
+
+void ConfigureGame::slotPlayerlistUpdate(QString type)
+{
+	if (type=="full")
+	{
+		status_label->setText(QString("Fetching list of players..."));
+		list->clear();
+	}
+}
+
+void ConfigureGame::slotPlayerlistAdd(QString id, QString name, QString host)
+{
+	new QListViewItem(list, name, host);
+	list->triggerUpdate();
+}
+
+void ConfigureGame::slotPlayerlistEdit(QString id, QString name, QString host)
+{
+	QListViewItem *item = list->firstChild();
+	while (item)
+	{
+		if (item->text(0) == id)
+		{
+			item->setText(0, name);
+			item->setText(1, host);
+			list->triggerUpdate();
+			return;
+		}
+		item = item->nextSibling();
+	}
+}
+
+void ConfigureGame::slotPlayerlistDel(QString id)
+{
+	QListViewItem *item = list->firstChild();
+	while (item)
+	{
+		if (item->text(0) == id)
+		{
+			delete item;
+			return;
+		}
+		item = item->nextSibling();
+	}
+}
+
+void ConfigureGame::slotPlayerlistEndUpdate(QString type)
+{
+	if (type=="full")
+		status_label->setText(QString("Fetched list of players."));
+
+	emit statusChanged();
 }
 
 void ConfigureGame::initPage()
@@ -330,20 +402,6 @@ void ConfigureGame::initPage()
 void ConfigureGame::setGameId(const QString &_id)
 {
 	game_id = _id;
-}
-
-void ConfigureGame::slotClearPlayerList()
-{
-	list->clear();
-}
-
-void ConfigureGame::slotAddToPlayerList(QString name, QString host)
-{
-	new QListViewItem(list, name, host);
-	list->triggerUpdate();
-
-	emit playerListChanged();
-//	status_label->setText(QString("Fetched list of players."));
 }
 
 bool ConfigureGame::validateNext()
