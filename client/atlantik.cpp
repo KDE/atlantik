@@ -203,10 +203,7 @@ void Atlantik::removeGUI(Player *player)
 	// Find and remove portfolioview
 	PortfolioView *portfolioView = findPortfolioView(player);
 	if (portfolioView)
-	{
 		m_portfolioViews.remove(portfolioView);
-		delete portfolioView;
-	}
 
 	// TODO: Remove tokens from board
 }
@@ -501,10 +498,7 @@ void Atlantik::playerChanged(Player *player)
 {
 	PortfolioView *portfolioView = findPortfolioView(player);
 	if (portfolioView && player->gameId() == -1)
-	{
 		m_portfolioViews.remove(portfolioView);
-		delete portfolioView;
-	}
 	else if (!portfolioView && player->gameId() != -1)
 		addPortfolioView(player);
 
