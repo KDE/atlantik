@@ -41,9 +41,13 @@ Q_OBJECT
 		ConfigureGame(GameNetwork *, QWidget *parent, const char *name=0);
 		void initPage();
 		void setGameId(const QString &);
+		bool validateNext();
 
 	public slots:
 		void slotFetchedPlayerList(QDomNode);
+
+	signals:
+		void playerListChanged();
 
 	private:
 		QListView *list;
@@ -57,7 +61,7 @@ class NewGameWizard : public KWizard
 Q_OBJECT
 
 	public:
-		NewGameWizard(QWidget *parent, const char *name=0, bool modal=true, WFlags f=0);
+		NewGameWizard(GameNetwork *, QWidget *parent, const char *name=0, bool modal=true, WFlags f=0);
 		~NewGameWizard(void);
 
 	public slots:

@@ -16,6 +16,8 @@ Q_OBJECT
 		void slotRead();
 		
 	signals:
+		void msgError(QString);
+		void msgStartGame(QString);
 		void fetchedGameList(QDomNode);
 		void fetchedPlayerList(QDomNode);
 

@@ -4,8 +4,10 @@
 #include <ktmainwindow.h>
 #include <qtextview.h>
 #include <qsocket.h>
+#include <qdom.h>
 
 #include "newgamedlg.h"
+#include "network.h"
 
 class QLabel;
 
@@ -21,12 +23,16 @@ class KMonop : public KTMainWindow
 		void slotRead();
 		void slotWrite();
 		void slotNewGame();
+		void slotMsgError(QString);
+		void slotMsgStartGame(QString);
 	
 	private:
 		QSocket *sock;
 		QLabel *serverlabel;
 		QLineEdit *server;
 		QTextView *output;
+		NewGameWizard *wizard;
+		GameNetwork *netw;
 };
 
 #endif

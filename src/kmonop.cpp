@@ -9,7 +9,6 @@
 #include "kmonop.moc"
 #include "portfolioview.h"
 #include "board.h"
-#include "newgamedlg.h"
 
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
@@ -19,11 +18,17 @@ KMonop::KMonop (const char *name) :
 
   createGUI();
 
+	netw = new GameNetwork(this, "network");
+
+	connect(netw, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
+	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
+
   QWidget *main = new QWidget(this, "main");
   PortfolioView *port = new PortfolioView(main);
   PortfolioView *port2 = new PortfolioView(main);
   port->setName("Player 1");
   port2->setName("Player 2");
+  port2->hide();
   main->show();
 
   QGridLayout *layout = new QGridLayout(main, 4, 3);
@@ -81,6 +86,21 @@ void KMonop::slotWrite()
 void KMonop::slotNewGame()
 {
 	int result;
-	NewGameWizard wizard(this, "newgame", 1);
-	result = wizard.exec();
+
+	wizard = new NewGameWizard(netw, this, "newgame", 1);
+	result = wizard->exec();
+	delete wizard;
+}
+
+void KMonop::slotMsgError(QString msg)
+{
+	output->append("ERROR: ");
+	output->append(msg);
+}
+
+void KMonop::slotMsgStartGame(QString msg)
+{
+	output->append("START: ");
+	output->append(msg);
+	wizard->hide();
 }

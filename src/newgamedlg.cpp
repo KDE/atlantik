@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 #include <qlayout.h>
 #include <iostream.h>
 #include <qlabel.h>
@@ -12,11 +10,9 @@
 
 #include "newgamedlg.moc"
  
-NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
+NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name, bool modal, WFlags f) : KWizard( parent, name, modal, f)
 {
-	// Initiate network connection
-	// TODO: Should eventually go into KMonop..
-	netw = new GameNetwork(this, "network");
+	netw = _nw;
 
 	// Select server page
 	// TODO: Turn into seperate class..
@@ -88,6 +84,8 @@ void NewGameWizard::slotListClick()
 
 void NewGameWizard::slotValidateNext()
 {
+	// TODO: different slots for different pages
+	// or: passing widget pointer to slot and evaluate
 	if (select_game->validateNext())
 	{
 		setNextEnabled(select_game, true);
@@ -95,6 +93,11 @@ void NewGameWizard::slotValidateNext()
 	}
 	else
 		setNextEnabled(select_game, false);
+
+	if (configure_game->validateNext())
+		setFinishEnabled(configure_game, true);
+	else
+		setFinishEnabled(configure_game, false);
 }
 
 void NewGameWizard::slotInit(const QString &_name)
@@ -211,6 +214,8 @@ ConfigureGame::ConfigureGame(GameNetwork *_nw, QWidget *parent, const char *name
 	netw = _nw;
 	game_id = QString("0");
 
+	connect(this, SIGNAL(playerListChanged()), parent, SLOT(slotValidateNext()));
+
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
@@ -222,7 +227,7 @@ ConfigureGame::ConfigureGame(GameNetwork *_nw, QWidget *parent, const char *name
 	layout->addWidget(list);
 
 	status_label = new QLabel(this);
-	status_label->setText("Configuration of the game is not yet supported by the monopd server.");
+	status_label->setText("Configuration of the game is not yet supported by the monopd server.\nGames will be played using the standard rules.");
 	layout->addWidget(status_label);
 }
 
@@ -242,7 +247,7 @@ void ConfigureGame::initPage()
 	}
 	
 	// Fetch playerlist
-	netw->writeData(".gp");
+//	netw->writeData(".gp"); // redundant, server prints list at create/join
 }
 
 void ConfigureGame::setGameId(const QString &_id)
@@ -265,12 +270,21 @@ void ConfigureGame::slotFetchedPlayerList(QDomNode gamelist)
 		{
 			if (e.tagName() == "player")
 			{
-				item =  new QListViewItem(list, e.attributeNode(QString("name")).value());
+				item =  new QListViewItem(list, e.attributeNode(QString("name")).value(), e.attributeNode(QString("host")).value());
 				list->triggerUpdate();
 			}
 		}
 		n = n.nextSibling();
 	}
 
-	status_label->setText(QString("Fetched list of players."));
+	emit playerListChanged();
+//	status_label->setText(QString("Fetched list of players."));
+}
+
+bool ConfigureGame::validateNext()
+{
+	if (list->childCount() >= 2)
+		return true;
+	else
+		return false;
 }

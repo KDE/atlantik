@@ -2,6 +2,10 @@
 ----------
 
 - Playerlist is fetched from server.
+- Playerlist is interpreted and updated when someone enters.
+- Option to finish setup and launch game, closes all wizards.
+- Network object moved to KMonop, where it belongs. Wizard and its pages use
+  pointers.
 
 2001-04-30
 ----------

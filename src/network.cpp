@@ -49,6 +49,24 @@ void GameNetwork::processNode(QDomNode n)
 		if(!e.isNull())
 		{
 			cout << "node is element: " << e.tagName() << endl;
+			if (e.tagName() == "msg")
+			{
+				cout << "found message  ! " << endl;
+				a = e.attributeNode(QString("type"));
+				if (!a.isNull())
+				{
+					if (a.value() == "error")
+					{
+						cout << "MONOPD_ERROR    : " << e.attributeNode(QString("value")).value() << endl;
+						emit msgError(e.attributeNode(QString("value")).value());
+					}
+					if (a.value() == "startgame")
+					{
+						cout << "MONOPD_GAMESTART: " << e.attributeNode(QString("value")).value() << endl;
+						emit msgStartGame(e.attributeNode(QString("value")).value());
+					}
+				}
+			}
 			if (e.tagName() == "gamelist")
 			{
 				cout << "found gamelist ! " << endl;
