@@ -390,6 +390,18 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit gameEnd();
 				}
 			}
+			else if (e.tagName() == "deleteplayer")
+			{
+				a = e.attributeNode(QString("playerid"));
+				if (!a.isNull())
+				{
+					int playerId = a.value().toInt();
+
+					Player *player = m_atlanticCore->findPlayer(playerId);
+					if (player)
+						m_atlanticCore->removePlayer(player);
+				}
+			}
 			else if (e.tagName() == "playerupdate")
 			{
 				int playerId = -1;
