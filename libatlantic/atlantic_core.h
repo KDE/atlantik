@@ -33,7 +33,7 @@ Q_OBJECT
 public:
 	AtlanticCore(QObject *parent, const char *name);
 
-	void reset(bool deletePlayers = false);
+	void reset(bool deletePermanents = false);
 
 	void setPlayerSelf(Player *player);
 	Player *playerSelf();
