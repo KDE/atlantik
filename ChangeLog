@@ -9,6 +9,11 @@
 - klatencytimer: support for server ping times
 - option to show timestamp in chat messages
 
+0.5.5
+-----
+
+- bugfix: fix wild pointer when removing trade items (#68589)
+
 0.5.4
 -----
 
