@@ -285,6 +285,8 @@ void EstateDetails::appendText(QString text)
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
+
+    m_infoListView->ensureVisible(0, m_infoListView->contentsHeight());
 }
 
 void EstateDetails::clearButtons()
