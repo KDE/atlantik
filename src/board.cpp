@@ -350,14 +350,14 @@ void AtlantikBoard::displayCenter()
 	m_center->show();
 }
 
-void AtlantikBoard::slotDisplayChanceCard(QString description)
+void AtlantikBoard::slotDisplayCard(QString type, QString description)
 {
-	kdDebug() << "displayChanceCard(" << description << ")" << endl;
+	kdDebug() << "displayCard(" << type << ", " << description << ")" << endl;
 
 	if (m_center != 0)
 		delete m_center;
 	
-	m_center = new BoardDisplay(description, this);
+	m_center = new BoardDisplay(type, description, this);
 	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
 	m_center->show();
 

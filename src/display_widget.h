@@ -10,7 +10,7 @@ class BoardDisplay : public QWidget
 Q_OBJECT
 
 public:
-	BoardDisplay(const QString description, QWidget *parent, const char *name=0);
+	BoardDisplay(const QString type, const QString description, QWidget *parent, const char *name=0);
 
 	void initPage();
 	bool validateNext();

@@ -44,7 +44,7 @@ signals:
 	void msgChat(QString, QString);
 	void msgStartGame(QString);
 
-	void displayChanceCard(QString);
+	void displayCard(QString, QString);
 
 	void gameListClear();
 	void gamelistEndUpdate(QString);

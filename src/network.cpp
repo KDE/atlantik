@@ -185,7 +185,7 @@ void GameNetwork::processNode(QDomNode n)
 			{
 				QString type = e.attributeNode(QString("type")).value();
 				if (type == "chancecard" ||type == "communitychestcard")
-					emit displayChanceCard(e.attributeNode(QString("description")).value());
+					emit displayCard(type, e.attributeNode(QString("description")).value());
 			}
 			else if (e.tagName() == "updategamelist")
 			{
@@ -306,51 +306,54 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "estateupdate")
 			{
-				int estateid = -1;
+				kdDebug() << "ESTATEUPDATE" << endl;
+
+				int estateId = -1;
 
 				a = e.attributeNode(QString("estateid"));
 				if (!a.isNull())
 				{
-					estateid = a.value().toInt();
+					estateId = a.value().toInt();
+					kdDebug() << "ESTATEUPDATE id " << estateId << endl;
 
 					// Create estate object and view
-					kdDebug() << "emit estateInit(" << estateid << ")" << endl;
-					emit estateInit(estateid);
+					kdDebug() << "emit estateInit(" << estateId << ")" << endl;
+					emit estateInit(estateId);
 
 					a = e.attributeNode(QString("name"));
 					if (!a.isNull())
-						emit msgEstateUpdateName(estateid, a.value());
+						emit msgEstateUpdateName(estateId, a.value());
 
 					a = e.attributeNode(QString("color"));
 					if (!a.isNull() && !a.value().isEmpty())
-						emit msgEstateUpdateColor(estateid, a.value());
+						emit msgEstateUpdateColor(estateId, a.value());
 
 					a = e.attributeNode(QString("bgcolor"));
 					if (!a.isNull())
-						emit msgEstateUpdateBgColor(estateid, a.value());
+						emit msgEstateUpdateBgColor(estateId, a.value());
 
 					a = e.attributeNode(QString("owner"));
 					if (!a.isNull())
-						emit msgEstateUpdateOwner(estateid, a.value().toInt());
+						emit msgEstateUpdateOwner(estateId, a.value().toInt());
 
 					a = e.attributeNode(QString("houses"));
 					if (!a.isNull())
-						emit msgEstateUpdateHouses(estateid, a.value().toInt());
+						emit msgEstateUpdateHouses(estateId, a.value().toInt());
 
 					a = e.attributeNode(QString("mortgaged"));
 					if (!a.isNull())
-						emit msgEstateUpdateMortgaged(estateid, a.value().toInt());
+						emit msgEstateUpdateMortgaged(estateId, a.value().toInt());
 
 					a = e.attributeNode(QString("can_toggle_mortgage"));
 					if (!a.isNull())
-						emit msgEstateUpdateCanToggleMortgage(estateid, a.value().toInt());
+						emit msgEstateUpdateCanToggleMortgage(estateId, a.value().toInt());
 
 					a = e.attributeNode(QString("can_be_owned"));
 					if (!a.isNull())
-						emit msgEstateUpdateCanBeOwned(estateid, a.value().toInt());
+						emit msgEstateUpdateCanBeOwned(estateId, a.value().toInt());
 
-					kdDebug() << "emit estateUpdateFinished(" << estateid << ")" << endl;
-					emit estateUpdateFinished(estateid);
+					kdDebug() << "emit estateUpdateFinished(" << estateId << ")" << endl;
+					emit estateUpdateFinished(estateId);
 				}
 			}
 			else if (e.tagName() == "tradeupdate")
@@ -418,6 +421,8 @@ void GameNetwork::processNode(QDomNode n)
 				else if (type=="rejected")
 					emit msgTradeUpdateRejected(tradeid, e.attributeNode(QString("actor")).value().toInt());
 			}
+			else
+				kdDebug() << "ignored TAG: " << e.tagName() << endl;
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);

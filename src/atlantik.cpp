@@ -110,11 +110,14 @@ Atlantik::Atlantik () : KMainWindow ()
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
 
-	SelectServer *selectServer = new SelectServer(m_mainWidget, "selectServer");
-	m_mainLayout->addMultiCellWidget(selectServer, 0, 2, 1, 1);
-	selectServer->show();
+	m_selectServer = new SelectServer(m_mainWidget, "selectServer");
+	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
+	m_selectServer->show();
 
-	connect(selectServer, SIGNAL(serverConnect(const QString, int)), m_gameNetwork, SLOT(serverConnect(const QString, int)));
+	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_gameNetwork, SLOT(serverConnect(const QString, int)));
+
+	m_selectGame = 0;
+	m_selectConfiguration = 0;
 }
 
 void Atlantik::readConfig()
@@ -137,22 +140,26 @@ void Atlantik::readConfig()
 
 void Atlantik::slotNetworkConnected()
 {
-#warning delete server widget
 	// We're connected, so let's make ourselves known.
 	m_gameNetwork->cmdName(atlantikConfig.playerName);
 
 	// Create select game widget and replace the select server widget.
-	SelectGame *selectGame = new SelectGame(m_mainWidget, "selectGame");
-	m_mainLayout->addMultiCellWidget(selectGame, 0, 2, 1, 1);
-	selectGame->show();
+	m_selectGame = new SelectGame(m_mainWidget, "selectGame");
+	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
+	m_selectGame->show();
+	if (m_selectServer)
+	{
+		delete m_selectServer;
+		m_selectServer = 0;
+	}
 
-	connect(m_gameNetwork, SIGNAL(gameListClear()), selectGame, SLOT(slotGameListClear()));
-	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString)), selectGame, SLOT(slotGameListAdd(QString, QString, QString)));
-	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString)), selectGame, SLOT(slotGameListEdit(QString, QString, QString)));
-	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), selectGame, SLOT(slotGameListDel(QString)));
+	connect(m_gameNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
+	connect(m_gameNetwork, SIGNAL(gameListAdd(QString, QString, QString)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListEdit(QString, QString, QString)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
 
-	connect(selectGame, SIGNAL(joinGame(int)), m_gameNetwork, SLOT(joinGame(int)));
-	connect(selectGame, SIGNAL(newGame()), m_gameNetwork, SLOT(newGame()));
+	connect(m_selectGame, SIGNAL(joinGame(int)), m_gameNetwork, SLOT(joinGame(int)));
+	connect(m_selectGame, SIGNAL(newGame()), m_gameNetwork, SLOT(newGame()));
 }
 
 void Atlantik::slotNetworkError(int errno)
@@ -181,31 +188,39 @@ void Atlantik::slotNetworkError(int errno)
 
 void Atlantik::slotJoinedGame()
 {
-#warning delete game widget
 	// Create configuration widget and replace the select game widget.
-	SelectConfiguration *selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
-	m_mainLayout->addMultiCellWidget(selectConfiguration, 0, 2, 1, 1);
-	selectConfiguration->show();
+	m_selectConfiguration = new SelectConfiguration(m_mainWidget, "selectConfiguration");
+	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
+	m_selectConfiguration->show();
+	if (m_selectGame)
+	{
+		delete m_selectGame;
+		m_selectGame = 0;
+	}
 
-	connect(m_gameNetwork, SIGNAL(playerListClear()), selectConfiguration, SLOT(slotPlayerListClear()));
-	connect(m_gameNetwork, SIGNAL(playerListAdd(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
-	connect(m_gameNetwork, SIGNAL(playerListEdit(QString, QString, QString)), selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
-	connect(m_gameNetwork, SIGNAL(playerListDel(QString)), selectConfiguration, SLOT(slotPlayerListDel(QString)));
+	connect(m_gameNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
+	connect(m_gameNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(playerListEdit(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
+	connect(m_gameNetwork, SIGNAL(playerListDel(QString)), m_selectConfiguration, SLOT(slotPlayerListDel(QString)));
 
-	connect(selectConfiguration, SIGNAL(startGame()), m_gameNetwork, SLOT(startGame()));
+	connect(m_selectConfiguration, SIGNAL(startGame()), m_gameNetwork, SLOT(startGame()));
 }
 
 void Atlantik::slotInitGame()
 {
-#warning delete config widget
 	// Create board widget and replace the game configuration widget.
 	m_board = new AtlantikBoard(m_mainWidget, "board");
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->show();
+	if (m_selectConfiguration)
+	{
+		delete m_selectConfiguration;
+		m_selectConfiguration = 0;
+	}
 
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
 	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
-	connect(m_gameNetwork, SIGNAL(displayChanceCard(QString)), m_board, SLOT(slotDisplayChanceCard(QString)));
+	connect(m_gameNetwork, SIGNAL(displayCard(QString, QString)), m_board, SLOT(slotDisplayCard(QString, QString)));
 	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
 	KMessageBox::information(this, i18n(
@@ -456,30 +471,35 @@ void Atlantik::slotSetTurn(int playerId)
 
 	m_board->raiseToken(playerId);
 
-#warning port slotSetTurn
+#warning port Atlantik::slotSetTurn
 /*
-	for (int i=0 ; i < playerMap.size() < i++)
+	for (int i=0 ; i < playerMap.size() ; i++)
 	{
 		if (Player *player = playerMap[i])
-			player->setHasTurn(i==playerId);
-			m_portfolioArray[i]->setHasTurn(i==playerid ? true : false);
+		{
+//			player->setHasTurn(i==playerId);
+			if (PortfolioView *portfolioView = portfolioMap[i])
+				portfolioView->setHasTurn(i==playerId);
+		}
 	}
 */
 }
 
-void Atlantik::slotPlayerInit(int playerid)
+void Atlantik::slotPlayerInit(int playerId)
 {
 	Player *player;
-	if (!(player = playerMap[playerid]))
+	if (!(player = playerMap[playerId]))
 	{
-		player = new Player(playerid);
-		playerMap[playerid] = player;
-
-		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
-		m_portfolioLayout->addWidget(fpv);
-		fpv->show();
+		player = new Player(playerId);
+		playerMap[playerId] = player;
 
 		m_board->addToken(player);
+
+		PortfolioView *portfolioView = new PortfolioView(player, m_portfolioWidget);
+		portfolioMap[playerId] = portfolioView;
+
+		m_portfolioLayout->addWidget(portfolioView);
+		portfolioView->show();
 	}
 }
 

@@ -30,7 +30,7 @@ Q_OBJECT
 
 	private slots:
 		void displayCenter();
-		void slotDisplayChanceCard(QString);
+		void slotDisplayCard(QString, QString);
 
 	signals:
 		void tokenConfirmation(int location);

@@ -16,6 +16,10 @@
 #include "player.h"
 #include "estate.h"
 
+class SelectServer;
+class SelectGame;
+class SelectConfiguration;
+
 /**
  * Main Atlantik window.
  * Manages gameboard, portfolios and pretty much everything else.
@@ -234,9 +238,13 @@ private:
 
 	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
+	SelectServer *m_selectServer;
+	SelectGame *m_selectGame;
+	SelectConfiguration *m_selectConfiguration;
 
 	QMap<int, Player *> playerMap;
 	QMap<int, Estate *> estateMap;
+	QMap<int, PortfolioView *> portfolioMap;
 };
 
 #endif
