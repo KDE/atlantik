@@ -58,7 +58,7 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 
 	m_infoListView = new KListView(this, "infoListView");
     m_infoListView->addColumn(m_estate ? m_estate->name() : QString::null);
-    m_infoListView->setSorting(-1, false);
+    m_infoListView->setSorting(-1);
 	m_mainLayout->addWidget(m_infoListView);
 
 	if (!text.isEmpty())
@@ -243,22 +243,22 @@ void EstateDetails::setEstate(Estate *estate)
 
 			if (m_estate->price())
 			{
-				infoText = new QListViewItem(m_infoListView, i18n("Price: %1").arg(m_estate->price()));
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1").arg(m_estate->price()));
 				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 			}
 
 			// Owner, houses, isMortgaged
 			if (m_estate && m_estate->canBeOwned())
 			{
-				infoText = new QListViewItem(m_infoListView, i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
 				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 
 				if (m_estate->isOwned())
 				{
-					infoText = new QListViewItem(m_infoListView, i18n("Houses: %1").arg(m_estate->houses()));
+					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1").arg(m_estate->houses()));
 					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 
-					infoText = new QListViewItem(m_infoListView, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
+					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
 					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
 				}
 			}
@@ -277,7 +277,7 @@ void EstateDetails::setText(QString text)
 
 void EstateDetails::appendText(QString text)
 {
-	QListViewItem *infoText = new QListViewItem(m_infoListView, text);
+	QListViewItem *infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), text);
 	if (text.contains("rolls"))
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
