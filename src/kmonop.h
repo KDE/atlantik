@@ -35,6 +35,8 @@ class KMonop : public KTMainWindow
 		void slotMsgStartGame(QString);
 		void slotMsgPlayerUpdate(QDomNode);
 		void slotMsgEstateUpdate(QDomNode);
+		void slotSetPlayerId(int);
+		void slotSetTurn(int);
 	
 	private:
 		QWidget *main;
@@ -50,6 +52,7 @@ class KMonop : public KTMainWindow
 		GameNetwork *netw;
 		PortfolioView *port[6];
 		KMonopBoard *board;
+		int myPlayerId;
 };
 
 #endif

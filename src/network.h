@@ -23,6 +23,8 @@ Q_OBJECT
 		void msgPlayerList(QDomNode);
 		void msgPlayerUpdate(QDomNode);
 		void msgEstateUpdate(QDomNode);
+		void setPlayerId(int);
+		void setTurn(int);
 
 	private:
 		void processMsg(QString);

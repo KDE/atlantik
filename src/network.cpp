@@ -62,6 +62,18 @@ void GameNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "gamelist")
 				emit fetchedGameList(e);
+			else if (e.tagName() == "joinedgame")
+			{
+				// code to set playerid so we know when it's our turn or not
+				int playerid = e.attributeNode(QString("playerid")).value().toInt();
+				emit setPlayerId(playerid);
+			}
+			else if (e.tagName() == "newturn")
+			{
+				// Find out which player has the turn now
+				int player = e.attributeNode(QString("player")).value().toInt();
+				emit setTurn(player);
+			}
 			else if (e.tagName() == "playerlist")
 				emit msgPlayerList(e);
 			else if (e.tagName() == "playerupdate")

@@ -1,6 +1,5 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
-#include <iostream.h>
 
 #include <kstdaction.h>
 #include <ktoolbar.h>
@@ -18,9 +17,9 @@ KMonop::KMonop (const char *name) :
 
 	// Move actions
 	roll_die = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "roll_die");
-//	roll_die->setEnabled(false);
+	roll_die->setEnabled(false);
 	buy_estate = new KAction("&Buy estate", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
-//	buy_estate->setEnabled(false);
+	buy_estate->setEnabled(false);
 
 	// Settings actions
 	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
@@ -37,6 +36,8 @@ KMonop::KMonop (const char *name) :
 	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
 	connect(netw, SIGNAL(msgEstateUpdate(QDomNode)), this, SLOT(slotMsgEstateUpdate(QDomNode)));
+	connect(netw, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
+	connect(netw, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
  	main = new QWidget(this, "main");
 	main->show();
@@ -57,6 +58,8 @@ KMonop::KMonop (const char *name) :
 	layout->addMultiCellWidget(board, 0, 7, 1, 1);
 	layout->setRowStretch(6, 1); // make board+output stretch, not the rest
 	layout->setColStretch(1, 1); // make board stretch, not the rest
+
+	myPlayerId = -1;
 
 	for(int i=0;i<MAXPLAYERS;i++)
 		port[i]=0;
@@ -106,18 +109,17 @@ void KMonop::slotSendMsg()
 void KMonop::slotMsgError(QString msg)
 {
 	output->append("ERR: " + msg);
-//	QScrollBar *sb = output->verticalScrollBar();
-//	sb->setValue(sb->maxValue());
 	output->ensureVisible(0, output->contentsHeight());
+#warning fixed in qt 3.0
+	output->viewport()->update();
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
 	output->append(msg);
-//	QScrollBar *sb = output->verticalScrollBar();
-//	sb->setValue(sb->minValue()); // ugly hack cuz maxValue directly doesn't properly update
-//	sb->setValue(sb->maxValue());
 	output->ensureVisible(0, output->contentsHeight());
+#warning fixed in qt 3.0
+	output->viewport()->update();
 }
 
 void KMonop::slotMsgStartGame(QString msg)
@@ -126,9 +128,9 @@ void KMonop::slotMsgStartGame(QString msg)
 		wizard->hide();
 		
 	output->append("START: " + msg);
-//	QScrollBar *sb = output->verticalScrollBar();
-//	sb->setValue(sb->maxValue());
 	output->ensureVisible(0, output->contentsHeight());
+#warning fixed in qt 3.0
+	output->viewport()->update();
 }
 
 void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
@@ -180,9 +182,38 @@ void KMonop::slotMsgEstateUpdate(QDomNode estateupdate)
 		owner = a_owner.value().toInt() - 1;
 		if (id < 40 && owner < MAXPLAYERS)
 		{
-			cout << "port " << owner << " id " << id << endl;
-			port[owner]->setOwned(id, true);
+			if (port[owner]!=0)
+				port[owner]->setOwned(id, true);
 			board->setOwned(id, true);
 		}
+	}
+}
+
+void KMonop::slotSetPlayerId(int id)
+{
+	myPlayerId = id;
+}
+
+void KMonop::slotSetTurn(int player)
+{
+
+	if (player == myPlayerId)
+	{
+		roll_die->setEnabled(true);
+		buy_estate->setEnabled(true);
+	}
+	else
+	{
+		roll_die->setEnabled(false);
+		buy_estate->setEnabled(false);
+	}
+
+	// Decrease player because array is 0-indexed
+	player--;
+
+	for(int i=0 ; i<MAXPLAYERS ; i++)
+	{
+		if (port[i]!=0)
+			port[i]->setHasTurn(i==player ? true : false);
 	}
 }

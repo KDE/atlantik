@@ -105,7 +105,7 @@ SelectServer::SelectServer(GameNetwork *_nw, QWidget *parent, const char *name) 
 
 	// Until Monopigator works, add some servers manually
 	QListViewItem *item;
-	item = new QListViewItem(list, "localhost", "1234", "0");
+//	item = new QListViewItem(list, "localhost", "1234", "0");
 	item = new QListViewItem(list, "monopd.capsi.com", "1234", "0");
 }
 

@@ -10,7 +10,7 @@
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg,
-kmonop_lgray;
+kmonop_lgray, kmonop_dgray;
 
 PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -32,7 +32,7 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	lcash = new QLabel(this);
 	lcash->setAlignment(Qt::AlignRight);
 	lcash->setGeometry(width()/2, 0, width()-5, height());
-	lcash->setBackgroundColor(Qt::white);
+	lcash->setBackgroundColor(kmonop_lgray);
 	lcash->setMinimumSize(lcash->sizeHint());
 	lcash->setMaximumWidth(width()/2);
 	lcash->setMaximumHeight(15);
@@ -115,6 +115,8 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 		else
 			estate[i]=0;
 	}
+
+	setHasTurn(false);
 }
 
 void PortfolioView::setName(const char *n)
@@ -131,6 +133,22 @@ void PortfolioView::setOwned(int id, bool owned)
 {
 	if (estate[id]!=0)
 		estate[id]->setOwned(owned);
+}
+
+void PortfolioView::setHasTurn(bool turn)
+{
+	if (turn==myHasTurn)
+		return;
+
+	myHasTurn = turn;
+
+	lname->setBackgroundColor(myHasTurn ? kmonop_dgray : kmonop_lgray);
+	lname->update();
+	lcash->setBackgroundColor(myHasTurn ? kmonop_dgray : kmonop_lgray);
+	lcash->update();
+
+//	b_recreate = true;
+//	update();
 }
 
 void PortfolioView::paintEvent(QPaintEvent *)

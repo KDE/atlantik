@@ -14,6 +14,7 @@ class PortfolioView : public QWidget
 		void setName(const char *);
 		void setCash(const char *);
 		void setOwned(int, bool);
+		void setHasTurn(bool);
 
 	protected:
 		void paintEvent(QPaintEvent *);
@@ -23,6 +24,7 @@ class PortfolioView : public QWidget
 		bool b_recreate;
 		QLabel *lname, *lcash;
 		PortfolioEstate *estate[40];
+		bool myHasTurn;
 };
 
 #endif
