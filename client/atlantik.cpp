@@ -68,7 +68,7 @@ LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : QTextEdit( paren
 #ifdef KDE_3_2_FEATURES
 	m_clear = KStdAction::clear( this, SLOT( clear() ), 0 );
 #else
-	m_clear = new KAction( i18n("Clear"), "clear", NULL, this, SLOT( clear() ), 0, "clear" );
+	m_clear = new KAction( i18n("Clear"), "clear", NULL, this, SLOT( clear() ), static_cast<KActionCollection *>(0), "clear" );
 #endif
 	m_selectAll = KStdAction::selectAll( this, SLOT( selectAll() ), 0 );
 	m_copy = KStdAction::copy( this, SLOT( copy() ), 0 );
