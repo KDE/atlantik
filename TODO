@@ -31,12 +31,12 @@ For 0.2.0
 ^ complete trades
  ^ widget (display)
    - reseting accept on change (depends on monopd)
-   - rejecting trade alltogether
+   ^ rejecting trade alltogether
    - completing trade when all accept
  ^ widget (edit)
    - set/unset accept
-   - delete estate
-   - delete money
+   v delete estate
+   v delete money
 
 For 0.2.1
 ---------

@@ -16,6 +16,7 @@
 #include <kiconloader.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
+#include <kpopupmenu.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -129,7 +130,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	setEditType(m_editTypeCombo->currentItem());
 	setEditEstate(m_estateCombo->currentItem());
 
-	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *)));
+	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *, const QPoint&)));
+
+	m_contextTradeItem = 0;
 }
 
 void TradeDisplay::closeEvent(QCloseEvent *e)
@@ -145,13 +148,14 @@ void TradeDisplay::tradeAdded(TradeItem *t)
 	item->setPixmap(2, QPixmap(SmallIcon("personal")));
 
 	m_componentMap[t] = item;
+	m_componentRevMap[item] = t;
 }
 	
 void TradeDisplay::tradeRemoved(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
 	delete item;
-//	delete trade(t);
+//	delete t; // TODO: delete item as as well, right?
 }
 
 void TradeDisplay::tradeChanged(TradeItem *t)
@@ -244,7 +248,25 @@ void TradeDisplay::reject()
 	emit reject(m_trade);
 }
 
-void TradeDisplay::contextMenu(KListView *l, QListViewItem *item)
+void TradeDisplay::contextMenu(KListView *l, QListViewItem *i, const QPoint& p)
 {
-	// TODO: Add simple menu to remove item
+	m_contextTradeItem = m_componentRevMap[(KListViewItem *)(i)];
+
+	KPopupMenu *rmbMenu = new KPopupMenu(this);
+//	rmbMenu->insertTitle( ... );
+	rmbMenu->insertItem(i18n("Remove from trade"), 0);
+
+	connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(contextMenuClicked(int)));
+	rmbMenu->exec(p);
+}
+
+void TradeDisplay::contextMenuClicked(int index)
+{
+	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
+		emit updateEstate(m_trade, tradeEstate->estate(), 0);
+	else
+	if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
+		emit updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
+
+	m_contextTradeItem = 0;
 }

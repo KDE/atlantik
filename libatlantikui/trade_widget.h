@@ -40,7 +40,8 @@ private slots:
 	void updateComponent();
 	void reject();
 
-	void contextMenu(KListView *l, QListViewItem *i);
+	void contextMenu(KListView *l, QListViewItem *i, const QPoint& p);
+	void contextMenuClicked(int item);
 
 signals:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
@@ -57,8 +58,10 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	Trade *mTrade, *m_trade;
+	TradeItem *m_contextTradeItem;
 
 	QMap<TradeItem *, KListViewItem *> m_componentMap;
+	QMap<KListViewItem *, TradeItem *> m_componentRevMap;
 	QMap<int, Estate *> m_estateMap;
 	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;
 	QMap<Player *, int> m_playerFromRevMap, m_playerTargetRevMap;
