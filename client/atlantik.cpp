@@ -169,6 +169,9 @@ void Atlantik::newPlayer(Player *player)
 	initBoard();
 	m_board->addToken(player);
 
+	if (m_selectConfiguration)
+		m_selectConfiguration->addPlayer(player);
+
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
 	m_portfolioViews.append(portfolioView);
 
@@ -259,7 +262,6 @@ void Atlantik::showSelectGame()
 	}
 
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), m_selectGame, SLOT(slotGameListClear()));
-
 	connect(m_atlantikNetwork, SIGNAL(gameListAdd(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListAdd(QString, QString, QString, QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(gameListEdit(QString, QString, QString, QString, QString, bool)), m_selectGame, SLOT(slotGameListEdit(QString, QString, QString, QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
@@ -285,10 +287,6 @@ void Atlantik::showSelectConfiguration()
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
-	connect(m_atlantikNetwork, SIGNAL(playerListClear()), m_selectConfiguration, SLOT(slotPlayerListClear()));
-	connect(m_atlantikNetwork, SIGNAL(playerListAdd(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListAdd(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListEdit(QString, QString, QString)), m_selectConfiguration, SLOT(slotPlayerListEdit(QString, QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(playerListDel(QString)), m_selectConfiguration, SLOT(slotPlayerListDel(QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameListClear()), this, SLOT(showSelectGame()));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));

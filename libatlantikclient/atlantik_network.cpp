@@ -330,29 +330,6 @@ void AtlantikNetwork::processNode(QDomNode n)
 				if (type == "full")
 					emit gameListEndUpdate();
 			}
-			else if (e.tagName() == "updateplayerlist")
-			{
-				QString type = e.attributeNode(QString("type")).value();
-				if (type == "full")
-					emit playerListClear();
-
-				QDomNode n_player = n.firstChild();
-				while(!n_player.isNull())
-				{
-					QDomElement e_player = n_player.toElement();
-					if (!e_player.isNull() && e_player.tagName() == "player")
-					{
-						if (type=="del")
-							emit playerListDel(e_player.attributeNode(QString("playerid")).value());
-						else if (type=="edit")
-							emit playerListEdit(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
-						else if (type=="add" || type=="full")
-							emit playerListAdd(e_player.attributeNode(QString("playerid")).value(), e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
-					}
-					n_player = n_player.nextSibling();
-				}
-				emit playerListEndUpdate(type);
-			}
 			else if (e.tagName() == "client")
 			{
 				a = e.attributeNode(QString("playerid"));

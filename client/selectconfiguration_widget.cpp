@@ -20,11 +20,13 @@
 #include <qradiobutton.h>
 
 #include <kdebug.h>
-
 #include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kmessagebox.h>
+#include <kstandarddirs.h>
+
+#include <player.h>
 
 #include "tokenwidget.h" 
 #include "selectconfiguration_widget.moc"
@@ -41,7 +43,6 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addWidget(m_playerBox); 
 
 	m_playerList = new KListView(m_playerBox, "m_playerList");
-	m_playerList->addColumn(QString(i18n("Id")));
 	m_playerList->addColumn(QString(i18n("Name")));
 	m_playerList->addColumn(QString(i18n("Host")));
 	m_playerList->setAllColumnsShowFocus(true);
@@ -87,51 +88,43 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addWidget(status_label);
 }
 
-void SelectConfiguration::slotPlayerListClear()
+void SelectConfiguration::addPlayer(Player *player)
 {
-	m_playerList->clear();
-//	emit statusChanged();
+	QListViewItem *item = new QListViewItem(m_playerList, player->name(), player->host());
+	if (player->image() != "")
+		item->setPixmap(0, QPixmap(locate("appdata", "themes/default/tokens/" + player->image())));
+	else
+		item->setPixmap(0, QPixmap(SmallIcon("personal")));
+
+	m_items[player] = item;
+
+	connect(player, SIGNAL(changed(Player *)), this, SLOT(slotPlayerChanged(Player *)));
 }
 
-void SelectConfiguration::slotPlayerListAdd(QString playerId, QString name, QString host)
+void SelectConfiguration::slotDelPlayer(Player *player)
 {
-	kdDebug() << "SelectConfiguration::slotPlayerListAdd" << endl;
-	QListViewItem *item = new QListViewItem(m_playerList, playerId, name, host);
-	item->setPixmap(0, QPixmap(SmallIcon("personal")));
-}
-
-void SelectConfiguration::slotPlayerListEdit(QString playerId, QString name, QString host)
-{
-	QListViewItem *item = m_playerList->firstChild();
-	while (item)
+	QListViewItem *item = m_items[player];
+	if (item)
 	{
-		if (item->text(0) == playerId)
-		{
-			if (!name.isEmpty())
-				item->setText(1, name);
-			if (!host.isEmpty())
-				item->setText(2, host);
-			m_playerList->triggerUpdate();
-			return;
-		}
-		item = item->nextSibling();
+		delete item;
+		m_items[player] = 0;
 	}
-//	emit statusChanged();
 }
 
-void SelectConfiguration::slotPlayerListDel(QString playerId)
+void SelectConfiguration::slotPlayerChanged(Player *player)
 {
-	QListViewItem *item = m_playerList->firstChild();
-	while (item)
+	QListViewItem *item = m_items[player];
+	if (item)
 	{
-		if (item->text(0) == playerId)
-		{
-			delete item;
-			return;
-		}
-		item = item->nextSibling();
+		item->setText(0, player->name());
+		item->setText(1, player->host());
+		if (player->image() != "")
+			item->setPixmap(0, QPixmap(locate("appdata", "themes/default/tokens/" + player->image())));
+		else
+			item->setPixmap(0, QPixmap(SmallIcon("personal")));
+
+		m_playerList->triggerUpdate();
 	}
-//	emit statusChanged();
 }
 
 void SelectConfiguration::connectClicked()

@@ -132,12 +132,6 @@ signals:
 	void gameRun();
 	void gameEnd();
 
-	void playerListClear();
-	void playerListEndUpdate(QString);
-	void playerListAdd(QString, QString, QString);
-	void playerListEdit(QString, QString, QString);
-	void playerListDel(QString);
-
 	/**
 	 * The trade has been completed. Emitted after all necessary estate and
 	 * player updates are processed.
