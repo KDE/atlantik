@@ -23,9 +23,9 @@ void AtlantikProtocol::get( const KURL& url )
 {
 	KProcess *proc = new KProcess;
 	*proc << "atlantik";
-	QString host = url.queryItem("host");
-	QString port = url.queryItem("port");
-	QString game = url.queryItem("game");
+	QString host = KProcess::quote(url.queryItem("host"));
+	QString port = KProcess::quote(url.queryItem("port"));
+	QString game = KProcess::quote(url.queryItem("game"));
 
 	if (!host.isNull() && !port.isNull())
 	{
