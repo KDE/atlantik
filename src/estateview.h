@@ -1,6 +1,12 @@
+#ifndef __KMONOP_ESTATEVIEW_H__
+#define __KMONOP_ESTATEVIEW_H__
+
+#include <qwidget.h>
+#include <qpixmap.h>
 #include <qlabel.h>
 
 enum Orientation{ North=0, East=1, South=2, West=3 };
+
 class EstateView : public QWidget
 {
 	public:
@@ -21,3 +27,5 @@ class EstateView : public QWidget
 		int orientation;
 		int houses;
 };
+
+#endif

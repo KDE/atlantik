@@ -1,31 +1,11 @@
-#include <qlabel.h>
-
-#include <qcolor.h>
-#include <qimage.h>
 #include <qpainter.h>
+#include <qcolor.h>
 
-#include <qtextview.h>
-
-#include <qlayout.h>
-#include <iostream.h> // cout etc
-#include <qlineedit.h>
-
-#include <qcstring.h>
-#include <qsocket.h>
-
-#include <kstdaction.h>
-#include <kaction.h>
-#include <kstdaccel.h>
-#include <kiconloader.h>
-#include <kmenubar.h>
-#include <kapp.h>
-
-//#include "colordefs.h"
 #include "portfolioestate.h"
 
 extern QColor kmonop_lgray, kmonop_dgray;
 
-PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name = 0) : QWidget(parent, name)
+PortfolioEstate::PortfolioEstate(QWidget *parent, const char *name) : QWidget(parent, name)
 {
     QColor kmonop_lgray(187, 187, 187);
     color = kmonop_lgray;

@@ -1,4 +1,9 @@
+#ifndef __KMONOP_PORTFOLIOVIEW_H__
+#define __KMONOP_PORTFOLIOVIEW_H__
+
+#include <qwidget.h>
 #include <qpixmap.h>
+#include <qlabel.h>
 
 class PortfolioView : public QWidget
 {
@@ -15,3 +20,5 @@ class PortfolioView : public QWidget
 		QString name;
 		int money;
 };
+
+#endif

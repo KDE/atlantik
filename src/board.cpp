@@ -1,4 +1,6 @@
 #include <qlayout.h>
+#include <qpainter.h>
+#include <iostream.h>
 
 #include "board.moc"
 #include "estateview.h"
@@ -6,26 +8,19 @@
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
 
-KMonopBoard::KMonopBoard(QWidget *parent, const char *name=0) : QWidget(parent, name)
+KMonopBoard::KMonopBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	cout << "created kmonopboard" << endl;
 	setMinimumWidth(160);
 	setMinimumHeight(160);
-//	setBackgroundColor(kmonop_greenbg);
-//	QSize s(320, 320);
-//	setFixedSize(s);
-//	setBaseSize(320,320);
-//	setSizeIncrement(20,20);
 
 	QGridLayout *layout = new QGridLayout(this, 25, 25);
 
-	sp1 = new QWidget(this);
-	layout->addWidget(sp1, 24, 24); // SE
-//	sp1->setBackgroundColor(Qt::white);
+	spacer = new QWidget(this);
+	layout->addWidget(spacer, 24, 24); // SE
 
 	EstateView *estate;
-
-	int w = width()/22, h = height()/22, i=0;
+	int i=0;
 
 	QColor color;
 	for (i=0;i<10;i++)
@@ -106,28 +101,17 @@ KMonopBoard::KMonopBoard(QWidget *parent, const char *name=0) : QWidget(parent, 
 	}
 }
 
-void KMonopBoard::paintEvent(QPaintEvent *)
-{
-	return;
-	int topx=0,topy=0;
-	int i,w,h,s,l,m=0;
-
-	QPainter paint(this);
-	
-	paint.drawRect(rect());
-}
-
 void KMonopBoard::resizeEvent(QResizeEvent *e)
 {
 	int q = e->size().width() - e->size().height();
 	if (q > 0)
 	{
 		QSize s(q, 0);
-		sp1->setFixedSize(s);
+		spacer->setFixedSize(s);
 	}
 	else
 	{
 		QSize s(0, -q);
-		sp1->setFixedSize(s);
+		spacer->setFixedSize(s);
 	}
 }

@@ -1,16 +1,11 @@
-#include <klocale.h>
-#include <kcmdlineargs.h>
 #include <kaboutdata.h>
+#include <kcmdlineargs.h>
+#include <klocale.h>
 #include <kapp.h>
 
-#include <qwidget.h>
-#include <qpainter.h>
-// #include <iostream.h>
-
-#include "colordefs.h"
+#include "main.h"
 #include "kmonop.h"
-
-int main(int, char *[]);
+#include "colordefs.h"
 
 int main(int argc, char *argv[])
 {

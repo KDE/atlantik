@@ -1,25 +1,6 @@
-#include <qlabel.h>
-
-#include <qcolor.h>
-#include <qimage.h>
-#include <qpainter.h>
-
-#include <qtextview.h>
-
 #include <qlayout.h>
-#include <iostream.h> // cout etc
-#include <qlineedit.h>
-#include <qstring.h>
-
-#include <qcstring.h>
-#include <qsocket.h>
-
-#include <kstdaction.h>
-#include <kaction.h>
-#include <kstdaccel.h>
-#include <kiconloader.h>
-#include <kmenubar.h>
-#include <kapp.h>
+#include <iostream.h>
+#include <qlabel.h>
 
 #include <kbuttonbox.h>
 #include <kmessagebox.h>

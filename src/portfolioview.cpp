@@ -1,35 +1,12 @@
-#include <qlabel.h>
-
-#include <qcolor.h>
-#include <qimage.h>
 #include <qpainter.h>
 
-#include <qtextview.h>
-
-#include <qlayout.h>
-#include <iostream.h> // cout etc
-#include <qlineedit.h>
-
-#include <qlabel.h>
-
-#include <qcstring.h>
-#include <qsocket.h>
-
-#include <kstdaction.h>
-#include <kaction.h>
-#include <kstdaccel.h>
-#include <kiconloader.h>
-#include <kmenubar.h>
-#include <kapp.h>
-
-// #include "colordefs.h"
 #include "portfolioview.h"
 #include "portfolioestate.h"
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
 
-PortfolioView::PortfolioView(QWidget *parent, const char *name = 0) : QWidget(parent, name)
+PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	b_recreate = true;
 	qpixmap = 0;

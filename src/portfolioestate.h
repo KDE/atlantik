@@ -1,5 +1,9 @@
-#include <qpixmap.h>
+#ifndef __KMONOP_PORTFOLIOESTATE_H__
+#define __KMONOP_PORTFOLIOESTATE_H__
 
+#include <qwidget.h>
+#include <qpixmap.h>
+  
 class PortfolioEstate : public QWidget
 {
 	public:
@@ -16,3 +20,5 @@ class PortfolioEstate : public QWidget
 		bool b_recreate;
 		bool owned;
 };
+
+#endif

@@ -1,3 +1,17 @@
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <iostream.h>
+
+#include <kstdaction.h>
+#include <kaction.h>
+#include <kapp.h>
+
+#include "kmonop.moc"
+#include "portfolioview.h"
+#include "board.h"
+#include "newgamedlg.h"
+
+/*
 #include <qlabel.h>
 
 #include <qcolor.h>
@@ -6,24 +20,16 @@
 
 #include <qtextview.h>
 
-#include <qlayout.h>
 #include <iostream.h> // cout etc
-#include <qlineedit.h>
 
 #include <qcstring.h>
 #include <qsocket.h>
 
-#include <kstdaction.h>
-#include <kaction.h>
 #include <kstdaccel.h>
 #include <kiconloader.h>
 #include <kmenubar.h>
-#include <kapp.h>
 
-#include "kmonop.moc"
-#include "portfolioview.h"
-#include "board.h"
-#include "newgamedlg.h"
+*/
 
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
@@ -94,13 +100,10 @@ void KMonop::slotRead()
 
 void KMonop::slotWrite()
 {
-	QString str;
-	str = server->text();
+	QString str(server->text());
 	str.append("\n");
-	static char *aap;
-	aap = str.latin1();
 	output->append(str);
-	sock->writeBlock(aap, strlen(aap));
+	sock->writeBlock(str.latin1(), strlen(str.latin1()));
 	server->setText("");
 }
 
