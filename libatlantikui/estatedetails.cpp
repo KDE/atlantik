@@ -36,6 +36,7 @@
 EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	m_estate = estate;
+	setPaletteBackgroundColor(m_estate->bgColor());
 
 	m_pixmap = 0;
 	b_recreate = true;
