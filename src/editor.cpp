@@ -176,9 +176,15 @@ ConfigEstate *EstateEdit::saveEstate()
 	estate->setBgColor(bgButton->color());
 	estate->setGroup(groupCombo->currentItem() - 1);
 
-	fgButton->setEnabled(curType == Street || curType == FreeParking);
 	if (curType != Street)
+	{
 		groupCombo->setCurrentItem(0);
+		fgButton->setEnabled(false);
+		fgButton->setColor(QColor("zzzzzz"));
+		estate->setColor(QColor("zzzzzz"));
+	}
+	else
+		fgButton->setEnabled(true);
 
 	configureButton->setText(i18n("Configure %1 properties...").arg(typeCombo->currentText()));
 	configureButton->setEnabled(curType == Street || curType == Tax);

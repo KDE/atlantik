@@ -106,7 +106,13 @@ void AtlanticDesigner::openFile(const QString &filename)
 
 	for (int i = 0; !t.atEnd(); i++)
 	{
-		QString name = (i == 1? t.readLine().stripWhiteSpace() : s).mid(1, s.length() - 2);
+		QString tmps = (i == 0? t.readLine().stripWhiteSpace() : s);
+		QString name;
+		name = tmps.left(tmps.find("]"));
+		name = name.right(name.length() - name.find("[") - 1);
+		if (name.isEmpty())
+			name = i18n("Empty");
+		kdDebug() << "opening " << name << endl;
 		//kdDebug() << "name is " << name << endl;;
 		QColor color = QColor("zzzzzz"), bgColor = QColor("zzzzzz");
 		int type = 0;
@@ -115,7 +121,7 @@ void AtlanticDesigner::openFile(const QString &filename)
 		int housePrice = -1;
 		int rent[6] = {-1, -1, -1, -1, -1, -1};
 		int tax = -1;
-		int taxPercentage = 01;
+		int taxPercentage = -1;
 
 		while (true)
 		{
@@ -245,7 +251,9 @@ void AtlanticDesigner::save()
 		}
 		*/
 
-		t << QString("[%1]\ntype=%2\ncolor=%3\nbgcolor=%4\n").arg(estate->name()).arg(*types.at(estate->type())).arg(estate->color().name()).arg(estate->bgColor().name());
+		t << QString("[%1]\ntype=%2\nbgcolor=%4\n").arg(estate->name()).arg(*types.at(estate->type())).arg(estate->bgColor().name());
+		if (estate->color().isValid())
+			t << "color=" << estate->color().name() << endl;
 		if (estate->group() >= 0)
 			t << "group=" << estate->group() << endl;
 		if (estate->price() >= 0)
@@ -263,7 +271,7 @@ void AtlanticDesigner::save()
 
 		//allNames.append(estate->name());
 
-		//kdDebug() << "done with " << estate->name() << endl;
+		kdDebug() << "done with " << estate->name() << endl;
 	}
 
 	f.flush();
