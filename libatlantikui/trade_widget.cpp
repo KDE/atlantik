@@ -194,7 +194,6 @@ void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
 	KListViewItem *item = m_componentMap[t];
 	delete item;
-	delete t;
 }
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
