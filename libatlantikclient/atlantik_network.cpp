@@ -76,6 +76,11 @@ void AtlantikNetwork::startGame()
 	writeData(".gs");
 }
 
+void AtlantikNetwork::reconnect(const QString &cookie)
+{
+	writeData(".R" + cookie);
+}
+
 void AtlantikNetwork::leaveGame()
 {
 	writeData(".gx");

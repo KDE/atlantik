@@ -49,6 +49,7 @@ private slots:
 	void endTurn();
 	void getPlayerList();
 	void newGame(const QString &gameType);
+	void reconnect(const QString &cookie);
 	void startGame();
 	void leaveGame();
 	void buyEstate();
