@@ -1,0 +1,17 @@
+Begin4
+Title:		Atlantik
+Version:	0.1.1
+Entered-date:	2001-12-09
+Description:	Atlantik is a KDE client for playing games out of the
+		Atlantic board game collection as offered by the Atlantic
+		server daemon.
+Keywords:	atlantik,kmonop,monopoly,board,game,boardgame,monopd
+Author:		Rob Kaper <cap@capsi.com>
+Maintained-by:	Rob Kaper <cap@capsi.com>
+		Atlantik developers <kmonop-devel@lists.capsi.com>
+Primary-site:	capsi.com/~cap/atlantik/
+		524kB atlantik-0.1.1.tar.gz
+		375kB atlantik-0.1.1.tar.bz2
+Platforms:	Linux,UNIX,KDE,libkdegames
+Copying-policy:	GPL
+End
