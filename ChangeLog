@@ -1,3 +1,8 @@
+2002-06-30 (kaper)
+----------
+
+- monopd no longer sends gamelist on connect, so request it
+
 2002-06-27 (kaper)
 ----------
 
