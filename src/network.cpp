@@ -17,12 +17,11 @@ void GameNetwork::writeData(const char *input)
 
 void GameNetwork::slotRead()
 {
-	QString str;
 	while(canReadLine())
-	{
-		str = readLine();
-		processMsg(str);
-	}
+		processMsg(readLine());
+
+	if (bytesAvailable() > (1024 * 32))
+		flush();
 }
 
 void GameNetwork::processMsg(QString str)
