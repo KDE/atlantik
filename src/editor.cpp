@@ -183,14 +183,15 @@ void EstateEdit::setReady(bool ready)
 	this->ready = ready;
 }
 
-void EstateEdit::setEstate(ConfigEstate *estate)
+void EstateEdit::setEstate(ConfigEstate *_estate)
 {
+	this->estate = _estate;
+
 	nameEdit->setText(estate->name());
 	typeCombo->setCurrentItem(estate->type());
 	if (estate->color().isValid())
 		fgButton->setColor(estate->color());
 	bgButton->setColor(estate->bgColor());
-	this->estate = estate;
 
 	ready = true;
 
