@@ -37,7 +37,7 @@
 #include <player.h>
 
 #include "estatedetails.h"
-#include "estatedetails.moc"
+#include "kwrappedlistviewitem.h"
 
 EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name) : QWidget(parent, name)
 {
@@ -296,13 +296,14 @@ void EstateDetails::appendText(QString text)
 	if ( text.isEmpty() )
 		return;
 
-	QListViewItem *infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), text);
+	KWrappedListViewItem *infoText = new KWrappedListViewItem(m_infoListView, m_infoListView->lastItem(), text);
+
 	if ( text.find( QRegExp("rolls") ) != -1 )
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
 
-    m_infoListView->ensureItemVisible( infoText );
+	m_infoListView->ensureItemVisible( infoText );
 }
 
 void EstateDetails::clearButtons()
@@ -322,3 +323,5 @@ void EstateDetails::buttonPressed()
 {
 	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
 }
+
+#include "estatedetails.moc"
