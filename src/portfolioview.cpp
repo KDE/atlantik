@@ -221,7 +221,7 @@ void PortfolioView::playerChanged()
 
 void PortfolioView::mousePressEvent(QMouseEvent *e) 
 {
-	if (e->button()==RightButton)
+	if (e->button()==RightButton && !m_player->isSelf())
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_player->name());
