@@ -27,6 +27,7 @@
 #include <klocale.h>
 #include <kpixmap.h>
 #include <kpushbutton.h>
+#include <kstdguiitem.h>
 
 #include <kdebug.h>
 
@@ -224,7 +225,7 @@ void EstateDetails::addCloseButton()
 {
 	if (!m_closeButton)
 	{
-		m_closeButton = new KPushButton(i18n("Close"), this);
+		m_closeButton = new KPushButton(KStdGuiItem::close(), this);
 		m_buttonBox->addWidget(m_closeButton);
 		m_closeButton->show();
 		connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
