@@ -58,7 +58,9 @@ class AtlanticDesigner : public KMainWindow
 	void openFile(const QString &);
 	bool warnClose();
 	void initBoard();
+	void initMembers();
 	bool firstBoard;
+	ConfigEstate *newEstate(int);
 
 	QGuardedPtr<EstateEdit> editor;
 	QGuardedPtr<QVBoxLayout> layout;

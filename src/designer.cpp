@@ -50,8 +50,8 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
 	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
 
-	(void) new KAction(i18n("&Larger"), "zoom+", 0, this, SLOT(larger()), actionCollection(), "larger");
-	(void) new KAction(i18n("&Smaller"), "zoom-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
+	(void) new KAction(i18n("&Larger"), "viewmag+", 0, this, SLOT(larger()), actionCollection(), "larger");
+	(void) new KAction(i18n("&Smaller"), "viewmag-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
 	(void) KStdAction::copy(this, SLOT(copy()), actionCollection());
 	(void) KStdAction::paste(this, SLOT(paste()), actionCollection());
 	(void) new KAction(i18n("&Up"), Key_Up, this, SLOT(up()), actionCollection(), "up");
@@ -96,6 +96,17 @@ AtlanticDesigner::~AtlanticDesigner()
 	delete m_player;
 }
 
+void AtlanticDesigner::initMembers()
+{
+	estates.clear();
+	chanceStack.setAutoDelete(true);
+	chanceStack.clear();
+	chanceStack.setAutoDelete(false);
+	ccStack.setAutoDelete(true);
+	ccStack.clear();
+	ccStack.setAutoDelete(false);
+}
+
 void AtlanticDesigner::initBoard()
 {
 	// let her say her prayers (if she's alive)
@@ -108,15 +119,7 @@ void AtlanticDesigner::initBoard()
 	delete board;
 	delete layout;
 
-	estates.clear();
-	chanceStack.setAutoDelete(true);
-	chanceStack.clear();
-	chanceStack.setAutoDelete(false);
-	ccStack.setAutoDelete(true);
-	ccStack.clear();
-	ccStack.setAutoDelete(false);
-
-	board = new AtlantikBoard(this, "Board");
+	board = new AtlantikBoard(max, this, "Board");
 	setCentralWidget(board);
 	layout = new QVBoxLayout(board->centerWidget());
 	editor = new EstateEdit(&estates, &chanceStack, &ccStack, board->centerWidget(), "Estate Editor");
@@ -134,41 +137,48 @@ void AtlanticDesigner::openNew()
 		return;
 	filename = QString::null;
 
-	initBoard();
+	max = 40;
 
-	KConfig *config = kapp->config();
-	QColor fg, bg;
-	config->setGroup("General");
-	bg = config->readColorEntry("alternateBackground", &black);
-	config->setGroup("WM");
-	fg = config->readColorEntry("activeBackground", &black);
+	initBoard();
 
 	for(int i = 0; i < 40; ++i)
 	{
-		ConfigEstate *estate = new ConfigEstate(i);
-		estate->setName(i18n("New Estate"));
-		estate->setColor(fg);
-		estate->setBgColor(bg);
-		estate->setPrice(100);
-		estate->setHousePrice(50);
-		for (int i = 0; i < 6; ++i)
-			estate->setRent(i, 10 * (i + 1));
-		estate->setChanged(false);
-		estates.append(estate);
-	
-		connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
-		connect(estate, SIGNAL(changed()), this, SLOT(modified()));
-	
-		board->addEstateView(estate);
+		(void) newEstate(i);
 	}
-
-	max = 40;
 
 	isMod = false;
 	doCaption(false);
 	updateJumpMenu();
 
 	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
+}
+
+ConfigEstate *AtlanticDesigner::newEstate(int i)
+{
+	KConfig *config = kapp->config();
+	QColor fg, bg;
+	config->setGroup("General");
+	bg = config->readColorEntry("alternateBackground", &black);
+	config->setGroup("WM");
+	fg = config->readColorEntry("activeBackground", &black);
+	ConfigEstate *estate = new ConfigEstate(i);
+	estate->setName(i18n("New Estate"));
+	estate->setColor(fg);
+	estate->setBgColor(bg);
+	estate->setPrice(100);
+	estate->setHousePrice(50);
+	for (int i = 0; i < 6; ++i)
+		estate->setRent(i, 10 * (i + 1));
+	estate->setChanged(false);
+	//estates.append(estate);
+	estates.insert(i, estate);
+
+	connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
+	connect(estate, SIGNAL(changed()), this, SLOT(modified()));
+
+	board->addEstateView(estate);
+
+	return estate;
 }
 
 bool AtlanticDesigner::warnClose()
@@ -223,9 +233,9 @@ void AtlanticDesigner::openFile(const QString &filename)
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 		return;
-	
-	initBoard();
 
+	initMembers();
+	
 	QTextStream t(&f);
 	QString s = t.readLine();
 	ParseMode parseMode = Other;
@@ -419,9 +429,6 @@ void AtlanticDesigner::openFile(const QString &filename)
 			connect(estate, SIGNAL(LMBClicked(Estate *)), this, SLOT(changeEstate(Estate *)));
 			connect(estate, SIGNAL(changed()), this, SLOT(modified()));
 	
-			kdDebug() << "addEstateView\n";
-			board->addEstateView(estate);
-
 			kdDebug() << "incrementing i\n";
 			i++;
 		}
@@ -443,8 +450,14 @@ void AtlanticDesigner::openFile(const QString &filename)
 				close();
 			return;
 	}
-
 	max = i;
+
+	initBoard();
+	ConfigEstate *estate = 0;
+	for (estate = estates.first(); estate; estate = estates.next())
+	{
+		board->addEstateView(estate);
+	}
 
 	isMod = false;
 	doCaption(false);
@@ -664,14 +677,69 @@ void AtlanticDesigner::movePlayer(Estate *estate)
 	m_player->update();
 }
 
+// this will add a square to all sides
 void AtlanticDesigner::larger()
 {
-	// this will add a square to all sides
+	max += 4;
+	int sideLen = max/4;
+
+	initBoard();
+
+	ConfigEstate *estate = 0;
+	for (int i = 0; i < max; ++i)
+	{
+		estate = estates.at(i);
+		estate->setEstateId(i);
+		board->addEstateView(estate);
+
+		kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
+		if ((i%sideLen - 1) == 0 || i == 1)
+			// make a newEstate
+		{
+			kdDebug() << "making a new Estate\n";
+			newEstate(i);
+		}
+	}
+
+	isMod = true;
+	updateJumpMenu();
+	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
 }
 
 void AtlanticDesigner::smaller()
 {
-	// this will remove a square from all sides
+	max -= 4;
+	int sideLen = max/4;
+
+	initBoard();
+
+	bool remove = true;
+
+	ConfigEstate *estate = 0;
+	for (int i = 0; i < max; ++i)
+	{
+		kdDebug() << "i is " << i << ", sideLen is " << sideLen << endl;
+		if (((i%sideLen - 1) == 0 || i == 1) && remove)
+			// remove estate
+		{
+			kdDebug() << "removing Estate\n";
+			estates.remove(i);
+			i--;
+			remove = false;
+		}
+		else
+		{
+			estate = estates.at(i);
+			estate->setEstateId(i);
+			board->addEstateView(estate);
+
+			remove = true;
+		}
+	}
+
+	isMod = true;
+	updateJumpMenu();
+	QTimer::singleShot(500, this, SLOT(setPlayerAtBeginning()));
 }
 
 void AtlanticDesigner::modified()

@@ -49,9 +49,10 @@ signals:
 
 protected:
 	bool m_changed;
+	int m_estateId;
 
 private:
-	int m_estateId, m_groupId;
+	int m_groupId;
 	QString m_name;
 	Player *m_owner;
 	unsigned int m_houses;

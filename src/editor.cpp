@@ -34,6 +34,15 @@ void ConfigEstate::setChanged(bool b)
 	m_changed = b;
 }
 
+void ConfigEstate::setEstateId(const int estateId)
+{
+	if (m_estateId != estateId)
+	{
+		m_estateId = estateId;
+		m_changed = true;
+	}
+}
+
 void ConfigEstate::setType(const int type)
 {
 	if (m_type != type)

@@ -19,7 +19,7 @@ class AtlantikBoard : public QWidget
 Q_OBJECT
 
 public:
-	AtlantikBoard(QWidget *parent, const char *name=0);
+	AtlantikBoard(int, QWidget *parent, const char *name=0);
 	int heightForWidth(int);
 	void addEstateView(Estate *estate);
 	void addToken(Player *player);
@@ -53,6 +53,8 @@ private:
 	Token *move_token;
 	QTimer *m_timer;
 	bool m_resumeTimer;
+
+	int m_maxEstates;
 
 	QPtrList<EstateView> m_estateViews;
 	QMap<int, Token *> tokenMap;

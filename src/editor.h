@@ -21,6 +21,7 @@ class ConfigEstate : public Estate
 {
 	public:
 	ConfigEstate(int estateId);
+	void setEstateId(const int estateId);
 	int type() {return m_type; };
 	void setType(const int type);
 	int group() {return m_group; };

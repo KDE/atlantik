@@ -1,3 +1,12 @@
+2001-12-22 (katz)
+---------
+
+- Add support for setting AtlantikBoard's size in its ctor;
+  simply tell it maxEstates. Right now for Atlantik's board
+  it simply uses a hard-coded 40
+- in Designer, implement 'smaller' nad 'larger' menu entries,
+  now able to save and load boards with any size!!!
+
 2001-12-20 (katz)
 ---------
 

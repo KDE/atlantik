@@ -13,20 +13,24 @@
 
 extern AtlantikConfig atlantikConfig;
 
-AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent, name)
+AtlantikBoard::AtlantikBoard(int maxEstates, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 //	setMinimumWidth(320);
 //	setMinimumHeight(320);
+
+	m_maxEstates = maxEstates;
+
+	int sideLen = maxEstates/4;
 
 	// Timer for token movement
 	m_timer = new QTimer(this);
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	m_resumeTimer = false;
 
-	m_gridLayout = new QGridLayout(this, 11, 11);
-	for(int i=0;i<=10;i++)
+	m_gridLayout = new QGridLayout(this, sideLen+1, sideLen+1);
+	for(int i=0;i<=sideLen;i++)
 	{
-		if (i==0 || i==10)
+		if (i==0 || i==sideLen)
 		{
 			m_gridLayout->setRowStretch(i, 4);
 			m_gridLayout->setColStretch(i, 4);
@@ -39,7 +43,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	}
 
 //	spacer = new QWidget(this);
-//	m_gridLayout->addWidget(spacer, 11, 11); // SE
+//	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
 	m_center = 0;
 	displayCenter();
@@ -48,7 +52,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	QString icon;
 	bool canBeOwned;
 
-	for (int i=0;i<40;i++)
+	for (int i=0;i<maxEstates;i++)
 	{
 		color = QColor();
 		icon = QString();
@@ -123,14 +127,15 @@ void AtlantikBoard::addEstateView(Estate *estate)
 {
 	QString icon = QString();
 	int estateId = estate->estateId(), orientation = North;
+	int sideLen = m_gridLayout->numRows() - 1;
 
-	if (estateId < 10)
+	if (estateId < sideLen)
 		orientation = North;
-	else if (estateId < 20)
+	else if (estateId < 2*sideLen)
 		orientation = East;
-	else if (estateId < 30)
+	else if (estateId < 3*sideLen)
 		orientation = South;
-	else if (estateId < 40)
+	else //if (estateId < 4*sideLen)
 		orientation = West;
 	
 	EstateView *estateView = new EstateView(estate, orientation, icon, this, "estateview");
@@ -143,14 +148,14 @@ void AtlantikBoard::addEstateView(Estate *estate)
 	connect(estateView, SIGNAL(estateHouseSell(Estate *)), estate, SIGNAL(estateHouseSell(Estate *)));
 	connect(estateView, SIGNAL(newTrade(Player *)), estate, SIGNAL(newTrade(Player *)));
 
-	if (estateId<10)
-		m_gridLayout->addWidget(estateView, 10, 10-estateId);
-	else if (estateId<20)
-		m_gridLayout->addWidget(estateView, 20-estateId, 0);
-	else if (estateId<30)
-		m_gridLayout->addWidget(estateView, 0, estateId-20);
+	if (estateId<sideLen)
+		m_gridLayout->addWidget(estateView, sideLen, sideLen-estateId);
+	else if (estateId<2*sideLen)
+		m_gridLayout->addWidget(estateView, 2*sideLen-estateId, 0);
+	else if (estateId<3*sideLen)
+		m_gridLayout->addWidget(estateView, 0, estateId-2*sideLen);
 	else
-		m_gridLayout->addWidget(estateView, estateId-30, 10);
+		m_gridLayout->addWidget(estateView, estateId-3*sideLen, sideLen);
 
 	estateView->show();
 }
@@ -270,7 +275,7 @@ void AtlantikBoard::slotMoveToken()
 	// Where do we want to go today?
 #warning port
 	int dest = 0; // move_token->location() + 1;
-	if (dest==40)
+	if (dest==(m_gridLayout->numRows() - 1)*4)
 		dest = 0;
 	kdDebug() << "going from " << move_token->location() << " to " << dest << endl;
 
@@ -382,7 +387,7 @@ void AtlantikBoard::displayCenter()
 		delete m_center;
 
 	m_center = new QWidget(this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
+	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 }
 
@@ -394,7 +399,7 @@ void AtlantikBoard::slotDisplayCard(QString type, QString description)
 		delete m_center;
 	
 	m_center = new BoardDisplay(type, description, this);
-	m_gridLayout->addMultiCellWidget(m_center, 1, 9, 1, 9);
+	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
 
 	QTimer::singleShot(2000, this, SLOT(displayCenter()));

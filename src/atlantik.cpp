@@ -275,7 +275,7 @@ void Atlantik::slotJoinedGame()
 void Atlantik::slotInitGame()
 {
 	// Create board widget and replace the game configuration widget.
-	m_board = new AtlantikBoard(m_mainWidget, "board");
+	m_board = new AtlantikBoard(40, m_mainWidget, "board");
 	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
 	m_board->show();
 	if (m_selectConfiguration)
