@@ -1,8 +1,11 @@
 #ifndef	ATLANTIC_ATLANTICDAEMON_H
 #define	ATLANTIC_ATLANTICDAEMON_H
 
-class ServerSocket;
+class QSocket;
+
 class AtlanticCore;
+
+class ServerSocket;
 
 class AtlanticDaemon : public QObject
 {
@@ -12,9 +15,11 @@ public:
 	AtlanticDaemon();
 
 private slots:
-	void registerAtMonopigator();
+	void monopigatorRegister();
+	void monopigatorConnected();
 
 private:
+	QSocket *m_monopigatorSocket;
 	ServerSocket *m_serverSocket;
 	AtlanticCore *m_atlanticCore;
 
