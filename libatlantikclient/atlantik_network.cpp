@@ -655,13 +655,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 						}
 					}
 					else if (type=="accepted" && trade)
+						emit msgTradeUpdateAccepted(trade);
+					else if (type=="completed" && trade)
 					{
 						m_atlanticCore->removeTrade(trade);
 						m_trades[tradeId] = 0;
 						trade = 0;
 					}
-					else if (type=="completed" && trade)
-						emit msgTradeUpdateCompleted(trade);
 					else if (type=="rejected")
 					{
 						Player *player = m_playerMap[e.attributeNode(QString("actor")).value().toInt()];

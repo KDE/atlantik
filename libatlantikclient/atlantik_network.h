@@ -145,7 +145,7 @@ signals:
 	 *
 	 * @param trade Trade
 	 */
-	void msgTradeUpdateCompleted(Trade *trade);
+	void msgTradeUpdateAccepted(Trade *trade);
 
 	/**
 	 * One of the players rejected the trade and the trade object has been

@@ -151,7 +151,11 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		// Estate name
 		painter.setPen(Qt::white);
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize() * 2, QFont::Bold));
+		int fontSize = KGlobalSettings::generalFont().pointSize();
+		if (fontSize == -1)
+			fontSize = KGlobalSettings::generalFont().pixelSize();
+
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
 		painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), titleHeight, Qt::AlignJustify, m_estate->name());
 
 		painter.setPen(Qt::black);
@@ -160,34 +164,34 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		// Estate group
 		if (m_estate->estateGroup())
 		{
-			xText = titleHeight - KGlobalSettings::generalFont().pointSize() - KDialog::marginHint();
-			painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
+			xText = titleHeight - fontSize - KDialog::marginHint();
+			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
 			painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().upper());
 		}
 
-		xText = titleHeight + KGlobalSettings::generalFont().pointSize() + 5;
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal));
+		xText = titleHeight + fontSize + 5;
+		painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
 
 		// Price
 		if (m_estate->price())
 		{
 			painter.drawText(5, xText, i18n("Price: %1").arg(m_estate->price()));
-			xText += (KGlobalSettings::generalFont().pointSize() + 5);
+			xText += (fontSize + 5);
 		}
 
 		// Owner, houses, isMortgaged
 		if (m_estate->canBeOwned())
 		{
 			painter.drawText(5, xText, i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			xText += (KGlobalSettings::generalFont().pointSize() + 5);
+			xText += (fontSize + 5);
 
 			if (m_estate->isOwned())
 			{
 				painter.drawText(5, xText, i18n("Houses: %1").arg(m_estate->houses()));
-				xText += (KGlobalSettings::generalFont().pointSize() + 5);
+				xText += (fontSize + 5);
 
 				painter.drawText(5, xText, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				xText += (KGlobalSettings::generalFont().pointSize() + 5);
+				xText += (fontSize + 5);
 			}
 		}
 
