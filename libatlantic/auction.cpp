@@ -23,6 +23,7 @@ Auction::Auction(int auctionId, Estate *estate) : QObject()
 {
 	m_auctionId = auctionId;
 	m_estate = estate;
+	m_status = 0;
 	m_changed = false;
 }
 
