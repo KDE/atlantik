@@ -507,11 +507,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore and create view there
-					if (b_newPlayer)
-						emit newPlayer(player);
-
 					if (player)
+					{
+						if (b_newPlayer)
+							emit newPlayer(player);
 						player->update();
+					}
 				}
 			}
 			else if (e.tagName() == "estategroupupdate")
@@ -533,11 +534,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore and create view there
-					if (b_newEstateGroup)
-						emit newEstateGroup(estateGroup);
-
 					if (estateGroup)
+					{
+						if (b_newEstateGroup)
+							emit newEstateGroup(estateGroup);
 						estateGroup->update();
+					}
 				}
 			}
 			else if (e.tagName() == "estateupdate")
@@ -627,11 +629,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore and create view there
-					if (b_newEstate)
-						emit newEstate(estate);
-
 					if (estate)
+					{
+						if (b_newEstate)
+							emit newEstate(estate);
 						estate->update();
+					}
 				}
 			}
 			else if (e.tagName() == "tradeupdate")
@@ -758,11 +761,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore and create view there
-					if (b_newTrade)
-						emit newTrade(trade);
-
 					if (trade)
+					{
+						if (b_newTrade)
+							emit newTrade(trade);
 						trade->update();
+					}
 				}
 			}
 			else if (e.tagName() == "auctionupdate")
@@ -811,11 +815,12 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					// Emit signal so GUI implementations can create view(s)
 #warning port to atlanticcore and create view there
-					if (b_newAuction)
-						emit newAuction(auction);
-
 					if (auction)
+					{
+						if (b_newAuction)
+							emit newAuction(auction);
 						auction->update();
+					}
 				}
 			}
 			else

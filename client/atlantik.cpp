@@ -193,7 +193,7 @@ void Atlantik::newEstate(Estate *estate)
 	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 }
 
-void Atlantik::createGUI(Trade *trade)
+void Atlantik::newTrade(Trade *trade)
 {
 	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0, "tradeDisplay");
 	m_tradeGUIMap[trade] = tradeDisplay;
@@ -490,7 +490,7 @@ void Atlantik::initNetworkObject()
 
 	connect(m_atlantikNetwork, SIGNAL(newPlayer(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlantikNetwork, SIGNAL(newEstate(Estate *)), this, SLOT(newEstate(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(createGUI(Trade *)));
+	connect(m_atlantikNetwork, SIGNAL(newTrade(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	if (m_selectServer)
