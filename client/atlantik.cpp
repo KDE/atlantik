@@ -186,6 +186,7 @@ void Atlantik::newPlayer(Player *player)
 	playerChanged(player);
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+	connect(player, SIGNAL(gainedTurn()), this, SLOT(gainedTurn()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
 	KNotifyClient::event("newplayer");
@@ -596,6 +597,11 @@ void Atlantik::playerChanged(Player *player)
 		else if (player->gameId() == -1)
 			portfolioView->hide();
 	}
+}
+
+void Atlantik::gainedTurn()
+{
+	KNotifyClient::event("gainedturn");
 }
 
 void Atlantik::initNetworkObject()

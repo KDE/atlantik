@@ -68,6 +68,7 @@ public:
 
 signals:
 	void changed(Player *player);
+	void gainedTurn();
 
 private:
 	int m_id, m_gameId;

@@ -182,6 +182,7 @@ public slots:
 	void removeGUI(Trade *trade);
 
 	void playerChanged(Player *player);
+	void gainedTurn();
 
 signals:
 	void rollDice();

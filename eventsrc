@@ -2,7 +2,10 @@
 IconName=atlantik
 Comment=Atlantik
 Comment[wa]=Atlantike
- 
+
+[gainedturn]
+Name=Gained Turn
+Comment=It is your turn now
 [chat]
 Name=Chat
 Name[bg]=Чат

@@ -91,6 +91,8 @@ void Player::setHasTurn(const bool hasTurn)
 	{
 		m_hasTurn = hasTurn;
 		m_changed = true;
+		if (m_hasTurn && m_isSelf)
+			emit gainedTurn();
 	}
 }
 
