@@ -316,6 +316,12 @@ void Atlantik::initBoard()
 
 void Atlantik::showBoard()
 {
+	if (m_selectGame)
+	{
+		delete m_selectGame;
+		m_selectGame = 0;
+	}
+
 	if (m_selectConfiguration)
 	{
 		delete m_selectConfiguration;
