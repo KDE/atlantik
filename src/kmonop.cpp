@@ -24,6 +24,7 @@ KMonop::KMonop (const char *name) :
 	connect(netw, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
+	connect(netw, SIGNAL(msgEstateUpdate(QDomNode)), this, SLOT(slotMsgEstateUpdate(QDomNode)));
 
  	main = new QWidget(this, "main");
 	main->show();
@@ -31,6 +32,7 @@ KMonop::KMonop (const char *name) :
 	layout = new QGridLayout(main, 8, 2);
 
 	output = new QTextView(main, "output");
+	output->setMinimumWidth(250);
 
 	input = new QLineEdit(main, "input");
 	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
@@ -70,13 +72,11 @@ void KMonop::slotSendMsg()
 
 void KMonop::slotMsgError(QString msg)
 {
-	output->append("ERROR: ");
-	output->append(msg);
+	output->append("ERR: " + msg);
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
-	output->append("MONOP: ");
 	output->append(msg);
 }
 
@@ -85,8 +85,7 @@ void KMonop::slotMsgStartGame(QString msg)
 	if (wizard!=0)
 		wizard->hide();
 		
-	output->append("START: ");
-	output->append(msg);
+	output->append("START: " + msg);
 }
 
 void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
@@ -117,6 +116,29 @@ void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
 				layout->addWidget(port[id], id, 0);
 			}
 			port[id]->setName(a_id.value() + ". " + a_name.value());
+			port[id]->setCash("$ " + a_money.value());
+		}
+	}
+}
+
+void KMonop::slotMsgEstateUpdate(QDomNode estateupdate)
+{
+	QDomAttr a_id, a_owner;
+	QDomElement e;
+	int id=0, owner=0;
+
+	e = estateupdate.toElement();
+	if(!e.isNull())
+	{
+		a_id = e.attributeNode(QString("id"));
+		a_owner = e.attributeNode(QString("owner"));
+
+		id = a_id.value().toInt();
+		owner = a_owner.value().toInt() - 1;
+		if (id < 40 && owner < MAXPLAYERS)
+		{
+			cout << "port " << owner << " id " << id << endl;
+			port[owner]->setOwned(id, true);
 		}
 	}
 }

@@ -22,7 +22,12 @@ void PortfolioEstate::setColor(const QColor &c)
 
 void PortfolioEstate::setOwned(bool o)
 {
-	owned = o;
+	if (o!=owned)
+	{
+		owned = o;
+		b_recreate = true;
+		update();
+	}
 }
 
 void PortfolioEstate::paintEvent(QPaintEvent *)

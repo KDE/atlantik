@@ -7,6 +7,7 @@
 - Input box at bottom left corner can be used to send messages to the server
   to compensate for any commands not yet implemented. Such as .n to set your
   name and .r to roll.
+- Cash and estates in portfolio get updated after purchase/rent.
 
 2001-05-07
 ----------

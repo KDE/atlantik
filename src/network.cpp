@@ -66,6 +66,8 @@ void GameNetwork::processNode(QDomNode n)
 				emit msgPlayerList(e);
 			else if (e.tagName() == "playerupdate")
 				emit msgPlayerUpdate(e);
+			else if (e.tagName() == "estateupdate")
+				emit msgEstateUpdate(e);
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);

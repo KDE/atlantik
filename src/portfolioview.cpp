@@ -1,7 +1,6 @@
 #include <qpainter.h>
 
 #include "portfolioview.h"
-#include "portfolioestate.h"
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
 kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg,
@@ -12,93 +11,119 @@ PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent
 	b_recreate = true;
 	qpixmap = 0;
 
-	setFixedSize(QSize(150, 75));
+	setFixedSize(QSize(200, 75));
 	setBackgroundColor(Qt::white);
 	
 	lname = new QLabel(this);
 	lname->setAlignment(Qt::AlignLeft);
-	lname->setGeometry(5,0,(width()-5),height());
+	lname->setGeometry(5, 0, width()/2, height());
 	lname->setBackgroundColor(kmonop_lgray);
 	lname->setMinimumSize(lname->sizeHint());
 	lname->setMaximumWidth(width()-10);
 	lname->setMaximumHeight(15);
 	lname->show();
-/*
+
 	lcash = new QLabel(this);
 	lcash->setAlignment(Qt::AlignRight);
-	lcash->setGeometry(5+(width()-5)/2,0,(width()-5),height());
+	lcash->setGeometry(width()/2, 0, width()-5, height());
 	lcash->setBackgroundColor(Qt::white);
 	lcash->setMinimumSize(lcash->sizeHint());
 	lcash->setMaximumWidth(width()/2);
 	lcash->setMaximumHeight(15);
 	lcash->show();
 	lcash->setText("$ 1,500");
-*/	
-	PortfolioEstate *estate;
-	QColor current;
 
-	int i=0,j=0,x=0,y=0,w=8;
+	QColor color;
+
+	int i=0,j=0,x=0,y=0;
 //	paint.drawRect(rect());
-	for(i=0;i<8;i++)
+	for(i=0;i<40;i++)
 	{
 		switch(i)
 		{
-	 		case 0:
-			 	current=kmonop_dpurple; break;
-			case 1:
-		 		current=kmonop_lblue; break;
-			case 2:
-				current=kmonop_purple; break;
-			case 3:
-				current=kmonop_orange; break;
-			case 4:
-				current=kmonop_red; break;
-			case 5:
-				current=kmonop_yellow; break;
-			case 6:
-				current=kmonop_green; break;
-			case 7:
-				current=kmonop_blue; break;
+			case 1: case 3:
+				color = kmonop_dpurple; break;
+			case 6: case 8: case 9:
+				color = kmonop_lblue; break;
+			case 11: case 13: case 14:
+				color = kmonop_purple; break;
+			case 16: case 18: case 19:
+				color = kmonop_orange; break;
+			case 21: case 23: case 24:
+				color = kmonop_red; break;
+			case 26: case 27: case 29:
+				color = kmonop_yellow; break;
+			case 31: case 32: case 34:
+				color = kmonop_green; break;
+			case 37: case 39:
+				color = kmonop_blue; break;
+			case 5: case 15: case 25: case 35:
+				color = QColor(Qt::black);
+			default:
+				color = QColor();
 		}
-		estate = new PortfolioEstate(this);
-		x = 5+(18*(i%w));
-		y = 2+lname->height()+(i>=w ? 22: 0);
-		estate->setGeometry(x, y, estate->width(), estate->height());
-		estate->setColor(current);
-		estate->show();
 
-		estate = new PortfolioEstate(this);
-		x = 7+(18*(i%w));
-		y = 6+lname->height()+(i>=w ? 22: 0);
-		estate->setGeometry(x, y, estate->width(), estate->height());
-		estate->setColor(current);
-		estate->show();
-
-		if (i>0 && i<7)
+		switch(i)
 		{
-			estate = new PortfolioEstate(this);
-			x = 9+(18*(i%w));
-			y = 10+lname->height()+(i>=w ? 22: 0);
-			estate->setGeometry(x, y, estate->width(), estate->height());
-				estate->setColor(current);
-			estate->show();
+			case 1: case 6:
+			case 11: case 16:
+			case 21: case 26:
+			case 31: case 37:
+				x = 5+(18*(i/5));
+				y = 2+lname->height();
+				break;
+
+			case 3: case 8:
+			case 13: case 18:
+			case 23: case 27:
+			case 32: case 39:
+				x = 7+(18*(i/5));
+				y = 6+lname->height();
+				break;
+
+			case 9: case 14:
+			case 19: case 24:
+			case 29: case 34:
+				x = 9+(18*(i/5));
+				y = 10+lname->height();
+				break;
+			
+			case 5: case 15:
+			case 25: case 35:
+				x = 5+(14*(i/10));
+				y = 26+lname->height();
+				break;
+			
+			default:
+				x = 0; y = 0;
 		}
-	}
-	for (i=0;i<8;i++)
-	{
-		estate = new PortfolioEstate(this);
-		x = 5+(14*i);
-		y = 26+lname->height();
-		estate->setGeometry(x, y, estate->width(), estate->height());
-		estate->setColor(Qt::black);
-		estate->show();
+
+		if (x>0 || y>0)
+		{
+			estate[i] = new PortfolioEstate(this);
+			estate[i]->setGeometry(x, y, estate[i]->width(), estate[i]->height());
+			estate[i]->setColor(color);
+			estate[i]->show();
+		}
+		else
+			estate[i]=0;
 	}
 }
 
 void PortfolioView::setName(const char *n)
 {
-	name.setLatin1(n, strlen(n));
 	lname->setText(n);
+}
+
+void PortfolioView::setCash(const char *n)
+{
+	lcash->setText(n);
+}
+
+void PortfolioView::setOwned(int id, bool owned)
+{
+	if (estate[id]!=0)
+		estate[id]->setOwned(owned);
 }
 
 void PortfolioView::paintEvent(QPaintEvent *)

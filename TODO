@@ -20,10 +20,10 @@ For 0.0.3
 v Don't overwrite estate pointer in board.cpp, actually have a nice array.
 v Portfolioview states should represent actual situation.
 v Draw tokens on board at actual position.
-- Allow rolling the dice and advancing over board (without actions).
+v Allow rolling the dice and advancing over board (without actions).
 - Move most of the dom parsing back to network.cpp and emit more specialized
   signals such as moveToken(id, pos);
-
+- Add die button.
 
 For 0.1.x
 ---------
