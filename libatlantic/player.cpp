@@ -2,9 +2,8 @@
 #include "player.moc"
 #include "estate.h"
 
-Player::Player(int playerId) : QObject()
+Player::Player() : QObject()
 {
-	m_playerId = playerId;
 	m_changed = m_isSelf = false;
 	m_hasTurn = m_canRoll = m_canBuy = m_inJail = false;
 }

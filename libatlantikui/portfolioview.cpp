@@ -139,11 +139,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 
 void PortfolioView::playerChanged()
 {
-	QString name;
-	name.setNum(m_player->playerId());
-	name.append(". " + m_player->name());
-
-	m_nameLabel->setText(name);
+	m_nameLabel->setText(m_player->name());
 	m_nameLabel->setBackgroundColor(m_player->hasTurn() ? m_activeColor : m_inactiveColor);
 	m_nameLabel->update();
 

@@ -15,9 +15,9 @@ QPtrList<Player> AtlanticCore::players()
 	return m_players;
 }
 
-Player *AtlanticCore::newPlayer(int playerId)
+Player *AtlanticCore::newPlayer()
 {
-	Player *player = new Player(playerId);
+	Player *player = new Player();
 	m_players.append(player);
 	return player;
 }

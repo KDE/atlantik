@@ -18,7 +18,7 @@ public:
 	AtlanticCore(QObject *parent, const char *name);
 
 	QPtrList<Player> players();
-	Player *newPlayer(int playerId);
+	Player *newPlayer();
 
 	QPtrList<Estate> estates();
 	Estate *newEstate(int estateId);

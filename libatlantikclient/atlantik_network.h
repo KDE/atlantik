@@ -121,8 +121,6 @@ signals:
 	void playerListEdit(QString, QString, QString);
 	void playerListDel(QString);
 
-	void tradeUpdateActor(int tradeId, int playerId);
-
 	/**
 	 * The trade has been completed. Emitted after all necessary estate and
 	 * player updates are processed.
@@ -154,7 +152,8 @@ private:
 
 	int m_clientId, m_playerId;
 
-	QMap<int, Player *> m_players;
+	QMap<int, Player *> m_playerMap;
+	QMap<Player *, int> m_playerRevMap;
 	QMap<int, Estate *> m_estates;
 	QMap<QString, EstateGroup *> m_estateGroups;
 	QMap<int, Trade *> m_trades;

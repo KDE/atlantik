@@ -11,8 +11,7 @@ class Player : public QObject
 Q_OBJECT
 
 public:
-	Player(int playerId);
-	int playerId() { return m_playerId; }
+	Player();
 
 	void setLocation(Estate *estate);
 	Estate *location() { return m_location; }
@@ -38,7 +37,6 @@ signals:
 private:
 	bool m_changed, m_isSelf;
 	bool m_hasTurn, m_canRoll, m_canBuy, m_inJail;
-	int m_playerId;
 	unsigned int m_money;
 	QString m_name;
 	Estate *m_location;

@@ -108,7 +108,7 @@ void AtlantikNetwork::cmdChat(QString msg)
 void AtlantikNetwork::newTrade(Player *player)
 {
 	QString msg(".Tn");
-	msg.append(QString::number(player ? player->playerId() : -1));
+	msg.append(QString::number(player ? m_playerRevMap[player] : -1));
 	writeData(msg);
 }
 
@@ -119,7 +119,7 @@ void AtlantikNetwork::tradeUpdateEstate(Trade *trade, Estate *estate, Player *pl
 	msg.append(":");
 	msg.append(QString::number(estate ? estate->estateId() : -1));
 	msg.append(":");
-	msg.append(QString::number(player ? player->playerId() : -1));
+	msg.append(QString::number(player ? m_playerRevMap[player] : -1));
 	writeData(msg);
 }
 
@@ -128,9 +128,9 @@ void AtlantikNetwork::tradeUpdateMoney(Trade *trade, unsigned int money, Player 
 	QString msg(".Tm");
 	msg.append(QString::number(trade ? trade->tradeId() : -1));
 	msg.append(":");
-	msg.append(QString::number(pFrom ? pFrom->playerId() : -1));
+	msg.append(QString::number(pFrom ? m_playerRevMap[pFrom] : -1));
 	msg.append(":");
-	msg.append(QString::number(pTo ? pTo->playerId() : -1));
+	msg.append(QString::number(pTo ? m_playerRevMap[pTo] : -1));
 	msg.append(":");
 	msg.append(QString::number(money));
 	writeData(msg);
@@ -324,7 +324,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 			}
 			else if (e.tagName() == "newturn")
 			{
-				Player *player = m_players[e.attributeNode(QString("player")).value().toInt()];
+				Player *player = m_playerMap[e.attributeNode(QString("player")).value().toInt()];
 				if (player)
 					// Update *all* objects
 					m_atlanticCore->setCurrentTurn(player);
@@ -356,18 +356,18 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					Player *player;
 					bool b_newPlayer = false;
-					if (!(player = m_players[playerId]))
+					if (!(player = m_playerMap[playerId]))
 					{
 						// Create player object
-						player = m_atlanticCore->newPlayer(playerId);
-						m_players[playerId] = player;
+						player = m_atlanticCore->newPlayer();
+						m_playerMap[playerId] = player;
+						m_playerRevMap[player] = playerId;
+
+						if (playerId == m_playerId)
+							player->setIsSelf(true);
 
 						b_newPlayer = true;
 					}
-
-					// Check if this is us
-					if (player && player->playerId() == m_playerId)
-						player->setIsSelf(true);
 
 					// Update player name
 					a = e.attributeNode(QString("name"));
@@ -483,7 +483,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					a = e.attributeNode(QString("owner"));
 					Player *player;
-					if (estate && !a.isNull() && (player = m_players[a.value().toInt()]))
+					if (estate && !a.isNull() && (player = m_playerMap[a.value().toInt()]))
 						estate->setOwner(player);
 
 					a = e.attributeNode(QString("houses"));
@@ -548,7 +548,10 @@ void AtlantikNetwork::processNode(QDomNode n)
 					QString type = e.attributeNode(QString("type")).value();
 					if (type=="new")
 					{
-						emit tradeUpdateActor(tradeId, e.attributeNode(QString("actor")).value().toInt());
+						// TODO: trade->setActor
+						// Player *player = m_playerMap[e.attributeNode(QString("actor")).value().toInt()];
+						// if (trade && player)
+						// 	trade->setActor(player);
 
 						QDomNode n_player = n.firstChild();
 						while(!n_player.isNull())
@@ -556,7 +559,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 							QDomElement e_player = n_player.toElement();
 							if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
 							{
-								Player *player = m_players[e_player.attributeNode(QString("playerid")).value().toInt()];
+								Player *player = m_playerMap[e_player.attributeNode(QString("playerid")).value().toInt()];
 								if (trade && player)
 									trade->addPlayer(player);
 							}
@@ -572,7 +575,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 						emit msgTradeUpdateCompleted(trade);
 					else if (type=="rejected")
 					{
-						Player *player = m_players[e.attributeNode(QString("actor")).value().toInt()];
+						Player *player = m_playerMap[e.attributeNode(QString("actor")).value().toInt()];
 						if (trade)
 							trade->reject(player);
 						if (player && player->isSelf())
@@ -596,7 +599,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 									a = e_child.attributeNode(QString("playerid"));
 									if (!a.isNull())
 									{
-										Player *player = m_players[a.value().toInt()];
+										Player *player = m_playerMap[a.value().toInt()];
 
 										a = e_child.attributeNode(QString("accept"));
 										if (trade && player && !a.isNull())
@@ -612,7 +615,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 										a = e_child.attributeNode(QString("targetplayer"));
 										if (!a.isNull())
 										{
-											Player *player = m_players[a.value().toInt()];
+											Player *player = m_playerMap[a.value().toInt()];
 											// Allow NULL player, it will remove the component
 											if (trade && estate)
 												trade->updateEstate(estate, player);
@@ -625,11 +628,11 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 									a = e_child.attributeNode(QString("playerfrom"));
 									if (!a.isNull())
-										pFrom = m_players[a.value().toInt()];
+										pFrom = m_playerMap[a.value().toInt()];
 
 									a = e_child.attributeNode(QString("playerto"));
 									if (!a.isNull())
-										pTo = m_players[a.value().toInt()];
+										pTo = m_playerMap[a.value().toInt()];
 
 									a = e_child.attributeNode(QString("money"));
 									if (trade && pFrom && pTo && !a.isNull())
@@ -672,7 +675,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					a = e.attributeNode(QString("highbidder"));
 					if (!a.isNull())
 					{
-						Player *player = m_players[e.attributeNode(QString("highbidder")).value().toInt()];
+						Player *player = m_playerMap[e.attributeNode(QString("highbidder")).value().toInt()];
 						a = e.attributeNode(QString("highbid"));
 						if (auction && !a.isNull())
 							auction->newBid(player, a.value().toInt());
