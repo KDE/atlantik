@@ -15,8 +15,8 @@ extern AtlantikConfig atlantikConfig;
 
 AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	setMinimumWidth(320);
-	setMinimumHeight(320);
+//	setMinimumWidth(320);
+//	setMinimumHeight(320);
 
 	// Timer for token movement
 	m_timer = new QTimer(this);
@@ -39,7 +39,7 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 	}
 
 //	spacer = new QWidget(this);
-//	m_gridLayout->addWidget(spacer, 24, 24); // SE
+//	m_gridLayout->addWidget(spacer, 11, 11); // SE
 
 	center = new QWidget(this);
 	m_gridLayout->addMultiCellWidget(center, 1, 9, 1, 9);
@@ -108,8 +108,6 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		estate[i] = new EstateView(new Estate(i+100), North, color, icon, this, "estateview");
 	}
 
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), this, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
-
 	QString label;
 	for(i=0;i<MAXPLAYERS;i++)
 	{
@@ -118,17 +116,20 @@ AtlantikBoard::AtlantikBoard(QWidget *parent, const char *name) : QWidget(parent
 		jumpToken(token[i], 0, false);
 		token[i]->hide();
 	}
+	cout << "ending board ctor" << endl;
 }
 
-EstateView *AtlantikBoard::addEstateView(Estate *parentEstate)
+void AtlantikBoard::addEstateView(Estate *estate)
 {
 	QColor color = QColor();
 	bool canBeOwned = false;
 	QString icon = QString();
 
-	EstateView *estateView = new EstateView(parentEstate, North, color, icon, this, "estateview");
+	EstateView *estateView = new EstateView(estate, North, color, icon, this, "estateview");
+#warning estate and estateview should be connected
+//	connect(estate, SIGNAL(changed()), estateView, SLOT(update()));
 
-	int estateId = parentEstate->estateId();
+	int estateId = estate->estateId();
 	if (estateId<10)
 	{
 		m_gridLayout->addWidget(estateView, 10, 10-estateId);
@@ -151,7 +152,6 @@ EstateView *AtlantikBoard::addEstateView(Estate *parentEstate)
 	}
 
 	estateView->show();
-	return estateView;
 }
 
 void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
@@ -164,7 +164,7 @@ void AtlantikBoard::jumpToken(Token *token, int destination, bool confirm)
 
 	// Confirm location to server.
 	if (confirm)
-		gameNetwork->cmdTokenConfirmation(destination);
+		emit tokenConfirmation(destination);
 }
 
 void AtlantikBoard::moveToken(Token *token, int destination)
@@ -246,14 +246,14 @@ void AtlantikBoard::slotMoveToken()
 		// destination to the server.
 		if (move_token->destination() == move_token->location())
 		{
-			gameNetwork->cmdTokenConfirmation(move_token->location());
+			emit tokenConfirmation(move_token->location());
 
 			// We have arrived at our _final_ destination!
 			m_timer->stop();
 			move_token = 0;
 		}
 		else if (move_token->location() == 0)
-			gameNetwork->cmdTokenConfirmation(move_token->location());
+			emit tokenConfirmation(move_token->location());
 
 		return;
 	}

@@ -17,7 +17,7 @@ Q_OBJECT
 
 	public:
 		AtlantikBoard(QWidget *parent, const char *name=0);
-		EstateView *addEstateView(Estate *parentEstate);
+		void addEstateView(Estate *estate);
 		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();
@@ -27,6 +27,9 @@ Q_OBJECT
 		void slotMsgPlayerUpdateLocation(int, int, bool);
 		void slotMoveToken();
 		void slotResizeAftermath();
+
+	signals:
+		void tokenConfirmation(int location);
 
 	protected:
 		void resizeEvent(QResizeEvent *);

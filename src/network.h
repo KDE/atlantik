@@ -6,18 +6,19 @@
 #include <qptrlist.h>
 #include <qmap.h>
 
+class Atlantik;
+
 class GameNetwork : public QSocket
 {
 Q_OBJECT
 
 public:
-	GameNetwork(QObject *parent=0, const char *name=0);
+	GameNetwork(Atlantik *parent=0, const char *name=0);
 	void cmdRoll();
 	void cmdBuyEstate();
 	void cmdGameStart();
 	void cmdEndTurn();
 	void cmdName(QString name);
-	void cmdTokenConfirmation(int estateId);
 	void cmdEstateToggleMortgage(int estateId);
 	void cmdHouseBuy(int estateId);
 	void cmdHouseSell(int estateId);
@@ -32,11 +33,12 @@ public:
 	void cmdChat(QString msg);
 
 public slots:
+	void serverConnect(const QString host, int port);
+	void cmdTokenConfirmation(int estateId);
 	void slotRead();
 		
 signals:
 	void msgError(QString);
-	void msgInfo(QString);
 	void msgChat(QString, QString);
 	void msgStartGame(QString);
 	void gamelistUpdate(QString);
@@ -55,6 +57,7 @@ signals:
 	void msgPlayerUpdateMoney(int, QString);
 	void msgPlayerUpdateLocation(int, int, bool);
 	void msgEstateUpdateName(int, QString);
+	void msgEstateUpdateBackgroundColor(int, QString);
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
 	void msgEstateUpdateMortgaged(int, bool);
@@ -151,6 +154,7 @@ private:
 	void processMsg(QString);
 	void processNode(QDomNode);
 
+	Atlantik *m_parentWindow;
 	QDomDocument msg;
 //	QPtrList<PortfolioView> portfolioViewList;
 };

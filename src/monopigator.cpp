@@ -3,23 +3,29 @@
 #include "monopigator.moc"
 
 Monopigator::Monopigator()
-{	m_downloadData.open(IO_WriteOnly);
+{
 }
 
 void Monopigator::loadData(const KURL &url)
 {
-	m_downloadData.reset();
+	delete m_downloadData;
+	m_downloadData = new QBuffer();
+	m_downloadData->open(IO_WriteOnly);
+	m_downloadData->reset();
+
 	KIO::Job *job = KIO::get(url.url(), true, false);
 	connect(job, SIGNAL(data(KIO::Job *, const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
 	connect(job, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
 }
 
 void Monopigator::slotData(KIO::Job *, const QByteArray &data)
-{	m_downloadData.writeBlock(data.data(), data.size());
+{
+	m_downloadData->writeBlock(data.data(), data.size());
 }
 
 void Monopigator::slotResult(KIO::Job *job)
-{	processData(m_downloadData.buffer(), !job->error());
+{
+	processData(m_downloadData->buffer(), !job->error());
 }
 
 void Monopigator::processData(const QByteArray &data, bool okSoFar)

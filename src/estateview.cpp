@@ -19,10 +19,9 @@ extern QColor atlantik_greenbg, atlantik_redhotel, atlantik_greenhouse;
 extern QColor atlantik_lgray;
 extern AtlantikConfig atlantikConfig;
 
-EstateView::EstateView(Estate *parentEstate, int orientation, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *estate, int orientation, const QColor &color, const QString &_icon, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
 {
-	m_parentEstate = parentEstate;
-	m_parentEstate->setView(this);
+	m_estate = estate;
 	m_orientation = orientation;
 	m_color = color;
 
@@ -52,10 +51,11 @@ EstateView::EstateView(Estate *parentEstate, int orientation, const QColor &colo
 		m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 	}
 
-	setHouses(0);
 	setOwned(false, false);
 
-	QToolTip::add(this, m_parentEstate->name());
+	QToolTip::add(this, m_estate->name());
+
+	cout << "end of estateview ctor" << endl;
 }
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p)
@@ -104,16 +104,6 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 	return p;
 }
 
-void EstateView::setHouses(int _h)
-{
-	if (m_houses != _h)
-	{
-		m_houses = _h;
-		b_recreate = true;
-		update();
-	}
-}
-
 void EstateView::setOwned(bool byAny, bool byThisClient)
 {
 	if (m_ownedByThisClient != byThisClient)
@@ -135,7 +125,7 @@ void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured Atlantik not to show them.
-	if (m_ownedByAny || !m_parentEstate->canBeOwned() || atlantikConfig.indicateUnowned==false)
+	if (m_ownedByAny || !m_estate->canBeOwned() || atlantikConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -161,8 +151,8 @@ void EstateView::redraw()
 {
 	// TODO: is this the correct place for name label updates?
 	QToolTip::remove(this);
-	QToolTip::add(this, m_parentEstate->name());
-	lname->setText(m_parentEstate->name());
+	QToolTip::add(this, m_estate->name());
+	lname->setText(m_estate->name());
 
 	b_recreate = true;
     update();
@@ -190,12 +180,12 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		
-		if (atlantikConfig.grayOutMortgaged==true && m_parentEstate->isMortgaged())
+		if (atlantikConfig.grayOutMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(atlantik_lgray);
-		else if (atlantikConfig.highliteUnowned==true && m_parentEstate->canBeOwned() && !m_ownedByAny)
+		else if (atlantikConfig.highliteUnowned==true && m_estate->canBeOwned() && !m_ownedByAny)
 			painter.setBrush(Qt::white);
 		else
-			painter.setBrush(atlantik_greenbg);
+			painter.setBrush(m_estate->bgColor());
 
 		painter.drawRect(rect());
         
@@ -231,9 +221,9 @@ void EstateView::paintEvent(QPaintEvent *)
 						painter.drawPixmap(1, 1, *quartzBuffer);
 					}
 
-					if (m_houses > 0)
+					if (m_estate->houses() > 0)
 					{
-						if (m_houses == 5)
+						if (m_estate->houses() == 5)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
@@ -244,7 +234,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i< m_houses ; i++ )
+							for( int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), 2, w, h);
 						}
 					}
@@ -258,9 +248,9 @@ void EstateView::paintEvent(QPaintEvent *)
 						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-titleHeight+1, *quartzBuffer);
 					}
 
-					if (m_houses > 0)
+					if (m_estate->houses() > 0)
 					{
-						if (m_houses == 5)
+						if (m_estate->houses() == 5)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
@@ -271,7 +261,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i< m_houses ; i++ )
+							for( int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2+(i*(w+2)), (3*(titleHeight))+2, w, h);
 						}
 					}
@@ -285,9 +275,9 @@ void EstateView::paintEvent(QPaintEvent *)
 						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
 					}
 
-					if (m_houses > 0)
+					if (m_estate->houses() > 0)
 					{
-						if (m_houses == 5)
+						if (m_estate->houses() == 5)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
@@ -298,7 +288,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i< m_houses ; i++ )
+							for( int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect(2, 2+(i*(h+2)), w, h);
 						}
 					}
@@ -312,9 +302,9 @@ void EstateView::paintEvent(QPaintEvent *)
 						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);
 					}
 
-					if (m_houses > 0)
+					if (m_estate->houses() > 0)
 					{
-						if (m_houses == 5)
+						if (m_estate->houses() == 5)
 						{
 							// Hotel
 							painter.setBrush(atlantik_redhotel);
@@ -325,7 +315,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							// Houses
 							painter.setBrush(atlantik_greenhouse);
 							int h = (titleHeight)-4, w = (titleWidth)-4;
-							for( int i=0 ; i< m_houses ; i++ )
+							for( int i=0 ; i < m_estate->houses() ; i++ )
 								painter.drawRect((3*(titleWidth))+2, 2+(i*(h+2)), w, h);
 						}
 					}
@@ -351,18 +341,18 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	if (e->button()==RightButton)
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
-		rmbMenu->insertTitle(m_parentEstate->name());
-		if (m_parentEstate->isMortgaged())
+		rmbMenu->insertTitle(m_estate->name());
+		if (m_estate->isMortgaged())
 			rmbMenu->insertItem(i18n("Unmortgage"), 0);
 		else
 			rmbMenu->insertItem(i18n("Mortgage"), 0);
 
-		if (m_houses>=4)
+		if (m_estate->houses()>=4)
 			rmbMenu->insertItem(i18n("Build hotel"), 1);
 		else
 			rmbMenu->insertItem(i18n("Build house"), 1);
 
-		if (m_houses==5)
+		if (m_estate->houses()==5)
 			rmbMenu->insertItem(i18n("Sell hotel"), 2);
 		else
 			rmbMenu->insertItem(i18n("Sell house"), 2);
@@ -377,12 +367,12 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		else
 		{
 			// Mortgaged or full? Not building any houses
-			if (!(m_parentEstate->canToggleMortgage()))
+			if (!(m_estate->canToggleMortgage()))
 				rmbMenu->setItemEnabled(0, false);
 
 			// TODO: can_build/can_sell monopd support
 			// Empty? Not selling any houses
-			if (m_houses==0)
+			if (!m_estate->houses())
 				rmbMenu->setItemEnabled(2, false);
 		}
 
@@ -405,15 +395,16 @@ void EstateView::slotMenuAction(int item)
 	switch (item)
 	{
 	case 0:
-		gameNetwork->cmdEstateToggleMortgage(m_id);
+#warning emit action signals here
+//		emit estateToggleMortgage(m_id);
 		break;
 
 	case 1:
-		gameNetwork->cmdHouseBuy(m_id);
+//		emit estateHouseBuy(m_id);
 		break;
 
 	case 2:
-		gameNetwork->cmdHouseSell(m_id);
+//		emit estateHouseSell(m_id);
 		break;
 	}
 }

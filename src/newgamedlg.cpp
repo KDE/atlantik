@@ -21,17 +21,6 @@ int serverPort, gameId;
 
 NewGameWizard::NewGameWizard(QWidget *parent, const char *name, bool modal, WFlags f) : KWizard(parent, name, modal, f)
 {
-	// Select server page
-	select_server = new SelectServer(this, "select_server");
-	serverHost = select_server->hostToConnect();
-	serverPort = select_server->portToConnect();
-
-	connect(select_server, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
-
-	addPage(select_server, QString(i18n("Select a game server to connect to:")));
-	setHelpEnabled(select_server, false);
-	setNextEnabled(select_server, false);
-
 	// Select game page
 	select_game = new SelectGame(this, "select_game");
 	gameId = select_game->gameToJoin();
@@ -62,16 +51,6 @@ void NewGameWizard::slotValidateNext()
 	// TODO: different slots for different pages
 	// or: passing widget pointer to slot and evaluate
 
-	if (select_server->validateNext())
-	{
-		serverHost = select_server->hostToConnect();
-		serverPort = select_server->portToConnect();
-
-		setNextEnabled(select_server, true);
-	}
-	else
-		setNextEnabled(select_server, false);
-
 	if (select_game->validateNext())
 	{
 		gameId = select_game->gameToJoin();
@@ -90,88 +69,14 @@ void NewGameWizard::slotValidateNext()
 void NewGameWizard::slotInit(const QString &_name)
 {
 	cout << "initPage: " << _name << endl;
-	if (title(select_server) == _name)
-		select_server->initPage();
 	if (title(select_game) == _name)
 		select_game->initPage();
 	if (title(configure_game) == _name)
 		configure_game->initPage();
 }
 
-SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, name)
-{
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	CHECK_PTR(layout);
-
-	// List of servers
-	list = new QListView(this);
-	list->addColumn(QString(i18n("Server")));
-	list->addColumn(QString(i18n("Port")));
-	list->addColumn(QString(i18n("Version")));
-	connect(list, SIGNAL(selectionChanged(QListViewItem *)), parent, SLOT(slotValidateNext()));
-	connect(list, SIGNAL(clicked(QListViewItem *)), parent, SLOT(slotValidateNext()));
-	connect(list, SIGNAL(pressed(QListViewItem *)), parent, SLOT(slotValidateNext()));
-	layout->addWidget(list);
-
-	monopigator = new Monopigator();
-
-	connect(monopigator, SIGNAL(monopigatorClear()), this, SLOT(slotMonopigatorClear()));
-	connect(monopigator, SIGNAL(monopigatorAdd(QString, QString, QString)), this, SLOT(slotMonopigatorAdd(QString, QString, QString)));
-}
-
-void SelectServer::initPage()
-{
-	list->setCurrentItem(0);
-	list->clearSelection();
-
-	// Hardcoded, but there aren't any other Monopigator servers at the moment
-	monopigator->loadData("http://gator.monopd.net/");
-}
-
-bool SelectServer::validateNext()
-{
-	if (list->selectedItem())
-		return true;
-	else
-		return false;
-}
-
-QString SelectServer::hostToConnect() const
-{
-	if (QListViewItem *item = list->selectedItem())
-		return item->text(0);
-	else
-		return QString();
-}
-
-int SelectServer::portToConnect()
-{
-	if (QListViewItem *item = list->selectedItem())
-		return item->text(1).toInt();
-	else
-		return 0;
-}
-
-void SelectServer::slotMonopigatorClear()
-{	list->clear();
-	emit statusChanged();
-}
-
-void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version)
-{	new QListViewItem(list, host, port, version);
-}
-
 SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	// Network interface
-	connect(gameNetwork, SIGNAL(error(int)), this, SLOT(slotConnectionError(int)));
-	connect(gameNetwork, SIGNAL(connected()), this, SLOT(slotConnected()));
-	connect(gameNetwork, SIGNAL(gamelistUpdate(QString)), this, SLOT(slotGamelistUpdate(QString)));
-	connect(gameNetwork, SIGNAL(gamelistEndUpdate(QString)), this, SLOT(slotGamelistEndUpdate(QString)));
-	connect(gameNetwork, SIGNAL(gamelistAdd(QString, QString)), this, SLOT(slotGamelistAdd(QString, QString)));
-	connect(gameNetwork, SIGNAL(gamelistEdit(QString, QString)), this, SLOT(slotGamelistEdit(QString, QString)));
-	connect(gameNetwork, SIGNAL(gamelistDel(QString)), this, SLOT(slotGamelistDel(QString)));
-
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
 
@@ -338,6 +243,7 @@ void SelectGame::slotGamelistEndUpdate(QString type)
 }
 
 void SelectGame::slotGamelistClicked(QListViewItem *item)
+
 {
 	// simulate a user press
 	if(item && !bjoin->isOn())

@@ -11,30 +11,6 @@
 #include "network.h"
 #include "monopigator.h"
 
-class SelectServer : public QWidget
-{
-Q_OBJECT
-
-	public:
-		SelectServer(QWidget *parent, const char *name=0);
-		void initPage();
-		bool validateNext();
-		QString hostToConnect() const;
-		int portToConnect();
-
-	public slots:
-		void slotMonopigatorClear();
-		void slotMonopigatorAdd(QString host, QString port, QString version);
-
-	signals:
-		void statusChanged();
-
-	private:
-		QListView *list;
-		QLabel *status_label;
-		Monopigator *monopigator;
-};
-
 class SelectGame : public QWidget
 {
 Q_OBJECT
@@ -67,6 +43,7 @@ Q_OBJECT
 		QRadioButton *bnew, *bjoin;
 		QListView *list;
 		QLabel *status_label;
+		GameNetwork *gameNetwork;
 };
 
 class ConfigureGame : public QWidget
@@ -91,6 +68,7 @@ Q_OBJECT
 	private:
 		QListView *list;
 		QLabel *status_label;
+		GameNetwork *gameNetwork;
 };
 
 class NewGameWizard : public KWizard
@@ -107,33 +85,9 @@ Q_OBJECT
 
 	private:
 		QListView *list;
-		SelectServer *select_server;
 		SelectGame *select_game;
 		ConfigureGame *configure_game;
-};
-
-class Server
-{
-	public:
-		Server(const QString& _host, int _port)
-		{
-			h = _host;
-			p = _port;
-		}
-
-		QString host() const
-		{
-			return h;
-		}
-
-		int port() const
-		{
-			return p;
-		}
-	
-	private:
-		QString h;
-		int p;
+		GameNetwork *gameNetwork;
 };
 
 #endif

@@ -5,13 +5,19 @@ Estate::Estate(int estateId)
 {
 	m_estateId = estateId;
 	m_owner = 0;
+	m_houses = 0;
 	m_canBeOwned = m_isMortgaged = m_canToggleMortgage = false;
+	m_bgColor = QColor();
 }
 
 void Estate::setOwner(Player *player)
 {
-	m_owner = player;
-	m_estateView->setOwned( (m_owner ? true : false), ( (m_owner && m_owner->isSelf() ) ? true : false) );
+	if (m_owner != player)
+	{
+		m_owner = player;
+#warning emit signal changed here
+//		m_estateView->setOwned( (m_owner ? true : false), ( (m_owner && m_owner->isSelf() ) ? true : false) );
+	}
 }
 
 void Estate::setName(const QString name)
@@ -19,8 +25,19 @@ void Estate::setName(const QString name)
 	if (m_name != name)
 	{
 		m_name = name;
+#warning emit signal changed here
 		// TODO: Update view? Done?
-		m_estateView->redraw();
+//		m_estateView->redraw();
+	}
+}
+
+void Estate::setBgColor(const QColor color)
+{
+	if (m_bgColor != color)
+	{
+		m_bgColor = color;
+#warning emit signal changed here
+//		m_estateView->redraw();
 	}
 }
 
@@ -39,7 +56,8 @@ void Estate::setIsMortgaged(const bool isMortgaged)
 	{
 		m_isMortgaged = isMortgaged;
 		// TODO: Update view? Done?
-		m_estateView->redraw();
+#warning emit signal changed here
+//		m_estateView->redraw();
 	}
 }
 

@@ -2,11 +2,11 @@
 #include <iostream.h>
 
 #include "network.moc"
+#include "atlantik.h"
 
-GameNetwork *gameNetwork;
-
-GameNetwork::GameNetwork(QObject *parent, const char *name) : QSocket(parent, name)
+GameNetwork::GameNetwork(Atlantik *parent, const char *name) : QSocket(parent, name)
 {
+	m_parentWindow = parent;
 	connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 }
 
@@ -124,6 +124,8 @@ void GameNetwork::writeData(QString msg)
 		cout << "out [" << msg << "]" << endl;
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
 	}
+	else
+		cout << "not [" << msg << "]" << endl;
 }
 
 void GameNetwork::slotRead()
@@ -168,7 +170,7 @@ void GameNetwork::processNode(QDomNode n)
 					if (a.value() == "error")
 						emit msgError(e.attributeNode(QString("value")).value());
 					else if (a.value() == "info")
-						emit msgInfo(e.attributeNode(QString("value")).value());
+						m_parentWindow->serverMsgsAppend( e.attributeNode(QString("value")).value() );
 					else if (a.value() == "chat")
 						emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
 					else if (a.value() == "startgame")
@@ -287,6 +289,13 @@ void GameNetwork::processNode(QDomNode n)
 					if (!a.isNull())
 						emit msgEstateUpdateName(estateid, a.value());
 
+					a = e.attributeNode(QString("bgcolor"));
+					if (!a.isNull())
+					{
+						cout << "emit bgcolor" << endl;
+						emit msgEstateUpdateBackgroundColor(estateid, a.value());
+					}
+
 					a = e.attributeNode(QString("owner"));
 					if (!a.isNull())
 						emit msgEstateUpdateOwner(estateid, a.value().toInt());
@@ -378,4 +387,9 @@ void GameNetwork::processNode(QDomNode n)
 		processNode(node);
 		n = n.nextSibling();
 	}
+}
+
+void GameNetwork::serverConnect(const QString host, int port)
+{
+	connectToHost(host, port);
 }

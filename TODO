@@ -75,7 +75,7 @@ For 0.3.x
 ---------
 
 - More descriptive window titles
-- Port new game wizard away from KWizard again, our network validation code
+. Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
 - Game configuration (when it appears in monopd)

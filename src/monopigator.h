@@ -26,7 +26,7 @@ private slots:
 private:
 	void processData(const QByteArray &, bool = true);
 
-	QBuffer m_downloadData;
+	QBuffer *m_downloadData;
 };
 
 #endif

@@ -18,8 +18,7 @@ class EstateView : public QWidget
 Q_OBJECT
 
 	public:
-		EstateView(Estate *parentEstate, int orientation, const QColor &, const QString &, QWidget *parent, const char *name = 0);
-		void setHouses(int);
+		EstateView(Estate *estate, int orientation, const QColor &, const QString &, QWidget *parent, const char *name = 0);
 		void setOwned(bool byAny, bool byThisClient);
 
 		bool ownedByAny();
@@ -42,12 +41,12 @@ Q_OBJECT
 		void drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2);
 		void repositionPortfolioEstate();
 
-		Estate *m_parentEstate;
+		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
 		KPixmap *m_quartzBlocks;
 		bool b_recreate;
 		bool m_ownedByAny, m_ownedByThisClient;
-		int m_id, m_orientation, m_houses, m_titleWidth, m_titleHeight;
+		int m_id, m_orientation, m_titleWidth, m_titleHeight;
 		QColor m_color;
 		QLabel *lname;
 		PortfolioEstate *pe;

@@ -1,5 +1,6 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
+#include <qcolor.h>
 
 #include <kstdgameaction.h>
 
@@ -11,19 +12,19 @@
  
 #include "atlantik.moc"
 #include "board.h"
+#include "selectserver_widget.h"
 
 #include "config.h"
 
 extern AtlantikConfig atlantikConfig;
 
-Atlantik::Atlantik () :
-  KMainWindow ()
+Atlantik::Atlantik () : KMainWindow ()
 {
 	// Read application configuration
 	readConfig();
 
 	// Toolbar: Game
-	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
+//	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Move
@@ -45,22 +46,22 @@ Atlantik::Atlantik () :
 	createGUI();
 
 	// Network layer
-	gameNetwork = new GameNetwork(this, "gameNetwork");
+	m_gameNetwork = new GameNetwork(this, "gameNetwork");
 
-	connect(gameNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
-	connect(gameNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
-	connect(gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
-	connect(gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
-	connect(gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
-	connect(gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
-	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
-	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
+	connect(m_gameNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
+	connect(m_gameNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
+	connect(m_gameNetwork, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateName(int, QString)), this, SLOT(slotMsgPlayerUpdateName(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateMoney(int, QString)), this, SLOT(slotMsgPlayerUpdateMoney(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateOwner(int, int)), this, SLOT(slotMsgEstateUpdateOwner(int, int)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateName(int, QString)), this, SLOT(slotMsgEstateUpdateName(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateBackgroundColor(int, QString)), this, SLOT(slotMsgEstateUpdateBackgroundColor(int, QString)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateHouses(int, int)), this, SLOT(slotMsgEstateUpdateHouses(int, int)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateMortgaged(int, bool)), this, SLOT(slotMsgEstateUpdateMortgaged(int, bool)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanToggleMortgage(int, bool)), this, SLOT(slotMsgEstateUpdateCanToggleMortgage(int, bool)));
+	connect(m_gameNetwork, SIGNAL(msgEstateUpdateCanBeOwned(int, bool)), this, SLOT(slotMsgEstateUpdateCanBeOwned(int, bool)));
+	connect(m_gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
+	connect(m_gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
 	// Management of data objects (players, games, estates)
 	playerList.setAutoDelete(true);
@@ -77,13 +78,14 @@ Atlantik::Atlantik () :
 	m_mainLayout->addWidget(m_portfolioWidget, 0, 0);
 	m_portfolioWidget->show();
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
-	connect(gameNetwork, SIGNAL(playerInit(int)), this, SLOT(slotPlayerInit(int)));
-	connect(gameNetwork, SIGNAL(estateInit(int)), this, SLOT(slotEstateInit(int)));
+
+	connect(m_gameNetwork, SIGNAL(playerInit(int)), this, SLOT(slotPlayerInit(int)));
+	connect(m_gameNetwork, SIGNAL(estateInit(int)), this, SLOT(slotEstateInit(int)));
 
 	// Nice label
-	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
-	m_portfolioLayout->addWidget(m_portfolioLabel);
-	m_portfolioLabel->show();
+//	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
+//	m_portfolioLayout->addWidget(m_portfolioLabel);
+//	m_portfolioLabel->show();
 
 	// TextView for chat and status messages from server.
 	m_serverMsgs = new QTextView(m_mainWidget, "serverMsgs");
@@ -93,16 +95,25 @@ Atlantik::Atlantik () :
 
 	// LineEdit to enter commands and chat messages.
 	m_input = new QLineEdit(m_mainWidget, "input");
-	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 	m_mainLayout->addWidget(m_input, 2, 0);
 
+	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
+
 	// The actual gameboard.
-	m_board = new AtlantikBoard(m_mainWidget, "board");
-	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+//	m_board = new AtlantikBoard(m_mainWidget, "board");
+//	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+//	connect(m_gameNetwork, SIGNAL(msgPlayerUpdateLocation(int, int, bool)), m_board, SLOT(slotMsgPlayerUpdateLocation(int, int, bool)));
+//	connect(m_board, SIGNAL(tokenConfirmation(int)), m_gameNetwork, SLOT(cmdTokenConfirmation(int)));
 
 	// Set stretching where we want it.
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
+
+	SelectServer *selectServer = new SelectServer(m_mainWidget, "selectServer");
+	m_mainLayout->addMultiCellWidget(selectServer, 0, 2, 1, 1);
+	selectServer->show();
+
+	connect(selectServer, SIGNAL(serverConnect(const QString, int)), m_gameNetwork, SLOT(serverConnect(const QString, int)));
 }
 
 void Atlantik::readConfig()
@@ -126,11 +137,20 @@ void Atlantik::readConfig()
 void Atlantik::slotNewGame()
 {
 	m_newgameWizard = new NewGameWizard(this, "newgame", 1);
+
+	connect(m_gameNetwork, SIGNAL(error(int)), m_newgameWizard, SLOT(slotConnectionError(int)));
+	connect(m_gameNetwork, SIGNAL(connected()), m_newgameWizard, SLOT(slotConnected()));
+	connect(m_gameNetwork, SIGNAL(gamelistUpdate(QString)), m_newgameWizard, SLOT(slotGamelistUpdate(QString)));
+	connect(m_gameNetwork, SIGNAL(gamelistEndUpdate(QString)), m_newgameWizard, SLOT(slotGamelistEndUpdate(QString)));
+	connect(m_gameNetwork, SIGNAL(gamelistAdd(QString, QString)), m_newgameWizard, SLOT(slotGamelistAdd(QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gamelistEdit(QString, QString)), m_newgameWizard, SLOT(slotGamelistEdit(QString, QString)));
+	connect(m_gameNetwork, SIGNAL(gamelistDel(QString)), m_newgameWizard, SLOT(slotGamelistDel(QString)));
+
 	int result = m_newgameWizard->exec();
 	delete m_newgameWizard;
 	m_newgameWizard = 0;
 	if (result)
-		gameNetwork->cmdGameStart();
+		m_gameNetwork->cmdGameStart();
 }
 
 void Atlantik::slotConfigure()
@@ -152,7 +172,7 @@ void Atlantik::slotUpdateConfig()
 	if (atlantikConfig.playerName != optStr)
 	{
 		atlantikConfig.playerName = optStr;
-		gameNetwork->cmdName(optStr);
+		m_gameNetwork->cmdName(optStr);
 	}
 
 	optBool = m_configDialog->indicateUnowned();
@@ -207,33 +227,28 @@ void Atlantik::slotUpdateConfig()
 
 void Atlantik::slotRoll()
 {
-	gameNetwork->cmdRoll();
+	m_gameNetwork->cmdRoll();
 }
 
 void Atlantik::slotBuy()
 {
-	gameNetwork->cmdBuyEstate();
+	m_gameNetwork->cmdBuyEstate();
 }
 
 void Atlantik::slotEndTurn()
 {
-	gameNetwork->cmdEndTurn();
+	m_gameNetwork->cmdEndTurn();
 }
 
 void Atlantik::slotSendMsg()
 {
-	gameNetwork->cmdChat(m_input->text());
+	m_gameNetwork->cmdChat(m_input->text());
 	m_input->setText("");
 }
 
 void Atlantik::slotMsgError(QString msg)
 {
 	serverMsgsAppend("ERR: " + msg);
-}
-
-void Atlantik::slotMsgInfo(QString msg)
-{
-	serverMsgsAppend(msg);
 }
 
 void Atlantik::slotMsgChat(QString player, QString msg)
@@ -287,6 +302,13 @@ void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
 {
 	if (Estate *estate = estateMap[estateId])
 		estate->setName(name);
+}
+
+void Atlantik::slotMsgEstateUpdateBackgroundColor(int estateId, QString color)
+{
+	cout << "setting estate color" << endl;
+	if (Estate *estate = estateMap[estateId])
+		estate->setBgColor(QColor(color));
 }
 
 void Atlantik::slotMsgEstateUpdateHouses(int estateid, int houses)
@@ -361,6 +383,7 @@ void Atlantik::slotPlayerInit(int playerid)
 		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
 		m_portfolioLayout->addWidget(fpv);
 		fpv->show();
+		cout << "player init'ed" << endl;
 	}
 }
 
@@ -374,6 +397,7 @@ void Atlantik::slotEstateInit(int estateId)
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);
+		cout << "estate init'ed" << endl;
 	}
 }
 

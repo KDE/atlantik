@@ -11,3 +11,14 @@ the first time:
   methods which can be used to send data to the server and it sends several
   signals. Atlantik's slots listen for player/object management related
   signals which tells objects to change content/data and views.
+
+October 2001: Changes in design.
+
+Network --> GameFactory --> Game, Player, Estate
+        <----/---------------/-----/-------/
+
+
+MainWindow --> PortfolioView, BoardView
+                \--> PlayerView \--> EstateView
+
+Player/Estate signal --> slot *View

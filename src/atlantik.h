@@ -39,7 +39,14 @@ public:
 	 *
 	 */
 	void readConfig();
-		
+
+	/**
+	 * Appends a message the text view.
+	 *
+	 * @param msg Message to be appended.
+	 */
+	void serverMsgsAppend(QString msg);
+
 public slots:
 	/**
 	 * Creates a new modal dialog to open new games with.
@@ -95,13 +102,6 @@ public slots:
 	 */
 	void slotMsgError(QString msg);
 
-	/**
-	 * Informs serverMsgs() to append an incoming message from the
-	 * server to the text view as informational message.
-	 *
-	 * @param msg The informational message to be appended.
-	 */
-	void slotMsgInfo(QString msg);
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the
@@ -148,6 +148,7 @@ public slots:
 	void slotMsgEstateUpdateOwner(int estateId, int playerId);
 
 	void slotMsgEstateUpdateName(int, QString);
+	void slotMsgEstateUpdateBackgroundColor(int, QString);
 	void slotMsgEstateUpdateHouses(int, int);
 	void slotMsgEstateUpdateMortgaged(int, bool);
 	void slotMsgEstateUpdateCanToggleMortgage(int, bool);
@@ -192,13 +193,6 @@ public slots:
 	 void slotEstateInit(int estateid);
 
 private:
-	/**
-	 * Private member, appends a message the text view.
-	 *
-	 * @param msg Message to be appended.
-	 */
-	void serverMsgsAppend(QString msg);
-
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;
@@ -208,6 +202,8 @@ private:
 	QTextView *m_serverMsgs, *m_chatMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_configure, *m_endTurn;
+
+	GameNetwork *m_gameNetwork;
 
 	NewGameWizard *m_newgameWizard;
 	ConfigDialog *m_configDialog;
