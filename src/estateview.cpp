@@ -4,9 +4,6 @@
 #include <qwmatrix.h>
 #include <qpopupmenu.h>
 
-#warning remove iostream output
-#include <iostream.h>
-
 #include <kpixmapeffect.h>
 #include <kstddirs.h>
 #include <kpopupmenu.h>
@@ -25,7 +22,6 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 	m_id = id;
 	m_orientation = orientation;
 	m_canBeOwned = canBeOwned;
-	m_owned = false;
 	m_mortgaged = false;
 	m_color = color;
 
@@ -57,7 +53,7 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 
 	setName("");
 	setHouses(0);
-	setOwned(false);
+	setOwned(false, false);
 
 	QToolTip::add(this, estatename);
 }
@@ -136,11 +132,14 @@ void EstateView::setMortgaged(bool _m)
 	}
 }
 
-void EstateView::setOwned(bool _o)
+void EstateView::setOwned(bool byAny, bool byThisClient)
 {
-	if (m_owned != _o)
+	if (m_ownedByThisClient != byThisClient)
+		m_ownedByThisClient != byThisClient;
+
+	if (m_ownedByAny != byAny)
 	{
-		m_owned = _o;
+		m_ownedByAny = byAny;
 		b_recreate = true;
 		update();
 	}
@@ -148,13 +147,14 @@ void EstateView::setOwned(bool _o)
 }
 
 bool EstateView::mortgaged() { return m_mortgaged; }
-bool EstateView::owned() { return m_owned; }
+bool EstateView::ownedByAny() { return m_ownedByAny; }
+bool EstateView::ownedByThisClient() { return m_ownedByThisClient; }
 
 void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
 	// or when the user has configured KMonop not to show them.
-	if (m_owned || !m_canBeOwned || kmonopConfig.indicateUnowned==false)
+	if (m_ownedByAny || !m_canBeOwned || kmonopConfig.indicateUnowned==false)
 	{
 		delete pe;
 		pe = 0;
@@ -206,7 +206,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		
 		if (kmonopConfig.grayOutMortgaged==true && m_mortgaged)
 			painter.setBrush(kmonop_lgray);
-		else if (kmonopConfig.highliteUnowned==true && m_canBeOwned && !m_owned)
+		else if (kmonopConfig.highliteUnowned==true && m_canBeOwned && !m_ownedByAny)
 			painter.setBrush(Qt::white);
 		else
 			painter.setBrush(kmonop_greenbg);
@@ -377,7 +377,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		else
 			rmbMenu->insertItem(i18n("Sell house"), 2);
 
-		if (!m_owned)
+		if (!m_ownedByThisClient)
 		{
 			rmbMenu->setItemEnabled(0, false);
 			rmbMenu->setItemEnabled(1, false);
@@ -410,23 +410,22 @@ void EstateView::slotResizeAftermath()
 
 void EstateView::slotMenuAction(int item)
 {
-	cout << "slotMenu " << item << endl;
 	switch (item)
 	{
-		case 0:
-			if (mortgaged())
-				gameNetwork->cmdEstateUnmortgage(m_id);
-			else
-				gameNetwork->cmdEstateMortgage(m_id);
-			break;
+	case 0:
+		if (m_mortgaged)
+			gameNetwork->cmdEstateUnmortgage(m_id);
+		else
+			gameNetwork->cmdEstateMortgage(m_id);
+		break;
 
-		case 1:
-			gameNetwork->cmdHouseBuy(m_id);
-			break;
+	case 1:
+		gameNetwork->cmdHouseBuy(m_id);
+		break;
 
-		case 2:
-			gameNetwork->cmdHouseSell(m_id);
-			break;
+	case 2:
+		gameNetwork->cmdHouseSell(m_id);
+		break;
 	}
 }
 

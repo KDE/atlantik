@@ -139,10 +139,10 @@ public slots:
 	 * portfolio and calls the appropriate method for the gameboard
 	 * member.
 	 *
-	 * @param estateid Estate identifier.
-	 * @param playerid Player identifier. A value of -1 equals unowned.
+	 * @param estateId Estate identifier.
+	 * @param playerId Player identifier. A value of -1 equals unowned.
 	 */
-	void slotMsgEstateUpdateOwner(int estateid, int playerid);
+	void slotMsgEstateUpdateOwner(int estateId, int playerId);
 
 	/**
 	 * Stores the playerid corresponding to this instance of the client.

@@ -19,7 +19,6 @@ desire.
 
 <malte> Capzilla|atwork: and maybe a visualization of whom something belongs to on the map or at least if it's yours
 
-<jasonkb> Disable mortgage on rmb for estates unowned. And I agree with neil on scaling :)
 
 
 
@@ -36,34 +35,41 @@ Bugfixes
 For 0.2.x
 ---------
 
+- gameNetwork API
+  - commands
+    V trades
+    - .jp
+    - .jr
+    - .jc
+    - .D
+  - XML signals
+    - trades
 - Support .gd game description.
-- Support leaving jail.
+- Support leaving jail
   - GUI
-  - Network
   - Different token placement when in jail
 - Chance/CC cards in portfolio
-- Icons on gameboard.
-  - Utility
-  - FP
-  - Jail
-  - toJail
-  - Tax
-  - Houses
-  - Hotels
+- New (original) icons on gameboard
+  - Chance (- 16, - 32, - 48, - 64)
+  - Comm.Chest (- 16, - 32, - 48, - 64)
+  - RR (- 16, - 32, - 48, - 64)
+  - Utility (- 16, - 32, - 48, - 64)
+  - FP (- 16, - 32, - 48, - 64)
+  - Jail (- 16, - 32, - 48, - 64)
+  - toJail (- 16, - 32, - 48, - 64)
+  - Tax (- 16, - 32, - 48, - 64)
+  - Houses (- 16, - 32, - 48, - 64)
+  - Hotels (- 16, - 32, - 48, - 64)
 - Port new game wizard away from KWizard again, our network validation code
   makes using a pre-defined wizard a difficult task, it's easier to create
   our own widget.
 - Do a thorough check on pointers and memory leaks.
 - Fix token movement bugs:
-  v monopd allows new commands before we're done moving, we require a "done"
-    command and "timeout" message (in case a client is not "done" soon enough,
-    monopd should be able to issue a "well then stop playing and just set the
-    board as it should be)
-    - token confirmation implemented for a long time now, timeout override
-      is currently missing in monopd
+  - does jumpToken (activated by monop timeout) cancel animation?
   - animation speed should depend on board size and movement distance
   V disable roll/buy toolbar buttons depending on game status
     - at the moment based on turn, must be more precise
+      - monopd requires diffed command availability
 
 For 0.3.x
 ---------

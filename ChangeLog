@@ -2,6 +2,9 @@
 ----------
 
 - Encapsulated actual monopd API commands in gameNetwork
+- Extended gameNetwork to support trading API commands
+- RMB actions on estates only available when owned by player respresented by
+  this client
 
 2001-07-16 (cap)
 ----------

@@ -10,25 +10,36 @@ Contents
 ---------------
 
 KMonop is a KDE client for playing the Monopoly boardgame using a monopd
-server. The program is very alpha at the moment: it is polished nor
-functional. The same actually applies for the server and the network code
-the server relies on.
+server.
 
 2. Download
 -----------
 
-KMonop can be downloaded from http://capsi.com/kmonop/
-monopd snapshots can be downloaded from http://capsi.com/~cap/monopd/ but
+KMonop can be downloaded from
 
-The latest versions however can be found in CVS. KMonop is located in the
-CVS repository of the KDE project in the module kdenonbeta. For more
-information on monopd CVS see http://sourceforge.net/projects/monopd/
+http://capsi.com/kmonop/
 
-You must *always* use the latest version of monopd that is available: most
-of the messages between client and server are still being rewritten in a not
-backwards compatible way. Furthermore, KMonop is only the client and depends
-on the server very much: when the ability to show a playerlist is added to
-KMonop, the ability to generate it must be added to the server!
+and monopd snapshots can be downloaded from
+
+http://capsi.com/~cap/monopd/
+
+However, the latest versions of both projects are are found in CVS.
+
+KMonop is located in the CVS repository of the KDE project in the module
+kdenonbeta. See
+
+http://www.kde.org/anoncvs.html
+
+for instructions how to download KDE modules from CVS.
+
+For more information on monopd CVS see the monopd pages on
+
+http://sourceforge.net/projects/monopd/
+
+Both monopd and KMonop are in heavy development and it is important to match
+versions when connecting to a game server. Two dedicated servers are
+available on monopd.capsi.com, one running the latest released version of
+monopd and one running the latest CVS version.
 
 3. Mailinglist
 --------------
@@ -38,14 +49,11 @@ There is a mailinglist available for discussion of kmonop development:
 To subscribe, send e-mail to: kmonop-devel-subscribe@lists.capsi.com
 To post, send e-mail to: kmonop-devel@lists.capsi.com
 
-At the moment this list also covers the development of the monopd server.
+At the moment this list also covers the development of the monopd server and
+other monopd-compatible clients.
 
 4. Roadmap
 ----------
 
 The TODO file gives a nice approximation of desired functionality and
 priorities. It can be used as roadmap or checklist.
-
-Please note that version numbers have little meaning at the moment, this
-will change as soon as the game is somewhat playable and non-CVS releases
-are useful.

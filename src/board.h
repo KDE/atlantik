@@ -15,7 +15,7 @@ Q_OBJECT
 
 	public:
 		KMonopBoard(QWidget *parent, const char *name=0);
-		void setOwned(int, bool);
+		void setOwned(int estateId, bool byAny, bool byThisClient);
 		void raiseToken(int);
 		void indicateUnownedChanged();
 		void redrawEstates();

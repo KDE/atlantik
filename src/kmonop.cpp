@@ -253,29 +253,29 @@ void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 	}
 }
 
-void KMonop::slotMsgEstateUpdateOwner(int estateid, int playerid)
+void KMonop::slotMsgEstateUpdateOwner(int estateId, int playerId)
 {
-	if (estateid < 40 && playerid < MAXPLAYERS)
+	if (estateId < 40 && playerId < MAXPLAYERS)
 	{
-		if (playerid == -1)
+		if (playerId == -1)
 		{
 			for(int i=0;i<MAXPLAYERS;i++)
 				if (m_portfolioArray[i]!=0)
-					m_portfolioArray[i]->setOwned(estateid, false);
-			m_board->setOwned(estateid, false);
+					m_portfolioArray[i]->setOwned(estateId, false);
+			m_board->setOwned(estateId, false, false);
 		}
 		else
 		{
-			if (m_portfolioArray[playerid]!=0)
-				m_portfolioArray[playerid]->setOwned(estateid, true);
-			m_board->setOwned(estateid, true);
+			if (m_portfolioArray[playerId]!=0)
+				m_portfolioArray[playerId]->setOwned(estateId, true);
+			m_board->setOwned(estateId, true, (playerId == m_myPlayerId ? true : false));
 		}
 	}
 }
 
-void KMonop::slotSetPlayerId(int id)
+void KMonop::slotSetPlayerId(int playerId)
 {
-	m_myPlayerId = id;
+	m_myPlayerId = playerId;
 }
 
 void KMonop::slotSetTurn(int playerid)

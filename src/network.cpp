@@ -84,6 +84,40 @@ void GameNetwork::cmdChat(QString msg)
 {	writeData(msg.latin1());
 }
 
+void GameNetwork::cmdTradeNew()
+{	writeData(".Tn");
+}
+
+void GameNetwork::cmdTradeToggleEstate(int tradeId, int estateId)
+{
+	QString buf, buf2;
+	buf.setNum(tradeId);
+	buf2.setNum(estateId);
+	writeData(".Te" + (const char)buf2.latin1() + (const char)":" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdTradeSetMoney(int tradeId, int amount)
+{
+	QString buf, buf2;
+	buf.setNum(tradeId);
+	buf2.setNum(amount);
+	writeData(".Tm" + (const char)buf2.latin1() + (const char)":" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdTradeAccept(int tradeId)
+{
+	QString buf;
+	buf.setNum(tradeId);
+	writeData(".Ta" + (const char)buf.latin1());
+}
+
+void GameNetwork::cmdTradeReject(int tradeId)
+{
+	QString buf;
+	buf.setNum(tradeId);
+	writeData(".Tr" + (const char)buf.latin1());
+}
+
 void GameNetwork::writeData(const char *input)
 {
 	QString str(input);

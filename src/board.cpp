@@ -160,10 +160,10 @@ void KMonopBoard::moveToken(Token *token, int dest)
 	m_timer->start(10);
 }
 
-void KMonopBoard::setOwned(int id, bool owned)
+void KMonopBoard::setOwned(int estateId, bool byAny, bool byThisClient)
 {
-	if (id>=0 && id<40)
-		estate[id]->setOwned(owned);
+	if (estateId>=0 && estateId<40)
+		estate[estateId]->setOwned(byAny, byThisClient);
 }
 
 void KMonopBoard::raiseToken(int id)
@@ -186,7 +186,7 @@ void KMonopBoard::redrawEstates()
 	int i=0;
 
 	for (i=0;i<40;i++)
-		if (estate[i]!=0 && ( !(estate[i]->owned()) || estate[i]->mortgaged() ))
+		if (estate[i]!=0 && ( !(estate[i]->ownedByAny()) || estate[i]->mortgaged() ))
 			estate[i]->redraw();
 }
 
