@@ -1,6 +1,11 @@
 2001-12-20 (katz)
 ---------
 
+- fix using user's colors for openNew in designer
+
+2001-12-20 (katz)
+---------
+
 Designer:
 - gets its first entry in ChangeLog, because designer has been
   on the whole useless before this
