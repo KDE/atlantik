@@ -20,7 +20,7 @@
 #include <qobject.h>
 #include <qstring.h>
 
-#include <libatlantic_export.h>
+#include "libatlantic_export.h"
 
 class LIBATLANTIC_EXPORT ConfigOption : public QObject
 {

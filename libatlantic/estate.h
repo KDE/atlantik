@@ -20,7 +20,7 @@
 #include <qobject.h>
 #include <qcolor.h>
 
-#include <libatlantic_export.h>
+#include "libatlantic_export.h"
 
 class EstateGroup;
 class Player;

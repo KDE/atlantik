@@ -20,7 +20,7 @@
 #include <qobject.h>
 #include <qptrlist.h>
 
-#include <libatlantic_export.h>
+#include "libatlantic_export.h"
 
 class Player;
 class ConfigOption;

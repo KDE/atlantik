@@ -19,7 +19,7 @@
 
 #include <qobject.h>
 
-#include <libatlantic_export.h>
+#include "libatlantic_export.h"
 
 class Player;
 class Estate;
