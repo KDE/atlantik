@@ -473,7 +473,7 @@ void Atlantik::initNetworkObject()
 	if (m_atlantikNetwork)
 	{
 		m_atlantikNetwork->closeNow();
-		delete m_atlantikNetwork;
+		m_atlantikNetwork->deleteLater();
 	}
 
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore, this, "atlantikNetwork");
