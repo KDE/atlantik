@@ -15,7 +15,7 @@ public:
 	void cmdGameStart();
 	void cmdEndTurn();
 	void cmdName(QString name);
-	void cmdTokenConfirmation(int location);
+	void cmdTokenConfirmation(int estateId);
 	void cmdEstateMortgage(int estateId);
 	void cmdEstateUnmortgage(int estateId);
 	void cmdHouseBuy(int estateId);
@@ -61,7 +61,7 @@ signals:
 	void setTurn(int);
 
 private:
-	void writeData(const char *);
+	void writeData(QString msg);
 	void processMsg(QString);
 	void processNode(QDomNode);
 

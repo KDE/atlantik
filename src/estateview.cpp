@@ -135,7 +135,7 @@ void EstateView::setMortgaged(bool _m)
 void EstateView::setOwned(bool byAny, bool byThisClient)
 {
 	if (m_ownedByThisClient != byThisClient)
-		m_ownedByThisClient != byThisClient;
+		m_ownedByThisClient = byThisClient;
 
 	if (m_ownedByAny != byAny)
 	{
@@ -377,16 +377,24 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		else
 			rmbMenu->insertItem(i18n("Sell house"), 2);
 
+		// Disable all if we don't own it
 		if (!m_ownedByThisClient)
 		{
 			rmbMenu->setItemEnabled(0, false);
 			rmbMenu->setItemEnabled(1, false);
 			rmbMenu->setItemEnabled(2, false);
 		}
-		else if (m_mortgaged || m_houses==5)
-			rmbMenu->setItemEnabled(1, false);
-		else if (m_houses==0)
-			rmbMenu->setItemEnabled(2, false);
+		else
+		{
+			// Mortgaged or full? Not building any houses
+			// TODO: missing group check
+			if (m_mortgaged || m_houses==5)
+				rmbMenu->setItemEnabled(1, false);
+
+			// Empty? Not selling any houses
+			if (m_houses==0)
+				rmbMenu->setItemEnabled(2, false);
+		}
 
 		connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 //		rmbMenu->exec(QPoint(geometry.x(), geometry.y()));

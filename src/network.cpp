@@ -27,42 +27,45 @@ void GameNetwork::cmdEndTurn()
 }
 
 void GameNetwork::cmdName(QString name)
-{	writeData(".n" + (const char)name.latin1());
+{
+	QString msg(".n");
+	msg.append(name);
+	writeData(msg);
 }
 
-void GameNetwork::cmdTokenConfirmation(int location)
+void GameNetwork::cmdTokenConfirmation(int estateId)
 {
-	QString buf;
-	buf.setNum(location);
-	writeData(".t" + (const char)buf.latin1());
+	QString msg(".t");
+	msg.append(QString::number(estateId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdEstateMortgage(int estateId)
 {
-	QString buf;
-	buf.setNum(estateId);
-	writeData(".m" + (const char)buf.latin1());
+	QString msg(".m");
+	msg.append(QString::number(estateId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdEstateUnmortgage(int estateId)
 {
-	QString buf;
-	buf.setNum(estateId);
-	writeData(".u" + (const char)buf.latin1());
+	QString msg(".u");
+	msg.append(QString::number(estateId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdHouseBuy(int estateId)
 {
-	QString buf;
-	buf.setNum(estateId);
-	writeData(".hb" + (const char)buf.latin1());
+	QString msg(".hb");
+	msg.append(QString::number(estateId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdHouseSell(int estateId)
 {
-	QString buf;
-	buf.setNum(estateId);
-	writeData(".hs" + (const char)buf.latin1());
+	QString msg(".hs");
+	msg.append(QString::number(estateId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdGamesList()
@@ -75,13 +78,13 @@ void GameNetwork::cmdGameNew()
 
 void GameNetwork::cmdGameJoin(int gameId)
 {
-	QString buf;
-	buf.setNum(gameId);
-	writeData(".gj" + (const char)buf.latin1());
+	QString msg(".gj");
+	msg.append(QString::number(gameId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdChat(QString msg)
-{	writeData(msg.latin1());
+{	writeData(msg);
 }
 
 void GameNetwork::cmdTradeNew()
@@ -90,42 +93,43 @@ void GameNetwork::cmdTradeNew()
 
 void GameNetwork::cmdTradeToggleEstate(int tradeId, int estateId)
 {
-	QString buf, buf2;
-	buf.setNum(tradeId);
-	buf2.setNum(estateId);
-	writeData(".Te" + (const char)buf2.latin1() + (const char)":" + (const char)buf.latin1());
+	QString msg(".Te");
+	msg.append(QString::number(estateId));
+	msg.append(":");
+	msg.append(QString::number(tradeId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdTradeSetMoney(int tradeId, int amount)
 {
-	QString buf, buf2;
-	buf.setNum(tradeId);
-	buf2.setNum(amount);
-	writeData(".Tm" + (const char)buf2.latin1() + (const char)":" + (const char)buf.latin1());
+	QString msg(".Tm");
+	msg.append(QString::number(amount));
+	msg.append(":");
+	msg.append(QString::number(tradeId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdTradeAccept(int tradeId)
 {
-	QString buf;
-	buf.setNum(tradeId);
-	writeData(".Ta" + (const char)buf.latin1());
+	QString msg(".Ta");
+	msg.append(QString::number(tradeId));
+	writeData(msg);
 }
 
 void GameNetwork::cmdTradeReject(int tradeId)
 {
-	QString buf;
-	buf.setNum(tradeId);
-	writeData(".Tr" + (const char)buf.latin1());
+	QString msg(".Tr");
+	msg.append(QString::number(tradeId));
+	writeData(msg);
 }
 
-void GameNetwork::writeData(const char *input)
+void GameNetwork::writeData(QString msg)
 {
-	QString str(input);
-	str.append("\n");
+	msg.append("\n");
 	if (state()==QSocket::Connection)
 	{
-		cout << "out [" << str << "]" << endl;
-		writeBlock(str.latin1(), strlen(str.latin1()));
+		cout << "out [" << msg << "]" << endl;
+		writeBlock(msg.latin1(), strlen(msg.latin1()));
 	}
 }
 
