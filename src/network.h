@@ -1,4 +1,8 @@
+#ifndef __KMONOP_NETWORK_H__
+#define __KMONOP_NETWORK_H__
+
 #include <qsocket.h>
+#include <qdom.h>
 
 class GameNetwork : public QSocket
 {
@@ -12,5 +16,10 @@ Q_OBJECT
 		void slotRead();
 
 	private:
-		void processCmd(QString);
+		void processMsg(QString);
+		void processNode(QDomNode);
+		
+		QDomDocument msg;
 };
+
+#endif
