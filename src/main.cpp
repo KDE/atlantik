@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
 		);
 
 	aboutData.addAuthor("Rob Kaper", I18N_NOOP("programming"), "cap@capsi.com", "http://capsi.com/");
-	aboutData.addAuthor("Martin de Gast", I18N_NOOP("graphics"), "martin@kira-nerys.com", "http://kira-nerys.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
 
