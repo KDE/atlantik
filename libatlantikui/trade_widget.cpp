@@ -234,7 +234,7 @@ void TradeDisplay::tradeRejected(Player *player)
 		m_status->setText(i18n("Trade proposal was rejected."));
 
 	// Disable GUI elements
-	m_updateComponentBox->setEnabled(false);
+	m_updateButton->setEnabled(false);
 	m_componentList->setEnabled(false);
 	m_rejectButton->setEnabled(false);
 	m_acceptButton->setEnabled(false);
