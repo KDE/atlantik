@@ -1,3 +1,10 @@
+2001-07-16 (cap)
+----------
+
+- Small bugfix connecting standard roll action to correct slot.
+- Code documentation! (at least for the KMonop class)
+- Quartz effects!
+
 2001-07-13 (neil)
 ----------
 

@@ -1,7 +1,10 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
 
-#include <kstdgameaction.h>
+// Use hardcoded path while in kdenonbeta
+// #include <kstdgameaction.h>
+#include "../../libkdegames/kstdgameaction.h"
+
 #include <kstdaction.h>
 #include <ktoolbar.h>
 #include <kapp.h>
@@ -22,7 +25,7 @@ KMonop::KMonop (const char *name) :
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar actions
-	m_roll = KStdGameAction::roll(this, SLOT(slotEndTurn()), actionCollection()); // No Ctrl-R at the moment
+	m_roll = KStdGameAction::roll(this, SLOT(slotRoll()), actionCollection()); // No Ctrl-R at the moment
 	m_roll->setEnabled(false);
 	m_buyEstate = new KAction("&Buy", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
 	m_buyEstate->setEnabled(false);
@@ -33,8 +36,8 @@ KMonop::KMonop (const char *name) :
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 
 	// Initialize pointers to 0L
-	configDialog = 0;
-	wizard = 0;
+	m_configDialog = 0;
+	m_newgameWizard = 0;
 
 	createGUI();
 
@@ -50,36 +53,36 @@ KMonop::KMonop (const char *name) :
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
- 	main = new QWidget(this, "main");
-	main->show();
+ 	m_mainWidget = new QWidget(this, "main");
+	m_mainWidget->show();
 
-	layout = new QGridLayout(main, 9, 2);
+	m_mainLayout = new QGridLayout(m_mainWidget, 9, 2);
 
-	serverMsgs = new QTextView(main, "serverMsgs");
-	serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
-	serverMsgs->setFixedWidth(225);
+	m_serverMsgs = new QTextView(m_mainWidget, "serverMsgs");
+	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
+	m_serverMsgs->setFixedWidth(225);
 
-	input = new QLineEdit(main, "input");
-	connect(input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
+	m_input = new QLineEdit(m_mainWidget, "input");
+	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
 
-	board = new KMonopBoard(main, "board");
+	m_board = new KMonopBoard(m_mainWidget, "board");
 
-	layout->addWidget(serverMsgs, 6, 0);
-	layout->addWidget(input, 7, 0);
-	layout->addMultiCellWidget(board, 0, 7, 1, 1);
-	layout->setRowStretch(6, 1); // make board+serverMsgs stretch, not the rest
-	layout->setColStretch(1, 1); // make board stretch, not the rest
+	m_mainLayout->addWidget(m_serverMsgs, 6, 0);
+	m_mainLayout->addWidget(m_input, 7, 0);
+	m_mainLayout->addMultiCellWidget(m_board, 0, 7, 1, 1);
+	m_mainLayout->setRowStretch(6, 1); // make m_board+m_serverMsgs stretch, not the rest
+	m_mainLayout->setColStretch(1, 1); // make m_board stretch, not the rest
 
-	myPlayerId = -1;
+	m_myPlayerId = -1;
 
 	for(int i=0;i<MAXPLAYERS;i++)
 	{
-		port[i] = new PortfolioView(main);
-		layout->addWidget(port[i], i, 0);
-		port[i]->hide();
+		m_portfolioArray[i] = new PortfolioView(m_mainWidget);
+		m_mainLayout->addWidget(m_portfolioArray[i], i, 0);
+		m_portfolioArray[i]->hide();
 	}
 
-	setView(main);
+	setView(m_mainWidget);
 }
 
 void KMonop::readConfig()
@@ -91,7 +94,7 @@ void KMonop::readConfig()
 
 	config->setGroup("Board");
 	kmonopConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
-	kmonopConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", true);
+	kmonopConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
 	kmonopConfig.grayOutMortgaged = config->readBoolEntry("GrayOutMortgaged", true);
 	kmonopConfig.animateToken = config->readBoolEntry("AnimateToken", false);
 }
@@ -100,23 +103,21 @@ void KMonop::slotNewGame()
 {
 	int result;
 
-	wizard = new NewGameWizard(this, "newgame", 1);
-	result = wizard->exec();
-	delete wizard;
-	wizard = 0;
+	m_newgameWizard = new NewGameWizard(this, "newgame", 1);
+	result = m_newgameWizard->exec();
+	delete m_newgameWizard;
+	m_newgameWizard = 0;
 	if (result)
 		gameNetwork->writeData(".gs");
 }
 
 void KMonop::slotConfigure()
 {
-	if (configDialog == 0)
-	{
-		configDialog = new ConfigDialog(this);
-	}
-	configDialog->show();
+	if (m_configDialog == 0)
+		m_configDialog = new ConfigDialog(this);
+	m_configDialog->show();
 	
-	connect(configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
+	connect(m_configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
 }
 
 void KMonop::slotUpdateConfig()
@@ -125,35 +126,35 @@ void KMonop::slotUpdateConfig()
 	bool optBool, redrawEstates = false;
 	QString optStr;
 
-	optStr = configDialog->playerName();
+	optStr = m_configDialog->playerName();
 	if (kmonopConfig.playerName != optStr)
 	{
 		kmonopConfig.playerName = optStr;
 		gameNetwork->writeData(".n" + optStr);
 	}
 
-	optBool = configDialog->indicateUnowned();
+	optBool = m_configDialog->indicateUnowned();
 	if (kmonopConfig.indicateUnowned != optBool)
 	{
 		kmonopConfig.indicateUnowned = optBool;
-		board->indicateUnownedChanged();
+		m_board->indicateUnownedChanged();
 	}
 
-	optBool = configDialog->highliteUnowned();
+	optBool = m_configDialog->highliteUnowned();
 	if (kmonopConfig.highliteUnowned != optBool)
 	{
 		kmonopConfig.highliteUnowned = optBool;
 		redrawEstates = true;
 	}
 
-	optBool = configDialog->grayOutMortgaged();
+	optBool = m_configDialog->grayOutMortgaged();
 	if (kmonopConfig.grayOutMortgaged != optBool)
 	{
 		kmonopConfig.grayOutMortgaged = optBool;
 		redrawEstates = true;
 	}
 
-	optBool = configDialog->animateToken();
+	optBool = m_configDialog->animateToken();
 	if (kmonopConfig.animateToken != optBool)
 	{
 		kmonopConfig.animateToken = optBool;
@@ -171,7 +172,7 @@ void KMonop::slotUpdateConfig()
 	config->sync();
 
 	if (redrawEstates)
-		board->redrawEstates();
+		m_board->redrawEstates();
 }
 
 void KMonop::slotRoll()
@@ -191,9 +192,9 @@ void KMonop::slotEndTurn()
 
 void KMonop::slotSendMsg()
 {
-	QString str(input->text());
+	QString str(m_input->text());
 	gameNetwork->writeData(str.latin1());
-	input->setText("");
+	m_input->setText("");
 }
 
 void KMonop::slotMsgError(QString msg)
@@ -213,34 +214,34 @@ void KMonop::slotMsgChat(QString player, QString msg)
 
 void KMonop::slotMsgStartGame(QString msg)
 {
-	if (wizard!=0)
-		wizard->hide();
+	if (m_newgameWizard!=0)
+		m_newgameWizard->hide();
 		
 	serverMsgsAppend("START: " + msg);
 }
 
 void KMonop::slotMsgPlayerUpdateName(int playerid, QString name)
 {
-	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
+	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
 	{
-		if (port[playerid]->isHidden())
-			port[playerid]->show();
+		if (m_portfolioArray[playerid]->isHidden())
+			m_portfolioArray[playerid]->show();
 
 		QString label;
 		label.setNum(playerid);
 		label.append(". " + name);
-		port[playerid]->setName(label);
+		m_portfolioArray[playerid]->setName(label);
 	}
 }
 
 void KMonop::slotMsgPlayerUpdateMoney(int playerid, QString money)
 {
-	if (playerid >=0 && playerid < MAXPLAYERS && port[playerid]!=0)
+	if (playerid >=0 && playerid < MAXPLAYERS && m_portfolioArray[playerid]!=0)
 	{
-		if (port[playerid]->isHidden())
-			port[playerid]->show();
+		if (m_portfolioArray[playerid]->isHidden())
+			m_portfolioArray[playerid]->show();
 
-		port[playerid]->setCash("$ " + money);
+		m_portfolioArray[playerid]->setCash("$ " + money);
 	}
 }
 
@@ -251,28 +252,28 @@ void KMonop::slotMsgEstateUpdateOwner(int estateid, int playerid)
 		if (playerid == -1)
 		{
 			for(int i=0;i<MAXPLAYERS;i++)
-				if (port[i]!=0)
-					port[i]->setOwned(estateid, false);
-			board->setOwned(estateid, false);
+				if (m_portfolioArray[i]!=0)
+					m_portfolioArray[i]->setOwned(estateid, false);
+			m_board->setOwned(estateid, false);
 		}
 		else
 		{
-			if (port[playerid]!=0)
-				port[playerid]->setOwned(estateid, true);
-			board->setOwned(estateid, true);
+			if (m_portfolioArray[playerid]!=0)
+				m_portfolioArray[playerid]->setOwned(estateid, true);
+			m_board->setOwned(estateid, true);
 		}
 	}
 }
 
 void KMonop::slotSetPlayerId(int id)
 {
-	myPlayerId = id;
+	m_myPlayerId = id;
 }
 
-void KMonop::slotSetTurn(int player)
+void KMonop::slotSetTurn(int playerid)
 {
 
-	if (player == myPlayerId)
+	if (playerid == m_myPlayerId)
 	{
 		m_roll->setEnabled(true);
 		m_buyEstate->setEnabled(true);
@@ -285,21 +286,21 @@ void KMonop::slotSetTurn(int player)
 		m_endTurn->setEnabled(false);
 	}
 
-	board->raiseToken(player);
+	m_board->raiseToken(playerid);
 
 	for(int i=0 ; i<MAXPLAYERS ; i++)
 	{
-		if (port[i]!=0)
+		if (m_portfolioArray[i]!=0)
 		{
-			port[i]->setHasTurn(i==player ? true : false);
+			m_portfolioArray[i]->setHasTurn(i==playerid ? true : false);
 		}
 	}
 }
 
 void KMonop::serverMsgsAppend(QString msg)
 {
-	serverMsgs->append(msg);
-	serverMsgs->ensureVisible(0, serverMsgs->contentsHeight());
+	m_serverMsgs->append(msg);
+	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 #warning fixed in qt 3.0
-	serverMsgs->viewport()->update();
+	m_serverMsgs->viewport()->update();
 }

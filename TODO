@@ -3,6 +3,7 @@ t in the works
 + not implemented, medium priority
 ! not implemented, high priority
 ? bug should be fixed, not confirmed yet
+. in progress
 v implemented
 V implemented and confirmed
 
@@ -28,6 +29,9 @@ Bugfixes
 --------
 
 - Update messages views after resize.
+- Quartz effects on maximized high resolutions are buggy because KPixmap is
+  too small.
+- double occurance of titleWidth/Height in EstateView
 
 For 0.2.x
 ---------
@@ -36,8 +40,8 @@ For 0.2.x
 - Support leaving jail.
   - GUI
   - Network
-  - Different token placement when in jail?
-- Chance/CC cards in portfolio.
+  - Different token placement when in jail
+- Chance/CC cards in portfolio
 - Icons on gameboard.
   - Utility
   - FP
@@ -68,6 +72,19 @@ For 0.3.x
 v Use i18n()
 - Fetch serverlist via Monopigator kind of interface.
 - Have a playable, more or less stable game.
+- Code documentation
+  - board.h
+  - colordefs.h
+  - config.h
+  - configdlg.h
+  - estateview.h
+  V kmonop.h
+  - main.h
+  - network.h
+  - newgamedlg.h
+  - portfolioestate.h
+  - portfolioview.h
+  - token.h
 
 For 0.9.x
 ---------
