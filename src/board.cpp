@@ -32,8 +32,8 @@ AtlantikBoard::AtlantikBoard(int maxEstates, QWidget *parent, const char *name) 
 	{
 		if (i==0 || i==sideLen)
 		{
-			m_gridLayout->setRowStretch(i, 4);
-			m_gridLayout->setColStretch(i, 4);
+			m_gridLayout->setRowStretch(i, 3);
+			m_gridLayout->setColStretch(i, 3);
 		}
 		else
 		{
