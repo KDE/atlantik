@@ -224,11 +224,13 @@ void EstateDetails::addButton(QString command, QString caption, bool enabled)
 
 void EstateDetails::addCloseButton()
 {
-	m_closeButton = new KPushButton(i18n("Close"), this);
-	m_buttonBox->addWidget(m_closeButton);
-	m_closeButton->show();
-
-	connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+	if (!m_closeButton)
+	{
+		m_closeButton = new KPushButton(i18n("Close"), this);
+		m_buttonBox->addWidget(m_closeButton);
+		m_closeButton->show();
+		connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
+	}
 }
 
 void EstateDetails::setEstate(Estate *estate)
