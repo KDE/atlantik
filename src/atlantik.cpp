@@ -173,7 +173,7 @@ void Atlantik::slotNetworkConnected()
 	connect(m_gameNetwork, SIGNAL(gameListDel(QString)), m_selectGame, SLOT(slotGameListDel(QString)));
 
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_gameNetwork, SLOT(joinGame(int)));
-	connect(m_selectGame, SIGNAL(newGame()), m_gameNetwork, SLOT(newGame()));
+	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_gameNetwork, SLOT(newGame(const QString &)));
 }
 
 void Atlantik::slotNetworkError(int errno)

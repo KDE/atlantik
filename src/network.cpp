@@ -65,9 +65,9 @@ void GameNetwork::cmdGamesList()
 {	writeData(".gl");
 }
 
-void GameNetwork::newGame()
+void GameNetwork::newGame(const QString &gameType)
 {
-	writeData(".gn");
+	writeData(".gn" + gameType);
 }
 
 void GameNetwork::joinGame(int gameId)

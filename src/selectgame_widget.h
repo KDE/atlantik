@@ -29,7 +29,7 @@ public:
 
 	signals:
 		void joinGame(int gameId);
-		void newGame();
+		void newGame(const QString &gameType);
 //		void statusChanged();
 
 	private:

@@ -26,7 +26,7 @@ public:
 private slots:
 	void roll();
 	void endTurn();
-	void newGame();
+	void newGame(const QString &gameType);
 	void joinGame(int gameId);
 	void startGame();
 	void buyEstate();

@@ -30,9 +30,13 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	// Add default new game option to list view
-	QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new game"), "", "");
-	item->setPixmap(0, SmallIcon("filenew"));
+	// Add default new game options to list view
+#warning hardcoded gametypes, waiting for monopd to send list of available types
+	QListViewItem *newAtlanticGame, *newCityGame;
+	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "", "");
+	newAtlanticGame->setPixmap(0, SmallIcon("filenew"));
+	newCityGame = new QListViewItem(m_gameList, i18n("Start a new Monopoly® game"), "city", "", "");
+	newCityGame->setPixmap(0, SmallIcon("filenew"));
 
 	QHBox *buttonBox = new QHBox(this);
 	m_mainLayout->addWidget(buttonBox);
@@ -53,9 +57,14 @@ void SelectGame::slotGameListClear()
 {
 	m_gameList->clear();
 
-	// Add default new game option to list view
-	QListViewItem *item = new QListViewItem(m_gameList, i18n("Start a new game"), "", "");
-	item->setPixmap(0, SmallIcon("filenew"));
+	// Add default new game options to list view
+#warning code duplication
+#warning hardcoded gametypes, waiting for monopd to send list of available types
+	QListViewItem *newAtlanticGame, *newCityGame;
+	newAtlanticGame = new QListViewItem(m_gameList, i18n("Start a new Atlantic game"), "atlantic", "", "");
+	newAtlanticGame->setPixmap(0, SmallIcon("filenew"));
+	newCityGame = new QListViewItem(m_gameList, i18n("Start a new Monopoly® game"), "city", "", "");
+	newCityGame->setPixmap(0, SmallIcon("filenew"));
 
 	validateConnectButton();
 //	emit statusChanged();
@@ -119,6 +128,6 @@ void SelectGame::connectPressed()
 		if (int gameId = item->text(2).toInt())
 			emit joinGame(gameId);
 		else
-			emit newGame();
+			emit newGame(item->text(1));
 	}
 }
