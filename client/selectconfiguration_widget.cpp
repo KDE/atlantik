@@ -28,7 +28,7 @@
 
 #include <player.h>
 
-#include "tokenwidget.h" 
+#include "tokenwidget.h"
 #include "selectconfiguration_widget.moc"
 
 SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QWidget(parent, name)
@@ -40,10 +40,11 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 
 	// Game configuration.
 	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
-	m_mainLayout->addWidget(m_configBox); 
+	m_mainLayout->addWidget(m_configBox);
 
 	// Player buttons.
-	QHBoxLayout *playerButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	QHBoxLayout *playerButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	playerButtons->setMargin(0);
 	m_mainLayout->addItem(playerButtons);
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -57,7 +58,8 @@ SelectConfiguration::SelectConfiguration(QWidget *parent, const char *name) : QW
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	// Server buttons.
-	QHBoxLayout *serverButtons = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	serverButtons->setMargin(0);
 	m_mainLayout->addItem(serverButtons);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
@@ -92,7 +94,10 @@ void SelectConfiguration::connectClicked()
 void SelectConfiguration::slotTokenButtonClicked()
 {
 	if (m_tokenWidget)
+	{
+		m_tokenWidget->show();
 		return;
+	}
 
 	m_tokenWidget = new TokenWidget(0);
 	m_tokenWidget->show();
