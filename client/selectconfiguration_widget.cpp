@@ -161,18 +161,27 @@ void SelectConfiguration::slotClicked()
 	status_label->setEnabled(true);
 }
 
-void SelectConfiguration::gameOption(QString title, QString type, QString value)
+void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)
 {
 	// Find if option exists in GUI yet
-		// Update
+	if (QCheckBox *checkBox = dynamic_cast<QCheckBox *>(m_checkBoxMap[command]))
+	{
+		checkBox->setChecked(value.toInt());
+		checkBox->setEnabled(edit.toInt());
+		return;
+	}
 
 	// Create option
 	if (type == "bool")
 	{
 		QCheckBox *checkBox = new QCheckBox(title, m_configBox, "checkbox");
+		m_optionCommandMap[(QObject *)checkBox] = command;
+		m_checkBoxMap[command] = checkBox;
 		checkBox->setChecked(value.toInt());
-		checkBox->setEnabled(false); // monopd doesn'tsupport editing yet
+		checkBox->setEnabled(edit.toInt());
 		checkBox->show();
+
+		connect(checkBox, SIGNAL(clicked()), this, SLOT(optionChanged()));
 	}
 	else
 		kdDebug() << "TODO: game options other than type=bool" << endl;
@@ -199,3 +208,14 @@ bool ConfigureGame::validateNext()
 		return false;
 }
 */
+
+void SelectConfiguration::optionChanged()
+{
+	QString command = m_optionCommandMap[(QObject *)QObject::sender()];
+
+	if (QCheckBox *checkBox = m_checkBoxMap[command])
+	{
+		command.append(QString::number(checkBox->isChecked()));
+		emit buttonCommand(command);
+	}
+}

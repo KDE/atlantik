@@ -405,7 +405,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					{
 						QDomElement eOption = nOptions.toElement();
 						if (!eOption.isNull() && eOption.tagName() == "option")
-							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value());
+							emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value(), eOption.attributeNode(QString("edit")).value(), eOption.attributeNode(QString("command")).value());
 					}
 				}
 			}

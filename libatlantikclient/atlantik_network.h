@@ -120,7 +120,7 @@ signals:
 	void displayButton(QString command, QString caption, bool enabled);
 	void displayDefault();
 
-	void gameOption(QString title, QString type, QString value);
+	void gameOption(QString title, QString type, QString value, QString edit, QString command);
 	void gameListClear();
 	void gamelistEndUpdate(QString);
 	void gameListAdd(QString gameId, QString name, QString description, QString players, QString gameType);

@@ -55,11 +55,11 @@ v kio_atlantik allows for easy connecting from other applications
   (kopete/kmail)
 v leave game option
 ^ pre-game configuration
+  v auctions
 
 For 0.5.0
 ---------
 
-- Game configuration (when it appears in monopd)
 - invite button
   - kaddressbook hooks
   - e-mail invites
@@ -68,20 +68,6 @@ For 0.5.0
 For 1.0.0
 ---------
 
-- Code documentation
-  - board.h
-  - colordefs.h
-  - config.h
-  - configdlg.h
-  - estateview.h
-  - atlantik.h
-  - main.h
-  - network.h
-  - selectconfiguration_widget.h
-  - selectgame_widget.h
-  - selectserver_widget.h
-  - portfolioestate.h
-  - portfolioview.h
-  - token.h
-- Visualization of owners on board itself
-- Themes (Star Trek/Wars, Kiki Dunst, Simpsons, etc)
+- header documentation
+- visualization of owners on board itself
+- themes (Star Trek/Wars, Kiki Dunst, Simpsons, etc)

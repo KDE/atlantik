@@ -25,6 +25,8 @@
 #include <klistview.h>
 #include <kpushbutton.h>
 
+class QCheckBox;
+
 class SelectConfiguration : public QWidget
 {
 Q_OBJECT
@@ -46,21 +48,24 @@ public:
 private slots:
 	void connectPressed();
 	void slotClicked();
-	void gameOption(QString title, QString type, QString value);
-
+	void gameOption(QString title, QString type, QString value, QString edit, QString command);
+	void optionChanged();
 signals:
 	void startGame();
 	void leaveGame();
 	void joinConfiguration(int configurationId);
 	void newConfiguration();
+	void buttonCommand(QString);
 //	void statusChanged();
 
-	private:
-		QVBoxLayout *m_mainLayout;
-		QLabel *status_label;
-		QVGroupBox *m_playerBox, *m_configBox, *m_messageBox;
-		KListView *m_playerList;
-		KPushButton *m_backButton, *m_connectButton;
+private:
+	QVBoxLayout *m_mainLayout;
+	QLabel *status_label;
+	QVGroupBox *m_playerBox, *m_configBox, *m_messageBox;
+	KListView *m_playerList;
+	KPushButton *m_backButton, *m_connectButton;
+	QMap <QObject *, QString> m_optionCommandMap;
+	QMap <QString, QCheckBox *> m_checkBoxMap;
 };
 
 #endif
