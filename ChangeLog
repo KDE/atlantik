@@ -1,3 +1,9 @@
+0.6.3
+-----
+
+- bugfix: avoid crash when unresolvable hosts are in the meta server list
+- bugfix: fix crash when network core is reset while readbuffer isn't empty
+
 0.6.1
 -----
 
