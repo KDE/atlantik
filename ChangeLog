@@ -7,6 +7,8 @@
 - use disability to join game when size == MAX in gameupdate (games in
   updategamelist now have canbejoined boolean attribute)
 - using playerupdate for player list in SelectConfiguration
+- use portfolioview instead of klistview for players during config
+- better handling of display messages from server
 
 0.5.1
 -----

@@ -6,8 +6,6 @@ monopd API changes (features)
 ------------------
 
 - API: allow for reconnect with .R
-- API: use disability to join game when size == MAX in gameupdate (games in
-  updategamelist now have canbejoined boolean attribute)
 - API: cardupdate message to inform clients of text on cards they own, plus
   owner= attribute to replace playerupdate's outofjailcards=
 - API: new command .Tc to add cards to trade

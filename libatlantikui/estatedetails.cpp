@@ -22,6 +22,8 @@
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
+#include <kiconloader.h>
+#include <klistview.h>
 #include <klocale.h>
 #include <kpixmap.h>
 #include <kpushbutton.h>
@@ -33,34 +35,45 @@
 #include "estatedetails.h"
 #include "estatedetails.moc"
 
-EstateDetails::EstateDetails(Estate *estate, QWidget *parent, const char *name) : QWidget(parent, name)
+EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name) : QWidget(parent, name)
 {
-	m_estate = estate;
-	setPaletteBackgroundColor(m_estate->bgColor());
-
 	m_pixmap = 0;
-	b_recreate = true;
-
 	m_quartzBlocks = 0;
+	b_recreate = true;
+	m_recreateQuartz = true;
+
+	m_estate = 0;
+
 	m_closeButton = 0;
 	m_buttons.setAutoDelete(true);
-	m_recreateQuartz = true;
 
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
+	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
+
+	m_infoListView = new KListView(this, "infoListView");
+	m_infoListView->addColumn(m_estate ? m_estate->name() : QString::null);
+	m_infoListView->setSorting(-1);
+	m_mainLayout->addWidget(m_infoListView);
+
+	if (!text.isEmpty())
+		appendText(text);
 
 	m_buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	m_mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+
+	setEstate(estate);
+	setPaletteBackgroundColor(m_estate ? m_estate->bgColor() : Qt::white);
 }
 
 EstateDetails::~EstateDetails()
 {
 	delete m_pixmap;
 	delete m_quartzBlocks;
+	delete m_infoListView;
 }
 
 void EstateDetails::paintEvent(QPaintEvent *)
@@ -103,7 +116,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 
-		painter.setBrush(m_estate->bgColor());
+		painter.setBrush(m_estate ? m_estate->bgColor() : Qt::white);
 		painter.drawRect(rect());
 
 /*
@@ -112,96 +125,77 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 */
 
-		int titleHeight = 50;
-		QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
-
-		KPixmap* quartzBuffer = new KPixmap;
-		quartzBuffer->resize(25, (height()/4)-2);
-
-		QPainter quartzPainter;
-		quartzPainter.begin(quartzBuffer, this);
-
-		painter.setBrush(titleColor);
-		painter.drawRect(0, 0, width(), titleHeight);
-
-		if (m_quartzBlocks)
+		if (m_estate)
 		{
-			quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-			painter.drawPixmap(1, 1, *quartzBuffer);
-		}
+			int titleHeight = 50;
+			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 
-		if (m_estate->houses() > 0)
-		{
-			int titleWidth = width()/2;
+			KPixmap* quartzBuffer = new KPixmap;
+			quartzBuffer->resize(25, (height()/4)-2);
 
-			if (m_estate->houses() == 5)
+			QPainter quartzPainter;
+			quartzPainter.begin(quartzBuffer, this);
+
+			painter.setBrush(titleColor);
+			painter.drawRect(0, 0, width(), titleHeight);
+
+			if (m_quartzBlocks)
 			{
-				// Hotel
-				painter.setBrush(redHotel);
-				painter.drawRect(2, 2, titleWidth-4, titleHeight-4);
+				quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
+				painter.drawPixmap(1, 1, *quartzBuffer);
 			}
-			else
+
+			if (m_estate->houses() > 0)
 			{
-				// Houses
-				painter.setBrush(greenHouse);
-				int h = titleHeight-4, w = titleWidth-4;
-				for ( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-					painter.drawRect(2+(i*(w+2)), 2, w, h);
+				int titleWidth = width() / 5;
+
+				if (m_estate->houses() == 5)
+				{
+					// Hotel
+					painter.setBrush(redHotel);
+					painter.drawRect(2, 2, titleWidth-4, titleHeight-4);
+				}
+				else
+				{
+					// Houses
+					painter.setBrush(greenHouse);
+					int h = titleHeight-4, w = titleWidth-4;
+					for ( unsigned int i=0 ; i < m_estate->houses() ; i++ )
+						painter.drawRect(2+(i*(w+2)), 2, w, h);
+				}
 			}
-		}
 
-		quartzPainter.end();
-		delete quartzBuffer;
+			quartzPainter.end();
+			delete quartzBuffer;
 
-		// TODO: steal blur code from kicker/taskbar/taskcontainer.cpp
+			// TODO: steal blur code from kicker/taskbar/taskcontainer.cpp
 
-		// Estate name
-		painter.setPen(Qt::white);
-		int fontSize = KGlobalSettings::generalFont().pointSize();
-		if (fontSize == -1)
-			fontSize = KGlobalSettings::generalFont().pixelSize();
+			// Estate name
+			painter.setPen(Qt::white);
+			int fontSize = KGlobalSettings::generalFont().pointSize();
+			if (fontSize == -1)
+				fontSize = KGlobalSettings::generalFont().pixelSize();
 
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
-		painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), titleHeight, Qt::AlignJustify, m_estate->name());
+			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
+			painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), titleHeight, Qt::AlignJustify, m_estate->name());
 
-		painter.setPen(Qt::black);
+			painter.setPen(Qt::black);
 
-		int xText = 0;
-		// Estate group
-		if (m_estate->estateGroup())
-		{
-			xText = titleHeight - fontSize - KDialog::marginHint();
-			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
-			painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().upper());
-		}
+			int xText = 0;
 
-		xText = titleHeight + fontSize + 5;
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
-
-		// Price
-		if (m_estate->price())
-		{
-			painter.drawText(5, xText, i18n("Price: %1").arg(m_estate->price()));
-			xText += (fontSize + 5);
-		}
-
-		// Owner, houses, isMortgaged
-		if (m_estate->canBeOwned())
-		{
-			painter.drawText(5, xText, i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			xText += (fontSize + 5);
-
-			if (m_estate->isOwned())
+			// Estate group
+			if (m_estate->estateGroup())
 			{
-				painter.drawText(5, xText, i18n("Houses: %1").arg(m_estate->houses()));
-				xText += (fontSize + 5);
-
-				painter.drawText(5, xText, i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				xText += (fontSize + 5);
+				xText = titleHeight - fontSize - KDialog::marginHint();
+				painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
+				painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().upper());
 			}
-		}
 
+			xText = titleHeight + fontSize + 5;
+			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
+		}
 		b_recreate = false;
+
 	}
 	bitBlt(this, 0, 0, m_pixmap);
 }
@@ -234,7 +228,64 @@ void EstateDetails::addCloseButton()
 	connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
 }
 
-void EstateDetails::newUpdate()
+void EstateDetails::setEstate(Estate *estate)
+{
+	if (m_estate != estate)
+	{
+		m_estate = estate;
+
+		QString columnText = m_estate ? m_estate->name() : QString::null;
+		m_infoListView->setColumnText(0, columnText);
+
+		// Price
+		if (m_estate)
+		{
+			QListViewItem *infoText = 0;
+
+			if (m_estate->price())
+			{
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1").arg(m_estate->price()));
+				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+			}
+
+			// Owner, houses, isMortgaged
+			if (m_estate && m_estate->canBeOwned())
+			{
+				infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1").arg(m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+				if (m_estate->isOwned())
+				{
+					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1").arg(m_estate->houses()));
+					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+
+					infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1").arg(m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
+					infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+				}
+			}
+		}
+
+		b_recreate = true;
+		update();
+	}
+}
+
+void EstateDetails::setText(QString text)
+{
+	m_infoListView->clear();
+	appendText(text);
+}
+
+void EstateDetails::appendText(QString text)
+{
+	QListViewItem *infoText = new QListViewItem(m_infoListView, m_infoListView->lastItem(), text);
+	if (text.contains("rolls"))
+		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
+	else
+		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
+}
+
+void EstateDetails::clearButtons()
 {
 	if (m_closeButton)
 	{
@@ -245,10 +296,6 @@ void EstateDetails::newUpdate()
 	// Delete buttons
 	m_buttons.clear();
 	m_buttonCommandMap.clear();
-
-	// Redraw details
-	b_recreate = true;
-	update();
 }
 
 void EstateDetails::buttonPressed()

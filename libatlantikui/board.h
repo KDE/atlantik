@@ -46,6 +46,7 @@ public:
 	void addToken(Player *player, EstateView *location = 0);
 	void indicateUnownedChanged();
 	QPtrList<EstateView> estateViews();
+	EstateView *findEstateView(Estate *estate);
 	QWidget *centerWidget();
 
 public slots:
@@ -53,12 +54,11 @@ public slots:
 	void slotResizeAftermath();
 
 private slots:
-	void playerChanged();
+	void playerChanged(Player *player);
 	void displayDefault();
-	void displayText(QString caption, QString body);
 	void displayButton(QString command, QString caption, bool enabled);
 	void prependEstateDetails(Estate *);
-	void insertEstateDetails(Estate *);
+	void insertDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void addCloseButton();
 
 signals:
@@ -69,7 +69,6 @@ protected:
 	void resizeEvent(QResizeEvent *);
 
 private:
-	EstateView *getEstateView(Estate *estate);
 	void moveToken(Token *, int destination);
 	void updateCenter();
 

@@ -176,6 +176,7 @@ void Atlantik::newPlayer(Player *player)
 		m_playerSelf = player;
 
 	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -308,9 +309,7 @@ void Atlantik::initBoard()
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 
-	connect(m_atlantikNetwork, SIGNAL(displayText(QString, QString)), m_board, SLOT(displayText(QString, QString)));
-	connect(m_atlantikNetwork, SIGNAL(displayEstate(Estate *)), m_board, SLOT(insertEstateDetails(Estate *)));
-	connect(m_atlantikNetwork, SIGNAL(displayDefault()), m_board, SLOT(displayDefault()));
+	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, bool, bool, Estate *)), m_board, SLOT(insertDetails(QString, bool, bool, Estate *)));
 	connect(m_atlantikNetwork, SIGNAL(addCommandButton(QString, QString, bool)), m_board, SLOT(displayButton(QString, QString, bool)));
 	connect(m_atlantikNetwork, SIGNAL(addCloseButton()), m_board, SLOT(addCloseButton()));
 	connect(m_board, SIGNAL(tokenConfirmation(Estate *)), m_atlantikNetwork, SLOT(tokenConfirmation(Estate *)));
