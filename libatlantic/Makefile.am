@@ -8,11 +8,8 @@ libatlantic_la_LIBADD = $(LIB_QT)
 libatlantic_la_SOURCES = atlantic_core.cpp auction.cpp estate.cpp \
 	player.cpp trade.cpp
 
-# don't publish headers yet, mature and BC protect them first
-#libatlanticincludedir = $(includedir)/atlantic
-#libatlantic_HEADERS = atlantic_core.h auction.h estate.h player.h trade.h
-
-noinst_HEADERS = atlantic_core.h auction.h estate.h player.h trade.h
+libatlanticincludedir = $(includedir)/atlantic
+libatlanticinclude_HEADERS = atlantic_core.h auction.h estate.h player.h trade.h
 
 METASOURCES = AUTO 
  
