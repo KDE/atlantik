@@ -19,7 +19,7 @@ Q_OBJECT
 		void msgError(QString);
 		void msgStartGame(QString);
 		void fetchedGameList(QDomNode);
-		void fetchedPlayerList(QDomNode);
+		void msgPlayerList(QDomNode);
 
 	private:
 		void processMsg(QString);

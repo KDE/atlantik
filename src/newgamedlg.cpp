@@ -65,7 +65,7 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 	setHelpEnabled(configure_game, false);
 	setFinishEnabled(configure_game, false);
 
-	connect(netw, SIGNAL(fetchedPlayerList(QDomNode)), configure_game, SLOT(slotFetchedPlayerList(QDomNode)));
+	connect(netw, SIGNAL(msgPlayerList(QDomNode)), configure_game, SLOT(slotFetchedPlayerList(QDomNode)));
 }
 
 NewGameWizard::~NewGameWizard()
@@ -248,10 +248,10 @@ void ConfigureGame::setGameId(const QString &_id)
 	game_id = _id;
 }
 
-void ConfigureGame::slotFetchedPlayerList(QDomNode gamelist)
+void ConfigureGame::slotFetchedPlayerList(QDomNode playerlist)
 {
 	QDomAttr a;
-	QDomNode n = gamelist.firstChild();
+	QDomNode n = playerlist.firstChild();
 	QListViewItem *item;
 
 	list->clear();

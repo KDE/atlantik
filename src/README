@@ -1,0 +1,15 @@
+Some of the things that might not make sense when you examin the code for
+the first time:
+
+- the new game wizard is no longer a dialog, but for historic reasons it is
+  still in the files newgamedlg.[cpp|h]
+
+- there are no entities such as player. KMonop was not designed to actually
+  play a Monopoly game! (hm, no?) No! It was designed to interact with a
+  monopd server which plays the game. And it was designed to visualize that
+  game.
+
+  Future versions might include a player class for the sake of convenience,
+  but at the moment the interaction with the server is - in a way - more
+  straightforward: if a player joins the game, we don't create a player
+  instance ourselves but we simply add a portfolioview.

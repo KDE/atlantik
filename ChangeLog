@@ -1,3 +1,13 @@
+2001-05-07
+----------
+
+- Wizard notifies game server we're starting the game upon finish. Bugfix in
+  KMonop::slotStartNewGame which checks whether wizard still exists before
+  trying to hide it.
+- Portfolio overviews are built upon game start, requires monopd which sends
+  final attribute along with playerlist.
+- Framework for token class.
+
 2001-05-03
 ----------
 

@@ -4,38 +4,36 @@
 #include "portfolioestate.h"
 
 extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
-kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
+kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg,
+kmonop_lgray;
 
 PortfolioView::PortfolioView(QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	b_recreate = true;
 	qpixmap = 0;
+
+	setFixedSize(QSize(150, 75));
+	setBackgroundColor(Qt::white);
 	
 	lname = new QLabel(this);
 	lname->setAlignment(Qt::AlignLeft);
-	lname->setGeometry(5,0,(width()-5)/2,height());
-	lname->setBackgroundColor(Qt::white);
+	lname->setGeometry(5,0,(width()-5),height());
+	lname->setBackgroundColor(kmonop_lgray);
 	lname->setMinimumSize(lname->sizeHint());
-	lname->setMaximumWidth(width());
+	lname->setMaximumWidth(width()-10);
 	lname->setMaximumHeight(15);
 	lname->show();
-	
+/*
 	lcash = new QLabel(this);
 	lcash->setAlignment(Qt::AlignRight);
-	lcash->setGeometry(5+(width()-5/2),0,(width()-5)/2,height());
+	lcash->setGeometry(5+(width()-5)/2,0,(width()-5),height());
 	lcash->setBackgroundColor(Qt::white);
 	lcash->setMinimumSize(lcash->sizeHint());
-	lcash->setMaximumWidth(width());
+	lcash->setMaximumWidth(width()/2);
 	lcash->setMaximumHeight(15);
 	lcash->show();
 	lcash->setText("$ 1,500");
-	
-	QSize s(150,75);
-	setFixedSize(s);
-	setBackgroundColor(Qt::white);
-	
-	setName("unnamed");
-
+*/	
 	PortfolioEstate *estate;
 	QColor current;
 

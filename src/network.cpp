@@ -61,7 +61,7 @@ void GameNetwork::processNode(QDomNode n)
 			else if (e.tagName() == "gamelist")
 				emit fetchedGameList(e);
 			else if (e.tagName() == "playerlist")
-				emit fetchedPlayerList(e);
+				emit msgPlayerList(e);
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);
