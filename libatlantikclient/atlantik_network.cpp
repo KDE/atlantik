@@ -220,7 +220,7 @@ void AtlantikNetwork::processMsg(QString str)
 	QDomElement e = msg.documentElement();
 	if (e.tagName() != "monopd")
 	{
-		KMessageBox::detailedError(0, i18n("Atlantik received an invalid response from the monopd server you are connected to. This might cause unexpected behavior."), i18n("The following XML data does not conform to the monopd protocol:\n\n%1").arg(str), i18n("Invalid response from server"));
+		KMessageBox::detailedError(0, i18n("Atlantik received an invalid response from the monopd server you are connected to. This might cause unexpected behavior."), i18n("The following XML data does not conform to the monopd protocol:\n\n%1").arg(str), i18n("Invalid Response From Server"));
 		return;
 	}
 	QDomNode n = e.firstChild();
