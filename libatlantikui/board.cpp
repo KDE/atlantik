@@ -393,9 +393,13 @@ void AtlantikBoard::displayText(QString caption, QString body)
 	if (m_center != 0)
 		delete m_center;
 	
-	m_center = new BoardDisplay(caption, body, this);
+
+	BoardDisplay *display = new BoardDisplay(caption, body, this);
+	m_center = display;
 	m_gridLayout->addMultiCellWidget(m_center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
 	m_center->show();
+
+	connect(display, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
 
 //	QTimer::singleShot(3000, this, SLOT(displayCenter()));
 }

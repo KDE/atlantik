@@ -52,7 +52,8 @@ void BoardDisplay::addButton(QString command, QString caption)
 
 void BoardDisplay::buttonPressed()
 {
-	emit buttonCommand(m_buttonCommandMap[(QObject *)QObject::sender()]);
+	kdDebug() << "emiting button" << endl;
+	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
 }
 
 void BoardDisplay::slotClicked()

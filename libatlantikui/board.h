@@ -61,6 +61,7 @@ private slots:
 
 signals:
 	void tokenConfirmation(Estate *estate);
+	void buttonCommand(QString command);
 
 protected:
 	void resizeEvent(QResizeEvent *);
