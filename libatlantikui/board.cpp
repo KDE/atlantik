@@ -42,9 +42,11 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_animateTokens = false;
 	m_lastServerDisplay = 0;
 
+	setMinimumSize(QSize(500, 500));
+
 	int sideLen = maxEstates/4;
 
-	// Timer for token movement
+	// Animated token movement
 	m_timer = new QTimer(this);
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	m_resumeTimer = false;

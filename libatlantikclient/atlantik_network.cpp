@@ -36,7 +36,7 @@
 //#include "atlantik.h"
 //#include "trade_widget.h"
 
-AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent, const char *name) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
+AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore) : KExtendedSocket(0, 0, KExtendedSocket::inputBufferedSocket)
 {
 	m_atlanticCore = atlanticCore;
 	m_textStream = new QTextStream(this);

@@ -37,7 +37,7 @@ class AtlantikNetwork : public KExtendedSocket
 Q_OBJECT
 
 public:
-	AtlantikNetwork(AtlanticCore *atlanticCore, QObject *parent=0, const char *name=0);
+	AtlantikNetwork(AtlanticCore *atlanticCore);
 	virtual ~AtlantikNetwork(void);
 	void setName(QString name);
 	void cmdGamesList();
