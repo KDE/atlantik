@@ -290,13 +290,9 @@ void EstateEdit::configure()
 		break;
 	case Chance:
 		confDlg = new CardView(estates, chanceStack, this);
-		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
-		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
 		break;
 	case CommunityChest:
 		confDlg = new CardView(estates, ccStack, this);
-		//connect(this, SIGNAL(saveDialogSettings()), static_cast<CardView *>(confDlg), SLOT(slotOk()));
-		//connect(this, SIGNAL(updateDialogSettings(ConfigEstate *)), static_cast<CardView *>(confDlg), SLOT(slotUpdate()));
 		break;
 	default:
 		confDlg = new QWidget(this);
