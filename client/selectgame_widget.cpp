@@ -58,9 +58,9 @@ SelectGame::SelectGame(QWidget *parent, const char *name) : QWidget(parent, name
 	connect(m_connectButton, SIGNAL(pressed()), this, SLOT(connectPressed()));
 	
     // Status indicator
-	status_label = new QLabel(this);
-	status_label->setText(i18n("Retrieving game list..."));
-	m_mainLayout->addWidget(status_label);
+	m_statusLabel = new QLabel(this);
+	m_statusLabel->setText(i18n("Retrieving game list..."));
+	m_mainLayout->addWidget(m_statusLabel);
 }
 
 void SelectGame::slotGameListClear()

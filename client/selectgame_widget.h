@@ -54,7 +54,7 @@ public:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QLabel *status_label;
+	QLabel *m_statusLabel;
 	KListView *m_gameList;
 	KPushButton *m_connectButton;
 };
