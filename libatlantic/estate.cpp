@@ -23,6 +23,7 @@
 Estate::Estate(int estateId) : QObject()
 {
 	m_estateId = estateId;
+	m_name = QString::null;
 	m_owner = 0;
 	m_houses = 0;
 	m_price = 0;

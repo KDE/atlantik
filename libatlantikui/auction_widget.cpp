@@ -103,7 +103,7 @@ void AuctionWidget::auctionChanged()
 		break;
 
 	default:
-		status = "";
+		status = QString::null;
 	}
 	m_statusLabel->setText(status);
 }

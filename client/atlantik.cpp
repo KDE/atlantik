@@ -467,7 +467,7 @@ void Atlantik::slotUpdateConfig()
 void Atlantik::slotSendMsg()
 {
 	m_atlantikNetwork->cmdChat(m_input->text());
-	m_input->setText("");
+	m_input->setText(QString::null);
 }
 
 void Atlantik::slotMsgInfo(QString msg)
