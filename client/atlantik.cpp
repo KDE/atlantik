@@ -38,6 +38,8 @@
 #include <board.h>
 #include <trade_widget.h>
 
+#define USE_KDE 1
+
 #ifdef USE_KDE
 #include <errno.h>
 #endif
@@ -232,6 +234,8 @@ void Atlantik::removeGUI(Trade *trade)
 
 void Atlantik::slotNetworkConnected()
 {
+	kdDebug() << "Atlantik::slotNetworkConnected()" << endl;
+
 	// We're connected, so let's make ourselves known.
 	m_atlantikNetwork->cmdName(m_config.playerName);
 
