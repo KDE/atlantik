@@ -158,7 +158,10 @@ void EstateView::paintEvent(QPaintEvent *)
 	if (m_recreateQuartz)
 	{
 		if (m_quartzBlocks)
+		{
 			delete m_quartzBlocks;
+			m_quartzBlocks = 0;
+		}
 
 		if (m_estate->color().isValid())
 		{
