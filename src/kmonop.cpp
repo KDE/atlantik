@@ -1,6 +1,7 @@
 #include <qlineedit.h>
 #include <qscrollbar.h>
 
+#include <kstdgameaction.h>
 #include <kstdaction.h>
 #include <ktoolbar.h>
 #include <kapp.h>
@@ -17,19 +18,19 @@ KMonop::KMonop (const char *name) :
 	readConfig();
 
 	// Game actions
-	KStdAction::openNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
-	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
+	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
+	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar actions
-	roll_die = new KAction("&Roll", "kmonop_roll_die", CTRL+Key_R, this, SLOT(slotRoll()), actionCollection(), "roll_die");
-	roll_die->setEnabled(false);
-	buy_estate = new KAction("&Buy", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
-	buy_estate->setEnabled(false);
-	end_turn = new KAction("&End Turn", "stop", CTRL+Key_E, this, SLOT(slotEndTurn()), actionCollection(), "end_turn");
-	end_turn->setEnabled(false);
+	m_roll = KStdGameAction::roll(this, SLOT(slotEndTurn()), actionCollection()); // No Ctrl-R at the moment
+	m_roll->setEnabled(false);
+	m_buyEstate = new KAction("&Buy", "kmonop_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
+	m_buyEstate->setEnabled(false);
+	m_endTurn = KStdGameAction::endTurn(this, SLOT(slotEndTurn()), actionCollection());
+	m_endTurn->setEnabled(false);
 
 	// Settings actions
-	config_kmonop = new KAction("&Configure KMonop", "configure", 0, this, SLOT(slotConfigure()), actionCollection(), "config_kmonop");
+	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 
 	// Initialize pointers to 0L
 	configDialog = 0;
@@ -273,15 +274,15 @@ void KMonop::slotSetTurn(int player)
 
 	if (player == myPlayerId)
 	{
-		roll_die->setEnabled(true);
-		buy_estate->setEnabled(true);
-		end_turn->setEnabled(true);
+		m_roll->setEnabled(true);
+		m_buyEstate->setEnabled(true);
+		m_endTurn->setEnabled(true);
 	}
 	else
 	{
-		roll_die->setEnabled(false);
-		buy_estate->setEnabled(false);
-		end_turn->setEnabled(false);
+		m_roll->setEnabled(false);
+		m_buyEstate->setEnabled(false);
+		m_endTurn->setEnabled(false);
 	}
 
 	board->raiseToken(player);

@@ -2,17 +2,14 @@
 <kpartgui name="kmonop" version="1">
 <MenuBar>
   <Menu name="move"><text>&amp;Move</text>
-    <Action name="roll_die"/>
+    <Action name="move_roll"/>
     <Action name="buy_estate"/>
-    <Action name="end_turn"/>
-  </Menu>
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="config_kmonop"/>
+    <Action name="move_endturn"/>
   </Menu>
 </MenuBar>
 <ToolBar name="moveToolBar">
-    <Action name="roll_die"/>
+    <Action name="move_roll"/>
     <Action name="buy_estate"/>
-    <Action name="end_turn"/>
+    <Action name="move_endturn"/>
 </ToolBar>
 </kpartgui>

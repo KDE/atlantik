@@ -33,14 +33,12 @@ EstateView::EstateView(int id, int orientation, bool canBeOwned, const QColor &c
 	b_recreate = true;
 	qpixmap = 0;
 
-/*
 	lname = new QLabel(this);
 	lname->setAlignment(Qt::AlignLeft);
 	lname->setMinimumSize(lname->sizeHint());
 	lname->setMaximumWidth(width());
 	lname->setMaximumHeight(15);
 	lname->hide();
-*/
 
 	pe = 0;
 	icon = initIcon(_icon);
@@ -81,9 +79,7 @@ void EstateView::setName(const char *n)
 	estatename.setLatin1(n, strlen(n));
 	QToolTip::remove(this);
 	QToolTip::add(this, estatename);
-/*
 	lname->setText(n);
-*/
 }
 
 void EstateView::setHouses(int _h)

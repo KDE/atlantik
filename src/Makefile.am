@@ -1,7 +1,7 @@
 bin_PROGRAMS = kmonop
-INCLUDES = $(all_includes)
+INCLUDES = $(all_includes) -I$(top_srcdir)/libkdegames
 LDFLAGS = $(all_libraries) $(KDE_RPATH)
-LDADD = $(LIB_KSYCOCA) $(LIB_KFILE)
+LDADD = $(LIB_KSYCOCA) $(LIB_KFILE) $(top_builddir)/libkdegames/libkdegames.la
 
 SUBDIRS =
 

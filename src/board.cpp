@@ -279,7 +279,7 @@ void KMonopBoard::resizeEvent(QResizeEvent *e)
 	}
 
 	// Timer to reinit the gameboard _after_ resizeEvent
-	QTimer::singleShot(1000, this, SLOT(slotResizeAftermath()));
+	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
 void KMonopBoard::slotResizeAftermath()

@@ -54,7 +54,7 @@ class KMonop : public KTMainWindow
 		QGridLayout *layout;
 		QTextView *serverMsgs, *chatMsgs;
 		
-		KAction *roll_die, *buy_estate, *end_turn, *config_kmonop;
+		KAction *m_roll, *m_buyEstate, *m_configure, *m_endTurn;
 
 		NewGameWizard *wizard;
 		ConfigDialog *configDialog;
