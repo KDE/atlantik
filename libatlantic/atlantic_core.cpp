@@ -74,7 +74,6 @@ void AtlanticCore::removePlayer(Player *player)
 	m_players.remove(player);
 	emit removeGUI(player);
 	emit deletePlayer(player);
-	delete player;
 }
 
 void AtlanticCore::slotDeletePlayer(Player *player)
