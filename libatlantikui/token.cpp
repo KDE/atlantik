@@ -23,7 +23,6 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	b_recreate = true;
 
 	setFixedSize(QSize(26, 26));
-	myId = QString("");
 	m_location = m_destination = 0;
 }
 
@@ -98,7 +97,7 @@ void Token::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		painter.setFont(QFont("Helvetica", 12, QFont::Bold));
-		painter.drawText(2, height()-2, myId);
+		painter.drawText(2, height()-2, m_player->name());
 
 		b_recreate = false;
 	}

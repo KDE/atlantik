@@ -38,7 +38,6 @@ private:
 		AtlantikBoard *m_parentBoard;
 		bool b_recreate;
 		QPixmap *qpixmap;
-		QString myId;
 };
 
 #endif
