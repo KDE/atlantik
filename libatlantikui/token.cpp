@@ -87,7 +87,7 @@ void Token::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
-		painter.drawText(2, height()-2, m_player->name());
+		painter.drawText(2, height()-2, (m_player ? m_player->name() : QString::null));
 
 		b_recreate = false;
 	}
