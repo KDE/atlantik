@@ -196,7 +196,7 @@ void TradeDisplay::tradeItemRemoved(TradeItem *t)
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	kdDebug() << "TradeDisplay::tradeItemChanged" << std::endl;
+	kdDebug() << "TradeDisplay::tradeItemChanged" << endl;
 	KListViewItem *item = m_componentMap[t];
 	if (item)
 	{

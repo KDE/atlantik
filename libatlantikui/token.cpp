@@ -127,7 +127,7 @@ void Token::updateGeometry()
 		y = m_location->geometry().center().y() - (height()/2);
 	}
 
-	kdDebug() << "Token::updateGeometry, x:" << x << " y:" << y << std::endl;
+	kdDebug() << "Token::updateGeometry, x:" << x << " y:" << y << endl;
 	setGeometry(x, y, width(), height());
 	if (isHidden())
 		show();

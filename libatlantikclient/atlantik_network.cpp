@@ -208,7 +208,7 @@ void AtlantikNetwork::writeData(QString msg)
 	if (socketStatus() == KExtendedSocket::connected)
 		writeBlock(msg.latin1(), strlen(msg.latin1()));
 	else
-		kdDebug() << "could not send [" << msg << "]" << std::endl;
+		kdDebug() << "could not send [" << msg << "]" << endl;
 }
 
 void AtlantikNetwork::slotRead()
@@ -234,7 +234,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::processMsg(QString str)
 {
-	kdDebug() << "processing msg: " + str << std::endl;
+	kdDebug() << "processing msg: " + str << endl;
 	msg.setContent(str);
 	QDomElement e = msg.documentElement();
 	if (e.tagName() != "monopd")
@@ -710,7 +710,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 										pTo = m_playerMap[a.value().toInt()];
 
 									a = e_child.attributeNode(QString("money"));
-									kdDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << std::endl;
+									kdDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << endl;
 									if (trade && pFrom && pTo && !a.isNull())
 										trade->updateMoney(a.value().toInt(), pFrom, pTo);
 								}
@@ -782,7 +782,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 				}
 			}
 			else
-				kdDebug() << "ignored TAG: " << e.tagName() << std::endl;
+				kdDebug() << "ignored TAG: " << e.tagName() << endl;
 		}
 		// TODO: remove permanently?
 		// QDomNode node = n.firstChild();

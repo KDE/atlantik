@@ -79,7 +79,7 @@ void SelectConfiguration::slotPlayerListClear()
 
 void SelectConfiguration::slotPlayerListAdd(QString playerId, QString name, QString host)
 {
-	kdDebug() << "SelectConfiguration::slotPlayerListAdd" << std::endl;
+	kdDebug() << "SelectConfiguration::slotPlayerListAdd" << endl;
 	QListViewItem *item = new QListViewItem(m_playerList, playerId, name, host);
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
 }
@@ -175,7 +175,7 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value)
 		checkBox->show();
 	}
 	else
-		kdDebug() << "TODO: game options other than type=bool" << std::endl;
+		kdDebug() << "TODO: game options other than type=bool" << endl;
 
 	// TODO: Enable edit for master only
 }
