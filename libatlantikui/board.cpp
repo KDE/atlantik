@@ -255,6 +255,13 @@ void AtlantikBoard::jumpToken(Token *token)
 
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
+
+	if (Player *player = token->player())
+	{
+		player->setLocation(token->location());
+		player->setDestination(0);
+	}
+
 	if (token->isHidden())
 		token->show();
 
