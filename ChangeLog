@@ -13,6 +13,8 @@
 -----
 
 - bugfix: fix wild pointer when removing trade items (#68589)
+- bugfix: set proper palette color for EstateDetails so Keramik buttons
+  don't look out of place
 
 0.5.4
 -----
