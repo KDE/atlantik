@@ -25,10 +25,12 @@
 #include <kurl.h>
 
 #include "player.h"
-#include "designer.h"
 #include "estate.h"
-#include "editor.h"
 #include "board.h"
+#include "boardinfo.h"
+
+#include "editor.h"
+#include "designer.h"
 
 AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWindow(parent, name)
 {
@@ -49,6 +51,7 @@ AtlanticDesigner::AtlanticDesigner(QWidget *parent, const char *name) : KMainWin
 	(void) KStdAction::openNew(this, SLOT(openNew()), actionCollection());
 	(void) KStdAction::save(this, SLOT(save()), actionCollection());
 	(void) KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
+	(void) new KAction(i18n("&Edit Gameboard Info"), 0, this, SLOT(info()), actionCollection(), "boardinfo");
 
 	(void) new KAction(i18n("&Larger"), "viewmag+", 0, this, SLOT(larger()), actionCollection(), "larger");
 	(void) new KAction(i18n("&Smaller"), "viewmag-", 0, this, SLOT(smaller()), actionCollection(), "smaller");
@@ -611,6 +614,9 @@ void AtlanticDesigner::save()
 		}
 	}
 
+	// now save information
+	t << endl; 
+
 	f.flush();
 	isMod = false;
 	doCaption(false);
@@ -751,6 +757,11 @@ void AtlanticDesigner::modified()
 void AtlanticDesigner::doCaption(bool modified)
 {
 	setCaption(i18n("Atlantic gameboard editor"), modified);
+}
+
+void AtlanticDesigner::info()
+{
+	(new BoardInfoDlg(true, &boardInfo, this))->show();
 }
 
 // now some fun functions ;)

@@ -6,6 +6,9 @@
   it simply uses a hard-coded 40
 - in Designer, implement 'smaller' nad 'larger' menu entries,
   now able to save and load boards with any size!!!
+- add boardinfo.[h/cpp] that has a BoardInfo class that has board information,
+  and a class to View/Edit it
+- designer uses it, doesn't read/write the info yet tho
 
 2001-12-20 (katz)
 ---------

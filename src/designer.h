@@ -9,6 +9,7 @@
 
 #include "editor.h"
 #include "board.h"
+#include "boardinfo.h"
 
 class EstateEdit;
 class QCloseEvent;
@@ -43,6 +44,7 @@ class AtlanticDesigner : public KMainWindow
 	void changeEstate(Estate *);
 	void movePlayer(Estate *);
 	void setPlayerAtBeginning();
+	void info();
 
 	void up();
 	void down();
@@ -71,6 +73,7 @@ class AtlanticDesigner : public KMainWindow
 
 	CardStack chanceStack;
 	CardStack ccStack;
+	BoardInfo boardInfo;
 
 	QString filename;
 

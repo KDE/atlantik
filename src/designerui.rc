@@ -1,6 +1,9 @@
 <!DOCTYPE kpartgui>
 <kpartgui name="atlanticdesigner" version="1">
 <MenuBar>
+  <Menu name="file">
+    <Action name="boardinfo"/>
+  </Menu>
   <Menu name="edit">
     <Action name="smaller"/>
     <Action name="larger"/>
