@@ -56,6 +56,7 @@ public:
 		void slotLocalConnected();
 		void slotLocalError();
 		void monopigatorFinished();
+		void monopigatorTimeout();
 
 	signals:
 		void serverConnect(const QString host, int port);
