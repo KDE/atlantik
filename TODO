@@ -1,0 +1,6 @@
+- Turn newgamedlg into an actual dialog.
+- Add autoconf/automake stuff. [semi-done, actually]
+- Add double buffering.
+- Have the board resize in such a way that only squares are allowed.
+
+- Make things work. ;-)

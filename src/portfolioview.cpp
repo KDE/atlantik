@@ -1,0 +1,150 @@
+#include <qlabel.h>
+
+#include <qcolor.h>
+#include <qimage.h>
+#include <qpainter.h>
+
+#include <qtextview.h>
+
+#include <qlayout.h>
+#include <iostream.h> // cout etc
+#include <qlineedit.h>
+
+#include <qlabel.h>
+
+#include <qcstring.h>
+#include <qsocket.h>
+
+#include <kstdaction.h>
+#include <kaction.h>
+#include <kstdaccel.h>
+#include <kiconloader.h>
+#include <kmenubar.h>
+#include <kapp.h>
+
+// #include "colordefs.h"
+#include "portfolioview.h"
+#include "portfolioestate.h"
+
+extern QColor kmonop_dpurple, kmonop_lblue, kmonop_purple, kmonop_orange,
+kmonop_red, kmonop_yellow, kmonop_green, kmonop_blue, kmonop_greenbg;
+
+PortfolioView::PortfolioView(QWidget *parent, const char *name = 0) : QWidget(parent, name)
+{
+	b_recreate = true;
+	qpixmap = 0;
+	
+	lname = new QLabel(this);
+	lname->setAlignment(Qt::AlignLeft);
+	lname->setGeometry(5,0,(width()-5)/2,height());
+	lname->setBackgroundColor(Qt::white);
+	lname->setMinimumSize(lname->sizeHint());
+	lname->setMaximumWidth(width());
+	lname->setMaximumHeight(15);
+	lname->show();
+	
+	lcash = new QLabel(this);
+	lcash->setAlignment(Qt::AlignRight);
+	lcash->setGeometry(5+(width()-5/2),0,(width()-5)/2,height());
+	lcash->setBackgroundColor(Qt::white);
+	lcash->setMinimumSize(lcash->sizeHint());
+	lcash->setMaximumWidth(width());
+	lcash->setMaximumHeight(15);
+	lcash->show();
+	lcash->setText("$ 1,500");
+	
+	QSize s(150,75);
+	setFixedSize(s);
+	setBackgroundColor(Qt::white);
+	
+	setName("unnamed");
+
+	PortfolioEstate *estate;
+	QColor current;
+
+	int i=0,j=0,x=0,y=0,w=8;
+//	paint.drawRect(rect());
+	for(i=0;i<8;i++)
+	{
+		switch(i)
+		{
+	 		case 0:
+			 	current=kmonop_dpurple; break;
+			case 1:
+		 		current=kmonop_lblue; break;
+			case 2:
+				current=kmonop_purple; break;
+			case 3:
+				current=kmonop_orange; break;
+			case 4:
+				current=kmonop_red; break;
+			case 5:
+				current=kmonop_yellow; break;
+			case 6:
+				current=kmonop_green; break;
+			case 7:
+				current=kmonop_blue; break;
+		}
+		estate = new PortfolioEstate(this);
+		x = 5+(18*(i%w));
+		y = 2+lname->height()+(i>=w ? 22: 0);
+		estate->setGeometry(x, y, estate->width(), estate->height());
+		estate->setColor(current);
+		if (j++%3==0 || j==14 || j==16)
+			estate->setOwned(true);
+		estate->show();
+
+		estate = new PortfolioEstate(this);
+		x = 7+(18*(i%w));
+		y = 6+lname->height()+(i>=w ? 22: 0);
+		estate->setGeometry(x, y, estate->width(), estate->height());
+		estate->setColor(current);
+		if (j++%2==0 || j==14 || j==16)
+			estate->setOwned(true);
+		estate->show();
+
+		if (i>0 && i<7)
+		{
+			estate = new PortfolioEstate(this);
+			x = 9+(18*(i%w));
+			y = 10+lname->height()+(i>=w ? 22: 0);
+			estate->setGeometry(x, y, estate->width(), estate->height());
+				estate->setColor(current);
+			if (j++%2==0 || j==14 || j==16)
+				estate->setOwned(true);
+			estate->show();
+		}
+	}
+	for (i=0;i<8;i++)
+	{
+		estate = new PortfolioEstate(this);
+		x = 5+(14*i);
+		y = 26+lname->height();
+		estate->setGeometry(x, y, estate->width(), estate->height());
+		estate->setColor(Qt::black);
+		estate->show();
+	}
+}
+
+void PortfolioView::setName(const char *n)
+{
+	name.setLatin1(n, strlen(n));
+	lname->setText(n);
+}
+
+void PortfolioView::paintEvent(QPaintEvent *)
+{
+	return;
+	if (b_recreate)
+	{
+		if (qpixmap!=0)
+			delete qpixmap;
+		qpixmap = new QPixmap(width(), height());
+
+		QPainter painter;
+		painter.begin(qpixmap, this);
+
+		b_recreate = false;
+	}
+	bitBlt(this, 0, 0, qpixmap);
+}

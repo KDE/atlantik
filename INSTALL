@@ -1,0 +1,12 @@
+If you downloaded a snapshot:
+
+cd src && make -f Makefile.noncvs
+
+run ./kmonop
+
+If you downloaded kdenonbeta from CVS:
+
+(cd ../kdenonbeta ; ./configure)
+cd kmonop && make && make install
+
+click on K->Games->Board->KMonop or run kmonop

@@ -1,0 +1,58 @@
+# Kept for debugging purposes.
+
+QTINC = -I$(QTDIR)/include
+KDEINC = -I$(KDEDIR)/include
+QTLIB = -L$(QTDIR)/lib
+KDELIB = -L$(KDEDIR)/lib
+QTBIN = $(QTDIR)/bin
+
+all: kmonop
+
+kmonop: board.o kmonop.o main.o newgamedlg.o portfolioestate.o portfolioview.o estateview.o
+	g++ -g $(QTLIB) $(KDELIB) -lkdeui -lkdecore -lqt -dl \
+		board.o main.o kmonop.o newgamedlg.o portfolioestate.o portfolioview.o estateview.o -o kmonop
+
+board.moc: board.h
+	$(QTBIN)/moc board.h > board.moc
+
+board.o: board.cpp board.moc
+	g++ -g -c $(QTINC) $(KDEINC) board.cpp
+
+estateview.moc: estateview.h
+	$(QTBIN)/moc estateview.h > estateview.moc
+
+estateview.o: estateview.cpp estateview.moc
+	g++ -g -c $(QTINC) $(KDEINC) estateview.cpp
+
+main.o: main.cpp colordefs.h
+	g++ -g -c $(QTINC) $(KDEINC) main.cpp
+
+kmonop.moc: kmonop.h
+	$(QTBIN)/moc kmonop.h > kmonop.moc
+
+kmonop.o: kmonop.cpp kmonop.moc
+	g++ -g -c $(QTINC) $(KDEINC) kmonop.cpp
+
+newgamedlg.moc: newgamedlg.h
+	$(QTBIN)/moc newgamedlg.h > newgamedlg.moc
+
+newgamedlg.o: newgamedlg.cpp newgamedlg.moc
+	g++ -g -c $(QTINC) $(KDEINC) newgamedlg.cpp
+
+portfolioestate.moc: portfolioestate.h
+	$(QTBIN)/moc portfolioestate.h > portfolioestate.moc
+
+portfolioestate.o: portfolioestate.cpp portfolioestate.moc
+	g++ -g -c $(QTINC) $(KDEINC) portfolioestate.cpp
+
+portfolioview.moc: portfolioview.h
+	$(QTBIN)/moc portfolioview.h > portfolioview.moc
+
+portfolioview.o: portfolioview.cpp portfolioview.moc
+	g++ -g -c $(QTINC) $(KDEINC) portfolioview.cpp
+
+pot:
+	xgettext -C -ki18n -kI18N_NOOP \ktranslate -x$(KDEDIR)/include/kde.pot *.cpp
+
+clean:
+	rm -rvf *~ *.o *.moc kmonop

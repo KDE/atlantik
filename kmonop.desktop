@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=kmonop -caption "%c" %i %m
+Icon=kmonop
+DocPath=kmonop/index.html
+Comment=Monopoly boardgame for KDE
+Terminal=0
+Name=KMonop
+MapNotify=true 

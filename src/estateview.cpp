@@ -1,0 +1,126 @@
+#include <qtooltip.h>
+#include <qlabel.h>
+
+#include <qcolor.h>
+#include <qimage.h>
+#include <qpainter.h>
+
+#include <qtextview.h>
+
+#include <qlayout.h>
+#include <iostream.h> // cout etc
+#include <qlineedit.h>
+
+#include <qlabel.h>
+
+#include <qcstring.h>
+#include <qsocket.h>
+
+#include <kstdaction.h>
+#include <kaction.h>
+#include <kstdaccel.h>
+#include <kiconloader.h>
+#include <kmenubar.h>
+#include <kapp.h>
+
+#include "estateview.h"
+
+extern QColor kmonop_greenbg, kmonop_greenhouse;
+
+EstateView::EstateView(int _orientation, const QColor &_color, QWidget *parent, const char *name = 0) : QWidget(parent, name)
+{
+	orientation = _orientation;
+	color = _color;
+
+	b_recreate = true;
+	qpixmap = 0;
+
+/*
+	lname = new QLabel(this);
+	lname->setAlignment(Qt::AlignLeft);
+	lname->setMinimumSize(lname->sizeHint());
+	lname->setMaximumWidth(width());
+	lname->setMaximumHeight(15);
+	lname->hide();
+*/
+	setName("Boardwalk");
+	setHouses(4);
+	QToolTip::add(this, estatename);
+}
+
+void EstateView::setName(const char *n)
+{
+	estatename.setLatin1(n, strlen(n));
+	QToolTip::remove(this);
+	QToolTip::add(this, estatename);
+/*
+	lname->setText(n);
+*/
+}
+
+void EstateView::setHouses(int _houses)
+{
+	houses = _houses;
+}
+
+void EstateView::paintEvent(QPaintEvent *)
+{
+	if (b_recreate)
+	{
+		if (qpixmap!=0)
+			delete qpixmap;
+		qpixmap = new QPixmap(width(), height());
+
+		QPainter painter;
+		painter.begin(qpixmap, this);
+
+		painter.setPen(Qt::black);
+		painter.setBrush(kmonop_greenbg);
+		painter.drawRect(rect());
+
+		if (color!=NULL)
+		{
+			painter.setBrush(color);
+			switch(orientation)
+			{
+				case North:
+					painter.drawRect(0, 0, width(), height()/4);
+//					painter.setPen(Qt::black);
+//					painter.setFont(QFont("helvetica", 10));
+//					painter.drawText(0, height()/4, width(), height()/2, (Qt::AlignHCenter | Qt::AlignTop), estatename, estatename.length());
+					if (houses)
+					{
+						if (houses == 5)
+						{
+						}
+						else
+						{
+							painter.setBrush(kmonop_greenhouse);
+							int h = (height()/4)-4, w = (width()/4)-2;
+							for( int i=0 ; i<houses ; i++ )
+							{
+								painter.drawRect(2+(i*(w+2)), 2, w, h);
+							}
+						}
+					}
+					break;
+				case South:
+					painter.drawRect(0, height()-(height()/4), width(), height()/4);
+					break;
+				case West:
+					painter.drawRect(0, 0, width()/4, height());
+					break;
+				case East:
+					painter.drawRect(width()-(width()/4), 0, width()/4, height());
+					break;
+			}
+		}
+		b_recreate = false;
+	}
+	bitBlt(this, 0, 0, qpixmap);
+}
+
+void EstateView::resizeEvent(QResizeEvent *)
+{
+	b_recreate = true;
+}
