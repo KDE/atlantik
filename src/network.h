@@ -57,6 +57,75 @@ signals:
 	void msgEstateUpdateOwner(int, int);
 	void msgEstateUpdateHouses(int, int);
 	void msgEstateUpdateMortgage(int, bool);
+
+	/**
+	 * A new trade is created on the server.
+	 *
+	 * @param tradeId  Unique identifier of the trade
+	 * @param playerId Player who initiates the trade
+	 */
+	void msgTradeUpdateNew(int tradeId, int playerId);
+
+	/**
+	 * A player should be added to the trade.
+	 *
+	 * @param tradeId  Unique identifier of the trade
+	 * @param playerId Player participating in the trade
+	 */
+	void msgTradeUpdatePlayerAdd(int tradeId, int playerId);
+
+	/**
+	 * Information from server whether a player accepts the trade as is.
+	 *
+	 * @param tradeId  Unique trade identifier
+	 * @param playerId Unique player identifier
+	 * @param accept   Whether the player accepts or not
+	 */
+	void msgTradeUpdatePlayerAccept(int tradeId, int playerId, bool accept);
+
+	/**
+	 * Information from server about the amount of money a player brings
+	 * into a trade.
+	 *
+	 * @param tradeId  Unique trade identifier
+	 * @param playerId Unique player identifier
+	 * @param money    Amount of money
+	 */
+	void msgTradeUpdatePlayerMoney(int tradeId, int playerId, int money);
+
+	/**
+	 * Information from server whether an estate is included in a trade or not.
+	 *
+	 * @param tradeId  Unique trade identifier
+	 * @param estateId Unique estate identifier
+	 * @param included Whether the estate is included
+	 */
+	void msgTradeUpdateEstateIncluded(int tradeId, int estateId, bool included);
+
+	/**
+	 * The trade has been accepted by all players!
+	 *
+	 * @param tradeId  Unique trade identifier
+	 */
+	void msgTradeUpdateAccepted(int tradeId);
+
+	/**
+	 * The trade has been completed. Emitted after all necessary estate and
+	 * player updates are processed.
+	 *
+	 * @param tradeId  Unique trade identifier
+	 */
+	void msgTradeUpdateCompleted(int tradeId);
+
+	/**
+	 * One of the players rejected the trade and the trade object has been
+	 * deleted from the server.
+	 *
+	 * @param tradeId  Unique trade identifier
+	 * @param playerId Unique player identifier of rejecting player
+	 */
+	void msgTradeUpdateRejected(int tradeId, int playerId);
+
 	void setPlayerId(int);
 	void setTurn(int);
 

@@ -296,6 +296,71 @@ void GameNetwork::processNode(QDomNode n)
 						emit msgEstateUpdateMortgage(estateid, a.value().toInt());
 				}
 			}
+			else if (e.tagName() == "tradeupdate")
+			{
+				QString type = e.attributeNode(QString("type")).value();
+				int tradeid = e.attributeNode(QString("tradeid")).value().toInt();
+
+				if (type=="new")
+				{
+					emit msgTradeUpdateNew(tradeid, e.attributeNode(QString("actor")).value().toInt());
+
+					QDomNode n_player = n.firstChild();
+					while(!n_player.isNull())
+					{
+						QDomElement e_player = n_player.toElement();
+						if (!e_player.isNull() && e_player.tagName() == "player")
+							emit msgTradeUpdatePlayerAdd(tradeid, e_player.attributeNode(QString("playerid")).value().toInt());
+						n_player = n_player.nextSibling();
+					}
+				}
+				else if (type=="edit")
+				{
+					QDomNode n_child = n.firstChild();
+					while(!n_child.isNull())
+					{
+						QDomElement e_child = n_child.toElement();
+						if (!e_child.isNull())
+						{
+							if (e_child.tagName() == "player")
+							{
+								a = e.attributeNode(QString("playerid"));
+								if (!a.isNull())
+								{
+									int playerid = a.value().toInt();
+
+									a = e.attributeNode(QString("accept"));
+									if (!a.isNull())
+										emit msgTradeUpdatePlayerAccept(tradeid, playerid, (bool)(a.value().toInt()));
+
+									a = e.attributeNode(QString("money"));
+									if (!a.isNull())
+										emit msgTradeUpdatePlayerMoney(tradeid, playerid, a.value().toInt());
+								}
+							}
+							else if (e_child.tagName() == "estate")
+							{
+								a = e.attributeNode(QString("estateid"));
+								if (!a.isNull())
+								{
+									int estateid = a.value().toInt();
+
+									a = e.attributeNode(QString("included"));
+									if (!a.isNull())
+										emit msgTradeUpdateEstateIncluded(tradeid, estateid, (bool)(a.value().toInt()));
+								}
+							}
+						}
+						n_child = n_child.nextSibling();
+					}
+				}
+				else if (type=="accepted")
+					emit msgTradeUpdateAccepted(tradeid);
+				else if (type=="completed")
+					emit msgTradeUpdateCompleted(tradeid);
+				else if (type=="rejected")
+					emit msgTradeUpdateRejected(tradeid, e.attributeNode(QString("actor")).value().toInt());
+			}
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);

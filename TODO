@@ -37,13 +37,13 @@ For 0.2.x
 
 - gameNetwork API
   - commands
-    V trades
+    v trades
     - .jp
     - .jr
     - .jc
     - .D
   - XML signals
-    - trades
+    v trades
 - Support .gd game description.
 - Support leaving jail
   - GUI
