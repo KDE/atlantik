@@ -67,6 +67,71 @@ class="registered">Monopoly</trademark>.</para>
 
 </chapter>
 
+<chapter id="connecting">
+<title>Connecting to a Server</title>
+
+<para>&atlantik; is not complete without a game server to connect
+to. If you are connected to the Internet, &atlantik; will
+automatically request a list of available servers from which you can
+choose.</para>
+
+<para>You can also connect to a local server. Use the commandline
+parameters to connect to a custom server:</para>
+
+<screen>
+<userinput><command>atlantik</command> <option>-host</option> <replaceable>myhost.domain.net</replaceable> <option>-port</option> <replaceable>1234</replaceable></userinput>
+</screen>
+
+<para>You will need the <ulink
+url="http://unixcode.org/monopd/download.html">monopd</ulink> server
+software installed and running.</para>
+
+<para>If you have problems connecting to a server, the following
+actions might help you:</para>
+
+<itemizedlist>
+<listitem>
+<para>Try another server.  The public server list is updated every
+three minutes, and the server you are trying to connect to might not
+be available any longer.</para>
+</listitem>
+<listitem>
+<para>Check your firewall. Your Internet access might be restricted,
+preventing you from connecting to servers. Allow outgoing connections
+to port 1234 and reply traffic or contact your system
+administrator.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="reporting-bugs">
+<title>Reporting Bugs</title>
+
+<para>If you think you have found a bug in &atlantik;, please report
+it. Developers often catch and fix bugs themselves, but you might
+experience issues not yet known. Not reporting your problems might
+very well prevent them from being fixed indefinitely.</para>
+
+<para>If the bug is related to the game itself, such as the
+implementation of rules or behavior during game play, the bug might be
+in the <ulink url="http://unixcode.org/monopd/">monopd
+server</ulink>. Game play bugs are usually less obvious than crashes
+or client bugs because they depend on many variable conditions that
+appear within a game. Please specify details in your bug report, such
+as whether the bug occurs only when players are in jail or when there
+are debts.</para>
+
+<para>The best way to report a bug is through the <ulink
+url="http://bugs.kde.org/">&kde; Bug Wizard</ulink>. Use the
+<menuchoice><guimenu>Help</guimenu><guimenuitem>Report
+Bug</guimenuitem></menuchoice> menu item to visit the bug wizard with some
+specifics on your Atlantik version filled in automatically. You can
+specify all bugs under <userinput>Atlantik</userinput>, the developers
+will sort out server specific bugs for you.</para>
+
+</chapter>
+
 <chapter id="download">
 <title>Download</title>
 
