@@ -144,6 +144,7 @@ signals:
 
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
+	void reject(Trade *trade);
 
 private:
 	bool m_changed;

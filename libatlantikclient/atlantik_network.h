@@ -30,7 +30,6 @@ public:
 	void cmdName(QString name);
 	void cmdGamesList();
 	void cmdTradeAccept(int tradeId);
-	void cmdTradeReject(int tradeId);
 	void cmdChat(QString msg);
 
 private slots:
@@ -51,6 +50,7 @@ private slots:
 	void tokenConfirmation(Estate *);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo);
+	void tradeReject(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
 
 public slots:

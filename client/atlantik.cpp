@@ -203,6 +203,7 @@ void Atlantik::newTrade(Trade *trade)
 //	QObject::connect(trade, SIGNAL(changed()), tradeDisplay, SLOT(tradeChanged()));
 	QObject::connect(tradeDisplay, SIGNAL(updateEstate(Trade *, Estate *, Player *)), trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 	QObject::connect(tradeDisplay, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
+	QObject::connect(tradeDisplay, SIGNAL(reject(Trade *)), trade, SIGNAL(reject(Trade *)));
 
 	// m_board->addTradeView(trade);
 }

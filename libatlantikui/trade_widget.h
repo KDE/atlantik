@@ -26,6 +26,9 @@ public:
 
 	Trade *trade() { return mTrade; }
 
+protected:
+	void closeEvent(QCloseEvent *e);
+
 private slots:
 	void playerAdded(Player *);
 	void playerRemoved(Player *);
@@ -35,14 +38,17 @@ private slots:
 	void tradeChanged(TradeItem *);
 
 	void setEditType(int);
+	void setEditEstate(int);
 
 	void updateComponent();
+	void reject();
 
 	void contextMenu(KListView *l, QListViewItem *i);
 
 signals:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
+	void reject(Trade *trade);
 
 private:
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
@@ -57,7 +63,8 @@ private:
 
 	QMap<TradeItem *, KListViewItem *> m_componentMap;
 	QMap<int, Estate *> m_estateMap;
-	QMap<int, Player *> m_playerMap;
+	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;
+	QMap<Player *, int> m_playerFromRevMap, m_playerTargetRevMap;
 };
 
 #endif

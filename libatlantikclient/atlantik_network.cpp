@@ -133,6 +133,13 @@ void AtlantikNetwork::tradeUpdateMoney(Trade *trade, unsigned int money, Player 
 	writeData(msg);
 }
 
+void AtlantikNetwork::tradeReject(Trade *trade)
+{
+	QString msg(".Tr");
+	msg.append(QString::number(trade ? trade->tradeId() : -1));
+	writeData(msg);
+}
+
 void AtlantikNetwork::cmdTradeAccept(int tradeId)
 {
 	QString msg(".Ta");
@@ -140,12 +147,6 @@ void AtlantikNetwork::cmdTradeAccept(int tradeId)
 	writeData(msg);
 }
 
-void AtlantikNetwork::cmdTradeReject(int tradeId)
-{
-	QString msg(".Tr");
-	msg.append(QString::number(tradeId));
-	writeData(msg);
-}
 
 void AtlantikNetwork::auctionBid(Auction *auction, int amount)
 {
@@ -514,7 +515,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 						QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
 						QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
-
+						QObject::connect(trade, SIGNAL(reject(Trade *)), this, SLOT(tradeReject(Trade *)));
 						b_newTrade = true;
 					}
 
