@@ -1,4 +1,4 @@
-// Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
+// Copyright (c) 2002-2004 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -24,7 +24,6 @@
 #include <qptrlist.h>
 
 #include <kmainwindow.h>
-#include <kaction.h>
 
 #include "configdlg.h"
 #include "portfolioview.h"
@@ -64,6 +63,20 @@ class TradeDisplay;
 class Player;
 class Estate;
 class Trade;
+
+class LogTextEdit : public QTextEdit
+{
+Q_OBJECT
+
+public:
+	LogTextEdit( QWidget *parent = 0, const char *name = 0 );
+	virtual ~LogTextEdit();
+
+	QPopupMenu *LogTextEdit::createPopupMenu( const QPoint & pos );
+
+private:
+	KAction *m_clear, *m_selectAll, *m_copy;
+};
 
 /**
  * Main Atlantik window.
