@@ -176,6 +176,15 @@ public slots:
 
 	void playerChanged();
 
+signals:
+	void rollDice();
+	void buyEstate();
+	void auctionEstate();
+	void endTurn();
+	void jailCard();
+	void jailPay();
+	void jailRoll();
+
 private:
 	void initNetworkObject();
 
