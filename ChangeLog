@@ -2,6 +2,7 @@
 -----
 
 - correctly handle utf-8 over the network
+- only show localhost server when it is available
 
 0.5.1
 -----

@@ -533,7 +533,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 					
 					Estate *estate = 0;
 					bool b_newEstate = false;
-					if (!(estate = m_atlanticCore->findEstate(a.value().toInt())))
+
+					// FIXME: allow any estateId, GUI should not use it to determin its geometry
+					if (estateId >= 0 && estateId < 100 && !(estate = m_atlanticCore->findEstate(a.value().toInt())))
 					{
 						// Create estate object
 						estate = m_atlanticCore->newEstate(estateId);
