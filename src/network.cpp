@@ -54,7 +54,9 @@ void GameNetwork::processNode(QDomNode n)
 				{
 					if (a.value() == "error")
 						emit msgError(e.attributeNode(QString("value")).value());
-					if (a.value() == "startgame")
+					else if (a.value() == "info")
+						emit msgInfo(e.attributeNode(QString("value")).value());
+					else if (a.value() == "startgame")
 						emit msgStartGame(e.attributeNode(QString("value")).value());
 				}
 			}

@@ -7,6 +7,9 @@
 - Portfolio overviews are built upon game start, requires monopd which sends
   final attribute along with playerlist.
 - Framework for token class.
+- Informational messages from server are shown in output textbox.
+- Only sending start game command when wizard is finished, not when it is
+  cancelled.
 
 2001-05-03
 ----------

@@ -17,6 +17,7 @@ Q_OBJECT
 		
 	signals:
 		void msgError(QString);
+		void msgInfo(QString);
 		void msgStartGame(QString);
 		void fetchedGameList(QDomNode);
 		void msgPlayerList(QDomNode);

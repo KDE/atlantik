@@ -24,6 +24,7 @@ class KMonop : public KTMainWindow
 	public slots:
 		void slotNewGame();
 		void slotMsgError(QString);
+		void slotMsgInfo(QString);
 		void slotMsgStartGame(QString);
 		void slotMsgPlayerList(QDomNode);
 	

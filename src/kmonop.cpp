@@ -20,6 +20,7 @@ KMonop::KMonop (const char *name) :
 	netw = new GameNetwork(this, "network");
 
 	connect(netw, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
+	connect(netw, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(netw, SIGNAL(msgPlayerList(QDomNode)), this, SLOT(slotMsgPlayerList(QDomNode)));
 
@@ -50,9 +51,10 @@ void KMonop::slotNewGame()
 
 	wizard = new NewGameWizard(netw, this, "newgame", 1);
 	result = wizard->exec();
-	netw->writeData(".gs");
 	delete wizard;
 	wizard = 0;
+	if (result)
+		netw->writeData(".gs");
 }
 
 void KMonop::slotMsgError(QString msg)
@@ -61,12 +63,16 @@ void KMonop::slotMsgError(QString msg)
 	output->append(msg);
 }
 
+void KMonop::slotMsgInfo(QString msg)
+{
+	output->append("MONOP: ");
+	output->append(msg);
+}
+
 void KMonop::slotMsgStartGame(QString msg)
 {
 	if (wizard!=0)
 		wizard->hide();
-	else
-		cout << "wizard already gone? odd" << endl;
 		
 	output->append("START: ");
 	output->append(msg);

@@ -149,6 +149,8 @@ void SelectGame::initPage()
 	status_label->setText("Connecting to server...");
 
 	// TODO: Replace with host from select_server list
+	// TODO: Only connect when no connection is made yet, only fetch when
+	// connection is already made.
 	netw->connectToHost("localhost", 1234);
 
 	// TODO: What if connection cannot be made?

@@ -10,6 +10,8 @@ For 0.0.2
   v Game playerlist must be displayed and present an option to launch the
     game. (display works, although server code doesn't not yet inform
     regarding people leaving)
+  - Upon startgame, use playerupdate to init/update portfolios. Final
+    playerlist is already deprecated then. ;-)
 
 For 0.0.3
 ---------
