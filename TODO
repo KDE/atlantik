@@ -23,13 +23,20 @@ v Draw tokens on board at actual position.
 v Allow rolling the dice and advancing over board (without actions).
 - Move most of the dom parsing back to network.cpp and emit more specialized
   signals such as moveToken(id, pos);
-- Add die button.
+v Add die button.
 
 For 0.1.x
 ---------
 
 - Make things work. ;-)
 - Do a thorough check on pointers and memory leaks.
+- Fix token movement bugs:
+  - monopd allows new commands before we're done moving, we require a "done"
+    command and "timeout" message (in case a client is not "done" soon enough,
+    monopd should be able to issue a "well then stop playing and just set the
+    board as it should be)
+  - animation speed should depend on board size and movement distance
+  - disable roll/buy toolbar buttons depending on game status
 
 For 0.2.x
 ---------

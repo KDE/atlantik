@@ -23,8 +23,11 @@ Q_OBJECT
 		QString gameToJoin() const;
 
 	public slots:
-		void slotConnected();	
+		void slotConnected();
 		void slotFetchedGameList(QDomNode);
+
+	signals:
+		void statusChanged();
 
 	private:
 		QRadioButton *bnew, *bjoin;

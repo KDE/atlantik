@@ -53,9 +53,9 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 
 	addPage(select_game, QString("Select or create a game:"));
 	setHelpEnabled(select_game, false);
+	setNextEnabled(select_game, false);
 
-	connect(netw, SIGNAL(connected()), select_game, SLOT(slotConnected()));
-	connect(netw, SIGNAL(fetchedGameList(QDomNode)), select_game, SLOT(slotFetchedGameList(QDomNode)));
+	connect(select_game, SIGNAL(statusChanged()), this, SLOT(slotValidateNext()));
 
 	// Configure game page
 	configure_game = new ConfigureGame(netw, this, "configure_game");
@@ -110,6 +110,8 @@ void NewGameWizard::slotInit(const QString &_name)
 SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)
 {
 	netw = _nw;
+	connect(netw, SIGNAL(connected()), this, SLOT(slotConnected()));
+	connect(netw, SIGNAL(fetchedGameList(QDomNode)), this, SLOT(slotFetchedGameList(QDomNode)));
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	CHECK_PTR(layout);
@@ -119,15 +121,18 @@ SelectGame::SelectGame(GameNetwork *_nw, QWidget *parent, const char *name) : QW
 
 	bnew = new QRadioButton(QString("Create a new game"), bgroup, "bnew");
 	bnew->setChecked(true);
+	bnew->setEnabled(false);
 	connect(bnew, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 
 	bjoin = new QRadioButton(QString("Join a game"), bgroup, "bjoin");
 	bjoin->setChecked(false);
+	bjoin->setEnabled(false);
 	connect(bjoin, SIGNAL(stateChanged(int)), parent, SLOT(slotValidateNext()));
 	
 	layout->addWidget(bgroup);
 
 	list = new QListView(this);
+	list->setEnabled(false);
 
 	list->addColumn(QString("Id"));
 	list->addColumn(QString("Players"));
@@ -180,6 +185,7 @@ QString SelectGame::gameToJoin() const
 void SelectGame::slotConnected()
 {
 	status_label->setText(QString("Connected. Fetching list of games..."));
+	bnew->setEnabled(true);
 }
 
 void SelectGame::slotFetchedGameList(QDomNode gamelist)
@@ -205,6 +211,16 @@ void SelectGame::slotFetchedGameList(QDomNode gamelist)
 	}
 
 	status_label->setText(QString("Fetched list of games."));
+	if (list->childCount() > 0)
+	{
+		bjoin->setEnabled(true);
+		list->setEnabled(true);
+	}
+	else
+	{
+		bjoin->setEnabled(false);
+		list->setEnabled(false);
+	}
 }
 
 ConfigureGame::ConfigureGame(GameNetwork *_nw, QWidget *parent, const char *name) : QWidget(parent, name)

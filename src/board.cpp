@@ -1,6 +1,9 @@
 #include <qlayout.h>
 #include <qpainter.h>
 
+#warning remove
+#include <iostream.h>
+
 #include "board.moc"
 #include "estateview.h"
 
@@ -13,6 +16,15 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 
 	setMinimumWidth(160);
 	setMinimumHeight(160);
+
+	// Timer for token movement
+	qtimer = new QTimer(this);
+	connect(qtimer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
+	resume_timer = false;
+
+	// Timer to reinit the gameboard _after_ resizeEvent
+	qtimer_resize =  new QTimer(this);
+	connect(qtimer_resize, SIGNAL(timeout()), this, SLOT(slotResizeAftermath()));
 
 	QGridLayout *layout = new QGridLayout(this, 25, 25);
 
@@ -84,8 +96,92 @@ KMonopBoard::KMonopBoard(GameNetwork *_nw, QWidget *parent, const char *name) : 
 		token[i]=0;
 }
 
+void KMonopBoard::jumpToken(Token *token, int to)
+{
+	int x=0, y=0;
+	
+	x = estate[to]->geometry().center().x() - (token->width()/2);
+	y = estate[to]->geometry().center().y() - (token->height()/2);
+
+	token->setLocation(to);
+	token->setGeometry(x, y, token->width(), token->height());
+}
+
+void KMonopBoard::moveToken(Token *token, int dest)
+{
+	cout << "moving piece from " << token->location() << " to " << dest << endl;
+
+	// Set token destination
+	move_token = token;
+	move_token->setDestination(dest);
+
+	// Start timer
+	qtimer->start(10);
+}
+
+void KMonopBoard::slotMoveToken()
+{
+	int dest;
+	int destX,destY,curX,curY;
+
+	// Do we actually have a token to move?
+	if (move_token==0)
+		return;
+
+	// Where are we?
+	curX = move_token->geometry().x();
+	curY = move_token->geometry().y();
+	cout << "we are at " << curX << "," << curY << endl;
+
+	// Where do we want to go today?
+	dest = move_token->location() + 1;
+	if (dest==40)
+		dest = 0;
+	cout << "going from " << move_token->location() << " to " << dest << endl;
+
+	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
+	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
+	cout << "going to " << destX << "," << destY << endl;
+
+	if (curX == destX && curY == destY)
+	{
+		// We have arrived at our destination!
+		move_token->setLocation(dest);
+
+		if (move_token->destination() == move_token->location())
+		{
+			// We have arrived at our _final_ destination!
+			qtimer->stop();
+		}
+		return;
+	}
+
+	if (curX!=destX)
+	{
+		if (destX > curX)
+			move_token->setGeometry(curX+1, curY, move_token->width(), move_token->height());
+		else
+			move_token->setGeometry(curX-1, curY, move_token->width(), move_token->height());
+	}
+	if (curY!=destY)
+	{
+		if (destY > curY)
+			move_token->setGeometry(curX, curY+1, move_token->width(), move_token->height());
+		else
+			move_token->setGeometry(curX, curY-1, move_token->width(), move_token->height());
+	}
+}
+
 void KMonopBoard::resizeEvent(QResizeEvent *e)
 {
+	// Stop moving tokens, slotResizeAftermath will re-enable this
+	if (qtimer!=0 && qtimer->isActive())
+	{
+		qtimer->stop();
+		resume_timer=true;
+	}
+
+	// Adjust spacer to make sure board stays a square
 	int q = e->size().width() - e->size().height();
 	if (q > 0)
 	{
@@ -96,6 +192,36 @@ void KMonopBoard::resizeEvent(QResizeEvent *e)
 	{
 		QSize s(0, -q);
 		spacer->setFixedSize(s);
+	}
+
+	// Make sure we enter slotResizeAftermath
+	if (qtimer_resize!=0 && !qtimer->isActive())
+		qtimer_resize->start(0);
+}
+
+void KMonopBoard::slotResizeAftermath()
+{
+	// Move tokens back to their last known location (this has to be done
+	// _after_ resizeEvent has returned to make sure we have the correct
+	// adjusted estate geometries.
+
+	for(int i=0;i<MAXPLAYERS;i++)
+	{
+		if (token[i]!=0)
+		{
+			jumpToken(token[i], token[i]->location());
+		}
+	}
+
+	// Stop resize timer
+	if (qtimer_resize!=0 && qtimer->isActive())
+		qtimer_resize->stop();
+
+	// Restart the timer that was stopped in resizeEvent
+	if (resume_timer && qtimer!=0 && !qtimer->isActive())
+	{
+		qtimer->start(10);
+		resume_timer=false;
 	}
 }
 
@@ -120,19 +246,15 @@ void KMonopBoard::slotMsgPlayerUpdate(QDomNode n)
 		{
 			if(token[id]==0)
 			{
-				token[id] = new Token(a_id.value(), estate[0], "token");
-				token[id]->setGeometry(id*3, id*3, token[id]->width(), token[id]->height());
+				token[id] = new Token(a_id.value(), this, "token");
+				jumpToken(token[id], 0);
 				token[id]->show();
 			}
 
 			a_location = e.attributeNode(QString("location"));
-			if (!a_location.isNull())
-			{
-				delete token[id];
-				token[id] = new Token(a_id.value(), estate[a_location.value().toInt()], "token");
-				token[id]->setGeometry(id*3, id*3, token[id]->width(), token[id]->height());
-				token[id]->show();
-			}
+			// Only move when location has changed
+			if (!a_location.isNull() && token[id]->location()!=a_location.value().toInt())
+				moveToken(token[id], a_location.value().toInt());
 		}
 	}
 }

@@ -8,6 +8,11 @@ class Token : public QWidget
 {
 	public:
 		Token (QString, QWidget *parent, const char *name = 0);
+		void setLocation(int);
+		int location();
+		void setDestination(int);
+		int destination();
+		void moveTo(int);
 
 	protected:
 		void paintEvent(QPaintEvent *);
@@ -17,6 +22,7 @@ class Token : public QWidget
 		bool b_recreate;
 		QPixmap *qpixmap;
 		QString myId;
+		int myLoc, myDest;
 };
 
 #endif
