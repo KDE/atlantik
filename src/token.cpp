@@ -1,7 +1,7 @@
 #include <qpainter.h>
 #include <qfont.h>
 
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include "token.h"
 

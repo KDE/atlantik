@@ -5,7 +5,7 @@
 #include <qlayout.h>
 #include <qtextview.h>
 
-#include <ktmainwindow.h>
+#include <kmainwindow.h>
 #include <kaction.h>
 
 #include "configdlg.h"
@@ -20,16 +20,16 @@
  *
  * @author Rob Kaper <cap@capsi.com>
  */
-class Atlantik : public KTMainWindow
+class Atlantik : public KMainWindow
 {
 Q_OBJECT
 	
 public:
 	/**
-	 * Create a Atlantik window.
+	 * Create an Atlantik window.
 	 *
 	 */
-	Atlantik(const char *name=0);
+	Atlantik();
 
 	/**
 	 * Read the configuration settings using KConfig.

@@ -6,7 +6,7 @@
 #include <qcursor.h>
 
 #include <kpixmapeffect.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <kpopupmenu.h>
 #include <klocale.h>
 

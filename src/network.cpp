@@ -138,6 +138,8 @@ void GameNetwork::slotRead()
 	while(canReadLine())
 		processMsg(readLine());
 
+	// Maximum message size. Messages won't get bigger than 32k anyway, so
+	// if we didn't receive a newline by now, we probably won't anyway.
 	if (bytesAvailable() > (1024 * 32))
 		flush();
 }
@@ -317,7 +319,7 @@ void GameNetwork::processNode(QDomNode n)
 					while(!n_player.isNull())
 					{
 						QDomElement e_player = n_player.toElement();
-						if (!e_player.isNull() && e_player.tagName() == "player")
+						if (!e_player.isNull() && e_player.tagName() == "tradeplayer")
 							emit msgTradeUpdatePlayerAdd(tradeid, e_player.attributeNode(QString("playerid")).value().toInt());
 						n_player = n_player.nextSibling();
 					}
@@ -330,7 +332,7 @@ void GameNetwork::processNode(QDomNode n)
 						QDomElement e_child = n_child.toElement();
 						if (!e_child.isNull())
 						{
-							if (e_child.tagName() == "player")
+							if (e_child.tagName() == "tradeplayer")
 							{
 								a = e.attributeNode(QString("playerid"));
 								if (!a.isNull())
@@ -346,7 +348,7 @@ void GameNetwork::processNode(QDomNode n)
 										emit msgTradeUpdatePlayerMoney(tradeid, playerid, a.value().toInt());
 								}
 							}
-							else if (e_child.tagName() == "estate")
+							else if (e_child.tagName() == "tradeestate")
 							{
 								a = e.attributeNode(QString("estateid"));
 								if (!a.isNull())

@@ -1,7 +1,7 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocale.h>
-#include <kapp.h>
+#include <kapplication.h>
 
 #include "main.h"
 #include "config.h"

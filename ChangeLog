@@ -1,16 +1,22 @@
-2001-09-04 (cap)
+2001-10-05 (kaper)
+----------
+
+- Qt3 updates.
+- Small monopd API updates.
+
+2001-09-04 (kaper)
 ----------
 
 - Been a while since the last update, due to the renaming to Atlantik (now
   mostly taken care of, thus this entry), new game concept (in progress) and
   my vacation to San Francisco (unfortunately no longer in progress).
 
-2001-08-06 (cap)
+2001-08-06 (kaper)
 ----------
 
 - Monopigator works! :-)
 
-2001-07-30 (cap)
+2001-07-30 (kaper)
 ----------
 
 - Estateupdate visual update fixes.
@@ -20,13 +26,13 @@
 - Token confirmation disabled for jumpToken when resizing gameboard or after
   directmove instrution from server.
 
-2001-07-19 (cap)
+2001-07-19 (kaper)
 ----------
 
 - Network interface for trades completed, all commands and signals are in
   place.
 
-2001-07-17 (cap)
+2001-07-17 (kaper)
 ----------
 
 - Encapsulated actual monopd API commands in gameNetwork
@@ -34,7 +40,7 @@
 - RMB actions on estates only available when owned by player respresented by
   this client
 
-2001-07-16 (cap)
+2001-07-16 (kaper)
 ----------
 
 - Small bugfix connecting standard roll action to correct slot.
@@ -46,14 +52,14 @@
 
 - UI: make the SelectGame widgets respond as the user may expect them to
 
-2001-07-01 (cap)
+2001-07-01 (kaper)
 ----------
 
 - Using KStdGameAction more and more (requires kdenonbeta version for roll
   action)
 - Updated to be compatible with recent monopd API changes
 
-2001-06-29 (cap)
+2001-06-29 (kaper)
 ----------
 
 - Bugfix: when owner=-1 in estateupdate, KMonop now clears the
@@ -62,13 +68,13 @@
 - New config option to highlite unowned properties.
 - Seperated server messages from chat.
 
-2001-06-27 (cap)
+2001-06-27 (kaper)
 ----------
 
 - Updated TODO (some wishlist items, changed version roadmap)
 - Added a lot of i18n strings!
 
-2001-06-26 (cap)
+2001-06-26 (kaper)
 ----------
 
 - New config option: mortgaged properties can be grayed out on the gameboard
@@ -77,19 +83,19 @@
   actions
 - Added luxury tax and community chest icons.
  
-2001-06-24 (cap)
+2001-06-24 (kaper)
 ----------
 
 - Server port no longer hardcoded, added extra default server (running
   monopd CVS).
 - Game board visualization of houses and hotels!
 
-2001-06-21 (cap)
+2001-06-21 (kaper)
 ----------
 
 - Network code parses <estateupdate> attribs houses and mortgaged.
 
-2001-06-19 (cap)
+2001-06-19 (kaper)
 ----------
 
 - Added "end turn" button.
@@ -97,12 +103,12 @@
 - Added playername to config dialog.
 - Updated parsing of <updateplayerlist> changes in monopd.
 
-2001-06-17 (cap)
+2001-06-17 (kaper)
 ----------
 
 - Upgraded version to pre-0.2.0
 
-2001-06-17 (cap) (0.1.0 release)
+2001-06-17 (kaper) (0.1.0 release)
 ----------
 
 - Happy birthday Katy. Love, Rob.

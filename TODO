@@ -96,22 +96,22 @@ For 0.9.x
 ---------
 
 - Beta series.
-- Move to kdegames during 2.3 development and prepare for 1.0.0 release for
-  2.3 final.
+- Move to kdegames during 3.0/3.1 alpha's and prepare for 1.0.0 release for
+  3.0/3.1 final.
 
 For 1.0.0
 ---------
 
 - Have a game suitable for inclusion in kdegames. Nice icons, stable code,
   etcetera.
-- Version 1.0.0 should be released with KDE 2.3, so after the last 2.3 beta
-  Atlantik version will be moved from 0.9.x to 1.0.0.
+- Version 1.0.0 should be released with KDE 3.0 or 3.1, so after the last
+  beta Atlantik version will be moved from 0.9.x to 1.0.0.
 
 For 1.x.y
 ---------
 
-- See mailinglist. It is unlikely that themes (Star Wars, etc) will be
-  supported for 1.0, but other more advanced options such as game
-  configuration etcetera should be present. These items are not a
-  requirement for inclusion in kdegames, but the 1.0 release should be
+- See mailinglist. It is unlikely that themes (Star Trek/Wars, Kiki Dunst,
+  Simpsons, etc) will be supported for 1.0, but other more advanced options
+  such as game configuration etcetera should be present. These items are not
+  a requirement for inclusion in kdegames, but the 1.0 release should be
   up-to-par with the original Windows version of the game.

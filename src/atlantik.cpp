@@ -5,7 +5,7 @@
 
 #include <kstdaction.h>
 #include <ktoolbar.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 
 #include "atlantik.moc"
@@ -13,16 +13,17 @@
 
 extern AtlantikConfig atlantikConfig;
 
-Atlantik::Atlantik (const char *name) :
-  KTMainWindow (name)
+Atlantik::Atlantik () :
+  KMainWindow ()
 {
+	// Read application configuration
 	readConfig();
 
-	// Game actions
+	// Toolbar: Game
 	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
-	// Toolbar actions
+	// Toolbar: Move
 	m_roll = KStdGameAction::roll(this, SLOT(slotRoll()), actionCollection()); // No Ctrl-R at the moment
 	m_roll->setEnabled(false);
 	m_buyEstate = new KAction("&Buy", "atlantik_buy_estate", CTRL+Key_B, this, SLOT(slotBuy()), actionCollection(), "buy_estate");
@@ -30,15 +31,17 @@ Atlantik::Atlantik (const char *name) :
 	m_endTurn = KStdGameAction::endTurn(this, SLOT(slotEndTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
 
-	// Settings actions
+	// Toolbar: Settings
 	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
 	m_newgameWizard = 0;
 
+	// Mix code and XML into GUI
 	createGUI();
 
+	// Network layer
 	gameNetwork = new GameNetwork(this, "gameNetwork");
 
 	connect(gameNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
@@ -51,45 +54,53 @@ Atlantik::Atlantik (const char *name) :
 	connect(gameNetwork, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(gameNetwork, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
+	// Main widget, containing all others
  	m_mainWidget = new QWidget(this, "main");
 	m_mainWidget->show();
-
 	m_mainLayout = new QGridLayout(m_mainWidget, 9, 2);
+	setCentralWidget(m_mainWidget);
 
+	// TextView for chat and status messages from server.
 	m_serverMsgs = new QTextView(m_mainWidget, "serverMsgs");
 	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
 	m_serverMsgs->setFixedWidth(225);
+	m_mainLayout->addWidget(m_serverMsgs, 6, 0);
 
+	// LineEdit to enter commands and chat messages.
 	m_input = new QLineEdit(m_mainWidget, "input");
 	connect(m_input, SIGNAL(returnPressed()), this, SLOT(slotSendMsg()));
-
-	m_board = new AtlantikBoard(m_mainWidget, "board");
-
-	m_mainLayout->addWidget(m_serverMsgs, 6, 0);
 	m_mainLayout->addWidget(m_input, 7, 0);
-	m_mainLayout->addMultiCellWidget(m_board, 0, 7, 1, 1);
-	m_mainLayout->setRowStretch(6, 1); // make m_board+m_serverMsgs stretch, not the rest
-	m_mainLayout->setColStretch(1, 1); // make m_board stretch, not the rest
 
+	// The actual gameboard.
+	m_board = new AtlantikBoard(m_mainWidget, "board");
+	m_mainLayout->addMultiCellWidget(m_board, 0, 7, 1, 1);
+
+	m_mainLayout->setRowStretch(6, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
+	m_mainLayout->setColStretch(1, 1); // make m_board stretch horizontally, not the rest
+
+	// Regarding our game connection. TODO: Possibly move to gameNetwork,
+	// since it's related to our current connection.
 	m_myPlayerId = -1;
 
+	// Initialize portfolioviews. TODO: Make a nice vertical layout where we can add them dynamically.
 	for(int i=0;i<MAXPLAYERS;i++)
 	{
 		m_portfolioArray[i] = new PortfolioView(m_mainWidget);
 		m_mainLayout->addWidget(m_portfolioArray[i], i, 0);
 		m_portfolioArray[i]->hide();
 	}
-
-	setView(m_mainWidget);
 }
 
 void Atlantik::readConfig()
 {
+	// Read configuration settings
 	KConfig *config=kapp->config();
 
+	// Personalization configuration
 	config->setGroup("Personalization");
 	atlantikConfig.playerName = config->readEntry("PlayerName", "Atlantik");
 
+	// Board configuration
 	config->setGroup("Board");
 	atlantikConfig.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
 	atlantikConfig.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
@@ -100,10 +111,8 @@ void Atlantik::readConfig()
 
 void Atlantik::slotNewGame()
 {
-	int result;
-
 	m_newgameWizard = new NewGameWizard(this, "newgame", 1);
-	result = m_newgameWizard->exec();
+	int result = m_newgameWizard->exec();
 	delete m_newgameWizard;
 	m_newgameWizard = 0;
 	if (result)
