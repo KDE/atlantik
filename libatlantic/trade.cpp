@@ -31,7 +31,7 @@ void Trade::setRevision(int revision)
 	m_revision = revision;
 }
 
-int Trade::revision()
+int Trade::revision() const
 {
 	return m_revision;
 }

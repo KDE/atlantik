@@ -102,7 +102,7 @@ public:
 	int tradeId() { return m_tradeId; }
 
 	void setRevision(int revision);
-	int revision();
+	int revision() const;
 
 	void addPlayer(Player *player);
 	void removePlayer(Player *player);
