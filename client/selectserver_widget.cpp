@@ -115,7 +115,7 @@ void SelectServer::initMonopigator()
 	emit msgStatus(i18n("Retrieving server list..."));
 
 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
-	m_monopigator->loadData(KURL( "http://gator.monopd.net/"));
+	m_monopigator->loadData(KURL( "http://monopd.unixcode.org/"));
 }
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
