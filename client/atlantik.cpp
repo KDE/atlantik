@@ -214,7 +214,8 @@ void Atlantik::removeGUI(Player *player)
 	if (portfolioView)
 		m_portfolioViews.remove(portfolioView);
 
-	// TODO: Remove tokens from board
+	if (m_board)
+		m_board->removeToken(player);
 }
 
 void Atlantik::removeGUI(Trade *trade)
