@@ -14,17 +14,17 @@ public:
 	int playerId() { return m_playerId; }
 
 	void setLocation(const int estateId);
-	const int location() { return m_location; }
+	int location() const { return m_location; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
-	const bool isSelf() { return m_isSelf; }
+	bool isSelf() const { return m_isSelf; }
 	void setHasTurn(const bool hasTurn);
-	const bool hasTurn() { return m_hasTurn; }
+	bool hasTurn() const { return m_hasTurn; }
 	void setInJail(const bool inJail);
-	const bool inJail() { return m_inJail; }
+	bool inJail() const { return m_inJail; }
 	void setName(const QString _n);
-	const QString name() { return m_name; }
+	QString name() const { return m_name; }
 	void setMoney(const QString _m);
-	const QString money() { return m_money; }
+	QString money() const { return m_money; }
 	void update(bool force = false);
 
 signals:

@@ -11,31 +11,31 @@ Q_OBJECT
 
 public:
 	Estate(int estateId);
-	const int estateId() { return m_estateId; }
+	int estateId() const { return m_estateId; }
 	void setGroupId(const int groupId);
-	const int groupId() { return m_groupId; }
+	int groupId() const { return m_groupId; }
 	void setName(const QString name);
-	const QString name() { return m_name; }
+	QString name() const { return m_name; }
 	void setOwner(Player *player);
-	const bool isOwned();
-	const bool isOwnedBySelf();
+	bool isOwned() const;
+	bool isOwnedBySelf() const;
 	Player *owner() { return m_owner; }
 	void setHouses(unsigned int houses);
 	unsigned int houses() { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);
-	const bool canBeOwned() { return m_canBeOwned; }
+	bool canBeOwned() const { return m_canBeOwned; }
 	void setCanBuyHouses(const bool canBuyHouses);
-	const bool canBuyHouses() { return m_canBuyHouses; }
+	bool canBuyHouses() const { return m_canBuyHouses; }
 	void setCanSellHouses(const bool canSellHouses);
-	const bool canSellHouses() { return m_canSellHouses; }
+	bool canSellHouses() const { return m_canSellHouses; }
 	void setIsMortgaged(const bool isMortgaged);
-	const bool isMortgaged() { return m_isMortgaged; }
+	bool isMortgaged() const { return m_isMortgaged; }
 	void setCanToggleMortgage(const bool canToggleMortgage);
-	const bool canToggleMortgage() { return m_canToggleMortgage; }
+	bool canToggleMortgage() const { return m_canToggleMortgage; }
 	void setColor(const QColor color);
-	const QColor color() { return m_color; }
+	QColor color() const { return m_color; }
 	void setBgColor(const QColor color);
-	const QColor bgColor() { return m_bgColor; }
+	QColor bgColor() const { return m_bgColor; }
 	void update(bool force = false);
 
 signals:

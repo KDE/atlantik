@@ -28,7 +28,7 @@ void Estate::setOwner(Player *player)
 		m_changed = true;
 	}
 }
-const bool Estate::isOwned()
+bool Estate::isOwned() const
 {
 	if (m_owner)
 		return true;
@@ -36,7 +36,7 @@ const bool Estate::isOwned()
 		return false;
 }
 
-const bool Estate::isOwnedBySelf()
+bool Estate::isOwnedBySelf() const
 {
 	if (m_owner && m_owner->isSelf())
 		return true;

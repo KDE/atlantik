@@ -13,9 +13,9 @@ Q_OBJECT
 	public:
 		Token (Player *player, QWidget *parent, const char *name = 0);
 		void setLocation(int location) { m_location = location; }
-		const int location() { return m_location; }
+		int location() const { return m_location; }
 		void setDestination(int destination) { m_destination = destination; }
-		const int destination() { return m_destination; }
+		int destination() const { return m_destination; }
 
 	private slots:
 		void playerChanged();
