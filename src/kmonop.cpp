@@ -11,26 +11,6 @@
 #include "board.h"
 #include "newgamedlg.h"
 
-/*
-#include <qlabel.h>
-
-#include <qcolor.h>
-#include <qimage.h>
-#include <qpainter.h>
-
-#include <qtextview.h>
-
-#include <iostream.h> // cout etc
-
-#include <qcstring.h>
-#include <qsocket.h>
-
-#include <kstdaccel.h>
-#include <kiconloader.h>
-#include <kmenubar.h>
-
-*/
-
 KMonop::KMonop (const char *name) :
   KTMainWindow (name)
 {
@@ -54,26 +34,17 @@ KMonop::KMonop (const char *name) :
   KMonopBoard *board = new KMonopBoard(main, "board");
   layout->addWidget(port, 0, 0);
   layout->addWidget(port2, 1, 0);
-//  layout->addWidget(output, 3, 1);
   layout->addWidget(output, 2, 0);
-  layout->addMultiCellWidget(board, 0, 2, 1, 1);
-  layout->setRowStretch(2, 1); // make board stretch, not the rest
+  layout->addMultiCellWidget(board, 0, 3, 1, 1);
+  layout->setRowStretch(2, 1); // make board+output stretch, not the rest
   layout->setColStretch(1, 1); // make board stretch, not the rest
-  layout->addMultiCellWidget(server, 4, 4, 0, 1);
-  statusBar()->message ("KMonop v0.0.1");
+  layout->addWidget(server, 3, 0);
 //  sock = new QSocket(this, "mysock");
 //  sock->connectToHost("localhost", 1234);
 //  connect(sock, SIGNAL(connected()), this, SLOT(slotConnected()));
 //  connect(sock, SIGNAL(readyRead()), this, SLOT(slotRead()));
 //  connect(server, SIGNAL(returnPressed()), this, SLOT(slotWrite()));
-// setBaseSize(port->width()+board->width(),board->height());
-// setSizeIncrement(24,24);
   setView(main);
-  
-//  setMinimumWidth(800);
-//  setMinimumHeight(600);
-//  setMaximumWidth(800);
-//  setMaximumHeight(600);
 }
 
 void KMonop::slotConnected()
@@ -112,10 +83,4 @@ void KMonop::slotNewGame()
 	int result;
 	NewGameWizard wizard(this, "newgame", 1);
 	result = wizard.exec();
-}
-
-void KMonop::slotCloseNewGameDlg()
-{
-//	delete ngd;
-//	ngd = NULL;
 }

@@ -17,12 +17,10 @@ class KMonop : public KTMainWindow
 		KMonop(const char *name=0);
 		
 	public slots:
-//		void slotRepositionText();
 		void slotConnected();
 		void slotRead();
 		void slotWrite();
 		void slotNewGame();
-		void slotCloseNewGameDlg();
 	
 	private:
 		QSocket *sock;
