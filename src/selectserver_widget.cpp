@@ -36,6 +36,7 @@ SelectServer::SelectServer(QWidget *parent, const char *name) : QWidget(parent, 
 
 	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
 //	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(slotListClicked(QListViewItem *)));
+	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectPressed()));
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 

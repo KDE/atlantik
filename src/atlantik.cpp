@@ -306,7 +306,6 @@ void Atlantik::slotMsgEstateUpdateName(int estateId, QString name)
 
 void Atlantik::slotMsgEstateUpdateBackgroundColor(int estateId, QString color)
 {
-	cout << "setting estate color" << endl;
 	if (Estate *estate = estateMap[estateId])
 		estate->setBgColor(QColor(color));
 }
@@ -383,7 +382,6 @@ void Atlantik::slotPlayerInit(int playerid)
 		PortfolioView *fpv = new PortfolioView(player, m_portfolioWidget);
 		m_portfolioLayout->addWidget(fpv);
 		fpv->show();
-		cout << "player init'ed" << endl;
 	}
 }
 
@@ -397,7 +395,6 @@ void Atlantik::slotEstateInit(int estateId)
 		estateMap[estateId] = estate;
 
 		m_board->addEstateView(estate);
-		cout << "estate init'ed" << endl;
 	}
 }
 
