@@ -41,6 +41,7 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore) : KExtendedSocket(0
 	m_textStream = new QTextStream(this);
 	m_textStream->setCodec(QTextCodec::codecForName("utf8"));
 	m_playerId = -1;
+	m_serverVersion = "";
 
 	QObject::connect(this, SIGNAL(readyRead()), this, SLOT(slotRead()));
 	QObject::connect(this, SIGNAL(lookupFinished(int)),
@@ -250,7 +251,13 @@ void AtlantikNetwork::processNode(QDomNode n)
 		if(!e.isNull())
 		{
 			if (e.tagName() == "server")
+			{
+				a = e.attributeNode( QString("version") );
+				if ( !a.isNull() )
+					m_serverVersion = a.value();
+
 				emit receivedHandshake();
+			}
 			else if (e.tagName() == "msg")
 			{
 				a = e.attributeNode(QString("type"));
@@ -412,7 +419,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 					}
 
 					QString status = e.attributeNode(QString("status")).value();
-					if ( playerSelf && playerSelf->game() == game )
+					if ( m_serverVersion.left(4) == "0.9." || (playerSelf && playerSelf->game() == game) )
 					{
 						if (status == "config")
 							emit gameConfig();

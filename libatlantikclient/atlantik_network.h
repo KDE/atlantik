@@ -146,6 +146,7 @@ private:
 	QTextStream *m_textStream;
 
 	int m_playerId;
+	QString m_serverVersion;
 
 	QMap<Player *, int> m_playerLocationMap;
 	QMap<int, Auction *> m_auctions;
