@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 	aboutData.addAuthor("Jason Katz-Brown", I18N_NOOP("gameboard designer"), "jason@katzbrown.com", "http://katzbrown.com/");
 
 	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
+	aboutData.addCredit("Carlo Caneva", I18N_NOOP("various icons"), "webmaster@molecola.com", "http://www.molecola.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
 
