@@ -20,7 +20,6 @@ Bugfixes
 For 0.6.0
 ---------
 
-v leaving a game and starting a new game correctly reinits atlanticCore
 v seperation of display msgs from chat window
 v Token should not have to know about EstateView, views could be independent
 v support for custom tokens
