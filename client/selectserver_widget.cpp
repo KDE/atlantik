@@ -49,9 +49,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, QWidget *parent, const ch
 	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
-	m_mainLayout->addItem(buttonBox);
-
+	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	// Add Server
