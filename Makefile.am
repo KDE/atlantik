@@ -18,7 +18,7 @@ rcdir = $(kde_datadir)/atlantik
 rc_DATA = atlantikui.rc
 
 messages: rc.cpp
-	$(XGETTEXT) rc.cpp src/*.cpp -o $(podir)/atlantik.pot
+	$(XGETTEXT) `find . -name '*.cpp'` -o $(podir)/atlantik.pot
 
 install-data-local:
-	rm -rf $(kde_appsdir)/Games/Board/kmonop.desktop
+	rm -f $(kde_appsdir)/Games/Board/kmonop.desktop
