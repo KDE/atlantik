@@ -339,6 +339,9 @@ void Atlantik::showSelectConfiguration()
 	if (m_selectConfiguration)
 		return;
 
+	if ( ! ( m_atlanticCore && m_atlanticCore->playerSelf() && m_atlanticCore->gameSelf() ) )
+		return;
+
 	if (m_selectGame)
 	{
 		delete m_selectGame;
