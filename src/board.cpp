@@ -160,8 +160,8 @@ void KMonopBoard::slotMoveToken()
 		dest = 0;
 	cout << "going from " << move_token->location() << " to " << dest << endl;
 
-	destX = (estate[dest]->width() - move_token->width()) / 2;
-	destY = (estate[dest]->height() - move_token->height()) / 2;
+	destX = estate[dest]->geometry().center().x() - (move_token->width()/2);
+	destY = estate[dest]->geometry().center().y() - (move_token->height()/2);
 	cout << "going to " << destX << "," << destY << endl;
 
 	if (curX == destX && curY == destY)
