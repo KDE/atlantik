@@ -1,6 +1,12 @@
 2001-05-27
 ----------
 
+- Moved some of the XML parsing code back to GameNetwork::processNode
+- Changed version (back.. ssht!) to pre-0.0.2
+
+2001-05-27
+----------
+
 - Visual feedback showing who's turn it is
 - Roll/buy buttons only enabled during turn
 - Tagged 0.0.1 release

@@ -1,3 +1,4 @@
+#warning remove iostream output
 #include <iostream.h>
 
 #include "network.moc"
@@ -75,11 +76,28 @@ void GameNetwork::processNode(QDomNode n)
 				emit setTurn(player);
 			}
 			else if (e.tagName() == "playerlist")
-				emit msgPlayerList(e);
+			{
+				emit clearPlayerList();
+
+				QDomNode n_player = n.firstChild();
+				while(!n_player.isNull())
+				{
+					QDomElement e_player = n_player.toElement();
+					if (!e_player.isNull() && e_player.tagName() == "player")
+					{
+						emit addToPlayerList(e_player.attributeNode(QString("name")).value(), e_player.attributeNode(QString("host")).value());
+					}
+					n_player = n_player.nextSibling();
+				}
+			}
 			else if (e.tagName() == "playerupdate")
 				emit msgPlayerUpdate(e);
 			else if (e.tagName() == "estateupdate")
-				emit msgEstateUpdate(e);
+			{
+				int id = e.attributeNode(QString("id")).value().toInt();
+				int owner = e.attributeNode(QString("owner")).value().toInt();
+				emit msgEstateUpdate(id, owner);
+			}
 		}
 		QDomNode node = n.firstChild();
 		processNode(node);

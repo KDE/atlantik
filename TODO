@@ -8,12 +8,12 @@ For 0.0.2
   v Game playerlist must be displayed and present an option to launch the
     game. (display works, although server code doesn't not yet inform
     regarding people leaving)
+    - playerlist --> playerlistupdate, three types "add,del,full"
+    - same for gamelistupdate
+    - remove 'refresh' button
+    - slotClear, slotBeginUpdate, slotAdd, slotDel, slotEndUpdate
   v Upon startgame, use playerupdate to init/update portfolios. Final
     playerlist is already deprecated then. ;-)
-
-For 0.0.3
----------
-
 - Fetch (default) game data from server (streetnames).
 - Move most of the dom parsing back to network.cpp and emit more specialized
   signals such as moveToken(id, pos);

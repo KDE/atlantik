@@ -2,7 +2,7 @@
 #include <qpainter.h>
 #include <qtimer.h>
 
-#warning remove
+#warning remove iostream output
 #include <iostream.h>
 
 #include "estateview.h"

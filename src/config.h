@@ -2,6 +2,6 @@
 #define __KMONOP_CONFIG_H__
 
 #define	MAXPLAYERS	6
-#define VERSION		"0.0.1"
+#define VERSION		"pre-0.0.2"
 
 #endif

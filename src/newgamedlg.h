@@ -3,6 +3,7 @@
 
 #include <qlistview.h>
 #include <qstring.h>
+#warning move all qdom code to GameNetwork
 #include <qdom.h>
 #include <qradiobutton.h>
 #include <qpushbutton.h>
@@ -73,7 +74,8 @@ Q_OBJECT
 		bool validateNext();
 
 	public slots:
-		void slotFetchedPlayerList(QDomNode);
+		void slotClearPlayerList();
+		void slotAddToPlayerList(QString, QString);
 
 	signals:
 		void playerListChanged();

@@ -4,6 +4,7 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtextview.h>
+#warning move all qdom code to GameNetwork
 #include <qdom.h>
 
 #include <ktmainwindow.h>
@@ -34,11 +35,13 @@ class KMonop : public KTMainWindow
 		void slotMsgInfo(QString);
 		void slotMsgStartGame(QString);
 		void slotMsgPlayerUpdate(QDomNode);
-		void slotMsgEstateUpdate(QDomNode);
+		void slotMsgEstateUpdate(int, int);
 		void slotSetPlayerId(int);
 		void slotSetTurn(int);
 	
 	private:
+		void outputAppend(QString);
+
 		QWidget *main;
 		QLineEdit *input;
 		QGridLayout *layout;

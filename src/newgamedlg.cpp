@@ -1,4 +1,5 @@
 #include <qlayout.h>
+#warning remove iostream output
 #include <iostream.h>
 #include <qlabel.h>
 #include <qvbuttongroup.h>
@@ -33,7 +34,8 @@ NewGameWizard::NewGameWizard(GameNetwork *_nw, QWidget *parent, const char *name
 	// Configure game page
 	configure_game = new ConfigureGame(netw, this, "configure_game");
 	configure_game->setGameId(select_game->gameToJoin());
-	connect(netw, SIGNAL(msgPlayerList(QDomNode)), configure_game, SLOT(slotFetchedPlayerList(QDomNode)));
+	connect(netw, SIGNAL(clearPlayerList()), configure_game, SLOT(slotClearPlayerList()));
+	connect(netw, SIGNAL(addToPlayerList(QString, QString)), configure_game, SLOT(slotAddToPlayerList(QString, QString)));
 
 	addPage(configure_game, QString("Game configuration and list of players"));
 	setHelpEnabled(configure_game, false);
@@ -302,27 +304,15 @@ void ConfigureGame::setGameId(const QString &_id)
 	game_id = _id;
 }
 
-void ConfigureGame::slotFetchedPlayerList(QDomNode playerlist)
+void ConfigureGame::slotClearPlayerList()
 {
-	QDomAttr a;
-	QDomNode n = playerlist.firstChild();
-	QListViewItem *item;
-
 	list->clear();
+}
 
-	while(!n.isNull())
-	{
-		QDomElement e = n.toElement();
-		if(!e.isNull())
-		{
-			if (e.tagName() == "player")
-			{
-				item =  new QListViewItem(list, e.attributeNode(QString("name")).value(), e.attributeNode(QString("host")).value());
-				list->triggerUpdate();
-			}
-		}
-		n = n.nextSibling();
-	}
+void ConfigureGame::slotAddToPlayerList(QString name, QString host)
+{
+	new QListViewItem(list, name, host);
+	list->triggerUpdate();
 
 	emit playerListChanged();
 //	status_label->setText(QString("Fetched list of players."));

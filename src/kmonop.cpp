@@ -35,7 +35,7 @@ KMonop::KMonop (const char *name) :
 	connect(netw, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(netw, SIGNAL(msgStartGame(QString)), this, SLOT(slotMsgStartGame(QString)));
 	connect(netw, SIGNAL(msgPlayerUpdate(QDomNode)), this, SLOT(slotMsgPlayerUpdate(QDomNode)));
-	connect(netw, SIGNAL(msgEstateUpdate(QDomNode)), this, SLOT(slotMsgEstateUpdate(QDomNode)));
+	connect(netw, SIGNAL(msgEstateUpdate(int, int)), this, SLOT(slotMsgEstateUpdate(int, int)));
 	connect(netw, SIGNAL(setPlayerId(int)), this, SLOT(slotSetPlayerId(int)));
 	connect(netw, SIGNAL(setTurn(int)), this, SLOT(slotSetTurn(int)));
 
@@ -108,18 +108,12 @@ void KMonop::slotSendMsg()
 
 void KMonop::slotMsgError(QString msg)
 {
-	output->append("ERR: " + msg);
-	output->ensureVisible(0, output->contentsHeight());
-#warning fixed in qt 3.0
-	output->viewport()->update();
+	outputAppend("ERR: " + msg);
 }
 
 void KMonop::slotMsgInfo(QString msg)
 {
-	output->append(msg);
-	output->ensureVisible(0, output->contentsHeight());
-#warning fixed in qt 3.0
-	output->viewport()->update();
+	outputAppend(msg);
 }
 
 void KMonop::slotMsgStartGame(QString msg)
@@ -127,10 +121,7 @@ void KMonop::slotMsgStartGame(QString msg)
 	if (wizard!=0)
 		wizard->hide();
 		
-	output->append("START: " + msg);
-	output->ensureVisible(0, output->contentsHeight());
-#warning fixed in qt 3.0
-	output->viewport()->update();
+	outputAppend("START: " + msg);
 }
 
 void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
@@ -166,26 +157,16 @@ void KMonop::slotMsgPlayerUpdate(QDomNode playerupdate)
 	}
 }
 
-void KMonop::slotMsgEstateUpdate(QDomNode estateupdate)
+void KMonop::slotMsgEstateUpdate(int id, int owner)
 {
-	QDomAttr a_id, a_owner;
-	QDomElement e;
-	int id=0, owner=0;
+	// Decrease owner because array is 0-indexed
+	owner--;
 
-	e = estateupdate.toElement();
-	if(!e.isNull())
+	if (id < 40 && owner < MAXPLAYERS)
 	{
-		a_id = e.attributeNode(QString("id"));
-		a_owner = e.attributeNode(QString("owner"));
-
-		id = a_id.value().toInt();
-		owner = a_owner.value().toInt() - 1;
-		if (id < 40 && owner < MAXPLAYERS)
-		{
-			if (port[owner]!=0)
-				port[owner]->setOwned(id, true);
-			board->setOwned(id, true);
-		}
+		if (port[owner]!=0)
+			port[owner]->setOwned(id, true);
+		board->setOwned(id, true);
 	}
 }
 
@@ -216,4 +197,12 @@ void KMonop::slotSetTurn(int player)
 		if (port[i]!=0)
 			port[i]->setHasTurn(i==player ? true : false);
 	}
+}
+
+void KMonop::outputAppend(QString msg)
+{
+	output->append(msg);
+	output->ensureVisible(0, output->contentsHeight());
+#warning fixed in qt 3.0
+	output->viewport()->update();
 }

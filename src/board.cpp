@@ -1,7 +1,7 @@
 #include <qlayout.h>
 #include <qpainter.h>
 
-#warning remove
+#warning remove iostream output
 #include <iostream.h>
 
 #include "board.moc"

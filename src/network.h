@@ -20,9 +20,10 @@ Q_OBJECT
 		void msgInfo(QString);
 		void msgStartGame(QString);
 		void fetchedGameList(QDomNode);
-		void msgPlayerList(QDomNode);
+		void clearPlayerList();
+		void addToPlayerList(QString, QString);
 		void msgPlayerUpdate(QDomNode);
-		void msgEstateUpdate(QDomNode);
+		void msgEstateUpdate(int, int);
 		void setPlayerId(int);
 		void setTurn(int);
 
