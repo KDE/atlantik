@@ -118,7 +118,7 @@ public:
 	 **/
 	template <class Type> Type *select(Player *from, Player *to)
 	{
-		for (QPtrListIterator<Player> i(mPlayers()); *i; ++i)
+		for (QPtrListIterator<Player> i(mPlayers); *i; ++i)
 		{
 			if (
 					i.current()->from()==from
