@@ -1,6 +1,6 @@
 INCLUDES = -I$(top_srcdir)/atlantik/libatlantic $(all_includes)
 lib_LTLIBRARIES = libatlantikui.la
-libatlantikui_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-info 0:0:0
+libatlantikui_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-info 2:0:1
 libatlantikui_la_LIBADD = ../libatlantic/libatlantic.la $(LIB_KIO)
 
 libatlantikui_la_SOURCES = auction_widget.cpp board.cpp display_widget.cpp \
