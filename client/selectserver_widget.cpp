@@ -114,7 +114,7 @@ void SelectServer::checkLocalServer()
 
 void SelectServer::slotMonopigatorAdd(QString host, QString port, QString version, int users)
 {
-	QListViewItem *item = new QListViewItem(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
+	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, version, (users == -1) ? i18n("unknown") : QString::number(users), port);
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
 	validateConnectButton();
 }
@@ -123,9 +123,8 @@ void SelectServer::slotLocalConnected()
 {
 	m_localServerAvailable = true;
 
-	QListViewItem *item = new QListViewItem(m_serverList, "localhost", i18n("unknown"), i18n("unknown"), QString::number(1234));
+	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, "localhost", i18n("unknown"), i18n("unknown"), QString::number(1234));
 	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
-
 	validateConnectButton();
 }
 

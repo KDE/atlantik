@@ -19,6 +19,7 @@
 
 #include <qobject.h>
 #include <qbuffer.h>
+#include <qlistview.h>
 #include <qtimer.h>
 
 #include <kio/job.h>
@@ -49,6 +50,13 @@ private:
 	QBuffer *m_downloadData;
 	QTimer *m_timer;
 	KIO::Job *m_job;
+};
+
+class MonopigatorEntry : public QListViewItem
+{
+public:
+	MonopigatorEntry(QListView *parent, QString host, QString version, QString users, QString port);
+	int compare(QListViewItem *i, int col, bool ascending) const;
 };
 
 #endif

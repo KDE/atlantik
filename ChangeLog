@@ -11,6 +11,7 @@
 - disable auction/usecard menu item when not available (requires monopd >= 0.8.1)
 - make use of trade revisions (monopd >= 0.8.2 recommended)
 - don't tell game has started when it has not
+- sort user column in server list by number, not alphabetically
 
 0.5.2
 -----
