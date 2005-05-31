@@ -3,7 +3,7 @@ KDE_OPTIONS = qtonly
 INCLUDES = $(all_includes) 
 lib_LTLIBRARIES = libatlantic.la
 libatlantic_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -no-undefined -version-info 3:0:2
-libatlantic_la_LIBADD = $(LIB_QT)
+libatlantic_la_LIBADD = $(LIB_QT) -lQt3Support_debug
 
 libatlantic_la_SOURCES = atlantic_core.cpp auction.cpp configoption.cpp estate.cpp \
 	estategroup.cpp game.cpp player.cpp trade.cpp
