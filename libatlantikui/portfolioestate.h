@@ -19,6 +19,9 @@
 
 #include <qpixmap.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPaintEvent>
 
 #define PE_WIDTH	13
 #define	PE_HEIGHT	16

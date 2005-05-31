@@ -18,6 +18,10 @@
 
 #include <qpainter.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QResizeEvent>
+#include <Q3PtrList>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -101,7 +105,7 @@ void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned
 
 	// Update EstateViews
 	EstateView *estateView;
-	for (QPtrListIterator<EstateView> it(m_estateViews); *it; ++it)
+	for (Q3PtrListIterator<EstateView> it(m_estateViews); *it; ++it)
 		if ((estateView = dynamic_cast<EstateView*>(*it)))
 			estateView->setViewProperties(indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects);
 }
@@ -114,7 +118,7 @@ int AtlantikBoard::heightForWidth(int width)
 EstateView *AtlantikBoard::findEstateView(Estate *estate)
 {
 	EstateView *estateView;
-	for (QPtrListIterator<EstateView> i(m_estateViews); *i; ++i)
+	for (Q3PtrListIterator<EstateView> i(m_estateViews); *i; ++i)
 	{
 		estateView = dynamic_cast<EstateView*>(*i);
 		if (estateView && estateView->estate() == estate)
@@ -167,8 +171,8 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 	if (m_atlanticCore)
 	{
 		Player *player = 0;
-		QPtrList<Player> playerList = m_atlanticCore->players();
-		for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+		Q3PtrList<Player> playerList = m_atlanticCore->players();
+		for (Q3PtrListIterator<Player> it(playerList); (player = *it) ; ++it)
 			if (player->location() == estate)
 				addToken(player);
 	}
@@ -187,7 +191,7 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 Token *AtlantikBoard::findToken(Player *player)
 {
 	Token *token = 0;
-	for (QPtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
+	for (Q3PtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
 		if (token->player() == player)
 			return token;
 	return 0;
@@ -477,7 +481,7 @@ void AtlantikBoard::slotResizeAftermath()
 	// adjusted estate geometries.
 
 	Token *token = 0;
-	for (QPtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
+	for (Q3PtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
 		jumpToken(token);
 
 	// Restart the timer that was stopped in resizeEvent

@@ -14,11 +14,14 @@
 // the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-#include <qvgroupbox.h>
-#include <qhbox.h>
+#include <q3hbox.h>
 #include <qspinbox.h>
 #include <qlabel.h>
-
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <Q3PtrList>
+#include <Q3GroupBox>
 #include <kdebug.h>
 
 #include <kdialog.h>
@@ -47,7 +50,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	// Player list
 	Estate *estate = auction->estate();
-	m_playerGroupBox = new QVGroupBox(estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
+	m_playerGroupBox = new Q3GroupBox(1, Qt::Horizontal,estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox);
 
 	m_playerList = new KListView(m_playerGroupBox);
@@ -58,8 +61,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	KListViewItem *item;
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
-	QPtrList<Player> playerList = m_atlanticCore->players();
-	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	Q3PtrList<Player> playerList = m_atlanticCore->players();
+	for (Q3PtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ( (player = *it) && player->game() == pSelf->game() )
 		{
@@ -72,7 +75,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	}
 
 	// Bid spinbox and button
-	QHBox *bidBox = new QHBox(this);
+	Q3HBox *bidBox = new Q3HBox(this);
 	m_mainLayout->addWidget(bidBox);
 
 	m_bidSpinBox = new QSpinBox(1, 10000, 1, bidBox);
@@ -113,7 +116,7 @@ void AuctionWidget::playerChanged(Player *player)
 	if (!player)
 		return;
 
-	QListViewItem *item;
+	Q3ListViewItem *item;
 	if (!(item = m_playerItems[player]))
 		return;
 
@@ -126,7 +129,7 @@ void AuctionWidget::updateBid(Player *player, int amount)
 	if (!player)
 		return;
 
-	QListViewItem *item;
+	Q3ListViewItem *item;
 	if (!(item = m_playerItems[player]))
 		return;
 

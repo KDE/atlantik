@@ -20,10 +20,13 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include <klistview.h>
 
-class QVGroupBox;
+class Q3GroupBox;
 class QSpinBox;
 class QLabel;
 
@@ -51,7 +54,7 @@ signals:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QVGroupBox *m_playerGroupBox;
+	Q3GroupBox *m_playerGroupBox;
 	QSpinBox *m_bidSpinBox;
 	QMap<Player *, KListViewItem *> m_playerItems;
 	QLabel *m_statusLabel;

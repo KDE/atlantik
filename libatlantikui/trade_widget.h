@@ -19,11 +19,14 @@
 
 #include <qwidget.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QCloseEvent>
 #include "libatlantikui_export.h"
-
+#include <Q3GroupBox>
 class QHGroupBox;
 class QLabel;
-class QListViewItem;
+class Q3ListViewItem;
 class QSpinBox;
 
 class KListView;
@@ -58,13 +61,13 @@ private slots:
 
 	void setTypeCombo(int);
 	void setEstateCombo(int);
-	void setCombos(QListViewItem *i);
+	void setCombos(Q3ListViewItem *i);
 
 	void updateComponent();
 	void reject();
 	void accept();
 
-	void contextMenu(KListView *l, QListViewItem *i, const QPoint& p);
+	void contextMenu(KListView *l, Q3ListViewItem *i, const QPoint& p);
 	void contextMenuClicked(int item);
 
 signals:
@@ -74,7 +77,7 @@ signals:
 	void accept(Trade *trade);
 
 private:
-	QHGroupBox *m_updateComponentBox;
+	Q3GroupBox *m_updateComponentBox;
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
 	QSpinBox *m_moneyBox;
 

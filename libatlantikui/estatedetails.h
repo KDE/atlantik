@@ -18,6 +18,13 @@
 #define ATLANTIK_ESTATEDETAILS_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QResizeEvent>
+#include <QPaintEvent>
+#include <Q3PtrList>
 
 class QPixmap;
 class QString;
@@ -71,7 +78,7 @@ private:
 	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
 	QMap <QObject *, QString> m_buttonCommandMap;
-	QPtrList<KPushButton> m_buttons;
+	Q3PtrList<KPushButton> m_buttons;
 };
 
 #endif

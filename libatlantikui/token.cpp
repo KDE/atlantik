@@ -19,6 +19,9 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qfont.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QPaintEvent>
 
 #include <kdebug.h>
 
@@ -35,7 +38,7 @@
 
 Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
-	setBackgroundMode(NoBackground); // avoid flickering
+	setBackgroundMode(Qt::NoBackground); // avoid flickering
 
 	m_parentBoard = parent;
 
@@ -110,7 +113,7 @@ void Token::loadIcon()
 			m_image = new QPixmap(filename);
 	}
 
-	QWMatrix m;
+	QMatrix m;
 	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
 	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
 	*scaledPixmap = m_image->xForm(m);
