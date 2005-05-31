@@ -19,8 +19,8 @@
 
 #include <qobject.h>
 #include <qstring.h>
-#include <qptrlist.h>
-
+#include <q3ptrlist.h>
+#include <qmap.h>
 #include "libatlantic_export.h"
 
 class Player;
@@ -119,7 +119,7 @@ public:
 	 **/
 	template <class Type> Type *select(Player *from, Player *to)
 	{
-		for (QPtrListIterator<Player> i(mPlayers); *i; ++i)
+		for (Q3PtrListIterator<Player> i(mPlayers); *i; ++i)
 		{
 			if (
 					i.current()->from()==from
@@ -162,10 +162,10 @@ private:
 	bool m_changed, m_rejected;
 	int m_tradeId, m_revision;
 
-	QPtrList<Player> mPlayers;
+	Q3PtrList<Player> mPlayers;
 	QMap<Player *, bool> m_playerAcceptMap;
 	
-	QPtrList<TradeItem> mTradeItems;
+	Q3PtrList<TradeItem> mTradeItems;
 };
 
 #endif

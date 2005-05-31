@@ -59,7 +59,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 {
 	TradeEstate *t=0;
 	
-	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
 	{
 		t=dynamic_cast<TradeEstate*>(*i);
 
@@ -100,7 +100,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
 	TradeMoney *t=0;
 	
-	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
 	{
 		t=dynamic_cast<TradeMoney*>(*i);
 
