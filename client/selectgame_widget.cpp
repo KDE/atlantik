@@ -16,6 +16,10 @@
 
 #include <qvgroupbox.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include <kdebug.h>
 #include <kdialog.h>
@@ -52,10 +56,10 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	m_gameList->setAllColumnsShowFocus(true);
 //	m_mainLayout->addWidget(m_gameList);
 
-	connect(m_gameList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(connectClicked()));
-	connect(m_gameList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(connectClicked()));
+	connect(m_gameList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 
@@ -80,13 +84,13 @@ void SelectGame::addGame(Game *game)
 
 	if (game->id() == -1)
 	{
-		QListViewItem *item = new QListViewItem( m_gameList, i18n("Create a new %1 Game").arg(game->name()), game->description(), QString::null, QString::null, game->type() );
+		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Create a new %1 Game").arg(game->name()), game->description(), QString::null, QString::null, game->type() );
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else
 	{
 		Player *master = game->master();
-		QListViewItem *item = new QListViewItem( m_gameList, i18n("Join %1's %2 Game").arg( (master ? master->name() : QString::null), game->name() ), game->description(), QString::number(game->id()), QString::number(game->players()), game->type() );
+		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Join %1's %2 Game").arg( (master ? master->name() : QString::null), game->name() ), game->description(), QString::number(game->id()), QString::number(game->players()), game->type() );
 		item->setPixmap( 0, QPixmap(SmallIcon("atlantik")) );
 		item->setEnabled(game->canBeJoined());
 
@@ -100,7 +104,7 @@ void SelectGame::addGame(Game *game)
 
 void SelectGame::delGame(Game *game)
 {
-	QListViewItem *item = findItem(game);
+	Q3ListViewItem *item = findItem(game);
 	if (!item)
 		return;
 
@@ -111,7 +115,7 @@ void SelectGame::delGame(Game *game)
 
 void SelectGame::updateGame(Game *game)
 {
-	QListViewItem *item = findItem(game);
+	Q3ListViewItem *item = findItem(game);
 	if (!item)
 		return;
 
@@ -135,7 +139,7 @@ void SelectGame::updateGame(Game *game)
 
 void SelectGame::playerChanged(Player *player)
 {
-	QListViewItem *item = m_gameList->firstChild();
+	Q3ListViewItem *item = m_gameList->firstChild();
 	Game *game = 0;
 
 	while (item)
@@ -150,9 +154,9 @@ void SelectGame::playerChanged(Player *player)
 	}
 }
 
-QListViewItem *SelectGame::findItem(Game *game)
+Q3ListViewItem *SelectGame::findItem(Game *game)
 {
-	QListViewItem *item = m_gameList->firstChild();
+	Q3ListViewItem *item = m_gameList->firstChild();
 	while (item)
 	{
 		if ( (game->id() == -1 || item->text(2) == QString::number(game->id())) && item->text(4) == game->type() )
@@ -165,7 +169,7 @@ QListViewItem *SelectGame::findItem(Game *game)
 
 void SelectGame::validateConnectButton()
 {
-	if (QListViewItem *item = m_gameList->selectedItem())
+	if (Q3ListViewItem *item = m_gameList->selectedItem())
 	{
 		if (item->text(2).toInt() > 0)
 			m_connectButton->setText(i18n("Join Game"));
@@ -180,7 +184,7 @@ void SelectGame::validateConnectButton()
 
 void SelectGame::connectClicked()
 {
-	if (QListViewItem *item = m_gameList->selectedItem())
+	if (Q3ListViewItem *item = m_gameList->selectedItem())
 	{
 		if (int gameId = item->text(2).toInt())
 			emit joinGame(gameId);

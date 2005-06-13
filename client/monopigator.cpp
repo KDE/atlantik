@@ -15,7 +15,7 @@
 // Boston, MA 02111-1307, USA.
 
 #include <qdom.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qregexp.h>
 
 #include <kextendedsocket.h>
@@ -42,7 +42,7 @@ void Monopigator::loadData(const KURL &url)
 {
     delete m_downloadData;
 	m_downloadData = new QBuffer();
-	m_downloadData->open(IO_WriteOnly);
+	m_downloadData->open(QIODevice::WriteOnly);
 	m_downloadData->reset();
 
 	m_job = KIO::get(url, true, false);
@@ -108,7 +108,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 	}
 }
 
-MonopigatorEntry::MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), QListViewItem(parent, host, latency, version, users, port)
+MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), Q3ListViewItem(parent, host, latency, version, users, port)
 {
 	m_isDev = ( version.find( QRegExp("(CVS|-dev)") ) != -1 ) ? true : false;
 
@@ -136,7 +136,7 @@ void MonopigatorEntry::connected()
 	delete m_latencySocket;
 }
 
-int MonopigatorEntry::compare(QListViewItem *i, int col, bool ascending) const
+int MonopigatorEntry::compare(Q3ListViewItem *i, int col, bool ascending) const
 {
 	// Colums 1 and 3 are integers (latency and users)
 	if (col == 1 || col == 3)

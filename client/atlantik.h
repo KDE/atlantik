@@ -19,9 +19,14 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qlabel.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <Q3PopupMenu>
+#include <QCloseEvent>
 
 #include <kmainwindow.h>
 
@@ -29,7 +34,7 @@
 #include "portfolioview.h"
 #include "board.h"
 
-class QScrollView;
+class Q3ScrollView;
 
 class AtlanticCore;
 class AtlantikNetwork;
@@ -68,7 +73,7 @@ class Player;
 class Estate;
 class Trade;
 
-class LogTextEdit : public QTextEdit
+class LogTextEdit : public Q3TextEdit
 {
 Q_OBJECT
 
@@ -76,7 +81,7 @@ public:
 	LogTextEdit( QWidget *parent = 0, const char *name = 0 );
 	virtual ~LogTextEdit();
 
-	QPopupMenu *createPopupMenu( const QPoint & pos );
+	Q3PopupMenu *createPopupMenu( const QPoint & pos );
 
 private:
 	KAction *m_clear, *m_selectAll, *m_copy;
@@ -234,14 +239,14 @@ private:
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
 
-	QScrollView *m_portfolioScroll;
+	Q3ScrollView *m_portfolioScroll;
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
-	QTextEdit *m_serverMsgs;
+	Q3TextEdit *m_serverMsgs;
 
 	KAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
@@ -259,7 +264,7 @@ private:
 	EventLog *m_eventLog;
 	EventLogWidget *m_eventLogWidget;
 
-	QPtrList<PortfolioView> m_portfolioViews;
+	Q3PtrList<PortfolioView> m_portfolioViews;
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;
 
 	bool m_runningGame;

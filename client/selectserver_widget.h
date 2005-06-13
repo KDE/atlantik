@@ -20,6 +20,8 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include <klineedit.h>
 #include <klistview.h>

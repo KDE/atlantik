@@ -19,6 +19,8 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include <klistview.h>
 #include <kpushbutton.h>
@@ -54,7 +56,7 @@ signals:
 	void msgStatus(const QString &status);
 
 private:
-	QListViewItem *findItem(Game *game);
+	Q3ListViewItem *findItem(Game *game);
 
 	AtlanticCore *m_atlanticCore;
 	QVBoxLayout *m_mainLayout;
