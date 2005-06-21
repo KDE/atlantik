@@ -18,8 +18,13 @@
 #define LIBATLANTIK_NETWORK_H
 
 #include <qmap.h>
+//Added by qt3to4:
+#include <QTextStream>
 
-#include <kextsock.h>
+
+#include <kstreamsocket.h>
+#include <kbufferedsocket.h>
+
 #include "libatlantic_export.h"
 class QDomNode;
 class QTextStream;
