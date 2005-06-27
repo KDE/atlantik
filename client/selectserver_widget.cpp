@@ -18,7 +18,7 @@
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <qsizepolicy.h>
-#include <qvbuttongroup.h>
+
 #include <qhgroupbox.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
