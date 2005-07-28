@@ -18,7 +18,7 @@
 #define LIBATLANTIC_CORE_H
 
 #include <qobject.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 #include "libatlantic_export.h"
 
@@ -44,12 +44,12 @@ public:
 	void setPlayerSelf(Player *player);
 	Player *playerSelf();
 
-	QPtrList<Player> players();
+	Q3PtrList<Player> players();
 	Player *newPlayer(int playerId, const bool &playerSelf = false);
 	Player *findPlayer(int playerId);
 	void removePlayer(Player *player);
 
-	QPtrList<Game> games();
+	Q3PtrList<Game> games();
 	Game *newGame(int gameId, const QString &type = QString::null);
 	Game *findGame(const QString &type); // finds game types
 	Game *findGame(int gameId); // finds actual games
@@ -57,21 +57,21 @@ public:
 	void removeGame(Game *game);
 	void emitGames();
 
-	QPtrList<Estate> estates();
+	Q3PtrList<Estate> estates();
 	Estate *newEstate(int estateId);
 	Estate *findEstate(int estateId);
 	Estate *estateAfter(Estate *estate);
 
-	QPtrList<EstateGroup> estateGroups();
+	Q3PtrList<EstateGroup> estateGroups();
 	EstateGroup *newEstateGroup(int groupId);
 	EstateGroup *findEstateGroup(int groupId);
 
-	QPtrList<Trade> trades();
+	Q3PtrList<Trade> trades();
 	Trade *newTrade(int tradeId);
 	Trade *findTrade(int tradeId);
 	void removeTrade(Trade *trade);
 
-	QPtrList<Auction> auctions();
+	Q3PtrList<Auction> auctions();
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
@@ -93,13 +93,13 @@ signals:
 
 private:
 	Player *m_playerSelf;
-	QPtrList<Player> m_players;
-	QPtrList<Game> m_games;
-	QPtrList<Estate> m_estates;
-	QPtrList<EstateGroup> m_estateGroups;
-	QPtrList<Trade> m_trades;
-	QPtrList<Auction> m_auctions;
-	QPtrList<ConfigOption> m_configOptions;
+	Q3PtrList<Player> m_players;
+	Q3PtrList<Game> m_games;
+	Q3PtrList<Estate> m_estates;
+	Q3PtrList<EstateGroup> m_estateGroups;
+	Q3PtrList<Trade> m_trades;
+	Q3PtrList<Auction> m_auctions;
+	Q3PtrList<ConfigOption> m_configOptions;
 };
 
 #endif

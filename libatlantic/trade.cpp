@@ -49,9 +49,13 @@ void Trade::removePlayer(Player *player)
 unsigned int Trade::count( bool acceptOnly )
 {
 	unsigned int count = 0;
-	for (QMapIterator<Player *, bool> it = m_playerAcceptMap.begin() ; it != m_playerAcceptMap.end() ; ++it)
-		if ( !acceptOnly || it.data() )
+	QMapIterator<Player *, bool> it(m_playerAcceptMap);
+	while(it.hasNext())
+	{
+		if ( !acceptOnly || it.value() )
 			count++;
+		it.next();
+	}
 	return count;
 }
 
@@ -59,7 +63,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 {
 	TradeEstate *t=0;
 	
-	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
 	{
 		t=dynamic_cast<TradeEstate*>(*i);
 
@@ -100,7 +104,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
 	TradeMoney *t=0;
 	
-	for (QPtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
 	{
 		t=dynamic_cast<TradeMoney*>(*i);
 

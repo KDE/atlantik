@@ -19,6 +19,9 @@
 
 #include <qwidget.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QCloseEvent>
 
 class QString;
 
@@ -34,7 +37,7 @@ Q_OBJECT
 
 public:
 	EventLog();
-	QPtrList<Event> events();
+	Q3PtrList<Event> events();
 
 public slots:
 	void addEvent(const QString &description, const QString &icon = QString::null);
@@ -43,7 +46,7 @@ signals:
 	void newEvent(Event *event);
 
 private:
-	QPtrList<Event> m_events;
+	Q3PtrList<Event> m_events;
 };
 
 class EventLogWidget : public QWidget

@@ -15,9 +15,12 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qlayout.h>
-#include <qgroupbox.h>
-#include <qwhatsthis.h>
+#include <q3groupbox.h>
+
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
 
 #include <kdeversion.h>
 #undef KDE_3_1_FEATURES
@@ -193,7 +196,7 @@ ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent
 	QString message=i18n(
 		"If checked, Atlantik connects to a meta server on start-up to\n"
 		"request a list of Internet servers.\n");
-	QWhatsThis::add(m_connectOnStart, message);
+	m_connectOnStart->setWhatsThis( message);
 
 	m_hideDevelopmentServers = new QCheckBox(i18n("Hide development servers"), parent);
 	layout->addWidget(m_hideDevelopmentServers);
@@ -202,7 +205,7 @@ ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent
 		"Some of the Internet servers might be running development\n"
 		"versions of the server software. If checked, Atlantik will not\n"
 		"display these servers.\n");
-	QWhatsThis::add(m_hideDevelopmentServers, message);
+	m_hideDevelopmentServers->setWhatsThis( message);
 
 	layout->addStretch(1);
 
@@ -236,7 +239,7 @@ ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent, const 
 	QString message=i18n(
 		"If checked, Atlantik will add timestamps in front of chat\n"
 		"messages.\n");
-	QWhatsThis::add(m_chatTimestamps, message);
+	m_chatTimestamps->setWhatsThis( message);
 
 	layout->addStretch(1);
 
@@ -258,38 +261,38 @@ ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
 
-	QGroupBox *box = new QGroupBox(1, Qt::Horizontal, i18n("Game Status Feedback"), parent);
+	Q3GroupBox *box = new Q3GroupBox(1, Qt::Horizontal, i18n("Game Status Feedback"), parent);
 	layout->addWidget(box);
 
 	m_indicateUnowned = new QCheckBox(i18n("Display title deed card on unowned properties"), box);
 	QString message=i18n(
 		"If checked, unowned properties on the board display an estate\n"
 		"card to indicate the property is for sale.\n");
-	QWhatsThis::add(m_indicateUnowned, message);
+	m_indicateUnowned->setWhatsThis( message);
 
 	m_highliteUnowned = new QCheckBox(i18n("Highlight unowned properties"), box);
 	message=i18n(
 		"If checked, unowned properties on the board are highlighted to\n"
 		"indicate the property is for sale.\n");
-	QWhatsThis::add(m_highliteUnowned, message);
+	m_highliteUnowned->setWhatsThis( message);
 
 	m_darkenMortgaged = new QCheckBox(i18n("Darken mortgaged properties"), box);
 	message=i18n(
 		"If checked, mortgaged properties on the board will be colored\n"
 		"darker than of the default color.\n");
-	QWhatsThis::add(m_darkenMortgaged, message);
+	m_darkenMortgaged->setWhatsThis( message);
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
 	message=i18n(
 		"If checked, tokens will move across the board\n"
 		"instead of jumping directly to their new location.\n");
-	QWhatsThis::add(m_animateToken, message);
+	m_animateToken->setWhatsThis( message);
 
 	m_quartzEffects = new QCheckBox(i18n("Quartz effects"), box);
 	message=i18n(
 		"If checked, the colored headers of street estates on the board "
 		"will have a Quartz effect similar to the Quartz KWin style.\n");
-	QWhatsThis::add(m_quartzEffects, message);
+	m_quartzEffects->setWhatsThis( message);
 
 //	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
 //	layout->addWidget(box);

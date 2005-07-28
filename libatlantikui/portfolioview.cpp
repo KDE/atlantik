@@ -16,6 +16,12 @@
 
 #include <qpainter.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QResizeEvent>
+#include <QPaintEvent>
+#include <Q3PtrList>
 
 #include <kdebug.h>
 #include <kdialogbase.h>
@@ -79,14 +85,14 @@ void PortfolioView::buildPortfolio()
 		clearPortfolio();
 
 	// Loop through estate groups in order
-	QPtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
+	Q3PtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
 	PortfolioEstate *lastPE = 0, *firstPEprevGroup = 0;
 
 	int x = 100, y = 25, marginHint = 5, bottom;
 	bottom = ICONSIZE - PE_HEIGHT - marginHint;
 
 	EstateGroup *estateGroup;
-	for (QPtrListIterator<EstateGroup> it(estateGroups); *it; ++it)
+	for (Q3PtrListIterator<EstateGroup> it(estateGroups); *it; ++it)
 	{
 		if ((estateGroup = *it))
 		{
@@ -94,9 +100,9 @@ void PortfolioView::buildPortfolio()
 			lastPE = 0;
 
 			// Loop through estates
-			QPtrList<Estate> estates = m_atlanticCore->estates();
+			Q3PtrList<Estate> estates = m_atlanticCore->estates();
 			Estate *estate;
-			for (QPtrListIterator<Estate> it(estates); *it; ++it)
+			for (Q3PtrListIterator<Estate> it(estates); *it; ++it)
 			{
 				if ((estate = *it) && estate->estateGroup() == estateGroup)
 				{
@@ -179,7 +185,7 @@ void PortfolioView::loadIcon()
 	else if (ICONSIZE > minimumHeight())
 		setMinimumHeight(ICONSIZE);
 
-	QWMatrix m;
+	QMatrix m;
 	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
 	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
 	*scaledPixmap = m_image->xForm(m);
@@ -252,7 +258,7 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 {
 	Player *playerSelf = m_atlanticCore->playerSelf();
 
-	if ( e->button()==RightButton && (m_player != playerSelf) )
+	if ( e->button()==Qt::RightButton && (m_player != playerSelf) )
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_player->name());

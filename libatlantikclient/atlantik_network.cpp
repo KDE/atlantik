@@ -20,6 +20,8 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -621,8 +623,8 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 						// Players without estate should get one
 						Player *player = 0;
-						QPtrList<Player> playerList = m_atlanticCore->players();
-						for (QPtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+						Q3PtrList<Player> playerList = m_atlanticCore->players();
+						for (Q3PtrListIterator<Player> it(playerList); (player = *it) ; ++it)
 							if (m_playerLocationMap[player] == estate->id())
 								player->setLocation(estate);
 					}

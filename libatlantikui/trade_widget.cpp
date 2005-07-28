@@ -17,14 +17,19 @@
 #include <iostream>
 
 #include <qlayout.h>
-#include <qhgroupbox.h>
-#include <qheader.h>
-#include <qpopupmenu.h>
+#include <q3header.h>
+#include <q3popupmenu.h>
 #include <qcursor.h>
 #include <qvalidator.h>
 #include <qmap.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QCloseEvent>
+#include <Q3PtrList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <klocale.h>
 #include <klistview.h>
@@ -46,8 +51,8 @@
 
 TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent, const char *name)
 	: QWidget(parent, name,
-	  WType_Dialog | WStyle_Customize | WStyle_DialogBorder | WStyle_Title |
-	  WStyle_Minimize | WStyle_ContextHelp )
+	  Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_DialogBorder | Qt::WStyle_Title |
+	  Qt::WStyle_Minimize | Qt::WStyle_ContextHelp )
 {
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
@@ -56,7 +61,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
-	m_updateComponentBox = new QHGroupBox(i18n("Add Component"), this);
+	m_updateComponentBox = new Q3GroupBox(1, Qt::Vertical,i18n("Add Component"), this);
 	listCompBox->addWidget(m_updateComponentBox);
 
 	m_editTypeCombo = new KComboBox(m_updateComponentBox);
@@ -66,9 +71,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
 
 	m_estateCombo = new KComboBox(m_updateComponentBox);
-	QPtrList<Estate> estateList = m_atlanticCore->estates();
+	Q3PtrList<Estate> estateList = m_atlanticCore->estates();
 	Estate *estate;
-	for (QPtrListIterator<Estate> it(estateList); *it; ++it)
+	for (Q3PtrListIterator<Estate> it(estateList); *it; ++it)
 	{
 		if ((estate = *it) && estate->isOwned())
 		{
@@ -82,7 +87,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_moneyBox = new QSpinBox(0, 10000, 1, m_updateComponentBox);
 
-	QPtrList<Player> playerList = m_atlanticCore->players();
+	Q3PtrList<Player> playerList = m_atlanticCore->players();
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
 	m_fromLabel = new QLabel(m_updateComponentBox);
@@ -93,7 +98,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_toLabel->setText(i18n("To"));
 	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
 
-	for (QPtrListIterator<Player> it(playerList); *it; ++it)
+	for (Q3PtrListIterator<Player> it(playerList); *it; ++it)
 	{
 		if ((player = *it) && player->game() == pSelf->game())
 		{
@@ -122,8 +127,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_componentList->addColumn(i18n("Player"));
 	m_componentList->addColumn(i18n("Item"));
 
-	connect(m_componentList, SIGNAL(contextMenu(KListView*, QListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, QListViewItem *, const QPoint&)));
-	connect(m_componentList, SIGNAL(clicked(QListViewItem *)), this, SLOT(setCombos(QListViewItem *)));
+	connect(m_componentList, SIGNAL(contextMenu(KListView*, Q3ListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, Q3ListViewItem *, const QPoint&)));
+	connect(m_componentList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(setCombos(Q3ListViewItem *)));
 
 	QHBoxLayout *actionBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
 	listCompBox->addItem(actionBox);
@@ -291,7 +296,7 @@ void TradeDisplay::setEstateCombo(int index)
 		m_playerFromCombo->setCurrentItem( m_playerFromRevMap[estate->owner()] );
 }
 
-void TradeDisplay::setCombos(QListViewItem *i)
+void TradeDisplay::setCombos(Q3ListViewItem *i)
 {
 	TradeItem *item = m_componentRevMap[(KListViewItem *)(i)];
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(item))
@@ -348,7 +353,7 @@ void TradeDisplay::accept()
 	emit accept(m_trade);
 }
 
-void TradeDisplay::contextMenu(KListView *, QListViewItem *i, const QPoint& p)
+void TradeDisplay::contextMenu(KListView *, Q3ListViewItem *i, const QPoint& p)
 {
 	m_contextTradeItem = m_componentRevMap[(KListViewItem *)(i)];
 

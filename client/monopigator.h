@@ -19,7 +19,7 @@
 
 #include <qobject.h>
 #include <qbuffer.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qtimer.h>
 
 #include <kio/job.h>
@@ -55,13 +55,13 @@ private:
 	KIO::Job *m_job;
 };
 
-class MonopigatorEntry : public QObject, public QListViewItem
+class MonopigatorEntry : public QObject, public Q3ListViewItem
 {
 Q_OBJECT
 
 public:
-	MonopigatorEntry(QListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip);
-	int compare(QListViewItem *i, int col, bool ascending) const;
+	MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip);
+	int compare(Q3ListViewItem *i, int col, bool ascending) const;
 	bool isDev() const;
 
 private slots:
@@ -72,7 +72,7 @@ private slots:
 private:
 	KExtendedSocket *m_latencySocket;
 	QTime time;
-	QListView *m_parent;
+	Q3ListView *m_parent;
 	bool m_isDev;
 };
 

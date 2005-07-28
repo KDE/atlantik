@@ -37,8 +37,8 @@ class KWrappedListViewItem : public QObject, public KListViewItem
 Q_OBJECT
 
 public:
-	KWrappedListViewItem( QListView *parent, QString text, QString=QString::null );
-	KWrappedListViewItem( QListView *parent, QListViewItem *after, QString text, QString=QString::null );
+	KWrappedListViewItem( Q3ListView *parent, QString text, QString=QString::null );
+	KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, QString text, QString=QString::null );
 	void setup();
 //	int width(const QFontMetrics& fm, const QListView* lv, int c) const;
 
@@ -46,7 +46,7 @@ private slots:
 	void wrapColumn( int c );
 
 private:
-	void init( QListView *parent, QString text, QString=QString::null );
+	void init( Q3ListView *parent, QString text, QString=QString::null );
 	QString m_origText;
 	int m_wrapColumn;
 };

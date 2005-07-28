@@ -18,8 +18,11 @@
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <qsizepolicy.h>
-#include <qvbuttongroup.h>
+
 #include <qhgroupbox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include <kdialog.h>
 #include <kextendedsocket.h>
@@ -53,7 +56,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// Server list group
-	QVButtonGroup *bgroup = new QVButtonGroup(i18n("Select monopd Server"), this, "bgroup");
+	Q3VButtonGroup *bgroup = new Q3VButtonGroup(i18n("Select monopd Server"), this, "bgroup");
 	bgroup->setExclusive(true);
 	m_mainLayout->addWidget(bgroup);
 
@@ -67,10 +70,10 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_serverList->setSorting(1);
 //	m_mainLayout->addWidget(m_serverList);
 
-	connect(m_serverList, SIGNAL(clicked(QListViewItem *)), this, SLOT(validateConnectButton()));
-	connect(m_serverList, SIGNAL(doubleClicked(QListViewItem *)), this, SLOT(slotConnect()));
-	connect(m_serverList, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_serverList, SIGNAL(selectionChanged(QListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_serverList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_serverList, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(slotConnect()));
+	connect(m_serverList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
+	connect(m_serverList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -167,7 +170,7 @@ void SelectServer::slotRefresh(bool useMonopigator)
 
 void SelectServer::slotConnect()
 {
-	if (QListViewItem *item = m_serverList->selectedItem())
+	if (Q3ListViewItem *item = m_serverList->selectedItem())
 		emit serverConnect(item->text(0), item->text(4).toInt());
 }
 

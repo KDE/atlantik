@@ -22,7 +22,7 @@
 // OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 // SUCH DAMAGE.
 
-#include <qheader.h>
+#include <q3header.h>
 #include <qstring.h>
 
 #include <kglobalsettings.h>
@@ -31,13 +31,13 @@
 
 #include "kwrappedlistviewitem.h"
 
-KWrappedListViewItem::KWrappedListViewItem( QListView *parent, QString text, QString t2 )
+KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, QString text, QString t2 )
 : QObject(), KListViewItem( parent )
 {
 	init( parent, text, t2 );
 }
 
-KWrappedListViewItem::KWrappedListViewItem( QListView *parent, QListViewItem *after, QString text, QString t2 )
+KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, QString text, QString t2 )
 : QObject(), KListViewItem( parent, after )
 {
 	init( parent, text, t2 );
@@ -60,7 +60,7 @@ void KWrappedListViewItem::wrapColumn( int c )
 	if ( c != m_wrapColumn )
 		return;
 
-	QListView *lv = listView();
+	Q3ListView *lv = listView();
 	if ( !lv )
 		return;
 
@@ -83,7 +83,8 @@ void KWrappedListViewItem::wrapColumn( int c )
 	KWordWrap *wrap = KWordWrap::formatText( fm, rect, 0, m_origText );
 	setText( c, wrap->wrappedString() );
 
-	int lc = text(c).contains( QChar( '\n' ) ) + 1;
+#warning "Port to:  qt4 text(c).contains( QChar( '\n' ) ) + 1;"
+	int lc = 0;//text(c).contains( QChar( '\n' ) ) + 1;
 	setHeight( wrap->boundingRect().height() + lc*lv->itemMargin() );
 
 	widthChanged( c );
@@ -91,11 +92,11 @@ void KWrappedListViewItem::wrapColumn( int c )
 	delete wrap;
 }
 
-void KWrappedListViewItem::init( QListView *parent, QString text, QString t2 )
+void KWrappedListViewItem::init( Q3ListView *parent, QString text, QString t2 )
 {
 	m_wrapColumn = 0;
 	setMultiLinesEnabled( true );
-	parent->setResizeMode( QListView::LastColumn );
+	parent->setResizeMode( Q3ListView::LastColumn );
 
 	m_origText = text;
 

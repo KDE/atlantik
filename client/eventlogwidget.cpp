@@ -16,9 +16,16 @@
 
 #include <iostream>
 
-#include <qheader.h>
+#include <q3header.h>
 #include <qlayout.h>
 #include <qdatetime.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QTextStream>
+#include <Q3PtrList>
+#include <QCloseEvent>
 
 #include <klocale.h>
 #include <klistview.h>
@@ -42,15 +49,15 @@ void EventLog::addEvent(const QString &description, const QString &icon)
 	emit newEvent(event);
 }
 
-QPtrList<Event> EventLog::events()
+Q3PtrList<Event> EventLog::events()
 {
 	return m_events;
 }
 
 EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *name)
 	: QWidget(parent, name,
-	  WType_Dialog | WStyle_Customize | WStyle_DialogBorder | WStyle_Title |
-	  WStyle_Minimize | WStyle_ContextHelp )
+	  Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_DialogBorder | Qt::WStyle_Title |
+	  Qt::WStyle_Minimize | Qt::WStyle_ContextHelp )
 {
 	m_eventLog = eventLog;
 
@@ -78,8 +85,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *
 	connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
 
 	// Populate
-	QPtrList<Event> events = m_eventLog->events();
-	for (QPtrListIterator<Event> it( events ); (*it) ; ++it)
+	Q3PtrList<Event> events = m_eventLog->events();
+	for (Q3PtrListIterator<Event> it( events ); (*it) ; ++it)
 		addEvent( (*it) );
 }
 
@@ -109,14 +116,14 @@ void EventLogWidget::closeEvent(QCloseEvent *e)
 void EventLogWidget::save()
 {
 	QFile file( KFileDialog::getSaveFileName() );
-	if ( file.open( IO_WriteOnly ) )
+	if ( file.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&file);
 
 		stream << i18n( "Atlantik log file, saved at %1." ).arg( QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ) << endl;
 
-		QPtrList<Event> events = m_eventLog->events();
-		for (QPtrListIterator<Event> it( events ); (*it) ; ++it)
+		Q3PtrList<Event> events = m_eventLog->events();
+		for (Q3PtrListIterator<Event> it( events ); (*it) ; ++it)
 			stream << (*it)->dateTime().toString("yyyy-MM-dd hh:mm:ss") << " " << (*it)->description() << endl;
 		file.close();
 	}

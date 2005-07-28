@@ -19,8 +19,13 @@
 #include <qcolor.h>
 #include <qdatetime.h>
 #include <qlineedit.h>
-#include <qscrollview.h>
-#include <qpopupmenu.h>
+#include <q3scrollview.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <Q3CString>
+#include <QCloseEvent>
 
 #include <kaboutapplication.h>
 #include <kaction.h>
@@ -64,7 +69,7 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 
-LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : QTextEdit( parent, name )
+LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : Q3TextEdit( parent, name )
 {
 #ifdef KDE_3_2_FEATURES
 	m_clear = KStdAction::clear( this, SLOT( clear() ), 0 );
@@ -82,9 +87,9 @@ LogTextEdit::~LogTextEdit()
 	delete m_copy;
 }
 
-QPopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
+Q3PopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
 {
-	QPopupMenu *rmbMenu = new QPopupMenu( this );
+	Q3PopupMenu *rmbMenu = new Q3PopupMenu( this );
 	m_clear->plug( rmbMenu );
 	rmbMenu->insertSeparator();
 	m_copy->setEnabled( hasSelectedText() );
@@ -159,10 +164,10 @@ Atlantik::Atlantik ()
 	setCentralWidget(m_mainWidget);
 
 	// Vertical view area for portfolios.
-	m_portfolioScroll = new QScrollView(m_mainWidget, "pfScroll");
+	m_portfolioScroll = new Q3ScrollView(m_mainWidget, "pfScroll");
 	m_mainLayout->addWidget( m_portfolioScroll, 0, 0 );
-	m_portfolioScroll->setHScrollBarMode( QScrollView::AlwaysOff );
-	m_portfolioScroll->setResizePolicy( QScrollView::AutoOneFit );
+	m_portfolioScroll->setHScrollBarMode( Q3ScrollView::AlwaysOff );
+	m_portfolioScroll->setResizePolicy( Q3ScrollView::AutoOneFit );
 	m_portfolioScroll->setFixedHeight( 200 );
 	m_portfolioScroll->hide();
 
@@ -180,9 +185,9 @@ Atlantik::Atlantik ()
 
 	// Text view for chat and status messages from server.
 	m_serverMsgs = new LogTextEdit(m_mainWidget, "serverMsgs");
-	m_serverMsgs->setTextFormat(QTextEdit::PlainText);
+	m_serverMsgs->setTextFormat(Q3TextEdit::PlainText);
 	m_serverMsgs->setReadOnly(true);
-	m_serverMsgs->setHScrollBarMode(QScrollView::AlwaysOff);
+	m_serverMsgs->setHScrollBarMode(Q3ScrollView::AlwaysOff);
 	m_serverMsgs->setMinimumWidth(200);
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
@@ -201,8 +206,8 @@ Atlantik::Atlantik ()
 	// Check command-line args to see if we need to connect or show Monopigator window
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	QCString host = args->getOption("host");	
-	QCString port = args->getOption("port");	
+	Q3CString host = args->getOption("host");	
+	Q3CString port = args->getOption("port");	
 	if (!host.isNull() && !port.isNull())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -425,7 +430,7 @@ void Atlantik::showBoard()
 	m_board->show();
 
 	PortfolioView *portfolioView = 0;
-	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
+	for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			portfolioView->buildPortfolio();
 }
@@ -661,7 +666,7 @@ void Atlantik::playerChanged(Player *player)
 	{
 		// We changed ourselves..
 		PortfolioView *portfolioView = 0;
-		for (QPtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
+		for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
 			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
 			{
 				// Clear all portfolios if we're not in game
@@ -789,7 +794,7 @@ void Atlantik::sendHandshake()
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	QCString game = args->getOption("game");	
+	Q3CString game = args->getOption("game");	
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
 }
@@ -826,7 +831,7 @@ PortfolioView *Atlantik::addPortfolioView(Player *player)
 PortfolioView *Atlantik::findPortfolioView(Player *player)
 {
 	PortfolioView *portfolioView = 0;
-	for (QPtrListIterator<PortfolioView> it(m_portfolioViews); (portfolioView = *it) ; ++it)
+	for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); (portfolioView = *it) ; ++it)
 		if (player == portfolioView->player())
 			return portfolioView;
 

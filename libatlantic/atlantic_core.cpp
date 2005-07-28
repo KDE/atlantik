@@ -25,6 +25,8 @@
 #include "game.h"
 #include "player.h"
 #include "trade.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
 {
@@ -47,7 +49,7 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_configOptions.setAutoDelete(false);
 
 	Trade *trade = 0;
-	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
 	{
 		emit removeGUI(trade);
 		trade->deleteLater();
@@ -55,7 +57,7 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_trades.clear();
 
 	Player *player = 0;
-	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 	{
 		if (deletePermanents)
 		{
@@ -74,7 +76,7 @@ void AtlanticCore::reset(bool deletePermanents)
 		m_playerSelf = 0;
 
 		Game *game = 0;
-		for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
 		{
 			emit removeGUI(game);
 			game->deleteLater();
@@ -98,7 +100,7 @@ Player *AtlanticCore::playerSelf()
 	return m_playerSelf;
 }
 
-QPtrList<Player> AtlanticCore::players()
+Q3PtrList<Player> AtlanticCore::players()
 {
 	return m_players;
 }
@@ -122,7 +124,7 @@ Player *AtlanticCore::newPlayer(int playerId, const bool &playerSelf)
 Player *AtlanticCore::findPlayer(int playerId)
 {
 	Player *player = 0;
-	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 		if (player->id() == playerId)
 			return player;
 
@@ -136,7 +138,7 @@ void AtlanticCore::removePlayer(Player *player)
 	player->deleteLater();
 }
 
-QPtrList<Game> AtlanticCore::games()
+Q3PtrList<Game> AtlanticCore::games()
 {
 	return m_games;
 }
@@ -157,7 +159,7 @@ Game *AtlanticCore::newGame(int gameId, const QString &type)
 Game *AtlanticCore::findGame(const QString &type)
 {
 	Game *game = 0;
-	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
 		if (game->id() == -1 && game->type() == type)
 			return game;
 
@@ -170,7 +172,7 @@ Game *AtlanticCore::findGame(int gameId)
 		return 0;
 
 	Game *game = 0;
-	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
 		if (game->id() == gameId)
 			return game;
 
@@ -191,11 +193,11 @@ void AtlanticCore::removeGame(Game *game)
 
 void AtlanticCore::emitGames()
 {
-	for (QPtrListIterator<Game> it(m_games); (*it) ; ++it)
+	for (Q3PtrListIterator<Game> it(m_games); (*it) ; ++it)
 		emit createGUI( (*it) );
 }
 
-QPtrList<Estate> AtlanticCore::estates()
+Q3PtrList<Estate> AtlanticCore::estates()
 {
 	return m_estates;
 }
@@ -210,7 +212,7 @@ Estate *AtlanticCore::newEstate(int estateId)
 Estate *AtlanticCore::findEstate(int estateId)
 {
 	Estate *estate = 0;
-	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+	for (Q3PtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
 		if (estate->id() == estateId)
 			return estate;
 
@@ -221,7 +223,7 @@ Estate *AtlanticCore::estateAfter(Estate *estate)
 {
 	Estate *eFirst = 0, *eTmp = 0;
 	bool useNext = false;
-	for (QPtrListIterator<Estate> it(m_estates); (eTmp = *it) ; ++it)
+	for (Q3PtrListIterator<Estate> it(m_estates); (eTmp = *it) ; ++it)
 	{
 		if (!eFirst)
 			eFirst = eTmp;
@@ -233,7 +235,7 @@ Estate *AtlanticCore::estateAfter(Estate *estate)
 	return eFirst;
 }
 
-QPtrList<EstateGroup> AtlanticCore::estateGroups()
+Q3PtrList<EstateGroup> AtlanticCore::estateGroups()
 {
 	return m_estateGroups;
 }
@@ -248,14 +250,14 @@ EstateGroup *AtlanticCore::newEstateGroup(int groupId)
 EstateGroup *AtlanticCore::findEstateGroup(int groupId)
 {
 	EstateGroup *estateGroup = 0;
-	for (QPtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+	for (Q3PtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
 		if (estateGroup->id() == groupId)
 			return estateGroup;
 
 	return 0;
 }
 
-QPtrList<Trade> AtlanticCore::trades()
+Q3PtrList<Trade> AtlanticCore::trades()
 {
 	return m_trades;
 }
@@ -273,7 +275,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 Trade *AtlanticCore::findTrade(int tradeId)
 {
 	Trade *trade = 0;
-	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
 		if (trade->tradeId() == tradeId)
 			return trade;
 
@@ -287,7 +289,7 @@ void AtlanticCore::removeTrade(Trade *trade)
 	trade->deleteLater();
 }
 
-QPtrList<Auction> AtlanticCore::auctions()
+Q3PtrList<Auction> AtlanticCore::auctions()
 {
 	return m_auctions;
 }
@@ -325,7 +327,7 @@ void AtlanticCore::removeConfigOption(ConfigOption *configOption)
 ConfigOption *AtlanticCore::findConfigOption(int configId)
 {
 	ConfigOption *configOption = 0;
-	for (QPtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
 		if (configOption->id() == configId)
 			return configOption;
 
@@ -335,34 +337,34 @@ ConfigOption *AtlanticCore::findConfigOption(int configId)
 void AtlanticCore::printDebug()
 {
 	Player *player = 0;
-	for (QPtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 		if (player == m_playerSelf)
 			std::cout << "PS: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
 		else
 			std::cout << " P: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
 
 	Game *game = 0;
-	for (QPtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
 		std::cout << " G: " << QString::number(game->id()).latin1() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).latin1() << std::endl;
 
 	Estate *estate = 0;
-	for (QPtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+	for (Q3PtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
 		std::cout << " E: " << estate->name().latin1() << std::endl;
 
 	EstateGroup *estateGroup = 0;
-	for (QPtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+	for (Q3PtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
 		std::cout << "EG: " << estateGroup->name().latin1() << std::endl;
 
 	Auction *auction = 0;
-	for (QPtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
+	for (Q3PtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
 		std::cout << " A: " << QString::number(auction->auctionId()).latin1() << std::endl;
 
 	Trade *trade = 0;
-	for (QPtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
 		std::cout << " T: " << QString::number(trade->tradeId()).latin1() << std::endl;
 
 	ConfigOption *configOption = 0;
-	for (QPtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
 		std::cout << "CO:" << QString::number(configOption->id()).latin1() << " " << configOption->name().latin1() << " " << configOption->value().latin1() << std::endl;
 }
 

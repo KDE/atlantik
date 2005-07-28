@@ -19,7 +19,11 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QResizeEvent>
+#include <QPaintEvent>
 
 #include "portfolioestate.h"
 #include "libatlantikui_export.h"
@@ -67,7 +71,7 @@ private:
 	QPixmap *qpixmap, *m_image;
 	QString m_imageName;
 	bool b_recreate;
-	QPtrList<PortfolioEstate> m_portfolioEstates;
+	Q3PtrList<PortfolioEstate> m_portfolioEstates;
 };
 
 #endif

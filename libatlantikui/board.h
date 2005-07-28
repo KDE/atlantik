@@ -20,7 +20,10 @@
 #include <qwidget.h>
 #include <qtimer.h>
 #include <qlayout.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QResizeEvent>
 #include "libatlantikui_export.h"
 class QPoint;
 
@@ -94,9 +97,9 @@ private:
 	bool m_animateTokens;
 	int m_maxEstates;
 
-	QPtrList<EstateView> m_estateViews;
-	QPtrList<Token> m_tokens;
-	QPtrList<QWidget> m_displayQueue;
+	Q3PtrList<EstateView> m_estateViews;
+	Q3PtrList<Token> m_tokens;
+	Q3PtrList<QWidget> m_displayQueue;
 };
 
 #endif

@@ -17,6 +17,10 @@
 #include <qcolor.h>
 #include <qpainter.h>
 #include <qrect.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QPaintEvent>
 
 #include "portfolioestate.moc"
 #include "estate.h"
@@ -47,7 +51,7 @@ QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysO
 	painter.begin(&qpixmap);
 
 	painter.setPen(lightGray);
-	painter.setBrush(white);
+	painter.setBrush(Qt::white);
 	painter.drawRect(QRect(0, 0, PE_WIDTH, PE_HEIGHT));
 	if (alwaysOwned || (estate && estate->isOwned() && player == estate->owner()))
 	{
@@ -89,6 +93,6 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 
 void PortfolioEstate::mousePressEvent(QMouseEvent *e) 
 {
-	if (e->button()==LeftButton)
+	if (e->button()==Qt::LeftButton)
 		emit estateClicked(m_estate);
 }

@@ -17,8 +17,13 @@
 #include <qtooltip.h>
 #include <qpainter.h>
 #include <qtimer.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QResizeEvent>
+#include <QPaintEvent>
 
 #include <kdebug.h>
 #include <kdeversion.h>
@@ -36,7 +41,7 @@
 #include "estateview.moc"
 #include "config.h"
 
-EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, WResizeNoErase)
+EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, Qt::WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
@@ -46,7 +51,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	m_darkenMortgaged = darkenMortgaged;
 	m_quartzEffects = quartzEffects;
 
-	setBackgroundMode(NoBackground); // avoid flickering
+	setBackgroundMode(Qt::NoBackground); // avoid flickering
 
 	qpixmap = 0;
 	b_recreate = true;
@@ -128,7 +133,7 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p)
 	if (p==0 || p->isNull())
 		return 0;
 
-	QWMatrix m;
+	QMatrix m;
 
 	switch(m_orientation)
 	{
@@ -152,7 +157,7 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 	if (p==0 || p->isNull())
 		return 0;
 
-	QWMatrix m;
+	QMatrix m;
 
 	switch(m_orientation)
 	{
@@ -432,7 +437,7 @@ void EstateView::resizeEvent(QResizeEvent *)
 
 void EstateView::mousePressEvent(QMouseEvent *e) 
 {
-	if (e->button()==RightButton && m_estate->isOwned())
+	if (e->button()==Qt::RightButton && m_estate->isOwned())
 	{
 		KPopupMenu *rmbMenu = new KPopupMenu(this);
 		rmbMenu->insertTitle(m_estate->name());
@@ -488,7 +493,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		rmbMenu->exec(g);
 		delete rmbMenu;
 	}
-	else if (e->button()==LeftButton)
+	else if (e->button()==Qt::LeftButton)
 		emit LMBClicked(m_estate);
 }
 
