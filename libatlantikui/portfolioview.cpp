@@ -28,7 +28,7 @@
 #include <kiconeffect.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kstandarddirs.h>
 
 #include <atlantic_core.h>
@@ -260,8 +260,8 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 
 	if ( e->button()==Qt::RightButton && (m_player != playerSelf) )
 	{
-		KPopupMenu *rmbMenu = new KPopupMenu(this);
-		rmbMenu->insertTitle(m_player->name());
+		KMenu *rmbMenu = new KMenu(this);
+		rmbMenu->addTitle(m_player->name());
 
 		if ( m_portfolioEstates.count() )
 		{

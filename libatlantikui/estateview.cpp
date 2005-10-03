@@ -31,7 +31,7 @@
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpixmapeffect.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kstringhandler.h>
 
@@ -439,7 +439,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::RightButton && m_estate->isOwned())
 	{
-		KPopupMenu *rmbMenu = new KPopupMenu(this);
+		KMenu *rmbMenu = new KMenu(this);
 		rmbMenu->insertTitle(m_estate->name());
 
 		if (m_estate->isOwnedBySelf())
@@ -485,7 +485,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 				rmbMenu->insertItem(i18n("Request Trade with %1").arg(player->name()), 3);
 		}
 
-		KPopupMenu *pm = dynamic_cast<KPopupMenu *>(rmbMenu);
+		KMenu *pm = dynamic_cast<KMenu *>(rmbMenu);
 		if (pm) {
 			connect(pm, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
 		}

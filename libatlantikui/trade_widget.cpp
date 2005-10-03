@@ -39,7 +39,7 @@
 #include <kiconloader.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -119,7 +119,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
-	m_componentList = new KListView(this, "componentList");
+	m_componentList = new KListView(this );
+        m_componentList->setObjectName( "componentList" );
 	listCompBox->addWidget(m_componentList);
 
 	m_componentList->addColumn(i18n("Player"));
@@ -357,7 +358,7 @@ void TradeDisplay::contextMenu(KListView *, Q3ListViewItem *i, const QPoint& p)
 {
 	m_contextTradeItem = m_componentRevMap[(KListViewItem *)(i)];
 
-	KPopupMenu *rmbMenu = new KPopupMenu(this);
+	KMenu *rmbMenu = new KMenu(this);
 //	rmbMenu->insertTitle( ... );
 	rmbMenu->insertItem(i18n("Remove From Trade"), 0);
 

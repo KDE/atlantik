@@ -60,9 +60,9 @@ int main(int argc, char *argv[])
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KCmdLineArgs::addCmdLineOptions (options);
 
-	KApplication::addCmdLineOptions();
+	KCmdLineArgs::addStdCmdLineOptions();
 	KApplication kapplication;
-    KGlobal::locale()->insertCatalogue("libkdegames");
+    KGlobal::locale()->insertCatalog("libkdegames");
 
 	if (kapplication.isRestored())
 		RESTORE(Atlantik)
