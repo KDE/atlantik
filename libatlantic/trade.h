@@ -22,6 +22,7 @@
 #include <qptrlist.h>
 
 #include "libatlantic_export.h"
+#include "player.h"
 
 class Player;
 class Trade;
@@ -113,26 +114,6 @@ public:
 
 	bool isRejected() { return m_rejected; }
 	
-	/**
-	 * select the Trade of the given template type, with the given
-	 * from and to
-	 **/
-	template <class Type> Type *select(Player *from, Player *to)
-	{
-		for (QPtrListIterator<Player> i(mPlayers); *i; ++i)
-		{
-			if (
-					i.current()->from()==from
-					&& i.current()->to()==to
-					&& dynamic_cast<Player*>(*i)
-				)
-			{
-				return *i;
-			}
-		}
-	
-	}
-
 private slots:	
 	/**
 	 * tell someone that this changed
