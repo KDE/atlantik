@@ -52,7 +52,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_portEdit = new KLineEdit(QString::number(1234), customGroup);
 	m_portEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));
 
-	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"), customGroup);
+	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"), customGroup );
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// Server list group
@@ -61,7 +61,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_mainLayout->addWidget(bgroup);
 
 	// List of servers
-	m_serverList = new KListView(bgroup, "m_serverList");
+	m_serverList = new KListView( bgroup );
+	m_serverList->setObjectName( "m_serverList" );
 	m_serverList->addColumn(i18n("Host"));
 	m_serverList->addColumn(i18n("Latency"));
 	m_serverList->addColumn(i18n("Version"));

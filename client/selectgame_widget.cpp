@@ -48,7 +48,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games
-	m_gameList = new KListView(groupBox, "m_gameList");
+	m_gameList = new KListView( groupBox );
+	m_gameList->setObjectName( "m_gameList" );
 	m_gameList->addColumn(i18n("Game"));
 	m_gameList->addColumn(i18n("Description"));
 	m_gameList->addColumn(i18n("Id"));

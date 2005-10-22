@@ -67,7 +67,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
-	m_eventList = new KListView(this, "eventList");
+	m_eventList = new KListView( this );
+	m_eventList->setObjectName( "eventList" );
 	listCompBox->addWidget(m_eventList);
 
 	m_eventList->addColumn(i18n("Date/Time"));

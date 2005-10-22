@@ -80,7 +80,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	m_bidSpinBox = new QSpinBox(1, 10000, 1, bidBox);
 
-	KPushButton *bidButton = new KPushButton(i18n("Make Bid"), bidBox, "bidButton");
+	KPushButton *bidButton = new KPushButton( i18n("Make Bid"), bidBox );
+	bidButton->setObjectName( "bidButton" );
 	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
 
 	// Status label
