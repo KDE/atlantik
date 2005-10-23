@@ -37,7 +37,7 @@ class EstateGroup;
 class Trade;
 class Auction;
 
-class LIBATLANTIC_EXPORT AtlantikNetwork : public KExtendedSocket
+class LIBATLANTIC_EXPORT AtlantikNetwork : public QObject, public KExtendedSocket
 {
 Q_OBJECT
 

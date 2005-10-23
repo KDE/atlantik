@@ -440,7 +440,7 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 	if (e->button()==Qt::RightButton && m_estate->isOwned())
 	{
 		KMenu *rmbMenu = new KMenu(this);
-		rmbMenu->insertTitle(m_estate->name());
+		rmbMenu->addTitle(m_estate->name());
 
 		if (m_estate->isOwnedBySelf())
 		{
