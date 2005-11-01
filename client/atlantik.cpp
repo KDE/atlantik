@@ -62,6 +62,7 @@
 
 #include <board.h>
 #include <trade_widget.h>
+#include <kglobal.h>
 
 #include "eventlogwidget.h"
 #include "main.h"
@@ -217,7 +218,7 @@ Atlantik::Atlantik ()
 void Atlantik::readConfig()
 {
 	// Read configuration settings
-	KConfig *config = kapp->config();
+	KConfig *config = KGlobal::config();
 
 	// General configuration
 	config->setGroup("General");
@@ -513,7 +514,7 @@ void Atlantik::configureNotifications()
 
 void Atlantik::slotUpdateConfig()
 {
-	KConfig *config=kapp->config();
+	KConfig *config=KGlobal::config();
 	bool optBool, configChanged = false;
 	QString optStr;
 
@@ -766,7 +767,7 @@ void Atlantik::initNetworkObject()
 
 void Atlantik::clientCookie(QString cookie)
 {
-	KConfig *config = kapp->config();
+	KConfig *config = KGlobal::config();
 
 	if (cookie.isNull())
 	{
@@ -852,7 +853,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 		if ( m_atlantikNetwork )
 			m_atlantikNetwork->leaveGame();
 
-		saveMainWindowSettings(kapp->config(), "AtlantikMainWindow");
+		saveMainWindowSettings(KGlobal::config(), "AtlantikMainWindow");
 		KMainWindow::closeEvent(e);
 	}
 }
