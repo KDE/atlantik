@@ -188,7 +188,7 @@ void PortfolioView::loadIcon()
 	QMatrix m;
 	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
 	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
-	*scaledPixmap = m_image->xForm(m);
+	*scaledPixmap = m_image->transformed(m);
 
 	delete m_image;
 	m_image = scaledPixmap;

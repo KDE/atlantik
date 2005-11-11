@@ -148,7 +148,7 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p)
 			break;
 		default:;
 	}
-	*p = p->xForm(m);
+	*p = p->transformed(m);
 	return p;
 }
 
@@ -172,7 +172,7 @@ KPixmap *EstateView::rotatePixmap(KPixmap *p)
 			break;
 		default:;
 	}
-	*p = p->xForm(m);
+	*p = p->transformed(m);
 	return p;
 }
 
