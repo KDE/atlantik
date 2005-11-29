@@ -838,7 +838,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 	Game *gameSelf = m_atlanticCore->gameSelf();
 	Player *playerSelf = m_atlanticCore->playerSelf();
 
-	int result = KMessageBox::Yes;
+	int result = KMessageBox::Continue;
 	if ( gameSelf && !playerSelf->isBankrupt() && m_runningGame )
 		result = KMessageBox::warningContinueCancel( this, i18n("You are currently part of an active game. Are you sure you want to close Atlantik? If you do, you forfeit the game."), i18n("Close & Forfeit?"), i18n("Close && Forfeit") );
 
