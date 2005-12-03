@@ -15,7 +15,7 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qtimer.h>
-#include <qsocket.h>
+#include <q3socket.h>
 #include <qstring.h>
 
 #include <atlantic_core.h>
@@ -33,7 +33,7 @@ AtlanticDaemon::AtlanticDaemon()
 	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
 
 	// Create socket for Monopigator
-	m_monopigatorSocket = new QSocket();
+	m_monopigatorSocket = new Q3Socket();
 	connect(m_monopigatorSocket, SIGNAL(connected()), this, SLOT(monopigatorConnected()));
 
 	// Register server

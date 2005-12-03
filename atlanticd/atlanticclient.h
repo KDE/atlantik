@@ -17,9 +17,9 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include <qsocket.h>
+#include <q3socket.h>
 
-class AtlanticClient : public QSocket
+class AtlanticClient : public Q3Socket
 {
 Q_OBJECT
 

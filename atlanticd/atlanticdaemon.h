@@ -17,9 +17,9 @@
 #ifndef	ATLANTIC_ATLANTICDAEMON_H
 #define	ATLANTIC_ATLANTICDAEMON_H
 
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
-class QSocket;
+class Q3Socket;
 
 class AtlanticCore;
 class AtlanticClient;
@@ -39,10 +39,10 @@ private slots:
 	void clientInput(AtlanticClient *client, const QString &data);
 
 private:
-	QSocket *m_monopigatorSocket;
+	Q3Socket *m_monopigatorSocket;
 	ServerSocket *m_serverSocket;
 	AtlanticCore *m_atlanticCore;
-	QPtrList<AtlanticClient> m_clients;
+	Q3PtrList<AtlanticClient> m_clients;
 };
 
 #endif

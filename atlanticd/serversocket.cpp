@@ -17,7 +17,7 @@
 #include "atlanticclient.h"
 #include "serversocket.h"
 
-ServerSocket::ServerSocket(int port, int backlog) : QServerSocket(port, backlog)
+ServerSocket::ServerSocket(int port, int backlog) : Q3ServerSocket(port, backlog)
 {
 }
 

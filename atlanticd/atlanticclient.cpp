@@ -20,7 +20,7 @@
 #include "atlanticclient.h"
 #include "atlanticclient.moc"
 
-AtlanticClient::AtlanticClient(QObject *parent, const char *name) : QSocket(parent, name)
+AtlanticClient::AtlanticClient(QObject *parent, const char *name) : Q3Socket(parent, name)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(readData()));
 }

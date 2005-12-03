@@ -17,11 +17,11 @@
 #ifndef SERVERSOCKET_H
 #define SERVERSOCKET_H
 
-#include <qserversocket.h>
+#include <q3serversocket.h>
 
 class AtlanticClient;
 
-class ServerSocket : public QServerSocket
+class ServerSocket : public Q3ServerSocket
 {
 Q_OBJECT
 
