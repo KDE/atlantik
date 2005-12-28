@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Exec=atlantik -caption "%c" %i %m
+Exec=atlantik -caption "%c"
 Name=Atlantik
 Name[ar]=لعبة الرقعة (Atlantik)
 Name[bn]=আটলান্টিক
