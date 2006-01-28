@@ -20,5 +20,5 @@ class AtlantikProtocol : public KIO::SlaveBase
 {
 public:
 	AtlantikProtocol( const Q3CString &pool, const Q3CString &app) : SlaveBase( "atlantik", pool, app ) {}
-	virtual void get( const KURL& url );
+	virtual void get( const KUrl& url );
 };

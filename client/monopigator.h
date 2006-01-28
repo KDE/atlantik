@@ -35,7 +35,7 @@ Q_OBJECT
 public:
 	Monopigator();
 	~Monopigator();
-	void loadData(const KURL &);
+	void loadData(const KUrl &);
 
 signals:
 	void monopigatorAdd(QString ip, QString host, QString port, QString version, int users);

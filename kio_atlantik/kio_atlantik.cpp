@@ -43,7 +43,7 @@ extern "C"
 	}
 }
 
-void AtlantikProtocol::get( const KURL& url )
+void AtlantikProtocol::get( const KUrl& url )
 {
 	KProcess *proc = new KProcess;
 	*proc << "atlantik";

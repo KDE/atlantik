@@ -38,7 +38,7 @@ Monopigator::~Monopigator()
         m_downloadData=0L;
 }
 
-void Monopigator::loadData(const KURL &url)
+void Monopigator::loadData(const KUrl &url)
 {
     delete m_downloadData;
 	m_downloadData = new QBuffer();
