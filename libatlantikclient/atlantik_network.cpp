@@ -202,7 +202,7 @@ void AtlantikNetwork::writeData(QString msg)
 	if (socketStatus() == KExtendedSocket::connected)
 		*m_textStream << msg;
 	else
-		kdDebug() << "warning: socket not connected!" << endl;
+		kDebug() << "warning: socket not connected!" << endl;
 }
 
 void AtlantikNetwork::slotRead()
@@ -379,9 +379,9 @@ void AtlantikNetwork::processNode(QDomNode n)
 
 					Player *playerSelf = m_atlanticCore->playerSelf();
 					if ( playerSelf && playerSelf->game() )
-						kdDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(playerSelf->game()->id()) << endl;
+						kDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(playerSelf->game()->id()) << endl;
 					else
-						kdDebug() << "gameupdate for " << QString::number(gameId) << endl;
+						kDebug() << "gameupdate for " << QString::number(gameId) << endl;
 
 
 					Game *game = 0;
@@ -828,7 +828,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 										pTo = m_atlanticCore->findPlayer(a.value().toInt());
 
 									a = e_child.attributeNode(QString("money"));
-									kdDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << endl;
+									kDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << endl;
 									if (trade && pFrom && pTo && !a.isNull())
 										trade->updateMoney(a.value().toInt(), pFrom, pTo);
 								}
@@ -896,7 +896,7 @@ void AtlantikNetwork::processNode(QDomNode n)
 				}
 			}
 			else
-				kdDebug() << "ignored TAG: " << e.tagName() << endl;
+				kDebug() << "ignored TAG: " << e.tagName() << endl;
 		}
 		// TODO: remove permanently?
 		// QDomNode node = n.firstChild();
