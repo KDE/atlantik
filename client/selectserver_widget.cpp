@@ -120,7 +120,7 @@ void SelectServer::initMonopigator()
 	emit msgStatus(i18n("Retrieving server list..."));
 
 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
-	m_monopigator->loadData(KURL( "http://monopd-gator.kde.org/"));
+	m_monopigator->loadData(KUrl( "http://monopd-gator.kde.org/"));
 }
 
 void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)

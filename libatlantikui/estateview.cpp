@@ -92,7 +92,7 @@ void EstateView::updateToolTip()
 		else if ( m_estate->money() )
 			toolTip.append( "\n" + i18n("Money: %1").arg( m_estate->money() ) );
 
-		QToolTip::add( this, toolTip );
+		this->setToolTip( toolTip );
 	}
 }
 
