@@ -4,6 +4,7 @@ Exec=atlantik -caption "%c"
 Name=Atlantik
 Name[x-test]=xxAtlantikxx
 GenericName=Monopoly®-like Board Games
+GenericName[fr]=Jeux de plateau dans le style du Monopoly®
 GenericName[x-test]=xxMonopoly®-like Board Gamesxx
 Type=Application
 DocPath=atlantik/index.html
