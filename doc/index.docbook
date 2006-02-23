@@ -114,7 +114,7 @@ and/or resolving hostnames.</para></listitem>
 
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
-<guimenu>File</guimenu><guimenuitem>Quit</guimenuitem></menuchoice></term>
+<guimenu>Game</guimenu><guimenuitem>Quit</guimenuitem></menuchoice></term>
 <listitem><para>Quits &atlantik;.</para></listitem>
 </varlistentry>
 </variablelist>
