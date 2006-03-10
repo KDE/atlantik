@@ -1,0 +1,38 @@
+kde4_header()
+
+add_subdirectory( libatlantic ) 
+add_subdirectory( libatlantikui ) 
+add_subdirectory( kio_atlantik ) 
+add_subdirectory( pics ) 
+add_subdirectory( themes ) 
+
+include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
+
+
+########### install files ###############
+
+install_files( ${XDG_APPS_DIR} FILES atlantik.desktop )
+install_files( ${DATA_INSTALL_DIR}/atlantik FILES atlantikui.rc eventsrc )
+
+kde4_footer()
+
+
+
+#original Makefile.am contents follow:
+
+#SUBDIRS =  libatlantic libatlantikui \
+#           kio_atlantik pics themes
+#
+## TODO thiago 
+## SUBDIRS += libatlantikclient client 
+#
+#EXTRA_DIST = atlantik.desktop
+#
+#xdg_apps_DATA = atlantik.desktop
+#
+#rcdir = $(kde_datadir)/atlantik
+#rc_DATA = atlantikui.rc eventsrc
+#
+#messages: rc.cpp
+#	$(XGETTEXT) `find . -name '*.cpp'` -o $(podir)/atlantik.pot
+#
