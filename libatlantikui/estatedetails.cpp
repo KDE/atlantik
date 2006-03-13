@@ -28,7 +28,7 @@
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <klocale.h>
 #include <kpixmap.h>
 #include <kpushbutton.h>
@@ -60,7 +60,7 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, cons
 
 	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
-	m_infoListView = new KListView(this);
+	m_infoListView = new K3ListView(this);
 	m_infoListView->addColumn(m_estate ? m_estate->name() : QString("") );
 	m_infoListView->setSorting(-1);
 	m_mainLayout->addWidget(m_infoListView);

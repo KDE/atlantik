@@ -24,7 +24,7 @@
 #include <QVBoxLayout>
 
 #include <klineedit.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kpushbutton.h>
 
 #include "monopigator.h"
@@ -65,7 +65,7 @@ private:
 	void initMonopigator();
 
 	QVBoxLayout *m_mainLayout;
-	KListView *m_serverList;
+	K3ListView *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
 	Monopigator *m_monopigator;

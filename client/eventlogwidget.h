@@ -27,8 +27,8 @@ class QString;
 
 class Event;
 
-class KListView;
-class KListViewItem;
+class K3ListView;
+class K3ListViewItem;
 class KPushButton;
 
 class EventLog : public QObject
@@ -69,7 +69,7 @@ private slots:
 
 private:
 	EventLog *m_eventLog;
-	KListView *m_eventList;
+	K3ListView *m_eventList;
 	KPushButton *m_saveButton;
 };
 

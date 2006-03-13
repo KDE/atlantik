@@ -22,7 +22,7 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 
-#include <klistview.h>
+#include <k3listview.h>
 #include <kpushbutton.h>
 
 class AtlanticCore;
@@ -60,7 +60,7 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	QVBoxLayout *m_mainLayout;
-	KListView *m_gameList;
+	K3ListView *m_gameList;
 	KPushButton *m_connectButton;
 };
 

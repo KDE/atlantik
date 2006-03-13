@@ -24,13 +24,13 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-#include <klistview.h>
+#include <k3listview.h>
 
 class Q3GroupBox;
 class QSpinBox;
 class QLabel;
 
-class KListViewItem;
+class K3ListViewItem;
 
 class AtlanticCore;
 class Player;
@@ -56,10 +56,10 @@ private:
 	QVBoxLayout *m_mainLayout;
 	Q3GroupBox *m_playerGroupBox;
 	QSpinBox *m_bidSpinBox;
-	QMap<Player *, KListViewItem *> m_playerItems;
+	QMap<Player *, K3ListViewItem *> m_playerItems;
 	QLabel *m_statusLabel;
 
-	KListView *m_playerList;
+	K3ListView *m_playerList;
 
 	AtlanticCore *m_atlanticCore;
 	Auction *m_auction;

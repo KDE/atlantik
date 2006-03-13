@@ -53,12 +53,12 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	m_playerGroupBox = new Q3GroupBox(1, Qt::Horizontal,estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox);
 
-	m_playerList = new KListView(m_playerGroupBox);
+	m_playerList = new K3ListView(m_playerGroupBox);
 	m_playerList->addColumn(i18n("Player"));
 	m_playerList->addColumn(i18n("Bid"));
 	m_playerList->setSorting(1, false);
 
-	KListViewItem *item;
+	K3ListViewItem *item;
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
 	Q3PtrList<Player> playerList = m_atlanticCore->players();
@@ -66,7 +66,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	{
 		if ( (player = *it) && player->game() == pSelf->game() )
 		{
-			item = new KListViewItem(m_playerList, player->name(), QString("0"));
+			item = new K3ListViewItem(m_playerList, player->name(), QString("0"));
 			item->setPixmap(0, QPixmap(SmallIcon("personal")));
 			m_playerItems[player] = item;
 

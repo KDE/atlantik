@@ -26,19 +26,19 @@
 #include <qstring.h>
 
 #include <kglobalsettings.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kwordwrap.h>
 
 #include "kwrappedlistviewitem.h"
 
 KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, QString text, QString t2 )
-: QObject(), KListViewItem( parent )
+: QObject(), K3ListViewItem( parent )
 {
 	init( parent, text, t2 );
 }
 
 KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, QString text, QString t2 )
-: QObject(), KListViewItem( parent, after )
+: QObject(), K3ListViewItem( parent, after )
 {
 	init( parent, text, t2 );
 }

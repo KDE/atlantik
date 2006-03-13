@@ -28,11 +28,11 @@
 #include <qobject.h>
 #include <qstring.h>
 
-#include <klistview.h>
+#include <k3listview.h>
 
 class KWordWrap;
 
-class KWrappedListViewItem : public QObject, public KListViewItem
+class KWrappedListViewItem : public QObject, public K3ListViewItem
 {
 Q_OBJECT
 

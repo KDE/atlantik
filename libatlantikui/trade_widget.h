@@ -29,8 +29,8 @@ class QLabel;
 class Q3ListViewItem;
 class QSpinBox;
 
-class KListView;
-class KListViewItem;
+class K3ListView;
+class K3ListViewItem;
 class KComboBox;
 class KPushButton;
 
@@ -67,7 +67,7 @@ private slots:
 	void reject();
 	void accept();
 
-	void contextMenu(KListView *l, Q3ListViewItem *i, const QPoint& p);
+	void contextMenu(K3ListView *l, Q3ListViewItem *i, const QPoint& p);
 	void contextMenuClicked(int item);
 
 signals:
@@ -82,7 +82,7 @@ private:
 	QSpinBox *m_moneyBox;
 
 	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo;
-	KListView *m_componentList;
+	K3ListView *m_componentList;
 	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
 	AtlanticCore *m_atlanticCore;
@@ -90,8 +90,8 @@ private:
 	TradeItem *m_contextTradeItem;
 
 	// TODO: Wouldn't QPair make more sense here?
-	QMap<TradeItem *, KListViewItem *> m_componentMap;
-	QMap<KListViewItem *, TradeItem *> m_componentRevMap;
+	QMap<TradeItem *, K3ListViewItem *> m_componentMap;
+	QMap<K3ListViewItem *, TradeItem *> m_componentRevMap;
 	QMap<int, Estate *> m_estateMap;
 	QMap<Estate *, int> m_estateRevMap;
 	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;

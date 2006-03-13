@@ -32,7 +32,7 @@
 #include <QVBoxLayout>
 
 #include <klocale.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kdebug.h>
 #include <kdialogbase.h>
 #include <klineedit.h>
@@ -119,7 +119,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
-	m_componentList = new KListView(this );
+	m_componentList = new K3ListView(this );
         m_componentList->setObjectName( "componentList" );
 	listCompBox->addWidget(m_componentList);
 
@@ -128,7 +128,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_componentList->addColumn(i18n("Player"));
 	m_componentList->addColumn(i18n("Item"));
 
-	connect(m_componentList, SIGNAL(contextMenu(KListView*, Q3ListViewItem *, const QPoint&)), SLOT(contextMenu(KListView *, Q3ListViewItem *, const QPoint&)));
+	connect(m_componentList, SIGNAL(contextMenu(K3ListView*, Q3ListViewItem *, const QPoint&)), SLOT(contextMenu(K3ListView *, Q3ListViewItem *, const QPoint&)));
 	connect(m_componentList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(setCombos(Q3ListViewItem *)));
 
 	QHBoxLayout *actionBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
@@ -153,7 +153,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
-//	mPlayerList->setResizeMode(KListView::AllColumns);
+//	mPlayerList->setResizeMode(K3ListView::AllColumns);
 
 	connect(m_trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
 	connect(m_trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
@@ -183,7 +183,7 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 
 void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 {
-	KListViewItem *item = new KListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
+	K3ListViewItem *item = new K3ListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
@@ -200,14 +200,14 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 
 void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
-	KListViewItem *item = m_componentMap[t];
+	K3ListViewItem *item = m_componentMap[t];
 	delete item;
 	m_componentMap[t] = 0;
 }
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	KListViewItem *item = m_componentMap[t];
+	K3ListViewItem *item = m_componentMap[t];
 	if (item)
 	{
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
@@ -231,7 +231,7 @@ void TradeDisplay::playerChanged(Player *player)
 	m_playerTargetCombo->changeItem(player->name(), m_playerTargetRevMap[player]);
 
 	TradeItem *item = 0;
-	for (QMap<KListViewItem *, TradeItem *>::Iterator it=m_componentRevMap.begin() ; it != m_componentRevMap.end() && (item = *it) ; ++it)
+	for (QMap<K3ListViewItem *, TradeItem *>::Iterator it=m_componentRevMap.begin() ; it != m_componentRevMap.end() && (item = *it) ; ++it)
 		tradeItemChanged(item);
 }
 
@@ -299,7 +299,7 @@ void TradeDisplay::setEstateCombo(int index)
 
 void TradeDisplay::setCombos(Q3ListViewItem *i)
 {
-	TradeItem *item = m_componentRevMap[(KListViewItem *)(i)];
+	TradeItem *item = m_componentRevMap[(K3ListViewItem *)(i)];
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(item))
 	{
 		setTypeCombo(0);
@@ -354,9 +354,9 @@ void TradeDisplay::accept()
 	emit accept(m_trade);
 }
 
-void TradeDisplay::contextMenu(KListView *, Q3ListViewItem *i, const QPoint& p)
+void TradeDisplay::contextMenu(K3ListView *, Q3ListViewItem *i, const QPoint& p)
 {
-	m_contextTradeItem = m_componentRevMap[(KListViewItem *)(i)];
+	m_contextTradeItem = m_componentRevMap[(K3ListViewItem *)(i)];
 
 	KMenu *rmbMenu = new KMenu(this);
 //	rmbMenu->insertTitle( ... );

@@ -28,7 +28,7 @@
 #include <QCloseEvent>
 
 #include <klocale.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kdialogbase.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
@@ -67,7 +67,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
-	m_eventList = new KListView( this );
+	m_eventList = new K3ListView( this );
 	m_eventList->setObjectName( "eventList" );
 	listCompBox->addWidget(m_eventList);
 
@@ -100,7 +100,7 @@ void EventLogWidget::addEvent(Event *event)
 		delete m_eventList->firstChild();
 
 	QString description = KStringHandler::rsqueeze( event->description(), 200 );
-	KListViewItem *item = new KListViewItem(m_eventList, event->dateTime().toString("yyyy-MM-dd hh:mm:ss zzz"), description);
+	K3ListViewItem *item = new K3ListViewItem(m_eventList, event->dateTime().toString("yyyy-MM-dd hh:mm:ss zzz"), description);
 	if (event->icon().isEmpty())
 		item->setPixmap(1, QPixmap(SmallIcon("atlantik")));
 	else

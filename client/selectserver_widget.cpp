@@ -61,7 +61,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_mainLayout->addWidget(bgroup);
 
 	// List of servers
-	m_serverList = new KListView( bgroup );
+	m_serverList = new K3ListView( bgroup );
 	m_serverList->setObjectName( "m_serverList" );
 	m_serverList->addColumn(i18n("Host"));
 	m_serverList->addColumn(i18n("Latency"));
