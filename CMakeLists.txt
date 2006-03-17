@@ -1,4 +1,5 @@
 kde4_header()
+project(atlantik)
 
 add_subdirectory( libatlantic ) 
 add_subdirectory( libatlantikui ) 
