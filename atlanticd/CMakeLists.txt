@@ -15,7 +15,7 @@ kde4_automoc(${atlanticd_SRCS})
 
 kde4_add_executable(atlanticd ${atlanticd_SRCS})
 
-target_link_libraries(atlanticd  ${QT_AND_KDECORE_LIBS} )
+target_link_libraries(atlanticd  ${KDE4_KDECORE_LIBS} )
 
 install_targets(/bin atlanticd )
 

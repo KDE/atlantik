@@ -20,7 +20,7 @@ kde4_automoc(${atlantik_SRCS})
 
 kde4_add_executable(atlantik ${atlantik_SRCS})
 
-target_link_libraries(atlantik  ${QT_AND_KDECORE_LIBS} atlantikui atlantikclient kio )
+target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient kio )
 
 install_targets(/bin atlantik )
 
