@@ -80,7 +80,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_saveButton = new KPushButton(BarIcon("filesave", KIcon::SizeSmall), i18n("&Save As..."), this);
+	m_saveButton = new KPushButton(BarIcon("filesave", K3Icon::SizeSmall), i18n("&Save As..."), this);
 	actionBox->addWidget(m_saveButton);
 
 	connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));

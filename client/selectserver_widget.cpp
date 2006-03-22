@@ -86,7 +86,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton = new KPushButton(BarIconSet("forward", KIcon::SizeSmall), i18n("Connect"), this);
+	m_connectButton = new KPushButton(BarIconSet("forward", K3Icon::SizeSmall), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
@@ -126,7 +126,7 @@ void SelectServer::initMonopigator()
 void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)
 {
 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port, ip);
-	item->setPixmap(0, BarIcon("atlantik", KIcon::SizeSmall));
+	item->setPixmap(0, BarIcon("atlantik", K3Icon::SizeSmall));
 
 	if ( item->isDev() )
 	{

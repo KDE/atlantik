@@ -46,10 +46,10 @@
 ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
 {
 	m_parent = parent;
-	p_general = addPage(i18n("General"), i18n("General"), BarIcon("configure", KIcon::SizeMedium));
-	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", KIcon::SizeMedium));
-	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", KIcon::SizeMedium));
-	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", KIcon::SizeMedium));
+	p_general = addPage(i18n("General"), i18n("General"), BarIcon("configure", K3Icon::SizeMedium));
+	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", K3Icon::SizeMedium));
+	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", K3Icon::SizeMedium));
+	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", K3Icon::SizeMedium));
 
 	configGeneral = new ConfigGeneral(this, p_general, "configGeneral");
 	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
@@ -155,9 +155,9 @@ void ConfigPlayer::chooseImage()
 #endif
 		
 #ifdef KDE_3_3_FEATURES
-	iconDialog.setup( KIcon::Desktop, KIcon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
+	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
 #else
-	iconDialog.setup( KIcon::Desktop, KIcon::Application, false, 0, true ); // begin with user icons
+	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true ); // begin with user icons
 #endif
 
 	QString image = iconDialog.openDialog();
