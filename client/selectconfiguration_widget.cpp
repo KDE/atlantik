@@ -45,7 +45,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Game configuration.
-	m_configBox = new QVGroupBox(i18n("Game Configuration"), this, "configBox");
+	m_configBox = new QGroupBox(i18n("Game Configuration"), this, "configBox");
 	m_mainLayout->addWidget(m_configBox);
 
 	// Player buttons.
@@ -187,6 +187,11 @@ void SelectConfiguration::gameChanged(Game *game)
 {
 	m_startButton->setEnabled( game->master() == m_atlanticCore->playerSelf() );
 
-	for (QMapIterator<ConfigOption *, QCheckBox *> it = m_configBoxMap.begin() ; it != m_configBoxMap.end() ; ++it)
-		(*it)->setEnabled( it.key()->edit() && m_atlanticCore->selfIsMaster() );
+QMapIterator<ConfigOption *, QCheckBox *> it(m_configBoxMap);
+while (it.hasNext()) {
+			it.next();
+			it.value()->setEnabled(it.key()->edit() && m_atlanticCore->selfIsMaster() );
+ 
+    }
+
 }

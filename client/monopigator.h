@@ -21,11 +21,12 @@
 #include <qbuffer.h>
 #include <q3listview.h>
 #include <qtimer.h>
-
+#include <QTime>
+#include <kbufferedsocket.h>
 #include <kio/job.h>
 #include <kurl.h>
 
-class KExtendedSocket;
+class KNetwork::KBufferedSocket;
 class QTime;
 
 class Monopigator : public QObject
@@ -55,6 +56,7 @@ private:
 	KIO::Job *m_job;
 };
 
+
 class MonopigatorEntry : public QObject, public Q3ListViewItem
 {
 Q_OBJECT
@@ -70,7 +72,7 @@ private slots:
 	void showDevelopmentServers(bool show);
 
 private:
-	KExtendedSocket *m_latencySocket;
+	KNetwork::KBufferedSocket *m_latencySocket;
 	QTime time;
 	Q3ListView *m_parent;
 	bool m_isDev;

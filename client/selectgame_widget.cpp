@@ -14,7 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qvgroupbox.h>
+#include <QGroupBox>
 #include <qradiobutton.h>
 //Added by qt3to4:
 #include <QPixmap>
@@ -43,8 +43,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
 	Q_CHECK_PTR(m_mainLayout);
 
-	QVGroupBox *groupBox;
-	groupBox = new QVGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
+	QGroupBox *groupBox;
+	groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
 	m_mainLayout->addWidget(groupBox);
 
 	// List of games

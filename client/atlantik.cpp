@@ -109,7 +109,9 @@ Atlantik::Atlantik ()
 
 	// Toolbar: Game
 //	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
-        m_showEventLog = new KAction(i18n("Show Event &Log")/*, "atlantik_showeventlog"*/, CTRL+Key_L, this, SLOT(showEventLog()), actionCollection(), "showeventlog");
+        m_showEventLog = new KAction(i18n("Show Event &Log"), actionCollection(), "showeventlog");
+		//m_showEventLog->setShortcut(KStdAccel::shortcut(KStdAccel::New));
+		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Settings
@@ -138,17 +140,33 @@ Atlantik::Atlantik ()
 	// Menu,toolbar: Move
 	m_roll = KStdGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
 	m_roll->setEnabled(false);
-	m_buyEstate = new KAction(i18n("&Buy"), "atlantik_buy_estate", CTRL+Key_B, this, SIGNAL(buyEstate()), actionCollection(), "buy_estate");
+
+	m_buyEstate = new KAction(i18n("&Buy"), actionCollection(), "atlantik_buy_estate");
+   m_buyEstate->setShortcut("CTRL+Key_B"); 
+	connect (m_buyEstate,SIGNAL(toggled(bool)), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
-	m_auctionEstate = new KAction(i18n("&Auction"), "auction", CTRL+Key_A, this, SIGNAL(auctionEstate()), actionCollection(), "auction");
+
+	m_auctionEstate = new KAction(i18n("&Auction"), actionCollection(), "auction");
+	m_auctionEstate->setShortcut("CTRL+Key_A"); 
+	connect(m_auctionEstate,SIGNAL(toggled(bool)),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
+
+
 	m_endTurn = KStdGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
-        m_jailCard = new KAction(i18n("Use Card to Leave Jail")/*, "atlantik_move_jail_card"*/, 0, this, SIGNAL(jailCard()), actionCollection(), "move_jailcard");
+
+   m_jailCard = new KAction(i18n("Use Card to Leave Jail"),actionCollection(), "move_jailcard");
+	connect(m_jailCard, SIGNAL(toggled(bool)),this, SIGNAL(jailCard()));
 	m_jailCard->setEnabled(false);
-	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), "jail_pay", CTRL+Key_P, this, SIGNAL(jailPay()), actionCollection(), "move_jailpay");
+
+	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), actionCollection(), "jail_pay");
+	m_jailPay->setShortcut("CTRL+Key_P");
+	connect(m_jailPay, SIGNAL(toggled(bool)),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
-        m_jailRoll = new KAction(i18n("Roll to Leave &Jail")/*, "atlantik_move_jail_roll"*/, CTRL+Key_J, this, SIGNAL(jailRoll()), actionCollection(), "move_jailroll");
+
+	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), actionCollection(), "move_jailroll");
+	m_jailRoll->setShortcut("CTRL+Key_J"); 
+	connect(m_jailRoll, SIGNAL(toggled(bool)), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
@@ -186,7 +204,7 @@ Atlantik::Atlantik ()
 
 	// Text view for chat and status messages from server.
 	m_serverMsgs = new LogTextEdit(m_mainWidget, "serverMsgs");
-	m_serverMsgs->setTextFormat(Q3TextEdit::PlainText);
+	//TODO: m_serverMsgs->setTextFormat(Q3TextEdit::PlainText);
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHScrollBarMode(Q3ScrollView::AlwaysOff);
 	m_serverMsgs->setMinimumWidth(200);
@@ -449,46 +467,49 @@ void Atlantik::slotNetworkConnected()
 {
 }
 
+
+
 void Atlantik::slotNetworkError(int errnum)
 {
-	QString errMsg(i18n("Error connecting: "));
-	
-	switch (m_atlantikNetwork->status())
-	{
-		case IO_ConnectError:
-			if (errnum == ECONNREFUSED)
-				errMsg.append(i18n("connection refused by host."));
-			else
-				errMsg.append(i18n("could not connect to host."));
-			break;
-
-		case IO_LookupError:
-			errMsg.append(i18n("host not found."));
-			break;
-
-		default:
-			errMsg.append(i18n("unknown error."));
-	}
-
-	serverMsgsAppend(errMsg);
-
-	// Re-init network object
-	initNetworkObject();
+// 	QString errMsg(i18n("Error connecting: "));
+// 
+// 	//Should be done by AtlantikNetwork...	
+// 	switch (m_atlantikNetwork->status())
+// 	{
+// 		case IO_ConnectError:
+// 			if (errnum == ECONNREFUSED)
+// 				errMsg.append(i18n("connection refused by host."));
+// 			else
+// 				errMsg.append(i18n("could not connect to host."));
+// 			break;
+// 
+// 		case IO_LookupError:
+// 			errMsg.append(i18n("host not found."));
+// 			break;
+// 
+// 		default:
+// 			errMsg.append(i18n("unknown error."));
+// 	}
+// 
+// 	serverMsgsAppend(errMsg);
+// 
+// 	// Re-init network object
+// 	initNetworkObject();
 }
 
 void Atlantik::networkClosed(int status)
 {
-	switch( status )
-	{
-	case KBufferedIO::involuntary:
-		slotMsgStatus( i18n("Connection with server %1:%2 lost.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
-		showSelectServer();
-		break;
-	default:
-		if ( !m_atlantikNetwork->host().isEmpty() )
-			slotMsgStatus( i18n("Disconnected from %1:%2.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
-		break;
-	}
+// 	switch( status )
+// 	{
+// 	case KBufferedIO::involuntary:
+// 		slotMsgStatus( i18n("Connection with server %1:%2 lost.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
+// 		showSelectServer();
+// 		break;
+// 	default:
+// 		if ( !m_atlantikNetwork->host().isEmpty() )
+// 			slotMsgStatus( i18n("Disconnected from %1:%2.").arg(m_atlantikNetwork->host()).arg(m_atlantikNetwork->port()), QString("connect_no") );
+// 		break;
+// 	}
 }
 
 void Atlantik::slotConfigure()
@@ -729,7 +750,7 @@ void Atlantik::initNetworkObject()
 {
 	if (m_atlantikNetwork)
 	{
-		m_atlantikNetwork->reset();
+		//TODO: m_atlantikNetwork->reset();
 		return;
 	}
 
@@ -767,24 +788,24 @@ void Atlantik::initNetworkObject()
 
 void Atlantik::clientCookie(QString cookie)
 {
-	KConfig *config = KGlobal::config();
-
-	if (cookie.isNull())
-	{
-		if (config->hasGroup("Reconnection"))
-			config->deleteGroup("Reconnection", true);
-	}
-	else if (m_atlantikNetwork)
-	{
-		config->setGroup("Reconnection");
-		config->writeEntry("Host", m_atlantikNetwork->host());
-		config->writeEntry("Port", m_atlantikNetwork->port());
-		config->writeEntry("Cookie", cookie);
-	}
-	else
-		return;
-
-	config->sync();
+// 	KConfig *config = KGlobal::config();
+// 
+// 	if (cookie.isNull())
+// 	{
+// 		if (config->hasGroup("Reconnection"))
+// 			config->deleteGroup("Reconnection", true);
+// 	}
+// 	else if (m_atlantikNetwork)
+// 	{
+// 		config->setGroup("Reconnection");
+// 		 config->writeEntry("Host", m_atlantikNetwork->host());
+// 		 config->writeEntry("Port", m_atlantikNetwork->port());
+// 		config->writeEntry("Cookie", cookie);
+// 	}
+// 	else
+// 		return;
+// 
+// 	config->sync();
 }
 
 void Atlantik::sendHandshake()
@@ -795,7 +816,8 @@ void Atlantik::sendHandshake()
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	Q3CString game = args->getOption("game");	
+	Q3CString game = args->getOption("game");
+	kDebug() << "received Handshake; joining game: " << game.toInt();	
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
 }

@@ -128,7 +128,7 @@ ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const ch
 	QLabel *label2 = new QLabel(i18n("Player image:"), parent);
 	layout->addWidget(label2);
                 
-	m_playerIcon = new KPushButton(parent, "playerIcon");
+	m_playerIcon = new KPushButton(parent);
 	layout->addWidget(m_playerIcon);
 
 	connect( m_playerIcon, SIGNAL(clicked()), this, SLOT(chooseImage()) );
@@ -149,7 +149,7 @@ QString ConfigPlayer::playerImage()
 }
 void ConfigPlayer::chooseImage()
 {
-	KIconDialog iconDialog( this, "iconDialog" );
+	KIconDialog iconDialog( this);
 #ifdef KDE_3_1_FEATURES
 	iconDialog.setCustomLocation( locate("appdata", "themes/default/tokens/") );
 #endif

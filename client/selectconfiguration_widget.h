@@ -19,7 +19,7 @@
 
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qvgroupbox.h>
+#include <QGroupBox>
 //Added by qt3to4:
 #include <QVBoxLayout>
 
@@ -68,7 +68,7 @@ signals:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	QVGroupBox *m_configBox, *m_messageBox;
+	QGroupBox *m_configBox, *m_messageBox;
 	KPushButton *m_backButton, *m_startButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QObject *, ConfigOption *> m_configMap;

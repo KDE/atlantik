@@ -3,7 +3,9 @@ project(atlantik)
 
 add_subdirectory( libatlantic ) 
 add_subdirectory( libatlantikui ) 
-add_subdirectory( kio_atlantik ) 
+add_subdirectory( kio_atlantik )
+add_subdirectory( libatlantikclient ) 
+add_subdirectory( client )
 add_subdirectory( pics ) 
 add_subdirectory( themes ) 
 

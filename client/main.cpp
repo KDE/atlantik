@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	KApplication kapplication;
     KGlobal::locale()->insertCatalog("libkdegames");
 
-	if (kapplication.isRestored())
+	if (kapplication.isSessionRestored())
 		RESTORE(Atlantik)
 	else
 	{

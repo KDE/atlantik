@@ -1,6 +1,15 @@
 kde4_header()
 
-include_directories( ${CMAKE_SOURCE_DIR}/libkdegames ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}  )
+include_directories(
+${CMAKE_SOURCE_DIR}/libkdegames 
+${KDE4_INCLUDE_DIR} 
+${QT_INCLUDES} 
+${CMAKE_CURRENT_SOURCE_DIR} 
+${CMAKE_CURRENT_SOURCE_DIR}/../libatlantic 
+${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikclient 
+${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui 
+${CMAKE_CURRENT_SOURCE_DIR}/../../libkdegames
+)
 
 
 ########### next target ###############
@@ -20,7 +29,7 @@ kde4_automoc(${atlantik_SRCS})
 
 kde4_add_executable(atlantik ${atlantik_SRCS})
 
-target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient kio )
+target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient kio kdegames)
 
 install_targets(/bin atlantik )
 

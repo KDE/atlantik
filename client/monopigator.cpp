@@ -18,8 +18,9 @@
 #include <q3ptrlist.h>
 #include <qregexp.h>
 
-#include <kextendedsocket.h>
-
+#include <kbufferedsocket.h>
+#include <kdebug.h>
+#include <iostream>
 #include "monopigator.moc"
 #include "main.h"
 
@@ -108,6 +109,8 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 	}
 }
 
+
+
 MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), Q3ListViewItem(parent, host, latency, version, users, port)
 {
 	m_isDev = ( version.find( QRegExp("(CVS|-dev)") ) != -1 ) ? true : false;
@@ -117,19 +120,22 @@ MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString lat
 
 	if ( !ip.isEmpty() )
 		host = ip;
-	m_latencySocket = new KExtendedSocket( host, port.toInt(), KExtendedSocket::inputBufferedSocket | KExtendedSocket::noResolve );
-	connect(m_latencySocket, SIGNAL(lookupFinished(int)), this, SLOT(resolved()));
-	connect(m_latencySocket, SIGNAL(connectionSuccess()), this, SLOT(connected()));
-	m_latencySocket->startAsyncConnect();
+	m_latencySocket = new KNetwork::KBufferedSocket(host, port);
+
+	connect(m_latencySocket, SIGNAL(hostFound()), this, SLOT(resolved()));
+	connect(m_latencySocket, SIGNAL(connected(KNetwork::KResolverEntry)), this, SLOT(connected()));
+	m_latencySocket->connect();
 }
 
 void MonopigatorEntry::resolved()
 {
 	time.start();
+	kDebug() << "Hostname resolved; timer starts" << endl;
 }
 
 void MonopigatorEntry::connected()
 {
+	kDebug() << "connected" << endl;
 	setText( 1, QString::number(time.elapsed()) );
 	setEnabled(true);
 	listView()->sort();

@@ -22,6 +22,7 @@
 #include <qradiobutton.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include <klineedit.h>
 #include <k3listview.h>
@@ -65,6 +66,7 @@ private:
 	void initMonopigator();
 
 	QVBoxLayout *m_mainLayout;
+	QHBoxLayout *m_customLayout;
 	K3ListView *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;

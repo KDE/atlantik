@@ -21,7 +21,7 @@
 #include <qcheckbox.h>
 #include <qlineedit.h>
 //Added by qt3to4:
-#include <Q3Frame>
+#include <QFrame>
 
 #include <kdialogbase.h>
 
@@ -131,7 +131,7 @@ public:
 
 private:
 	Atlantik *m_parent;
-	Q3Frame *p_general, *p_p13n, *p_board, *p_monopigator;
+	QFrame *p_general, *p_p13n, *p_board, *p_monopigator;
 	ConfigPlayer *configPlayer;
 	ConfigBoard *configBoard;
 	ConfigMonopigator *configMonopigator;

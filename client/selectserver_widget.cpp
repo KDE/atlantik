@@ -19,13 +19,13 @@
 #include <qradiobutton.h>
 #include <qsizepolicy.h>
 
-#include <qhgroupbox.h>
+#include <qgroupbox.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-
+#include <q3buttongroup.h>
 #include <kdialog.h>
-#include <kextendedsocket.h>
+//#include <kextendedsocket.h>
 #include <klocale.h>
 #include <kiconloader.h>
 
@@ -39,20 +39,27 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Custom server group
-	QHGroupBox *customGroup = new QHGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
+	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
+	m_customLayout = new QHBoxLayout(customGroup, KDialog::marginHint());
+	customGroup->setLayout(m_customLayout);
 	m_mainLayout->addWidget(customGroup);
 
-	QLabel *hostLabel = new QLabel(i18n("Hostname:"), customGroup);
+	QLabel *hostLabel = new QLabel(i18n("Hostname:"));
+	m_customLayout->addWidget(hostLabel);
 
-	m_hostEdit = new KLineEdit(customGroup);
+	m_hostEdit = new KLineEdit();
 	m_hostEdit->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum));
+	m_customLayout->addWidget(m_hostEdit);
 
-	QLabel *portLabel = new QLabel(i18n("Port:"), customGroup);
+	QLabel *portLabel = new QLabel(i18n("Port:"));
+	m_customLayout->addWidget(portLabel);
 
-	m_portEdit = new KLineEdit(QString::number(1234), customGroup);
+	m_portEdit = new KLineEdit(QString::number(1234),customGroup);
 	m_portEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));
+	m_customLayout->addWidget(m_portEdit);
 
-	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"), customGroup );
+	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"),customGroup);
+	m_customLayout->addWidget(connectButton);
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// Server list group

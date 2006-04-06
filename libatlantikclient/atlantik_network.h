@@ -22,33 +22,32 @@
 #include <QTextStream>
 
 
-#include <kstreamsocket.h>
+#include <kresolver.h>
 #include <kbufferedsocket.h>
 
-#include "libatlantic_export.h"
-class QDomNode;
-class QTextStream;
-
 class AtlanticCore;
+class KNetwork::KBufferedSocket;
 
-class Player;
-class Estate;
-class EstateGroup;
-class Trade;
-class Auction;
-
-class LIBATLANTIC_EXPORT AtlantikNetwork : public QObject, public KExtendedSocket
+class  AtlantikNetwork: public QObject
 {
 Q_OBJECT
 
 public:
 	AtlantikNetwork(AtlanticCore *atlanticCore);
 	virtual ~AtlantikNetwork(void);
+
 	void setName(QString name);
 	void cmdChat(QString msg);
 
 private slots:
-	void writeData(QString msg);
+	void slotwriteData(QString msg);
+	void slotLookupFinished();
+	void slotConnectionSuccess();
+	void slotConnectionFailed(int error);
+
+	void writeData(QString data);
+
+
 	void rollDice();
 	void endTurn();
 	void newGame(const QString &gameType);
@@ -71,44 +70,24 @@ private slots:
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);
 	void changeOption(int, const QString &value);
-	void slotLookupFinished(int count);
-	void slotConnectionSuccess();
-	void slotConnectionFailed(int error);
+
+
 
 public slots:
 	void serverConnect(const QString host, int port);
+	void slotRead();
+
 	void joinGame(int gameId);
 	void leaveGame();
-	void slotRead();
 	void setImage(const QString &name);
 
 signals:
-	/**
-	 * A new estate was created. This signal might be replaced with one in
-	 * the AtlanticCore class in the future, but it is here now because we
-	 * do not want GUI implementations to create a view until the
-	 * estateupdate message has been fully parsed.
-	 *
-	 * @param estate	Created Estate object.
-	 */
-	void newEstate(Estate *estate);
-
-	/**
-	 * A new estate group was created. This signal might be replaced with
-	 * one in the AtlanticCore class in the future, but it is here now
-	 * because we do not want GUI implementations to create a view until the
-	 * estategroupupdate message has been fully parsed.
-	 *
-	 * @param estateGroup	Created EstateGroup object.
-	 */
-	void newEstateGroup(EstateGroup *estateGroup);
 
 	void msgInfo(QString);
 	void msgError(QString);
 	void msgChat(QString, QString);
 	void msgStatus(const QString &data, const QString &icon = QString::null);
 	void networkEvent(const QString &data, const QString &icon);
-
 	void displayDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void addCommandButton(QString command, QString caption, bool enabled);
 	void addCloseButton();
@@ -120,41 +99,28 @@ signals:
 	void gameInit();
 	void gameRun();
 	void gameEnd();
+	void receivedHandshake();
+	void clientCookie(QString cookie);
+	void newEstate(Estate *estate);
 
-	/**
-	 * The trade has been completed. Emitted after all necessary estate and
-	 * player updates are processed.
-	 *
-	 * @param trade Trade
-	 */
+	void newEstateGroup(EstateGroup *estateGroup);
 	void msgTradeUpdateAccepted(Trade *trade);
 
-	/**
-	 * One of the players rejected the trade and the trade object has been
-	 * deleted from the server.
-	 *
-	 * @param trade Trade
-	 * @param playerId Unique player identifier of rejecting player
-	 */
 	void msgTradeUpdateRejected(Trade *trade, int playerId);
 
 	void newAuction(Auction *auction);
 	void auctionCompleted(Auction *auction);
-	void receivedHandshake();
-	void clientCookie(QString cookie);
-
 private:
-	void processMsg(const QString &msg);
-	void processNode(QDomNode);
-
+        void processMsg(const QString &msg);
+        void processNode(QDomNode);
 	AtlanticCore *m_atlanticCore;
-	QTextStream *m_textStream;
-
+	KNetwork::KBufferedSocket *m_monopdsocket;
+	QTextStream m_monopdstream;
 	int m_playerId;
 	QString m_serverVersion;
-
 	QMap<Player *, int> m_playerLocationMap;
 	QMap<int, Auction *> m_auctions;
+
 };
 
 #endif
