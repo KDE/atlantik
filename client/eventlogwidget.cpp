@@ -121,7 +121,7 @@ void EventLogWidget::save()
 	{
 		QTextStream stream(&file);
 
-		stream << i18n( "Atlantik log file, saved at %1." ).arg( QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ) << endl;
+		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ) << endl;
 
 		Q3PtrList<Event> events = m_eventLog->events();
 		for (Q3PtrListIterator<Event> it( events ); (*it) ; ++it)

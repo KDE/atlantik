@@ -88,7 +88,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	emit msgStatus(i18n("Connecting to  %1:%2...").arg(host).arg(QString::number(port)), "connect_creating");
+	emit msgStatus(i18n("Connecting to  %1:%2...", host, port), "connect_creating");
 	m_monopdsocket->connect(host, QString::number(port));
 }
 
@@ -99,6 +99,7 @@ void AtlantikNetwork::slotLookupFinished()
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
+	#warning i18n: Missing two arguments in the call below
 	emit msgStatus(i18n("Connected to %1:%2."), "connect_established");
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
@@ -110,7 +111,7 @@ void AtlantikNetwork::slotConnectionSuccess()
 
 void AtlantikNetwork::slotConnectionFailed(int error)
 {
-	emit msgStatus(i18n("Connection failed! Error code: %1").arg(error), "connect_no");
+	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect_no");
 }
 
 void AtlantikNetwork::writeData(QString data) {

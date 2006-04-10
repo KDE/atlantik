@@ -50,7 +50,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	// Player list
 	Estate *estate = auction->estate();
-	m_playerGroupBox = new Q3GroupBox(1, Qt::Horizontal,estate ? i18n("Auction: %1").arg(estate->name()) : i18n("Auction"), this, "groupBox");
+	m_playerGroupBox = new Q3GroupBox(1, Qt::Horizontal,estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"), this, "groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox);
 
 	m_playerList = new K3ListView(m_playerGroupBox);

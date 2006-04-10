@@ -85,13 +85,13 @@ void SelectGame::addGame(Game *game)
 
 	if (game->id() == -1)
 	{
-		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Create a new %1 Game").arg(game->name()), game->description(), QString::null, QString::null, game->type() );
+		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Create a new %1 Game", game->name()), game->description(), QString::null, QString::null, game->type() );
 		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
 	}
 	else
 	{
 		Player *master = game->master();
-		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Join %1's %2 Game").arg( (master ? master->name() : QString::null), game->name() ), game->description(), QString::number(game->id()), QString::number(game->players()), game->type() );
+		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Join %1's %2 Game", (master ? master->name() : QString::null), game->name() ), game->description(), QString::number(game->id()), QString::number(game->players()), game->type() );
 		item->setPixmap( 0, QPixmap(SmallIcon("atlantik")) );
 		item->setEnabled(game->canBeJoined());
 
@@ -123,11 +123,11 @@ void SelectGame::updateGame(Game *game)
 	item->setText( 1, game->description() );
 
 	if (game->id() == -1)
-		item->setText(0, i18n("Create a new %1 Game").arg(game->name()));
+		item->setText(0, i18n("Create a new %1 Game", game->name()));
 	else
 	{
 		Player *master = game->master();
-		item->setText( 0, i18n("Join %1's %2 Game").arg( (master ? master->name() : QString::null), game->name() ) );
+		item->setText( 0, i18n("Join %1's %2 Game", (master ? master->name() : QString::null), game->name() ) );
 		item->setText( 3, QString::number( game->players() ) );
 		item->setEnabled( game->canBeJoined() );
 
@@ -148,7 +148,7 @@ void SelectGame::playerChanged(Player *player)
 		game = m_atlanticCore->findGame( item->text(2).toInt() );
 		if ( game && game->master() == player )
 		{
-			item->setText( 0, i18n("Join %1's %2 Game").arg( player->name(), game->name() ) );
+			item->setText( 0, i18n("Join %1's %2 Game", player->name(), game->name() ) );
 			return;
 		}
 		item = item->nextSibling();

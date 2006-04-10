@@ -266,12 +266,12 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 		if ( m_portfolioEstates.count() )
 		{
 			// Start trade
-			rmbMenu->insertItem(i18n("Request Trade with %1").arg(m_player->name()), 0);
+			rmbMenu->insertItem(i18n("Request Trade with %1", m_player->name()), 0);
 		}
 		else
 		{
 			// Kick player
-			rmbMenu->insertItem(i18n("Boot Player %1 to Lounge").arg(m_player->name()), 0);
+			rmbMenu->insertItem(i18n("Boot Player %1 to Lounge", m_player->name()), 0);
 			rmbMenu->setItemEnabled( 0, m_atlanticCore->selfIsMaster() );
 		}
 

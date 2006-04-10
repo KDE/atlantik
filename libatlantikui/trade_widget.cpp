@@ -57,7 +57,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
-	setCaption(i18n("Trade %1").arg(trade->tradeId()));
+	setCaption(i18n("Trade %1", trade->tradeId()));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 
@@ -149,7 +149,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_status = new QLabel(this);
 	listCompBox->addWidget(m_status);
-	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
+	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal.", m_trade->count( true ), m_trade->count( false ) ) );
 
 //	mPlayerList->header()->hide();
 //	mPlayerList->setRootIsDecorated(true);
@@ -183,7 +183,7 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 
 void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 {
-	K3ListViewItem *item = new K3ListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18n("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
+	K3ListViewItem *item = new K3ListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18nc("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
 	item->setPixmap(0, QPixmap(SmallIcon("personal")));
@@ -222,7 +222,7 @@ void TradeDisplay::tradeChanged()
 {
 	// TODO: add notification whether playerSelf has accepted or not and
 	// enable/disable accept button based on that
-	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal." ).arg( m_trade->count( true ) ).arg( m_trade->count( false ) ) );
+	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal.", m_trade->count( true ), m_trade->count( false ) ) );
 }
 
 void TradeDisplay::playerChanged(Player *player)
@@ -238,7 +238,7 @@ void TradeDisplay::playerChanged(Player *player)
 void TradeDisplay::tradeRejected(Player *player)
 {
 	if (player)
-		m_status->setText(i18n("Trade proposal was rejected by %1.").arg(player->name()));
+		m_status->setText(i18n("Trade proposal was rejected by %1.", player->name()));
 	else
 		m_status->setText(i18n("Trade proposal was rejected."));
 
