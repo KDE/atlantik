@@ -142,12 +142,12 @@ Atlantik::Atlantik ()
 	m_roll->setEnabled(false);
 
 	m_buyEstate = new KAction(i18n("&Buy"), actionCollection(), "atlantik_buy_estate");
-	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL, Qt::Key_B) ); 
+	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) ); 
 	connect (m_buyEstate,SIGNAL(toggled(bool)), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
 	m_auctionEstate = new KAction(i18n("&Auction"), actionCollection(), "auction");
-	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL, Qt::Key_A)); 
+	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A)); 
 	connect(m_auctionEstate,SIGNAL(toggled(bool)),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
@@ -160,12 +160,12 @@ Atlantik::Atlantik ()
 	m_jailCard->setEnabled(false);
 
 	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), actionCollection(), "jail_pay");
-	m_jailPay->setShortcut(QKeySequence(Qt::CTRL, Qt::Key_P));
+	m_jailPay->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
 	connect(m_jailPay, SIGNAL(toggled(bool)),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 
 	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), actionCollection(), "move_jailroll");
-	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL, Qt::Key_J)); 
+	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J)); 
 	connect(m_jailRoll, SIGNAL(toggled(bool)), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);
 
