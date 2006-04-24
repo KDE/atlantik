@@ -113,6 +113,7 @@ public:
 
 	bool isRejected() { return m_rejected; }
 	
+#if 0
 	/**
 	 * select the Trade of the given template type, with the given
 	 * from and to
@@ -132,6 +133,7 @@ public:
 		}
 	
 	}
+#endif
 
 private slots:	
 	/**
