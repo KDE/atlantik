@@ -63,7 +63,7 @@ void Monopigator::loadData(const KUrl &url)
 void Monopigator::slotData(KIO::Job *, const QByteArray &data)
 {
 	m_timer->stop();
-	m_downloadData->writeBlock(data.data(), data.size());
+	m_downloadData->write(data.data(), data.size());
 }
 
 void Monopigator::slotResult(KIO::Job *job)

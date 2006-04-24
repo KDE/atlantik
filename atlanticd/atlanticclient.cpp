@@ -27,7 +27,7 @@ AtlanticClient::AtlanticClient(QObject *parent, const char *name) : Q3Socket(par
 
 void AtlanticClient::sendData(const QString &data)
 {
-	writeBlock(data.latin1(), data.length());
+	write(data.toLatin1(), data.length());
 }
 
 void AtlanticClient::readData()

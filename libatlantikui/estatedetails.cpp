@@ -194,7 +194,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			{
 				xText = titleHeight - fontSize - KDialog::marginHint();
 				painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
-				painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().upper());
+				painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
 			}
 
 			xText = titleHeight + fontSize + 5;

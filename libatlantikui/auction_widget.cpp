@@ -36,7 +36,7 @@
 
 #include "auction_widget.moc"
 
-AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent, const char *name) : QWidget(parent, name)
+AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : QWidget(parent)
 {
 	m_atlanticCore = atlanticCore;
 

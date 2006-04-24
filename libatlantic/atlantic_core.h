@@ -35,7 +35,7 @@ class LIBATLANTIC_EXPORT AtlanticCore : public QObject
 Q_OBJECT
 
 public:
-	AtlanticCore(QObject *parent, const char *name);
+	AtlanticCore(QObject *parent);
 
 	void reset(bool deletePermanents = false);
 

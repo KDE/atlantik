@@ -128,7 +128,8 @@ Atlantik::Atlantik ()
 	m_atlantikNetwork = 0;
 
 	// Game and network core
-	m_atlanticCore = new AtlanticCore(this, "atlanticCore");
+	m_atlanticCore = new AtlanticCore(this);
+        m_atlanticCore->setObjectName("atlanticCore");
 	connect(m_atlanticCore, SIGNAL(createGUI(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(removeGUI(Player *)));
 	connect(m_atlanticCore, SIGNAL(createGUI(Trade *)), this, SLOT(newTrade(Trade *)));

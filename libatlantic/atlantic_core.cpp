@@ -28,7 +28,7 @@
 //Added by qt3to4:
 #include <Q3PtrList>
 
-AtlanticCore::AtlanticCore(QObject *parent, const char *name) : QObject(parent, name)
+AtlanticCore::AtlanticCore(QObject *parent) : QObject(parent)
 {
 	m_playerSelf = 0;
 }
@@ -339,33 +339,33 @@ void AtlanticCore::printDebug()
 	Player *player = 0;
 	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
 		if (player == m_playerSelf)
-			std::cout << "PS: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
+			std::cout << "PS: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
 		else
-			std::cout << " P: " << player->name().latin1() << ", game " << QString::number(player->game() ? player->game()->id() : -1).latin1() << std::endl;
+			std::cout << " P: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
 
 	Game *game = 0;
 	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
-		std::cout << " G: " << QString::number(game->id()).latin1() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).latin1() << std::endl;
+		std::cout << " G: " << QString::number(game->id()).toLatin1().constData() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).toLatin1().constData() << std::endl;
 
 	Estate *estate = 0;
 	for (Q3PtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
-		std::cout << " E: " << estate->name().latin1() << std::endl;
+		std::cout << " E: " << estate->name().toLatin1().constData() << std::endl;
 
 	EstateGroup *estateGroup = 0;
 	for (Q3PtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
-		std::cout << "EG: " << estateGroup->name().latin1() << std::endl;
+		std::cout << "EG: " << estateGroup->name().toLatin1().constData() << std::endl;
 
 	Auction *auction = 0;
 	for (Q3PtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
-		std::cout << " A: " << QString::number(auction->auctionId()).latin1() << std::endl;
+		std::cout << " A: " << QString::number(auction->auctionId()).toLatin1().constData() << std::endl;
 
 	Trade *trade = 0;
 	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
-		std::cout << " T: " << QString::number(trade->tradeId()).latin1() << std::endl;
+		std::cout << " T: " << QString::number(trade->tradeId()).toLatin1().constData() << std::endl;
 
 	ConfigOption *configOption = 0;
 	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
-		std::cout << "CO:" << QString::number(configOption->id()).latin1() << " " << configOption->name().latin1() << " " << configOption->value().latin1() << std::endl;
+		std::cout << "CO:" << QString::number(configOption->id()).toLatin1().constData() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
 }
 
 #include "atlantic_core.moc"

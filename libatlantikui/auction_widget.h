@@ -41,7 +41,7 @@ class AuctionWidget : public QWidget
 Q_OBJECT
 
 public:
-	AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent, const char *name=0);
+	AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent);
 
 private slots:
 	void auctionChanged();
