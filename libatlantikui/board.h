@@ -42,7 +42,7 @@ Q_OBJECT
 public:
 	enum DisplayMode { Play, Edit };
 
-	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name=0);
+	AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent);
 	~AtlantikBoard();
 	void reset();
 

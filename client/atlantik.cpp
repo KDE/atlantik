@@ -143,12 +143,12 @@ Atlantik::Atlantik ()
 	m_roll->setEnabled(false);
 
 	m_buyEstate = new KAction(i18n("&Buy"), actionCollection(), "atlantik_buy_estate");
-	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) ); 
+	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) );
 	connect (m_buyEstate,SIGNAL(toggled(bool)), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
 	m_auctionEstate = new KAction(i18n("&Auction"), actionCollection(), "auction");
-	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A)); 
+	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A));
 	connect(m_auctionEstate,SIGNAL(toggled(bool)),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
@@ -166,7 +166,7 @@ Atlantik::Atlantik ()
 	m_jailPay->setEnabled(false);
 
 	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), actionCollection(), "move_jailroll");
-	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J)); 
+	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
 	connect(m_jailRoll, SIGNAL(toggled(bool)), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);
 
@@ -178,7 +178,8 @@ Atlantik::Atlantik ()
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
- 	m_mainWidget = new QWidget(this, "main");
+ 	m_mainWidget = new QWidget(this);
+        m_mainWidget->setObjectName( "main" );
 	m_mainWidget->show();
 	m_mainLayout = new QGridLayout(m_mainWidget, 3, 2);
 	setCentralWidget(m_mainWidget);
@@ -191,7 +192,8 @@ Atlantik::Atlantik ()
 	m_portfolioScroll->setFixedHeight( 200 );
 	m_portfolioScroll->hide();
 
-	m_portfolioWidget = new QWidget( m_portfolioScroll->viewport(), "pfWidget" );
+	m_portfolioWidget = new QWidget( m_portfolioScroll->viewport() );
+        m_portfolioWidget->setObjectName( "pfWidget" );
 	m_portfolioScroll->addChild( m_portfolioWidget );
 	m_portfolioWidget->show();
 
@@ -226,8 +228,8 @@ Atlantik::Atlantik ()
 	// Check command-line args to see if we need to connect or show Monopigator window
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	Q3CString host = args->getOption("host");	
-	Q3CString port = args->getOption("port");	
+	Q3CString host = args->getOption("host");
+	Q3CString port = args->getOption("port");
 	if (!host.isNull() && !port.isNull())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -241,7 +243,7 @@ void Atlantik::readConfig()
 
 	// General configuration
 	config->setGroup("General");
-	m_config.chatTimestamps = config->readBoolEntry("ChatTimeStamps", false);
+	m_config.chatTimestamps = config->readEntry("ChatTimeStamps", false);
 
 	// Personalization configuration
 	config->setGroup("Personalization");
@@ -250,22 +252,22 @@ void Atlantik::readConfig()
 
 	// Board configuration
 	config->setGroup("Board");
-	m_config.indicateUnowned = config->readBoolEntry("IndicateUnowned", true);
-	m_config.highliteUnowned = config->readBoolEntry("HighliteUnowned", false);
-	m_config.darkenMortgaged = config->readBoolEntry("DarkenMortgaged", true);
-	m_config.animateTokens = config->readBoolEntry("AnimateToken", false);
-	m_config.quartzEffects = config->readBoolEntry("QuartzEffects", true);
+	m_config.indicateUnowned = config->readEntry("IndicateUnowned", true);
+	m_config.highliteUnowned = config->readEntry("HighliteUnowned", false);
+	m_config.darkenMortgaged = config->readEntry("DarkenMortgaged", true);
+	m_config.animateTokens = config->readEntry("AnimateToken", false);
+	m_config.quartzEffects = config->readEntry("QuartzEffects", true);
 
 	// Meta server configuation
 	config->setGroup("Monopigator");
-	m_config.connectOnStart = config->readBoolEntry("ConnectOnStart", false);
-	m_config.hideDevelopmentServers = config->readBoolEntry("HideDevelopmentServers", true);
+	m_config.connectOnStart = config->readEntry("ConnectOnStart", false);
+	m_config.hideDevelopmentServers = config->readEntry("HideDevelopmentServers", true);
 
 	// Portfolio colors
 	config->setGroup("WM");
 	QColor activeDefault(204, 204, 204), inactiveDefault(153, 153, 153);
-	m_config.activeColor = config->readColorEntry("activeBackground", &activeDefault);
-	m_config.inactiveColor = config->readColorEntry("inactiveBlend", &inactiveDefault);
+	m_config.activeColor = config->readEntry("activeBackground", activeDefault);
+	m_config.inactiveColor = config->readEntry("inactiveBlend", inactiveDefault);
 }
 
 void Atlantik::newPlayer(Player *player)
@@ -416,7 +418,8 @@ void Atlantik::initBoard()
 	if (m_board)
 		return;
 
-	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget, "board");
+	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget);
+        m_board->setObjectName( "board" );
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 
 	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, bool, bool, Estate *)), m_board, SLOT(insertDetails(QString, bool, bool, Estate *)));
@@ -470,11 +473,11 @@ void Atlantik::slotNetworkConnected()
 
 
 
-void Atlantik::slotNetworkError(int errnum)
+void Atlantik::slotNetworkError(int /*errnum*/)
 {
 // 	QString errMsg(i18n("Error connecting: "));
-// 
-// 	//Should be done by AtlantikNetwork...	
+//
+// 	//Should be done by AtlantikNetwork...
 // 	switch (m_atlantikNetwork->status())
 // 	{
 // 		case IO_ConnectError:
@@ -483,22 +486,22 @@ void Atlantik::slotNetworkError(int errnum)
 // 			else
 // 				errMsg.append(i18n("could not connect to host."));
 // 			break;
-// 
+//
 // 		case IO_LookupError:
 // 			errMsg.append(i18n("host not found."));
 // 			break;
-// 
+//
 // 		default:
 // 			errMsg.append(i18n("unknown error."));
 // 	}
-// 
+//
 // 	serverMsgsAppend(errMsg);
-// 
+//
 // 	// Re-init network object
 // 	initNetworkObject();
 }
 
-void Atlantik::networkClosed(int status)
+void Atlantik::networkClosed(int /*status*/)
 {
 // 	switch( status )
 // 	{
@@ -518,7 +521,7 @@ void Atlantik::slotConfigure()
 	if (m_configDialog == 0)
 		m_configDialog = new ConfigDialog(this);
 	m_configDialog->show();
-	
+
 	connect(m_configDialog, SIGNAL(okClicked()), this, SLOT(slotUpdateConfig()));
 }
 
@@ -787,10 +790,10 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
 }
 
-void Atlantik::clientCookie(QString cookie)
+void Atlantik::clientCookie(QString /*cookie*/)
 {
 // 	KConfig *config = KGlobal::config();
-// 
+//
 // 	if (cookie.isNull())
 // 	{
 // 		if (config->hasGroup("Reconnection"))
@@ -805,7 +808,7 @@ void Atlantik::clientCookie(QString cookie)
 // 	}
 // 	else
 // 		return;
-// 
+//
 // 	config->sync();
 }
 
@@ -818,7 +821,7 @@ void Atlantik::sendHandshake()
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	Q3CString game = args->getOption("game");
-	kDebug() << "received Handshake; joining game: " << game.toInt();	
+	kDebug() << "received Handshake; joining game: " << game.toInt();
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
 }

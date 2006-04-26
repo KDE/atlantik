@@ -43,7 +43,7 @@
 #include "estatedetails.h"
 #include "kwrappedlistviewitem.h"
 
-EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name) : QWidget(parent, name)
+EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent) : QWidget(parent)
 {
 	m_pixmap = 0;
 	m_quartzBlocks = 0;
@@ -117,8 +117,9 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		QColor greenHouse(0, 255, 0);
 		QColor redHotel(255, 51, 51);
-		QPainter painter;
-		painter.begin(m_pixmap, this);
+		QPainter painter( this );
+                painter.begin(m_pixmap);
+                painter.initFrom(this);
 
 		painter.setPen(Qt::black);
 
@@ -136,11 +137,11 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			int titleHeight = 50;
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 
-			KPixmap* quartzBuffer = new KPixmap;
-			quartzBuffer->resize(25, (height()/4)-2);
+			KPixmap* quartzBuffer = new KPixmap(25, (height()/4)-2);
 
-			QPainter quartzPainter;
-			quartzPainter.begin(quartzBuffer, this);
+			QPainter quartzPainter( this );
+			quartzPainter.begin( quartzBuffer );
+                        quartzPainter.initFrom( this);
 
 			painter.setBrush(titleColor);
 			painter.drawRect(0, 0, width(), titleHeight);

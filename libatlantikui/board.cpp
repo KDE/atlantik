@@ -39,7 +39,7 @@
 #include "board.h"
 #include "board.moc"
 
-AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent, const char *name) : QWidget(parent, name)
+AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent) : QWidget(parent)
 {
 	m_atlanticCore = atlanticCore;
 	m_maxEstates = maxEstates;
@@ -142,8 +142,9 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 		orientation = South;
 	else //if (estateId < 4*sideLen)
 		orientation = West;
-	
-	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects, this, "estateview");
+
+	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects, this);
+        estateView->setObjectName( "estateview" );
 	m_estateViews.append(estateView);
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
@@ -217,10 +218,11 @@ void AtlantikBoard::addToken(Player *player)
 
 	kDebug() << "addToken" << endl;
 
-	Token *token = new Token(player, this, "token");
+	Token *token = new Token(player, this);
+        token->setObjectName( "token" );
 	m_tokens.append(token);
 	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
-	
+
 	jumpToken(token);
 
 	// Timer to reinit the gameboard _after_ event loop
@@ -257,7 +259,7 @@ void AtlantikBoard::playerChanged(Player *player)
 			if (token != m_movingToken)
 				jump = true;
 		}
-			
+
 		if (token->location() != player->location())
 		{
 			token->setLocation(player->location());
@@ -429,7 +431,7 @@ void AtlantikBoard::slotMoveToken()
 		m_movingToken->setGeometry(xDest, yDest, m_movingToken->width(), m_movingToken->height());
 		return;
 	}
-	
+
 	// We have arrived at our destination!
 	m_movingToken->setLocation(eDest);
 	m_movingToken->player()->setLocation(eDest);

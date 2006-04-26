@@ -36,7 +36,7 @@
 
 #define ICONSIZE	32
 
-Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
+Token::Token(Player *player, AtlantikBoard *parent) : QWidget(parent)
 {
 	setBackgroundMode(Qt::NoBackground); // avoid flickering
 
@@ -130,7 +130,8 @@ void Token::paintEvent(QPaintEvent *)
 		qpixmap = new QPixmap(width(), height());
 
 		QPainter painter;
-		painter.begin(qpixmap, this);
+		painter.begin(qpixmap );
+                painter.initFrom( this );
 
         if (m_image)
 		{

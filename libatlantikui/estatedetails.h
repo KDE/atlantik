@@ -44,7 +44,7 @@ class EstateDetails : public QWidget
 Q_OBJECT
 
 public:
-	EstateDetails(Estate *estate, QString text, QWidget *parent, const char *name = 0);
+	EstateDetails(Estate *estate, QString text, QWidget *parent);
 	~EstateDetails();
 	Estate *estate() { return m_estate; }
 

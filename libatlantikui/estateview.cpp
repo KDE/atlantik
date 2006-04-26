@@ -41,7 +41,9 @@
 #include "estateview.moc"
 #include "config.h"
 
-EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent, const char *name) : QWidget(parent, name, Qt::WResizeNoErase)
+EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
+                       bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
+    : QWidget(parent, Qt::WResizeNoErase)
 {
 	m_estate = estate;
 	m_orientation = orientation;
@@ -56,7 +58,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	qpixmap = 0;
 	b_recreate = true;
 
-	m_quartzBlocks = 0;	
+	m_quartzBlocks = 0;
 	m_recreateQuartz = true;
 
 	pe = 0;
@@ -81,7 +83,7 @@ void EstateView::updateToolTip()
 			if ( m_estate->isMortgaged() )
 				toolTip.append( "\n" + i18n("Unmortgage Price: %1", m_estate->unmortgagePrice() ) );
 		     	else
-		     		toolTip.append( "\n" + i18n("Mortgage Value: %1", m_estate->mortgagePrice() ) );	
+		     		toolTip.append( "\n" + i18n("Mortgage Value: %1", m_estate->mortgagePrice() ) );
 			if ( m_estate->canSellHouses() )
 				toolTip.append( "\n" + i18n("House Value: %1", m_estate->houseSellPrice() ) );
 			if ( m_estate->canBuyHouses() )
@@ -240,9 +242,9 @@ void EstateView::paintEvent(QPaintEvent *)
 			m_quartzBlocks = new KPixmap();
 
 			if (m_orientation == North || m_orientation == South)
-				m_quartzBlocks->resize(25, m_titleHeight-2);
+				*m_quartzBlocks = QPixmap(25, m_titleHeight-2);
 			else
-				m_quartzBlocks->resize(25, m_titleWidth-2);
+				*m_quartzBlocks = QPixmap(25, m_titleWidth-2);
 
 			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
@@ -260,10 +262,11 @@ void EstateView::paintEvent(QPaintEvent *)
 		QColor greenHouse(0, 255, 0);
 		QColor redHotel(255, 51, 51);
 		QPainter painter;
-		painter.begin(qpixmap, this);
+		painter.begin( qpixmap );
+                painter.initFrom( this );
 
 		painter.setPen(Qt::black);
-		
+
 		if (m_darkenMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(m_estate->bgColor().light(10));
 		else if (m_highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
@@ -272,7 +275,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			painter.setBrush(m_estate->bgColor());
 
 		painter.drawRect(rect());
-        
+
 		// Paint icon only when it exists and fits
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
@@ -281,12 +284,13 @@ void EstateView::paintEvent(QPaintEvent *)
 		{
 			KPixmap* quartzBuffer = new KPixmap;
 			if (m_orientation == North || m_orientation == South)
-				quartzBuffer->resize(25, m_titleHeight-2);
+				*quartzBuffer = QPixmap(25, m_titleHeight-2);
 			else
-				quartzBuffer->resize(m_titleWidth-2, 25);
+				*quartzBuffer = QPixmap(m_titleWidth-2, 25);
 
 			QPainter quartzPainter;
-			quartzPainter.begin(quartzBuffer, this);
+			quartzPainter.begin(quartzBuffer );
+                        quartzPainter.initFrom( this );
 
 			painter.setBrush(m_estate->color());
 			switch(m_orientation)
@@ -435,7 +439,7 @@ void EstateView::resizeEvent(QResizeEvent *)
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
-void EstateView::mousePressEvent(QMouseEvent *e) 
+void EstateView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::RightButton && m_estate->isOwned())
 	{
