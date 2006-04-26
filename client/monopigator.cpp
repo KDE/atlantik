@@ -56,7 +56,7 @@ void Monopigator::loadData(const KUrl &url)
 	}
 
 	connect(m_job, SIGNAL(data(KIO::Job *, const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));
-	connect(m_job, SIGNAL(result(KIO::Job *)), SLOT(slotResult(KIO::Job *)));
+	connect(m_job, SIGNAL(result(KJob *)), SLOT(slotResult(KJob *)));
 	connect(m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
 }
 
@@ -66,7 +66,7 @@ void Monopigator::slotData(KIO::Job *, const QByteArray &data)
 	m_downloadData->write(data.data(), data.size());
 }
 
-void Monopigator::slotResult(KIO::Job *job)
+void Monopigator::slotResult(KJob *job)
 {
 	processData(m_downloadData->buffer(), !job->error());
 	m_job = 0;

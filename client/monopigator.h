@@ -45,7 +45,7 @@ signals:
 
 private slots:
 	void slotData(KIO::Job *, const QByteArray &);
-	void slotResult(KIO::Job *);
+	void slotResult(KJob *);
 	void slotTimeout();
 
 private:
