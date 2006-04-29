@@ -107,7 +107,8 @@ void PortfolioView::buildPortfolio()
 				if ((estate = *it) && estate->estateGroup() == estateGroup)
 				{
 					// Create PE
-					PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this, "portfolioestate");
+                                        PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this );
+                                        portfolioEstate->setObjectName( "portfolioestate");
 					m_portfolioEstates.append(portfolioEstate);
 
  					connect(portfolioEstate, SIGNAL(estateClicked(Estate *)), this, SIGNAL(estateClicked(Estate *)));

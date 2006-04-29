@@ -25,7 +25,7 @@
 #include "portfolioestate.moc"
 #include "estate.h"
 
-PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent) : QWidget(parent)
 {
 	m_estate = estate;
 	m_player = player;
@@ -68,12 +68,12 @@ QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysO
 		painter.drawPoint(3, 13);
 		painter.drawPoint(10, 13);
 
-		painter.setPen(estate->color());	
+		painter.setPen(estate->color());
 		painter.setBrush(estate->color());
 	}
 	else
 	{
-		painter.setPen(lightGray);	
+		painter.setPen(lightGray);
 		painter.setBrush(lightGray);
 	}
 	painter.drawRect(0, 0, PE_WIDTH, 3);
@@ -91,7 +91,7 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 	bitBlt(this, 0, 0, &m_pixmap);
 }
 
-void PortfolioEstate::mousePressEvent(QMouseEvent *e) 
+void PortfolioEstate::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::LeftButton)
 		emit estateClicked(m_estate);

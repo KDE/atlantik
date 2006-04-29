@@ -28,13 +28,13 @@
 
 class Estate;
 class Player;
-  
+
 class PortfolioEstate : public QWidget
 {
 Q_OBJECT
 
 public:
-	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent, const char *name = 0);
+	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent);
 	Estate *estate() { return m_estate; }
 	static QPixmap drawPixmap(Estate *estate, Player *player = 0, bool alwaysOwned = true);
 

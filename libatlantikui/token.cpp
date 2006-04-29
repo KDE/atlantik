@@ -38,7 +38,7 @@
 
 Token::Token(Player *player, AtlantikBoard *parent) : QWidget(parent)
 {
-	setBackgroundMode(Qt::NoBackground); // avoid flickering
+        setAttribute(Qt::WA_NoSystemBackground, true);
 
 	m_parentBoard = parent;
 
