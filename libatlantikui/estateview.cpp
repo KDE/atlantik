@@ -53,7 +53,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	m_darkenMortgaged = darkenMortgaged;
 	m_quartzEffects = quartzEffects;
 
-	setBackgroundMode(Qt::NoBackground); // avoid flickering
+        setAttribute(Qt::WA_NoSystemBackground, true);
 
 	qpixmap = 0;
 	b_recreate = true;
