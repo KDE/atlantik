@@ -11,5 +11,3 @@ noinst_HEADERS = kio_atlantik.h
 kdelnk_DATA = atlantik.protocol
 kdelnkdir = $(kde_servicesdir)
 
-messages:
-	$(XGETTEXT) *.cpp -o $(podir)/kio_atlantik.pot
