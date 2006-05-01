@@ -57,7 +57,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
 	m_resumeTimer = false;
 
-	m_gridLayout = new QGridLayout(this, sideLen+1, sideLen+1);
+	m_gridLayout = new QGridLayout( this );
 	for(int i=0;i<=sideLen;i++)
 	{
 		if (i==0 || i==sideLen)

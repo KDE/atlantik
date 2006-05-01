@@ -85,7 +85,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
 
 	// Status label
-	m_statusLabel = new QLabel(this, "statusLabel");
+	m_statusLabel = new QLabel(this );
+        m_statusLabel->setObjectName( "statusLabel" );
 	m_mainLayout->addWidget(m_statusLabel);
 }
 

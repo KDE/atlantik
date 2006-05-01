@@ -181,7 +181,7 @@ Atlantik::Atlantik ()
  	m_mainWidget = new QWidget(this);
         m_mainWidget->setObjectName( "main" );
 	m_mainWidget->show();
-	m_mainLayout = new QGridLayout(m_mainWidget, 3, 2);
+	m_mainLayout = new QGridLayout(m_mainWidget);
 	setCentralWidget(m_mainWidget);
 
 	// Vertical view area for portfolios.
