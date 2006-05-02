@@ -113,7 +113,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 
 MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), Q3ListViewItem(parent, host, latency, version, users, port)
 {
-	m_isDev = ( version.find( QRegExp("(CVS|-dev)") ) != -1 ) ? true : false;
+        m_isDev = version.contains( QRegExp("(CVS|-dev)") );
 
 	setEnabled(false);
 	parent->sort();

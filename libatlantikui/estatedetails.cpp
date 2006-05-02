@@ -303,7 +303,7 @@ void EstateDetails::appendText(QString text)
 
 	KWrappedListViewItem *infoText = new KWrappedListViewItem(m_infoListView, m_infoListView->lastItem(), text);
 
-	if ( text.find( QRegExp("rolls") ) != -1 )
+	if ( text.contains( QRegExp("rolls")  ) )
 		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
 	else
 		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));

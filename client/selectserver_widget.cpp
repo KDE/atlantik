@@ -31,7 +31,8 @@
 
 #include "selectserver_widget.moc"
 
-SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent)
+    : QWidget(parent)
 {
 	m_hideDevelopmentServers = hideDevelopmentServers;
 

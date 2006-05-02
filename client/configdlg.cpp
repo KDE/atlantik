@@ -51,10 +51,14 @@ ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(Ico
 	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", K3Icon::SizeMedium));
 	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", K3Icon::SizeMedium));
 
-	configGeneral = new ConfigGeneral(this, p_general, "configGeneral");
-	configPlayer = new ConfigPlayer(this, p_p13n, "configPlayer");
-	configBoard = new ConfigBoard(this, p_board, "configBoard");
-	configMonopigator = new ConfigMonopigator(this, p_monopigator, "configMonopigator");
+	configGeneral = new ConfigGeneral(this, p_general );
+        configGeneral->setObjectName("configGeneral");
+	configPlayer = new ConfigPlayer(this, p_p13n );
+        configPlayer->setObjectName( "configPlayer" );
+	configBoard = new ConfigBoard(this, p_board );
+        configBoard->setObjectName( "configBoard" );
+	configMonopigator = new ConfigMonopigator(this, p_monopigator );
+        configMonopigator->setObjectName( "configMonopigator");
 
 	setMinimumSize(sizeHint());
 }
@@ -114,7 +118,7 @@ AtlantikConfig ConfigDialog::config()
 	return m_parent->config();
 }
 
-ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
@@ -127,12 +131,12 @@ ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent, const ch
 
 	QLabel *label2 = new QLabel(i18n("Player image:"), parent);
 	layout->addWidget(label2);
-                
+
 	m_playerIcon = new KPushButton(parent);
 	layout->addWidget(m_playerIcon);
 
 	connect( m_playerIcon, SIGNAL(clicked()), this, SLOT(chooseImage()) );
-                                        
+
 	layout->addStretch(1);
 
 	reset();
@@ -153,7 +157,7 @@ void ConfigPlayer::chooseImage()
 #ifdef KDE_3_1_FEATURES
 	iconDialog.setCustomLocation( locate("appdata", "themes/default/tokens/") );
 #endif
-		
+
 #ifdef KDE_3_3_FEATURES
 	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
 #else
@@ -177,7 +181,7 @@ void ConfigPlayer::setImage()
 	if (KStandardDirs::exists(filename))
 		m_playerIcon->setPixmap( QPixmap(filename) );
 }
-															
+
 void ConfigPlayer::reset()
 {
 	m_playerName->setText(m_configDialog->config().playerName);
@@ -185,7 +189,7 @@ void ConfigPlayer::reset()
 	setImage();
 }
 
-ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
@@ -228,7 +232,7 @@ void ConfigMonopigator::reset()
 	m_hideDevelopmentServers->setChecked(m_configDialog->config().hideDevelopmentServers);
 }
 
-ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
@@ -256,7 +260,7 @@ void ConfigGeneral::reset()
 	m_chatTimestamps->setChecked(m_configDialog->config().chatTimestamps);
 }
 
-ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name) : QWidget(parent, name)
+ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
 	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());

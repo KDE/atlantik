@@ -37,7 +37,7 @@ class SelectServer : public QWidget
 Q_OBJECT
 
 public:
-	SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent, const char *name=0);
+	SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent);
 	virtual ~SelectServer();
 
 	void initPage();

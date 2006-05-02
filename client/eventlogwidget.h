@@ -56,7 +56,7 @@ Q_OBJECT
 public:
 	enum EventLogType { Default, Net_In, Net_Out };
 
-	EventLogWidget(EventLog *eventLog, QWidget *parent=0, const char *name = 0);
+	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
 
 public slots:
 	void addEvent(Event *event);

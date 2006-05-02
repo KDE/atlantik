@@ -328,7 +328,8 @@ void Atlantik::showSelectServer()
 	if (m_selectServer)
 		return;
 
-	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget, "selectServer");
+	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget );
+        m_selectServer->setObjectName("selectServer");
 	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
 	m_selectServer->show();
 

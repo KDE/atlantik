@@ -54,8 +54,8 @@ Q3PtrList<Event> EventLog::events()
 	return m_events;
 }
 
-EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *name)
-	: QWidget(parent, name,
+EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
+	: QWidget(parent,
 	  Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_DialogBorder | Qt::WStyle_Title |
 	  Qt::WStyle_Minimize | Qt::WStyle_ContextHelp )
 {
@@ -63,7 +63,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent, const char *
 
 	connect(m_eventLog, SIGNAL(newEvent(Event *)), this, SLOT(addEvent(Event *)));
 
-	setCaption(i18n("Event Log"));
+	setWindowTitle(i18n("Event Log"));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
 

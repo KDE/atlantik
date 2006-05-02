@@ -39,7 +39,7 @@ class ConfigPlayer : public QWidget
 Q_OBJECT
 
 public:
-	ConfigPlayer(ConfigDialog *configDialog, QWidget *parent, const char *name=0);
+	ConfigPlayer(ConfigDialog *configDialog, QWidget *parent);
 
 	QString playerName();
 	QString playerImage();
@@ -62,7 +62,7 @@ class ConfigBoard : public QWidget
 Q_OBJECT
 
 public:
-	ConfigBoard(ConfigDialog *configDialog, QWidget *parent, const char *name=0);
+	ConfigBoard(ConfigDialog *configDialog, QWidget *parent);
 
 	bool indicateUnowned();
 	bool highliteUnowned();
@@ -82,7 +82,7 @@ class ConfigMonopigator : public QWidget
 Q_OBJECT
 
 public:
-	ConfigMonopigator(ConfigDialog *dialog, QWidget *parent, const char *name = 0);
+	ConfigMonopigator(ConfigDialog *dialog, QWidget *parent);
 
 	bool connectOnStart();
 	bool hideDevelopmentServers();
@@ -99,7 +99,7 @@ class ConfigGeneral : public QWidget
 Q_OBJECT
 
 public:
-	ConfigGeneral(ConfigDialog *dialog, QWidget *parent, const char *name = 0);
+	ConfigGeneral(ConfigDialog *dialog, QWidget *parent);
 
 	bool chatTimestamps();
 
