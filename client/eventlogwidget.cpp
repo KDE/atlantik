@@ -65,7 +65,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	setWindowTitle(i18n("Event Log"));
 
-	QVBoxLayout *listCompBox = new QVBoxLayout(this, KDialog::marginHint());
+	QVBoxLayout *listCompBox = new QVBoxLayout(this);
+	listCompBox->setSpacing(KDialog::marginHint());
 
 	m_eventList = new K3ListView( this );
 	m_eventList->setObjectName( "eventList" );
@@ -75,7 +76,9 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	m_eventList->addColumn(i18n("Description"));
 	m_eventList->header()->setClickEnabled( false );
 
-	QHBoxLayout *actionBox = new QHBoxLayout(this, 0, KDialog::spacingHint());
+	QHBoxLayout *actionBox = new QHBoxLayout(this);
+	actionBox->setSpacing(KDialog::spacingHint());
+	actionBox->setMargin(0);
 	listCompBox->addItem(actionBox);
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));

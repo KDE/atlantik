@@ -39,7 +39,7 @@ class SelectConfiguration : public QWidget
 Q_OBJECT
 
 public:
-	SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent, const char *name=0);
+	SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent);
 
 	void setCanStart(const bool &canStart);
 	QString hostToConnect() const;

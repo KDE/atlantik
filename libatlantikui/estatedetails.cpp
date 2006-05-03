@@ -55,7 +55,9 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent) : QW
 	m_closeButton = 0;
 	m_buttons.setAutoDelete(true);
 
-	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint(), KDialog::spacingHint());
+	m_mainLayout = new QVBoxLayout(this );
+        m_mainLayout->setMargin( KDialog::marginHint() );
+        m_mainLayout->setSpacing( KDialog::spacingHint() );
 	Q_CHECK_PTR(m_mainLayout);
 
 	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));

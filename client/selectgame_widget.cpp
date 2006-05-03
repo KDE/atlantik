@@ -40,8 +40,9 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	connect(m_atlanticCore, SIGNAL(createGUI(Game *)), this, SLOT(addGame(Game *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Game *)), this, SLOT(delGame(Game *)));
 
-	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
-	Q_CHECK_PTR(m_mainLayout);
+	m_mainLayout = new QVBoxLayout( this );
+        Q_CHECK_PTR(m_mainLayout);
+        m_mainLayout->setMargin( KDialog::marginHint());
 
 	QGroupBox *groupBox;
 	groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
@@ -62,7 +63,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	connect(m_gameList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout);
+	buttonBox->setSpacing(KDialog::spacingHint());
 
 	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);

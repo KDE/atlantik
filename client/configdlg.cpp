@@ -121,7 +121,9 @@ AtlantikConfig ConfigDialog::config()
 ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(parent);
+	layout->setSpacing(KDialog::spacingHint());
+	layout->setMargin(KDialog::marginHint());
 
 	QLabel *label = new QLabel(i18n("Player name:"), parent);
 	layout->addWidget(label);
@@ -192,7 +194,9 @@ void ConfigPlayer::reset()
 ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(parent);
+	layout->setSpacing(KDialog::spacingHint());
+	layout->setMargin(KDialog::marginHint());
 
 	m_connectOnStart = new QCheckBox(i18n("Request list of Internet servers on start-up"), parent);
 	layout->addWidget(m_connectOnStart);
@@ -235,7 +239,9 @@ void ConfigMonopigator::reset()
 ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(parent);
+	layout->setSpacing(KDialog::spacingHint());
+	layout->setMargin(KDialog::marginHint());
 
 	m_chatTimestamps = new QCheckBox(i18n("Show timestamps in chat messages"), parent);
 	layout->addWidget(m_chatTimestamps);
@@ -263,7 +269,9 @@ void ConfigGeneral::reset()
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent, KDialog::marginHint(), KDialog::spacingHint());
+	QVBoxLayout *layout = new QVBoxLayout(parent);
+	layout->setSpacing(KDialog::spacingHint());
+	layout->setMargin(KDialog::marginHint());
 
 	Q3GroupBox *box = new Q3GroupBox(1, Qt::Horizontal, i18n("Game Status Feedback"), parent);
 	layout->addWidget(box);

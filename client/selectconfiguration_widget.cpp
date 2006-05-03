@@ -36,12 +36,13 @@
 
 #include "selectconfiguration_widget.moc"
 
-SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent) : QWidget(parent)
 {
 	m_atlanticCore = atlanticCore;
 	m_game = 0;
 
-	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
+	m_mainLayout = new QVBoxLayout(this );
+        m_mainLayout->setMargin( KDialog::marginHint() );
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Game configuration.
@@ -49,7 +50,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_mainLayout->addWidget(m_configBox);
 
 	// Player buttons.
-	QHBoxLayout *playerButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	QHBoxLayout *playerButtons = new QHBoxLayout(m_mainLayout);
+	playerButtons->setSpacing(KDialog::spacingHint());
 	playerButtons->setMargin(0);
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -58,7 +60,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	// Server buttons.
-	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout);
+	serverButtons->setSpacing(KDialog::spacingHint());
 	serverButtons->setMargin(0);
 
 	m_backButton = new KPushButton(SmallIcon("back"), i18n("Leave Game"), this);
@@ -77,7 +80,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	playerChanged(playerSelf);
 	connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
-	
+
 	emit statusMessage(i18n("Retrieving configuration list..."));
 }
 
@@ -92,7 +95,7 @@ void SelectConfiguration::addConfigOption(ConfigOption *configOption)
 	QCheckBox *checkBox = new QCheckBox(configOption->description(), m_configBox, "checkbox");
 	m_configMap[(QObject *)checkBox] = configOption;
 	m_configBoxMap[configOption] = checkBox;
-	
+
 	checkBox->setChecked( configOption->value().toInt() );
 	checkBox->setEnabled( configOption->edit() && m_atlanticCore->selfIsMaster() );
 	checkBox->show();
@@ -191,7 +194,7 @@ QMapIterator<ConfigOption *, QCheckBox *> it(m_configBoxMap);
 while (it.hasNext()) {
 			it.next();
 			it.value()->setEnabled(it.key()->edit() && m_atlanticCore->selfIsMaster() );
- 
+
     }
 
 }

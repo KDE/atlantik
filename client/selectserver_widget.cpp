@@ -36,7 +36,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 {
 	m_hideDevelopmentServers = hideDevelopmentServers;
 
-	m_mainLayout = new QVBoxLayout(this, KDialog::marginHint());
+	m_mainLayout = new QVBoxLayout( this );
+        m_mainLayout->setMargin( KDialog::marginHint() );
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Custom server group
@@ -84,7 +85,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_serverList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
+	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout);
+	buttonBox->setSpacing(KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	// Server List / Refresh

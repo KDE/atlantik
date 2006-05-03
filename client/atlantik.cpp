@@ -399,7 +399,8 @@ void Atlantik::showSelectConfiguration()
 		m_selectGame = 0;
 	}
 
-	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget, "selectConfiguration");
+	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget );
+        m_selectConfiguration->setObjectName("selectConfiguration");
 	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
 	m_selectConfiguration->show();
 
