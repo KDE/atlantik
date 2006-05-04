@@ -42,7 +42,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 
 	// Custom server group
 	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
-	m_customLayout = new QHBoxLayout(customGroup, KDialog::marginHint());
+	m_customLayout = new QHBoxLayout(customGroup);
+        m_customLayout->setMargin( KDialog::marginHint() );
 	customGroup->setLayout(m_customLayout);
 	m_mainLayout->addWidget(customGroup);
 
@@ -85,7 +86,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_serverList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout);
+	QHBoxLayout *buttonBox = new QHBoxLayout();
+        m_mainLayout->addItem( buttonBox );
 	buttonBox->setSpacing(KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 

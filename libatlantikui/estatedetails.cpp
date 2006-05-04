@@ -69,8 +69,9 @@ EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent) : QW
 
 	appendText(text);
 
-	m_buttonBox = new QHBoxLayout(m_mainLayout, KDialog::spacingHint());
-	m_buttonBox->setMargin(0);
+	m_buttonBox = new QHBoxLayout();
+        m_buttonBox->setSpacing(KDialog::spacingHint());
+	m_mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 

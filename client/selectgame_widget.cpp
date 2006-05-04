@@ -63,7 +63,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *
 	connect(m_gameList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout(m_mainLayout);
+	QHBoxLayout *buttonBox = new QHBoxLayout();
+        m_mainLayout->addItem( buttonBox );
 	buttonBox->setSpacing(KDialog::spacingHint());
 
 	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);

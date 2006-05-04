@@ -50,7 +50,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_mainLayout->addWidget(m_configBox);
 
 	// Player buttons.
-	QHBoxLayout *playerButtons = new QHBoxLayout(m_mainLayout);
+	QHBoxLayout *playerButtons = new QHBoxLayout();
+        m_mainLayout->addItem( playerButtons );
 	playerButtons->setSpacing(KDialog::spacingHint());
 	playerButtons->setMargin(0);
 
@@ -60,7 +61,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_mainLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	// Server buttons.
-	QHBoxLayout *serverButtons = new QHBoxLayout(m_mainLayout);
+	QHBoxLayout *serverButtons = new QHBoxLayout();
+        m_mainLayout->addItem( serverButtons );
 	serverButtons->setSpacing(KDialog::spacingHint());
 	serverButtons->setMargin(0);
 
