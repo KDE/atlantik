@@ -91,11 +91,11 @@ LogTextEdit::~LogTextEdit()
 Q3PopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
 {
 	Q3PopupMenu *rmbMenu = new Q3PopupMenu( this );
-	m_clear->plug( rmbMenu );
+	rmbMenu->addAction( m_clear );
 	rmbMenu->insertSeparator();
 	m_copy->setEnabled( hasSelectedText() );
-	m_copy->plug( rmbMenu );
-	m_selectAll->plug( rmbMenu );
+	rmbMenu->addAction( m_copy );
+	rmbMenu->addAction( m_selectAll );
 
 	return rmbMenu;
 }
