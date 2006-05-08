@@ -24,11 +24,11 @@
 
 #include <kresolver.h>
 #include <kbufferedsocket.h>
-
+#include <kdemacros.h>
 class AtlanticCore;
 class KNetwork::KBufferedSocket;
 
-class  AtlantikNetwork: public QObject
+class  KDE_EXPORT AtlantikNetwork: public QObject
 {
 Q_OBJECT
 
