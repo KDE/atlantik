@@ -154,30 +154,6 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p)
 	return p;
 }
 
-KPixmap *EstateView::rotatePixmap(KPixmap *p)
-{
-	if (p==0 || p->isNull())
-		return 0;
-
-	QMatrix m;
-
-	switch(m_orientation)
-	{
-		case East:
-			m.rotate(90);
-			break;
-		case West:
-			m.rotate(-90);
-			break;
-		case South:
-			m.rotate(180);
-			break;
-		default:;
-	}
-	*p = p->transformed(m);
-	return p;
-}
-
 void EstateView::updatePE()
 {
 	// Don't show a when a property is not unowned, cannot be owned at all
@@ -240,7 +216,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (m_estate->color().isValid())
 		{
-			m_quartzBlocks = new KPixmap();
+			m_quartzBlocks = new QPixmap();
 
 			if (m_orientation == North || m_orientation == South)
 				*m_quartzBlocks = QPixmap(25, m_titleHeight-2);
@@ -283,7 +259,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (m_estate->color().isValid())
 		{
-			KPixmap* quartzBuffer = new KPixmap;
+			QPixmap* quartzBuffer = new QPixmap;
 			if (m_orientation == North || m_orientation == South)
 				*quartzBuffer = QPixmap(25, m_titleHeight-2);
 			else
@@ -531,7 +507,7 @@ void EstateView::slotMenuAction(int item)
 
 // Kudos to Gallium <gallium@kde.org> for writing the Quartz KWin style and
 // letting me use the ultra slick algorithm!
-void EstateView::drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2)
+void EstateView::drawQuartzBlocks(QPixmap *pi, QPixmap &p, const QColor &c1, const QColor &c2)
 {
 	QPainter px;
 

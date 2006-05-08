@@ -24,7 +24,7 @@
 #include <QResizeEvent>
 #include <QPaintEvent>
 
-#include <kpixmap.h>
+#include <QPixmap>
 
 #include "portfolioestate.h"
 
@@ -64,13 +64,12 @@ private:
 	void updateToolTip();
 
 		QPixmap *rotatePixmap(QPixmap *);
-		KPixmap *rotatePixmap(KPixmap *);
-		void drawQuartzBlocks(KPixmap *pi, KPixmap &p, const QColor &c1, const QColor &c2);
+		void drawQuartzBlocks(QPixmap *pi, QPixmap &p, const QColor &c1, const QColor &c2);
 		void repositionPortfolioEstate();
 
 		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
-		KPixmap *m_quartzBlocks;
+		QPixmap *m_quartzBlocks;
 		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
 		int m_titleWidth, m_titleHeight;

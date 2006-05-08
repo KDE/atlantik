@@ -98,7 +98,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		if (m_estate->color().isValid())
 		{
-			m_quartzBlocks = new KPixmap();
+			m_quartzBlocks = new QPixmap();
 
 			if (m_orientation == North || m_orientation == South)
 				m_quartzBlocks->resize(25, m_titleHeight-2);
@@ -140,7 +140,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			int titleHeight = 50;
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 
-			KPixmap* quartzBuffer = new KPixmap(25, (height()/4)-2);
+			QPixmap* quartzBuffer = new QPixmap(25, (height()/4)-2);
 
 			QPainter quartzPainter( this );
 			quartzPainter.begin( quartzBuffer );

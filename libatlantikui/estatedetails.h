@@ -33,7 +33,6 @@ class QVBoxLayout;
 class QVGroupBox;
 
 class K3ListView;
-class KPixmap;
 class KPushButton;
 
 class Player;
@@ -70,7 +69,7 @@ signals:
 private:
 	Estate *m_estate;
 	QPixmap *m_pixmap;
-	KPixmap *m_quartzBlocks;
+	QPixmap *m_quartzBlocks;
 	K3ListView *m_infoListView;
 	KPushButton *m_closeButton;
 	bool b_recreate, m_recreateQuartz;
