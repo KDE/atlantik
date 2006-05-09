@@ -17,8 +17,8 @@
 #ifndef ATLANTIK_EVENTLOGWIDGET_H
 #define ATLANTIK_EVENTLOGWIDGET_H
 
-#include <qwidget.h>
-#include <qmap.h>
+#include <QWidget>
+#include <QMap>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QCloseEvent>

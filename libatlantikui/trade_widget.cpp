@@ -16,14 +16,14 @@
 
 #include <iostream>
 
-#include <qlayout.h>
+#include <QLayout>
 #include <q3header.h>
 #include <q3popupmenu.h>
 #include <qcursor.h>
 #include <qvalidator.h>
-#include <qmap.h>
-#include <qlabel.h>
-#include <qspinbox.h>
+#include <QMap>
+#include <QLabel>
+#include <QSpinBox>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QCloseEvent>

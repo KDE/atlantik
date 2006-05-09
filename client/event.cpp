@@ -15,7 +15,7 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qdatetime.h>
-#include <qstring.h>
+#include <QString>
 
 #include "event.moc"
 

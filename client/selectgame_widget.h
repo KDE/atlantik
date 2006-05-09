@@ -17,8 +17,8 @@
 #ifndef ATLANTIK_SELECTGAME_WIDGET_H
 #define ATLANTIK_SELECTGAME_WIDGET_H
 
-#include <qwidget.h>
-#include <qlayout.h>
+#include <QWidget>
+#include <QLayout>
 //Added by qt3to4:
 #include <QVBoxLayout>
 

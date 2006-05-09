@@ -16,7 +16,7 @@
 
 #include <qdom.h>
 #include <q3ptrlist.h>
-#include <qregexp.h>
+#include <QRegExp>
 
 #include <kbufferedsocket.h>
 #include <kdebug.h>

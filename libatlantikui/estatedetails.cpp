@@ -16,9 +16,9 @@
 
 #include <qpainter.h>
 #include <qpixmap.h>
-#include <qlayout.h>
+#include <QLayout>
 #include <q3ptrlist.h>
-#include <qregexp.h>
+#include <QRegExp>
 //Added by qt3to4:
 #include <QPaintEvent>
 #include <QHBoxLayout>

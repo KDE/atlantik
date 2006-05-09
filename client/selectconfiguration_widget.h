@@ -17,8 +17,8 @@
 #ifndef ATLANTIK_SELECTCONFIGURATION_WIDGET_H
 #define ATLANTIK_SELECTCONFIGURATION_WIDGET_H
 
-#include <qwidget.h>
-#include <qlayout.h>
+#include <QWidget>
+#include <QLayout>
 #include <QGroupBox>
 //Added by qt3to4:
 #include <QVBoxLayout>

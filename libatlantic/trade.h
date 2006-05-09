@@ -18,9 +18,9 @@
 #define LIBATLANTIC_TRADE_H
 
 #include <qobject.h>
-#include <qstring.h>
+#include <QString>
 #include <q3ptrlist.h>
-#include <qmap.h>
+#include <QMap>
 #include "libatlantic_export.h"
 
 class Player;

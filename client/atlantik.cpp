@@ -16,9 +16,9 @@
 
 #include <errno.h>
 
-#include <qcolor.h>
+#include <QColor>
 #include <qdatetime.h>
-#include <qlineedit.h>
+#include <QLineEdit>
 #include <q3scrollview.h>
 #include <q3popupmenu.h>
 //Added by qt3to4:

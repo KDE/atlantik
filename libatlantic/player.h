@@ -18,7 +18,7 @@
 #define LIBATLANTIC_PLAYER_H
 
 #include <qobject.h>
-#include <qstring.h>
+#include <QString>
 
 #include "libatlantic_export.h"
 

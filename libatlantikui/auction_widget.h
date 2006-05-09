@@ -17,9 +17,9 @@
 #ifndef ATLANTIK_AUCTION_WIDGET_H
 #define ATLANTIK_AUCTION_WIDGET_H
 
-#include <qwidget.h>
-#include <qlayout.h>
-#include <qmap.h>
+#include <QWidget>
+#include <QLayout>
+#include <QMap>
 //Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>

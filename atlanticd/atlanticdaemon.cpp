@@ -16,7 +16,7 @@
 
 #include <qtimer.h>
 #include <q3socket.h>
-#include <qstring.h>
+#include <QString>
 
 #include <atlantic_core.h>
 

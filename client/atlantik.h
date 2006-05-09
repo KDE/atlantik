@@ -17,10 +17,10 @@
 #ifndef ATLANTIK_ATLANTIK_H
 #define ATLANTIK_ATLANTIK_H
 
-#include <qwidget.h>
-#include <qlayout.h>
+#include <QWidget>
+#include <QLayout>
 #include <q3textedit.h>
-#include <qlabel.h>
+#include <QLabel>
 #include <q3ptrlist.h>
 //Added by qt3to4:
 #include <QVBoxLayout>

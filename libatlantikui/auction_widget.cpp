@@ -15,8 +15,8 @@
 // Boston, MA 02110-1301, USA.
 
 #include <q3hbox.h>
-#include <qspinbox.h>
-#include <qlabel.h>
+#include <QSpinBox>
+#include <QLabel>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>

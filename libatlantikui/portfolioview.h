@@ -17,7 +17,7 @@
 #ifndef ATLANTIK_PORTFOLIOVIEW_H
 #define ATLANTIK_PORTFOLIOVIEW_H
 
-#include <qwidget.h>
+#include <QWidget>
 #include <qpixmap.h>
 #include <q3ptrlist.h>
 //Added by qt3to4:

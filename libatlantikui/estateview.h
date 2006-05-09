@@ -17,7 +17,7 @@
 #ifndef ATLANTIK_ESTATEVIEW_H
 #define ATLANTIK_ESTATEVIEW_H
 
-#include <qwidget.h>
+#include <QWidget>
 #include <qpixmap.h>
 //Added by qt3to4:
 #include <QMouseEvent>

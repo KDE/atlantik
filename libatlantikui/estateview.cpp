@@ -14,7 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qtooltip.h>
+#include <QToolTip>
 #include <qpainter.h>
 #include <qtimer.h>
 #include <qmatrix.h>

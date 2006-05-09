@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIK_NETWORK_H
 #define LIBATLANTIK_NETWORK_H
 
-#include <qmap.h>
+#include <QMap>
 //Added by qt3to4:
 #include <QTextStream>
 

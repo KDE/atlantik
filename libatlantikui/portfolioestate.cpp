@@ -14,7 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qcolor.h>
+#include <QColor>
 #include <qpainter.h>
 #include <qrect.h>
 //Added by qt3to4:

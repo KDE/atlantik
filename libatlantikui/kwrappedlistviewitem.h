@@ -26,7 +26,7 @@
 #define KWRAPPEDLISTVIEWITEM_H
 
 #include <qobject.h>
-#include <qstring.h>
+#include <QString>
 
 #include <k3listview.h>
 

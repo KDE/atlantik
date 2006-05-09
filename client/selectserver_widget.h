@@ -17,8 +17,8 @@
 #ifndef ATLANTIK_SELECTSERVER_WIDGET_H
 #define ATLANTIK_SELECTSERVER_WIDGET_H
 
-#include <qwidget.h>
-#include <qlayout.h>
+#include <QWidget>
+#include <QLayout>
 #include <qradiobutton.h>
 //Added by qt3to4:
 #include <QVBoxLayout>

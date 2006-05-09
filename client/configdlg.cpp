@@ -14,10 +14,10 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qlayout.h>
+#include <QLayout>
 #include <q3groupbox.h>
 
-#include <qlabel.h>
+#include <QLabel>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>

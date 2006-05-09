@@ -17,7 +17,7 @@
 #ifndef ATLANTIK_ESTATEDETAILS_H
 #define ATLANTIK_ESTATEDETAILS_H
 
-#include <qwidget.h>
+#include <QWidget>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>

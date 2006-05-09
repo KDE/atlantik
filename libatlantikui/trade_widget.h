@@ -17,8 +17,8 @@
 #ifndef TRADEWIDGET_H
 #define TRADEWIDGET_H
 
-#include <qwidget.h>
-#include <qmap.h>
+#include <QWidget>
+#include <QMap>
 //Added by qt3to4:
 #include <QLabel>
 #include <QCloseEvent>

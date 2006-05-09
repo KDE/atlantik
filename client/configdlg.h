@@ -17,9 +17,9 @@
 #ifndef ATLANTIK_CONFIGDLG_H
 #define ATLANTIK_CONFIGDLG_H
 
-#include <qwidget.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
+#include <QWidget>
+#include <QCheckBox>
+#include <QLineEdit>
 //Added by qt3to4:
 #include <QFrame>
 

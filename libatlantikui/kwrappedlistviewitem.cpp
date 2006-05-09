@@ -23,7 +23,7 @@
 // SUCH DAMAGE.
 
 #include <q3header.h>
-#include <qstring.h>
+#include <QString>
 
 #include <kglobalsettings.h>
 #include <k3listview.h>
