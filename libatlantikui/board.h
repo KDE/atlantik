@@ -18,7 +18,7 @@
 #define ATLANTIK_BOARD_H
 
 #include <QWidget>
-#include <qtimer.h>
+#include <QTimer>
 #include <QLayout>
 #include <q3ptrlist.h>
 //Added by qt3to4:

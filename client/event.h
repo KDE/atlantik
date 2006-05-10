@@ -17,7 +17,7 @@
 #ifndef ATLANTIK_EVENT_H
 #define ATLANTIK_EVENT_H
 
-#include <qobject.h>
+#include <QObject>
 
 class QDateTime;
 class QString;

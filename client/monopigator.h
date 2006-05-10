@@ -17,10 +17,10 @@
 #ifndef ATLANTIK_MONOPIGATOR_H
 #define ATLANTIK_MONOPIGATOR_H
 
-#include <qobject.h>
+#include <QObject>
 #include <qbuffer.h>
 #include <q3listview.h>
-#include <qtimer.h>
+#include <QTimer>
 #include <QTime>
 #include <kbufferedsocket.h>
 #include <kio/job.h>

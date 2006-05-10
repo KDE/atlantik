@@ -16,7 +16,7 @@
 
 #include <QToolTip>
 #include <qpainter.h>
-#include <qtimer.h>
+#include <QTimer>
 #include <qmatrix.h>
 #include <qcursor.h>
 //Added by qt3to4:

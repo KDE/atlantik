@@ -19,7 +19,7 @@
 #include <qdom.h>
 #include <qtextcodec.h>
 #include <qtextstream.h>
-#include <qtimer.h>
+#include <QTimer>
 //Added by qt3to4:
 #include <Q3PtrList>
 

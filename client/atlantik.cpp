@@ -17,7 +17,7 @@
 #include <errno.h>
 
 #include <QColor>
-#include <qdatetime.h>
+#include <QDateTime>
 #include <QLineEdit>
 #include <q3scrollview.h>
 #include <q3popupmenu.h>

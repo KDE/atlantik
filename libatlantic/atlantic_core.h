@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_CORE_H
 #define LIBATLANTIC_CORE_H
 
-#include <qobject.h>
+#include <QObject>
 #include <q3ptrlist.h>
 
 #include "libatlantic_export.h"

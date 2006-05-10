@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_AUCTION_H
 #define LIBATLANTIC_AUCTION_H
 
-#include <qobject.h>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_ESTATEGROUP_H
 #define LIBATLANTIC_ESTATEGROUP_H
 
-#include <qobject.h>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

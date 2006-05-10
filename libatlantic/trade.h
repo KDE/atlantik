@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_TRADE_H
 #define LIBATLANTIC_TRADE_H
 
-#include <qobject.h>
+#include <QObject>
 #include <QString>
 #include <q3ptrlist.h>
 #include <QMap>

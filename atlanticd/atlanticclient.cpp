@@ -15,7 +15,7 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qtextstream.h>
-#include <qtimer.h>
+#include <QTimer>
 
 #include "atlanticclient.h"
 #include "atlanticclient.moc"

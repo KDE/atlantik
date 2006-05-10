@@ -20,7 +20,7 @@
 #ifndef MONOPDPROTOCOL_H_H
 #define MONOPDPROTOCOL_H_H
 
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 

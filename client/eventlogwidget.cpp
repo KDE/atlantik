@@ -18,7 +18,7 @@
 
 #include <q3header.h>
 #include <QLayout>
-#include <qdatetime.h>
+#include <QDateTime>
 //Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>
