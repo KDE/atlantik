@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
 
@@ -30,7 +29,6 @@ install_targets(${LIB_INSTALL_DIR} atlantikui )
 
 install_files( /include/atlantik/ui FILES auction_widget.h board.h estatedetails.h  	estateview.h kwrappedlistviewitem.h portfolioestate.h  	portfolioview.h token.h trade_widget.h libatlantikui_export.h )
 
-kde4_footer()
 
 
 

@@ -1,4 +1,3 @@
-kde4_header()
 
 add_subdirectory( board ) 
 add_subdirectory( misc ) 
@@ -12,7 +11,6 @@ add_subdirectory( toolbar )
 
 kde4_install_icons( ${ICON_INSTALL_DIR}  hicolor )
 
-kde4_footer()
 
 
 

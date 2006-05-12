@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
 
@@ -20,7 +19,6 @@ install_targets(${LIB_INSTALL_DIR} atlantikclient )
 ########### install files ###############
 
 
-kde4_footer()
 
 
 

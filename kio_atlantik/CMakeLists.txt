@@ -1,4 +1,3 @@
-kde4_header()
 
 include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
 
@@ -22,7 +21,6 @@ install_targets(${PLUGIN_INSTALL_DIR} kio_atlantik )
 
 install_files( ${SERVICES_INSTALL_DIR} FILES atlantik.protocol )
 
-kde4_footer()
 
 
 

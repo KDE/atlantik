@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -29,7 +28,6 @@ install_targets(${LIB_INSTALL_DIR} atlantic )
 
 install_files( /include/atlantic FILES atlantic_core.h auction.h configoption.h estate.h  	estategroup.h game.h player.h trade.h libatlantic_export.h )
 
-kde4_footer()
 
 
 

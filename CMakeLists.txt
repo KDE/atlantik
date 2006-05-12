@@ -1,4 +1,3 @@
-kde4_header()
 project(atlantik)
 
 add_subdirectory( libatlantic ) 
@@ -17,7 +16,6 @@ add_subdirectory( themes )
 install_files( ${XDG_APPS_DIR} FILES atlantik.desktop )
 install_files( ${DATA_INSTALL_DIR}/atlantik FILES atlantikui.rc eventsrc )
 
-kde4_footer()
 
 
 

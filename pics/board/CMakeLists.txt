@@ -1,4 +1,3 @@
-kde4_header()
 
 
 
@@ -7,7 +6,6 @@ kde4_header()
 
 install_files( ${DATA_INSTALL_DIR}/atlantik/pics FILES arrow.png qmark-blue.png qmark-red.png token.png train.png )
 
-kde4_footer()
 
 
 
