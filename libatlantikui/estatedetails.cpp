@@ -30,7 +30,6 @@
 #include <kiconloader.h>
 #include <k3listview.h>
 #include <klocale.h>
-#include <kpixmap.h>
 #include <kpushbutton.h>
 #include <kstdguiitem.h>
 
