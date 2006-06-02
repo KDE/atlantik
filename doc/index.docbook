@@ -242,7 +242,7 @@ vendors might have individual packages for &atlantik; based on these
 releases.</para>
 
 <para>Users interested in the development version can likewise use the
-standard <ulink url="http://www.kde.org/anonsvn.html">&kde; SVN
+standard <ulink url="http://developer.kde.org/source/anonsvn.html">&kde; SVN
 instructions</ulink> to acquire &atlantik; from the kdegames module.</para>
 
 <para>Bleeding edge development requiring the development version of monopd
