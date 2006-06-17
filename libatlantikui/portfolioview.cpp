@@ -24,7 +24,7 @@
 #include <Q3PtrList>
 
 #include <kdebug.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kiconeffect.h>
 #include <kglobalsettings.h>
 #include <klocale.h>

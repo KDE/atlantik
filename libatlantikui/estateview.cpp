@@ -27,7 +27,7 @@
 
 #include <kdebug.h>
 #include <kdeversion.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <kpixmapeffect.h>
