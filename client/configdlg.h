@@ -23,7 +23,7 @@
 //Added by qt3to4:
 #include <QFrame>
 
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 
 class QString;
 
@@ -110,7 +110,7 @@ private:
 	QCheckBox *m_chatTimestamps;
 };
 
-class ConfigDialog : public KDialogBase
+class ConfigDialog : public KPageDialog
 {
 Q_OBJECT
 

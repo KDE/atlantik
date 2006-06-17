@@ -43,13 +43,38 @@
 #include "atlantik.h"
 #include "configdlg.moc"
 
-ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : KDialogBase(IconList, i18n("Configure Atlantik"), Ok|Cancel, Ok, parent, "config_atlantik", false, name)
+ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : 
+		KPageDialog(parent)
 {
+	setCaption(i18n("Configure Atlantik"));
+	setButtons(Ok|Cancel);
+	setDefaultButton(Ok);
+	setModal(false);
+	setFaceType(KPageDialog::List);
 	m_parent = parent;
-	p_general = addPage(i18n("General"), i18n("General"), BarIcon("configure", K3Icon::SizeMedium));
-	p_p13n = addPage(i18n("Personalization"), i18n("Personalization"), BarIcon("personal", K3Icon::SizeMedium));
-	p_board = addPage(i18n("Board"), i18n("Board"), BarIcon("monop_board", K3Icon::SizeMedium));
-	p_monopigator = addPage(i18n("Meta Server"), i18n("Meta Server"), BarIcon("network", K3Icon::SizeMedium));
+	p_general = new QFrame();
+	KPageWidgetItem *pageItem = new KPageWidgetItem( p_general, i18n("General") );
+	pageItem->setHeader(i18n("General"));
+	pageItem->setIcon(BarIcon("configure", K3Icon::SizeMedium));
+	addPage(pageItem);
+
+    p_p13n = new QFrame();
+    pageItem = new KPageWidgetItem( p_p13n, i18n("Personalization") );
+    pageItem->setHeader(i18n("Personalization"));
+    pageItem->setIcon(BarIcon("personal", K3Icon::SizeMedium));
+    addPage(pageItem);	
+	
+    p_board = new QFrame();
+    pageItem = new KPageWidgetItem( p_board, i18n("Board") );
+    pageItem->setHeader(i18n("Board"));
+    pageItem->setIcon(BarIcon("monop_board", K3Icon::SizeMedium));
+    addPage(pageItem);
+	
+    p_monopigator = new QFrame();
+    pageItem = new KPageWidgetItem( p_monopigator, i18n("Meta Server") );
+    pageItem->setHeader(i18n("Meta Server"));
+    pageItem->setIcon(BarIcon("network", K3Icon::SizeMedium));
+    addPage(pageItem);
 
 	configGeneral = new ConfigGeneral(this, p_general );
         configGeneral->setObjectName("configGeneral");

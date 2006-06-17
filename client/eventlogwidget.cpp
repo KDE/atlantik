@@ -29,7 +29,7 @@
 
 #include <klocale.h>
 #include <k3listview.h>
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kpushbutton.h>
