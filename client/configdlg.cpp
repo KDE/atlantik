@@ -39,6 +39,8 @@
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
+#include <kpagewidgetmodel.h>
+#include <kicon.h>
 
 #include "atlantik.h"
 #include "configdlg.moc"
@@ -46,34 +48,34 @@
 ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : 
 		KPageDialog(parent)
 {
-	setCaption(i18n("Configure Atlantik"));
-	setButtons(Ok|Cancel);
-	setDefaultButton(Ok);
-	setModal(false);
-	setFaceType(KPageDialog::List);
-	m_parent = parent;
-	p_general = new QFrame();
-	KPageWidgetItem *pageItem = new KPageWidgetItem( p_general, i18n("General") );
-	pageItem->setHeader(i18n("General"));
-	pageItem->setIcon(BarIcon("configure", K3Icon::SizeMedium));
-	addPage(pageItem);
+    setCaption(i18n("Configure Atlantik"));
+    setButtons(Ok|Cancel);
+    setDefaultButton(Ok);
+    setModal(false);
+    setFaceType(KPageDialog::List);
+    m_parent = parent;
+    p_general = new QFrame();
+    KPageWidgetItem *pageItem = new KPageWidgetItem( p_general, i18n("General") );
+    pageItem->setHeader(i18n("General"));
+    pageItem->setIcon( KIcon( BarIcon("configure", K3Icon::SizeMedium) ) );
+    addPage(pageItem);
 
     p_p13n = new QFrame();
     pageItem = new KPageWidgetItem( p_p13n, i18n("Personalization") );
     pageItem->setHeader(i18n("Personalization"));
-    pageItem->setIcon(BarIcon("personal", K3Icon::SizeMedium));
+    pageItem->setIcon( KIcon( BarIcon("personal", K3Icon::SizeMedium) ) );
     addPage(pageItem);	
 	
     p_board = new QFrame();
     pageItem = new KPageWidgetItem( p_board, i18n("Board") );
     pageItem->setHeader(i18n("Board"));
-    pageItem->setIcon(BarIcon("monop_board", K3Icon::SizeMedium));
+    pageItem->setIcon( KIcon( BarIcon("monop_board", K3Icon::SizeMedium) ) );
     addPage(pageItem);
 	
     p_monopigator = new QFrame();
     pageItem = new KPageWidgetItem( p_monopigator, i18n("Meta Server") );
     pageItem->setHeader(i18n("Meta Server"));
-    pageItem->setIcon(BarIcon("network", K3Icon::SizeMedium));
+    pageItem->setIcon( KIcon( BarIcon("network", K3Icon::SizeMedium) ) );
     addPage(pageItem);
 
 	configGeneral = new ConfigGeneral(this, p_general );
