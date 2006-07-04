@@ -166,7 +166,7 @@ void PortfolioView::loadIcon()
 
 	if (!m_imageName.isEmpty())
 	{
-		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
+		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
 		if (KStandardDirs::exists(filename))
 			m_image = new QPixmap(filename);
 	}
