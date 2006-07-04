@@ -26,7 +26,7 @@ install(TARGETS atlantic  DESTINATION ${LIB_INSTALL_DIR} )
 
 ########### install files ###############
 
-install_files( /include/atlantic FILES atlantic_core.h auction.h configoption.h estate.h  	estategroup.h game.h player.h trade.h libatlantic_export.h )
+install( FILES atlantic_core.h auction.h configoption.h estate.h  	estategroup.h game.h player.h trade.h libatlantic_export.h  DESTINATION  ${INCLUDE_INSTALL_DIR}/atlantic )
 
 
 
