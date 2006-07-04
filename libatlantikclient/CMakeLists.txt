@@ -13,7 +13,7 @@ kde4_add_library(atlantikclient SHARED ${atlantikclient_LIB_SRCS})
 target_link_libraries(atlantikclient  ${KDE4_KDECORE_LIBS} atlantic kio )
 
 set_target_properties(atlantikclient PROPERTIES VERSION 1.2.0 SOVERSION 1 )
-install_targets(${LIB_INSTALL_DIR} atlantikclient )
+install(TARGETS atlantikclient  DESTINATION ${LIB_INSTALL_DIR} )
 
 
 ########### install files ###############

@@ -22,7 +22,7 @@ kde4_add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 target_link_libraries(atlantikui  ${KDE4_KDECORE_LIBS} atlantic kio )
 
 set_target_properties(atlantikui PROPERTIES VERSION 1.2.0 SOVERSION 1 )
-install_targets(${LIB_INSTALL_DIR} atlantikui )
+install(TARGETS atlantikui  DESTINATION ${LIB_INSTALL_DIR} )
 
 
 ########### install files ###############
