@@ -184,7 +184,7 @@ void ConfigPlayer::chooseImage()
 {
 	KIconDialog iconDialog( this);
 #ifdef KDE_3_1_FEATURES
-	iconDialog.setCustomLocation( locate("appdata", "themes/default/tokens/") );
+	iconDialog.setCustomLocation( KStandardDirs::locate("appdata", "themes/default/tokens/") );
 #endif
 
 #ifdef KDE_3_3_FEATURES
@@ -206,7 +206,7 @@ void ConfigPlayer::chooseImage()
 
 void ConfigPlayer::setImage()
 {
-	QString filename = locate("data", "atlantik/themes/default/tokens/" + m_playerImage);
+	QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_playerImage);
 	if (KStandardDirs::exists(filename))
 		m_playerIcon->setPixmap( QPixmap(filename) );
 }
