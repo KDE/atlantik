@@ -39,7 +39,6 @@
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <kstandarddirs.h>
-#include <kpagewidgetmodel.h>
 #include <kicon.h>
 
 #include "atlantik.h"
