@@ -30,7 +30,7 @@ kde4_add_executable(atlantik ${atlantik_SRCS})
 
 target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient kio kdegames)
 
-install_targets(/bin atlantik )
+install(TARGETS atlantik  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############

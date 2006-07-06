@@ -16,7 +16,7 @@ kde4_add_executable(atlanticd ${atlanticd_SRCS})
 
 target_link_libraries(atlanticd  ${KDE4_KDECORE_LIBS} )
 
-install_targets(/bin atlanticd )
+install(TARGETS atlanticd  DESTINATION ${BIN_INSTALL_DIR} )
 
 
 ########### install files ###############
