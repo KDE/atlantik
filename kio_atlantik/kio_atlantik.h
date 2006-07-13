@@ -1,5 +1,3 @@
-//Added by qt3to4:
-#include <Q3CString>
 // Copyright (c) 2002-2003 Rob Kaper <cap@capsi.com>
 //
 // This program is free software; you can redistribute it and/or
@@ -19,6 +17,6 @@
 class AtlantikProtocol : public KIO::SlaveBase
 {
 public:
-	AtlantikProtocol( const Q3CString &pool, const Q3CString &app) : SlaveBase( "atlantik", pool, app ) {}
+	AtlantikProtocol( const QByteArray &pool, const QByteArray &app) : SlaveBase( "atlantik", pool, app ) {}
 	virtual void get( const KUrl& url );
 };

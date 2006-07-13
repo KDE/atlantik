@@ -24,7 +24,6 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QGridLayout>
-#include <Q3CString>
 #include <QCloseEvent>
 
 #include <kaboutapplication.h>
@@ -228,8 +227,8 @@ Atlantik::Atlantik ()
 	// Check command-line args to see if we need to connect or show Monopigator window
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	Q3CString host = args->getOption("host");
-	Q3CString port = args->getOption("port");
+	QByteArray host = args->getOption("host");
+	QByteArray port = args->getOption("port");
 	if (!host.isNull() && !port.isNull())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -822,7 +821,7 @@ void Atlantik::sendHandshake()
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	Q3CString game = args->getOption("game");
+	QByteArray game = args->getOption("game");
 	kDebug() << "received Handshake; joining game: " << game.toInt();
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
