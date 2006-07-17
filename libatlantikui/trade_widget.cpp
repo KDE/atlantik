@@ -66,8 +66,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	listCompBox->addWidget(m_updateComponentBox);
 
 	m_editTypeCombo = new KComboBox(m_updateComponentBox);
-	m_editTypeCombo->insertItem(i18n("Estate"));
-	m_editTypeCombo->insertItem(i18n("Money"));
+	m_editTypeCombo->addItem(i18n("Estate"));
+	m_editTypeCombo->addItem(i18n("Money"));
 
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
 
@@ -103,11 +103,11 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	{
 		if ((player = *it) && player->game() == pSelf->game())
 		{
-			m_playerFromCombo->insertItem(player->name());
+			m_playerFromCombo->addItem(player->name());
 			m_playerFromMap[m_playerFromCombo->count() - 1] = player;
 			m_playerFromRevMap[player] = m_playerFromCombo->count() - 1;
 
-			m_playerTargetCombo->insertItem(player->name());
+			m_playerTargetCombo->addItem(player->name());
 			m_playerTargetMap[m_playerTargetCombo->count() - 1] = player;
 			m_playerTargetRevMap[player] = m_playerTargetCombo->count() - 1;
 
