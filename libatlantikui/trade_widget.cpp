@@ -167,8 +167,8 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(this, SIGNAL(reject(Trade *)), m_trade, SIGNAL(reject(Trade *)));
 	connect(this, SIGNAL(accept(Trade *)), m_trade, SIGNAL(accept(Trade *)));
 
-	setTypeCombo(m_editTypeCombo->currentItem());
-	setEstateCombo(m_estateCombo->currentItem());
+	setTypeCombo(m_editTypeCombo->currentIndex());
+	setEstateCombo(m_estateCombo->currentIndex());
 
 	m_contextTradeItem = 0;
 }
@@ -267,7 +267,7 @@ void TradeDisplay::setTypeCombo(int index)
 		m_moneyBox->hide();
 		m_moneyBox->setMaximumWidth(0);
 
-		setEstateCombo(m_estateCombo->currentItem()); // also updates playerfromCombo
+		setEstateCombo(m_estateCombo->currentIndex()); // also updates playerfromCombo
 		m_playerFromCombo->setEnabled(false);
 
 		m_updateButton->setEnabled( m_estateCombo->count() > 0 );
@@ -293,11 +293,11 @@ void TradeDisplay::setTypeCombo(int index)
 
 void TradeDisplay::setEstateCombo(int index)
 {
-	if (m_estateCombo->currentItem() != index)
-		m_estateCombo->setCurrentItem(index);
+	if (m_estateCombo->currentIndex() != index)
+		m_estateCombo->setCurrentIndex(index);
 
 	if (Estate *estate = m_estateMap[index])
-		m_playerFromCombo->setCurrentItem( m_playerFromRevMap[estate->owner()] );
+		m_playerFromCombo->setCurrentIndex( m_playerFromRevMap[estate->owner()] );
 }
 
 void TradeDisplay::setCombos(Q3ListViewItem *i)
@@ -307,14 +307,14 @@ void TradeDisplay::setCombos(Q3ListViewItem *i)
 	{
 		setTypeCombo(0);
 		setEstateCombo( m_estateRevMap[tradeEstate->estate()] ); // also updates playerFromCombo
-		m_playerTargetCombo->setCurrentItem( m_playerTargetRevMap[tradeEstate->to()] );
+		m_playerTargetCombo->setCurrentIndex( m_playerTargetRevMap[tradeEstate->to()] );
 	}
 	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(item))
 	{
 		setTypeCombo(1);
 		m_moneyBox->setValue( tradeMoney->money() );
-		m_playerFromCombo->setCurrentItem(  m_playerFromRevMap[tradeMoney->from()] );
-		m_playerTargetCombo->setCurrentItem(  m_playerTargetRevMap[tradeMoney->to()] );
+		m_playerFromCombo->setCurrentIndex(  m_playerFromRevMap[tradeMoney->from()] );
+		m_playerTargetCombo->setCurrentIndex(  m_playerTargetRevMap[tradeMoney->to()] );
 	}
 }
 
@@ -323,12 +323,12 @@ void TradeDisplay::updateComponent()
 	Estate *estate;
 	Player *pFrom, *pTarget;
 
-	switch (m_editTypeCombo->currentItem())
+	switch (m_editTypeCombo->currentIndex())
 	{
 	case 0:
 		// Updating estate component
-		estate = m_estateMap[m_estateCombo->currentItem()];
-		pTarget = m_playerTargetMap[m_playerTargetCombo->currentItem()];
+		estate = m_estateMap[m_estateCombo->currentIndex()];
+		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
 
 		if (estate && pTarget)
 			emit updateEstate(m_trade, estate, pTarget);
@@ -337,8 +337,8 @@ void TradeDisplay::updateComponent()
 
 	case 1:
 		// Updating money component
-		pFrom = m_playerFromMap[m_playerFromCombo->currentItem()];
-		pTarget = m_playerTargetMap[m_playerTargetCombo->currentItem()];
+		pFrom = m_playerFromMap[m_playerFromCombo->currentIndex()];
+		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
 
 		if (pFrom && pTarget)
 			emit updateMoney(m_trade, m_moneyBox->value(), pFrom, pTarget);
