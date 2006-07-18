@@ -63,12 +63,12 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 		if (i==0 || i==sideLen)
 		{
 			m_gridLayout->setRowStretch(i, 3);
-			m_gridLayout->setColStretch(i, 3);
+			m_gridLayout->setColumnStretch(i, 3);
 		}
 		else
 		{
 			m_gridLayout->setRowStretch(i, 2);
-			m_gridLayout->setColStretch(i, 2);
+			m_gridLayout->setColumnStretch(i, 2);
 		}
 	}
 
