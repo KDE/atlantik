@@ -10,7 +10,7 @@ kde4_automoc(${atlantikclient_LIB_SRCS})
 
 kde4_add_library(atlantikclient SHARED ${atlantikclient_LIB_SRCS})
 
-target_link_libraries(atlantikclient  ${KDE4_KDECORE_LIBS} atlantic kio )
+target_link_libraries(atlantikclient  ${KDE4_KDECORE_LIBS} atlantic ${KDE4_KIO_LIBS} )
 
 set_target_properties(atlantikclient PROPERTIES VERSION 1.2.0 SOVERSION 1 )
 install(TARGETS atlantikclient  DESTINATION ${LIB_INSTALL_DIR} )
