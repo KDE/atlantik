@@ -1,15 +1,2 @@
-
-
-
-
-########### install files ###############
-
-install( FILES   DESTINATION  ${DATA_INSTALL_DIR}/atlantik/icons )
-
-
-
-
-#original Makefile.am contents follow:
-
-#atlantiktoolbardir = $(kde_datadir)/atlantik/icons
-#atlantiktoolbar_ICON = AUTO
+kde4_install_icons( ${DATA_INSTALL_DIR}/atlantik/icons crystalsvg )
+kde4_install_icons( ${DATA_INSTALL_DIR}/atlantik/icons locolor )
