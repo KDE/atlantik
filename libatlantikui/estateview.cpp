@@ -390,14 +390,10 @@ void EstateView::paintEvent(QPaintEvent *)
 		QFont font = QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal );
 		painter.setFont(font);
 		QString estateName = m_estate->name();
-#if defined(KDE_MAKE_VERSION)
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,2,0)
                 if ( m_estate->color().isValid() && ( m_orientation == West || m_orientation == East ) )
 			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), 3*width()/4 );
 		else
 			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), width() );
-#endif
-#endif
 		if (m_estate->color().isValid() && m_orientation == West)
                         painter.drawText( width()/4 + 2, height()/2, estateName );
 		else

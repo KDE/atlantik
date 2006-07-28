@@ -23,17 +23,6 @@
 #include <QVBoxLayout>
 
 #include <kdeversion.h>
-#undef KDE_3_1_FEATURES
-#undef KDE_3_3_FEATURES
-#if defined(KDE_MAKE_VERSION)
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,1,0)
-#define KDE_3_1_FEATURES
-#endif
-#if KDE_VERSION >= KDE_MAKE_VERSION(3,2,90)
-#define KDE_3_3_FEATURES
-#endif
-#endif
-
 #include <kicondialog.h>
 #include <kiconloader.h>
 #include <klocale.h>
@@ -182,15 +171,9 @@ QString ConfigPlayer::playerImage()
 void ConfigPlayer::chooseImage()
 {
 	KIconDialog iconDialog( this);
-#ifdef KDE_3_1_FEATURES
 	iconDialog.setCustomLocation( KStandardDirs::locate("appdata", "themes/default/tokens/") );
-#endif
 
-#ifdef KDE_3_3_FEATURES
 	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
-#else
-	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true ); // begin with user icons
-#endif
 
 	QString image = iconDialog.openDialog();
 

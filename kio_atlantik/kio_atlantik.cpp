@@ -19,12 +19,6 @@
 #include <qtextstream.h>
 
 #include <kdeversion.h>
-#undef KDE_3_1_FEATURES
-#ifdef KDE_MAKE_VERSION
-#if KDE_VERSION > KDE_MAKE_VERSION (3, 1, 0)
-#define KDE_3_1_FEATURES
-#endif
-#endif
 #include <kio/slavebase.h>
 #include <kinstance.h>
 #include <kprocess.h>
@@ -48,11 +42,7 @@ void AtlantikProtocol::get( const KUrl& url )
 	KProcess *proc = new KProcess;
 	*proc << "atlantik";
 
-#ifdef KDE_3_1_FEATURES
 	QString host = url.hasHost() ? url.host() : KProcess::quote( url.queryItem("host") );
-#else
-	QString host = url.hasHost() ? url.host() : url.queryItem("host");
-#endif
 	QString port = QString::number( url.port() ? url.port() : 1234 );
 	int game = url.queryItem("game").toInt();
 	QString gameString = game ? QString::number( game ) : QString::null;
