@@ -33,7 +33,8 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <knotifyclient.h>
+#include <knotifyconfigwidget.h>
+#include <knotification.h>
 #include <knotifydialog.h>
 #include <kstatusbar.h>
 #include <kstdgameaction.h>
@@ -273,7 +274,7 @@ void Atlantik::newPlayer(Player *player)
 	connect(player, SIGNAL(gainedTurn()), this, SLOT(gainedTurn()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
-	KNotifyClient::event(winId(), "newplayer");
+	KNotification::event("newplayer");
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -525,7 +526,7 @@ void Atlantik::showEventLog()
 
 void Atlantik::configureNotifications()
 {
-	KNotifyDialog::configure(this);
+	KNotifyConfigWidget::configure(this);
 }
 
 void Atlantik::slotUpdateConfig()
@@ -662,7 +663,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
-	KNotifyClient::event(winId(), "chat");
+	KNotification::event("chat");
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
@@ -733,7 +734,7 @@ void Atlantik::playerChanged(Player *player)
 
 void Atlantik::gainedTurn()
 {
-	KNotifyClient::event(winId(), "gainedturn", i18n("It is your turn now.") );
+	KNotification::event("gainedturn", i18n("It is your turn now."), QPixmap() ,this );
 }
 
 void Atlantik::initEventLog()

@@ -28,7 +28,7 @@ kde4_automoc(${atlantik_SRCS})
 
 kde4_add_executable(atlantik ${atlantik_SRCS})
 
-target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient ${KDE4_KIO_LIBS} kdegames)
+target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantikui atlantikclient ${KDE4_KIO_LIBS} kdegames knotifyconfig)
 
 install(TARGETS atlantik  DESTINATION ${BIN_INSTALL_DIR} )
 

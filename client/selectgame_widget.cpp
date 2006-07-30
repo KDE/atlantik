@@ -25,7 +25,7 @@
 #include <kdialog.h>
 #include <klocale.h>
 #include <kiconloader.h>
-#include <knotifyclient.h>
+#include <knotification.h>
 
 #include <atlantic_core.h>
 #include <game.h>
@@ -98,7 +98,7 @@ void SelectGame::addGame(Game *game)
 		item->setPixmap( 0, QPixmap(SmallIcon("atlantik")) );
 		item->setEnabled(game->canBeJoined());
 
-		KNotifyClient::event(winId(), "newgame");
+		KNotification::event("newgame");
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
