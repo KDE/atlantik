@@ -79,20 +79,20 @@ void EstateView::updateToolTip()
 		QString toolTip = m_estate->name();
 		if ( m_estate->isOwned() )
 		{
-			toolTip.append( "\n" + i18n("Owner: %1", m_estate->owner()->name() ) );
+			toolTip.append( '\n' + i18n("Owner: %1", m_estate->owner()->name() ) );
 			if ( m_estate->isMortgaged() )
-				toolTip.append( "\n" + i18n("Unmortgage Price: %1", m_estate->unmortgagePrice() ) );
+				toolTip.append( '\n' + i18n("Unmortgage Price: %1", m_estate->unmortgagePrice() ) );
 		     	else
-		     		toolTip.append( "\n" + i18n("Mortgage Value: %1", m_estate->mortgagePrice() ) );
+		     		toolTip.append( '\n' + i18n("Mortgage Value: %1", m_estate->mortgagePrice() ) );
 			if ( m_estate->canSellHouses() )
-				toolTip.append( "\n" + i18n("House Value: %1", m_estate->houseSellPrice() ) );
+				toolTip.append( '\n' + i18n("House Value: %1", m_estate->houseSellPrice() ) );
 			if ( m_estate->canBuyHouses() )
-				toolTip.append( "\n" + i18n("House Price: %1", m_estate->housePrice() ) );
+				toolTip.append( '\n' + i18n("House Price: %1", m_estate->housePrice() ) );
 		}
 		else if ( m_estate->canBeOwned() )
-			toolTip.append( "\n" + i18n("Price: %1", m_estate->price() ) );
+			toolTip.append( '\n' + i18n("Price: %1", m_estate->price() ) );
 		else if ( m_estate->money() )
-			toolTip.append( "\n" + i18n("Money: %1", m_estate->money() ) );
+			toolTip.append( '\n' + i18n("Money: %1", m_estate->money() ) );
 
 		this->setToolTip( toolTip );
 	}

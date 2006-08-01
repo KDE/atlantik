@@ -25,9 +25,6 @@
 #ifndef KWRAPPEDLISTVIEWITEM_H
 #define KWRAPPEDLISTVIEWITEM_H
 
-#include <QObject>
-#include <QString>
-
 #include <k3listview.h>
 
 class KWordWrap;
@@ -37,8 +34,8 @@ class KWrappedListViewItem : public QObject, public K3ListViewItem
 Q_OBJECT
 
 public:
-	KWrappedListViewItem( Q3ListView *parent, QString text, QString=QString::null );
-	KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, QString text, QString=QString::null );
+	KWrappedListViewItem( Q3ListView *parent, const QString& text, const QString &t2=QString::null );
+	KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, const QString& text, const QString& t2=QString::null );
 	void setup();
 //	int width(const QFontMetrics& fm, const QListView* lv, int c) const;
 
@@ -46,7 +43,7 @@ private slots:
 	void wrapColumn( int c );
 
 private:
-	void init( Q3ListView *parent, QString text, QString=QString::null );
+	void init( Q3ListView *parent, const QString& text, const QString& t2=QString::null );
 	QString m_origText;
 	int m_wrapColumn;
 };

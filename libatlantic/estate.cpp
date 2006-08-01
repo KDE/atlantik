@@ -20,18 +20,15 @@
 #include "estate.moc"
 #include "player.h"
 
-Estate::Estate(int estateId) : QObject()
+Estate::Estate(int estateId)
 {
 	m_id = estateId;
-	m_name = QString::null;
 	m_owner = 0;
 	m_houses = 0;
 	m_price = 0;
 	m_money = 0;
 	m_estateGroup = 0;
 	m_changed = m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
-	m_bgColor = QColor();
-	m_color = QColor();
 }
 
 void Estate::setEstateGroup(EstateGroup *estateGroup)
@@ -71,7 +68,7 @@ void Estate::setHouses(unsigned int houses)
 		m_changed = true;
 }
 
-void Estate::setName(QString name)
+void Estate::setName(const QString& name)
 {
 	if (m_name != name)
 	{

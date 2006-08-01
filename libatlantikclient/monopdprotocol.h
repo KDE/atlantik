@@ -15,14 +15,12 @@
 // Boston, MA 02110-1301, USA.
 
 // WARNING: this codebase is not being used yet. Please use AtlantikNetwork
-// until the protocol seperation has been completed.
+// until the protocol separation has been completed.
 
 #ifndef MONOPDPROTOCOL_H_H
 #define MONOPDPROTOCOL_H_H
 
 #include <QObject>
-
-class QString;
 
 /*
 class AtlanticCore;
@@ -48,11 +46,11 @@ private slots:
 	void confirmTokenLocation(Estate *estate);
 	void endTurn();
 	void rollDice();
-	void setName(QString name);
+	void setName(const QString &name);
 	void startGame();
 
 private:
-	virtual void sendData(QString data);
+	virtual void sendData(const QString &data);
 };
 
 #endif

@@ -42,7 +42,7 @@
 #include "estatedetails.h"
 #include "kwrappedlistviewitem.h"
 
-EstateDetails::EstateDetails(Estate *estate, QString text, QWidget *parent) : QWidget(parent)
+EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : QWidget(parent)
 {
 	m_pixmap = 0;
 	m_quartzBlocks = 0;
@@ -246,7 +246,7 @@ void EstateDetails::addDetails()
 	}
 }
 
-void EstateDetails::addButton(QString command, QString caption, bool enabled)
+void EstateDetails::addButton(const QString &command, const QString &caption, bool enabled)
 {
 	KPushButton *button = new KPushButton(caption, this);
 	m_buttons.append(button);
@@ -292,13 +292,13 @@ void EstateDetails::setEstate(Estate *estate)
 	}
 }
 
-void EstateDetails::setText(QString text)
+void EstateDetails::setText(const QString &text)
 {
 	m_infoListView->clear();
 	appendText(text);
 }
 
-void EstateDetails::appendText(QString text)
+void EstateDetails::appendText(const QString &text)
 {
 	if ( text.isEmpty() )
 		return;

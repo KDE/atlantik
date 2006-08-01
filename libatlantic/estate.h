@@ -32,7 +32,7 @@ Q_OBJECT
 public:
 	Estate(int estateId);
 	int id() { return m_id; }
-	void setName(QString name);
+	void setName(const QString& name);
 	QString name() const;
 	void setEstateGroup(EstateGroup *estateGroup);
 	EstateGroup *estateGroup() { return m_estateGroup; }

@@ -62,7 +62,7 @@ class MonopigatorEntry : public QObject, public Q3ListViewItem
 Q_OBJECT
 
 public:
-	MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip);
+	MonopigatorEntry(Q3ListView *parent, const QString &host, const QString &latency, const QString &version, const QString &users, const QString &port, const QString &ip);
 	int compare(Q3ListViewItem *i, int col, bool ascending) const;
 	bool isDev() const;
 

@@ -123,7 +123,7 @@ void AtlantikNetwork::writeData(QString data) {
 }
 
 //Atlantik-specific stuff follows here
-//Perhaps it is better to seperate this out in another class
+//Perhaps it is better to separate this out in another class
 
 void AtlantikNetwork::rollDice()
 {
@@ -831,7 +831,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         int status = a.value().toInt();
                         auction->setStatus(status);
 
-                        // TODO: find a good way to visualise "sold!"
+                        // TODO: find a good way to visually represent "sold!"
                         if (status == 3) {
                             m_atlanticCore->delAuction(auction);
                             m_auctions[auctionId] = 0;

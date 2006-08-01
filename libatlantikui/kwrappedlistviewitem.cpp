@@ -23,7 +23,6 @@
 // SUCH DAMAGE.
 
 #include <q3header.h>
-#include <QString>
 
 #include <kglobalsettings.h>
 #include <k3listview.h>
@@ -31,13 +30,14 @@
 
 #include "kwrappedlistviewitem.h"
 
-KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, QString text, QString t2 )
+KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, const QString& text, const QString &t2 )
 : QObject(), K3ListViewItem( parent )
 {
 	init( parent, text, t2 );
 }
 
-KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, QString text, QString t2 )
+KWrappedListViewItem::KWrappedListViewItem( Q3ListView *parent, Q3ListViewItem *after, 
+	const QString &text, const QString &t2 )
 : QObject(), K3ListViewItem( parent, after )
 {
 	init( parent, text, t2 );
@@ -92,7 +92,7 @@ void KWrappedListViewItem::wrapColumn( int c )
 	delete wrap;
 }
 
-void KWrappedListViewItem::init( Q3ListView *parent, QString text, QString t2 )
+void KWrappedListViewItem::init( Q3ListView *parent, const QString &text, const QString &t2 )
 {
 	m_wrapColumn = 0;
 	setMultiLinesEnabled( true );

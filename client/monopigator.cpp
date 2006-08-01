@@ -111,7 +111,7 @@ void Monopigator::processData(const QByteArray &data, bool okSoFar)
 
 
 
-MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString latency, QString version, QString users, QString port, QString ip) : QObject(), Q3ListViewItem(parent, host, latency, version, users, port)
+MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, const QString &host, const QString &latency, const QString &version, const QString &users, const QString &port, const QString &ip) : QObject(), Q3ListViewItem(parent, host, latency, version, users, port)
 {
         m_isDev = version.contains( QRegExp("(CVS|-dev)") );
 
@@ -119,8 +119,9 @@ MonopigatorEntry::MonopigatorEntry(Q3ListView *parent, QString host, QString lat
 	parent->sort();
 
 	if ( !ip.isEmpty() )
-		host = ip;
-	m_latencySocket = new KNetwork::KBufferedSocket(host, port);
+		m_latencySocket = new KNetwork::KBufferedSocket(ip, port);
+	else
+		m_latencySocket = new KNetwork::KBufferedSocket(host, port);
 
 	connect(m_latencySocket, SIGNAL(hostFound()), this, SLOT(resolved()));
 	connect(m_latencySocket, SIGNAL(connected(KNetwork::KResolverEntry)), this, SLOT(connected()));

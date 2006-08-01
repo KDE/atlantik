@@ -18,15 +18,9 @@
 
 #include "game.h"
 
-Game::Game(int gameId) : QObject()
+Game::Game(int gameId)
+	: m_changed(false), m_id(gameId), m_players(0), m_master(0)
 {
-	m_id = gameId;
-	m_description = QString::null;
-	m_type = QString::null;
-	m_players = 0;
-	m_master = 0;
-
-	m_changed = false;
 }
 
 int Game::id() const

@@ -17,7 +17,6 @@
 #include <iostream>
 
 #include <qpainter.h>
-#include <QString>
 //Added by qt3to4:
 #include <QGridLayout>
 #include <QResizeEvent>
@@ -514,7 +513,7 @@ void AtlantikBoard::displayDefault()
 	updateCenter();
 }
 
-void AtlantikBoard::displayButton(QString command, QString caption, bool enabled)
+void AtlantikBoard::displayButton(const QString &command, const QString &caption, bool enabled)
 {
 	if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
 		display->addButton(command, caption, enabled);
@@ -527,7 +526,7 @@ void AtlantikBoard::addCloseButton()
 		eDetails->addCloseButton();
 }
 
-void AtlantikBoard::insertDetails(QString text, bool clearText, bool clearButtons, Estate *estate)
+void AtlantikBoard::insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate)
 {
 	EstateDetails *eDetails = 0;
 

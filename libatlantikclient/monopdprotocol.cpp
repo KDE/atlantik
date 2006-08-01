@@ -14,8 +14,6 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <QString>
-
 /*
 #include <atlantic_core.h>
 #include <player.h>
@@ -61,7 +59,7 @@ void MonopdProtocol::rollDice()
 	sendData(QString::fromLatin1(".r"));
 }
 
-void MonopdProtocol::setName(QString name)
+void MonopdProtocol::setName(const QString &name)
 {
 	QString data(".n");
 	data.append(name);
@@ -73,7 +71,7 @@ void MonopdProtocol::startGame()
 	sendData(QString::fromLatin1(".gs"));
 }
 
-void MonopdProtocol::sendData(QString)
+void MonopdProtocol::sendData(const QString&)
 {
 	// Your reimplementation of this method should send send data over the
 	// network.

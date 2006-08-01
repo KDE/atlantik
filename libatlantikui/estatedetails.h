@@ -27,7 +27,6 @@
 #include <Q3PtrList>
 
 class QPixmap;
-class QString;
 class QHBoxLayout;
 class QVBoxLayout;
 class QVGroupBox;
@@ -43,16 +42,16 @@ class EstateDetails : public QWidget
 Q_OBJECT
 
 public:
-	EstateDetails(Estate *estate, QString text, QWidget *parent);
+	EstateDetails(Estate *estate, const QString &text, QWidget *parent);
 	~EstateDetails();
 	Estate *estate() { return m_estate; }
 
 	void addDetails();
-	void addButton(const QString command, const QString caption, bool enabled);
+	void addButton(const QString &command, const QString &caption, bool enabled);
 	void addCloseButton();
 	void setEstate(Estate *estate);
-	void setText(QString text);
-	void appendText(QString text);
+	void setText(const QString &text);
+	void appendText(const QString &text);
 	void clearButtons();
 
 protected:
@@ -63,7 +62,7 @@ private slots:
 	void buttonPressed();
 
 signals:
-	void buttonCommand(QString);
+	void buttonCommand(const QString&);
 	void buttonClose();
 
 private:
