@@ -18,7 +18,7 @@ kde4_automoc(${atlantic_LIB_SRCS})
 
 kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 
-target_link_libraries(atlantic  ${KDE4_KDECORE_LIBS} Qt3Support_debug )
+target_link_libraries(atlantic  ${KDE4_KDECORE_LIBS} Qt3Support )
 
 set_target_properties(atlantic PROPERTIES VERSION 1.2.0 SOVERSION 1 )
 install(TARGETS atlantic  DESTINATION ${LIB_INSTALL_DIR} )
