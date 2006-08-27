@@ -109,8 +109,9 @@ void Token::loadIcon()
 		m_imageName = "hamburger.png";
 
 		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (KStandardDirs::exists(filename))
-			m_image = new QPixmap(filename);
+		if (filename.isNull())
+			return;	
+		m_image = new QPixmap(filename);
 	}
 
 	QMatrix m;
