@@ -109,7 +109,7 @@ void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned
 			estateView->setViewProperties(indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects);
 }
 
-int AtlantikBoard::heightForWidth(int width)
+int AtlantikBoard::heightForWidth(int width) const
 {
 	return width;
 }

@@ -47,7 +47,7 @@ public:
 	void reset();
 
 	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
-	int heightForWidth(int);
+	int heightForWidth(int) const;
 	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
 
