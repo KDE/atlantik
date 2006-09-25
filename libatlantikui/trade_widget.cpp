@@ -49,8 +49,8 @@
 
 #include "trade_widget.moc"
 
-TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent, const char *name)
-	: QWidget(parent, name,
+TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent)
+	: QWidget(parent,
 	  Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_DialogBorder | Qt::WStyle_Title |
 	  Qt::WStyle_Minimize | Qt::WStyle_ContextHelp )
 {

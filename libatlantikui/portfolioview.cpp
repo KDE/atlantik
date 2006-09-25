@@ -46,7 +46,7 @@
 #define PE_MARGINH	2
 #define ICONSIZE	48
 
-PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name) : QWidget(parent, name)
+PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent) : QWidget(parent)
 {
 	m_atlanticCore = core;
 	m_player = player;

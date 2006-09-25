@@ -44,7 +44,7 @@ class LIBATLANTIKUI_EXPORT TradeDisplay : public QWidget
 Q_OBJECT
 
 public:
-	TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent=0, const char *name = 0);
+	TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent=0);
 
 	Trade *trade() { return mTrade; }
 

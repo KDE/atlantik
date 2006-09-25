@@ -39,7 +39,7 @@ class LIBATLANTIKUI_EXPORT PortfolioView : public QWidget
 Q_OBJECT
 
 public:
-	PortfolioView(AtlanticCore *core, Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent, const char *name = 0);
+	PortfolioView(AtlanticCore *core, Player *_player, QColor activeColor, QColor inactiveColor, QWidget *parent);
 	~PortfolioView();
 
 	void buildPortfolio();
