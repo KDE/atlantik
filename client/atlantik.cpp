@@ -285,7 +285,8 @@ void Atlantik::newEstate(Estate *estate)
 
 void Atlantik::newTrade(Trade *trade)
 {
-	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0, "tradeDisplay");
+	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0);
+        tradeDisplay->setObjectName("tradeDisplay");
 	m_tradeGUIMap[trade] = tradeDisplay;
 	tradeDisplay->show();
 }
