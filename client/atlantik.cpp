@@ -285,7 +285,7 @@ void Atlantik::newEstate(Estate *estate)
 
 void Atlantik::newTrade(Trade *trade)
 {
-	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore, 0);
+	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore);
         tradeDisplay->setObjectName("tradeDisplay");
 	m_tradeGUIMap[trade] = tradeDisplay;
 	tradeDisplay->show();
@@ -344,7 +344,7 @@ void Atlantik::showSelectGame()
 	if (m_selectGame)
 		return;
 
-	m_selectGame = new SelectGame(m_atlanticCore, m_mainWidget, "selectGame");
+	m_selectGame = new SelectGame(m_atlanticCore, m_mainWidget);
 	m_atlanticCore->emitGames();
 
 	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);

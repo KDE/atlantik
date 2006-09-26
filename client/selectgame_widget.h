@@ -34,7 +34,7 @@ class SelectGame : public QWidget
 Q_OBJECT
 
 public:
-	SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *name=0);
+	SelectGame(AtlanticCore *atlanticCore, QWidget *parent);
 
 	void initPage();
 	bool validateNext();

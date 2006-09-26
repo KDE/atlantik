@@ -33,7 +33,8 @@
 
 #include "selectgame_widget.h"
 
-SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent, const char *name) : QWidget(parent, name)
+SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent) 
+        : QWidget(parent)
 {
 	m_atlanticCore = atlanticCore;
 
