@@ -10,7 +10,7 @@ set(atlanticd_SRCS
    main.cpp 
    serversocket.cpp )
 
-kde4_automoc(${atlanticd_SRCS})
+kde4_automoc(atlanticd ${atlanticd_SRCS})
 
 kde4_add_executable(atlanticd ${atlanticd_SRCS})
 

@@ -6,7 +6,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
 
 set(kio_atlantik_PART_SRCS kio_atlantik.cpp )
 
-kde4_automoc(${kio_atlantik_PART_SRCS})
+kde4_automoc(kio_atlantik ${kio_atlantik_PART_SRCS})
 
 kde4_add_plugin(kio_atlantik ${kio_atlantik_PART_SRCS})
 

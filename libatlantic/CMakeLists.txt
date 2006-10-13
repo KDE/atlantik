@@ -14,7 +14,7 @@ set(atlantic_LIB_SRCS
    player.cpp 
    trade.cpp )
 
-kde4_automoc(${atlantic_LIB_SRCS})
+kde4_automoc(atlantic ${atlantic_LIB_SRCS})
 
 kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 

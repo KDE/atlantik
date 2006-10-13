@@ -6,7 +6,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
 
 set(atlantikclient_LIB_SRCS atlantik_network.cpp monopdprotocol.cpp )
 
-kde4_automoc(${atlantikclient_LIB_SRCS})
+kde4_automoc(atlantikclient ${atlantikclient_LIB_SRCS})
 
 kde4_add_library(atlantikclient SHARED ${atlantikclient_LIB_SRCS})
 

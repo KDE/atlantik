@@ -15,7 +15,7 @@ set(atlantikui_LIB_SRCS
    token.cpp 
    trade_widget.cpp )
 
-kde4_automoc(${atlantikui_LIB_SRCS})
+kde4_automoc(atlantikui ${atlantikui_LIB_SRCS})
 
 kde4_add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 
