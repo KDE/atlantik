@@ -24,7 +24,7 @@ set(atlantik_SRCS
    selectgame_widget.cpp 
    selectserver_widget.cpp )
 
-kde4_automoc(atlantik ${atlantik_SRCS})
+kde4_automoc(${atlantik_SRCS})
 
 kde4_add_executable(atlantik ${atlantik_SRCS})
 
