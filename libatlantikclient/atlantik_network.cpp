@@ -99,7 +99,9 @@ void AtlantikNetwork::slotLookupFinished()
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
+#ifdef __GNUC__
 	#warning i18n: Missing two arguments in the call below
+#endif
 	emit msgStatus(i18n("Connected to %1:%2."), "connect_established");
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);

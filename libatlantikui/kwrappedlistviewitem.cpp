@@ -83,7 +83,9 @@ void KWrappedListViewItem::wrapColumn( int c )
 	KWordWrap *wrap = KWordWrap::formatText( fm, rect, 0, m_origText );
 	setText( c, wrap->wrappedString() );
 
+#ifdef __GNUC__
 #warning "Port to:  qt4 text(c).contains( QChar( '\n' ) ) + 1;"
+#endif
 	int lc = 0;//text(c).contains( QChar( '\n' ) ) + 1;
 	setHeight( wrap->boundingRect().height() + lc*lv->itemMargin() );
 
