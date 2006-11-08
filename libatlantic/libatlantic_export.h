@@ -18,8 +18,20 @@
 #ifndef LIBATLANTIC_EXPORT_H
 #define LIBATLANTIC_EXPORT_H
 
+/* needed for KDE_EXPORT macros */
 #include <kdemacros.h>
 
-#define LIBATLANTIC_EXPORT KDE_EXPORT
+/* needed, because e.g. Q_OS_UNIX is so frequently used */
+#include <qglobal.h>
+
+#ifdef MAKE_ATLANTIC_LIB
+# define LIBATLANTIC_EXPORT KDE_EXPORT
+#else
+# ifdef Q_OS_WIN
+#  define LIBATLANTIC_EXPORT KDE_IMPORT
+# else
+#  define LIBATLANTIC_EXPORT KDE_EXPORT
+# endif
+#endif
 
 #endif
