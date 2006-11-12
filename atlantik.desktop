@@ -11,5 +11,5 @@ DocPath=atlantik/index.html
 Terminal=false
 Icon=atlantik
 X-KDE-StartupNotify=true
-X-DCOP-ServiceType=Multi
+X-DBUS-StartupType=Multi
 Categories=Qt;KDE;Game;BoardGame;
