@@ -33,7 +33,7 @@
 #include "atlantik.h"
 #include "configdlg.moc"
 
-ConfigDialog::ConfigDialog(Atlantik* parent, const char *name) : 
+ConfigDialog::ConfigDialog(Atlantik* parent) : 
 		KPageDialog(parent)
 {
     setCaption(i18n("Configure Atlantik"));

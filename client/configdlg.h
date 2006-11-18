@@ -115,7 +115,7 @@ class ConfigDialog : public KPageDialog
 Q_OBJECT
 
 public:
-	ConfigDialog(Atlantik *parent, const char *name=0);
+	ConfigDialog(Atlantik *parent);
 
 	bool chatTimestamps();
 	bool indicateUnowned();
