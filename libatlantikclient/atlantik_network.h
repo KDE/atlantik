@@ -21,14 +21,14 @@
 #include <QTextStream>
 #include <QDomNode>
 
-
+#include <libatlantikclient_export.h>
 #include <kresolver.h>
 #include <kbufferedsocket.h>
 #include <kdemacros.h>
 class AtlanticCore;
 class KNetwork::KBufferedSocket;
 
-class  KDE_EXPORT AtlantikNetwork: public QObject
+class  LIBATLANTIKCLIENT_EXPORT AtlantikNetwork: public QObject
 {
 Q_OBJECT
 
