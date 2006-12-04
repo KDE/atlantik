@@ -35,7 +35,7 @@
 #include "board.h"
 
 class Q3ScrollView;
-
+class KAction;
 class AtlanticCore;
 class AtlantikNetwork;
 
