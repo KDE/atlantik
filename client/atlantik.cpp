@@ -38,7 +38,7 @@
 #include <knotifydialog.h>
 #include <kstatusbar.h>
 #include <kstdgameaction.h>
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include <ktoolbar.h>
 
 #include <kdeversion.h>
@@ -66,9 +66,9 @@
 
 LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : Q3TextEdit( parent, name )
 {
-	m_clear = KStdAction::clear( this, SLOT( clear() ), 0 );
-	m_selectAll = KStdAction::selectAll( this, SLOT( selectAll() ), 0 );
-	m_copy = KStdAction::copy( this, SLOT( copy() ), 0 );
+	m_clear = KStandardAction::clear( this, SLOT( clear() ), 0 );
+	m_selectAll = KStandardAction::selectAll( this, SLOT( selectAll() ), 0 );
+	m_copy = KStandardAction::copy( this, SLOT( copy() ), 0 );
 }
 
 LogTextEdit::~LogTextEdit()
@@ -105,8 +105,8 @@ Atlantik::Atlantik ()
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Settings
-	KStdAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	KStdAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
+	KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	KStandardAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
