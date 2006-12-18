@@ -68,14 +68,14 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
         m_mainLayout->addItem( buttonBox );
 	buttonBox->setSpacing(KDialog::spacingHint());
 
-	KPushButton *backButton = new KPushButton(SmallIcon("back"), i18n("Server List"), this);
+	KPushButton *backButton = new KPushButton(KIcon("back"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(SmallIconSet("forward"), i18n("Create Game"), this);
+	m_connectButton = new KPushButton(KIcon("forward"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 

@@ -36,6 +36,7 @@
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>
+#include <kicon.h>
 #include <kiconloader.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
@@ -139,12 +140,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new KPushButton(BarIcon("cancel", K3Icon::SizeSmall), i18n("Reject"), this);
+	m_rejectButton = new KPushButton(KIcon("cancel"), i18n("Reject"), this);
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new KPushButton(BarIcon("ok", K3Icon::SizeSmall), i18n("Accept"), this);
+	m_acceptButton = new KPushButton(KIcon("ok"), i18n("Accept"), this);
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 
