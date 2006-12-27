@@ -31,7 +31,7 @@
 #include <k3listview.h>
 #include <klocale.h>
 #include <kpushbutton.h>
-#include <kstdguiitem.h>
+#include <KStandardGuiItem>
 
 #include <kdebug.h>
 
@@ -272,7 +272,7 @@ void EstateDetails::addCloseButton()
 {
 	if (!m_closeButton)
 	{
-		m_closeButton = new KPushButton(KStdGuiItem::close(), this);
+		m_closeButton = new KPushButton(KStandardGuiItem::close(), this);
 		m_buttonBox->addWidget(m_closeButton);
 		m_closeButton->show();
 		connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));

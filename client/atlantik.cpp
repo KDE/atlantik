@@ -100,7 +100,7 @@ Atlantik::Atlantik ()
 	// Toolbar: Game
 //	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
         m_showEventLog = new KAction(i18n("Show Event &Log"), actionCollection(), "showeventlog");
-		//m_showEventLog->setShortcut(KStdAccel::shortcut(KStdAccel::New));
+		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
 	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
