@@ -37,7 +37,7 @@
 #include <knotification.h>
 #include <knotifydialog.h>
 #include <kstatusbar.h>
-#include <kstdgameaction.h>
+#include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <ktoolbar.h>
 
@@ -98,11 +98,11 @@ Atlantik::Atlantik ()
 	readConfig();
 
 	// Toolbar: Game
-//	KStdGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
+//	KStandardGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
         m_showEventLog = new KAction(i18n("Show Event &Log"), actionCollection(), "showeventlog");
 		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
-	KStdGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
+	KStandardGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
 
 	// Toolbar: Settings
 	KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
@@ -129,7 +129,7 @@ Atlantik::Atlantik ()
 	initNetworkObject();
 
 	// Menu,toolbar: Move
-	m_roll = KStdGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
+	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
 	m_roll->setEnabled(false);
 
 	m_buyEstate = new KAction(i18n("&Buy"), actionCollection(), "atlantik_buy_estate");
@@ -143,7 +143,7 @@ Atlantik::Atlantik ()
 	m_auctionEstate->setEnabled(false);
 
 
-	m_endTurn = KStdGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
+	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
 
 	m_jailCard = new KAction(i18n("Use Card to Leave Jail"),actionCollection(), "move_jailcard");
