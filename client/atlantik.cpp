@@ -36,7 +36,6 @@
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
 #include <knotification.h>
-#include <knotifydialog.h>
 #include <kstatusbar.h>
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
