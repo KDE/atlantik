@@ -28,6 +28,7 @@
 
 #include <kaboutapplication.h>
 #include <kaction.h>
+#include <kactioncollection.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
@@ -98,14 +99,18 @@ Atlantik::Atlantik ()
 
 	// Toolbar: Game
 //	KStandardGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
-        m_showEventLog = new KAction(i18n("Show Event &Log"), actionCollection(), "showeventlog");
+        m_showEventLog = actionCollection()->addAction("showeventlog");
+        m_showEventLog->setText(i18n("Show Event &Log"));
 		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
-	KStandardGameAction::quit(kapp, SLOT(closeAllWindows()), actionCollection(), "game_quit");
+        QAction *act = KStandardGameAction::quit(kapp, SLOT(closeAllWindows()), this);
+        actionCollection()->addAction("game_quit", act);
 
 	// Toolbar: Settings
-	KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
-	KStandardAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
+	act = KStandardAction::preferences(this, SLOT(slotConfigure()), this);
+        actionCollection()->addAction(act->objectName(), act);
+	act = KStandardAction::configureNotifications(this, SLOT(configureNotifications()), this);
+        actionCollection()->addAction(act->objectName(), act);
 
 	// Initialize pointers to 0L
 	m_configDialog = 0;
@@ -128,33 +133,40 @@ Atlantik::Atlantik ()
 	initNetworkObject();
 
 	// Menu,toolbar: Move
-	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
+	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), this);
+        actionCollection()->addAction(m_roll->objectName(), m_roll);
 	m_roll->setEnabled(false);
 
-	m_buyEstate = new KAction(i18n("&Buy"), actionCollection(), "atlantik_buy_estate");
+	m_buyEstate = actionCollection()->addAction("atlantik_buy_estate");
+        act->setText(i18n("&Buy"));
 	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) );
 	connect (m_buyEstate,SIGNAL(toggled(bool)), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
-	m_auctionEstate = new KAction(i18n("&Auction"), actionCollection(), "auction");
+	m_auctionEstate = actionCollection()->addAction("auction");
+        act->setText(i18n("&Auction"));
 	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A));
 	connect(m_auctionEstate,SIGNAL(toggled(bool)),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
 
-	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
+	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), this);
+        actionCollection()->addAction(m_endTurn->objectName(), m_endTurn);
 	m_endTurn->setEnabled(false);
 
-	m_jailCard = new KAction(i18n("Use Card to Leave Jail"),actionCollection(), "move_jailcard");
+	m_jailCard = actionCollection()->addAction("move_jailcard");
+        act->setText(i18n("Use Card to Leave Jail"));
 	connect(m_jailCard, SIGNAL(toggled(bool)),this, SIGNAL(jailCard()));
 	m_jailCard->setEnabled(false);
 
-	m_jailPay = new KAction(i18n("&Pay to Leave Jail"), actionCollection(), "jail_pay");
+	m_jailPay = actionCollection()->addAction("jail_pay");
+        act->setText(i18n("&Pay to Leave Jail"));
 	m_jailPay->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
 	connect(m_jailPay, SIGNAL(toggled(bool)),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 
-	m_jailRoll = new KAction(i18n("Roll to Leave &Jail"), actionCollection(), "move_jailroll");
+	m_jailRoll = actionCollection()->addAction("move_jailroll");
+        act->setText(i18n("Roll to Leave &Jail"));
 	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
 	connect(m_jailRoll, SIGNAL(toggled(bool)), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);

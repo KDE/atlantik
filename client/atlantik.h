@@ -35,7 +35,7 @@
 #include "board.h"
 
 class Q3ScrollView;
-class KAction;
+class QAction;
 class AtlanticCore;
 class AtlantikNetwork;
 
@@ -84,7 +84,7 @@ public:
 	Q3PopupMenu *createPopupMenu( const QPoint & pos );
 
 private:
-	KAction *m_clear, *m_selectAll, *m_copy;
+	QAction *m_clear, *m_selectAll, *m_copy;
 };
 
 /**
@@ -96,7 +96,7 @@ private:
 class Atlantik : public KMainWindow
 {
 Q_OBJECT
-	
+
 public:
 	/**
 	 * Create an Atlantik window.
@@ -148,7 +148,7 @@ public slots:
 	void slotNetworkError(int errnum);
 
 	void networkClosed(int status);
-	 
+
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.
 	 *
@@ -248,7 +248,7 @@ private:
 	QLineEdit *m_input;
 	Q3TextEdit *m_serverMsgs;
 
-	KAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
+	QAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
 		*m_showEventLog;
 
