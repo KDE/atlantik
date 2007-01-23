@@ -39,7 +39,6 @@
 #include <estate.h>
 
 #include "estateview.moc"
-#include "config.h"
 
 EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
                        bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)

@@ -32,7 +32,6 @@
 #include <kstandarddirs.h>
 
 #include <atlantic_core.h>
-#include <config.h>
 #include <player.h>
 #include <estate.h>
 #include <estategroup.h>
