@@ -173,7 +173,7 @@ Atlantik::Atlantik ()
 
 	// Mix code and XML into GUI
 	KMainWindow::createGUI();
-	applyMainWindowSettings( KGlobal::config(), "AtlantikMainWindow" );
+	applyMainWindowSettings( KGlobal::config().data(), "AtlantikMainWindow" );
 	KMainWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
 	KMainWindow::statusBar()->insertItem(QString::null, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
@@ -240,7 +240,7 @@ Atlantik::Atlantik ()
 void Atlantik::readConfig()
 {
 	// Read configuration settings
-	KConfig *config = KGlobal::config();
+	KSharedConfig::Ptr config = KGlobal::config();
 
 	// General configuration
 	config->setGroup("General");
@@ -543,7 +543,7 @@ void Atlantik::configureNotifications()
 
 void Atlantik::slotUpdateConfig()
 {
-	KConfig *config=KGlobal::config();
+	KSharedConfig::Ptr config = KGlobal::config();
 	bool optBool, configChanged = false;
 	QString optStr;
 
@@ -796,7 +796,7 @@ void Atlantik::initNetworkObject()
 
 void Atlantik::clientCookie(QString /*cookie*/)
 {
-// 	KConfig *config = KGlobal::config();
+// 	KSharedConfig::Ptr config = KGlobal::config();
 //
 // 	if (cookie.isNull())
 // 	{
@@ -834,7 +834,7 @@ void Atlantik::statusBarClick(int item)
 {
 	if ( item == 0 )
 	{
-		KAboutApplication dialog(kapp->aboutData(), this);
+		KAboutApplication dialog(KGlobal::mainComponent().aboutData(), this);
 		dialog.exec();
 	}
 	else if ( item == 1)
@@ -883,7 +883,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 		if ( m_atlantikNetwork )
 			m_atlantikNetwork->leaveGame();
 
-		saveMainWindowSettings(KGlobal::config(), "AtlantikMainWindow");
+		saveMainWindowSettings(KGlobal::config().data(), "AtlantikMainWindow");
 		KMainWindow::closeEvent(e);
 	}
 }
