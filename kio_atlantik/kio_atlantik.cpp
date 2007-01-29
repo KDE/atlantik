@@ -20,7 +20,7 @@
 
 #include <kdeversion.h>
 #include <kio/slavebase.h>
-#include <kinstance.h>
+#include <kcomponentdata.h>
 #include <kprocess.h>
 
 #include "kio_atlantik.h"
@@ -30,7 +30,7 @@ extern "C"
 {
 	int KDE_EXPORT kdemain( int, char **argv )
 	{
-		KInstance instance( "kio_atlantik" );
+		KComponentData componentData( "kio_atlantik" );
 		AtlantikProtocol slave(argv[2], argv[3]);
 		slave.dispatchLoop();
 		return 0;
