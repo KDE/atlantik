@@ -26,7 +26,7 @@
 #include <QGridLayout>
 #include <QCloseEvent>
 
-#include <kaboutapplication.h>
+#include <kaboutapplicationdialog.h>
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
@@ -834,7 +834,7 @@ void Atlantik::statusBarClick(int item)
 {
 	if ( item == 0 )
 	{
-		KAboutApplication dialog(KGlobal::mainComponent().aboutData(), this);
+		KAboutApplicationDialog dialog(KGlobal::mainComponent().aboutData(), this);
 		dialog.exec();
 	}
 	else if ( item == 1)
