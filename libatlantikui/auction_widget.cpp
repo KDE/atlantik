@@ -79,7 +79,9 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	Q3HBox *bidBox = new Q3HBox(this);
 	m_mainLayout->addWidget(bidBox);
 
-	m_bidSpinBox = new QSpinBox(1, 10000, 1, bidBox);
+	m_bidSpinBox = new QSpinBox(bidBox);
+	m_bidSpinBox->setRange(1, 10000);
+	m_bidSpinBox->setSingleStep(1);
 
 	KPushButton *bidButton = new KPushButton( i18n("Make Bid"), bidBox );
 	bidButton->setObjectName( "bidButton" );
@@ -137,7 +139,7 @@ void AuctionWidget::updateBid(Player *player, int amount)
 		return;
 
 	item->setText(1, QString::number(amount));
-	m_bidSpinBox->setMinValue(amount+1);
+	m_bidSpinBox->setMinimum(amount+1);
 	m_playerList->triggerUpdate();
 }
 

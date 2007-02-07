@@ -131,7 +131,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 	QString icon = QString();
 	int estateId = estate->id();
 	EstateOrientation orientation = North;
-	int sideLen = m_gridLayout->numRows() - 1;
+	int sideLen = m_gridLayout->rowCount() - 1;
 
 	if (estateId < sideLen)
 		orientation = North;
@@ -596,7 +596,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 void AtlantikBoard::updateCenter()
 {
 	QWidget *center = m_displayQueue.getFirst();
-	m_gridLayout->addMultiCellWidget(center, 1, m_gridLayout->numRows()-2, 1, m_gridLayout->numCols()-2);
+	m_gridLayout->addMultiCellWidget(center, 1, m_gridLayout->rowCount()-2, 1, m_gridLayout->columnCount()-2);
 	center->show();
 }
 

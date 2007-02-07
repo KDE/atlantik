@@ -82,7 +82,7 @@ Q3PopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
 {
 	Q3PopupMenu *rmbMenu = new Q3PopupMenu( this );
 	rmbMenu->addAction( m_clear );
-	rmbMenu->insertSeparator();
+	rmbMenu->addSeparator();
 	m_copy->setEnabled( hasSelectedText() );
 	rmbMenu->addAction( m_copy );
 	rmbMenu->addAction( m_selectAll );
@@ -215,7 +215,8 @@ Atlantik::Atlantik ()
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
 	// LineEdit to enter commands and chat messages.
-	m_input = new QLineEdit(m_mainWidget, "input");
+	m_input = new QLineEdit(m_mainWidget);
+	m_input->setObjectName("input");
 	m_mainLayout->addWidget(m_input, 2, 0);
 
 	m_serverMsgs->setFocusProxy(m_input);

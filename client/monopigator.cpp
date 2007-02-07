@@ -52,7 +52,8 @@ void Monopigator::loadData(const KUrl &url)
 	if (!m_timer)
 	{
 		m_timer = new QTimer(this);
-		m_timer->start(10000, true);
+		m_timer->setSingleShot(true);
+		m_timer->start(10000);
 	}
 
 	connect(m_job, SIGNAL(data(KIO::Job *, const QByteArray &)), SLOT(slotData(KIO::Job *, const QByteArray &)));

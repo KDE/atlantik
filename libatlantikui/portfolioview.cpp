@@ -202,7 +202,8 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		qpixmap = new QPixmap(width(), height());
 
 		QPainter painter;
-		painter.begin(qpixmap, this);
+		painter.begin(qpixmap);
+		painter.initFrom(this);
 
 		painter.setPen(Qt::white);
 		painter.setBrush(Qt::white);

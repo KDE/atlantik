@@ -87,7 +87,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_estateCombo, SIGNAL(activated(int)), this, SLOT(setEstateCombo(int)));
 
-	m_moneyBox = new QSpinBox(0, 10000, 1, m_updateComponentBox);
+	m_moneyBox = new QSpinBox(m_updateComponentBox);
+	m_moneyBox->setRange(0, 10000);
+	m_moneyBox->setSingleStep(1);
 
 	Q3PtrList<Player> playerList = m_atlanticCore->players();
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
@@ -231,8 +233,8 @@ void TradeDisplay::tradeChanged()
 
 void TradeDisplay::playerChanged(Player *player)
 {
-	m_playerFromCombo->changeItem(player->name(), m_playerFromRevMap[player]);
-	m_playerTargetCombo->changeItem(player->name(), m_playerTargetRevMap[player]);
+	m_playerFromCombo->setItemText(m_playerFromRevMap[player], player->name());
+	m_playerTargetCombo->setItemText(m_playerTargetRevMap[player], player->name());
 
 	TradeItem *item = 0;
 	for (QMap<K3ListViewItem *, TradeItem *>::Iterator it=m_componentRevMap.begin() ; it != m_componentRevMap.end() && (item = *it) ; ++it)

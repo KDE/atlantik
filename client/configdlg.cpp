@@ -180,7 +180,7 @@ void ConfigPlayer::chooseImage()
 	if ( image.isEmpty() )
 		return;
 
-	QStringList splitPath = QStringList::split( '/', image );
+	QStringList splitPath = image.split( '/', QString::SkipEmptyParts );
 	m_playerImage = splitPath[ splitPath.count()-1 ];
 
 	setImage();

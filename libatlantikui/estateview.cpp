@@ -14,7 +14,6 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <QToolTip>
 #include <qpainter.h>
 #include <QTimer>
 #include <qmatrix.h>
@@ -71,7 +70,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 
 void EstateView::updateToolTip()
 {
-	QToolTip::remove(this);
+	setToolTip(QString());
 
 	if ( m_estate )
 	{
