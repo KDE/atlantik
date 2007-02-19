@@ -20,7 +20,7 @@ kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 
 target_link_libraries(atlantic  ${KDE4_KDECORE_LIBS} ${QT_QT3SUPPORT_LIBRARY} )
 
-set_target_properties(atlantic PROPERTIES VERSION 1.2.0 SOVERSION 1 )
+set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 install(TARGETS atlantic  DESTINATION ${LIB_INSTALL_DIR} )
 
 
