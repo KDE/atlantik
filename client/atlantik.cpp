@@ -173,7 +173,7 @@ Atlantik::Atlantik ()
 
 	// Mix code and XML into GUI
 	KMainWindow::createGUI();
-	applyMainWindowSettings( KGlobal::config().data(), "AtlantikMainWindow" );
+	applyMainWindowSettings( KGlobal::config()->group( "AtlantikMainWindow" ) );
 	KMainWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
 	KMainWindow::statusBar()->insertItem(QString::null, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
@@ -884,7 +884,8 @@ void Atlantik::closeEvent(QCloseEvent *e)
 		if ( m_atlantikNetwork )
 			m_atlantikNetwork->leaveGame();
 
-		saveMainWindowSettings(KGlobal::config().data(), "AtlantikMainWindow");
+                KConfigGroup cg( KGlobal::config(), "AtlantikMainWindow");
+		saveMainWindowSettings( cg );
 		KMainWindow::closeEvent(e);
 	}
 }
