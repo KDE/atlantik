@@ -259,8 +259,10 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 		bgColor = m_estate->bgColor().light(110);
 		fgColor = ( bgColor.red() + bgColor.green() + bgColor.blue() < 255 ) ? Qt::white : Qt::black;
 
-		button->setPaletteForegroundColor( fgColor );
-		button->setPaletteBackgroundColor( bgColor );
+		QPalette pal = button->palette();
+		pal.setColor( button->foregroundRole(), fgColor );
+		pal.setColor( button->backgroundRole(), bgColor );
+		button->setPalette( pal );
 	}
 	button->setEnabled(enabled);
 	button->show();

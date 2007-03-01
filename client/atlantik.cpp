@@ -333,7 +333,7 @@ void Atlantik::showSelectServer()
 
 	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget );
         m_selectServer->setObjectName("selectServer");
-	m_mainLayout->addMultiCellWidget(m_selectServer, 0, 2, 1, 1);
+	m_mainLayout->addWidget(m_selectServer, 0, 1, 3, 1);
 	m_selectServer->show();
 
 	if (m_selectGame)
@@ -359,7 +359,7 @@ void Atlantik::showSelectGame()
 	m_selectGame = new SelectGame(m_atlanticCore, m_mainWidget);
 	m_atlanticCore->emitGames();
 
-	m_mainLayout->addMultiCellWidget(m_selectGame, 0, 2, 1, 1);
+	m_mainLayout->addWidget(m_selectGame, 0, 1, 3, 1);
 	m_selectGame->show();
 
 	// Reset core and GUI
@@ -404,7 +404,7 @@ void Atlantik::showSelectConfiguration()
 
 	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget );
         m_selectConfiguration->setObjectName("selectConfiguration");
-	m_mainLayout->addMultiCellWidget(m_selectConfiguration, 0, 2, 1, 1);
+	m_mainLayout->addWidget(m_selectConfiguration, 0, 1, 3, 1);
 	m_selectConfiguration->show();
 
 	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), m_selectConfiguration, SLOT(addConfigOption(ConfigOption *)));
@@ -453,7 +453,7 @@ void Atlantik::showBoard()
 
 	m_runningGame = true;
 
-	m_mainLayout->addMultiCellWidget(m_board, 0, 2, 1, 1);
+	m_mainLayout->addWidget(m_board, 0, 1, 3, 1);
 	m_board->displayDefault();
 	m_board->show();
 

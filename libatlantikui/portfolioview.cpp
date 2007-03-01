@@ -57,7 +57,9 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	b_recreate = true;
 
 	m_portfolioEstates.setAutoDelete(true);
-	setBackgroundColor(Qt::white);
+	QPalette pal = palette();
+	pal.setColor(backgroundRole(), Qt::white);
+	setPalette(pal);
 	setMinimumHeight(ICONSIZE);
 
 	// Init icon
