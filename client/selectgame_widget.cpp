@@ -68,14 +68,14 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
         m_mainLayout->addItem( buttonBox );
 	buttonBox->setSpacing(KDialog::spacingHint());
 
-	KPushButton *backButton = new KPushButton(KIcon("back"), i18n("Server List"), this);
+	KPushButton *backButton = new KPushButton(KIcon("go-previous"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(KIcon("forward"), i18n("Create Game"), this);
+	m_connectButton = new KPushButton(KIcon("go-next"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
@@ -90,7 +90,7 @@ void SelectGame::addGame(Game *game)
 	if (game->id() == -1)
 	{
 		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Create a new %1 Game", game->name()), game->description(), QString::null, QString::null, game->type() );
-		item->setPixmap(0, QPixmap(SmallIcon("filenew")));
+		item->setPixmap(0, QPixmap(SmallIcon("document-new")));
 	}
 	else
 	{

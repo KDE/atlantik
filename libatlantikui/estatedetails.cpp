@@ -225,22 +225,22 @@ void EstateDetails::addDetails()
 		if (m_estate->price())
 		{
 			infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1", m_estate->price()));
-			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+			infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
 		}
 
 		// Owner, houses, isMortgaged
 		if (m_estate && m_estate->canBeOwned())
 		{
 			infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+			infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
 
 			if (m_estate->isOwned())
 			{
 				infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1", m_estate->houses()));
-				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+				infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
 
 				infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1", m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				infoText->setPixmap(0, QPixmap(SmallIcon("info")));
+				infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
 			}
 		}
 	}

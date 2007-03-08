@@ -61,7 +61,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_portEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum));
 	m_customLayout->addWidget(m_portEdit);
 
-	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network"),customGroup);
+	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network-wired"),customGroup);
 	m_customLayout->addWidget(connectButton);
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
@@ -92,13 +92,13 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	// Server List / Refresh
-	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Reload Server List") : i18n("Get Server List"), useMonopigatorOnStart ? "reload" : "network"), this);
+	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Reload Server List") : i18n("Get Server List"), useMonopigatorOnStart ? "view-refresh" : "network-wired"), this);
 	buttonBox->addWidget(m_refreshButton);
 
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton = new KPushButton(KIcon("forward"), i18n("Connect"), this);
+	m_connectButton = new KPushButton(KIcon("go-next"), i18n("Connect"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
@@ -131,7 +131,7 @@ void SelectServer::initMonopigator()
 	// Hardcoded, but there aren't any other Monopigator root servers at the moment
 	emit msgStatus(i18n("Retrieving server list..."));
 
-	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "reload"));
+	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "view-refresh"));
 	m_monopigator->loadData(KUrl( "http://monopd-gator.kde.org/"));
 }
 

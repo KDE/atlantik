@@ -63,7 +63,7 @@ ConfigDialog::ConfigDialog(Atlantik* parent) :
     p_monopigator = new QFrame();
     pageItem = new KPageWidgetItem( p_monopigator, i18n("Meta Server") );
     pageItem->setHeader(i18n("Meta Server"));
-    pageItem->setIcon( KIcon( BarIcon("network", K3Icon::SizeMedium) ) );
+    pageItem->setIcon( KIcon( BarIcon("network-wired", K3Icon::SizeMedium) ) );
     addPage(pageItem);
 
 	configGeneral = new ConfigGeneral(this, p_general );

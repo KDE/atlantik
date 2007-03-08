@@ -61,7 +61,7 @@ AtlantikNetwork::~AtlantikNetwork(void)
 
 void AtlantikNetwork::slotwriteData(QString msg)
 {
-	emit networkEvent(msg, "1rightarrow");
+	emit networkEvent(msg, "arrow-right");
 
 }
 
@@ -102,7 +102,7 @@ void AtlantikNetwork::slotConnectionSuccess()
 #ifdef __GNUC__
 	#warning i18n: Missing two arguments in the call below
 #endif
-	emit msgStatus(i18n("Connected to %1:%2.", QString("connect_established"), QString()));
+	emit msgStatus(i18n("Connected to %1:%2.", QString("connection-established"), QString()));
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
@@ -267,7 +267,7 @@ void AtlantikNetwork::changeOption(int configId, const QString &value)
 
 
 void AtlantikNetwork::processMsg(const QString &msg) {
-    emit networkEvent(msg, "1leftarrow");
+    emit networkEvent(msg, "arrow-left");
 	kDebug() << msg <<endl;
     QDomDocument dom;
     dom.setContent(msg);
