@@ -388,10 +388,13 @@ void EstateView::paintEvent(QPaintEvent *)
 		QFont font = QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal );
 		painter.setFont(font);
 		QString estateName = m_estate->name();
+		QFontMetrics fm( font );
                 if ( m_estate->color().isValid() && ( m_orientation == West || m_orientation == East ) )
-			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), 3*width()/4 );
+		{
+			estateName = fm.elidedText( m_estate->name(), Qt::ElideRight, 3*width()/4 );
+		}
 		else
-			estateName = KStringHandler::rPixelSqueeze( m_estate->name(), QFontMetrics( font ), width() );
+			estateName = fm.elidedText( m_estate->name(), Qt::ElideRight,width() );
 		if (m_estate->color().isValid() && m_orientation == West)
                         painter.drawText( width()/4 + 2, height()/2, estateName );
 		else
