@@ -21,7 +21,7 @@
 #include <kdeversion.h>
 #include <kio/slavebase.h>
 #include <kcomponentdata.h>
-#include <kprocess.h>
+#include <k3process.h>
 
 #include "kio_atlantik.h"
 #include "libatlantic_export.h"
@@ -39,10 +39,10 @@ extern "C"
 
 void AtlantikProtocol::get( const KUrl& url )
 {
-	KProcess *proc = new KProcess;
+	K3Process *proc = new K3Process;
 	*proc << "atlantik";
 
-	QString host = url.hasHost() ? url.host() : KProcess::quote( url.queryItem("host") );
+	QString host = url.hasHost() ? url.host() : K3Process::quote( url.queryItem("host") );
 	QString port = QString::number( url.port() ? url.port() : 1234 );
 	int game = url.queryItem("game").toInt();
 	QString gameString = game ? QString::number( game ) : QString::null;
@@ -54,7 +54,7 @@ void AtlantikProtocol::get( const KUrl& url )
 			*proc << "--game" << gameString;
 	}
 
-	proc->start(KProcess::DontCare);
+	proc->start(K3Process::DontCare);
 	proc->detach();
 	finished();
 }
