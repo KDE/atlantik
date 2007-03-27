@@ -22,11 +22,13 @@
 //Added by qt3to4:
 #include <QLabel>
 #include <QCloseEvent>
+#include <estate.h>
+
 #include "libatlantikui_export.h"
-#include <Q3GroupBox>
 class QHGroupBox;
 class QLabel;
 class Q3ListViewItem;
+class Q3GroupBox;
 class QSpinBox;
 
 class K3ListView;
@@ -51,7 +53,7 @@ public:
 protected:
 	void closeEvent(QCloseEvent *e);
 
-private slots:
+private Q_SLOTS:
 	void tradeItemAdded(TradeItem *);
 	void tradeItemRemoved(TradeItem *);
 	void tradeItemChanged(TradeItem *);
@@ -70,7 +72,7 @@ private slots:
 	void contextMenu(K3ListView *l, Q3ListViewItem *i, const QPoint& p);
 	void contextMenuClicked(int item);
 
-signals:
+Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 	void reject(Trade *trade);
