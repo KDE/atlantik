@@ -22,8 +22,8 @@
 #include <QDomNode>
 
 #include <libatlantikclient_export.h>
-#include <kresolver.h>
-#include <kbufferedsocket.h>
+#include <k3resolver.h>
+#include <k3bufferedsocket.h>
 #include <kdemacros.h>
 class AtlanticCore;
 class KNetwork::KBufferedSocket;

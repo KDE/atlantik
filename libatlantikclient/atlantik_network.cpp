@@ -26,7 +26,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 
-#include <kbufferedsocket.h>
+#include <k3bufferedsocket.h>
 
 #include <atlantic_core.h>
 #include <auction.h>

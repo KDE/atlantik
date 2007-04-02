@@ -18,7 +18,7 @@
 #include <q3ptrlist.h>
 #include <QRegExp>
 
-#include <kbufferedsocket.h>
+#include <k3bufferedsocket.h>
 #include <kdebug.h>
 #include <iostream>
 #include "monopigator.moc"

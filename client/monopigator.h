@@ -22,7 +22,7 @@
 #include <q3listview.h>
 #include <QTimer>
 #include <QTime>
-#include <kbufferedsocket.h>
+#include <k3bufferedsocket.h>
 #include <kio/job.h>
 #include <kurl.h>
 
