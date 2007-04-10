@@ -19,7 +19,6 @@
 #include <QLayout>
 #include <q3header.h>
 #include <Qt3Support/Q3GroupBox>
-#include <q3popupmenu.h>
 #include <qcursor.h>
 #include <qvalidator.h>
 #include <QMap>
