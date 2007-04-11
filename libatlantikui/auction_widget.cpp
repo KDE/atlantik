@@ -14,7 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <q3hbox.h>
+#include <khbox.h>
 #include <QSpinBox>
 #include <QLabel>
 //Added by qt3to4:
@@ -76,7 +76,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	}
 
 	// Bid spinbox and button
-	Q3HBox *bidBox = new Q3HBox(this);
+	KHBox *bidBox = new KHBox(this);
 	m_mainLayout->addWidget(bidBox);
 
 	m_bidSpinBox = new QSpinBox(bidBox);
