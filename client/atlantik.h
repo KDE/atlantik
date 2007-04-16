@@ -28,7 +28,7 @@
 #include <Q3PopupMenu>
 #include <QCloseEvent>
 
-#include <kmainwindow.h>
+#include <kxmlguiwindow.h>
 
 #include "configdlg.h"
 #include "portfolioview.h"
@@ -93,7 +93,7 @@ private:
  *
  * @author Rob Kaper <cap@capsi.com>
  */
-class Atlantik : public KMainWindow
+class Atlantik : public KXmlGuiWindow
 {
 Q_OBJECT
 
