@@ -91,7 +91,7 @@ Q3PopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
 }
 
 Atlantik::Atlantik ()
- :	KMainWindow (),
+ :	KXmlGuiWindow (),
  	m_runningGame( false )
 {
 	// Read application configuration
@@ -172,10 +172,10 @@ Atlantik::Atlantik ()
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
-	KMainWindow::createGUI();
+	KXmlGuiWindow::createGUI();
 	applyMainWindowSettings( KGlobal::config()->group( "AtlantikMainWindow" ) );
-	KMainWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
-	KMainWindow::statusBar()->insertItem(QString::null, 1);
+	KXmlGuiWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
+	KXmlGuiWindow::statusBar()->insertItem(QString::null, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
@@ -663,7 +663,7 @@ void Atlantik::slotMsgError(QString msg)
 
 void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
 {
-	KMainWindow::statusBar()->changeItem(message, 1);
+	KXmlGuiWindow::statusBar()->changeItem(message, 1);
 	m_eventLog->addEvent(message, icon);
 }
 
@@ -886,6 +886,6 @@ void Atlantik::closeEvent(QCloseEvent *e)
 
                 KConfigGroup cg( KGlobal::config(), "AtlantikMainWindow");
 		saveMainWindowSettings( cg );
-		KMainWindow::closeEvent(e);
+		KXmlGuiWindow::closeEvent(e);
 	}
 }
