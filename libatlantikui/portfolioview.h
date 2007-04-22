@@ -17,22 +17,19 @@
 #ifndef ATLANTIK_PORTFOLIOVIEW_H
 #define ATLANTIK_PORTFOLIOVIEW_H
 
-#include <QWidget>
-#include <qpixmap.h>
-#include <q3ptrlist.h>
-//Added by qt3to4:
-#include <QMouseEvent>
-#include <QResizeEvent>
-#include <QPaintEvent>
+#include <QtGui/QWidget>
+#include <Qt3Support/Q3PtrList>
 
-#include "portfolioestate.h"
 #include "libatlantikui_export.h"
+
 class QColor;
+class QPixmap;
 class QString;
 
 class AtlanticCore;
 class Player;
 class Estate;
+class PortfolioEstate;
 
 class LIBATLANTIKUI_EXPORT PortfolioView : public QWidget
 {
@@ -52,12 +49,12 @@ protected:
 	void resizeEvent(QResizeEvent *);
 	void mousePressEvent(QMouseEvent *);
 
-signals:
+Q_SIGNALS:
 	void newTrade(Player *player);
 	void kickPlayer(Player *player);
 	void estateClicked(Estate *);
 
-private slots:
+private Q_SLOTS:
 	void playerChanged();
 	void slotMenuAction(int item);
 

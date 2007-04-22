@@ -17,14 +17,13 @@
 #ifndef ATLANTIK_BOARD_H
 #define ATLANTIK_BOARD_H
 
-#include <QWidget>
-#include <QTimer>
-#include <QLayout>
-#include <q3ptrlist.h>
-//Added by qt3to4:
-#include <QGridLayout>
-#include <QResizeEvent>
+#include <QtGui/QWidget>
+#include <QtCore/QTimer>
+#include <Qt3Support/Q3PtrList>
+
 #include "libatlantikui_export.h"
+
+class QGridLayout;
 class QPoint;
 
 class AtlanticCore;
@@ -58,19 +57,19 @@ public:
 	EstateView *findEstateView(Estate *estate);
 	QWidget *centerWidget();
 
-public slots:
+public Q_SLOTS:
 	void slotMoveToken();
 	void slotResizeAftermath();
 	void displayDefault();
 
-private slots:
+private Q_SLOTS:
 	void playerChanged(Player *player);
 	void displayButton(const QString &command, const QString &caption, bool enabled);
 	void prependEstateDetails(Estate *);
 	void insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void addCloseButton();
 
-signals:
+Q_SIGNALS:
 	void tokenConfirmation(Estate *estate);
 	void buttonCommand(QString command);
 

@@ -35,6 +35,7 @@
 #include <player.h>
 #include <estate.h>
 #include <estategroup.h>
+#include <portfolioestate.h>
 
 #include "portfolioview.moc"
 

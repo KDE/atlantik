@@ -17,14 +17,13 @@
 #ifndef TRADEWIDGET_H
 #define TRADEWIDGET_H
 
-#include <QWidget>
-#include <QMap>
-//Added by qt3to4:
-#include <QLabel>
-#include <QCloseEvent>
+#include <QtGui/QWidget>
+#include <QtCore/QMap>
+
 #include <estate.h>
 
 #include "libatlantikui_export.h"
+
 class QHGroupBox;
 class QLabel;
 class Q3ListViewItem;
