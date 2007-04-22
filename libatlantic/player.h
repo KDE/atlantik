@@ -17,8 +17,7 @@
 #ifndef LIBATLANTIC_PLAYER_H
 #define LIBATLANTIC_PLAYER_H
 
-#include <QObject>
-
+#include <QtCore/QObject>
 
 #include "libatlantic_export.h"
 
@@ -67,7 +66,7 @@ public:
 	unsigned int money() const { return m_money; }
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed(Player *player);
 	void gainedTurn();
 

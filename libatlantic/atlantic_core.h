@@ -17,8 +17,8 @@
 #ifndef LIBATLANTIC_CORE_H
 #define LIBATLANTIC_CORE_H
 
-#include <QObject>
-#include <q3ptrlist.h>
+#include <QtCore/QObject>
+#include <Qt3Support/Q3PtrList>
 
 #include "libatlantic_export.h"
 
@@ -81,7 +81,7 @@ public:
 
 	void printDebug();
 
-signals:
+Q_SIGNALS:
 	void createGUI(Player *player);
 	void removeGUI(Player *player);
 	void createGUI(Game *game);

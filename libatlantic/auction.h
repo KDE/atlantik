@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_AUCTION_H
 #define LIBATLANTIC_AUCTION_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "libatlantic_export.h"
 
@@ -42,7 +42,7 @@ public:
 
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed();
 	void completed();
 	void bid(Auction *auction, int amount);

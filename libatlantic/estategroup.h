@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_ESTATEGROUP_H
 #define LIBATLANTIC_ESTATEGROUP_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "libatlantic_export.h"
 
@@ -32,7 +32,7 @@ public:
 	QString name() const { return m_name; }
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed();
 
 private:

@@ -17,8 +17,8 @@
 #ifndef LIBATLANTIC_ESTATE_H
 #define LIBATLANTIC_ESTATE_H
 
-#include <QObject>
-#include <QColor>
+#include <QtCore/QObject>
+#include <QtGui/QColor>
 
 #include "libatlantic_export.h"
 
@@ -70,7 +70,7 @@ public:
 	int money();
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed();
 	void estateToggleMortgage(Estate *estate);
 	void estateHouseBuy(Estate *estate);

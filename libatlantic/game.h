@@ -17,11 +17,9 @@
 #ifndef LIBATLANTIC_GAME_H
 #define LIBATLANTIC_GAME_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 #include "libatlantic_export.h"
-
-class QString;
 
 class Player;
 
@@ -48,7 +46,7 @@ public:
 
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed(Game *game);
 
 private:

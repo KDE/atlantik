@@ -17,8 +17,7 @@
 #ifndef LIBATLANTIC_CONFIGOPTION_H
 #define LIBATLANTIC_CONFIGOPTION_H
 
-#include <QObject>
-
+#include <QtCore/QObject>
 
 #include "libatlantic_export.h"
 
@@ -39,7 +38,7 @@ public:
 	QString value() const;
 	void update(bool force = false);
 
-signals:
+Q_SIGNALS:
 	void changed(ConfigOption *configOption);
 
 private:

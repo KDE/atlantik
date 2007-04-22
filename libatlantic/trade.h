@@ -17,10 +17,10 @@
 #ifndef LIBATLANTIC_TRADE_H
 #define LIBATLANTIC_TRADE_H
 
-#include <QObject>
+#include <QtCore/QObject>
+#include <QtCore/QMap>
+#include <Qt3Support/Q3PtrList>
 
-#include <q3ptrlist.h>
-#include <QMap>
 #include "libatlantic_export.h"
 
 class Player;
@@ -45,10 +45,10 @@ public:
 	 **/
 	virtual QString text() const=0;
 
-signals:
+Q_SIGNALS:
 	void changed(TradeItem *);
 
-private slots:
+private Q_SLOTS:
 	void playerChanged();
 
 private:
@@ -67,7 +67,7 @@ public:
 	
 	virtual QString text() const;
 
-signals:
+Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *player);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 
@@ -87,7 +87,7 @@ public:
 	
 	virtual QString text() const;
 
-signals:
+Q_SIGNALS:
 	void changed(TradeItem *tradeItem);
 
 private:
@@ -135,7 +135,7 @@ public:
 	}
 #endif
 
-private slots:	
+private Q_SLOTS:
 	/**
 	 * tell someone that this changed
 	 **/
@@ -148,7 +148,7 @@ public:
 	void updateAccept(Player *player, bool accept);
 	void reject(Player *player);
 	
-signals:
+Q_SIGNALS:
 	void changed(Trade *);
 	void rejected(Player *player);
 
