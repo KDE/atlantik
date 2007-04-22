@@ -28,7 +28,12 @@ install(TARGETS atlantikui  DESTINATION ${LIB_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES auction_widget.h board.h estatedetails.h  	estateview.h kwrappedlistviewitem.h portfolioestate.h  	portfolioview.h token.h trade_widget.h libatlantikui_export.h  DESTINATION  ${INCLUDE_INSTALL_DIR}/atlantik/ui )
+install(FILES
+   board.h
+   portfolioview.h
+   trade_widget.h
+   libatlantikui_export.h
+   DESTINATION ${INCLUDE_INSTALL_DIR}/atlantik/ui)
 
 
 
