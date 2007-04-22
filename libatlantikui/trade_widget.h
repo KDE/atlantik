@@ -20,8 +20,6 @@
 #include <QtGui/QWidget>
 #include <QtCore/QMap>
 
-#include <estate.h>
-
 #include "libatlantikui_export.h"
 
 class QHGroupBox;
@@ -36,6 +34,7 @@ class KComboBox;
 class KPushButton;
 
 class AtlanticCore;
+class Estate;
 class Player;
 class Trade;
 class TradeItem;
