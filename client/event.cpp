@@ -15,7 +15,7 @@
 // Boston, MA 02110-1301, USA.
 
 #include <QDateTime>
-#include <QString>
+
 
 #include "event.moc"
 
