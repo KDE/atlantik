@@ -241,35 +241,34 @@ Atlantik::Atlantik ()
 void Atlantik::readConfig()
 {
 	// Read configuration settings
-	KSharedConfig::Ptr config = KGlobal::config();
 
 	// General configuration
-	config->setGroup("General");
-	m_config.chatTimestamps = config->readEntry("ChatTimeStamps", false);
+	const KConfigGroup cggeneral(KGlobal::config(), "General");
+	m_config.chatTimestamps = cggeneral.readEntry("ChatTimeStamps", false);
 
 	// Personalization configuration
-	config->setGroup("Personalization");
-	m_config.playerName = config->readEntry("PlayerName", "Atlantik");
-	m_config.playerImage = config->readEntry("PlayerImage", "cube.png");
+	const KConfigGroup cgpersonalization(KGlobal::config(), "Personalization");
+	m_config.playerName = cgpersonalization.readEntry("PlayerName", "Atlantik");
+	m_config.playerImage = cgpersonalization.readEntry("PlayerImage", "cube.png");
 
 	// Board configuration
-	config->setGroup("Board");
-	m_config.indicateUnowned = config->readEntry("IndicateUnowned", true);
-	m_config.highliteUnowned = config->readEntry("HighliteUnowned", false);
-	m_config.darkenMortgaged = config->readEntry("DarkenMortgaged", true);
-	m_config.animateTokens = config->readEntry("AnimateToken", false);
-	m_config.quartzEffects = config->readEntry("QuartzEffects", true);
+	const KConfigGroup cgboard(KGlobal::config(), "Board");
+	m_config.indicateUnowned = cgboard.readEntry("IndicateUnowned", true);
+	m_config.highliteUnowned = cgboard.readEntry("HighliteUnowned", false);
+	m_config.darkenMortgaged = cgboard.readEntry("DarkenMortgaged", true);
+	m_config.animateTokens = cgboard.readEntry("AnimateToken", false);
+	m_config.quartzEffects = cgboard.readEntry("QuartzEffects", true);
 
 	// Meta server configuation
-	config->setGroup("Monopigator");
-	m_config.connectOnStart = config->readEntry("ConnectOnStart", false);
-	m_config.hideDevelopmentServers = config->readEntry("HideDevelopmentServers", true);
+	const KConfigGroup cgmonopigator(KGlobal::config(), "Monopigator");
+	m_config.connectOnStart = cgmonopigator.readEntry("ConnectOnStart", false);
+	m_config.hideDevelopmentServers = cgmonopigator.readEntry("HideDevelopmentServers", true);
 
 	// Portfolio colors
-	config->setGroup("WM");
+	const KConfigGroup cgwm(KGlobal::config(), "WM");
 	QColor activeDefault(204, 204, 204), inactiveDefault(153, 153, 153);
-	m_config.activeColor = config->readEntry("activeBackground", activeDefault);
-	m_config.inactiveColor = config->readEntry("inactiveBlend", inactiveDefault);
+	m_config.activeColor = cgwm.readEntry("activeBackground", activeDefault);
+	m_config.inactiveColor = cgwm.readEntry("inactiveBlend", inactiveDefault);
 }
 
 void Atlantik::newPlayer(Player *player)
@@ -544,7 +543,6 @@ void Atlantik::configureNotifications()
 
 void Atlantik::slotUpdateConfig()
 {
-	KSharedConfig::Ptr config = KGlobal::config();
 	bool optBool, configChanged = false;
 	QString optStr;
 
@@ -621,25 +619,23 @@ void Atlantik::slotUpdateConfig()
 		configChanged = true;
 	}
 
-	config->setGroup("General");
-	config->writeEntry("ChatTimeStamps", m_config.chatTimestamps);
+	KConfigGroup cggeneral(KGlobal::config(), "General");
+	cggeneral.writeEntry("ChatTimeStamps", m_config.chatTimestamps);
 
-	config->setGroup("Personalization");
-	config->writeEntry("PlayerName", m_config.playerName);
-	config->writeEntry("PlayerImage", m_config.playerImage);
+	KConfigGroup cgpersonalization(KGlobal::config(), "Personalization");
+	cgpersonalization.writeEntry("PlayerName", m_config.playerName);
+	cgpersonalization.writeEntry("PlayerImage", m_config.playerImage);
 
-	config->setGroup("Board");
-	config->writeEntry("IndicateUnowned", m_config.indicateUnowned);
-	config->writeEntry("HighliteUnowned", m_config.highliteUnowned);
-	config->writeEntry("DarkenMortgaged", m_config.darkenMortgaged);
-	config->writeEntry("AnimateToken", m_config.animateTokens);
-	config->writeEntry("QuartzEffects", m_config.quartzEffects);
+	KConfigGroup cgboard(KGlobal::config(), "Board");
+	cgboard.writeEntry("IndicateUnowned", m_config.indicateUnowned);
+	cgboard.writeEntry("HighliteUnowned", m_config.highliteUnowned);
+	cgboard.writeEntry("DarkenMortgaged", m_config.darkenMortgaged);
+	cgboard.writeEntry("AnimateToken", m_config.animateTokens);
+	cgboard.writeEntry("QuartzEffects", m_config.quartzEffects);
 
-	config->setGroup("Monopigator");
-	config->writeEntry("ConnectOnStart", m_config.connectOnStart);
-	config->writeEntry("HideDevelopmentServers", m_config.hideDevelopmentServers);
-
-	config->sync();
+	KConfigGroup cgmonopigator(KGlobal::config(), "Monopigator");
+	cgmonopigator.writeEntry("ConnectOnStart", m_config.connectOnStart);
+	cgmonopigator.writeEntry("HideDevelopmentServers", m_config.hideDevelopmentServers);
 
 	if (configChanged && m_board)
 		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
