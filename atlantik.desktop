@@ -3,6 +3,7 @@ Encoding=UTF-8
 Exec=atlantik -caption "%c"
 Name=Atlantik
 GenericName=Monopoly®-like Board Games
+GenericName[de]=Monopoly®-ähnliches Brettspiel
 GenericName[pt]=Jogo de Tabuleiro tipo Monopoly®
 GenericName[pt_BR]=Jogo de Tabuleiro tipo Monopoly®
 Type=Application
