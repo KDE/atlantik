@@ -55,20 +55,24 @@ Q3PtrList<Event> EventLog::events()
 }
 
 EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
-	: QWidget(parent,
-	  Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_DialogBorder | Qt::WStyle_Title |
-	  Qt::WStyle_Minimize | Qt::WStyle_ContextHelp )
+	: KDialog(parent,
+	  Qt::WindowContextHelpButtonHint)
 {
+	setButtons(Close|User1);
+	setDefaultButton(Close);
+	setButtonGuiItem(User1, KGuiItem(i18n("&Save As..."), "document-save"));
+	setModal(false);
+
 	m_eventLog = eventLog;
 
 	connect(m_eventLog, SIGNAL(newEvent(Event *)), this, SLOT(addEvent(Event *)));
 
 	setWindowTitle(i18n("Event Log"));
 
-	QVBoxLayout *listCompBox = new QVBoxLayout(this);
+	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
 	listCompBox->setSpacing(KDialog::marginHint());
 
-	m_eventList = new K3ListView( this );
+	m_eventList = new K3ListView(mainWidget());
 	m_eventList->setObjectName( "eventList" );
 	listCompBox->addWidget(m_eventList);
 
@@ -76,17 +80,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	m_eventList->addColumn(i18n("Description"));
 	m_eventList->header()->setClickEnabled( false );
 
-	QHBoxLayout *actionBox = new QHBoxLayout(this);
-	actionBox->setSpacing(KDialog::spacingHint());
-	actionBox->setMargin(0);
-	listCompBox->addItem(actionBox);
-
-	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	m_saveButton = new KPushButton(KIcon("document-save"), i18n("&Save As..."), this);
-	actionBox->addWidget(m_saveButton);
-
-	connect(m_saveButton, SIGNAL(clicked()), this, SLOT(save()));
+	connect(this, SIGNAL(user1Clicked()), this, SLOT(save()));
 
 	// Populate
 	Q3PtrList<Event> events = m_eventLog->events();

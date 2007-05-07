@@ -17,11 +17,9 @@
 #ifndef ATLANTIK_EVENTLOGWIDGET_H
 #define ATLANTIK_EVENTLOGWIDGET_H
 
-#include <QWidget>
-#include <QMap>
-//Added by qt3to4:
 #include <Q3PtrList>
-#include <QCloseEvent>
+
+#include <kdialog.h>
 
 class QString;
 
@@ -29,7 +27,6 @@ class Event;
 
 class K3ListView;
 class K3ListViewItem;
-class KPushButton;
 
 class EventLog : public QObject
 {
@@ -49,7 +46,7 @@ private:
 	Q3PtrList<Event> m_events;
 };
 
-class EventLogWidget : public QWidget
+class EventLogWidget : public KDialog
 {
 Q_OBJECT
 
@@ -70,7 +67,6 @@ private slots:
 private:
 	EventLog *m_eventLog;
 	K3ListView *m_eventList;
-	KPushButton *m_saveButton;
 };
 
 #endif
