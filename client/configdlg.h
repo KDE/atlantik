@@ -131,7 +131,6 @@ public:
 
 private:
 	Atlantik *m_parent;
-	QFrame *p_general, *p_p13n, *p_board, *p_monopigator;
 	ConfigPlayer *configPlayer;
 	ConfigBoard *configBoard;
 	ConfigMonopigator *configMonopigator;

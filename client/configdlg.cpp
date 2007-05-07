@@ -42,38 +42,33 @@ ConfigDialog::ConfigDialog(Atlantik* parent) :
     setModal(false);
     setFaceType(KPageDialog::List);
     m_parent = parent;
-    p_general = new QFrame();
-    KPageWidgetItem *pageItem = new KPageWidgetItem( p_general, i18n("General") );
+	configGeneral = new ConfigGeneral(this, 0);
+	configGeneral->setObjectName("configGeneral");
+	KPageWidgetItem *pageItem = new KPageWidgetItem(configGeneral, i18n("General"));
     pageItem->setHeader(i18n("General"));
-    pageItem->setIcon( KIcon( BarIcon("configure", K3Icon::SizeMedium) ) );
+	pageItem->setIcon(KIcon("configure"));
     addPage(pageItem);
 
-    p_p13n = new QFrame();
-    pageItem = new KPageWidgetItem( p_p13n, i18n("Personalization") );
+	configPlayer = new ConfigPlayer(this, 0);
+	configPlayer->setObjectName("configPlayer");
+	pageItem = new KPageWidgetItem(configPlayer, i18n("Personalization"));
     pageItem->setHeader(i18n("Personalization"));
-    pageItem->setIcon( KIcon( BarIcon("personal", K3Icon::SizeMedium) ) );
+	pageItem->setIcon(KIcon("user"));
     addPage(pageItem);	
 	
-    p_board = new QFrame();
-    pageItem = new KPageWidgetItem( p_board, i18n("Board") );
+	configBoard = new ConfigBoard(this, 0);
+	configBoard->setObjectName("configBoard" );
+    pageItem = new KPageWidgetItem(configBoard, i18n("Board"));
     pageItem->setHeader(i18n("Board"));
-    pageItem->setIcon( KIcon( BarIcon("monop_board", K3Icon::SizeMedium) ) );
+	pageItem->setIcon(KIcon("monop_board"));
     addPage(pageItem);
 	
-    p_monopigator = new QFrame();
-    pageItem = new KPageWidgetItem( p_monopigator, i18n("Meta Server") );
+	configMonopigator = new ConfigMonopigator(this, 0);
+	configMonopigator->setObjectName("configMonopigator");
+	pageItem = new KPageWidgetItem(configMonopigator, i18n("Meta Server"));
     pageItem->setHeader(i18n("Meta Server"));
-    pageItem->setIcon( KIcon( BarIcon("network-wired", K3Icon::SizeMedium) ) );
+	pageItem->setIcon(KIcon("network-wired"));
     addPage(pageItem);
-
-	configGeneral = new ConfigGeneral(this, p_general );
-        configGeneral->setObjectName("configGeneral");
-	configPlayer = new ConfigPlayer(this, p_p13n );
-        configPlayer->setObjectName( "configPlayer" );
-	configBoard = new ConfigBoard(this, p_board );
-        configBoard->setObjectName( "configBoard" );
-	configMonopigator = new ConfigMonopigator(this, p_monopigator );
-        configMonopigator->setObjectName( "configMonopigator");
 
 	setMinimumSize(sizeHint());
 }
@@ -136,7 +131,7 @@ AtlantikConfig ConfigDialog::config()
 ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent);
+	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setSpacing(KDialog::spacingHint());
 	layout->setMargin(KDialog::marginHint());
 
@@ -203,7 +198,7 @@ void ConfigPlayer::reset()
 ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent);
+	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setSpacing(KDialog::spacingHint());
 	layout->setMargin(KDialog::marginHint());
 
@@ -248,7 +243,7 @@ void ConfigMonopigator::reset()
 ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent);
+	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setSpacing(KDialog::spacingHint());
 	layout->setMargin(KDialog::marginHint());
 
@@ -278,7 +273,7 @@ void ConfigGeneral::reset()
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(parent);
+	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setSpacing(KDialog::spacingHint());
 	layout->setMargin(KDialog::marginHint());
 
