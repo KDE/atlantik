@@ -88,7 +88,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	emit msgStatus(i18n("Connecting to  %1:%2...", host, port), "connect_creating");
+	emit msgStatus(i18n("Connecting to %1:%2...", host, port), "connect-creating");
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connect(host, QString::number(port));
@@ -112,7 +112,7 @@ void AtlantikNetwork::slotConnectionSuccess()
 
 void AtlantikNetwork::slotConnectionFailed(int error)
 {
-	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect_no");
+	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect-no");
 }
 
 void AtlantikNetwork::writeData(QString data) {
