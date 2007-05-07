@@ -89,6 +89,8 @@ void AtlantikNetwork::slotRead()
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
 	emit msgStatus(i18n("Connecting to  %1:%2...", host, port), "connect_creating");
+	m_host = host;
+	m_port = port;
 	m_monopdsocket->connect(host, QString::number(port));
 }
 
@@ -99,10 +101,7 @@ void AtlantikNetwork::slotLookupFinished()
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
-#ifdef __GNUC__
-	#warning i18n: Missing two arguments in the call below
-#endif
-	emit msgStatus(i18n("Connected to %1:%2.", QString("connection-established"), QString()));
+	emit msgStatus(i18n("Connected to %1:%2.", m_host, m_port));
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
