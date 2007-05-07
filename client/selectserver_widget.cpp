@@ -41,7 +41,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Custom server group
-	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this, "customGroup");
+	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this);
+	customGroup->setObjectName(QLatin1String("customGroup"));
 	m_customLayout = new QHBoxLayout(customGroup);
         m_customLayout->setMargin( KDialog::marginHint() );
 	customGroup->setLayout(m_customLayout);

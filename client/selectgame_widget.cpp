@@ -45,7 +45,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
         Q_CHECK_PTR(m_mainLayout);
         m_mainLayout->setMargin( KDialog::marginHint());
 
-	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
+	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this);
+	groupBox->setObjectName(QLatin1String("groupBox"));
 	m_mainLayout->addWidget(groupBox);
 	QVBoxLayout *groupBoxLayout = new QVBoxLayout(groupBox);
 
