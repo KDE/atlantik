@@ -427,46 +427,43 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 			// Mortgage toggle
 			if (m_estate->isMortgaged())
 			{
-				rmbMenu->insertItem(i18n("Unmortgage"), 0);
+				QAction *act = rmbMenu->addAction(i18n("Unmortgage"), this, SLOT(slotToggleMortgage()));
 				if (!m_estate->canToggleMortgage() || player->hasDebt())
-					rmbMenu->setItemEnabled(0, false);
+					act->setEnabled(false);
 			}
 			else
 			{
-				rmbMenu->insertItem(i18n("Mortgage"), 0);
+				QAction *act = rmbMenu->addAction(i18n("Mortgage"), this, SLOT(slotToggleMortgage()));
 				if (!m_estate->canToggleMortgage())
-					rmbMenu->setItemEnabled(0, false);
+					act->setEnabled(false);
 			}
 
+			QAction *act = 0;
 			// Estate construction
 			if (m_estate->houses()>=4)
-				rmbMenu->insertItem(i18n("Build Hotel"), 1);
+				act = rmbMenu->addAction(i18n("Build Hotel"), this, SLOT(slotHouseBuy()));
 			else
-				rmbMenu->insertItem(i18n("Build House"), 1);
+				act = rmbMenu->addAction(i18n("Build House"), this, SLOT(slotHouseBuy()));
 
 			if (!m_estate->canBuyHouses() || player->hasDebt())
-				rmbMenu->setItemEnabled(1, false);
+				act->setEnabled(false);
 
 			// Estate destruction
 			if (m_estate->houses()==5)
-				rmbMenu->insertItem(i18n("Sell Hotel"), 2);
+				act = rmbMenu->addAction(i18n("Sell Hotel"), this, SLOT(slotHouseSell()));
 			else
-				rmbMenu->insertItem(i18n("Sell House"), 2);
+				act = rmbMenu->addAction(i18n("Sell House"), this, SLOT(slotHouseSell()));
 
 			if (!(m_estate->canSellHouses()))
-				rmbMenu->setItemEnabled(2, false);
+				act->setEnabled(false);
 		}
 		else
 		{
 			// Request trade
 			if (Player *player = m_estate->owner())
-				rmbMenu->insertItem(i18n("Request Trade with %1", player->name()), 3);
+				rmbMenu->addAction(i18n("Request Trade with %1", player->name()), this, SLOT(slotNewTrade()));
 		}
 
-		KMenu *pm = dynamic_cast<KMenu *>(rmbMenu);
-		if (pm) {
-			connect(pm, SIGNAL(activated(int)), this, SLOT(slotMenuAction(int)));
-		}
 		QPoint g = QCursor::pos();
 		rmbMenu->exec(g);
 		delete rmbMenu;
@@ -480,26 +477,24 @@ void EstateView::slotResizeAftermath()
 	repositionPortfolioEstate();
 }
 
-void EstateView::slotMenuAction(int item)
+void EstateView::slotToggleMortgage()
 {
-	switch (item)
-	{
-	case 0:
-		emit estateToggleMortgage(m_estate);
-		break;
+	emit estateToggleMortgage(m_estate);
+}
 
-	case 1:
-		emit estateHouseBuy(m_estate);
-		break;
+void EstateView::slotHouseBuy()
+{
+	emit estateHouseBuy(m_estate);
+}
 
-	case 2:
-		emit estateHouseSell(m_estate);
-		break;
+void EstateView::slotHouseSell()
+{
+	emit estateHouseSell(m_estate);
+}
 
-	case 3:
-		emit newTrade(m_estate->owner());
-		break;
-	}
+void EstateView::slotNewTrade()
+{
+	emit newTrade(m_estate->owner());
 }
 
 // Kudos to Gallium <gallium@kde.org> for writing the Quartz KWin style and

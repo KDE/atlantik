@@ -77,8 +77,11 @@ private:
 		PortfolioEstate *pe;
 
 	private slots:
-		void slotMenuAction(int);
 		void estateChanged();
+		void slotToggleMortgage();
+		void slotHouseBuy();
+		void slotHouseSell();
+		void slotNewTrade();
 };
 
 #endif
