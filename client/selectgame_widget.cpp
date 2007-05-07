@@ -45,12 +45,13 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
         Q_CHECK_PTR(m_mainLayout);
         m_mainLayout->setMargin( KDialog::marginHint());
 
-	QGroupBox *groupBox;
-	groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
+	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this, "groupBox");
 	m_mainLayout->addWidget(groupBox);
+	QVBoxLayout *groupBoxLayout = new QVBoxLayout(groupBox);
 
 	// List of games
 	m_gameList = new K3ListView( groupBox );
+	groupBoxLayout->addWidget(m_gameList);
 	m_gameList->setObjectName( "m_gameList" );
 	m_gameList->addColumn(i18n("Game"));
 	m_gameList->addColumn(i18n("Description"));

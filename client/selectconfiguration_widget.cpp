@@ -49,6 +49,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_configBox = new QGroupBox(i18n("Game Configuration"), this);
 	m_configBox->setObjectName("configBox");
 	m_mainLayout->addWidget(m_configBox);
+	QVBoxLayout *configBoxLayout = new QVBoxLayout(m_configBox);
+	Q_UNUSED(configBoxLayout)
 
 	// Player buttons.
 	QHBoxLayout *playerButtons = new QHBoxLayout();
@@ -96,6 +98,7 @@ void SelectConfiguration::addConfigOption(ConfigOption *configOption)
 {
 	// FIXME: only bool types supported!
 	QCheckBox *checkBox = new QCheckBox(configOption->description(), m_configBox);
+	m_configBox->layout()->addWidget(checkBox);
 	checkBox->setObjectName("checkbox");
 	m_configMap[(QObject *)checkBox] = configOption;
 	m_configBoxMap[configOption] = checkBox;
@@ -122,6 +125,7 @@ void SelectConfiguration::gameOption(QString title, QString type, QString value,
 	if (type == "bool")
 	{
 		QCheckBox *checkBox = new QCheckBox(title, m_configBox);
+		m_configBox->layout()->addWidget(checkBox);
 		checkBox->setObjectName("checkbox");
 		m_optionCommandMap[(QObject *)checkBox] = command;
 		m_checkBoxMap[command] = checkBox;
