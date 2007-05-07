@@ -822,7 +822,7 @@ void Atlantik::sendHandshake()
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	QByteArray game = args->getOption("game");
-	kDebug() << "received Handshake; joining game: " << game.toInt();
+	kDebug() << "received Handshake; joining game: " << game.toInt() << endl;
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
 }
