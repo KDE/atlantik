@@ -24,7 +24,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QTextStream>
-#include <Q3PtrList>
 #include <QCloseEvent>
 
 #include <klocale.h>
@@ -39,7 +38,13 @@
 #include "eventlogwidget.moc"
 
 EventLog::EventLog()
+	: QObject()
 {
+}
+
+EventLog::~EventLog()
+{
+	qDeleteAll(m_events);
 }
 
 void EventLog::addEvent(const QString &description, const QString &icon)
@@ -49,7 +54,7 @@ void EventLog::addEvent(const QString &description, const QString &icon)
 	emit newEvent(event);
 }
 
-Q3PtrList<Event> EventLog::events()
+QList<Event*> EventLog::events()
 {
 	return m_events;
 }
@@ -83,9 +88,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	connect(this, SIGNAL(user1Clicked()), this, SLOT(save()));
 
 	// Populate
-	Q3PtrList<Event> events = m_eventLog->events();
-	for (Q3PtrListIterator<Event> it( events ); (*it) ; ++it)
-		addEvent( (*it) );
+	foreach (Event *e, m_eventLog->events())
+		addEvent(e);
 }
 
 void EventLogWidget::addEvent(Event *event)
@@ -120,9 +124,8 @@ void EventLogWidget::save()
 
 		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ) << endl;
 
-		Q3PtrList<Event> events = m_eventLog->events();
-		for (Q3PtrListIterator<Event> it( events ); (*it) ; ++it)
-			stream << (*it)->dateTime().toString("yyyy-MM-dd hh:mm:ss") << " " << (*it)->description() << endl;
+		foreach (Event *e, m_eventLog->events())
+			stream << e->dateTime().toString("yyyy-MM-dd hh:mm:ss") << " " << e->description() << endl;
 		file.close();
 	}
 }

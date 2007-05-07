@@ -17,7 +17,7 @@
 #ifndef ATLANTIK_EVENTLOGWIDGET_H
 #define ATLANTIK_EVENTLOGWIDGET_H
 
-#include <Q3PtrList>
+#include <QList>
 
 #include <kdialog.h>
 
@@ -34,7 +34,8 @@ Q_OBJECT
 
 public:
 	EventLog();
-	Q3PtrList<Event> events();
+	~EventLog();
+	QList<Event*> events();
 
 public slots:
 	void addEvent(const QString &description, const QString &icon = QString::null);
@@ -43,7 +44,7 @@ signals:
 	void newEvent(Event *event);
 
 private:
-	Q3PtrList<Event> m_events;
+	QList<Event*> m_events;
 };
 
 class EventLogWidget : public KDialog
