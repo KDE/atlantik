@@ -19,7 +19,7 @@
 
 #include <QWidget>
 #include <QLayout>
-#include <q3textedit.h>
+#include <qtextedit.h>
 #include <QLabel>
 #include <q3ptrlist.h>
 //Added by qt3to4:
@@ -73,15 +73,16 @@ class Player;
 class Estate;
 class Trade;
 
-class LogTextEdit : public Q3TextEdit
+class LogTextEdit : public QTextEdit
 {
 Q_OBJECT
 
 public:
-	LogTextEdit( QWidget *parent = 0, const char *name = 0 );
+	LogTextEdit(QWidget *parent = 0);
 	virtual ~LogTextEdit();
 
-	Q3PopupMenu *createPopupMenu( const QPoint & pos );
+protected:
+	void contextMenuEvent(QContextMenuEvent *event);
 
 private:
 	QAction *m_clear, *m_selectAll, *m_copy;
@@ -246,7 +247,7 @@ private:
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
-	Q3TextEdit *m_serverMsgs;
+	QTextEdit *m_serverMsgs;
 
 	QAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,

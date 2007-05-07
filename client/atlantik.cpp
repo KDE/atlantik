@@ -20,7 +20,7 @@
 #include <QDateTime>
 #include <QLineEdit>
 #include <q3scrollview.h>
-#include <q3popupmenu.h>
+#include <qmenu.h>
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QGridLayout>
@@ -64,11 +64,13 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 
-LogTextEdit::LogTextEdit( QWidget *parent, const char *name ) : Q3TextEdit( parent, name )
+LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	m_clear = KStandardAction::clear( this, SLOT( clear() ), 0 );
 	m_selectAll = KStandardAction::selectAll( this, SLOT( selectAll() ), 0 );
 	m_copy = KStandardAction::copy( this, SLOT( copy() ), 0 );
+	connect(this, SIGNAL(copyAvailable(bool)), m_copy, SLOT(setEnabled(bool)));
+	m_copy->setEnabled(false);
 }
 
 LogTextEdit::~LogTextEdit()
@@ -78,16 +80,14 @@ LogTextEdit::~LogTextEdit()
 	delete m_copy;
 }
 
-Q3PopupMenu *LogTextEdit::createPopupMenu( const QPoint & )
+void LogTextEdit::contextMenuEvent(QContextMenuEvent *event)
 {
-	Q3PopupMenu *rmbMenu = new Q3PopupMenu( this );
-	rmbMenu->addAction( m_clear );
-	rmbMenu->addSeparator();
-	m_copy->setEnabled( hasSelectedText() );
-	rmbMenu->addAction( m_copy );
-	rmbMenu->addAction( m_selectAll );
-
-	return rmbMenu;
+	QMenu menu(this);
+	menu.addAction(m_clear);
+	menu.addSeparator();
+	menu.addAction(m_copy);
+	menu.addAction(m_selectAll);
+	menu.exec(event->globalPos());
 }
 
 Atlantik::Atlantik ()
@@ -207,10 +207,11 @@ Atlantik::Atlantik ()
 //	m_portfolioLabel->show();
 
 	// Text view for chat and status messages from server.
-	m_serverMsgs = new LogTextEdit(m_mainWidget, "serverMsgs");
-	//TODO: m_serverMsgs->setTextFormat(Q3TextEdit::PlainText);
+	m_serverMsgs = new LogTextEdit(m_mainWidget);
+	m_serverMsgs->setObjectName(QLatin1String("serverMsgs"));
+	m_serverMsgs->setAcceptRichText(false);
 	m_serverMsgs->setReadOnly(true);
-	m_serverMsgs->setHScrollBarMode(Q3ScrollView::AlwaysOff);
+	m_serverMsgs->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	m_serverMsgs->setMinimumWidth(200);
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
@@ -679,7 +680,6 @@ void Atlantik::serverMsgsAppend(QString msg)
 {
 	// Use append, not setText(old+new) because that one doesn't wrap
 	m_serverMsgs->append(msg);
-	m_serverMsgs->ensureVisible(0, m_serverMsgs->contentsHeight());
 }
 
 void Atlantik::playerChanged(Player *player)
