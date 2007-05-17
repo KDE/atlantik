@@ -3,6 +3,7 @@ Encoding=UTF-8
 Exec=atlantik -caption "%c"
 Name=Atlantik
 GenericName=Monopoly®-like Board Games
+GenericName[br]=Ur c'hoari a seurt gant Monopoly®
 GenericName[de]=Monopoly®-ähnliches Brettspiel
 GenericName[el]=Επιτραπέζιο παιχνίδι Μονόπολη
 GenericName[et]=Monopoli stiilis lauamäng
