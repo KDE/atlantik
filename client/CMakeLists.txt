@@ -1,13 +1,11 @@
 
 include_directories(
-${CMAKE_SOURCE_DIR}/libkdegames 
 ${KDE4_INCLUDE_DIR} 
 ${QT_INCLUDES} 
 ${CMAKE_CURRENT_SOURCE_DIR} 
 ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantic 
 ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikclient 
 ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui 
-${CMAKE_CURRENT_SOURCE_DIR}/../../libkdegames
 )
 
 add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
