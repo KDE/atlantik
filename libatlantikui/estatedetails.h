@@ -34,7 +34,6 @@ class QVGroupBox;
 class K3ListView;
 class KPushButton;
 
-class Player;
 class Estate;
 
 class EstateDetails : public QWidget

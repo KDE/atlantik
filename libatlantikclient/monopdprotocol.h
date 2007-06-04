@@ -23,12 +23,7 @@
 #include <QObject>
 
 /*
-class AtlanticCore;
 
-class Player;
-class EstateGroup;
-class Trade;
-class Auction;
 */
 
 class Estate;

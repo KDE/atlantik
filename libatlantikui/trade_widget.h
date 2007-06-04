@@ -23,7 +23,6 @@
 
 #include "libatlantikui_export.h"
 
-class QHGroupBox;
 class QLabel;
 class Q3ListViewItem;
 class Q3GroupBox;

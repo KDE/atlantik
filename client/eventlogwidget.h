@@ -26,7 +26,6 @@ class QString;
 class Event;
 
 class K3ListView;
-class K3ListViewItem;
 
 class EventLog : public QObject
 {

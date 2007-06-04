@@ -27,7 +27,6 @@
 
 #include <k3listview.h>
 
-class KWordWrap;
 
 class KWrappedListViewItem : public QObject, public K3ListViewItem
 {

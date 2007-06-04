@@ -30,7 +30,6 @@
 
 #include "monopigator.h"
 
-class KExtendedSocket;
 
 class SelectServer : public QWidget
 {
