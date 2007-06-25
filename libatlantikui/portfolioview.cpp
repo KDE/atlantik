@@ -287,3 +287,9 @@ void PortfolioView::slotMenuAction(int item)
 		break;
 	}
 }
+#undef PE_DISTW
+#undef PE_DISTH
+#undef PE_SPACE
+#undef PE_MARGINW
+#undef PE_MARGINH
+#undef ICONSIZE
