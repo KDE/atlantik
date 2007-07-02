@@ -23,41 +23,38 @@
 #include "main.h"
 #include "atlantik.h"
 
-static KCmdLineOptions options[] =
-{
-	{ "h", 0, 0 },
-	{ "host <argument>", I18N_NOOP("Connect to this host"), 0 },
-	{ "p", 0, 0 },
-	{ "port <argument>", I18N_NOOP("Connect at this port"), "1234" },
-	{ "g", 0, 0 },
-	{ "game <argument>", I18N_NOOP("Join this game"), 0 },
-	KCmdLineLastOption
-};
-
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData(
-		"atlantik",
-		I18N_NOOP("Atlantik"), ATLANTIK_VERSION_STRING,
-		I18N_NOOP("The Atlantic board game"),
+		"atlantik", 0,
+		ki18n("Atlantik"), ATLANTIK_VERSION_STRING,
+		ki18n("The Atlantic board game"),
 		KAboutData::License_GPL,
-		I18N_NOOP("(c) 1998-2004 Rob Kaper"),
-		I18N_NOOP("KDE client for playing Monopoly-like games on the monopd network."),
+		ki18n("(c) 1998-2004 Rob Kaper"),
+		ki18n("KDE client for playing Monopoly-like games on the monopd network."),
 		"http://unixcode.org/atlantik/"
 		);
 
-	aboutData.addAuthor("Rob Kaper", I18N_NOOP("main author"), "cap@capsi.com", "http://capsi.com/");
+	aboutData.addAuthor(ki18n("Rob Kaper"), ki18n("main author"), "cap@capsi.com", "http://capsi.com/");
 
 	// Patches and artists
-	aboutData.addCredit("Thiago Macieira", I18N_NOOP("KExtendedSocket support"), "thiagom@wanadoo.fr");
-	aboutData.addCredit("Albert Astals Cid", I18N_NOOP("various patches"), "tsdgeos@terra.es");
+	aboutData.addCredit(ki18n("Thiago Macieira"), ki18n("KExtendedSocket support"), "thiagom@wanadoo.fr");
+	aboutData.addCredit(ki18n("Albert Astals Cid"), ki18n("various patches"), "tsdgeos@terra.es");
 
-	aboutData.addCredit("Bart Szyszka", I18N_NOOP("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
-	aboutData.addCredit("Rob Malda", I18N_NOOP("token icons"), "", "http://cmdrtaco.net/");
-	aboutData.addCredit("Elhay Achiam", I18N_NOOP("icons"), "elhay_a@bezeqint.net");
-	aboutData.addCredit("Carlo Caneva", I18N_NOOP("icons"), "webmaster@molecola.com", "http://www.molecola.com/");
+	aboutData.addCredit(ki18n("Bart Szyszka"), ki18n("application icon"), "bart@gigabee.com", "http://www.gigabee.com/");
+	aboutData.addCredit(ki18n("Rob Malda"), ki18n("token icons"), "", "http://cmdrtaco.net/");
+	aboutData.addCredit(ki18n("Elhay Achiam"), ki18n("icons"), "elhay_a@bezeqint.net");
+	aboutData.addCredit(ki18n("Carlo Caneva"), ki18n("icons"), "webmaster@molecola.com", "http://www.molecola.com/");
 
 	KCmdLineArgs::init(argc, argv, &aboutData);
+
+	KCmdLineOptions options;
+	options.add("h");
+	options.add("host <argument>", ki18n("Connect to this host"));
+	options.add("p");
+	options.add("port <argument>", ki18n("Connect at this port"), "1234");
+	options.add("g");
+	options.add("game <argument>", ki18n("Join this game"));
 	KCmdLineArgs::addCmdLineOptions (options);
 
 	KCmdLineArgs::addStdCmdLineOptions();

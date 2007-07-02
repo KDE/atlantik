@@ -231,8 +231,8 @@ Atlantik::Atlantik ()
 	// Check command-line args to see if we need to connect or show Monopigator window
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	QByteArray host = args->getOption("host");
-	QByteArray port = args->getOption("port");
+	QString host = args->getOption("host");
+	QString port = args->getOption("port");
 	if (!host.isNull() && !port.isNull())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -821,7 +821,7 @@ void Atlantik::sendHandshake()
 	// Check command-line args to see if we need to auto-join
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-	QByteArray game = args->getOption("game");
+	QString game = args->getOption("game");
 	kDebug() << "received Handshake; joining game: " << game.toInt() << endl;
 	if (!game.isNull())
 		m_atlantikNetwork->joinGame(game.toInt());
