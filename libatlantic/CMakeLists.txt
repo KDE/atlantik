@@ -14,8 +14,6 @@ set(atlantic_LIB_SRCS
    player.cpp 
    trade.cpp )
 
-kde4_automoc(${atlantic_LIB_SRCS})
-
 kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 
 target_link_libraries(atlantic  ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY} ${QT_QT3SUPPORT_LIBRARY} )
