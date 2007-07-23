@@ -13,7 +13,7 @@ add_subdirectory( themes )
 
 ########### install files ###############
 
-install( FILES atlantik.desktop  DESTINATION  ${XDG_APPS_DIR} )
+install( FILES atlantik.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES atlantikui.rc atlantik.notifyrc  DESTINATION  ${DATA_INSTALL_DIR}/atlantik )
 
 
