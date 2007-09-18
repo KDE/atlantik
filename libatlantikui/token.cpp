@@ -31,7 +31,7 @@
 
 #include "token.moc"
 
-#define ICONSIZE	32
+#define TOKEN_ICONSIZE	32
 
 Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(parent, name)
 {
@@ -53,7 +53,7 @@ Token::Token(Player *player, AtlantikBoard *parent, const char *name) : QWidget(
 	m_image = 0;
 	loadIcon();
 
-	setFixedSize(QSize(ICONSIZE, ICONSIZE + KGlobalSettings::generalFont().pointSize()));
+	setFixedSize(QSize(TOKEN_ICONSIZE, TOKEN_ICONSIZE + KGlobalSettings::generalFont().pointSize()));
 }
 
 Token::~Token()
@@ -111,8 +111,8 @@ void Token::loadIcon()
 	}
 
 	QWMatrix m;
-	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
-	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
+	m.scale(double(TOKEN_ICONSIZE) / m_image->width(), double(TOKEN_ICONSIZE) / m_image->height());
+	QPixmap *scaledPixmap = new QPixmap(TOKEN_ICONSIZE, TOKEN_ICONSIZE);
 	*scaledPixmap = m_image->xForm(m);
 
 	delete m_image;
@@ -133,14 +133,14 @@ void Token::paintEvent(QPaintEvent *)
 		{
 			painter.setPen(Qt::black);
 			painter.setBrush(Qt::white);
-			painter.drawRect(0, 0, ICONSIZE, ICONSIZE);
+			painter.drawRect(0, 0, TOKEN_ICONSIZE, TOKEN_ICONSIZE);
 
 			painter.drawPixmap(0, 0, *m_image);
 		}
 
 		painter.setPen(Qt::black);
 		painter.setBrush(Qt::black);
-		painter.drawRect(0, ICONSIZE, width(), KGlobalSettings::generalFont().pointSize());
+		painter.drawRect(0, TOKEN_ICONSIZE, width(), KGlobalSettings::generalFont().pointSize());
 
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::DemiBold));
