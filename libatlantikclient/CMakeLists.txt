@@ -1,5 +1,5 @@
 
-include_directories( ${CMAKE_SOURCE_DIR}/atlantik/libatlantic  )
+include_directories( ${CMAKE_SOURCE_DIR}/libatlantic  )
 
 
 ########### next target ###############
