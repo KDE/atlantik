@@ -139,7 +139,7 @@ void SelectServer::initMonopigator()
 void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)
 {
 	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port, ip);
-	item->setPixmap(0, BarIcon("atlantik", K3Icon::SizeSmall));
+	item->setPixmap(0, BarIcon("atlantik", KIconLoader::SizeSmall));
 
 	if ( item->isDev() )
 	{

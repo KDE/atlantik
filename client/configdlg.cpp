@@ -168,7 +168,7 @@ void ConfigPlayer::chooseImage()
 	KIconDialog iconDialog( this);
 	iconDialog.setCustomLocation( KStandardDirs::locate("appdata", "themes/default/tokens/") );
 
-	iconDialog.setup( K3Icon::Desktop, K3Icon::Application, false, 0, true, true, true ); // begin with user icons, lock editing
+	iconDialog.setup( KIconLoader::Desktop, KIconLoader::Application, false, 0, true, true, true ); // begin with user icons, lock editing
 
 	QString image = iconDialog.openDialog();
 
