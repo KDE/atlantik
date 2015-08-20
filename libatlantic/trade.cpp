@@ -52,9 +52,9 @@ unsigned int Trade::count( bool acceptOnly )
 	QMapIterator<Player *, bool> it(m_playerAcceptMap);
 	while(it.hasNext())
 	{
+		it.next();
 		if ( !acceptOnly || it.value() )
 			count++;
-		it.next();
 	}
 	return count;
 }
