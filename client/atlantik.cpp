@@ -755,7 +755,7 @@ void Atlantik::initNetworkObject()
 {
 	if (m_atlantikNetwork)
 	{
-		//TODO: m_atlantikNetwork->reset();
+		m_atlantikNetwork->reset();
 		return;
 	}
 

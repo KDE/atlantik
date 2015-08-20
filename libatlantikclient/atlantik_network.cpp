@@ -44,10 +44,9 @@ using namespace KNetwork;
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 {
 	m_atlanticCore = atlanticCore;
-	m_monopdsocket = new KBufferedSocket();
+	m_monopdsocket = 0;
 
-	connect(m_monopdsocket, SIGNAL(gotError(int)), this, SLOT(slotConnectionFailed(int)));
-	connect(m_monopdsocket, SIGNAL(connected(const KNetwork::KResolverEntry&)), this, SLOT(slotConnectionSuccess()));
+	reset();
 }
 
 AtlantikNetwork::~AtlantikNetwork(void)
@@ -58,6 +57,19 @@ AtlantikNetwork::~AtlantikNetwork(void)
 	}
 }
 
+void AtlantikNetwork::reset()
+{
+	if (m_monopdsocket) {
+		m_monopdsocket->close();
+		delete m_monopdsocket;
+
+		emit closed(0);
+	}
+	m_monopdsocket = new KBufferedSocket();
+
+	connect(m_monopdsocket, SIGNAL(gotError(int)), this, SLOT(slotConnectionFailed(int)));
+	connect(m_monopdsocket, SIGNAL(connected(const KNetwork::KResolverEntry&)), this, SLOT(slotConnectionSuccess()));
+}
 
 void AtlantikNetwork::slotwriteData(QString msg)
 {
@@ -67,10 +79,11 @@ void AtlantikNetwork::slotwriteData(QString msg)
 
 void AtlantikNetwork::slotRead()
 {
-	if (m_monopdsocket->canReadLine())
+	const QString line = m_monopdstream.readLine();
+	if (!line.isNull())
 	{
 		
-		processMsg(m_monopdstream.readLine());
+		processMsg(line);
 		
 		// There might be more data; Do we really need this?
 		QTimer::singleShot(0, this, SLOT(slotRead()));
@@ -108,11 +121,20 @@ void AtlantikNetwork::slotConnectionSuccess()
 	m_monopdsocket->enableRead(true);
 
 	m_monopdsocket->enableWrite(true);
+
+	emit connectionSuccess();
 }
 
 void AtlantikNetwork::slotConnectionFailed(int error)
 {
+	emit connectionFailed(error);
 	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect-no");
+}
+
+void AtlantikNetwork::slotClosed()
+{
+	// TODO: fix value
+	emit closed(0);
 }
 
 void AtlantikNetwork::writeData(QString data) {

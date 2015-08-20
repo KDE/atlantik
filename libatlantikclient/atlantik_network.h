@@ -39,11 +39,14 @@ public:
 	void setName(QString name);
 	void cmdChat(QString msg);
 
+	void reset();
+
 private slots:
 	void slotwriteData(QString msg);
 	void slotLookupFinished();
 	void slotConnectionSuccess();
 	void slotConnectionFailed(int error);
+	void slotClosed();
 
 	void writeData(QString data);
 
@@ -82,6 +85,9 @@ public slots:
 	void setImage(const QString &name);
 
 signals:
+	void connectionSuccess();
+	void connectionFailed(int error);
+	void closed(int status);
 
 	void msgInfo(QString);
 	void msgError(QString);
