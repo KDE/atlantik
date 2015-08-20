@@ -233,7 +233,7 @@ Atlantik::Atlantik ()
 
 	QString host = args->getOption("host");
 	QString port = args->getOption("port");
-	if (!host.isNull() && !port.isNull())
+	if (!host.isEmpty() && !port.isEmpty())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
 		showSelectServer();
@@ -823,7 +823,7 @@ void Atlantik::sendHandshake()
 
 	QString game = args->getOption("game");
 	kDebug() << "received Handshake; joining game: " << game.toInt() << endl;
-	if (!game.isNull())
+	if (!game.isEmpty())
 		m_atlantikNetwork->joinGame(game.toInt());
 }
 
