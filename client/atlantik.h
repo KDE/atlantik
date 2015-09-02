@@ -27,6 +27,7 @@
 #include <QGridLayout>
 #include <Q3PopupMenu>
 #include <QCloseEvent>
+#include <QScrollArea>
 
 #include <kxmlguiwindow.h>
 
@@ -34,7 +35,7 @@
 #include "portfolioview.h"
 #include "board.h"
 
-class Q3ScrollView;
+class QScrollArea;
 class QAction;
 class AtlanticCore;
 class AtlantikNetwork;
@@ -240,7 +241,7 @@ private:
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
 
-	Q3ScrollView *m_portfolioScroll;
+	QScrollArea *m_portfolioScroll;
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;

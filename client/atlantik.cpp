@@ -186,19 +186,21 @@ Atlantik::Atlantik ()
 	setCentralWidget(m_mainWidget);
 
 	// Vertical view area for portfolios.
-	m_portfolioScroll = new Q3ScrollView(m_mainWidget, "pfScroll");
+	m_portfolioScroll = new QScrollArea(m_mainWidget);
+	m_portfolioScroll->setObjectName("pfScroll");
 	m_mainLayout->addWidget( m_portfolioScroll, 0, 0 );
-	m_portfolioScroll->setHScrollBarMode( Q3ScrollView::AlwaysOff );
-	m_portfolioScroll->setResizePolicy( Q3ScrollView::AutoOneFit );
+	m_portfolioScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	m_portfolioScroll->setWidgetResizable(true);
 	m_portfolioScroll->setFixedHeight( 200 );
 	m_portfolioScroll->hide();
 
-	m_portfolioWidget = new QWidget( m_portfolioScroll->viewport() );
+	m_portfolioWidget = new QWidget();
         m_portfolioWidget->setObjectName( "pfWidget" );
-	m_portfolioScroll->addChild( m_portfolioWidget );
+	m_portfolioScroll->setWidget(m_portfolioWidget);
 	m_portfolioWidget->show();
 
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
+	m_portfolioLayout->setMargin(0);
 	m_portfolioViews.setAutoDelete(true);
 
 	// Nice label
