@@ -16,7 +16,6 @@
 
 #include <iostream>
 
-#include <q3header.h>
 #include <QLayout>
 #include <QDateTime>
 //Added by qt3to4:
@@ -25,20 +24,20 @@
 #include <QHBoxLayout>
 #include <QTextStream>
 #include <QCloseEvent>
+#include <QTreeView>
+#include <QHeaderView>
 
 #include <klocale.h>
-#include <k3listview.h>
 #include <kdialog.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>
 #include <kpushbutton.h>
-#include <kstringhandler.h>
 
 #include "event.h"
 #include "eventlogwidget.moc"
 
 EventLog::EventLog()
-	: QObject()
+	: QAbstractItemModel()
 {
 }
 
@@ -49,14 +48,113 @@ EventLog::~EventLog()
 
 void EventLog::addEvent(const QString &description, const QString &icon)
 {
+	const int oldCount = m_events.count();
+	beginInsertRows(QModelIndex(), oldCount, oldCount);
 	Event *event = new Event(QDateTime::currentDateTime(), description, icon);
 	m_events.append(event);
-	emit newEvent(event);
+	endInsertRows();
 }
 
 QList<Event*> EventLog::events()
 {
 	return m_events;
+}
+
+int EventLog::columnCount(const QModelIndex &parent) const
+{
+	return parent.isValid() ? 0 : 2;
+}
+
+QVariant EventLog::data(const QModelIndex &index, int role) const
+{
+	if (!index.isValid() || index.row() < 0 || index.row() >= m_events.count()
+	    || index.column() < 0 || index.column() > 1)
+		return QVariant();
+
+	Event *e = static_cast<Event *>(index.internalPointer());
+	switch (index.column())
+	{
+	case 0:
+		if (role != Qt::DisplayRole)
+			return QVariant();
+		return e->dateTime().toString("yyyy-MM-dd hh:mm:ss zzz");
+	case 1:
+		switch (role)
+		{
+		case Qt::DecorationRole:
+			return e->icon().isEmpty() ? SmallIcon("atlantik") : SmallIcon(e->icon());
+		case Qt::DisplayRole:
+			return e->description();
+		}
+		break;
+	}
+
+	return QVariant();
+}
+
+QVariant EventLog::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (orientation != Qt::Horizontal || role != Qt::DisplayRole
+	    || section < 0 || section > 1)
+		return QVariant();
+
+	switch (section)
+	{
+	case 0:
+		return i18n("Date/Time");
+	case 1:
+		return i18n("Description");
+	}
+	return QVariant();
+}
+
+QModelIndex EventLog::index(int row, int column, const QModelIndex &parent) const
+{
+	return parent.isValid() || row < 0 || row >= m_events.count()
+	    || column < 0 || column > 1
+	    ? QModelIndex()
+	    : createIndex(row, column, m_events.at(row));
+}
+
+QModelIndex EventLog::parent(const QModelIndex &) const
+{
+	return QModelIndex();
+}
+
+int EventLog::rowCount(const QModelIndex &parent) const
+{
+	return parent.isValid() ? 0 : m_events.count();
+}
+
+LastMessagesProxyModel::LastMessagesProxyModel(QObject *parent)
+	: QSortFilterProxyModel(parent)
+	, m_count(-1)
+{
+}
+
+void LastMessagesProxyModel::setMessagesCount(int n)
+{
+	if (n == m_count)
+		return;
+
+	m_count = n;
+	invalidateFilter();
+}
+
+void LastMessagesProxyModel::setSourceModel(QAbstractItemModel *model)
+{
+	if (sourceModel())
+		disconnect(sourceModel(), SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(invalidate()));
+	QSortFilterProxyModel::setSourceModel(model);
+	if (sourceModel())
+		connect(sourceModel(), SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(invalidate()));
+}
+
+bool LastMessagesProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+	if (m_count < 0)
+		return true;
+	return source_row + m_count >= sourceModel()->rowCount(source_parent);
 }
 
 EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
@@ -70,44 +168,26 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	m_eventLog = eventLog;
 
-	connect(m_eventLog, SIGNAL(newEvent(Event *)), this, SLOT(addEvent(Event *)));
-
 	setWindowTitle(i18n("Event Log"));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
 	listCompBox->setSpacing(KDialog::marginHint());
 
-	m_eventList = new K3ListView(mainWidget());
+	m_eventList = new QTreeView(mainWidget());
 	m_eventList->setObjectName( "eventList" );
 	listCompBox->addWidget(m_eventList);
 
-	m_eventList->addColumn(i18n("Date/Time"));
-	m_eventList->addColumn(i18n("Description"));
-	m_eventList->header()->setClickEnabled( false );
+	LastMessagesProxyModel *proxy = new LastMessagesProxyModel(m_eventList);
+	// FIXME: allow a way to show older messages
+	proxy->setMessagesCount(25);
+	proxy->setSourceModel(m_eventLog);
+
+	m_eventList->setModel(proxy);
+	m_eventList->setRootIsDecorated(false);
+	m_eventList->header()->setClickable(false);
+	m_eventList->header()->setResizeMode(0, QHeaderView::ResizeToContents);
 
 	connect(this, SIGNAL(user1Clicked()), this, SLOT(save()));
-
-	// Populate
-	foreach (Event *e, m_eventLog->events())
-		addEvent(e);
-}
-
-void EventLogWidget::addEvent(Event *event)
-{
-	// FIXME: allow a way to view non-squeezed message
-	// FIXME: allow a way to show older messages
-
-	if ( m_eventList->childCount() >= 25 )
-		delete m_eventList->firstChild();
-
-	QString description = KStringHandler::rsqueeze( event->description(), 200 );
-	K3ListViewItem *item = new K3ListViewItem(m_eventList, event->dateTime().toString("yyyy-MM-dd hh:mm:ss zzz"), description);
-	if (event->icon().isEmpty())
-		item->setPixmap(1, QPixmap(SmallIcon("atlantik")));
-	else
-		item->setPixmap(1, QPixmap(SmallIcon(event->icon())));
-
-	m_eventList->ensureItemVisible(item);
 }
 
 void EventLogWidget::closeEvent(QCloseEvent *e)

@@ -17,6 +17,7 @@
 #ifndef ATLANTIK_EVENTLOGWIDGET_H
 #define ATLANTIK_EVENTLOGWIDGET_H
 
+#include <QSortFilterProxyModel>
 #include <QList>
 
 #include <kdialog.h>
@@ -25,9 +26,9 @@ class QString;
 
 class Event;
 
-class K3ListView;
+class QTreeView;
 
-class EventLog : public QObject
+class EventLog : public QAbstractItemModel
 {
 Q_OBJECT
 
@@ -36,14 +37,36 @@ public:
 	~EventLog();
 	QList<Event*> events();
 
+	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex parent(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
 public slots:
 	void addEvent(const QString &description, const QString &icon = QString::null);
 
-signals:
-	void newEvent(Event *event);
-
 private:
 	QList<Event*> m_events;
+};
+
+class LastMessagesProxyModel : public QSortFilterProxyModel
+{
+Q_OBJECT
+
+public:
+	LastMessagesProxyModel(QObject *parent = 0);
+
+	void setMessagesCount(int n);
+
+	void setSourceModel(QAbstractItemModel *model);
+
+protected:
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+
+private:
+	int m_count;
 };
 
 class EventLogWidget : public KDialog
@@ -55,9 +78,6 @@ public:
 
 	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
 
-public slots:
-	void addEvent(Event *event);
-
 protected:
 	void closeEvent(QCloseEvent *e);
 
@@ -66,7 +86,7 @@ private slots:
 
 private:
 	EventLog *m_eventLog;
-	K3ListView *m_eventList;
+	QTreeView *m_eventList;
 };
 
 #endif
