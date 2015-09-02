@@ -119,7 +119,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		QColor greenHouse(0, 255, 0);
 		QColor redHotel(255, 51, 51);
-		QPainter painter( this );
+		QPainter painter;
                 painter.begin(m_pixmap);
                 painter.initFrom(this);
 
@@ -141,7 +141,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 			QPixmap* quartzBuffer = new QPixmap(25, (height()/4)-2);
 
-			QPainter quartzPainter( this );
+			QPainter quartzPainter;
 			quartzPainter.begin( quartzBuffer );
                         quartzPainter.initFrom( this);
 
