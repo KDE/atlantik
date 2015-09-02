@@ -175,7 +175,7 @@ Atlantik::Atlantik ()
 	KXmlGuiWindow::createGUI();
 	applyMainWindowSettings( KGlobal::config()->group( "AtlantikMainWindow" ) );
 	KXmlGuiWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
-	KXmlGuiWindow::statusBar()->insertItem(QString::null, 1);
+	KXmlGuiWindow::statusBar()->insertItem(QString::null, 1, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
