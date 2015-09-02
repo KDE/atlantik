@@ -52,7 +52,7 @@ QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysO
 
 	painter.setPen(lightGray);
 	painter.setBrush(Qt::white);
-	painter.drawRect(QRect(0, 0, PE_WIDTH, PE_HEIGHT));
+	painter.drawRect(QRect(0, 0, PE_WIDTH-1 , PE_HEIGHT-1));
 	if (alwaysOwned || (estate && estate->isOwned() && player == estate->owner()))
 	{
 		painter.setPen(darkGray);
@@ -76,7 +76,7 @@ QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysO
 		painter.setPen(lightGray);
 		painter.setBrush(lightGray);
 	}
-	painter.drawRect(0, 0, PE_WIDTH, 3);
+	painter.drawRect(0, 0, PE_WIDTH-1, 3-1);
 
 	return qpixmap;
 }

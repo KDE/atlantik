@@ -214,13 +214,13 @@ void PortfolioView::paintEvent(QPaintEvent *)
 
 		painter.setPen(m_player->hasTurn() ? m_activeColor : Qt::black);
 		painter.setBrush(m_player->hasTurn() ? m_activeColor : Qt::black);
-		painter.drawRect(0, 0, width(), 20);
+		painter.drawRect(0, 0, width() - 1, 20 - 1);
 
 		if (m_image)
 		{
 			painter.setPen(Qt::black);
 			painter.setBrush(Qt::white);
-			painter.drawRect(0, 0, ICONSIZE, ICONSIZE);
+			painter.drawRect(0, 0, ICONSIZE - 1, ICONSIZE - 1);
 
 			painter.drawPixmap(0, 0, *m_image);
 		}

@@ -138,14 +138,14 @@ void Token::paintEvent(QPaintEvent *)
 		{
 			painter.setPen(Qt::black);
 			painter.setBrush(Qt::white);
-			painter.drawRect(0, 0, ICONSIZE, ICONSIZE);
+			painter.drawRect(0, 0, ICONSIZE-1, ICONSIZE-1);
 
 			painter.drawPixmap(0, 0, *m_image);
 		}
 
 		painter.setPen(Qt::black);
 		painter.setBrush(Qt::black);
-		painter.drawRect(0, ICONSIZE, width(), KGlobalSettings::generalFont().pointSize());
+		painter.drawRect(0, ICONSIZE, width()-1, KGlobalSettings::generalFont().pointSize()-1);
 
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::DemiBold));
