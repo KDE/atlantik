@@ -23,7 +23,7 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <q3buttongroup.h>
+#include <QGroupBox>
 #include <kdialog.h>
 //#include <kextendedsocket.h>
 #include <klocale.h>
@@ -66,9 +66,11 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// Server list group
-	Q3VButtonGroup *bgroup = new Q3VButtonGroup(i18n("Select monopd Server"), this, "bgroup");
-	bgroup->setExclusive(true);
+	QGroupBox *bgroup = new QGroupBox(i18n("Select monopd Server"), this);
+	bgroup->setObjectName("bgroup");
 	m_mainLayout->addWidget(bgroup);
+
+	QVBoxLayout *bgroupLayout = new QVBoxLayout(bgroup);
 
 	// List of servers
 	m_serverList = new K3ListView( bgroup );
@@ -79,7 +81,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_serverList->addColumn(i18n("Users"));
 	m_serverList->setAllColumnsShowFocus(true);
 	m_serverList->setSorting(1);
-//	m_mainLayout->addWidget(m_serverList);
+	bgroupLayout->addWidget(m_serverList);
 
 	connect(m_serverList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(slotConnect()));
