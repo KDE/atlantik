@@ -23,13 +23,13 @@
 #include <QMouseEvent>
 #include <QResizeEvent>
 #include <QPaintEvent>
+#include <QLinearGradient>
 
 #include <kdebug.h>
 #include <kdeversion.h>
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
-#include <kpixmapeffect.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kstringhandler.h>
@@ -221,7 +221,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			else
 				*m_quartzBlocks = QPixmap(25, m_titleWidth-2);
 
-			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
+			drawQuartzBlocks(m_quartzBlocks, m_estate->color().light(60), m_estate->color());
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 		}
 
@@ -499,7 +499,7 @@ void EstateView::slotNewTrade()
 
 // Kudos to Gallium <gallium@kde.org> for writing the Quartz KWin style and
 // letting me use the ultra slick algorithm!
-void EstateView::drawQuartzBlocks(QPixmap *pi, QPixmap &p, const QColor &c1, const QColor &c2)
+void EstateView::drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c2)
 {
 	QPainter px;
 
@@ -508,7 +508,10 @@ void EstateView::drawQuartzBlocks(QPixmap *pi, QPixmap &p, const QColor &c1, con
 
 	px.begin(pi);
 
-	KPixmapEffect::gradient(p, c1, c2, KPixmapEffect::HorizontalGradient);
+	QLinearGradient gradient(0, 0, pi->width(), 0);
+	gradient.setColorAt(0, c1);
+	gradient.setColorAt(1, c2);
+	px.fillRect(pi->rect(), gradient);
 
 	px.fillRect( 2, 1, 3, 3, c1.light(120) );
 	px.fillRect( 2, 5, 3, 3, c1 );

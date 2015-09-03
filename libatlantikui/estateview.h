@@ -64,7 +64,7 @@ private:
 	void updateToolTip();
 
 		QPixmap *rotatePixmap(QPixmap *);
-		void drawQuartzBlocks(QPixmap *pi, QPixmap &p, const QColor &c1, const QColor &c2);
+		void drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c2);
 		void repositionPortfolioEstate();
 
 		Estate *m_estate;
