@@ -101,7 +101,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	emit msgStatus(i18n("Connecting to %1:%2...", host, port), "connect-creating");
+	emit msgStatus(i18n("Connecting to %1:%2...", host, port), "network-disconnect");
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connect(host, QString::number(port));

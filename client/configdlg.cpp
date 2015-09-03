@@ -53,7 +53,7 @@ ConfigDialog::ConfigDialog(Atlantik* parent) :
 	configPlayer->setObjectName("configPlayer");
 	pageItem = new KPageWidgetItem(configPlayer, i18n("Personalization"));
     pageItem->setHeader(i18n("Personalization"));
-	pageItem->setIcon(KIcon("user"));
+	pageItem->setIcon(KIcon("user-identity"));
     addPage(pageItem);	
 	
 	configBoard = new ConfigBoard(this, 0);

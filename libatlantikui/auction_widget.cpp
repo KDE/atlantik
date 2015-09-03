@@ -68,7 +68,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 		if ( (player = *it) && player->game() == pSelf->game() )
 		{
 			item = new K3ListViewItem(m_playerList, player->name(), QString("0"));
-			item->setPixmap(0, QPixmap(SmallIcon("personal")));
+			item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
 			m_playerItems[player] = item;
 
 			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));

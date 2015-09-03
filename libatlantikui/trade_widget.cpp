@@ -141,12 +141,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new KPushButton(KIcon("cancel"), i18n("Reject"), mainWidget());
+	m_rejectButton = new KPushButton(KIcon("dialog-cancel"), i18n("Reject"), mainWidget());
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new KPushButton(KIcon("ok"), i18n("Accept"), mainWidget());
+	m_acceptButton = new KPushButton(KIcon("dialog-ok"), i18n("Accept"), mainWidget());
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 
@@ -191,8 +191,8 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 	K3ListViewItem *item = new K3ListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18nc("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
-	item->setPixmap(0, QPixmap(SmallIcon("personal")));
-	item->setPixmap(2, QPixmap(SmallIcon("personal")));
+	item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
+	item->setPixmap(2, QPixmap(SmallIcon("user-identity")));
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(tradeItem))
 		item->setPixmap(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
@@ -216,9 +216,9 @@ void TradeDisplay::tradeItemChanged(TradeItem *t)
 	if (item)
 	{
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
-		item->setPixmap(0, QPixmap(SmallIcon("personal")));
+		item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
 		item->setText(2, t->to() ? t->to()->name() : QString("?"));
-		item->setPixmap(2, QPixmap(SmallIcon("personal")));
+		item->setPixmap(2, QPixmap(SmallIcon("user-identity")));
 		item->setText(3, t->text());
 	}
 }
