@@ -139,6 +139,7 @@ void AtlantikNetwork::slotClosed()
 
 void AtlantikNetwork::writeData(QString data) {
 
+	emit networkEvent(data, "arrow-right");
 	//data.append("\n");
 	m_monopdstream << data << endl;
 	kDebug() << "writing Data: " << data << endl;
