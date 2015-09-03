@@ -25,7 +25,7 @@
 
 class QLabel;
 class Q3ListViewItem;
-class Q3GroupBox;
+class QGroupBox;
 class QSpinBox;
 
 class K3ListView;
@@ -77,7 +77,7 @@ Q_SIGNALS:
 	void accept(Trade *trade);
 
 private:
-	Q3GroupBox *m_updateComponentBox;
+	QGroupBox *m_updateComponentBox;
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
 	QSpinBox *m_moneyBox;
 

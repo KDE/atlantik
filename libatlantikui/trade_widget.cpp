@@ -18,7 +18,7 @@
 
 #include <QLayout>
 #include <q3header.h>
-#include <Qt3Support/Q3GroupBox>
+#include <QGroupBox>
 #include <qcursor.h>
 #include <qvalidator.h>
 #include <QMap>
@@ -62,16 +62,20 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
 	listCompBox->setMargin(0);
 
-	m_updateComponentBox = new Q3GroupBox(1, Qt::Vertical,i18n("Add Component"), mainWidget());
+	m_updateComponentBox = new QGroupBox(i18n("Add Component"), mainWidget());
 	listCompBox->addWidget(m_updateComponentBox);
+
+	QHBoxLayout *updateComponentBoxLayout = new QHBoxLayout(m_updateComponentBox);
 
 	m_editTypeCombo = new KComboBox(m_updateComponentBox);
 	m_editTypeCombo->addItem(i18n("Estate"));
 	m_editTypeCombo->addItem(i18n("Money"));
+	updateComponentBoxLayout->addWidget(m_editTypeCombo);
 
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
 
 	m_estateCombo = new KComboBox(m_updateComponentBox);
+	updateComponentBoxLayout->addWidget(m_estateCombo);
 	Q3PtrList<Estate> estateList = m_atlanticCore->estates();
 	Estate *estate;
 	for (Q3PtrListIterator<Estate> it(estateList); *it; ++it)
@@ -89,17 +93,22 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_moneyBox = new QSpinBox(m_updateComponentBox);
 	m_moneyBox->setRange(0, 10000);
 	m_moneyBox->setSingleStep(1);
+	updateComponentBoxLayout->addWidget(m_moneyBox);
 
 	Q3PtrList<Player> playerList = m_atlanticCore->players();
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
 	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
+	updateComponentBoxLayout->addWidget(m_fromLabel);
 	m_playerFromCombo = new KComboBox(m_updateComponentBox);
+	updateComponentBoxLayout->addWidget(m_playerFromCombo);
 
 	m_toLabel = new QLabel(m_updateComponentBox);
 	m_toLabel->setText(i18n("To"));
+	updateComponentBoxLayout->addWidget(m_toLabel);
 	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
+	updateComponentBoxLayout->addWidget(m_playerTargetCombo);
 
 	for (Q3PtrListIterator<Player> it(playerList); *it; ++it)
 	{
@@ -119,6 +128,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_updateButton = new KPushButton(i18n("Update"), m_updateComponentBox);
 	m_updateButton->setEnabled(false);
+	updateComponentBoxLayout->addWidget(m_updateButton);
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 

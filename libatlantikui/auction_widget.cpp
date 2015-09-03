@@ -21,7 +21,7 @@
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <Q3PtrList>
-#include <Q3GroupBox>
+#include <QGroupBox>
 #include <kdebug.h>
 
 #include <kdialog.h>
@@ -50,13 +50,17 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	// Player list
 	Estate *estate = auction->estate();
-	m_playerGroupBox = new Q3GroupBox(1, Qt::Horizontal,estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"), this, "groupBox");
+	m_playerGroupBox = new QGroupBox(estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"), this);
+	m_playerGroupBox->setObjectName("groupBox");
 	m_mainLayout->addWidget(m_playerGroupBox);
+
+	QVBoxLayout *playerGroupBoxLayout = new QVBoxLayout(m_playerGroupBox);
 
 	m_playerList = new K3ListView(m_playerGroupBox);
 	m_playerList->addColumn(i18n("Player"));
 	m_playerList->addColumn(i18n("Bid"));
 	m_playerList->setSorting(1, false);
+	playerGroupBoxLayout->addWidget(m_playerList);
 
 	K3ListViewItem *item;
 	Player *player, *pSelf = m_atlanticCore->playerSelf();

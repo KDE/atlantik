@@ -26,7 +26,7 @@
 
 #include <k3listview.h>
 
-class Q3GroupBox;
+class QGroupBox;
 class QSpinBox;
 class QLabel;
 
@@ -54,7 +54,7 @@ signals:
 
 private:
 	QVBoxLayout *m_mainLayout;
-	Q3GroupBox *m_playerGroupBox;
+	QGroupBox *m_playerGroupBox;
 	QSpinBox *m_bidSpinBox;
 	QMap<Player *, K3ListViewItem *> m_playerItems;
 	QLabel *m_statusLabel;

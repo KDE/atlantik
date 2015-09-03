@@ -15,7 +15,7 @@
 // Boston, MA 02110-1301, USA.
 
 #include <QLayout>
-#include <q3groupbox.h>
+#include <qgroupbox.h>
 
 #include <QLabel>
 //Added by qt3to4:
@@ -273,34 +273,41 @@ ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent) : QWidget(
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setMargin(0);
 
-	Q3GroupBox *box = new Q3GroupBox(1, Qt::Horizontal, i18n("Game Status Feedback"), parent);
+	QGroupBox *box = new QGroupBox(i18n("Game Status Feedback"), parent);
 	layout->addWidget(box);
 
+	QVBoxLayout *boxLayout = new QVBoxLayout(box);
+
 	m_indicateUnowned = new QCheckBox(i18n("Display title deed card on unowned properties"), box);
+	boxLayout->addWidget(m_indicateUnowned);
 	QString message=i18n(
 		"If checked, unowned properties on the board display an estate\n"
 		"card to indicate the property is for sale.\n");
 	m_indicateUnowned->setWhatsThis( message);
 
 	m_highliteUnowned = new QCheckBox(i18n("Highlight unowned properties"), box);
+	boxLayout->addWidget(m_highliteUnowned);
 	message=i18n(
 		"If checked, unowned properties on the board are highlighted to\n"
 		"indicate the property is for sale.\n");
 	m_highliteUnowned->setWhatsThis( message);
 
 	m_darkenMortgaged = new QCheckBox(i18n("Darken mortgaged properties"), box);
+	boxLayout->addWidget(m_darkenMortgaged);
 	message=i18n(
 		"If checked, mortgaged properties on the board will be colored\n"
 		"darker than of the default color.\n");
 	m_darkenMortgaged->setWhatsThis( message);
 
 	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
+	boxLayout->addWidget(m_animateToken);
 	message=i18n(
 		"If checked, tokens will move across the board\n"
 		"instead of jumping directly to their new location.\n");
 	m_animateToken->setWhatsThis( message);
 
 	m_quartzEffects = new QCheckBox(i18n("Quartz effects"), box);
+	boxLayout->addWidget(m_quartzEffects);
 	message=i18n(
 		"If checked, the colored headers of street estates on the board "
 		"will have a Quartz effect similar to the Quartz KWin style.\n");
