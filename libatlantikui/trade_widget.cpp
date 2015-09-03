@@ -60,7 +60,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	setCaption(i18n("Trade %1", trade->tradeId()));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
-	listCompBox->setSpacing(KDialog::marginHint());
+	listCompBox->setMargin(0);
 
 	m_updateComponentBox = new Q3GroupBox(1, Qt::Vertical,i18n("Add Component"), mainWidget());
 	listCompBox->addWidget(m_updateComponentBox);

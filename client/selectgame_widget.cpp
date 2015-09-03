@@ -43,7 +43,7 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 
 	m_mainLayout = new QVBoxLayout( this );
         Q_CHECK_PTR(m_mainLayout);
-        m_mainLayout->setMargin( KDialog::marginHint());
+        m_mainLayout->setMargin(0);
 
 	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this);
 	groupBox->setObjectName(QLatin1String("groupBox"));
@@ -68,7 +68,6 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 
 	QHBoxLayout *buttonBox = new QHBoxLayout();
         m_mainLayout->addItem( buttonBox );
-	buttonBox->setSpacing(KDialog::spacingHint());
 
 	KPushButton *backButton = new KPushButton(KIcon("go-previous"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);

@@ -171,7 +171,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	setWindowTitle(i18n("Event Log"));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
-	listCompBox->setSpacing(KDialog::marginHint());
+	listCompBox->setMargin(0);
 
 	m_eventList = new QTreeView(mainWidget());
 	m_eventList->setObjectName( "eventList" );

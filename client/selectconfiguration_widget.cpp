@@ -42,7 +42,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_game = 0;
 
 	m_mainLayout = new QVBoxLayout(this );
-        m_mainLayout->setMargin( KDialog::marginHint() );
+        m_mainLayout->setMargin(0);
 	Q_CHECK_PTR(m_mainLayout);
 
 	// Game configuration.
@@ -56,7 +56,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	QHBoxLayout *playerButtons = new QHBoxLayout();
         m_mainLayout->addItem( playerButtons );
 	playerButtons->setSpacing(KDialog::spacingHint());
-	playerButtons->setMargin(0);
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
@@ -67,7 +66,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	QHBoxLayout *serverButtons = new QHBoxLayout();
         m_mainLayout->addItem( serverButtons );
 	serverButtons->setSpacing(KDialog::spacingHint());
-	serverButtons->setMargin(0);
 
 	m_backButton = new KPushButton(KIcon("go-previous"), i18n("Leave Game"), this);
 	serverButtons->addWidget(m_backButton);
