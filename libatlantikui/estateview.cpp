@@ -63,7 +63,13 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	updatePE();
 
 	icon = new QPixmap(KStandardDirs::locate("data", "atlantik/pics/" + _icon));
-	icon = rotatePixmap(icon);
+	if (icon->isNull())
+	{
+		delete icon;
+		icon = 0;
+	}
+	else
+		icon = rotatePixmap(icon);
 
 	updateToolTip();
 }
