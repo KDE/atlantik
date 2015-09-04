@@ -22,6 +22,7 @@
 #include <QVBoxLayout>
 #include <Q3PtrList>
 #include <QGroupBox>
+#include <QHeaderView>
 #include <kdebug.h>
 
 #include <kdialog.h>
@@ -56,13 +57,14 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	QVBoxLayout *playerGroupBoxLayout = new QVBoxLayout(m_playerGroupBox);
 
-	m_playerList = new K3ListView(m_playerGroupBox);
-	m_playerList->addColumn(i18n("Player"));
-	m_playerList->addColumn(i18n("Bid"));
-	m_playerList->setSorting(1, false);
+	m_playerList = new QTreeWidget(m_playerGroupBox);
+	m_playerList->setHeaderLabels(QStringList() << i18n("Player") << i18n("Bid"));
+	m_playerList->setRootIsDecorated(false);
+	m_playerList->header()->setClickable(false);
+	m_playerList->header()->setResizeMode(QHeaderView::ResizeToContents);
 	playerGroupBoxLayout->addWidget(m_playerList);
 
-	K3ListViewItem *item;
+	QList<QTreeWidgetItem *> items;
 	Player *player, *pSelf = m_atlanticCore->playerSelf();
 
 	Q3PtrList<Player> playerList = m_atlanticCore->players();
@@ -70,13 +72,17 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	{
 		if ( (player = *it) && player->game() == pSelf->game() )
 		{
-			item = new K3ListViewItem(m_playerList, player->name(), QString("0"));
-			item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
+			QTreeWidgetItem *item = new QTreeWidgetItem();
+			item->setText(0, player->name());
+			item->setText(1, QString("0"));
+			item->setIcon(0, KIcon("user-identity"));
 			m_playerItems[player] = item;
+			items << item;
 
 			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 		}
 	}
+	m_playerList->addTopLevelItems(items);
 
 	// Bid spinbox and button
 	KHBox *bidBox = new KHBox(this);
@@ -124,12 +130,11 @@ void AuctionWidget::playerChanged(Player *player)
 	if (!player)
 		return;
 
-	Q3ListViewItem *item;
+	QTreeWidgetItem *item;
 	if (!(item = m_playerItems[player]))
 		return;
 
 	item->setText(0, player->name());
-	m_playerList->triggerUpdate();
 }
 
 void AuctionWidget::updateBid(Player *player, int amount)
@@ -137,13 +142,12 @@ void AuctionWidget::updateBid(Player *player, int amount)
 	if (!player)
 		return;
 
-	Q3ListViewItem *item;
+	QTreeWidgetItem *item;
 	if (!(item = m_playerItems[player]))
 		return;
 
 	item->setText(1, QString::number(amount));
 	m_bidSpinBox->setMinimum(amount+1);
-	m_playerList->triggerUpdate();
 }
 
 void AuctionWidget::slotBidButtonClicked()

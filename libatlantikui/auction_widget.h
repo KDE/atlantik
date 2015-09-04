@@ -23,14 +23,11 @@
 //Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>
-
-#include <k3listview.h>
+#include <QTreeWidget>
 
 class QGroupBox;
 class QSpinBox;
 class QLabel;
-
-class K3ListViewItem;
 
 class AtlanticCore;
 class Player;
@@ -56,10 +53,10 @@ private:
 	QVBoxLayout *m_mainLayout;
 	QGroupBox *m_playerGroupBox;
 	QSpinBox *m_bidSpinBox;
-	QMap<Player *, K3ListViewItem *> m_playerItems;
+	QMap<Player *, QTreeWidgetItem *> m_playerItems;
 	QLabel *m_statusLabel;
 
-	K3ListView *m_playerList;
+	QTreeWidget *m_playerList;
 
 	AtlanticCore *m_atlanticCore;
 	Auction *m_auction;
