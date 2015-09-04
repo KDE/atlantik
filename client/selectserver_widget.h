@@ -30,9 +30,9 @@
 #include <klineedit.h>
 #include <kpushbutton.h>
 
-#include "monopigator.h"
-
 class QTcpSocket;
+
+class Metatlantic;
 
 class MetaserverEntry : public QObject, public QTreeWidgetItem
 {
@@ -79,13 +79,13 @@ public:
 public slots:
 	void validateConnectButton();
 	void slotRefresh(bool useMonopigator = true);
-	void slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users);
+	void slotMetatlanticAdd(QString host, int port, QString version, int users);
 
 private slots:
 	void slotConnect();
 	void customConnect();
-	void monopigatorFinished();
-	void monopigatorTimeout();
+	void metatlanticFinished();
+	void metatlanticTimeout();
 
 signals:
 	void serverConnect(const QString host, int port);
@@ -100,7 +100,7 @@ private:
 	QTreeWidget *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
-	Monopigator *m_monopigator;
+	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;
 };
 

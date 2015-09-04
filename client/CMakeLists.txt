@@ -18,6 +18,7 @@ set(atlantik_SRCS
    event.cpp 
    eventlogwidget.cpp 
    main.cpp 
+   metatlantic.cpp
    monopigator.cpp 
    selectconfiguration_widget.cpp 
    selectgame_widget.cpp 

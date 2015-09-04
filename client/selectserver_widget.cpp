@@ -32,6 +32,8 @@
 #include <kiconloader.h>
 #include <kdebug.h>
 
+#include "metatlantic.h"
+
 #include "selectserver_widget.moc"
 
 MetaserverEntry::MetaserverEntry(const QString &host, const QString &ip, const QString &port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port.toInt())
@@ -187,16 +189,16 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
 	// Monopigator
-	m_monopigator = new Monopigator();
+	m_metatlantic = new Metatlantic();
 
-	connect(m_monopigator, SIGNAL(monopigatorAdd(QString, QString, QString, QString, int)), this, SLOT(slotMonopigatorAdd(QString, QString, QString, QString, int)));
-	connect(m_monopigator, SIGNAL(finished()), SLOT(monopigatorFinished()));
-	connect(m_monopigator, SIGNAL(timeout()), SLOT(monopigatorTimeout()));
+	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
+	connect(m_metatlantic, SIGNAL(finished()), SLOT(metatlanticFinished()));
+	connect(m_metatlantic, SIGNAL(timeout()), SLOT(metatlanticTimeout()));
 }
 
 SelectServer::~SelectServer()
 {
-	delete m_monopigator;
+	delete m_metatlantic;
 }
 
 void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
@@ -210,16 +212,16 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 
 void SelectServer::initMonopigator()
 {
-	// Hardcoded, but there aren't any other Monopigator root servers at the moment
+	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
 	emit msgStatus(i18n("Retrieving server list..."));
 
 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "view-refresh"));
-	m_monopigator->loadData(KUrl( "http://monopd-gator.kde.org/"));
+	m_metatlantic->loadData("meta.atlanticd.net", 1240);
 }
 
-void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)
+void SelectServer::slotMetatlanticAdd(QString host, int port, QString version, int users)
 {
-	MetaserverEntry *item = new MetaserverEntry(host, ip, port, version, users);
+	MetaserverEntry *item = new MetaserverEntry(host, QString(), QString::number(port), version, users);
 	m_serverList->addTopLevelItem(item);
 	m_serverList->resizeColumnToContents(0);
 
@@ -232,13 +234,13 @@ void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QS
 	validateConnectButton();
 }
 
-void SelectServer::monopigatorFinished()
+void SelectServer::metatlanticFinished()
 {
 	emit msgStatus(i18n("Retrieved server list."));
 	m_refreshButton->setEnabled(true);
 }
 
-void SelectServer::monopigatorTimeout()
+void SelectServer::metatlanticTimeout()
 {
 	emit msgStatus(i18n("Error while retrieving the server list."));
 	m_refreshButton->setEnabled(true);
