@@ -141,14 +141,14 @@ Atlantik::Atlantik ()
         m_buyEstate->setText(i18n("&Buy"));
 	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) );
 	m_buyEstate->setIcon(KIcon("atlantik_buy_estate"));
-	connect (m_buyEstate,SIGNAL(toggled(bool)), this, SIGNAL(buyEstate()));
+	connect (m_buyEstate,SIGNAL(triggered()), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
 	m_auctionEstate = actionCollection()->addAction("auction");
         m_auctionEstate->setText(i18n("&Auction"));
 	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A));
 	m_auctionEstate->setIcon(KIcon("auction"));
-	connect(m_auctionEstate,SIGNAL(toggled(bool)),this, SIGNAL(auctionEstate()));
+	connect(m_auctionEstate,SIGNAL(triggered()),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
 
@@ -158,20 +158,20 @@ Atlantik::Atlantik ()
 
 	m_jailCard = actionCollection()->addAction("move_jailcard");
         m_jailCard->setText(i18n("Use Card to Leave Jail"));
-	connect(m_jailCard, SIGNAL(toggled(bool)),this, SIGNAL(jailCard()));
+	connect(m_jailCard, SIGNAL(triggered()),this, SIGNAL(jailCard()));
 	m_jailCard->setEnabled(false);
 
 	m_jailPay = actionCollection()->addAction("jail_pay");
         m_jailPay->setText(i18n("&Pay to Leave Jail"));
 	m_jailPay->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
 	m_jailPay->setIcon(KIcon("jail_pay"));
-	connect(m_jailPay, SIGNAL(toggled(bool)),this, SIGNAL(jailPay()));
+	connect(m_jailPay, SIGNAL(triggered()),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 
 	m_jailRoll = actionCollection()->addAction("move_jailroll");
         m_jailRoll->setText(i18n("Roll to Leave &Jail"));
 	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
-	connect(m_jailRoll, SIGNAL(toggled(bool)), this, SIGNAL(jailRoll()));
+	connect(m_jailRoll, SIGNAL(triggered()), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
