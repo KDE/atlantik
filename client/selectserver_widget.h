@@ -23,13 +23,44 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QElapsedTimer>
 
 #include <klineedit.h>
-#include <k3listview.h>
 #include <kpushbutton.h>
 
 #include "monopigator.h"
 
+class QTcpSocket;
+
+class MetaserverEntry : public QObject, public QTreeWidgetItem
+{
+Q_OBJECT
+
+public:
+	enum { MetaserverType = UserType + 1 };
+
+	MetaserverEntry(const QString &host, const QString &ip, const QString &port, const QString &version, int users);
+	bool isDev() const;
+	QString host() const;
+	int port() const;
+
+	bool operator<(const QTreeWidgetItem &other) const;
+
+private slots:
+	void resolved();
+	void connected();
+	void showDevelopmentServers(bool show);
+
+private:
+	int m_latency;
+	int m_users;
+	int m_port;
+	QTcpSocket *m_latencySocket;
+	QElapsedTimer m_timer;
+	bool m_isDev;
+};
 
 class SelectServer : public QWidget
 {
@@ -66,7 +97,7 @@ private:
 
 	QVBoxLayout *m_mainLayout;
 	QHBoxLayout *m_customLayout;
-	K3ListView *m_serverList;
+	QTreeWidget *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
 	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
 	Monopigator *m_monopigator;

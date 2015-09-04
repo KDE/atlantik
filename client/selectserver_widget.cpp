@@ -18,6 +18,8 @@
 #include <QLayout>
 #include <qradiobutton.h>
 #include <qsizepolicy.h>
+#include <QTcpSocket>
+#include <QHeaderView>
 
 #include <qgroupbox.h>
 //Added by qt3to4:
@@ -28,8 +30,78 @@
 //#include <kextendedsocket.h>
 #include <klocale.h>
 #include <kiconloader.h>
+#include <kdebug.h>
 
 #include "selectserver_widget.moc"
+
+MetaserverEntry::MetaserverEntry(const QString &host, const QString &ip, const QString &port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port.toInt())
+{
+	setText(0, host);
+	setText(1, QString::number(m_latency));
+	setText(2, version);
+	setText(3, users == -1 ? i18n("unknown") : QString::number(m_users));
+	setIcon(0, KIcon("atlantik"));
+	setDisabled(true);
+
+	m_isDev = version.indexOf("CVS") != -1 || version.indexOf("-dev") != -1;
+
+	m_latencySocket = new QTcpSocket();
+	m_latencySocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
+	connect(m_latencySocket, SIGNAL(hostFound()), this, SLOT(resolved()));
+	connect(m_latencySocket, SIGNAL(connected()), this, SLOT(connected()));
+
+	m_latencySocket->connectToHost(!ip.isEmpty() ? ip : host, m_port);
+}
+
+bool MetaserverEntry::isDev() const
+{
+	return m_isDev;
+}
+
+QString MetaserverEntry::host() const
+{
+	return text(0);
+}
+
+int MetaserverEntry::port() const
+{
+	return m_port;
+}
+
+bool MetaserverEntry::operator<(const QTreeWidgetItem &other) const
+{
+	if (other.type() != MetaserverType)
+		return QTreeWidgetItem::operator<(other);
+
+	// sort by (less) latency first, then (most) users, then by host
+	const MetaserverEntry *e = static_cast<const MetaserverEntry *>(&other);
+	if (m_latency < e->m_latency)
+		return true;
+	if (m_users > e->m_users)
+		return true;
+	return QString::compare(host(), e->host()) > 0;
+}
+
+void MetaserverEntry::resolved()
+{
+	m_timer.start();
+	kDebug() << host() << "resolved; timer starts" << endl;
+}
+
+void MetaserverEntry::connected()
+{
+	m_latency = m_timer.elapsed();
+	m_latencySocket->abort();
+	kDebug() << "connected to" << host() << "- latency =" << m_latency << endl;
+	setText(1, QString::number(m_latency));
+	setDisabled(false);
+	delete m_latencySocket;
+}
+
+void MetaserverEntry::showDevelopmentServers(bool show)
+{
+	setHidden(!show);
+}
 
 SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent)
     : QWidget(parent)
@@ -75,20 +147,26 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	QVBoxLayout *bgroupLayout = new QVBoxLayout(bgroup);
 
 	// List of servers
-	m_serverList = new K3ListView( bgroup );
+	m_serverList = new QTreeWidget(bgroup);
 	m_serverList->setObjectName( "m_serverList" );
-	m_serverList->addColumn(i18n("Host"));
-	m_serverList->addColumn(i18n("Latency"));
-	m_serverList->addColumn(i18n("Version"));
-	m_serverList->addColumn(i18n("Users"));
-	m_serverList->setAllColumnsShowFocus(true);
-	m_serverList->setSorting(1);
+	QStringList headers;
+	headers << i18n("Host");
+	headers << i18n("Latency");
+	headers << i18n("Version");
+	headers << i18n("Users");
+	m_serverList->setHeaderLabels(headers);
+	m_serverList->setRootIsDecorated(false);
+	m_serverList->setSortingEnabled(true);
+	m_serverList->sortItems(1, Qt::AscendingOrder);
+	m_serverList->header()->setClickable(false);
+	m_serverList->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+	m_serverList->header()->setResizeMode(2, QHeaderView::ResizeToContents);
+	m_serverList->header()->setResizeMode(3, QHeaderView::ResizeToContents);
 	bgroupLayout->addWidget(m_serverList);
 
-	connect(m_serverList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
-	connect(m_serverList, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(slotConnect()));
-	connect(m_serverList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_serverList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_serverList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
+	connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotConnect()));
+	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout();
         m_mainLayout->addItem( buttonBox );
@@ -141,12 +219,13 @@ void SelectServer::initMonopigator()
 
 void SelectServer::slotMonopigatorAdd(QString ip, QString host, QString port, QString version, int users)
 {
-	MonopigatorEntry *item = new MonopigatorEntry(m_serverList, host, QString::number(9999), version, (users == -1) ? i18n("unknown") : QString::number(users), port, ip);
-	item->setPixmap(0, BarIcon("atlantik", KIconLoader::SizeSmall));
+	MetaserverEntry *item = new MetaserverEntry(host, ip, port, version, users);
+	m_serverList->addTopLevelItem(item);
+	m_serverList->resizeColumnToContents(0);
 
 	if ( item->isDev() )
 	{
-		item->setVisible( !m_hideDevelopmentServers );
+		item->setHidden(m_hideDevelopmentServers);
 		connect(this, SIGNAL(showDevelopmentServers(bool)), item, SLOT(showDevelopmentServers(bool)));
 	}
 
@@ -167,7 +246,7 @@ void SelectServer::monopigatorTimeout()
 
 void SelectServer::validateConnectButton()
 {
-	if (m_serverList->selectedItem())
+	if (!m_serverList->selectedItems().isEmpty())
 		m_connectButton->setEnabled(true);
 	else
 		m_connectButton->setEnabled(false);
@@ -187,8 +266,14 @@ void SelectServer::slotRefresh(bool useMonopigator)
 
 void SelectServer::slotConnect()
 {
-	if (Q3ListViewItem *item = m_serverList->selectedItem())
-		emit serverConnect(item->text(0), item->text(4).toInt());
+	const QList<QTreeWidgetItem *> items = m_serverList->selectedItems();
+	if (!items.isEmpty())
+	{
+		const QTreeWidgetItem *item = items.first();
+		Q_ASSERT(item->type() == MetaserverEntry::MetaserverType);
+		const MetaserverEntry *e = static_cast<const MetaserverEntry *>(item);
+		emit serverConnect(e->host(), e->port());
+	}
 }
 
 void SelectServer::customConnect()
