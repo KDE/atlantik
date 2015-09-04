@@ -24,7 +24,7 @@
 #include <QHBoxLayout>
 #include <QResizeEvent>
 #include <QPaintEvent>
-#include <Q3PtrList>
+#include <QVector>
 #include <QSignalMapper>
 
 class QPixmap;
@@ -73,7 +73,7 @@ private:
 	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
 	QSignalMapper m_buttonCommandMapper;
-	Q3PtrList<KPushButton> m_buttons;
+	QVector<KPushButton *> m_buttons;
 };
 
 #endif

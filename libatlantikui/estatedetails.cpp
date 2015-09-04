@@ -17,7 +17,6 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <QLayout>
-#include <q3ptrlist.h>
 #include <QRegExp>
 //Added by qt3to4:
 #include <QPaintEvent>
@@ -52,7 +51,7 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	m_estate = 0;
 
 	m_closeButton = 0;
-	m_buttons.setAutoDelete(true);
+	m_buttons.reserve(3); // Usually there are no more than 3 action buttons
 
 	m_mainLayout = new QVBoxLayout(this );
 	Q_CHECK_PTR(m_mainLayout);
@@ -327,8 +326,9 @@ void EstateDetails::clearButtons()
 	foreach (KPushButton *button, m_buttons)
 	{
 		m_buttonCommandMapper.removeMappings((QObject *)button);
+		delete button;
 	}
-	m_buttons.clear();
+	m_buttons.resize(0); // Keep the capacity allocated
 }
 
 #include "estatedetails.moc"
