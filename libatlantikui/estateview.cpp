@@ -68,6 +68,13 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	updateToolTip();
 }
 
+EstateView::~EstateView()
+{
+	delete qpixmap;
+	delete icon;
+	delete m_quartzBlocks;
+}
+
 void EstateView::updateToolTip()
 {
 	setToolTip(QString());

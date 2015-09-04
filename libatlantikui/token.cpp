@@ -62,6 +62,7 @@ Token::Token(Player *player, AtlantikBoard *parent) : QWidget(parent)
 Token::~Token()
 {
 	delete m_image;
+	delete qpixmap;
 }
 
 Player *Token::player()
