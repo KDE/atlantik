@@ -144,7 +144,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_componentList, SIGNAL(contextMenu(K3ListView*, Q3ListViewItem *, const QPoint&)), SLOT(contextMenu(K3ListView *, Q3ListViewItem *, const QPoint&)));
 	connect(m_componentList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(setCombos(Q3ListViewItem *)));
 
-	QHBoxLayout *actionBox = new QHBoxLayout(mainWidget());
+	QHBoxLayout *actionBox = new QHBoxLayout();
 	actionBox->setSpacing(KDialog::spacingHint());
 	actionBox->setMargin(0);
 	listCompBox->addItem(actionBox);
