@@ -73,6 +73,8 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
 	setEstate(estate);
+
+	connect(&m_buttonCommandMapper, SIGNAL(mapped(QString)), this, SIGNAL(buttonCommand(QString)));
 }
 
 EstateDetails::~EstateDetails()
@@ -248,7 +250,7 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 {
 	KPushButton *button = new KPushButton(caption, this);
 	m_buttons.append(button);
-	m_buttonCommandMap[(QObject *)button] = command;
+	m_buttonCommandMapper.setMapping((QObject *)button, command);
 	m_buttonBox->addWidget(button);
 
 	if (m_estate)
@@ -265,7 +267,7 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 	button->setEnabled(enabled);
 	button->show();
 
-	connect(button, SIGNAL(pressed()), this, SLOT(buttonPressed()));
+	connect(button, SIGNAL(pressed()), &m_buttonCommandMapper, SLOT(map()));
 }
 
 void EstateDetails::addCloseButton()
@@ -322,13 +324,11 @@ void EstateDetails::clearButtons()
 	}
 
 	// Delete buttons
+	foreach (KPushButton *button, m_buttons)
+	{
+		m_buttonCommandMapper.removeMappings((QObject *)button);
+	}
 	m_buttons.clear();
-	m_buttonCommandMap.clear();
-}
-
-void EstateDetails::buttonPressed()
-{
-	emit buttonCommand(QString(m_buttonCommandMap[(QObject *)QObject::sender()]));
 }
 
 #include "estatedetails.moc"

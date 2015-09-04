@@ -25,6 +25,7 @@
 #include <QResizeEvent>
 #include <QPaintEvent>
 #include <Q3PtrList>
+#include <QSignalMapper>
 
 class QPixmap;
 class QHBoxLayout;
@@ -57,9 +58,6 @@ protected:
 	void paintEvent(QPaintEvent *);
 	void resizeEvent(QResizeEvent *);
 
-private slots:
-	void buttonPressed();
-
 signals:
 	void buttonCommand(const QString&);
 	void buttonClose();
@@ -74,7 +72,7 @@ private:
 	QVBoxLayout *m_mainLayout;
 	QHBoxLayout *m_buttonBox;
 	QVGroupBox *m_textGroupBox;
-	QMap <QObject *, QString> m_buttonCommandMap;
+	QSignalMapper m_buttonCommandMapper;
 	Q3PtrList<KPushButton> m_buttons;
 };
 
