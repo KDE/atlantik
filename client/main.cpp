@@ -20,7 +20,7 @@
 #include <kapplication.h>
 #include <kglobal.h>
 
-#include "main.h"
+#include "version.h"
 #include "atlantik.h"
 
 int main(int argc, char *argv[])

@@ -14,8 +14,8 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#ifndef ATLANTIK_MAIN_H
-#define ATLANTIK_MAIN_H
+#ifndef ATLANTIK_VERSION_H
+#define ATLANTIK_VERSION_H
 
 #define	ATLANTIK_VERSION 075
 #define	ATLANTIK_VERSION_STRING "0.7.5"
@@ -23,7 +23,5 @@
 #define ATLANTIK_VERSION_MAJOR 0
 #define ATLANTIK_VERSION_MINOR 7
 #define ATLANTIK_VERSION_RELEASE 5
-
-int main(int, char *[]);
 
 #endif

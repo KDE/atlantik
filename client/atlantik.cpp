@@ -59,7 +59,7 @@
 #include <kglobal.h>
 
 #include "eventlogwidget.h"
-#include "main.h"
+#include "version.h"
 #include "selectserver_widget.h"
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
