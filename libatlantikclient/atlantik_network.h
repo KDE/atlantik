@@ -22,11 +22,12 @@
 #include <QDomNode>
 
 #include <libatlantikclient_export.h>
-#include <k3resolver.h>
-#include <k3bufferedsocket.h>
 #include <kdemacros.h>
 class AtlanticCore;
-class KNetwork::KBufferedSocket;
+namespace KNetwork
+{
+class KBufferedSocket;
+}
 
 class  LIBATLANTIKCLIENT_EXPORT AtlantikNetwork: public QObject
 {
