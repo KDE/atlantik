@@ -19,7 +19,6 @@
 #include <QColor>
 #include <QDateTime>
 #include <QLineEdit>
-#include <q3scrollview.h>
 #include <qmenu.h>
 //Added by qt3to4:
 #include <QVBoxLayout>

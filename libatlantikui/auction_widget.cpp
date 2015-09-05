@@ -20,7 +20,6 @@
 //Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>
-#include <Q3PtrList>
 #include <QGroupBox>
 #include <QHeaderView>
 #include <kdebug.h>

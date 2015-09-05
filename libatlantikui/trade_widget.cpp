@@ -17,7 +17,6 @@
 #include <iostream>
 
 #include <QLayout>
-#include <q3header.h>
 #include <QGroupBox>
 #include <qcursor.h>
 #include <qvalidator.h>
@@ -27,7 +26,6 @@
 //Added by qt3to4:
 #include <QPixmap>
 #include <QCloseEvent>
-#include <Q3PtrList>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 

@@ -21,7 +21,6 @@
 #include <QMouseEvent>
 #include <QResizeEvent>
 #include <QPaintEvent>
-#include <Q3PtrList>
 
 #include <kdebug.h>
 #include <kdialog.h>
