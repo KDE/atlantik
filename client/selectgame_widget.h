@@ -22,8 +22,10 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 
-#include <k3listview.h>
 #include <kpushbutton.h>
+
+class QTreeWidget;
+class QTreeWidgetItem;
 
 class AtlanticCore;
 class Game;
@@ -56,11 +58,11 @@ signals:
 	void msgStatus(const QString &status);
 
 private:
-	Q3ListViewItem *findItem(Game *game);
+	QTreeWidgetItem *findItem(Game *game);
 
 	AtlanticCore *m_atlanticCore;
 	QVBoxLayout *m_mainLayout;
-	K3ListView *m_gameList;
+	QTreeWidget *m_gameList;
 	KPushButton *m_connectButton;
 };
 

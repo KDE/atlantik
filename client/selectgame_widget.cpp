@@ -20,6 +20,8 @@
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QTreeWidget>
+#include <QHeaderView>
 
 #include <kdebug.h>
 #include <kdialog.h>
@@ -32,6 +34,8 @@
 #include <player.h>
 
 #include "selectgame_widget.h"
+
+enum { GameTypeRole = Qt::UserRole + 1 };
 
 SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent) 
         : QWidget(parent)
@@ -51,20 +55,23 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	QVBoxLayout *groupBoxLayout = new QVBoxLayout(groupBox);
 
 	// List of games
-	m_gameList = new K3ListView( groupBox );
+	m_gameList = new QTreeWidget(groupBox);
 	groupBoxLayout->addWidget(m_gameList);
 	m_gameList->setObjectName( "m_gameList" );
-	m_gameList->addColumn(i18n("Game"));
-	m_gameList->addColumn(i18n("Description"));
-	m_gameList->addColumn(i18n("Id"));
-	m_gameList->addColumn(i18n("Players"));
+	QStringList headers;
+	headers << i18n("Game");
+	headers << i18n("Description");
+	headers << i18n("Id");
+	headers << i18n("Players");
+	m_gameList->setHeaderLabels(headers);
+	m_gameList->setRootIsDecorated(false);
 	m_gameList->setAllColumnsShowFocus(true);
+	m_gameList->header()->setClickable(false);
 //	m_mainLayout->addWidget(m_gameList);
 
-	connect(m_gameList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(doubleClicked(Q3ListViewItem *)), this, SLOT(connectClicked()));
-	connect(m_gameList, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(validateConnectButton()));
-	connect(m_gameList, SIGNAL(selectionChanged(Q3ListViewItem *)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
+	connect(m_gameList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(connectClicked()));
+	connect(m_gameList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout();
         m_mainLayout->addItem( buttonBox );
@@ -90,27 +97,41 @@ void SelectGame::addGame(Game *game)
 
 	if (game->id() == -1)
 	{
-		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Create a new %1 Game", game->name()), game->description(), QString::null, QString::null, game->type() );
-		item->setPixmap(0, QPixmap(SmallIcon("document-new")));
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, i18n("Create a new %1 Game", game->name()));
+		item->setText(1, game->description());
+		item->setData(0, GameTypeRole, game->type());
+		item->setIcon(0, KIcon("document-new"));
+		m_gameList->addTopLevelItem(item);
 	}
 	else
 	{
 		Player *master = game->master();
-		Q3ListViewItem *item = new Q3ListViewItem( m_gameList, i18n("Join %1's %2 Game", (master ? master->name() : QString::null), game->name() ), game->description(), QString::number(game->id()), QString::number(game->players()), game->type() );
-		item->setPixmap( 0, QPixmap(SmallIcon("atlantik")) );
-		item->setEnabled(game->canBeJoined());
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name()));
+		item->setText(1, game->description());
+		item->setText(2, QString::number(game->id()));
+		item->setText(3, QString::number(game->players()));
+		item->setData(0, GameTypeRole, game->type());
+		item->setIcon(0, KIcon("atlantik"));
+		item->setDisabled(!game->canBeJoined());
+		m_gameList->addTopLevelItem(item);
 
 		KNotification::event("newgame");
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
+	m_gameList->resizeColumnToContents(0);
+	m_gameList->resizeColumnToContents(1);
+	m_gameList->resizeColumnToContents(2);
+	m_gameList->resizeColumnToContents(3);
 
 //	validateConnectButton();
 }
 
 void SelectGame::delGame(Game *game)
 {
-	Q3ListViewItem *item = findItem(game);
+	QTreeWidgetItem *item = findItem(game);
 	if (!item)
 		return;
 
@@ -121,7 +142,7 @@ void SelectGame::delGame(Game *game)
 
 void SelectGame::updateGame(Game *game)
 {
-	Q3ListViewItem *item = findItem(game);
+	QTreeWidgetItem *item = findItem(game);
 	if (!item)
 		return;
 
@@ -134,49 +155,49 @@ void SelectGame::updateGame(Game *game)
 		Player *master = game->master();
 		item->setText( 0, i18n("Join %1's %2 Game", (master ? master->name() : QString::null), game->name() ) );
 		item->setText( 3, QString::number( game->players() ) );
-		item->setEnabled( game->canBeJoined() );
+		item->setDisabled(!game->canBeJoined());
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
-	m_gameList->triggerUpdate();
 
 	validateConnectButton();
 }
 
 void SelectGame::playerChanged(Player *player)
 {
-	Q3ListViewItem *item = m_gameList->firstChild();
+	const int count = m_gameList->topLevelItemCount();
 	Game *game = 0;
 
-	while (item)
+	for (int i = 0; i < count; ++i)
 	{
+		QTreeWidgetItem *item = m_gameList->topLevelItem(i);
 		game = m_atlanticCore->findGame( item->text(2).toInt() );
 		if ( game && game->master() == player )
 		{
 			item->setText( 0, i18n("Join %1's %2 Game", player->name(), game->name() ) );
 			return;
 		}
-		item = item->nextSibling();
 	}
 }
 
-Q3ListViewItem *SelectGame::findItem(Game *game)
+QTreeWidgetItem *SelectGame::findItem(Game *game)
 {
-	Q3ListViewItem *item = m_gameList->firstChild();
-	while (item)
+	const int count = m_gameList->topLevelItemCount();
+	for (int i = 0; i < count; ++i)
 	{
-		if ( (game->id() == -1 || item->text(2) == QString::number(game->id())) && item->text(4) == game->type() )
+		QTreeWidgetItem *item = m_gameList->topLevelItem(i);
+		if ( (game->id() == -1 || item->text(2) == QString::number(game->id())) && item->data(0, GameTypeRole).toString() == game->type() )
 			return item;
-
-		item = item->nextSibling();
 	}
 	return 0;
 }
 
 void SelectGame::validateConnectButton()
 {
-	if (Q3ListViewItem *item = m_gameList->selectedItem())
+	const QList<QTreeWidgetItem *> items = m_gameList->selectedItems();
+	if (!items.isEmpty())
 	{
+		const QTreeWidgetItem *item = items.first();
 		if (item->text(2).toInt() > 0)
 			m_connectButton->setText(i18n("Join Game"));
 		else
@@ -190,12 +211,14 @@ void SelectGame::validateConnectButton()
 
 void SelectGame::connectClicked()
 {
-	if (Q3ListViewItem *item = m_gameList->selectedItem())
+	const QList<QTreeWidgetItem *> items = m_gameList->selectedItems();
+	if (!items.isEmpty())
 	{
+		const QTreeWidgetItem *item = items.first();
 		if (int gameId = item->text(2).toInt())
 			emit joinGame(gameId);
 		else
-			emit newGame(item->text(4));
+			emit newGame(item->data(0, GameTypeRole).toString());
 	}
 }
 
