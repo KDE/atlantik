@@ -43,12 +43,12 @@ void AtlantikProtocol::get( const KUrl& url )
 	args << "atlantik";
 
 	QString host = url.hasHost() ? url.host() : url.queryItem("host");
-	QString port = QString::number( url.port() ? url.port() : 1234 );
 	int game = url.queryItem("game").toInt();
 	QString gameString = game ? QString::number( game ) : QString::null;
 
-	if (!host.isEmpty() && !port.isEmpty())
+	if (!host.isEmpty())
 	{
+		const QString port = QString::number(url.port(1234));
 		args << "--host" << host << "--port" << port;
 		if (!gameString.isEmpty())
 			args << "--game" << gameString;
