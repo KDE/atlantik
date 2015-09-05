@@ -67,7 +67,7 @@ public:
 	EstateGroup *newEstateGroup(int groupId);
 	EstateGroup *findEstateGroup(int groupId);
 
-	Q3PtrList<Trade> trades();
+	QList<Trade *> trades();
 	Trade *newTrade(int tradeId);
 	Trade *findTrade(int tradeId);
 	void removeTrade(Trade *trade);
@@ -98,7 +98,7 @@ private:
 	QList<Game *> m_games;
 	QList<Estate *> m_estates;
 	QList<EstateGroup *> m_estateGroups;
-	Q3PtrList<Trade> m_trades;
+	QList<Trade *> m_trades;
 	Q3PtrList<Auction> m_auctions;
 	Q3PtrList<ConfigOption> m_configOptions;
 };

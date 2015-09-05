@@ -46,8 +46,7 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_configOptions.clear();
 	m_configOptions.setAutoDelete(false);
 
-	Trade *trade = 0;
-	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	foreach (Trade *trade, m_trades)
 	{
 		emit removeGUI(trade);
 		trade->deleteLater();
@@ -242,7 +241,7 @@ EstateGroup *AtlanticCore::findEstateGroup(int groupId)
 	return 0;
 }
 
-Q3PtrList<Trade> AtlanticCore::trades()
+QList<Trade *> AtlanticCore::trades()
 {
 	return m_trades;
 }
@@ -259,8 +258,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 
 Trade *AtlanticCore::findTrade(int tradeId)
 {
-	Trade *trade = 0;
-	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	foreach (Trade *trade, m_trades)
 		if (trade->tradeId() == tradeId)
 			return trade;
 
@@ -269,7 +267,7 @@ Trade *AtlanticCore::findTrade(int tradeId)
 
 void AtlanticCore::removeTrade(Trade *trade)
 {
-	m_trades.remove(trade);
+	m_trades.removeOne(trade);
 	emit removeGUI(trade);
 	trade->deleteLater();
 }
@@ -340,8 +338,7 @@ void AtlanticCore::printDebug()
 	for (Q3PtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
 		std::cout << " A: " << QString::number(auction->auctionId()).toLatin1().constData() << std::endl;
 
-	Trade *trade = 0;
-	for (Q3PtrListIterator<Trade> it(m_trades); (trade = *it) ; ++it)
+	foreach (Trade *trade, m_trades)
 		std::cout << " T: " << QString::number(trade->tradeId()).toLatin1().constData() << std::endl;
 
 	ConfigOption *configOption = 0;
