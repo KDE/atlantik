@@ -38,9 +38,8 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_auctions.setAutoDelete(true);
 	m_auctions.clear();
 	m_auctions.setAutoDelete(false);
-	m_estates.setAutoDelete(true);
+	qDeleteAll(m_estates);
 	m_estates.clear();
-	m_estates.setAutoDelete(false);
 	m_estateGroups.setAutoDelete(true);
 	m_estateGroups.clear();
 	m_estateGroups.setAutoDelete(false);
@@ -192,7 +191,7 @@ void AtlanticCore::emitGames()
 		emit createGUI(game);
 }
 
-Q3PtrList<Estate> AtlanticCore::estates()
+QList<Estate *> AtlanticCore::estates()
 {
 	return m_estates;
 }
@@ -206,8 +205,7 @@ Estate *AtlanticCore::newEstate(int estateId)
 
 Estate *AtlanticCore::findEstate(int estateId)
 {
-	Estate *estate = 0;
-	for (Q3PtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+	foreach (Estate *estate, m_estates)
 		if (estate->id() == estateId)
 			return estate;
 
@@ -216,18 +214,12 @@ Estate *AtlanticCore::findEstate(int estateId)
 
 Estate *AtlanticCore::estateAfter(Estate *estate)
 {
-	Estate *eFirst = 0, *eTmp = 0;
-	bool useNext = false;
-	for (Q3PtrListIterator<Estate> it(m_estates); (eTmp = *it) ; ++it)
-	{
-		if (!eFirst)
-			eFirst = eTmp;
-		if (eTmp == estate)
-			useNext = true;
-		else if (useNext)
-			return eTmp;
-	}
-	return eFirst;
+	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : 0;
+	QList<Estate *>::const_iterator it = qFind(m_estates, estate);
+	if (it == m_estates.constEnd())
+		return eFirst;
+	++it;
+	return it != m_estates.constEnd() ? *it : eFirst;
 }
 
 Q3PtrList<EstateGroup> AtlanticCore::estateGroups()
@@ -340,8 +332,7 @@ void AtlanticCore::printDebug()
 	foreach (Game *game, m_games)
 		std::cout << " G: " << QString::number(game->id()).toLatin1().constData() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).toLatin1().constData() << std::endl;
 
-	Estate *estate = 0;
-	for (Q3PtrListIterator<Estate> it(m_estates); (estate = *it) ; ++it)
+	foreach (Estate *estate, m_estates)
 		std::cout << " E: " << estate->name().toLatin1().constData() << std::endl;
 
 	EstateGroup *estateGroup = 0;

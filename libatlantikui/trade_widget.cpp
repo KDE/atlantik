@@ -76,11 +76,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_estateCombo = new KComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_estateCombo);
-	Q3PtrList<Estate> estateList = m_atlanticCore->estates();
-	Estate *estate;
-	for (Q3PtrListIterator<Estate> it(estateList); *it; ++it)
+	foreach (Estate *estate, m_atlanticCore->estates())
 	{
-		if ((estate = *it) && estate->isOwned())
+		if (estate->isOwned())
 		{
 			m_estateCombo->addItem( PortfolioEstate::drawPixmap(estate), estate->name() );
 			m_estateMap[m_estateCombo->count() - 1] = estate;

@@ -58,7 +58,7 @@ public:
 	void removeGame(Game *game);
 	void emitGames();
 
-	Q3PtrList<Estate> estates();
+	QList<Estate *> estates();
 	Estate *newEstate(int estateId);
 	Estate *findEstate(int estateId);
 	Estate *estateAfter(Estate *estate);
@@ -96,7 +96,7 @@ private:
 	Player *m_playerSelf;
 	QList<Player *> m_players;
 	QList<Game *> m_games;
-	Q3PtrList<Estate> m_estates;
+	QList<Estate *> m_estates;
 	Q3PtrList<EstateGroup> m_estateGroups;
 	Q3PtrList<Trade> m_trades;
 	Q3PtrList<Auction> m_auctions;

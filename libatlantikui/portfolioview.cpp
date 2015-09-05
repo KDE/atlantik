@@ -102,11 +102,9 @@ void PortfolioView::buildPortfolio()
 			lastPE = 0;
 
 			// Loop through estates
-			Q3PtrList<Estate> estates = m_atlanticCore->estates();
-			Estate *estate;
-			for (Q3PtrListIterator<Estate> it(estates); *it; ++it)
+			foreach (Estate *estate, m_atlanticCore->estates())
 			{
-				if ((estate = *it) && estate->estateGroup() == estateGroup)
+				if (estate->estateGroup() == estateGroup)
 				{
 					// Create PE
                                         PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this );
