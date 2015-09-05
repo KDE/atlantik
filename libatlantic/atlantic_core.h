@@ -50,7 +50,7 @@ public:
 	Player *findPlayer(int playerId);
 	void removePlayer(Player *player);
 
-	Q3PtrList<Game> games();
+	QList<Game *> games();
 	Game *newGame(int gameId, const QString &type = QString::null);
 	Game *findGame(const QString &type); // finds game types
 	Game *findGame(int gameId); // finds actual games
@@ -95,7 +95,7 @@ Q_SIGNALS:
 private:
 	Player *m_playerSelf;
 	QList<Player *> m_players;
-	Q3PtrList<Game> m_games;
+	QList<Game *> m_games;
 	Q3PtrList<Estate> m_estates;
 	Q3PtrList<EstateGroup> m_estateGroups;
 	Q3PtrList<Trade> m_trades;

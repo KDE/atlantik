@@ -74,8 +74,7 @@ void AtlanticCore::reset(bool deletePermanents)
 		m_players.clear();
 		m_playerSelf = 0;
 
-		Game *game = 0;
-		for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+		foreach (Game *game, m_games)
 		{
 			emit removeGUI(game);
 			game->deleteLater();
@@ -136,7 +135,7 @@ void AtlanticCore::removePlayer(Player *player)
 	player->deleteLater();
 }
 
-Q3PtrList<Game> AtlanticCore::games()
+QList<Game *> AtlanticCore::games()
 {
 	return m_games;
 }
@@ -156,8 +155,7 @@ Game *AtlanticCore::newGame(int gameId, const QString &type)
 
 Game *AtlanticCore::findGame(const QString &type)
 {
-	Game *game = 0;
-	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	foreach (Game *game, m_games)
 		if (game->id() == -1 && game->type() == type)
 			return game;
 
@@ -169,8 +167,7 @@ Game *AtlanticCore::findGame(int gameId)
 	if (gameId == -1)
 		return 0;
 
-	Game *game = 0;
-	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	foreach (Game *game, m_games)
 		if (game->id() == gameId)
 			return game;
 
@@ -184,15 +181,15 @@ Game *AtlanticCore::gameSelf()
 
 void AtlanticCore::removeGame(Game *game)
 {
-	m_games.remove(game);
+	m_games.removeOne(game);
 	emit removeGUI(game);
 	game->deleteLater();
 }
 
 void AtlanticCore::emitGames()
 {
-	for (Q3PtrListIterator<Game> it(m_games); (*it) ; ++it)
-		emit createGUI( (*it) );
+	foreach (Game *game, m_games)
+		emit createGUI(game);
 }
 
 Q3PtrList<Estate> AtlanticCore::estates()
@@ -340,8 +337,7 @@ void AtlanticCore::printDebug()
 		else
 			std::cout << " P: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
 
-	Game *game = 0;
-	for (Q3PtrListIterator<Game> it(m_games); (game = *it) ; ++it)
+	foreach (Game *game, m_games)
 		std::cout << " G: " << QString::number(game->id()).toLatin1().constData() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).toLatin1().constData() << std::endl;
 
 	Estate *estate = 0;
