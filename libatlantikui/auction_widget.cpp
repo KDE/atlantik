@@ -65,12 +65,11 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	playerGroupBoxLayout->addWidget(m_playerList);
 
 	QList<QTreeWidgetItem *> items;
-	Player *player, *pSelf = m_atlanticCore->playerSelf();
+	Player *pSelf = m_atlanticCore->playerSelf();
 
-	Q3PtrList<Player> playerList = m_atlanticCore->players();
-	for (Q3PtrListIterator<Player> it(playerList); *it; ++it)
+	foreach (Player *player, m_atlanticCore->players())
 	{
-		if ( (player = *it) && player->game() == pSelf->game() )
+		if (player->game() == pSelf->game())
 		{
 			QTreeWidgetItem *item = new QTreeWidgetItem();
 			item->setText(0, player->name());

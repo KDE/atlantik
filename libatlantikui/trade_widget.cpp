@@ -95,8 +95,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_moneyBox->setSingleStep(1);
 	updateComponentBoxLayout->addWidget(m_moneyBox);
 
-	Q3PtrList<Player> playerList = m_atlanticCore->players();
-	Player *player, *pSelf = m_atlanticCore->playerSelf();
+	Player *pSelf = m_atlanticCore->playerSelf();
 
 	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
@@ -110,9 +109,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_playerTargetCombo);
 
-	for (Q3PtrListIterator<Player> it(playerList); *it; ++it)
+	foreach (Player *player, m_atlanticCore->players())
 	{
-		if ((player = *it) && player->game() == pSelf->game())
+		if (player->game() == pSelf->game())
 		{
 			m_playerFromCombo->addItem(player->name());
 			m_playerFromMap[m_playerFromCombo->count() - 1] = player;

@@ -171,9 +171,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 	if (m_atlanticCore)
 	{
-		Player *player = 0;
-		Q3PtrList<Player> playerList = m_atlanticCore->players();
-		for (Q3PtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+		foreach (Player *player, m_atlanticCore->players())
 			if (player->location() == estate)
 				addToken(player);
 	}

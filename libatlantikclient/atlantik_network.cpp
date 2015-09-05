@@ -634,9 +634,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         QObject::connect(estate, SIGNAL(newTrade(Player *)), this, SLOT(newTrade(Player *)));
 
                         // Players without estate should get one
-                        Player *player = 0;
-                        Q3PtrList<Player> playerList = m_atlanticCore->players();
-                        for (Q3PtrListIterator<Player> it(playerList); (player = *it) ; ++it)
+                        foreach (Player *player, m_atlanticCore->players())
                             if (m_playerLocationMap[player] == estate->id())
                                 player->setLocation(estate);
                     }

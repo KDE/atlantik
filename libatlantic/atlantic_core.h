@@ -17,6 +17,7 @@
 #ifndef LIBATLANTIC_CORE_H
 #define LIBATLANTIC_CORE_H
 
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <Qt3Support/Q3PtrList>
 
@@ -44,7 +45,7 @@ public:
 	void setPlayerSelf(Player *player);
 	Player *playerSelf();
 
-	Q3PtrList<Player> players();
+	QList<Player *> players();
 	Player *newPlayer(int playerId, const bool &playerSelf = false);
 	Player *findPlayer(int playerId);
 	void removePlayer(Player *player);
@@ -93,7 +94,7 @@ Q_SIGNALS:
 
 private:
 	Player *m_playerSelf;
-	Q3PtrList<Player> m_players;
+	QList<Player *> m_players;
 	Q3PtrList<Game> m_games;
 	Q3PtrList<Estate> m_estates;
 	Q3PtrList<EstateGroup> m_estateGroups;

@@ -56,8 +56,7 @@ void AtlanticCore::reset(bool deletePermanents)
 	}
 	m_trades.clear();
 
-	Player *player = 0;
-	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	foreach (Player *player, m_players)
 	{
 		if (deletePermanents)
 		{
@@ -100,7 +99,7 @@ Player *AtlanticCore::playerSelf()
 	return m_playerSelf;
 }
 
-Q3PtrList<Player> AtlanticCore::players()
+QList<Player *> AtlanticCore::players()
 {
 	return m_players;
 }
@@ -123,8 +122,7 @@ Player *AtlanticCore::newPlayer(int playerId, const bool &playerSelf)
 
 Player *AtlanticCore::findPlayer(int playerId)
 {
-	Player *player = 0;
-	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	foreach (Player *player, m_players)
 		if (player->id() == playerId)
 			return player;
 
@@ -133,7 +131,7 @@ Player *AtlanticCore::findPlayer(int playerId)
 
 void AtlanticCore::removePlayer(Player *player)
 {
-	m_players.remove(player);
+	m_players.removeOne(player);
 	emit removeGUI(player);
 	player->deleteLater();
 }
@@ -336,8 +334,7 @@ ConfigOption *AtlanticCore::findConfigOption(int configId)
 
 void AtlanticCore::printDebug()
 {
-	Player *player = 0;
-	for (Q3PtrListIterator<Player> it(m_players); (player = *it) ; ++it)
+	foreach (Player *player, m_players)
 		if (player == m_playerSelf)
 			std::cout << "PS: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
 		else
