@@ -63,7 +63,7 @@ public:
 	Estate *findEstate(int estateId);
 	Estate *estateAfter(Estate *estate);
 
-	Q3PtrList<EstateGroup> estateGroups();
+	QList<EstateGroup *> estateGroups();
 	EstateGroup *newEstateGroup(int groupId);
 	EstateGroup *findEstateGroup(int groupId);
 
@@ -97,7 +97,7 @@ private:
 	QList<Player *> m_players;
 	QList<Game *> m_games;
 	QList<Estate *> m_estates;
-	Q3PtrList<EstateGroup> m_estateGroups;
+	QList<EstateGroup *> m_estateGroups;
 	Q3PtrList<Trade> m_trades;
 	Q3PtrList<Auction> m_auctions;
 	Q3PtrList<ConfigOption> m_configOptions;

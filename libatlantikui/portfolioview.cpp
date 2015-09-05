@@ -87,16 +87,13 @@ void PortfolioView::buildPortfolio()
 		clearPortfolio();
 
 	// Loop through estate groups in order
-	Q3PtrList<EstateGroup> estateGroups = m_atlanticCore->estateGroups();
 	PortfolioEstate *lastPE = 0, *firstPEprevGroup = 0;
 
 	int x = 100, y = 25, marginHint = 5, bottom;
 	bottom = ICONSIZE - PE_HEIGHT - marginHint;
 
-	EstateGroup *estateGroup;
-	for (Q3PtrListIterator<EstateGroup> it(estateGroups); *it; ++it)
+	foreach (EstateGroup *estateGroup, m_atlanticCore->estateGroups())
 	{
-		if ((estateGroup = *it))
 		{
 			// New group
 			lastPE = 0;

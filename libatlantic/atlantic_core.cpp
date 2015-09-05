@@ -40,9 +40,8 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_auctions.setAutoDelete(false);
 	qDeleteAll(m_estates);
 	m_estates.clear();
-	m_estateGroups.setAutoDelete(true);
+	qDeleteAll(m_estateGroups);
 	m_estateGroups.clear();
-	m_estateGroups.setAutoDelete(false);
 	m_configOptions.setAutoDelete(true);
 	m_configOptions.clear();
 	m_configOptions.setAutoDelete(false);
@@ -222,7 +221,7 @@ Estate *AtlanticCore::estateAfter(Estate *estate)
 	return it != m_estates.constEnd() ? *it : eFirst;
 }
 
-Q3PtrList<EstateGroup> AtlanticCore::estateGroups()
+QList<EstateGroup *> AtlanticCore::estateGroups()
 {
 	return m_estateGroups;
 }
@@ -236,8 +235,7 @@ EstateGroup *AtlanticCore::newEstateGroup(int groupId)
 
 EstateGroup *AtlanticCore::findEstateGroup(int groupId)
 {
-	EstateGroup *estateGroup = 0;
-	for (Q3PtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+	foreach (EstateGroup *estateGroup, m_estateGroups)
 		if (estateGroup->id() == groupId)
 			return estateGroup;
 
@@ -335,8 +333,7 @@ void AtlanticCore::printDebug()
 	foreach (Estate *estate, m_estates)
 		std::cout << " E: " << estate->name().toLatin1().constData() << std::endl;
 
-	EstateGroup *estateGroup = 0;
-	for (Q3PtrListIterator<EstateGroup> it(m_estateGroups); (estateGroup = *it) ; ++it)
+	foreach (EstateGroup *estateGroup, m_estateGroups)
 		std::cout << "EG: " << estateGroup->name().toLatin1().constData() << std::endl;
 
 	Auction *auction = 0;
