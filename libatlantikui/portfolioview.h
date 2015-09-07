@@ -56,7 +56,8 @@ Q_SIGNALS:
 
 private Q_SLOTS:
 	void playerChanged();
-	void slotMenuAction(int item);
+	void slotMenuActionTrade();
+	void slotMenuActionKick();
 
 private:
 	void loadIcon();
