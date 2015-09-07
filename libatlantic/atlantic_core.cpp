@@ -41,9 +41,8 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_estates.clear();
 	qDeleteAll(m_estateGroups);
 	m_estateGroups.clear();
-	m_configOptions.setAutoDelete(true);
+	qDeleteAll(m_configOptions);
 	m_configOptions.clear();
-	m_configOptions.setAutoDelete(false);
 
 	foreach (Trade *trade, m_trades)
 	{
@@ -291,12 +290,7 @@ void AtlanticCore::delAuction(Auction *auction)
 
 QList<ConfigOption *> AtlanticCore::configOptions()
 {
-	QList<ConfigOption *> ret;
-	ret.reserve(m_configOptions.count());
-	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); *it; ++it)
-		ret.append(*it);
-
-	return ret;
+	return m_configOptions;
 }
 
 ConfigOption *AtlanticCore::newConfigOption(int configId)
@@ -311,15 +305,14 @@ ConfigOption *AtlanticCore::newConfigOption(int configId)
 
 void AtlanticCore::removeConfigOption(ConfigOption *configOption)
 {
-	m_configOptions.remove(configOption);
+	m_configOptions.removeOne(configOption);
 	emit removeGUI(configOption);
 	configOption->deleteLater();
 }
 
 ConfigOption *AtlanticCore::findConfigOption(int configId)
 {
-	ConfigOption *configOption = 0;
-	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+	foreach (ConfigOption *configOption, m_configOptions)
 		if (configOption->id() == configId)
 			return configOption;
 
@@ -349,8 +342,7 @@ void AtlanticCore::printDebug()
 	foreach (Trade *trade, m_trades)
 		std::cout << " T: " << QString::number(trade->tradeId()).toLatin1().constData() << std::endl;
 
-	ConfigOption *configOption = 0;
-	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); (configOption = *it) ; ++it)
+	foreach (ConfigOption *configOption, m_configOptions)
 		std::cout << "CO:" << QString::number(configOption->id()).toLatin1().constData() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
 }
 

@@ -19,7 +19,6 @@
 
 #include <QtCore/QList>
 #include <QtCore/QObject>
-#include <Qt3Support/Q3PtrList>
 
 #include "libatlantic_export.h"
 
@@ -101,7 +100,7 @@ private:
 	QList<EstateGroup *> m_estateGroups;
 	QList<Trade *> m_trades;
 	QList<Auction *> m_auctions;
-	Q3PtrList<ConfigOption> m_configOptions;
+	QList<ConfigOption *> m_configOptions;
 };
 
 #endif
