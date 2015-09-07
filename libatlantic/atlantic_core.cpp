@@ -290,6 +290,16 @@ void AtlanticCore::delAuction(Auction *auction)
 	delete auction;
 }
 
+QList<ConfigOption *> AtlanticCore::configOptions()
+{
+	QList<ConfigOption *> ret;
+	ret.reserve(m_configOptions.count());
+	for (Q3PtrListIterator<ConfigOption> it(m_configOptions); *it; ++it)
+		ret.append(*it);
+
+	return ret;
+}
+
 ConfigOption *AtlanticCore::newConfigOption(int configId)
 {
 	ConfigOption *configOption = new ConfigOption(configId);

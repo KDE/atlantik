@@ -76,6 +76,7 @@ public:
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
+	QList<ConfigOption *> configOptions();
 	ConfigOption *newConfigOption(int configId);
 	void removeConfigOption(ConfigOption *configOption);
 	ConfigOption *findConfigOption(int configId);
