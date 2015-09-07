@@ -35,9 +35,8 @@ AtlanticCore::AtlanticCore(QObject *parent) : QObject(parent)
 
 void AtlanticCore::reset(bool deletePermanents)
 {
-	m_auctions.setAutoDelete(true);
+	qDeleteAll(m_auctions);
 	m_auctions.clear();
-	m_auctions.setAutoDelete(false);
 	qDeleteAll(m_estates);
 	m_estates.clear();
 	qDeleteAll(m_estateGroups);
@@ -272,7 +271,7 @@ void AtlanticCore::removeTrade(Trade *trade)
 	trade->deleteLater();
 }
 
-Q3PtrList<Auction> AtlanticCore::auctions()
+QList<Auction *> AtlanticCore::auctions()
 {
 	return m_auctions;
 }
@@ -286,7 +285,7 @@ Auction *AtlanticCore::newAuction(int auctionId, Estate *estate)
 
 void AtlanticCore::delAuction(Auction *auction)
 {
-	m_auctions.remove(auction);
+	m_auctions.removeOne(auction);
 	delete auction;
 }
 
@@ -344,8 +343,7 @@ void AtlanticCore::printDebug()
 	foreach (EstateGroup *estateGroup, m_estateGroups)
 		std::cout << "EG: " << estateGroup->name().toLatin1().constData() << std::endl;
 
-	Auction *auction = 0;
-	for (Q3PtrListIterator<Auction> it(m_auctions); (auction = *it) ; ++it)
+	foreach (Auction *auction, m_auctions)
 		std::cout << " A: " << QString::number(auction->auctionId()).toLatin1().constData() << std::endl;
 
 	foreach (Trade *trade, m_trades)

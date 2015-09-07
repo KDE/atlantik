@@ -72,7 +72,7 @@ public:
 	Trade *findTrade(int tradeId);
 	void removeTrade(Trade *trade);
 
-	Q3PtrList<Auction> auctions();
+	QList<Auction *> auctions();
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
@@ -100,7 +100,7 @@ private:
 	QList<Estate *> m_estates;
 	QList<EstateGroup *> m_estateGroups;
 	QList<Trade *> m_trades;
-	Q3PtrList<Auction> m_auctions;
+	QList<Auction *> m_auctions;
 	Q3PtrList<ConfigOption> m_configOptions;
 };
 
