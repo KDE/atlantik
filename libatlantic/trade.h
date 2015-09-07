@@ -164,7 +164,9 @@ private:
 	bool m_changed, m_rejected;
 	int m_tradeId, m_revision;
 
+#if 0
 	Q3PtrList<Player> mPlayers;
+#endif
 	QMap<Player *, bool> m_playerAcceptMap;
 	
 	Q3PtrList<TradeItem> mTradeItems;
