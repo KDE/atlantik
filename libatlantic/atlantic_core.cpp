@@ -25,7 +25,6 @@
 #include "game.h"
 #include "player.h"
 #include "trade.h"
-#include <Q3PtrList>
 
 AtlanticCore::AtlanticCore(QObject *parent) : QObject(parent)
 {
