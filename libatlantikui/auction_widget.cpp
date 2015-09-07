@@ -17,7 +17,6 @@
 #include <khbox.h>
 #include <QSpinBox>
 #include <QLabel>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QGroupBox>

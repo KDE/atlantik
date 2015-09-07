@@ -18,7 +18,6 @@
 #define ATLANTIK_TOKEN_H
 
 #include <QWidget>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QResizeEvent>
 #include <QPaintEvent>

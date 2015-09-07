@@ -20,7 +20,6 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <QTimer>
-//Added by qt3to4:
 
 #include <kdebug.h>
 #include <klocale.h>

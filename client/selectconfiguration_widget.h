@@ -20,7 +20,6 @@
 #include <QWidget>
 #include <QLayout>
 #include <QGroupBox>
-//Added by qt3to4:
 #include <QVBoxLayout>
 
 #include <k3listview.h>

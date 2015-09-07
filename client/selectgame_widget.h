@@ -19,7 +19,6 @@
 
 #include <QWidget>
 #include <QLayout>
-//Added by qt3to4:
 #include <QVBoxLayout>
 
 #include <kpushbutton.h>

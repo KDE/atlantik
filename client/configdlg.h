@@ -20,7 +20,6 @@
 #include <QWidget>
 #include <QCheckBox>
 #include <QLineEdit>
-//Added by qt3to4:
 #include <QFrame>
 
 #include <kpagedialog.h>

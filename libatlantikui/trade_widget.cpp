@@ -23,7 +23,6 @@
 #include <QMap>
 #include <QLabel>
 #include <QSpinBox>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QCloseEvent>
 #include <QHBoxLayout>

@@ -18,7 +18,6 @@
 #include <qgroupbox.h>
 
 #include <QLabel>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>
 

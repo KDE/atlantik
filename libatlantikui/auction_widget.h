@@ -20,7 +20,6 @@
 #include <QWidget>
 #include <QLayout>
 #include <QMap>
-//Added by qt3to4:
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTreeWidget>

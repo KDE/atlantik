@@ -20,7 +20,6 @@
 #include <QDateTime>
 #include <QLineEdit>
 #include <qmenu.h>
-//Added by qt3to4:
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>

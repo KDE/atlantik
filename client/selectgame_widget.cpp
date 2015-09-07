@@ -16,7 +16,6 @@
 
 #include <QGroupBox>
 #include <qradiobutton.h>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QHBoxLayout>

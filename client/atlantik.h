@@ -22,7 +22,6 @@
 #include <qtextedit.h>
 #include <QLabel>
 #include <q3ptrlist.h>
-//Added by qt3to4:
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>

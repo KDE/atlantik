@@ -19,7 +19,6 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <QFont>
-//Added by qt3to4:
 #include <QResizeEvent>
 #include <QPaintEvent>
 

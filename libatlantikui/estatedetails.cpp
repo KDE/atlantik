@@ -18,7 +18,6 @@
 #include <qpixmap.h>
 #include <QLayout>
 #include <QRegExp>
-//Added by qt3to4:
 #include <QPaintEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
