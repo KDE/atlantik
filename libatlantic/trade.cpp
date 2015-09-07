@@ -63,9 +63,9 @@ void Trade::updateEstate(Estate *estate, Player *to)
 {
 	TradeEstate *t=0;
 	
-	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	foreach (TradeItem *i, mTradeItems)
 	{
-		t=dynamic_cast<TradeEstate*>(*i);
+		t=dynamic_cast<TradeEstate*>(i);
 
 		if (!t)
 			continue;
@@ -85,7 +85,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		}
 		else
 		{
-			mTradeItems.removeRef(t);
+			mTradeItems.removeOne(t);
 			emit itemRemoved(t);
 			t->deleteLater();
 		}
@@ -104,9 +104,9 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
 	TradeMoney *t=0;
 	
-	for (Q3PtrListIterator<TradeItem> i(mTradeItems); *i; ++i)
+	foreach (TradeItem *i, mTradeItems)
 	{
-		t=dynamic_cast<TradeMoney*>(*i);
+		t=dynamic_cast<TradeMoney*>(i);
 
 		if (!t)
 			continue;
@@ -126,7 +126,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		}
 		else
 		{
-			mTradeItems.removeRef(t);
+			mTradeItems.removeOne(t);
 			emit itemRemoved(t);
 			t->deleteLater();
 		}

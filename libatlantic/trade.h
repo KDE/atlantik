@@ -19,7 +19,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QMap>
-#include <Qt3Support/Q3PtrList>
+#include <QtCore/QList>
 
 #include "libatlantic_export.h"
 
@@ -169,7 +169,7 @@ private:
 #endif
 	QMap<Player *, bool> m_playerAcceptMap;
 	
-	Q3PtrList<TradeItem> mTradeItems;
+	QList<TradeItem *> mTradeItems;
 };
 
 #endif
