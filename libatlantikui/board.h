@@ -20,6 +20,7 @@
 #include <QtGui/QWidget>
 #include <QtCore/QTimer>
 #include <Qt3Support/Q3PtrList>
+#include <QtCore/QList>
 
 #include "libatlantikui_export.h"
 
@@ -96,8 +97,8 @@ private:
 	bool m_animateTokens;
 	int m_maxEstates;
 
-	Q3PtrList<EstateView> m_estateViews;
-	Q3PtrList<Token> m_tokens;
+	QList<EstateView *> m_estateViews;
+	QList<Token *> m_tokens;
 	Q3PtrList<QWidget> m_displayQueue;
 };
 

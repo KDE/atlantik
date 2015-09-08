@@ -74,8 +74,6 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 //	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
 	m_displayQueue.setAutoDelete(true);
-	m_estateViews.setAutoDelete(true);
-	m_tokens.setAutoDelete(true);
 
 	displayDefault();
 }
@@ -89,7 +87,9 @@ void AtlantikBoard::reset()
 {
 	kDebug() << "AtlantikBoard::reset" << endl;
 
+	qDeleteAll(m_tokens);
 	m_tokens.clear();
+	qDeleteAll(m_estateViews);
 	m_estateViews.clear();
 	m_displayQueue.clear();
 	m_lastServerDisplay = 0;
@@ -102,9 +102,7 @@ void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned
 		m_animateTokens = animateTokens;
 
 	// Update EstateViews
-	EstateView *estateView;
-	for (Q3PtrListIterator<EstateView> it(m_estateViews); *it; ++it)
-		if ((estateView = dynamic_cast<EstateView*>(*it)))
+	foreach (EstateView *estateView, m_estateViews)
 			estateView->setViewProperties(indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects);
 }
 
@@ -115,11 +113,9 @@ int AtlantikBoard::heightForWidth(int width) const
 
 EstateView *AtlantikBoard::findEstateView(Estate *estate)
 {
-	EstateView *estateView;
-	for (Q3PtrListIterator<EstateView> i(m_estateViews); *i; ++i)
+	foreach (EstateView *estateView, m_estateViews)
 	{
-		estateView = dynamic_cast<EstateView*>(*i);
-		if (estateView && estateView->estate() == estate)
+		if (estateView->estate() == estate)
 			return estateView;
 	}
 	return 0;
@@ -187,8 +183,7 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 
 Token *AtlantikBoard::findToken(Player *player)
 {
-	Token *token = 0;
-	for (Q3PtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
+	foreach (Token *token, m_tokens)
 		if (token->player() == player)
 			return token;
 	return 0;
@@ -297,7 +292,8 @@ void AtlantikBoard::removeToken(Player *player)
 		m_movingToken = 0;
 	}
 
-	m_tokens.remove(token);
+	m_tokens.removeOne(token);
+	delete token;
 }
 
 void AtlantikBoard::jumpToken(Token *token)
@@ -478,8 +474,7 @@ void AtlantikBoard::slotResizeAftermath()
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-	Token *token = 0;
-	for (Q3PtrListIterator<Token> it(m_tokens); (token = *it) ; ++it)
+	foreach (Token *token, m_tokens)
 		jumpToken(token);
 
 	// Restart the timer that was stopped in resizeEvent
