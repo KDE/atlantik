@@ -28,6 +28,7 @@
 
 #include <atlantic_core.h>
 #include <auction.h>
+#include <card.h>
 #include <configoption.h>
 #include <estate.h>
 #include <estategroup.h>
@@ -866,6 +867,30 @@ void AtlantikNetwork::processNode(QDomNode n) {
                             emit newAuction(auction);
                         auction->update();
                     }
+                }
+            } else if (e.tagName() == "cardupdate") {
+                a = e.attributeNode(QString("cardid"));
+                if (!a.isNull()) {
+                    int cardId = a.value().toInt();
+
+                    Card *card;
+                    if (!(card = m_atlanticCore->findCard(cardId)))
+                        card = m_atlanticCore->newCard(cardId);
+
+                    // Update card owner
+                    a = e.attributeNode(QString("owner"));
+                    if (!a.isNull()) {
+                        Player *player = m_atlanticCore->findPlayer(a.value().toInt());
+                        card->setOwner(player);
+                    }
+
+                    // Update card title
+                    a = e.attributeNode(QString("title"));
+                    if (!a.isNull())
+                        card->setTitle(a.value());
+
+                    if (card)
+                        card->update();
                 }
             } else
                 kDebug() << "ignored TAG: " << e.tagName() << endl;

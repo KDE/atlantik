@@ -3,6 +3,7 @@
 set(atlantic_LIB_SRCS 
    atlantic_core.cpp 
    auction.cpp 
+   card.cpp
    configoption.cpp 
    estate.cpp 
    estategroup.cpp 
@@ -16,4 +17,4 @@ install(TARGETS atlantic  DESTINATION ${LIB_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES atlantic_core.h auction.h configoption.h estate.h  	estategroup.h game.h player.h trade.h libatlantic_export.h  DESTINATION  ${INCLUDE_INSTALL_DIR}/atlantic )
+install( FILES atlantic_core.h auction.h card.h configoption.h estate.h  	estategroup.h game.h player.h trade.h libatlantic_export.h  DESTINATION  ${INCLUDE_INSTALL_DIR}/atlantic )

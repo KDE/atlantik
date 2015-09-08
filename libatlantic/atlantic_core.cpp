@@ -19,6 +19,7 @@
 #include "atlantic_core.h"
 
 #include "auction.h"
+#include "card.h"
 #include "configoption.h"
 #include "estate.h"
 #include "estategroup.h"
@@ -41,6 +42,8 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_estateGroups.clear();
 	qDeleteAll(m_configOptions);
 	m_configOptions.clear();
+	qDeleteAll(m_cards);
+	m_cards.clear();
 
 	foreach (Trade *trade, m_trades)
 	{
@@ -317,6 +320,27 @@ ConfigOption *AtlanticCore::findConfigOption(int configId)
 	return 0;
 }
 
+QList<Card *> AtlanticCore::cards()
+{
+	return m_cards;
+}
+
+Card *AtlanticCore::newCard(int cardId)
+{
+	Card *card = new Card(cardId);
+	m_cards.append(card);
+	return card;
+}
+
+Card *AtlanticCore::findCard(int cardId)
+{
+	foreach (Card *card, m_cards)
+		if (card->cardId() == cardId)
+			return card;
+
+	return 0;
+}
+
 void AtlanticCore::printDebug()
 {
 	foreach (Player *player, m_players)
@@ -342,6 +366,9 @@ void AtlanticCore::printDebug()
 
 	foreach (ConfigOption *configOption, m_configOptions)
 		std::cout << "CO:" << QString::number(configOption->id()).toLatin1().constData() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
+
+	foreach (Card *card, m_cards)
+		std::cout << "CA: " << QString::number(card->cardId()).toLatin1().constData() << std::endl;
 }
 
 #include "atlantic_core.moc"

@@ -29,6 +29,7 @@ class EstateGroup;
 class Game;
 class Trade;
 class Auction;
+class Card;
 
 class LIBATLANTIC_EXPORT AtlanticCore : public QObject
 {
@@ -80,6 +81,10 @@ public:
 	void removeConfigOption(ConfigOption *configOption);
 	ConfigOption *findConfigOption(int configId);
 
+	QList<Card *> cards();
+	Card *newCard(int cardId);
+	Card *findCard(int cardId);
+
 	void printDebug();
 
 Q_SIGNALS:
@@ -101,6 +106,7 @@ private:
 	QList<Trade *> m_trades;
 	QList<Auction *> m_auctions;
 	QList<ConfigOption *> m_configOptions;
+	QList<Card *> m_cards;
 };
 
 #endif
