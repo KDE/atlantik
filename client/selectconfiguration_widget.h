@@ -22,11 +22,9 @@
 #include <QGroupBox>
 #include <QVBoxLayout>
 
-#include <k3listview.h>
 #include <kpushbutton.h>
 
 class QCheckBox;
-class Q3ListViewItem;
 
 class AtlanticCore;
 class ConfigOption;
@@ -73,7 +71,6 @@ private:
 	QMap <QObject *, ConfigOption *> m_configMap;
 	QMap <ConfigOption *, QCheckBox *> m_configBoxMap;
 	QMap <QString, QCheckBox *> m_checkBoxMap;
-	QMap <Player *, Q3ListViewItem *> m_items;
 	Game *m_game;
 	AtlanticCore *m_atlanticCore;
 };
