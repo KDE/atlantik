@@ -1,4 +1,3 @@
-
 include_directories(
 ${KDE4_INCLUDE_DIR} 
 ${QT_INCLUDES} 
@@ -22,12 +21,6 @@ set(atlantik_SRCS
    selectconfiguration_widget.cpp 
    selectgame_widget.cpp 
    selectserver_widget.cpp )
-
-
 kde4_add_executable(atlantik ${atlantik_SRCS})
-
 target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantic atlantikui atlantikclient ${KDE4_KIO_LIBS} kdegames ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KDE3SUPPORT_LIBS})
-
 install(TARGETS atlantik  DESTINATION ${BIN_INSTALL_DIR} )
-
-
