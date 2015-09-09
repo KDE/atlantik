@@ -16,6 +16,7 @@ add_subdirectory( libatlantikclient )
 add_subdirectory( client )
 add_subdirectory( pics ) 
 add_subdirectory( themes ) 
+add_subdirectory( doc )
 
 ########### install files ###############
 
