@@ -18,7 +18,7 @@
 #define ATLANTIK_PORTFOLIOVIEW_H
 
 #include <QtGui/QWidget>
-#include <Qt3Support/Q3PtrList>
+#include <QtCore/QList>
 
 #include "libatlantikui_export.h"
 
@@ -69,7 +69,7 @@ private:
 	QPixmap *qpixmap, *m_image;
 	QString m_imageName;
 	bool b_recreate;
-	Q3PtrList<PortfolioEstate> m_portfolioEstates;
+	QList<PortfolioEstate *> m_portfolioEstates;
 };
 
 #endif

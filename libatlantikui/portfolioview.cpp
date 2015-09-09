@@ -55,7 +55,6 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	qpixmap = 0;
 	b_recreate = true;
 
-	m_portfolioEstates.setAutoDelete(true);
 	QPalette pal = palette();
 	pal.setColor(backgroundRole(), Qt::white);
 	setPalette(pal);
@@ -147,6 +146,7 @@ void PortfolioView::buildPortfolio()
 
 void PortfolioView::clearPortfolio()
 {
+	qDeleteAll(m_portfolioEstates);
 	m_portfolioEstates.clear();
 }
 
