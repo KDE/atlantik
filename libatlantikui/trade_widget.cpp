@@ -44,6 +44,7 @@
 #include <estate.h>
 #include <trade.h>
 #include <portfolioestate.h>
+#include <card.h>
 
 #include "trade_widget.moc"
 
@@ -67,6 +68,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_editTypeCombo = new KComboBox(m_updateComponentBox);
 	m_editTypeCombo->addItem(i18n("Estate"));
 	m_editTypeCombo->addItem(i18n("Money"));
+	m_editTypeCombo->addItem(i18n("Card"));
 	updateComponentBoxLayout->addWidget(m_editTypeCombo);
 
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
@@ -89,6 +91,20 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_moneyBox->setRange(0, 10000);
 	m_moneyBox->setSingleStep(1);
 	updateComponentBoxLayout->addWidget(m_moneyBox);
+
+	m_cardCombo = new KComboBox(m_updateComponentBox);
+	updateComponentBoxLayout->addWidget(m_cardCombo);
+	foreach (Card *card, m_atlanticCore->cards())
+	{
+		if (card->owner() != NULL)
+		{
+			m_cardCombo->addItem(card->title());
+			m_cardMap[m_cardCombo->count() - 1] = card;
+			m_cardRevMap[card] = m_cardCombo->count() - 1;
+		}
+	}
+
+	connect(m_cardCombo, SIGNAL(activated(int)), this, SLOT(setCardCombo(int)));
 
 	Player *pSelf = m_atlanticCore->playerSelf();
 
@@ -170,6 +186,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
 	connect(this, SIGNAL(updateEstate(Trade *, Estate *, Player *)), m_trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 	connect(this, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), m_trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
+	connect(this, SIGNAL(updateCard(Trade *, Card *, Player *)), m_trade, SIGNAL(updateCard(Trade *, Card *, Player *)));
 	connect(this, SIGNAL(reject(Trade *)), m_trade, SIGNAL(reject(Trade *)));
 	connect(this, SIGNAL(accept(Trade *)), m_trade, SIGNAL(accept(Trade *)));
 
@@ -273,6 +290,9 @@ void TradeDisplay::setTypeCombo(int index)
 		m_moneyBox->hide();
 		m_moneyBox->setMaximumWidth(0);
 
+		m_cardCombo->hide();
+		m_cardCombo->setMaximumWidth(0);
+
 		setEstateCombo(m_estateCombo->currentIndex()); // also updates playerfromCombo
 		m_playerFromCombo->setEnabled(false);
 
@@ -289,9 +309,31 @@ void TradeDisplay::setTypeCombo(int index)
 		m_moneyBox->show();
 		m_moneyBox->setMaximumWidth(9999);
 
+		m_cardCombo->hide();
+		m_cardCombo->setMaximumWidth(0);
+
 		m_playerFromCombo->setEnabled(true);
 
 		m_updateButton->setEnabled(true);
+
+		break;
+
+	case 2:
+		// Editing card component
+
+		m_estateCombo->hide();
+		m_estateCombo->setMaximumWidth(0);
+
+		m_moneyBox->hide();
+		m_moneyBox->setMaximumWidth(0);
+
+		m_cardCombo->show();
+		m_cardCombo->setMaximumWidth(9999);
+
+		setCardCombo(m_cardCombo->currentIndex()); // also updates playerFromCombo
+		m_playerFromCombo->setEnabled(false);
+
+		m_updateButton->setEnabled(m_cardCombo->count() > 0);
 
 		break;
 	}
@@ -304,6 +346,15 @@ void TradeDisplay::setEstateCombo(int index)
 
 	if (Estate *estate = m_estateMap[index])
 		m_playerFromCombo->setCurrentIndex( m_playerFromRevMap[estate->owner()] );
+}
+
+void TradeDisplay::setCardCombo(int index)
+{
+	if (m_cardCombo->currentIndex() != index)
+		m_cardCombo->setCurrentIndex(index);
+
+	if (Card *card = m_cardMap[index])
+		m_playerFromCombo->setCurrentIndex(m_playerFromRevMap[card->owner()]);
 }
 
 void TradeDisplay::setCombos(Q3ListViewItem *i)
@@ -322,12 +373,19 @@ void TradeDisplay::setCombos(Q3ListViewItem *i)
 		m_playerFromCombo->setCurrentIndex(  m_playerFromRevMap[tradeMoney->from()] );
 		m_playerTargetCombo->setCurrentIndex(  m_playerTargetRevMap[tradeMoney->to()] );
 	}
+	else if (TradeCard *tradeCard = dynamic_cast<TradeCard*>(item))
+	{
+		setTypeCombo(2);
+		setCardCombo(m_cardRevMap[tradeCard->card()]); // also updates playerFromCombo
+		m_playerTargetCombo->setCurrentIndex(m_playerTargetRevMap[tradeCard->to()]);
+	}
 }
 
 void TradeDisplay::updateComponent()
 {
 	Estate *estate;
 	Player *pFrom, *pTarget;
+	Card *card;
 
 	switch (m_editTypeCombo->currentIndex())
 	{
@@ -348,6 +406,16 @@ void TradeDisplay::updateComponent()
 
 		if (pFrom && pTarget)
 			emit updateMoney(m_trade, m_moneyBox->value(), pFrom, pTarget);
+
+		break;
+
+	case 2:
+		// Updating card component
+		card = m_cardMap[m_cardCombo->currentIndex()];
+		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
+
+		if (card && pTarget)
+			emit updateCard(m_trade, card, pTarget);
 
 		break;
 	}
@@ -384,6 +452,8 @@ void TradeDisplay::contextMenuClicked(int)
 		emit updateEstate(m_trade, tradeEstate->estate(), 0);
 	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
 		emit updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
+	else if (TradeCard *tradeCard = dynamic_cast<TradeCard*>(m_contextTradeItem))
+		emit updateCard(m_trade, tradeCard->card(), 0);
 
 	m_contextTradeItem = 0;
 }

@@ -61,6 +61,7 @@ private Q_SLOTS:
 
 	void setTypeCombo(int);
 	void setEstateCombo(int);
+	void setCardCombo(int);
 	void setCombos(Q3ListViewItem *i);
 
 	void updateComponent();
@@ -73,6 +74,7 @@ private Q_SLOTS:
 Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
+	void updateCard(Trade *trade, Card *card, Player *to);
 	void reject(Trade *trade);
 	void accept(Trade *trade);
 
@@ -81,7 +83,7 @@ private:
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
 	QSpinBox *m_moneyBox;
 
-	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo;
+	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
 	K3ListView *m_componentList;
 	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
@@ -96,6 +98,8 @@ private:
 	QMap<Estate *, int> m_estateRevMap;
 	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;
 	QMap<Player *, int> m_playerFromRevMap, m_playerTargetRevMap;
+	QMap<int, Card *> m_cardMap;
+	QMap<Card *, int> m_cardRevMap;
 };
 
 #endif

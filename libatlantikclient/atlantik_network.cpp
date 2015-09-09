@@ -246,6 +246,11 @@ void AtlantikNetwork::tradeUpdateMoney(Trade *trade, unsigned int money, Player 
         writeData(QString(".Tm%1:%2:%3:%4").arg(trade ? trade->tradeId() : -1).arg(pFrom ? pFrom->id() : -1).arg(pTo ? pTo->id() : -1).arg(money));
 }
 
+void AtlantikNetwork::tradeUpdateCard(Trade *trade, Card *card, Player *pTo)
+{
+        writeData(QString(".Tc%1:%2:%3").arg(trade ? trade->tradeId() : -1).arg(card ? card->cardId() : -1).arg(pTo ? pTo->id() : -1));
+}
+
 void AtlantikNetwork::tradeReject(Trade *trade)
 {
         writeData(QString(".Tr%1").arg(trade ? trade->tradeId() : -1));
@@ -730,6 +735,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                         QObject::connect(trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)), this, SLOT(tradeUpdateEstate(Trade *, Estate *, Player *)));
                         QObject::connect(trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), this, SLOT(tradeUpdateMoney(Trade *, unsigned int, Player *, Player *)));
+                        QObject::connect(trade, SIGNAL(updateCard(Trade *, Card *, Player *)), this, SLOT(tradeUpdateCard(Trade *, Card *, Player *)));
                         QObject::connect(trade, SIGNAL(reject(Trade *)), this, SLOT(tradeReject(Trade *)));
                         QObject::connect(trade, SIGNAL(accept(Trade *)), this, SLOT(tradeAccept(Trade *)));
                     }
@@ -813,6 +819,18 @@ void AtlantikNetwork::processNode(QDomNode n) {
                                     kDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1") << endl;
                                     if (trade && pFrom && pTo && !a.isNull())
                                         trade->updateMoney(a.value().toInt(), pFrom, pTo);
+                                } else if (e_child.tagName() == "tradecard") {
+                                    a = e_child.attributeNode(QString("cardid"));
+                                    if (!a.isNull()) {
+                                        Card *card = m_atlanticCore->findCard(a.value().toInt());
+                                        a = e_child.attributeNode(QString("targetplayer"));
+                                        if (!a.isNull()) {
+                                            Player *player = m_atlanticCore->findPlayer(a.value().toInt());
+                                            // Allow NULL player, it will remove the component
+                                            if (trade && card)
+                                                trade->updateCard(card, player);
+                                        }
+                                    }
                                 }
                             }
                             n_child = n_child.nextSibling();

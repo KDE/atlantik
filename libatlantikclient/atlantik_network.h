@@ -70,6 +70,7 @@ private slots:
 	void tokenConfirmation(Estate *);
 	void tradeUpdateEstate(Trade *trade, Estate *estate, Player *player);
 	void tradeUpdateMoney(Trade *trade, unsigned int money, Player *pFrom, Player *pTo);
+	void tradeUpdateCard(Trade *trade, Card *card, Player *pTo);
 	void tradeReject(Trade *trade);
 	void tradeAccept(Trade *trade);
 	void auctionBid(Auction *auction, int amount);

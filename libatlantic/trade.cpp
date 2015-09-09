@@ -18,6 +18,7 @@
 #include "trade.moc"
 #include "player.h"
 #include "estate.h"
+#include "card.h"
 
 Trade::Trade(int tradeId)
 {
@@ -141,6 +142,47 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 	}
 }
 
+void Trade::updateCard(Card *card, Player *to)
+{
+	TradeCard *t=0;
+	
+	foreach (TradeItem *i, mTradeItems)
+	{
+		t=dynamic_cast<TradeCard*>(i);
+
+		if (!t)
+			continue;
+		
+		if (t->card()==card)
+			break;
+		
+		t=0;
+	}
+	if (t)
+	{
+		if (to)
+		{
+			if (t->to() == to)
+				return;
+			t->setTo(to);
+		}
+		else
+		{
+			mTradeItems.removeOne(t);
+			emit itemRemoved(t);
+			t->deleteLater();
+		}
+	}
+	else if (card && to)
+	{
+		// new trade
+		t = new TradeCard(card, this, to);
+		
+		mTradeItems.append(t);
+		emit itemAdded(t);
+	}
+}
+
 void Trade::updateAccept(Player *player, bool accept)
 {
 	if (m_playerAcceptMap[player] != accept)
@@ -201,4 +243,13 @@ void TradeMoney::setMoney(unsigned int money)
 QString TradeMoney::text() const
 {
 	return QString("$%1").arg(m_money);
+}
+
+TradeCard::TradeCard(Card *card, Trade *trade, Player *to) : TradeItem(trade, card->owner(), to), mCard(card)
+{
+}
+
+QString TradeCard::text() const
+{
+	return mCard->title();
 }

@@ -26,6 +26,7 @@
 class Player;
 class Trade;
 class Estate;
+class Card;
 
 class LIBATLANTIC_EXPORT TradeItem : public QObject
 {
@@ -94,6 +95,23 @@ private:
 	unsigned int m_money;
 };
 
+class LIBATLANTIC_EXPORT TradeCard : public TradeItem
+{
+Q_OBJECT
+
+public:
+	TradeCard(Card *card, Trade *trade, Player *to);
+
+	Card *card() { return mCard; }
+	
+	virtual QString text() const;
+
+Q_SIGNALS:
+
+private:
+	Card *mCard;
+};
+
 
 class LIBATLANTIC_EXPORT Trade : public QObject
 {
@@ -145,6 +163,7 @@ public:
 	void update(bool force = false);
 	void updateEstate(Estate *estate, Player *player);
 	void updateMoney(unsigned int money, Player *from, Player *to);
+	void updateCard(Card *card, Player *to);
 	void updateAccept(Player *player, bool accept);
 	void reject(Player *player);
 	
@@ -157,6 +176,7 @@ Q_SIGNALS:
 
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
+	void updateCard(Trade *trade, Card *card, Player *to);
 	void reject(Trade *trade);
 	void accept(Trade *trade);
 
