@@ -21,7 +21,7 @@
 #include <QLayout>
 #include <qtextedit.h>
 #include <QLabel>
-#include <q3ptrlist.h>
+#include <QList>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>
@@ -264,7 +264,7 @@ private:
 	EventLog *m_eventLog;
 	EventLogWidget *m_eventLogWidget;
 
-	Q3PtrList<PortfolioView> m_portfolioViews;
+	QList<PortfolioView *> m_portfolioViews;
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;
 
 	bool m_runningGame;

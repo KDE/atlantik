@@ -202,7 +202,6 @@ Atlantik::Atlantik ()
 
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
 	m_portfolioLayout->setMargin(0);
-	m_portfolioViews.setAutoDelete(true);
 
 	// Nice label
 //	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");
@@ -317,7 +316,10 @@ void Atlantik::removeGUI(Player *player)
 	// Find and remove portfolioview
 	PortfolioView *portfolioView = findPortfolioView(player);
 	if (portfolioView)
-		m_portfolioViews.remove(portfolioView);
+	{
+		m_portfolioViews.removeOne(portfolioView);
+		delete portfolioView;
+	}
 
 	if (m_board)
 		m_board->removeToken(player);
@@ -460,9 +462,7 @@ void Atlantik::showBoard()
 	m_board->displayDefault();
 	m_board->show();
 
-	PortfolioView *portfolioView = 0;
-	for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
-		if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
+	foreach (PortfolioView *portfolioView, m_portfolioViews)
 			portfolioView->buildPortfolio();
 }
 
@@ -695,9 +695,7 @@ void Atlantik::playerChanged(Player *player)
 	if (player == playerSelf)
 	{
 		// We changed ourselves..
-		PortfolioView *portfolioView = 0;
-		for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); *it; ++it)
-			if ((portfolioView = dynamic_cast<PortfolioView*>(*it)))
+		foreach (PortfolioView *portfolioView, m_portfolioViews)
 			{
 				// Clear all portfolios if we're not in game
 				if ( !player->game() )
@@ -861,8 +859,7 @@ PortfolioView *Atlantik::addPortfolioView(Player *player)
 
 PortfolioView *Atlantik::findPortfolioView(Player *player)
 {
-	PortfolioView *portfolioView = 0;
-	for (Q3PtrListIterator<PortfolioView> it(m_portfolioViews); (portfolioView = *it) ; ++it)
+	foreach (PortfolioView *portfolioView, m_portfolioViews)
 		if (player == portfolioView->player())
 			return portfolioView;
 
