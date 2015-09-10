@@ -715,6 +715,10 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     if (estate && !a.isNull())
                         estate->setMoney(a.value().toInt());
 
+                    a = e.attributeNode(QString("icon"));
+                    if (estate && !a.isNull())
+                        estate->setIcon(a.value());
+
                     // Emit signal so GUI implementations can create view(s)
                     // TODO:  port to atlanticcore and create view there
                     if (estate) {

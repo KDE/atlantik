@@ -68,6 +68,8 @@ public:
 	unsigned int price() const { return m_price; }
 	void setMoney(int money);
 	int money();
+	void setIcon(const QString &icon);
+	QString icon() const { return m_icon; }
 	void update(bool force = false);
 
 Q_SIGNALS:
@@ -83,7 +85,7 @@ protected:
 	int m_id;
 
 private:
-	QString m_name;
+	QString m_name, m_icon;
 	Player *m_owner;
 	EstateGroup *m_estateGroup;
 	unsigned int m_houses, m_price, m_housePrice, m_houseSellPrice, m_mortgagePrice, m_unmortgagePrice;

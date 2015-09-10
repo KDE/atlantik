@@ -150,6 +150,15 @@ int Estate::money()
 	return m_money;
 }
 
+void Estate::setIcon(const QString &icon)
+{
+	if (m_icon != icon)
+	{
+		m_icon = icon;
+		m_changed = true;
+	}
+}
+
 void Estate::update(bool force)
 {
 	if (m_changed || force)
