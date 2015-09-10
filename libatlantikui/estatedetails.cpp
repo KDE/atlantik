@@ -38,7 +38,6 @@
 #include <player.h>
 
 #include "estatedetails.h"
-#include "kwrappedlistviewitem.h"
 
 EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : QWidget(parent)
 {

@@ -9,7 +9,6 @@ set(atlantikui_LIB_SRCS
    board.cpp 
    estatedetails.cpp 
    estateview.cpp 
-   kwrappedlistviewitem.cpp 
    portfolioestate.cpp 
    portfolioview.cpp 
    token.cpp 
