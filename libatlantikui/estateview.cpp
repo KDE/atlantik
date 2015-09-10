@@ -40,7 +40,7 @@
 
 EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
                        bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
-    : QWidget(parent, Qt::WResizeNoErase)
+    : QWidget(parent)
 {
 	m_estate = estate;
 	m_orientation = orientation;
