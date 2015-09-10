@@ -7,8 +7,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikclient
 ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui 
 )
 
-add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
-
 ########### next target ###############
 
 set(atlantik_SRCS 
@@ -22,5 +20,5 @@ set(atlantik_SRCS
    selectgame_widget.cpp 
    selectserver_widget.cpp )
 kde4_add_executable(atlantik ${atlantik_SRCS})
-target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantic atlantikui atlantikclient ${KDE4_KIO_LIBS} kdegames ${KDE4_KNOTIFYCONFIG_LIBS} ${KDE4_KDE3SUPPORT_LIBS})
+target_link_libraries(atlantik  ${KDE4_KDECORE_LIBS} atlantic atlantikui atlantikclient ${KDE4_KIO_LIBS} kdegames ${KDE4_KNOTIFYCONFIG_LIBS})
 install(TARGETS atlantik  DESTINATION ${BIN_INSTALL_DIR} )

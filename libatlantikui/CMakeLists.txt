@@ -1,7 +1,5 @@
 include_directories( ${CMAKE_SOURCE_DIR}/libatlantic  )
 
-add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
-
 ########### next target ###############
 
 set(atlantikui_LIB_SRCS 
