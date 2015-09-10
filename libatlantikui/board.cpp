@@ -73,8 +73,6 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 //	spacer = new QWidget(this);
 //	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
-	m_displayQueue.setAutoDelete(true);
-
 	displayDefault();
 }
 
@@ -91,6 +89,7 @@ void AtlantikBoard::reset()
 	m_tokens.clear();
 	qDeleteAll(m_estateViews);
 	m_estateViews.clear();
+	qDeleteAll(m_displayQueue);
 	m_displayQueue.clear();
 	m_lastServerDisplay = 0;
 	m_movingToken = 0;
@@ -497,9 +496,9 @@ void AtlantikBoard::displayDefault()
 			display->setEstate(0);
 		break;
 	default:
-		if (m_displayQueue.getFirst() == m_lastServerDisplay)
+		if (m_displayQueue.first() == m_lastServerDisplay)
 			m_lastServerDisplay = 0;
-		m_displayQueue.removeFirst();
+		delete m_displayQueue.takeFirst();
 		break;
 	}
 	updateCenter();
@@ -514,7 +513,7 @@ void AtlantikBoard::displayButton(const QString &command, const QString &caption
 void AtlantikBoard::addCloseButton()
 {
 	EstateDetails *eDetails = 0;
-	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.getLast())
+	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.last())
 		eDetails->addCloseButton();
 }
 
@@ -536,8 +535,8 @@ void AtlantikBoard::insertDetails(const QString &text, bool clearText, bool clea
 		return;
 	}
 
-	if (m_displayQueue.getFirst() != m_lastServerDisplay)
-		m_displayQueue.removeFirst();
+	if (!m_displayQueue.isEmpty() && m_displayQueue.first() != m_lastServerDisplay)
+		delete m_displayQueue.takeFirst();
 
 	eDetails = new EstateDetails(estate, text, this);
 	m_lastServerDisplay = eDetails;
@@ -555,7 +554,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 
 	EstateDetails *eDetails = 0;
 
-	if (m_displayQueue.getFirst() == m_lastServerDisplay)
+	if (m_displayQueue.first() == m_lastServerDisplay)
 	{
 		eDetails = new EstateDetails(estate, QString::null, this);
 		m_displayQueue.prepend(eDetails);
@@ -565,7 +564,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	}
 	else
 	{
-		eDetails = dynamic_cast<EstateDetails*> ( m_displayQueue.getFirst() );
+		eDetails = dynamic_cast<EstateDetails*>(m_displayQueue.first());
 		if (eDetails)
 		{
 			eDetails->setEstate(estate);
@@ -587,12 +586,12 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 
 void AtlantikBoard::updateCenter()
 {
-	QWidget *center = m_displayQueue.getFirst();
+	QWidget *center = m_displayQueue.first();
 	m_gridLayout->addWidget(center, 1, 1, m_gridLayout->rowCount()-2, m_gridLayout->columnCount()-2);
 	center->show();
 }
 
 QWidget *AtlantikBoard::centerWidget()
 {
-	return m_displayQueue.getFirst();
+	return m_displayQueue.first();
 }

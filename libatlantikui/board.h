@@ -19,7 +19,6 @@
 
 #include <QtGui/QWidget>
 #include <QtCore/QTimer>
-#include <Qt3Support/Q3PtrList>
 #include <QtCore/QList>
 
 #include "libatlantikui_export.h"
@@ -99,7 +98,7 @@ private:
 
 	QList<EstateView *> m_estateViews;
 	QList<Token *> m_tokens;
-	Q3PtrList<QWidget> m_displayQueue;
+	QList<QWidget *> m_displayQueue;
 };
 
 #endif
