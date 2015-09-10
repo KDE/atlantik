@@ -183,7 +183,11 @@ void ConfigPlayer::setImage()
 {
 	QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_playerImage);
 	if (KStandardDirs::exists(filename))
-		m_playerIcon->setPixmap( QPixmap(filename) );
+	{
+		const QPixmap p(filename);
+		m_playerIcon->setIcon(QIcon(p));
+		m_playerIcon->setIconSize(p.size());
+	}
 }
 
 void ConfigPlayer::reset()
