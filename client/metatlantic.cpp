@@ -19,6 +19,7 @@
 
 #include <QDomDocument>
 #include <QTcpSocket>
+#include <QTextCodec>
 #include <QTimer>
 
 #include <kdebug.h>
