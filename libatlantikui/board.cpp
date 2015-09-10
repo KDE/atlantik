@@ -122,7 +122,7 @@ EstateView *AtlantikBoard::findEstateView(Estate *estate)
 
 void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
 {
-	QString icon = QString();
+	QString icon = estate->icon();
 	int estateId = estate->id();
 	EstateOrientation orientation = North;
 	int sideLen = m_gridLayout->rowCount() - 1;

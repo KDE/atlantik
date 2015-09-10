@@ -62,6 +62,7 @@ Q_OBJECT
 
 private:
 	void updateToolTip();
+		void loadIcon(const QString &_icon);
 
 		QPixmap *rotatePixmap(QPixmap *);
 		void drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c2);

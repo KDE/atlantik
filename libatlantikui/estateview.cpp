@@ -61,14 +61,8 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	pe = 0;
 	updatePE();
 
-	icon = new QPixmap(KStandardDirs::locate("data", "atlantik/pics/" + _icon));
-	if (icon->isNull())
-	{
-		delete icon;
-		icon = 0;
-	}
-	else
-		icon = rotatePixmap(icon);
+	icon = 0;
+	loadIcon(_icon);
 
 	updateToolTip();
 }
@@ -106,6 +100,24 @@ void EstateView::updateToolTip()
 
 		this->setToolTip( toolTip );
 	}
+}
+
+void EstateView::loadIcon(const QString &_icon)
+{
+	delete icon;
+	if (_icon.isEmpty())
+	{
+		icon = 0;
+		return;
+	}
+	icon = new QPixmap(KStandardDirs::locate("data", "atlantik/pics/" + _icon));
+	if (icon->isNull())
+	{
+		delete icon;
+		icon = 0;
+	}
+	else
+		icon = rotatePixmap(icon);
 }
 
 void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
@@ -193,6 +205,7 @@ void EstateView::updatePE()
 void EstateView::estateChanged()
 {
 	updateToolTip();
+	loadIcon(m_estate->icon());
 
 	b_recreate = true;
 	m_recreateQuartz = true;
