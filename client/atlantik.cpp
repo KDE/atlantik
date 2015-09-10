@@ -215,6 +215,7 @@ Atlantik::Atlantik ()
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	m_serverMsgs->setMinimumWidth(200);
+	m_serverMsgs->setUndoRedoEnabled(false);
 	m_mainLayout->addWidget(m_serverMsgs, 1, 0);
 
 	// LineEdit to enter commands and chat messages.
