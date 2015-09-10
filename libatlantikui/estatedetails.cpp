@@ -22,11 +22,11 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QResizeEvent>
+#include <QListWidget>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
-#include <k3listview.h>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <KStandardGuiItem>
@@ -57,9 +57,8 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 
 	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
-	m_infoListView = new K3ListView(this);
-	m_infoListView->addColumn(m_estate ? m_estate->name() : QString("") );
-	m_infoListView->setSorting(-1);
+	m_infoListView = new QListWidget(this);
+	m_infoListView->setWordWrap(true);
 	m_mainLayout->addWidget(m_infoListView);
 
 	appendText(text);
@@ -217,28 +216,36 @@ void EstateDetails::addDetails()
 {
 	if (m_estate)
 	{
-		Q3ListViewItem *infoText = 0;
+		QListWidgetItem *infoText = 0;
 
 		// Price
 		if (m_estate->price())
 		{
-			infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Price: %1", m_estate->price()));
-			infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
+			infoText = new QListWidgetItem();
+			infoText->setText(i18n("Price: %1", m_estate->price()));
+			infoText->setIcon(KIcon("document-properties"));
+			m_infoListView->addItem(infoText);
 		}
 
 		// Owner, houses, isMortgaged
 		if (m_estate && m_estate->canBeOwned())
 		{
-			infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
+			infoText = new QListWidgetItem();
+			infoText->setText(i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+			infoText->setIcon(KIcon("document-properties"));
+			m_infoListView->addItem(infoText);
 
 			if (m_estate->isOwned())
 			{
-				infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Houses: %1", m_estate->houses()));
-				infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
+				infoText = new QListWidgetItem();
+				infoText->setText(i18n("Houses: %1", m_estate->houses()));
+				infoText->setIcon(KIcon("document-properties"));
+				m_infoListView->addItem(infoText);
 
-				infoText = new Q3ListViewItem(m_infoListView, m_infoListView->lastItem(), i18n("Mortgaged: %1", m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				infoText->setPixmap(0, QPixmap(SmallIcon("document-properties")));
+				infoText = new QListWidgetItem();
+				infoText->setText(i18n("Mortgaged: %1", m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
+				infoText->setIcon(KIcon("document-properties"));
+				m_infoListView->addItem(infoText);
 			}
 		}
 	}
@@ -285,8 +292,6 @@ void EstateDetails::setEstate(Estate *estate)
 	{
 		m_estate = estate;
 
-		m_infoListView->setColumnText( 0, m_estate ? m_estate->name() : QString("") );
-
 		b_recreate = true;
 		update();
 	}
@@ -303,14 +308,15 @@ void EstateDetails::appendText(const QString &text)
 	if ( text.isEmpty() )
 		return;
 
-	KWrappedListViewItem *infoText = new KWrappedListViewItem(m_infoListView, m_infoListView->lastItem(), text);
-
+	QListWidgetItem *infoText = new QListWidgetItem();
+	infoText->setText(text);
 	if ( text.contains( QRegExp("rolls")  ) )
-		infoText->setPixmap(0, QPixmap(SmallIcon("roll")));
+		infoText->setIcon(KIcon("roll"));
 	else
-		infoText->setPixmap(0, QPixmap(SmallIcon("atlantik")));
+		infoText->setIcon(KIcon("atlantik"));
+	m_infoListView->addItem(infoText);
 
-	m_infoListView->ensureItemVisible( infoText );
+	m_infoListView->scrollToItem(infoText);
 }
 
 void EstateDetails::clearButtons()

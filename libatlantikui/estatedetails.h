@@ -31,7 +31,7 @@ class QHBoxLayout;
 class QVBoxLayout;
 class QVGroupBox;
 
-class K3ListView;
+class QListWidget;
 class KPushButton;
 
 class Estate;
@@ -65,7 +65,7 @@ private:
 	Estate *m_estate;
 	QPixmap *m_pixmap;
 	QPixmap *m_quartzBlocks;
-	K3ListView *m_infoListView;
+	QListWidget *m_infoListView;
 	KPushButton *m_closeButton;
 	bool b_recreate, m_recreateQuartz;
 	QVBoxLayout *m_mainLayout;
