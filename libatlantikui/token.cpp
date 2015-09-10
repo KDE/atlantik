@@ -153,7 +153,8 @@ void Token::paintEvent(QPaintEvent *)
 
 		b_recreate = false;
 	}
-	bitBlt(this, 0, 0, qpixmap);
+	QPainter painter(this);
+	painter.drawPixmap(0, 0, *qpixmap);
 }
 
 void Token::resizeEvent(QResizeEvent *)

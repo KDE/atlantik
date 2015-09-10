@@ -202,7 +202,8 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		b_recreate = false;
 
 	}
-	bitBlt(this, 0, 0, m_pixmap);
+	QPainter painter(this);
+	painter.drawPixmap(0, 0, *m_pixmap);
 }
 
 void EstateDetails::resizeEvent(QResizeEvent *)

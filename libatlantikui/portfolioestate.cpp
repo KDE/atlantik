@@ -87,7 +87,8 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		m_pixmap = drawPixmap(m_estate, m_player, m_alwaysOwned);
 		b_recreate = false;
 	}
-	bitBlt(this, 0, 0, &m_pixmap);
+	QPainter painter(this);
+	painter.drawPixmap(0, 0, m_pixmap);
 }
 
 void PortfolioEstate::mousePressEvent(QMouseEvent *e)
