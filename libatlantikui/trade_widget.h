@@ -68,7 +68,7 @@ private Q_SLOTS:
 	void accept();
 
 	void contextMenu(const QPoint& pos);
-	void contextMenuClicked(int item);
+	void contextMenuClickedRemove();
 
 Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);

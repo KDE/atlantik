@@ -454,14 +454,13 @@ void TradeDisplay::contextMenu(const QPoint &pos)
 	m_contextTradeItem = m_componentRevMap[item];
 
 	KMenu *rmbMenu = new KMenu(mainWidget());
-//	rmbMenu->insertTitle( ... );
-	rmbMenu->insertItem(i18n("Remove From Trade"), 0);
+	QAction *act = rmbMenu->addAction(i18n("Remove From Trade"));
+	connect(act, SIGNAL(triggered()), this, SLOT(contextMenuClickedRemove()));
 
-	connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(contextMenuClicked(int)));
 	rmbMenu->exec(m_componentList->viewport()->mapToGlobal(pos));
 }
 
-void TradeDisplay::contextMenuClicked(int)
+void TradeDisplay::contextMenuClickedRemove()
 {
 	if (!m_contextTradeItem)
 		return;
