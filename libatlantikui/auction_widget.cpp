@@ -14,7 +14,6 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <khbox.h>
 #include <QSpinBox>
 #include <QLabel>
 #include <QPixmap>
@@ -82,16 +81,18 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	m_playerList->addTopLevelItems(items);
 
 	// Bid spinbox and button
-	KHBox *bidBox = new KHBox(this);
-	m_mainLayout->addWidget(bidBox);
+	QHBoxLayout *bidLayout = new QHBoxLayout();
+	m_mainLayout->addItem(bidLayout);
 
-	m_bidSpinBox = new QSpinBox(bidBox);
+	m_bidSpinBox = new QSpinBox(this);
 	m_bidSpinBox->setRange(1, 10000);
 	m_bidSpinBox->setSingleStep(1);
+	bidLayout->addWidget(m_bidSpinBox);
 
-	KPushButton *bidButton = new KPushButton( i18n("Make Bid"), bidBox );
+	KPushButton *bidButton = new KPushButton(i18n("Make Bid"), this);
 	bidButton->setObjectName( "bidButton" );
 	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
+	bidLayout->addWidget(bidButton);
 
 	// Status label
 	m_statusLabel = new QLabel(this );
