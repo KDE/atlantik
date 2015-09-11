@@ -24,12 +24,11 @@
 #include "libatlantikui_export.h"
 
 class QLabel;
-class Q3ListViewItem;
 class QGroupBox;
 class QSpinBox;
+class QTreeWidget;
+class QTreeWidgetItem;
 
-class K3ListView;
-class K3ListViewItem;
 class KComboBox;
 class KPushButton;
 
@@ -62,13 +61,13 @@ private Q_SLOTS:
 	void setTypeCombo(int);
 	void setEstateCombo(int);
 	void setCardCombo(int);
-	void setCombos(Q3ListViewItem *i);
+	void setCombos(QTreeWidgetItem *i);
 
 	void updateComponent();
 	void reject();
 	void accept();
 
-	void contextMenu(K3ListView *l, Q3ListViewItem *i, const QPoint& p);
+	void contextMenu(const QPoint& pos);
 	void contextMenuClicked(int item);
 
 Q_SIGNALS:
@@ -84,7 +83,7 @@ private:
 	QSpinBox *m_moneyBox;
 
 	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
-	K3ListView *m_componentList;
+	QTreeWidget *m_componentList;
 	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
 	AtlanticCore *m_atlanticCore;
@@ -92,8 +91,8 @@ private:
 	TradeItem *m_contextTradeItem;
 
 	// TODO: Wouldn't QPair make more sense here?
-	QMap<TradeItem *, K3ListViewItem *> m_componentMap;
-	QMap<K3ListViewItem *, TradeItem *> m_componentRevMap;
+	QMap<TradeItem *, QTreeWidgetItem *> m_componentMap;
+	QMap<QTreeWidgetItem *, TradeItem *> m_componentRevMap;
 	QMap<int, Estate *> m_estateMap;
 	QMap<Estate *, int> m_estateRevMap;
 	QMap<int, Player *> m_playerFromMap, m_playerTargetMap;

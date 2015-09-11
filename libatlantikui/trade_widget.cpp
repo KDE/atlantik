@@ -30,9 +30,10 @@
 #include <QCloseEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QTreeWidget>
+#include <QHeaderView>
 
 #include <klocale.h>
-#include <k3listview.h>
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>
@@ -145,17 +146,22 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
-	m_componentList = new K3ListView(mainWidget());
+	m_componentList = new QTreeWidget(mainWidget());
         m_componentList->setObjectName( "componentList" );
+	m_componentList->setContextMenuPolicy(Qt::CustomContextMenu);
+	m_componentList->setRootIsDecorated(false);
+	m_componentList->header()->setResizeMode(QHeaderView::ResizeToContents);
 	listCompBox->addWidget(m_componentList);
 
-	m_componentList->addColumn(i18n("Player"));
-	m_componentList->addColumn(i18n("Gives"));
-	m_componentList->addColumn(i18n("Player"));
-	m_componentList->addColumn(i18n("Item"));
+	QStringList headers;
+	headers << i18n("Player");
+	headers << i18n("Gives");
+	headers << i18n("Player");
+	headers << i18n("Item");
+	m_componentList->setHeaderLabels(headers);
 
-	connect(m_componentList, SIGNAL(contextMenu(K3ListView*, Q3ListViewItem *, const QPoint&)), SLOT(contextMenu(K3ListView *, Q3ListViewItem *, const QPoint&)));
-	connect(m_componentList, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(setCombos(Q3ListViewItem *)));
+	connect(m_componentList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenu(QPoint)));
+	connect(m_componentList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(setCombos(QTreeWidgetItem*)));
 
 	QHBoxLayout *actionBox = new QHBoxLayout();
 	actionBox->setSpacing(KDialog::spacingHint());
@@ -212,16 +218,22 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 
 void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 {
-	K3ListViewItem *item = new K3ListViewItem(m_componentList, (tradeItem->from() ? tradeItem->from()->name() : QString("?")), i18nc("gives is transitive ;)", "gives"), (tradeItem->to() ? tradeItem->to()->name() : QString("?")), tradeItem->text());
+	QTreeWidgetItem *item = new QTreeWidgetItem();
+	item->setText(0, tradeItem->from() ? tradeItem->from()->name() : QString("?"));
+	item->setText(1, i18nc("gives is transitive ;)", "gives"));
+	item->setText(2, tradeItem->to() ? tradeItem->to()->name() : QString("?"));
+	item->setText(3, tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
-	item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
-	item->setPixmap(2, QPixmap(SmallIcon("user-identity")));
+	item->setIcon(0, KIcon("user-identity"));
+	item->setIcon(2, KIcon("user-identity"));
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(tradeItem))
-		item->setPixmap(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
+		item->setIcon(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
 //	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(tradeItem))
-//		item->setPixmap(3, PortfolioEstate::pixMap(tradeEstate->estate()));
+//		item->setIcon(3, PortfolioEstate::pixMap(tradeEstate->estate()));
+
+	m_componentList->addTopLevelItem(item);
 
 	m_componentMap[tradeItem] = item;
 	m_componentRevMap[item] = tradeItem;
@@ -229,20 +241,20 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 
 void TradeDisplay::tradeItemRemoved(TradeItem *t)
 {
-	K3ListViewItem *item = m_componentMap[t];
+	QTreeWidgetItem *item = m_componentMap.take(t);
+	m_componentRevMap.remove(item);
 	delete item;
-	m_componentMap[t] = 0;
 }
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	K3ListViewItem *item = m_componentMap[t];
+	QTreeWidgetItem *item = m_componentMap[t];
 	if (item)
 	{
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
-		item->setPixmap(0, QPixmap(SmallIcon("user-identity")));
+		item->setIcon(0, KIcon("user-identity"));
 		item->setText(2, t->to() ? t->to()->name() : QString("?"));
-		item->setPixmap(2, QPixmap(SmallIcon("user-identity")));
+		item->setIcon(2, KIcon("user-identity"));
 		item->setText(3, t->text());
 	}
 }
@@ -259,8 +271,7 @@ void TradeDisplay::playerChanged(Player *player)
 	m_playerFromCombo->setItemText(m_playerFromRevMap[player], player->name());
 	m_playerTargetCombo->setItemText(m_playerTargetRevMap[player], player->name());
 
-	TradeItem *item = 0;
-	for (QMap<K3ListViewItem *, TradeItem *>::Iterator it=m_componentRevMap.begin() ; it != m_componentRevMap.end() && (item = *it) ; ++it)
+	foreach (TradeItem *item, m_componentRevMap)
 		tradeItemChanged(item);
 }
 
@@ -360,9 +371,9 @@ void TradeDisplay::setCardCombo(int index)
 		m_playerFromCombo->setCurrentIndex(m_playerFromRevMap[card->owner()]);
 }
 
-void TradeDisplay::setCombos(Q3ListViewItem *i)
+void TradeDisplay::setCombos(QTreeWidgetItem *i)
 {
-	TradeItem *item = m_componentRevMap[(K3ListViewItem *)(i)];
+	TradeItem *item = m_componentRevMap[i];
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(item))
 	{
 		setTypeCombo(0);
@@ -434,16 +445,20 @@ void TradeDisplay::accept()
 	emit accept(m_trade);
 }
 
-void TradeDisplay::contextMenu(K3ListView *, Q3ListViewItem *i, const QPoint& p)
+void TradeDisplay::contextMenu(const QPoint &pos)
 {
-	m_contextTradeItem = m_componentRevMap[(K3ListViewItem *)(i)];
+	QTreeWidgetItem* item = m_componentList->itemAt(pos);
+	if (!item)
+		return;
+
+	m_contextTradeItem = m_componentRevMap[item];
 
 	KMenu *rmbMenu = new KMenu(mainWidget());
 //	rmbMenu->insertTitle( ... );
 	rmbMenu->insertItem(i18n("Remove From Trade"), 0);
 
 	connect(rmbMenu, SIGNAL(activated(int)), this, SLOT(contextMenuClicked(int)));
-	rmbMenu->exec(p);
+	rmbMenu->exec(m_componentList->viewport()->mapToGlobal(pos));
 }
 
 void TradeDisplay::contextMenuClicked(int)
