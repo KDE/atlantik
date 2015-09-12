@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigMetaserver</class>
+ <widget class="QWidget" name="ConfigMetaserver">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>317</width>
+    <height>77</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="kcfg_ConnectOnStart">
+     <property name="whatsThis">
+      <string>If checked, Atlantik connects to a meta server on start-up to request a list of Internet servers.</string>
+     </property>
+     <property name="text">
+      <string>Request list of Internet servers on start-up</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_HideDevelopmentServers">
+     <property name="whatsThis">
+      <string>Some of the Internet servers might be running development versions of the server software.
+If checked, Atlantik will not display these servers.</string>
+     </property>
+     <property name="text">
+      <string>Hide development servers</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>5</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

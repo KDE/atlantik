@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigBoard</class>
+ <widget class="QWidget" name="ConfigBoard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>357</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Game Status Feedback</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="kcfg_IndicateUnowned">
+        <property name="whatsThis">
+         <string>If checked, unowned properties on the board display an estate card to indicate the property is for sale.</string>
+        </property>
+        <property name="text">
+         <string>Display title deed card on unowned properties</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_HighliteUnowned">
+        <property name="whatsThis">
+         <string>If checked, unowned properties on the board are highlighted to indicate the property is for sale.</string>
+        </property>
+        <property name="text">
+         <string>Highlight unowned properties</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_DarkenMortgaged">
+        <property name="whatsThis">
+         <string>If checked, mortgaged properties on the board will be colored darker than of the default color.</string>
+        </property>
+        <property name="text">
+         <string>Darken mortgaged properties</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_AnimateToken">
+        <property name="whatsThis">
+         <string>If checked, tokens will move across the board instead of jumping directly to their new location.</string>
+        </property>
+        <property name="text">
+         <string>Animate token movement</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="kcfg_QuartzEffects">
+        <property name="whatsThis">
+         <string>If checked, the colored headers of street estates on the board will have a Quartz effect similar to the Quartz KWin style.</string>
+        </property>
+        <property name="text">
+         <string>Quartz effects</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>3</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

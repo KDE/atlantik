@@ -130,31 +130,17 @@ AtlantikConfig ConfigDialog::config()
 ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	layout->setMargin(0);
+	m_ui.setupUi(this);
+	layout()->setMargin(0);
 
-	QLabel *label = new QLabel(i18n("Player name:"), parent);
-	layout->addWidget(label);
-
-	m_playerName = new QLineEdit(parent);
-	layout->addWidget(m_playerName);
-
-	QLabel *label2 = new QLabel(i18n("Player image:"), parent);
-	layout->addWidget(label2);
-
-	m_playerIcon = new KPushButton(parent);
-	layout->addWidget(m_playerIcon);
-
-	connect( m_playerIcon, SIGNAL(clicked()), this, SLOT(chooseImage()) );
-
-	layout->addStretch(1);
+	connect(m_ui.kcfg_PlayerImage, SIGNAL(clicked()), this, SLOT(chooseImage()));
 
 	reset();
 }
 
 QString ConfigPlayer::playerName()
 {
-	return m_playerName->text();
+	return m_ui.kcfg_PlayerName->text();
 }
 
 QString ConfigPlayer::playerImage()
@@ -185,14 +171,14 @@ void ConfigPlayer::setImage()
 	if (KStandardDirs::exists(filename))
 	{
 		const QPixmap p(filename);
-		m_playerIcon->setIcon(QIcon(p));
-		m_playerIcon->setIconSize(p.size());
+		m_ui.kcfg_PlayerImage->setIcon(QIcon(p));
+		m_ui.kcfg_PlayerImage->setIconSize(p.size());
 	}
 }
 
 void ConfigPlayer::reset()
 {
-	m_playerName->setText(m_configDialog->config().playerName);
+	m_ui.kcfg_PlayerName->setText(m_configDialog->config().playerName);
 	m_playerImage = m_configDialog->config().playerImage;
 	setImage();
 }
@@ -200,160 +186,86 @@ void ConfigPlayer::reset()
 ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-
-	m_connectOnStart = new QCheckBox(i18n("Request list of Internet servers on start-up"), parent);
-	layout->addWidget(m_connectOnStart);
-
-	QString message=i18n(
-		"If checked, Atlantik connects to a meta server on start-up to\n"
-		"request a list of Internet servers.\n");
-	m_connectOnStart->setWhatsThis( message);
-
-	m_hideDevelopmentServers = new QCheckBox(i18n("Hide development servers"), parent);
-	layout->addWidget(m_hideDevelopmentServers);
-
-	message=i18n(
-		"Some of the Internet servers might be running development\n"
-		"versions of the server software. If checked, Atlantik will not\n"
-		"display these servers.\n");
-	m_hideDevelopmentServers->setWhatsThis( message);
-
-	layout->addStretch(1);
+	m_ui.setupUi(this);
+	layout()->setMargin(0);
 
 	reset();
 }
 
 bool ConfigMonopigator::connectOnStart()
 {
-	return m_connectOnStart->isChecked();
+	return m_ui.kcfg_ConnectOnStart->isChecked();
 }
 
 bool ConfigMonopigator::hideDevelopmentServers()
 {
-	return m_hideDevelopmentServers->isChecked();
+	return m_ui.kcfg_HideDevelopmentServers->isChecked();
 }
 
 void ConfigMonopigator::reset()
 {
-	m_connectOnStart->setChecked(m_configDialog->config().connectOnStart);
-	m_hideDevelopmentServers->setChecked(m_configDialog->config().hideDevelopmentServers);
+	m_ui.kcfg_ConnectOnStart->setChecked(m_configDialog->config().connectOnStart);
+	m_ui.kcfg_HideDevelopmentServers->setChecked(m_configDialog->config().hideDevelopmentServers);
 }
 
 ConfigGeneral::ConfigGeneral(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-
-	m_chatTimestamps = new QCheckBox(i18n("Show timestamps in chat messages"), parent);
-	layout->addWidget(m_chatTimestamps);
-
-	QString message=i18n(
-		"If checked, Atlantik will add timestamps in front of chat\n"
-		"messages.\n");
-	m_chatTimestamps->setWhatsThis( message);
-
-	layout->addStretch(1);
+	m_ui.setupUi(this);
+	layout()->setMargin(0);
 
 	reset();
 }
 
 bool ConfigGeneral::chatTimestamps()
 {
-	return m_chatTimestamps->isChecked();
+	return m_ui.kcfg_ChatTimeStamps->isChecked();
 }
 
 void ConfigGeneral::reset()
 {
-	m_chatTimestamps->setChecked(m_configDialog->config().chatTimestamps);
+	m_ui.kcfg_ChatTimeStamps->setChecked(m_configDialog->config().chatTimestamps);
 }
 
 ConfigBoard::ConfigBoard(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
 {
 	m_configDialog = configDialog;
-	QVBoxLayout *layout = new QVBoxLayout(this);
-	layout->setMargin(0);
-
-	QGroupBox *box = new QGroupBox(i18n("Game Status Feedback"), parent);
-	layout->addWidget(box);
-
-	QVBoxLayout *boxLayout = new QVBoxLayout(box);
-
-	m_indicateUnowned = new QCheckBox(i18n("Display title deed card on unowned properties"), box);
-	boxLayout->addWidget(m_indicateUnowned);
-	QString message=i18n(
-		"If checked, unowned properties on the board display an estate\n"
-		"card to indicate the property is for sale.\n");
-	m_indicateUnowned->setWhatsThis( message);
-
-	m_highliteUnowned = new QCheckBox(i18n("Highlight unowned properties"), box);
-	boxLayout->addWidget(m_highliteUnowned);
-	message=i18n(
-		"If checked, unowned properties on the board are highlighted to\n"
-		"indicate the property is for sale.\n");
-	m_highliteUnowned->setWhatsThis( message);
-
-	m_darkenMortgaged = new QCheckBox(i18n("Darken mortgaged properties"), box);
-	boxLayout->addWidget(m_darkenMortgaged);
-	message=i18n(
-		"If checked, mortgaged properties on the board will be colored\n"
-		"darker than of the default color.\n");
-	m_darkenMortgaged->setWhatsThis( message);
-
-	m_animateToken = new QCheckBox(i18n("Animate token movement"), box);
-	boxLayout->addWidget(m_animateToken);
-	message=i18n(
-		"If checked, tokens will move across the board\n"
-		"instead of jumping directly to their new location.\n");
-	m_animateToken->setWhatsThis( message);
-
-	m_quartzEffects = new QCheckBox(i18n("Quartz effects"), box);
-	boxLayout->addWidget(m_quartzEffects);
-	message=i18n(
-		"If checked, the colored headers of street estates on the board "
-		"will have a Quartz effect similar to the Quartz KWin style.\n");
-	m_quartzEffects->setWhatsThis( message);
-
-//	box = new QGroupBox(1, Qt::Horizontal, i18n("Size"), parent);
-//	layout->addWidget(box);
-
-	layout->addStretch(1);
+	m_ui.setupUi(this);
+	layout()->setMargin(0);
 
 	reset();
 }
 
 bool ConfigBoard::indicateUnowned()
 {
-	return m_indicateUnowned->isChecked();
+	return m_ui.kcfg_IndicateUnowned->isChecked();
 }
 
 bool ConfigBoard::highliteUnowned()
 {
-	return m_highliteUnowned->isChecked();
+	return m_ui.kcfg_HighliteUnowned->isChecked();
 }
 
 bool ConfigBoard::darkenMortgaged()
 {
-	return m_darkenMortgaged->isChecked();
+	return m_ui.kcfg_DarkenMortgaged->isChecked();
 }
 
 bool ConfigBoard::animateToken()
 {
-	return m_animateToken->isChecked();
+	return m_ui.kcfg_AnimateToken->isChecked();
 }
 
 bool ConfigBoard::quartzEffects()
 {
-	return m_quartzEffects->isChecked();
+	return m_ui.kcfg_QuartzEffects->isChecked();
 }
 
 void ConfigBoard::reset()
 {
-	m_indicateUnowned->setChecked(m_configDialog->config().indicateUnowned);
-	m_highliteUnowned->setChecked(m_configDialog->config().highliteUnowned);
-	m_darkenMortgaged->setChecked(m_configDialog->config().darkenMortgaged);
-	m_animateToken->setChecked(m_configDialog->config().animateTokens);
-	m_quartzEffects->setChecked(m_configDialog->config().quartzEffects);
+	m_ui.kcfg_IndicateUnowned->setChecked(m_configDialog->config().indicateUnowned);
+	m_ui.kcfg_HighliteUnowned->setChecked(m_configDialog->config().highliteUnowned);
+	m_ui.kcfg_DarkenMortgaged->setChecked(m_configDialog->config().darkenMortgaged);
+	m_ui.kcfg_AnimateToken->setChecked(m_configDialog->config().animateTokens);
+	m_ui.kcfg_QuartzEffects->setChecked(m_configDialog->config().quartzEffects);
 }

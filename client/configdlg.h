@@ -24,9 +24,12 @@
 
 #include <kpagedialog.h>
 
-class QString;
+#include <ui_configboard.h>
+#include <ui_configgeneral.h>
+#include <ui_configmetaserver.h>
+#include <ui_configplayer.h>
 
-class KPushButton;
+class QString;
 
 class Atlantik;
 class ConfigDialog;
@@ -51,9 +54,8 @@ private:
 	void reset();
 
 	ConfigDialog *m_configDialog;
-	QLineEdit *m_playerName;
+	Ui::ConfigPlayer m_ui;
 	QString m_playerImage;
-	KPushButton *m_playerIcon;
 };
 
 class ConfigBoard : public QWidget
@@ -73,7 +75,7 @@ private:
 	void reset();
 
 	ConfigDialog *m_configDialog;
-	QCheckBox *m_indicateUnowned, *m_highliteUnowned, *m_darkenMortgaged, *m_animateToken, *m_quartzEffects;
+	Ui::ConfigBoard m_ui;
 };
 
 class ConfigMonopigator : public QWidget
@@ -90,7 +92,7 @@ private:
 	void reset();
 
 	ConfigDialog *m_configDialog;
-	QCheckBox *m_connectOnStart, *m_hideDevelopmentServers;
+	Ui::ConfigMetaserver m_ui;
 };
 
 class ConfigGeneral : public QWidget
@@ -106,7 +108,7 @@ private:
 	void reset();
 
 	ConfigDialog *m_configDialog;
-	QCheckBox *m_chatTimestamps;
+	Ui::ConfigGeneral m_ui;
 };
 
 class ConfigDialog : public KPageDialog
