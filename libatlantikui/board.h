@@ -67,6 +67,7 @@ private Q_SLOTS:
 	void displayButton(const QString &command, const QString &caption, bool enabled);
 	void prependEstateDetails(Estate *);
 	void insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
+	void insertText(const QString &text, bool clearText, bool clearButtons);
 	void addCloseButton();
 
 Q_SIGNALS:

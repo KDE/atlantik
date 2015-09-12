@@ -97,6 +97,7 @@ signals:
 	void msgStatus(const QString &data, const QString &icon = QString::null);
 	void networkEvent(const QString &data, const QString &icon);
 	void displayDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
+	void displayText(QString text, bool clearText, bool clearButtons);
 	void addCommandButton(QString command, QString caption, bool enabled);
 	void addCloseButton();
 

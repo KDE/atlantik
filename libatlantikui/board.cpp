@@ -547,6 +547,21 @@ void AtlantikBoard::insertDetails(const QString &text, bool clearText, bool clea
 	updateCenter();
 }
 
+void AtlantikBoard::insertText(const QString &text, bool clearText, bool clearButtons)
+{
+	EstateDetails *eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay);
+	if (!eDetails)
+		return;
+
+	if (clearText)
+		eDetails->setText(text);
+	else
+		eDetails->appendText(text);
+
+	if (clearButtons)
+		eDetails->clearButtons();
+}
+
 void AtlantikBoard::prependEstateDetails(Estate *estate)
 {
 	if (!estate)

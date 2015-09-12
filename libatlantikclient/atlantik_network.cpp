@@ -334,15 +334,19 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         emit msgChat(e.attributeNode(QString("author")).value(), e.attributeNode(QString("value")).value());
                 }
             } else if (e.tagName() == "display") {
-                int estateId = -1;
+                Estate *estate = 0;
+                bool hasEstateId = false;
 
                 a = e.attributeNode(QString("estateid"));
                 if (!a.isNull()) {
-                    estateId = a.value().toInt();
-                    Estate *estate;
                     estate = m_atlanticCore->findEstate(a.value().toInt());
-
+                    hasEstateId = true;
+                }
+                if (hasEstateId) {
                     emit displayDetails(e.attributeNode(QString("text")).value(), e.attributeNode(QString("cleartext")).value().toInt(), e.attributeNode(QString("clearbuttons")).value().toInt(), estate);
+                } else {
+                    emit displayText(e.attributeNode(QString("text")).value(), e.attributeNode(QString("cleartext")).value().toInt(), e.attributeNode(QString("clearbuttons")).value().toInt());
+                }
 
                     bool hasButtons = false;
                     for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() ) {
@@ -355,7 +359,6 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                     if (!hasButtons)
                         emit addCloseButton();
-                }
             } else if (e.tagName() == "client") {
                 a = e.attributeNode(QString("playerid"));
                 if (!a.isNull())
