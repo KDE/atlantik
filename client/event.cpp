@@ -14,10 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <QDateTime>
-
-
-#include "event.moc"
+#include "event.h"
 
 Event::Event(const QDateTime &dateTime, const QString &description, const QString &icon)
 {

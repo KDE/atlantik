@@ -17,15 +17,11 @@
 #ifndef ATLANTIK_EVENT_H
 #define ATLANTIK_EVENT_H
 
-#include <QObject>
+#include <QDateTime>
+#include <QString>
 
-class QDateTime;
-class QString;
-
-class Event : public QObject
+class Event
 {
-Q_OBJECT
-
 public:
 	Event(const QDateTime &dateTime, const QString &description, const QString &icon = QString::null);
 	QDateTime dateTime() const;
