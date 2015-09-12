@@ -1,0 +1,4 @@
+ClassName=Settings
+File=atlantik.kcfg
+Mutators=true
+Singleton=true

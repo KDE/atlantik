@@ -62,6 +62,8 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 
+#include <settings.h>
+
 LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	m_clear = KStandardAction::clear( this, SLOT( clear() ), 0 );
@@ -247,32 +249,26 @@ void Atlantik::readConfig()
 	// Read configuration settings
 
 	// General configuration
-	const KConfigGroup cggeneral(KGlobal::config(), "General");
-	m_config.chatTimestamps = cggeneral.readEntry("ChatTimeStamps", false);
+	m_config.chatTimestamps = Settings::chatTimeStamps();
 
 	// Personalization configuration
-	const KConfigGroup cgpersonalization(KGlobal::config(), "Personalization");
-	m_config.playerName = cgpersonalization.readEntry("PlayerName", "Atlantik");
-	m_config.playerImage = cgpersonalization.readEntry("PlayerImage", "cube.png");
+	m_config.playerName = Settings::playerName();
+	m_config.playerImage = Settings::playerImage();
 
 	// Board configuration
-	const KConfigGroup cgboard(KGlobal::config(), "Board");
-	m_config.indicateUnowned = cgboard.readEntry("IndicateUnowned", true);
-	m_config.highliteUnowned = cgboard.readEntry("HighliteUnowned", false);
-	m_config.darkenMortgaged = cgboard.readEntry("DarkenMortgaged", true);
-	m_config.animateTokens = cgboard.readEntry("AnimateToken", false);
-	m_config.quartzEffects = cgboard.readEntry("QuartzEffects", true);
+	m_config.indicateUnowned = Settings::indicateUnowned();
+	m_config.highliteUnowned = Settings::highliteUnowned();
+	m_config.darkenMortgaged = Settings::darkenMortgaged();
+	m_config.animateTokens = Settings::animateToken();
+	m_config.quartzEffects = Settings::quartzEffects();
 
 	// Meta server configuation
-	const KConfigGroup cgmonopigator(KGlobal::config(), "Monopigator");
-	m_config.connectOnStart = cgmonopigator.readEntry("ConnectOnStart", false);
-	m_config.hideDevelopmentServers = cgmonopigator.readEntry("HideDevelopmentServers", true);
+	m_config.connectOnStart = Settings::connectOnStart();
+	m_config.hideDevelopmentServers = Settings::hideDevelopmentServers();
 
 	// Portfolio colors
-	const KConfigGroup cgwm(KGlobal::config(), "WM");
-	QColor activeDefault(204, 204, 204), inactiveDefault(153, 153, 153);
-	m_config.activeColor = cgwm.readEntry("activeBackground", activeDefault);
-	m_config.inactiveColor = cgwm.readEntry("inactiveBlend", inactiveDefault);
+	m_config.activeColor = Settings::activeBackground();
+	m_config.inactiveColor = Settings::inactiveBlend();
 }
 
 void Atlantik::newPlayer(Player *player)
@@ -624,23 +620,21 @@ void Atlantik::slotUpdateConfig()
 		configChanged = true;
 	}
 
-	KConfigGroup cggeneral(KGlobal::config(), "General");
-	cggeneral.writeEntry("ChatTimeStamps", m_config.chatTimestamps);
+	Settings::setChatTimeStamps(m_config.chatTimestamps);
 
-	KConfigGroup cgpersonalization(KGlobal::config(), "Personalization");
-	cgpersonalization.writeEntry("PlayerName", m_config.playerName);
-	cgpersonalization.writeEntry("PlayerImage", m_config.playerImage);
+	Settings::setPlayerName(m_config.playerName);
+	Settings::setPlayerImage(m_config.playerImage);
 
-	KConfigGroup cgboard(KGlobal::config(), "Board");
-	cgboard.writeEntry("IndicateUnowned", m_config.indicateUnowned);
-	cgboard.writeEntry("HighliteUnowned", m_config.highliteUnowned);
-	cgboard.writeEntry("DarkenMortgaged", m_config.darkenMortgaged);
-	cgboard.writeEntry("AnimateToken", m_config.animateTokens);
-	cgboard.writeEntry("QuartzEffects", m_config.quartzEffects);
+	Settings::setIndicateUnowned(m_config.indicateUnowned);
+	Settings::setHighliteUnowned(m_config.highliteUnowned);
+	Settings::setDarkenMortgaged(m_config.darkenMortgaged);
+	Settings::setAnimateToken(m_config.animateTokens);
+	Settings::setQuartzEffects(m_config.quartzEffects);
 
-	KConfigGroup cgmonopigator(KGlobal::config(), "Monopigator");
-	cgmonopigator.writeEntry("ConnectOnStart", m_config.connectOnStart);
-	cgmonopigator.writeEntry("HideDevelopmentServers", m_config.hideDevelopmentServers);
+	Settings::setConnectOnStart(m_config.connectOnStart);
+	Settings::setHideDevelopmentServers(m_config.hideDevelopmentServers);
+
+	Settings::self()->writeConfig();
 
 	if (configChanged && m_board)
 		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);

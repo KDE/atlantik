@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name="atlantikrc"/>
+  <group name="General">
+    <entry key="ChatTimeStamps" type="Bool">
+      <default>false</default>
+    </entry>
+  </group>
+  <group name="Personalization">
+    <entry key="PlayerName" type="String">
+      <default>Atlantik</default>
+    </entry>
+    <entry key="PlayerImage" type="String">
+      <default>cube.png</default>
+    </entry>
+  </group>
+  <group name="Board">
+    <entry key="IndicateUnowned" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry key="HighliteUnowned" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry key="DarkenMortgaged" type="Bool">
+      <default>true</default>
+    </entry>
+    <entry key="AnimateToken" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry key="QuartzEffects" type="Bool">
+      <default>true</default>
+    </entry>
+  </group>
+  <group name="Monopigator">
+    <entry key="ConnectOnStart" type="Bool">
+      <default>false</default>
+    </entry>
+    <entry key="HideDevelopmentServers" type="Bool">
+      <default>true</default>
+    </entry>
+  </group>
+  <group name="WM">
+    <entry key="activeBackground" type="Color">
+      <default>#CCCCCC</default>
+    </entry>
+    <entry key="inactiveBlend" type="Color">
+      <default>#999999</default>
+    </entry>
+  </group>
+</kcfg>
