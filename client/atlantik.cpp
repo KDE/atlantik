@@ -865,4 +865,6 @@ void Atlantik::closeEvent(QCloseEvent *e)
 		saveMainWindowSettings( cg );
 		KXmlGuiWindow::closeEvent(e);
 	}
+	else
+		e->ignore();
 }
