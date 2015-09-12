@@ -78,6 +78,9 @@ void AtlantikNetwork::slotwriteData(QString msg)
 
 void AtlantikNetwork::slotRead()
 {
+	if (!m_monopdstream.device())
+		return;
+
 	const QString line = m_monopdstream.readLine();
 	if (!line.isNull())
 	{

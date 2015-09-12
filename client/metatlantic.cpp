@@ -58,6 +58,9 @@ void Metatlantic::slotSocketConnected()
 
 void Metatlantic::slotSocketRead()
 {
+	if (!m_stream.device())
+		return;
+
 	const QString line = m_stream.readLine();
 	if (!line.isNull())
 	{
