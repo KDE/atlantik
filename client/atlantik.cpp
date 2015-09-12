@@ -478,32 +478,22 @@ void Atlantik::slotNetworkConnected()
 
 
 
-void Atlantik::slotNetworkError(QAbstractSocket::SocketError /*errnum*/)
+void Atlantik::slotNetworkError(QAbstractSocket::SocketError errnum)
 {
-// 	QString errMsg(i18n("Error connecting: "));
-//
-// 	//Should be done by AtlantikNetwork...
-// 	switch (m_atlantikNetwork->status())
-// 	{
-// 		case IO_ConnectError:
-// 			if (errnum == ECONNREFUSED)
-// 				errMsg.append(i18n("connection refused by host."));
-// 			else
-// 				errMsg.append(i18n("could not connect to host."));
-// 			break;
-//
-// 		case IO_LookupError:
-// 			errMsg.append(i18n("host not found."));
-// 			break;
-//
-// 		default:
-// 			errMsg.append(i18n("unknown error."));
-// 	}
-//
-// 	serverMsgsAppend(errMsg);
-//
-// 	// Re-init network object
-// 	initNetworkObject();
+	switch (errnum) {
+	case QAbstractSocket::ConnectionRefusedError:
+		serverMsgsAppend(i18n("Error connecting: connection refused by host."));
+		break;
+	case QAbstractSocket::HostNotFoundError:
+		serverMsgsAppend(i18n("Error connecting: host not found."));
+		break;
+	default:
+		serverMsgsAppend(i18n("Error connecting: error %1.", QString::number(errnum)));
+		break;
+	}
+
+	// Re-init network object
+	initNetworkObject();
 }
 
 void Atlantik::networkClosed(int /*status*/)
