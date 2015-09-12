@@ -17,7 +17,6 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <QLayout>
-#include <QRegExp>
 #include <QPaintEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -310,7 +309,7 @@ void EstateDetails::appendText(const QString &text)
 
 	QListWidgetItem *infoText = new QListWidgetItem();
 	infoText->setText(text);
-	if ( text.contains( QRegExp("rolls")  ) )
+	if (text.contains(" rolls "))
 		infoText->setIcon(KIcon("roll"));
 	else
 		infoText->setIcon(KIcon("atlantik"));
