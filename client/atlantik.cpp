@@ -23,11 +23,11 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>
+#include <QApplication>
 
 #include <kaboutapplicationdialog.h>
 #include <kaction.h>
 #include <kactioncollection.h>
-#include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -104,7 +104,7 @@ Atlantik::Atlantik ()
         m_showEventLog->setText(i18n("Show Event &Log"));
 		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
-        QAction *act = KStandardGameAction::quit(kapp, SLOT(closeAllWindows()), this);
+        QAction *act = KStandardGameAction::quit(qApp, SLOT(closeAllWindows()), this);
         actionCollection()->addAction("game_quit", act);
 
 	// Toolbar: Settings
