@@ -46,16 +46,11 @@ public:
 	QString playerName();
 	QString playerImage();
 
-private slots:
-	void chooseImage();
-
 private:
-	void setImage();
 	void reset();
 
 	ConfigDialog *m_configDialog;
 	Ui::ConfigPlayer m_ui;
-	QString m_playerImage;
 };
 
 class ConfigBoard : public QWidget

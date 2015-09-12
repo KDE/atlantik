@@ -22,11 +22,7 @@
 #include <QVBoxLayout>
 
 #include <kdeversion.h>
-#include <kicondialog.h>
-#include <kiconloader.h>
 #include <klocale.h>
-#include <kpushbutton.h>
-#include <kstandarddirs.h>
 #include <kicon.h>
 
 #include "atlantik.h"
@@ -133,7 +129,7 @@ ConfigPlayer::ConfigPlayer(ConfigDialog* configDialog, QWidget *parent) : QWidge
 	m_ui.setupUi(this);
 	layout()->setMargin(0);
 
-	connect(m_ui.kcfg_PlayerImage, SIGNAL(clicked()), this, SLOT(chooseImage()));
+	m_ui.kcfg_PlayerImage->setLocation("appdata", "themes/default/tokens/");
 
 	reset();
 }
@@ -145,42 +141,13 @@ QString ConfigPlayer::playerName()
 
 QString ConfigPlayer::playerImage()
 {
-	return m_playerImage;
-}
-void ConfigPlayer::chooseImage()
-{
-	KIconDialog iconDialog( this);
-	iconDialog.setCustomLocation( KStandardDirs::locate("appdata", "themes/default/tokens/") );
-
-	iconDialog.setup( KIconLoader::Desktop, KIconLoader::Application, false, 0, true, true, true ); // begin with user icons, lock editing
-
-	QString image = iconDialog.openDialog();
-
-	if ( image.isEmpty() )
-		return;
-
-	QStringList splitPath = image.split( '/', QString::SkipEmptyParts );
-	m_playerImage = splitPath[ splitPath.count()-1 ];
-
-	setImage();
-}
-
-void ConfigPlayer::setImage()
-{
-	QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_playerImage);
-	if (KStandardDirs::exists(filename))
-	{
-		const QPixmap p(filename);
-		m_ui.kcfg_PlayerImage->setIcon(QIcon(p));
-		m_ui.kcfg_PlayerImage->setIconSize(p.size());
-	}
+	return m_ui.kcfg_PlayerImage->image();
 }
 
 void ConfigPlayer::reset()
 {
 	m_ui.kcfg_PlayerName->setText(m_configDialog->config().playerName);
-	m_playerImage = m_configDialog->config().playerImage;
-	setImage();
+	m_ui.kcfg_PlayerImage->setImage(m_configDialog->config().playerImage);
 }
 
 ConfigMonopigator::ConfigMonopigator(ConfigDialog *configDialog, QWidget *parent) : QWidget(parent)
