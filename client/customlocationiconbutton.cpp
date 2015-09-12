@@ -26,6 +26,8 @@
 
 CustomLocationIconButton::CustomLocationIconButton(QWidget *parent) : QPushButton(parent)
 {
+	setProperty("kcfg_property", QByteArray("image"));
+
 	connect(this, SIGNAL(clicked()), this, SLOT(slotChooseImage()));
 }
 

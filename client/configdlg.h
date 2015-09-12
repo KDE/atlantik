@@ -17,120 +17,25 @@
 #ifndef ATLANTIK_CONFIGDLG_H
 #define ATLANTIK_CONFIGDLG_H
 
-#include <QWidget>
-#include <QCheckBox>
-#include <QLineEdit>
-#include <QFrame>
-
-#include <kpagedialog.h>
+#include <kconfigdialog.h>
 
 #include <ui_configboard.h>
 #include <ui_configgeneral.h>
 #include <ui_configmetaserver.h>
 #include <ui_configplayer.h>
 
-class QString;
-
-class Atlantik;
-class ConfigDialog;
-
-struct AtlantikConfig;
-
-class ConfigPlayer : public QWidget
+class ConfigDialog : public KConfigDialog
 {
 Q_OBJECT
 
 public:
-	ConfigPlayer(ConfigDialog *configDialog, QWidget *parent);
-
-	QString playerName();
-	QString playerImage();
+	ConfigDialog(QWidget *parent = 0);
 
 private:
-	void reset();
-
-	ConfigDialog *m_configDialog;
-	Ui::ConfigPlayer m_ui;
-};
-
-class ConfigBoard : public QWidget
-{
-Q_OBJECT
-
-public:
-	ConfigBoard(ConfigDialog *configDialog, QWidget *parent);
-
-	bool indicateUnowned();
-	bool highliteUnowned();
-	bool darkenMortgaged();
-	bool animateToken();
-	bool quartzEffects();
-
-private:
-	void reset();
-
-	ConfigDialog *m_configDialog;
-	Ui::ConfigBoard m_ui;
-};
-
-class ConfigMonopigator : public QWidget
-{
-Q_OBJECT
-
-public:
-	ConfigMonopigator(ConfigDialog *dialog, QWidget *parent);
-
-	bool connectOnStart();
-	bool hideDevelopmentServers();
-
-private:
-	void reset();
-
-	ConfigDialog *m_configDialog;
-	Ui::ConfigMetaserver m_ui;
-};
-
-class ConfigGeneral : public QWidget
-{
-Q_OBJECT
-
-public:
-	ConfigGeneral(ConfigDialog *dialog, QWidget *parent);
-
-	bool chatTimestamps();
-
-private:
-	void reset();
-
-	ConfigDialog *m_configDialog;
-	Ui::ConfigGeneral m_ui;
-};
-
-class ConfigDialog : public KPageDialog
-{
-Q_OBJECT
-
-public:
-	ConfigDialog(Atlantik *parent);
-
-	bool chatTimestamps();
-	bool indicateUnowned();
-	bool highliteUnowned();
-	bool darkenMortgaged();
-	bool animateToken();
-	bool quartzEffects();
-	AtlantikConfig config();
-	QString playerName();
-	QString playerImage();
-	bool connectOnStart();
-	bool hideDevelopmentServers();
-
-private:
-	Atlantik *m_parent;
-	ConfigPlayer *configPlayer;
-	ConfigBoard *configBoard;
-	ConfigMonopigator *configMonopigator;
-	ConfigGeneral *configGeneral;
+	Ui::ConfigGeneral m_uiGeneral;
+	Ui::ConfigPlayer m_uiPlayer;
+	Ui::ConfigBoard m_uiBoard;
+	Ui::ConfigMetaserver m_uiMetaserver;
 };
 
 #endif

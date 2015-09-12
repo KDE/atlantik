@@ -29,12 +29,12 @@
 
 #include <kxmlguiwindow.h>
 
-#include "configdlg.h"
 #include "portfolioview.h"
 #include "board.h"
 
 class QScrollArea;
 class QAction;
+class QLineEdit;
 class AtlanticCore;
 class AtlantikNetwork;
 
@@ -256,7 +256,6 @@ private:
 	AtlantikNetwork *m_atlantikNetwork;
 	AtlantikConfig m_config;
 
-	ConfigDialog *m_configDialog;
 	AtlantikBoard *m_board;
 	SelectServer *m_selectServer;
 	SelectGame *m_selectGame;
