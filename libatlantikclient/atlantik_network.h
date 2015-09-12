@@ -20,14 +20,12 @@
 #include <QMap>
 #include <QTextStream>
 #include <QDomNode>
+#include <QAbstractSocket>
 
 #include <libatlantikclient_export.h>
 #include <kdemacros.h>
 class AtlanticCore;
-namespace KNetwork
-{
-class KBufferedSocket;
-}
+class QTcpSocket;
 
 class  LIBATLANTIKCLIENT_EXPORT AtlantikNetwork: public QObject
 {
@@ -46,7 +44,7 @@ private slots:
 	void slotwriteData(QString msg);
 	void slotLookupFinished();
 	void slotConnectionSuccess();
-	void slotConnectionFailed(int error);
+	void slotConnectionFailed(QAbstractSocket::SocketError error);
 	void slotClosed();
 
 	void writeData(QString data);
@@ -88,7 +86,7 @@ public slots:
 
 signals:
 	void connectionSuccess();
-	void connectionFailed(int error);
+	void connectionFailed(QAbstractSocket::SocketError error);
 	void closed(int status);
 
 	void msgInfo(QString);
@@ -123,7 +121,7 @@ private:
         void processMsg(const QString &msg);
         void processNode(QDomNode);
 	AtlanticCore *m_atlanticCore;
-	KNetwork::KBufferedSocket *m_monopdsocket;
+	QTcpSocket *m_monopdsocket;
 	QTextStream m_monopdstream;
 	int m_playerId;
 	QString m_serverVersion;

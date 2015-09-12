@@ -26,6 +26,7 @@
 #include <QGridLayout>
 #include <QCloseEvent>
 #include <QScrollArea>
+#include <QAbstractSocket>
 
 #include <kxmlguiwindow.h>
 
@@ -143,9 +144,9 @@ public slots:
 	 * An error occurred while setting up the network connection. Inform the
 	 * user.
 	 *
-	 * @param errno See http://doc.trolltech.com/3.0/qsocket.html#Error-enum
+	 * @param errno See http://doc.qt.io/qt-4.8/qabstractsocket.html#SocketError-enum
 	 */
-	void slotNetworkError(int errnum);
+	void slotNetworkError(QAbstractSocket::SocketError errnum);
 
 	void networkClosed(int status);
 

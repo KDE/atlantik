@@ -20,11 +20,10 @@
 #include <qtextcodec.h>
 #include <qtextstream.h>
 #include <QTimer>
+#include <QTcpSocket>
 
 #include <kdebug.h>
 #include <klocale.h>
-
-#include <k3bufferedsocket.h>
 
 #include <atlantic_core.h>
 #include <auction.h>
@@ -37,8 +36,6 @@
 #include <trade.h>
 
 #include "atlantik_network.h"
-
-using namespace KNetwork;
 
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 {
@@ -64,10 +61,11 @@ void AtlantikNetwork::reset()
 
 		emit closed(0);
 	}
-	m_monopdsocket = new KBufferedSocket();
+	m_monopdsocket = new QTcpSocket(this);
+	m_monopdsocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
 
-	connect(m_monopdsocket, SIGNAL(gotError(int)), this, SLOT(slotConnectionFailed(int)));
-	connect(m_monopdsocket, SIGNAL(connected(const KNetwork::KResolverEntry&)), this, SLOT(slotConnectionSuccess()));
+	connect(m_monopdsocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
+	connect(m_monopdsocket, SIGNAL(connected()), this, SLOT(slotConnectionSuccess()));
 }
 
 void AtlantikNetwork::slotwriteData(QString msg)
@@ -106,7 +104,7 @@ void AtlantikNetwork::serverConnect(const QString host, int port)
 	emit msgStatus(i18n("Connecting to %1:%2...", host, port), "network-disconnect");
 	m_host = host;
 	m_port = port;
-	m_monopdsocket->connect(host, QString::number(port));
+	m_monopdsocket->connectToHost(host, port);
 }
 
 void AtlantikNetwork::slotLookupFinished()
@@ -120,14 +118,11 @@ void AtlantikNetwork::slotConnectionSuccess()
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
-	m_monopdsocket->enableRead(true);
-
-	m_monopdsocket->enableWrite(true);
 
 	emit connectionSuccess();
 }
 
-void AtlantikNetwork::slotConnectionFailed(int error)
+void AtlantikNetwork::slotConnectionFailed(QAbstractSocket::SocketError error)
 {
 	emit connectionFailed(error);
 	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect-no");

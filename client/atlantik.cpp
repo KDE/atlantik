@@ -478,7 +478,7 @@ void Atlantik::slotNetworkConnected()
 
 
 
-void Atlantik::slotNetworkError(int /*errnum*/)
+void Atlantik::slotNetworkError(QAbstractSocket::SocketError /*errnum*/)
 {
 // 	QString errMsg(i18n("Error connecting: "));
 //
@@ -748,7 +748,7 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
-	connect(m_atlantikNetwork, SIGNAL(connectionFailed(int)), this, SLOT(slotNetworkError(int)));
+	connect(m_atlantikNetwork, SIGNAL(connectionFailed(QAbstractSocket::SocketError)), this, SLOT(slotNetworkError(QAbstractSocket::SocketError)));
 	connect(m_atlantikNetwork, SIGNAL(closed(int)), this, SLOT(networkClosed(int)));
 
 	connect(m_atlantikNetwork, SIGNAL(receivedHandshake()), this, SLOT(sendHandshake()));
