@@ -70,7 +70,8 @@ void Metatlantic::closeSocket()
 {
 	m_stream.setDevice(0);
 	m_socket->close();
-	delete m_socket;
+	disconnect(m_socket, 0, this, 0);
+	m_socket->deleteLater();
 	m_socket = 0;
 	emit finished();
 }

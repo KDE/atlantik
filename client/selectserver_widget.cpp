@@ -96,7 +96,9 @@ void MetaserverEntry::connected()
 	kDebug() << "connected to" << host() << "- latency =" << m_latency << endl;
 	setText(1, QString::number(m_latency));
 	setDisabled(false);
-	delete m_latencySocket;
+	disconnect(m_latencySocket, 0, this, 0);
+	m_latencySocket->deleteLater();
+	m_latencySocket = 0;
 }
 
 void MetaserverEntry::showDevelopmentServers(bool show)
