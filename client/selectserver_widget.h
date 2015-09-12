@@ -40,7 +40,7 @@ Q_OBJECT
 public:
 	enum { MetaserverType = UserType + 1 };
 
-	MetaserverEntry(const QString &host, const QString &ip, const QString &port, const QString &version, int users);
+	MetaserverEntry(const QString &host, const QString &ip, int port, const QString &version, int users);
 	bool isDev() const;
 	QString host() const;
 	int port() const;

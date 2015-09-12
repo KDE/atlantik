@@ -35,7 +35,7 @@
 
 #include "selectserver_widget.moc"
 
-MetaserverEntry::MetaserverEntry(const QString &host, const QString &ip, const QString &port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port.toInt())
+MetaserverEntry::MetaserverEntry(const QString &host, const QString &ip, int port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port)
 {
 	setText(0, host);
 	setText(1, QString::number(m_latency));
@@ -222,7 +222,7 @@ void SelectServer::initMonopigator()
 
 void SelectServer::slotMetatlanticAdd(QString host, int port, QString version, int users)
 {
-	MetaserverEntry *item = new MetaserverEntry(host, QString(), QString::number(port), version, users);
+	MetaserverEntry *item = new MetaserverEntry(host, QString(), port, version, users);
 	m_serverList->addTopLevelItem(item);
 	m_serverList->resizeColumnToContents(0);
 
