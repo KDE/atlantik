@@ -129,7 +129,7 @@ void AuctionWidget::playerChanged(Player *player)
 		return;
 
 	QTreeWidgetItem *item;
-	if (!(item = m_playerItems[player]))
+	if (!(item = m_playerItems.value(player, 0)))
 		return;
 
 	item->setText(0, player->name());
@@ -141,7 +141,7 @@ void AuctionWidget::updateBid(Player *player, int amount)
 		return;
 
 	QTreeWidgetItem *item;
-	if (!(item = m_playerItems[player]))
+	if (!(item = m_playerItems.value(player, 0)))
 		return;
 
 	item->setText(1, QString::number(amount));

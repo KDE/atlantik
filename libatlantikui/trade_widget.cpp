@@ -245,7 +245,7 @@ void TradeDisplay::tradeItemRemoved(TradeItem *t)
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	QTreeWidgetItem *item = m_componentMap[t];
+	QTreeWidgetItem *item = m_componentMap.value(t, 0);
 	if (item)
 	{
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
@@ -355,7 +355,7 @@ void TradeDisplay::setEstateCombo(int index)
 	if (m_estateCombo->currentIndex() != index)
 		m_estateCombo->setCurrentIndex(index);
 
-	if (Estate *estate = m_estateMap[index])
+	if (Estate *estate = m_estateMap.value(index, 0))
 		m_playerFromCombo->setCurrentIndex( m_playerFromRevMap[estate->owner()] );
 }
 
@@ -364,7 +364,7 @@ void TradeDisplay::setCardCombo(int index)
 	if (m_cardCombo->currentIndex() != index)
 		m_cardCombo->setCurrentIndex(index);
 
-	if (Card *card = m_cardMap[index])
+	if (Card *card = m_cardMap.value(index, 0))
 		m_playerFromCombo->setCurrentIndex(m_playerFromRevMap[card->owner()]);
 }
 

@@ -324,8 +324,7 @@ void Atlantik::removeGUI(Player *player)
 
 void Atlantik::removeGUI(Trade *trade)
 {
-	if (TradeDisplay *tradeDisplay = m_tradeGUIMap[trade])
-		delete tradeDisplay;
+	delete m_tradeGUIMap.take(trade);
 }
 
 void Atlantik::showSelectServer()
