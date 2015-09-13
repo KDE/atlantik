@@ -640,7 +640,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 	if (m_config.chatTimestamps)
 	{
 		const QString timeString = KGlobal::locale()->formatLocaleTime(QTime::currentTime());
-		serverMsgsAppend(QString("[%1] %2: %3").arg(timeString).arg(player).arg(msg));
+		serverMsgsAppend(QString("[%1] %2: %3").arg(timeString, player, msg));
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
