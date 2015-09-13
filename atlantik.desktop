@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Exec=atlantik -caption "%c"
+Exec=atlantik -caption %c
 Name=Atlantik
 Name[xx]=xxAtlantikxx
 GenericName=Monopoly®-like Board Games
