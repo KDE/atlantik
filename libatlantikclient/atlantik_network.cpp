@@ -16,9 +16,7 @@
 
 #include <iostream>
 
-#include <qdom.h>
 #include <qtextcodec.h>
-#include <qtextstream.h>
 #include <QTimer>
 #include <QTcpSocket>
 

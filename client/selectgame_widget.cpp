@@ -15,18 +15,16 @@
 // Boston, MA 02110-1301, USA.
 
 #include <QGroupBox>
-#include <qradiobutton.h>
-#include <QPixmap>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QTreeWidget>
 #include <QHeaderView>
 
 #include <kdebug.h>
-#include <kdialog.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <knotification.h>
+#include <kpushbutton.h>
 
 #include <atlantic_core.h>
 #include <game.h>

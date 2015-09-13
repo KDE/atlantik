@@ -20,21 +20,17 @@
 #include <qcursor.h>
 #include <QPixmap>
 #include <QMouseEvent>
-#include <QResizeEvent>
-#include <QPaintEvent>
 #include <QLinearGradient>
 
-#include <kdebug.h>
-#include <kdeversion.h>
-#include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
-#include <kstringhandler.h>
 
 #include <player.h>
 #include <estate.h>
+
+#include "portfolioestate.h"
 
 #include "estateview.moc"
 

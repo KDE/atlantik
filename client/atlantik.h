@@ -18,26 +18,24 @@
 #define ATLANTIK_ATLANTIK_H
 
 #include <QWidget>
-#include <QLayout>
 #include <qtextedit.h>
-#include <QLabel>
 #include <QList>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QCloseEvent>
-#include <QScrollArea>
 #include <QAbstractSocket>
+#include <QColor>
 
 #include <kxmlguiwindow.h>
-
-#include "portfolioview.h"
-#include "board.h"
 
 class QScrollArea;
 class QAction;
 class QLineEdit;
+class QLabel;
+class QVBoxLayout;
+class QGridLayout;
 class AtlanticCore;
 class AtlantikNetwork;
+class PortfolioView;
+class AtlantikBoard;
+class Auction;
 
 struct AtlantikConfig
 {

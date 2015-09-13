@@ -15,21 +15,19 @@
 // Boston, MA 02110-1301, USA.
 
 #include <QLabel>
-#include <QLayout>
-#include <qradiobutton.h>
 #include <qsizepolicy.h>
 #include <QTcpSocket>
 #include <QHeaderView>
 
-#include <qgroupbox.h>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <kdialog.h>
-//#include <kextendedsocket.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kdebug.h>
+#include <klineedit.h>
+#include <kpushbutton.h>
 
 #include "metatlantic.h"
 

@@ -16,10 +16,7 @@
 
 #include <QColor>
 #include <qpainter.h>
-#include <qrect.h>
-#include <QPixmap>
 #include <QMouseEvent>
-#include <QPaintEvent>
 
 #include "portfolioestate.moc"
 #include "estate.h"

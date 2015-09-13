@@ -23,7 +23,7 @@
 #include <QAbstractSocket>
 
 #include <libatlantikclient_export.h>
-#include <kdemacros.h>
+
 class AtlanticCore;
 class QTcpSocket;
 

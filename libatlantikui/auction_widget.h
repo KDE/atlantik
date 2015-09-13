@@ -18,15 +18,14 @@
 #define ATLANTIK_AUCTION_WIDGET_H
 
 #include <QWidget>
-#include <QLayout>
 #include <QMap>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QTreeWidget>
 
 class QGroupBox;
 class QSpinBox;
 class QLabel;
+class QVBoxLayout;
+class QTreeWidget;
+class QTreeWidgetItem;
 
 class AtlanticCore;
 class Player;

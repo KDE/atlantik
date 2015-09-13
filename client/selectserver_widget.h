@@ -18,18 +18,16 @@
 #define ATLANTIK_SELECTSERVER_WIDGET_H
 
 #include <QWidget>
-#include <QLayout>
-#include <qradiobutton.h>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QElapsedTimer>
 
-#include <klineedit.h>
-#include <kpushbutton.h>
-
 class QTcpSocket;
+class QVBoxLayout;
+class QHBoxLayout;
+class QTreeWidget;
+
+class KLineEdit;
+class KPushButton;
 
 class Metatlantic;
 

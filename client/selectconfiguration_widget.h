@@ -18,13 +18,12 @@
 #define ATLANTIK_SELECTCONFIGURATION_WIDGET_H
 
 #include <QWidget>
-#include <QLayout>
-#include <QGroupBox>
-#include <QVBoxLayout>
-
-#include <kpushbutton.h>
 
 class QCheckBox;
+class QGroupBox;
+class QVBoxLayout;
+
+class KPushButton;
 
 class AtlanticCore;
 class ConfigOption;

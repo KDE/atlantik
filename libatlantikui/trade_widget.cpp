@@ -14,16 +14,9 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <iostream>
-
-#include <QLayout>
 #include <QGroupBox>
-#include <qcursor.h>
-#include <qvalidator.h>
-#include <QMap>
 #include <QLabel>
 #include <QSpinBox>
-#include <QPixmap>
 #include <QCloseEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -31,11 +24,7 @@
 #include <QHeaderView>
 
 #include <klocalizedstring.h>
-#include <kdebug.h>
-#include <kdialog.h>
-#include <klineedit.h>
 #include <kicon.h>
-#include <kiconloader.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
 #include <kmenu.h>

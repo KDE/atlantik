@@ -19,8 +19,6 @@
 
 #include <qpixmap.h>
 #include <QWidget>
-#include <QMouseEvent>
-#include <QPaintEvent>
 
 #define PE_WIDTH	13
 #define	PE_HEIGHT	16

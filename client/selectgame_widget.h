@@ -18,13 +18,12 @@
 #define ATLANTIK_SELECTGAME_WIDGET_H
 
 #include <QWidget>
-#include <QLayout>
-#include <QVBoxLayout>
-
-#include <kpushbutton.h>
 
 class QTreeWidget;
 class QTreeWidgetItem;
+class QVBoxLayout;
+
+class KPushButton;
 
 class AtlanticCore;
 class Game;

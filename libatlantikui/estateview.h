@@ -18,19 +18,15 @@
 #define ATLANTIK_ESTATEVIEW_H
 
 #include <QWidget>
-#include <qpixmap.h>
-#include <QMouseEvent>
-#include <QResizeEvent>
-#include <QPaintEvent>
-
-#include <QPixmap>
-
-#include "portfolioestate.h"
 
 enum EstateOrientation { North=0, East=1, South=2, West=3 };
 
+class QPixmap;
+
 class Player;
 class Estate;
+
+class PortfolioEstate;
 
 class EstateView : public QWidget
 {

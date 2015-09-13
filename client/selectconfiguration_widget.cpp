@@ -14,19 +14,16 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <iostream>
-
 #include <QCheckBox>
-#include <qradiobutton.h>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGroupBox>
 
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klocalizedstring.h>
 #include <kicon.h>
-#include <kmessagebox.h>
-#include <kstandarddirs.h>
+#include <kpushbutton.h>
 
 #include <atlantic_core.h>
 #include <configoption.h>

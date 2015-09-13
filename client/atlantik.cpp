@@ -14,16 +14,13 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <errno.h>
-
-#include <QColor>
-#include <QDateTime>
 #include <QLineEdit>
 #include <qmenu.h>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QCloseEvent>
 #include <QApplication>
+#include <QScrollArea>
 
 #include <kaboutapplicationdialog.h>
 #include <kaction.h>
@@ -39,8 +36,6 @@
 #include <kstandardaction.h>
 #include <ktoolbar.h>
 
-#include <kdeversion.h>
-
 #include <kdebug.h>
 
 #include <atlantic_core.h>
@@ -55,6 +50,7 @@
 #include <board.h>
 #include <trade_widget.h>
 #include <kglobal.h>
+#include <portfolioview.h>
 
 #include "eventlogwidget.h"
 #include "version.h"

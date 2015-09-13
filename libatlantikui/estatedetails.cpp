@@ -16,11 +16,8 @@
 
 #include <qpainter.h>
 #include <qpixmap.h>
-#include <QLayout>
-#include <QPaintEvent>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QResizeEvent>
 #include <QListWidget>
 
 #include <kdialog.h>

@@ -16,13 +16,11 @@
 
 #include <QSpinBox>
 #include <QLabel>
-#include <QPixmap>
 #include <QVBoxLayout>
 #include <QGroupBox>
 #include <QHeaderView>
-#include <kdebug.h>
+#include <QTreeWidget>
 
-#include <kdialog.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>

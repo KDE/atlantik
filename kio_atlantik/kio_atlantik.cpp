@@ -14,17 +14,10 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <stdlib.h>
+#include "kio_atlantik.h"
 
-#include <qtextstream.h>
-
-#include <kdeversion.h>
-#include <kio/slavebase.h>
 #include <kcomponentdata.h>
 #include <kprocess.h>
-
-#include "kio_atlantik.h"
-#include "libatlantic_export.h"
 
 extern "C"
 {

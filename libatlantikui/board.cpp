@@ -16,7 +16,6 @@
 
 #include <iostream>
 
-#include <qpainter.h>
 #include <QGridLayout>
 #include <QResizeEvent>
 

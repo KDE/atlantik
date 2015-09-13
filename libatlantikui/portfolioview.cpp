@@ -15,15 +15,10 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qpainter.h>
-#include <qcursor.h>
 #include <QPixmap>
 #include <QMouseEvent>
-#include <QResizeEvent>
-#include <QPaintEvent>
 
-#include <kdebug.h>
 #include <kdialog.h>
-#include <kiconeffect.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kmenu.h>

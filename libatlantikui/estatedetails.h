@@ -18,11 +18,6 @@
 #define ATLANTIK_ESTATEDETAILS_H
 
 #include <QWidget>
-#include <QPixmap>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QResizeEvent>
-#include <QPaintEvent>
 #include <QVector>
 #include <QSignalMapper>
 
