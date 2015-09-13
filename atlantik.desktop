@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Exec=atlantik -caption %c
 Name=Atlantik
 Name[xx]=xxAtlantikxx
@@ -15,7 +14,7 @@ GenericName[pt_BR]=Jogo de Tabuleiro tipo Monopoly®
 GenericName[sv]=Monopol®-liknande brädspel
 GenericName[xx]=xxMonopoly®-like Board Gamesxx
 Type=Application
-DocPath=atlantik/index.html
+X-DocPath=atlantik/index.html
 Terminal=false
 Icon=atlantik
 X-KDE-StartupNotify=true
