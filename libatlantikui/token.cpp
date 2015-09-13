@@ -17,6 +17,7 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <QFont>
+#include <QFile>
 
 #include <kstandarddirs.h>
 #include <kglobalsettings.h>
@@ -94,7 +95,7 @@ void Token::loadIcon()
 	if (!m_imageName.isEmpty())
 	{
 		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (KStandardDirs::exists(filename))
+		if (QFile::exists(filename))
 			m_image = new QPixmap(filename);
 	}
 

@@ -18,6 +18,7 @@
 #include "customlocationiconbutton.h"
 #include "customlocationiconbutton.moc"
 
+#include <QFile>
 #include <QFileInfo>
 
 #include <kicondialog.h>
@@ -47,7 +48,7 @@ void CustomLocationIconButton::setImage(const QString &image)
 		return;
 
 	const QString filename = KStandardDirs::locate(m_resource.constData(), m_path + image);
-	if (!KStandardDirs::exists(filename))
+	if (!QFile::exists(filename))
 		return;
 
 	const QPixmap p(filename);

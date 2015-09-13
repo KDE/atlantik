@@ -17,6 +17,7 @@
 #include <qpainter.h>
 #include <QPixmap>
 #include <QMouseEvent>
+#include <QFile>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
@@ -157,7 +158,7 @@ void PortfolioView::loadIcon()
 	if (!m_imageName.isEmpty())
 	{
 		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (KStandardDirs::exists(filename))
+		if (QFile::exists(filename))
 			m_image = new QPixmap(filename);
 	}
 
@@ -169,7 +170,7 @@ void PortfolioView::loadIcon()
 		m_imageName = "hamburger.png";
 
 		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (KStandardDirs::exists(filename))
+		if (QFile::exists(filename))
 			m_image = new QPixmap(filename);
 */
 	}
