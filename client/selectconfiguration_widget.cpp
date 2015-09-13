@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 #include <kdialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kicon.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>

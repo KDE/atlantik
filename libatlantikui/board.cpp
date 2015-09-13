@@ -21,7 +21,7 @@
 #include <QResizeEvent>
 
 #include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <atlantic_core.h>
 #include <player.h>

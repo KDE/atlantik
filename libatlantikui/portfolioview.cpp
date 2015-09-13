@@ -25,7 +25,7 @@
 #include <kdialog.h>
 #include <kiconeffect.h>
 #include <kglobalsettings.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
 

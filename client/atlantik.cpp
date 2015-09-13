@@ -30,7 +30,7 @@
 #include <kactioncollection.h>
 #include <kcmdlineargs.h>
 #include <kconfig.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
 #include <knotification.h>

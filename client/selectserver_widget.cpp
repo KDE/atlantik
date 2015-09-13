@@ -27,7 +27,7 @@
 #include <QGroupBox>
 #include <kdialog.h>
 //#include <kextendedsocket.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kdebug.h>
 

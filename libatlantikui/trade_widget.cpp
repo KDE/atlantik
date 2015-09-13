@@ -30,7 +30,7 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klineedit.h>

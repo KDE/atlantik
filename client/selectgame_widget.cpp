@@ -24,7 +24,7 @@
 
 #include <kdebug.h>
 #include <kdialog.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <knotification.h>
 

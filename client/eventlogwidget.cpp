@@ -26,7 +26,7 @@
 #include <QTreeView>
 #include <QHeaderView>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kdialog.h>
 #include <kfiledialog.h>
 #include <kiconloader.h>

@@ -28,7 +28,7 @@
 #include <kdeversion.h>
 #include <kdialog.h>
 #include <kglobalsettings.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmenu.h>
 #include <kstandarddirs.h>
 #include <kstringhandler.h>

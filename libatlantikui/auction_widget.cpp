@@ -24,7 +24,7 @@
 
 #include <kdialog.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kpushbutton.h>
 
 #include <atlantic_core.h>
