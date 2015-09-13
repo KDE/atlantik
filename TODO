@@ -6,10 +6,6 @@ monopd API changes (features)
 ------------------
 
 - API: allow for reconnect with .R
-- API: cardupdate message to inform clients of text on cards they own, plus
-  owner= attribute to replace playerupdate's outofjailcards=
-- API: new command .Tc to add cards to trade
-- API: tradecard message in tradeupdate
 
 Bugfixes
 --------
@@ -27,7 +23,6 @@ For 0.6.0
 - use gameupdate for game list in SelectGame
 - .D command
 - cards in portfolio
-- support for trading cards
 - Support .gd game description.
 - support .es (sell estate), depends on game::allowestatesales
 
