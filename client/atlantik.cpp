@@ -35,6 +35,7 @@
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <ktoolbar.h>
+#include <klocale.h>
 
 #include <kdebug.h>
 
@@ -638,8 +639,8 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 {
 	if (m_config.chatTimestamps)
 	{
-		QTime time = QTime::currentTime();
-		serverMsgsAppend(QString("[%1] %2: %3").arg(time.toString("hh:mm")).arg(player).arg(msg));
+		const QString timeString = KGlobal::locale()->formatLocaleTime(QTime::currentTime());
+		serverMsgsAppend(QString("[%1] %2: %3").arg(timeString).arg(player).arg(msg));
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
