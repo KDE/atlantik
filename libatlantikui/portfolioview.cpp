@@ -18,6 +18,7 @@
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QFile>
+#include <QMultiHash>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
@@ -32,6 +33,8 @@
 #include <portfolioestate.h>
 
 #include "portfolioview.moc"
+
+#include <algorithm>
 
 #define PE_DISTW	4
 #define	PE_DISTH	4
@@ -85,16 +88,25 @@ void PortfolioView::buildPortfolio()
 	int x = 100, y = 25, marginHint = 5, bottom;
 	bottom = ICONSIZE - PE_HEIGHT - marginHint;
 
+	QMultiHash<EstateGroup *, Estate *> groups;
+
+	foreach (Estate *estate, m_atlanticCore->estates())
+		groups.insert(estate->estateGroup(), estate);
+
 	foreach (EstateGroup *estateGroup, m_atlanticCore->estateGroups())
 	{
 		{
 			// New group
 			lastPE = 0;
 
+			QList<Estate *> estates = groups.values(estateGroup);
+			// QMultiHash/QHash tracks multiple values per key
+			// in LIFO order
+			std::reverse(estates.begin(), estates.end());
+
 			// Loop through estates
-			foreach (Estate *estate, m_atlanticCore->estates())
+			foreach (Estate *estate, estates)
 			{
-				if (estate->estateGroup() == estateGroup)
 				{
 					// Create PE
                                         PortfolioEstate *portfolioEstate = new PortfolioEstate(estate, m_player, false, this );
