@@ -55,6 +55,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 
 	m_gridLayout = new QGridLayout( this );
 	m_gridLayout->setSpacing(0);
+	m_gridLayout->setMargin(0);
 	for(int i=0;i<=sideLen;i++)
 	{
 		if (i==0 || i==sideLen)
