@@ -24,7 +24,7 @@
 #include <QGroupBox>
 #include <kdialog.h>
 #include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <kdebug.h>
 #include <klineedit.h>
 #include <kpushbutton.h>

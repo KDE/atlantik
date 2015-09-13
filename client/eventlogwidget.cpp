@@ -29,7 +29,7 @@
 #include <klocalizedstring.h>
 #include <kdialog.h>
 #include <kfiledialog.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <kpushbutton.h>
 
 #include "event.h"

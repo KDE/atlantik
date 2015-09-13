@@ -22,7 +22,7 @@
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <kicon.h>
 #include <knotification.h>
 #include <kpushbutton.h>
 

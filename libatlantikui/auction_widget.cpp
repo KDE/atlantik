@@ -21,7 +21,7 @@
 #include <QHeaderView>
 #include <QTreeWidget>
 
-#include <kiconloader.h>
+#include <kicon.h>
 #include <klocalizedstring.h>
 #include <kpushbutton.h>
 
