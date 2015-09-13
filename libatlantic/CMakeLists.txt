@@ -11,7 +11,7 @@ set(atlantic_LIB_SRCS
    player.cpp 
    trade.cpp )
 kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
-target_link_libraries(atlantic ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY})
+target_link_libraries(atlantic ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
 set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 install(TARGETS atlantic  DESTINATION ${LIB_INSTALL_DIR} )
 
