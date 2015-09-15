@@ -86,7 +86,19 @@ bool AtlanticCore::selfIsMaster() const
 
 void AtlanticCore::setPlayerSelf(Player *player)
 {
+	if (player == m_playerSelf)
+		return;
+
+	Player *oldSelf = m_playerSelf;
 	m_playerSelf = player;
+	if (oldSelf) {
+		oldSelf->setIsSelf(false);
+		oldSelf->update(true);
+	}
+	if (player) {
+		player->setIsSelf(true);
+		player->update(true);
+	}
 }
 
 Player *AtlanticCore::playerSelf()
