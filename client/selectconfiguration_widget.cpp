@@ -77,8 +77,10 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_startButton, SIGNAL(clicked()), this, SIGNAL(startGame()));
 
 	Player *playerSelf = m_atlanticCore->playerSelf();
-	playerChanged(playerSelf);
-	connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+	if (playerSelf) {
+		playerChanged(playerSelf);
+		connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+	}
 
 	emit statusMessage(i18n("Retrieving configuration list..."));
 
