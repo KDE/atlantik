@@ -99,7 +99,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString host, int port)
 {
-	emit msgStatus(i18n("Connecting to %1:%2...", host, port), "network-disconnect");
+	emit msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), "network-disconnect");
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connectToHost(host, port);
@@ -112,7 +112,7 @@ void AtlantikNetwork::slotLookupFinished()
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
-	emit msgStatus(i18n("Connected to %1:%2.", m_host, m_port));
+	emit msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)));
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
