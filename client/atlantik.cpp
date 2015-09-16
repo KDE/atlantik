@@ -59,6 +59,7 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 #include "configdlg.h"
+#include "connectioncookie.h"
 
 #include <settings.h>
 
@@ -90,7 +91,8 @@ void LogTextEdit::contextMenuEvent(QContextMenuEvent *event)
 
 Atlantik::Atlantik ()
  :	KXmlGuiWindow (),
- 	m_runningGame( false )
+ 	m_runningGame( false ),
+	m_reconnecting(false)
 {
 	// Read application configuration
 	readConfig();
@@ -101,6 +103,10 @@ Atlantik::Atlantik ()
         m_showEventLog->setText(i18n("Show Event &Log"));
 		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
+	m_reconnect = actionCollection()->addAction("reconnect");
+	m_reconnect->setText(i18n("&Reconnect (after crash)"));
+	connect(m_reconnect, SIGNAL(triggered()), this, SLOT(slotReconnect()));
+	m_reconnect->setEnabled(false);
         QAction *act = KStandardGameAction::quit(qApp, SLOT(closeAllWindows()), this);
         actionCollection()->addAction("game_quit", act);
 
@@ -239,6 +245,10 @@ Atlantik::Atlantik ()
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
 		showSelectServer();
+
+	// Connection cookie
+	m_reconnectCookie.reset(ConnectionCookie::read());
+	m_reconnect->setEnabled(m_reconnectCookie);
 }
 
 void Atlantik::readConfig()
@@ -342,6 +352,9 @@ void Atlantik::showSelectServer()
 
 	m_atlanticCore->reset(true);
 	initNetworkObject();
+
+	m_reconnect->setEnabled(false);
+	m_reconnecting = false;
 
 	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
 	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
@@ -758,32 +771,30 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(jailCard()), m_atlantikNetwork, SLOT(jailCard()));
 	connect(this, SIGNAL(jailPay()), m_atlantikNetwork, SLOT(jailPay()));
 	connect(this, SIGNAL(jailRoll()), m_atlantikNetwork, SLOT(jailRoll()));
+	connect(this, SIGNAL(reconnect(QString)), m_atlantikNetwork, SLOT(reconnect(QString)));
 }
 
-void Atlantik::clientCookie(QString /*cookie*/)
+void Atlantik::clientCookie(QString cookie)
 {
-// 	KSharedConfig::Ptr config = KGlobal::config();
-//
-// 	if (cookie.isNull())
-// 	{
-// 		if (config->hasGroup("Reconnection"))
-// 			config->deleteGroup("Reconnection", true);
-// 	}
-// 	else if (m_atlantikNetwork)
-// 	{
-// 		config->setGroup("Reconnection");
-// 		 config->writeEntry("Host", m_atlantikNetwork->host());
-// 		 config->writeEntry("Port", m_atlantikNetwork->port());
-// 		config->writeEntry("Cookie", cookie);
-// 	}
-// 	else
-// 		return;
-//
-// 	config->sync();
+	ConnectionCookie *newCookie = 0;
+
+	if (!cookie.isEmpty() && m_atlantikNetwork)
+		newCookie = new ConnectionCookie(m_atlantikNetwork->host(), m_atlantikNetwork->port(), cookie);
+
+	m_cookie.reset(newCookie);
+	m_reconnect->setEnabled(false);
 }
 
 void Atlantik::sendHandshake()
 {
+	if (m_reconnecting)
+	{
+		m_reconnecting = false;
+		emit reconnect(m_reconnectCookie->cookie());
+		m_reconnectCookie.reset();
+		return;
+	}
+
 	m_atlantikNetwork->setName(m_config.playerName);
 	m_atlantikNetwork->setImage(m_config.playerImage);
 
@@ -854,4 +865,13 @@ void Atlantik::closeEvent(QCloseEvent *e)
 	}
 	else
 		e->ignore();
+}
+
+void Atlantik::slotReconnect()
+{
+	if (!m_reconnectCookie)
+		return;
+
+	m_atlantikNetwork->serverConnect(m_reconnectCookie->host(), m_reconnectCookie->port());
+	m_reconnecting = true;
 }

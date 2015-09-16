@@ -22,6 +22,7 @@
 #include <QList>
 #include <QAbstractSocket>
 #include <QColor>
+#include <QScopedPointer>
 
 #include <kxmlguiwindow.h>
 
@@ -36,6 +37,7 @@ class AtlantikNetwork;
 class PortfolioView;
 class AtlantikBoard;
 class Auction;
+class ConnectionCookie;
 
 struct AtlantikConfig
 {
@@ -209,6 +211,8 @@ public slots:
 	 */
 	void slotMsgChat(QString player, QString msg);
 
+	void slotReconnect();
+
 	void newPlayer(Player *player);
 	void newEstate(Estate *estate);
 	void newTrade(Trade *trade);
@@ -228,6 +232,7 @@ signals:
 	void jailCard();
 	void jailPay();
 	void jailRoll();
+	void reconnect(const QString &cookie);
 
 protected:
 	void closeEvent(QCloseEvent *);
@@ -249,7 +254,7 @@ private:
 
 	QAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
-		*m_showEventLog;
+		*m_showEventLog, *m_reconnect;
 
 	AtlanticCore *m_atlanticCore;
 	AtlantikNetwork *m_atlantikNetwork;
@@ -266,6 +271,10 @@ private:
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;
 
 	bool m_runningGame;
+
+	QScopedPointer<ConnectionCookie> m_cookie;
+	QScopedPointer<ConnectionCookie> m_reconnectCookie;
+	bool m_reconnecting;
 };
 
 #endif

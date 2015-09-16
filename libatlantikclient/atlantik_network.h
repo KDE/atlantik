@@ -38,6 +38,9 @@ public:
 	void setName(QString name);
 	void cmdChat(QString msg);
 
+	QString host() const;
+	int port() const;
+
 	void reset();
 
 private slots:

@@ -19,6 +19,7 @@
 #include <qtextcodec.h>
 #include <QTimer>
 #include <QTcpSocket>
+#include <QHostAddress>
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
@@ -64,6 +65,20 @@ void AtlantikNetwork::reset()
 
 	connect(m_monopdsocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
 	connect(m_monopdsocket, SIGNAL(connected()), this, SLOT(slotConnectionSuccess()));
+}
+
+QString AtlantikNetwork::host() const
+{
+	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState
+	  ? m_monopdsocket->peerAddress().toString()
+	  : QString();
+}
+
+int AtlantikNetwork::port() const
+{
+	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState
+	  ? m_monopdsocket->peerPort()
+	  : -1;
 }
 
 void AtlantikNetwork::slotwriteData(QString msg)

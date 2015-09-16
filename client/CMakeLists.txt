@@ -12,6 +12,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui
 set(atlantik_SRCS 
    atlantik.cpp 
    configdlg.cpp 
+   connectioncookie.cpp
    customlocationiconbutton.cpp
    event.cpp 
    eventlogwidget.cpp 
