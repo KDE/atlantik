@@ -190,6 +190,12 @@ Game *AtlanticCore::gameSelf()
 void AtlanticCore::removeGame(Game *game)
 {
 	m_games.removeOne(game);
+	foreach (Player *player, m_players)
+		if (player->game() && player->game()->id() == game->id())
+		{
+			player->setGame(0);
+			player->update();
+		}
 	emit removeGUI(game);
 	game->deleteLater();
 }
