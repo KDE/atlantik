@@ -560,14 +560,16 @@ void Atlantik::slotUpdateConfig()
 	if (m_config.playerName != optStr)
 	{
 		m_config.playerName = optStr;
-		m_atlantikNetwork->setName(optStr);
+		if (m_atlantikNetwork->isConnected())
+			m_atlantikNetwork->setName(optStr);
 	}
 
 	optStr = Settings::playerImage();
 	if (m_config.playerImage != optStr)
 	{
 		m_config.playerImage = optStr;
-		m_atlantikNetwork->setImage(optStr);
+		if (m_atlantikNetwork->isConnected())
+			m_atlantikNetwork->setImage(optStr);
 	}
 
 	optBool = Settings::indicateUnowned();
@@ -628,7 +630,8 @@ void Atlantik::slotUpdateConfig()
 
 void Atlantik::slotSendMsg()
 {
-	m_atlantikNetwork->cmdChat(m_input->text());
+	if (m_atlantikNetwork->isConnected())
+		m_atlantikNetwork->cmdChat(m_input->text());
 	m_input->setText(QString::null);
 }
 
@@ -856,7 +859,7 @@ void Atlantik::closeEvent(QCloseEvent *e)
 
 	if ( result == KMessageBox::Continue )
 	{
-		if ( m_atlantikNetwork )
+		if ( m_atlantikNetwork && m_atlantikNetwork->isConnected() )
 			m_atlantikNetwork->leaveGame();
 
                 KConfigGroup cg( KGlobal::config(), "AtlantikMainWindow");

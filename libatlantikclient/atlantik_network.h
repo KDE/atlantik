@@ -41,6 +41,8 @@ public:
 	QString host() const;
 	int port() const;
 
+	bool isConnected() const;
+
 	void reset();
 
 private slots:

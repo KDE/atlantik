@@ -69,16 +69,21 @@ void AtlantikNetwork::reset()
 
 QString AtlantikNetwork::host() const
 {
-	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState
+	return isConnected()
 	  ? m_monopdsocket->peerAddress().toString()
 	  : QString();
 }
 
 int AtlantikNetwork::port() const
 {
-	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState
+	return isConnected()
 	  ? m_monopdsocket->peerPort()
 	  : -1;
+}
+
+bool AtlantikNetwork::isConnected() const
+{
+	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState;
 }
 
 void AtlantikNetwork::slotwriteData(QString msg)
