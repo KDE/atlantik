@@ -140,6 +140,8 @@ void AtlanticCore::removePlayer(Player *player)
 {
 	m_players.removeOne(player);
 	emit removeGUI(player);
+	if (player == m_playerSelf)
+		m_playerSelf = 0;
 	player->deleteLater();
 }
 
