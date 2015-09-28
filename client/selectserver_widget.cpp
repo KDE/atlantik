@@ -92,8 +92,8 @@ void MetaserverEntry::connected()
 	m_latency = m_timer.elapsed();
 	m_latencySocket->abort();
 	kDebug() << "connected to" << host() << "- latency =" << m_latency << endl;
-	setText(1, QString::number(m_latency));
 	setDisabled(false);
+	setText(1, QString::number(m_latency));
 	disconnect(m_latencySocket, 0, this, 0);
 	m_latencySocket->deleteLater();
 	m_latencySocket = 0;
