@@ -81,7 +81,7 @@ QVariant EventLog::data(const QModelIndex &index, int role) const
 		switch (role)
 		{
 		case Qt::DecorationRole:
-			return e->icon().isEmpty() ? SmallIcon("atlantik") : SmallIcon(e->icon());
+			return e->icon().isEmpty() ? KIcon("atlantik") : KIcon(e->icon());
 		case Qt::DisplayRole:
 			return e->description();
 		}
