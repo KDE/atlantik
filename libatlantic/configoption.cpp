@@ -68,7 +68,7 @@ void ConfigOption::setEdit(bool edit)
 	}
 }
 
-bool ConfigOption::edit()
+bool ConfigOption::edit() const
 {
 	return m_edit;
 }

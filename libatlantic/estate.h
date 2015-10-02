@@ -35,13 +35,13 @@ public:
 	void setName(const QString& name);
 	QString name() const;
 	void setEstateGroup(EstateGroup *estateGroup);
-	EstateGroup *estateGroup() { return m_estateGroup; }
+	EstateGroup *estateGroup() const { return m_estateGroup; }
 	void setOwner(Player *player);
 	bool isOwned() const;
 	bool isOwnedBySelf() const;
-	Player *owner() { return m_owner; }
+	Player *owner() const { return m_owner; }
 	void setHouses(unsigned int houses);
-	unsigned int houses() { return m_houses; }
+	unsigned int houses() const { return m_houses; }
 	void setCanBeOwned(const bool canBeOwned);
 	bool canBeOwned() const { return m_canBeOwned; }
 	void setCanBuyHouses(const bool canBuyHouses);
@@ -67,7 +67,7 @@ public:
 	void setPrice(const unsigned int price) { m_price = price; }
 	unsigned int price() const { return m_price; }
 	void setMoney(int money);
-	int money();
+	int money() const;
 	void setIcon(const QString &icon);
 	QString icon() const { return m_icon; }
 	void update(bool force = false);

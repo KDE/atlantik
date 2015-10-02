@@ -101,12 +101,12 @@ void AtlanticCore::setPlayerSelf(Player *player)
 	}
 }
 
-Player *AtlanticCore::playerSelf()
+Player *AtlanticCore::playerSelf() const
 {
 	return m_playerSelf;
 }
 
-QList<Player *> AtlanticCore::players()
+QList<Player *> AtlanticCore::players() const
 {
 	return m_players;
 }
@@ -127,7 +127,7 @@ Player *AtlanticCore::newPlayer(int playerId, const bool &playerSelf)
 	return player;
 }
 
-Player *AtlanticCore::findPlayer(int playerId)
+Player *AtlanticCore::findPlayer(int playerId) const
 {
 	foreach (Player *player, m_players)
 		if (player->id() == playerId)
@@ -145,7 +145,7 @@ void AtlanticCore::removePlayer(Player *player)
 	player->deleteLater();
 }
 
-QList<Game *> AtlanticCore::games()
+QList<Game *> AtlanticCore::games() const
 {
 	return m_games;
 }
@@ -163,7 +163,7 @@ Game *AtlanticCore::newGame(int gameId, const QString &type)
 	return game;
 }
 
-Game *AtlanticCore::findGame(const QString &type)
+Game *AtlanticCore::findGame(const QString &type) const
 {
 	foreach (Game *game, m_games)
 		if (game->id() == -1 && game->type() == type)
@@ -172,7 +172,7 @@ Game *AtlanticCore::findGame(const QString &type)
 	return 0;
 }
 
-Game *AtlanticCore::findGame(int gameId)
+Game *AtlanticCore::findGame(int gameId) const
 {
 	if (gameId == -1)
 		return 0;
@@ -184,7 +184,7 @@ Game *AtlanticCore::findGame(int gameId)
 	return 0;
 }
 
-Game *AtlanticCore::gameSelf()
+Game *AtlanticCore::gameSelf() const
 {
 	return( m_playerSelf ? m_playerSelf->game() : 0 );
 }
@@ -208,7 +208,7 @@ void AtlanticCore::emitGames()
 		emit createGUI(game);
 }
 
-QList<Estate *> AtlanticCore::estates()
+QList<Estate *> AtlanticCore::estates() const
 {
 	return m_estates;
 }
@@ -220,7 +220,7 @@ Estate *AtlanticCore::newEstate(int estateId)
 	return estate;
 }
 
-Estate *AtlanticCore::findEstate(int estateId)
+Estate *AtlanticCore::findEstate(int estateId) const
 {
 	foreach (Estate *estate, m_estates)
 		if (estate->id() == estateId)
@@ -229,7 +229,7 @@ Estate *AtlanticCore::findEstate(int estateId)
 	return 0;
 }
 
-Estate *AtlanticCore::estateAfter(Estate *estate)
+Estate *AtlanticCore::estateAfter(Estate *estate) const
 {
 	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : 0;
 	QList<Estate *>::const_iterator it = qFind(m_estates, estate);
@@ -239,7 +239,7 @@ Estate *AtlanticCore::estateAfter(Estate *estate)
 	return it != m_estates.constEnd() ? *it : eFirst;
 }
 
-QList<EstateGroup *> AtlanticCore::estateGroups()
+QList<EstateGroup *> AtlanticCore::estateGroups() const
 {
 	return m_estateGroups;
 }
@@ -251,7 +251,7 @@ EstateGroup *AtlanticCore::newEstateGroup(int groupId)
 	return estateGroup;
 }
 
-EstateGroup *AtlanticCore::findEstateGroup(int groupId)
+EstateGroup *AtlanticCore::findEstateGroup(int groupId) const
 {
 	foreach (EstateGroup *estateGroup, m_estateGroups)
 		if (estateGroup->id() == groupId)
@@ -260,7 +260,7 @@ EstateGroup *AtlanticCore::findEstateGroup(int groupId)
 	return 0;
 }
 
-QList<Trade *> AtlanticCore::trades()
+QList<Trade *> AtlanticCore::trades() const
 {
 	return m_trades;
 }
@@ -275,7 +275,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	return trade;
 }
 
-Trade *AtlanticCore::findTrade(int tradeId)
+Trade *AtlanticCore::findTrade(int tradeId) const
 {
 	foreach (Trade *trade, m_trades)
 		if (trade->tradeId() == tradeId)
@@ -291,7 +291,7 @@ void AtlanticCore::removeTrade(Trade *trade)
 	trade->deleteLater();
 }
 
-QList<Auction *> AtlanticCore::auctions()
+QList<Auction *> AtlanticCore::auctions() const
 {
 	return m_auctions;
 }
@@ -309,7 +309,7 @@ void AtlanticCore::delAuction(Auction *auction)
 	delete auction;
 }
 
-QList<ConfigOption *> AtlanticCore::configOptions()
+QList<ConfigOption *> AtlanticCore::configOptions() const
 {
 	return m_configOptions;
 }
@@ -331,7 +331,7 @@ void AtlanticCore::removeConfigOption(ConfigOption *configOption)
 	configOption->deleteLater();
 }
 
-ConfigOption *AtlanticCore::findConfigOption(int configId)
+ConfigOption *AtlanticCore::findConfigOption(int configId) const
 {
 	foreach (ConfigOption *configOption, m_configOptions)
 		if (configOption->id() == configId)
@@ -340,7 +340,7 @@ ConfigOption *AtlanticCore::findConfigOption(int configId)
 	return 0;
 }
 
-QList<Card *> AtlanticCore::cards()
+QList<Card *> AtlanticCore::cards() const
 {
 	return m_cards;
 }
@@ -352,7 +352,7 @@ Card *AtlanticCore::newCard(int cardId)
 	return card;
 }
 
-Card *AtlanticCore::findCard(int cardId)
+Card *AtlanticCore::findCard(int cardId) const
 {
 	foreach (Card *card, m_cards)
 		if (card->cardId() == cardId)
@@ -361,7 +361,7 @@ Card *AtlanticCore::findCard(int cardId)
 	return 0;
 }
 
-void AtlanticCore::printDebug()
+void AtlanticCore::printDebug() const
 {
 	foreach (Player *player, m_players)
 		if (player == m_playerSelf)

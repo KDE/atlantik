@@ -43,49 +43,49 @@ public:
 	bool selfIsMaster() const;
 
 	void setPlayerSelf(Player *player);
-	Player *playerSelf();
+	Player *playerSelf() const;
 
-	QList<Player *> players();
+	QList<Player *> players() const;
 	Player *newPlayer(int playerId, const bool &playerSelf = false);
-	Player *findPlayer(int playerId);
+	Player *findPlayer(int playerId) const;
 	void removePlayer(Player *player);
 
-	QList<Game *> games();
+	QList<Game *> games() const;
 	Game *newGame(int gameId, const QString &type = QString::null);
-	Game *findGame(const QString &type); // finds game types
-	Game *findGame(int gameId); // finds actual games
-	Game *gameSelf();
+	Game *findGame(const QString &type) const; // finds game types
+	Game *findGame(int gameId) const; // finds actual games
+	Game *gameSelf() const;
 	void removeGame(Game *game);
 	void emitGames();
 
-	QList<Estate *> estates();
+	QList<Estate *> estates() const;
 	Estate *newEstate(int estateId);
-	Estate *findEstate(int estateId);
-	Estate *estateAfter(Estate *estate);
+	Estate *findEstate(int estateId) const;
+	Estate *estateAfter(Estate *estate) const;
 
-	QList<EstateGroup *> estateGroups();
+	QList<EstateGroup *> estateGroups() const;
 	EstateGroup *newEstateGroup(int groupId);
-	EstateGroup *findEstateGroup(int groupId);
+	EstateGroup *findEstateGroup(int groupId) const;
 
-	QList<Trade *> trades();
+	QList<Trade *> trades() const;
 	Trade *newTrade(int tradeId);
-	Trade *findTrade(int tradeId);
+	Trade *findTrade(int tradeId) const;
 	void removeTrade(Trade *trade);
 
-	QList<Auction *> auctions();
+	QList<Auction *> auctions() const;
 	Auction *newAuction(int auctionId, Estate *estate);
 	void delAuction(Auction *auction);
 
-	QList<ConfigOption *> configOptions();
+	QList<ConfigOption *> configOptions() const;
 	ConfigOption *newConfigOption(int configId);
 	void removeConfigOption(ConfigOption *configOption);
-	ConfigOption *findConfigOption(int configId);
+	ConfigOption *findConfigOption(int configId) const;
 
-	QList<Card *> cards();
+	QList<Card *> cards() const;
 	Card *newCard(int cardId);
-	Card *findCard(int cardId);
+	Card *findCard(int cardId) const;
 
-	void printDebug();
+	void printDebug() const;
 
 Q_SIGNALS:
 	void createGUI(Player *player);

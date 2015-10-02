@@ -40,7 +40,7 @@ void Player::setGame(Game *game)
 	}
 }
 
-Game *Player::game()
+Game *Player::game() const
 {
 	return m_game;
 }

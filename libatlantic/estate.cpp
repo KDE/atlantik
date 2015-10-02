@@ -143,7 +143,7 @@ void Estate::setMoney(int money)
 	}
 }
 
-int Estate::money()
+int Estate::money() const
 {
 	return m_money;
 }

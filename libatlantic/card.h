@@ -31,13 +31,13 @@ public:
 	Card(int cardId);
 	virtual ~Card();
 
-	int cardId() { return m_cardId; }
+	int cardId() const { return m_cardId; }
 
 	void setTitle(const QString &title);
 	QString title() const { return m_title; }
 
 	void setOwner(Player *player);
-	Player *owner() { return m_owner; }
+	Player *owner() const { return m_owner; }
 
 	void update(bool force = false);
 

@@ -39,9 +39,9 @@ public:
 	QString name() const;
 	void setType(const QString &type);
 	QString type() const;
-	int players();
+	int players() const;
 	void setPlayers(int players);
-	Player *master();
+	Player *master() const;
 	void setMaster(Player *master);
 
 	void update(bool force = false);

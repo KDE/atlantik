@@ -32,11 +32,11 @@ public:
 	Auction(int auctionId, Estate *estate);
 	virtual ~Auction();
 
-	int auctionId() { return m_auctionId; }
-	Estate *estate() { return m_estate; }
+	int auctionId() const { return m_auctionId; }
+	Estate *estate() const { return m_estate; }
 
 	void setStatus(int status);
-	int status() { return m_status; }
+	int status() const { return m_status; }
 
 	void newBid(Player *player, int bid);
 

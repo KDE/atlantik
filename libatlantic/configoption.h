@@ -33,7 +33,7 @@ public:
 	void setDescription(const QString &description);
 	QString description() const;
 	void setEdit(bool edit);
-	bool edit();
+	bool edit() const;
 	void setValue(const QString &value);
 	QString value() const;
 	void update(bool force = false);

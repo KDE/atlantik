@@ -36,10 +36,10 @@ public:
 	TradeItem(Trade *trade, Player *from, Player *to);
 	virtual ~TradeItem() { }
 	
-	Player *from() { return mFrom; }
-	Player *to() { return mTo; }
+	Player *from() const { return mFrom; }
+	Player *to() const { return mTo; }
 	void setTo(Player *p) { mTo=p; }
-	Trade *trade() { return mTrade; }
+	Trade *trade() const { return mTrade; }
 
 	/**
 	 * how to visualize this
@@ -102,7 +102,7 @@ Q_OBJECT
 public:
 	TradeCard(Card *card, Trade *trade, Player *to);
 
-	Card *card() { return mCard; }
+	Card *card() const { return mCard; }
 	
 	virtual QString text() const;
 
@@ -127,9 +127,9 @@ public:
 	void addPlayer(Player *player);
 	void removePlayer(Player *player);
 	
-	unsigned int count( bool acceptOnly );
+	unsigned int count( bool acceptOnly ) const;
 
-	bool isRejected() { return m_rejected; }
+	bool isRejected() const { return m_rejected; }
 	
 #if 0
 	/**

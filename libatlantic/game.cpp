@@ -93,7 +93,7 @@ void Game::update(bool force)
 	}
 }
 
-int Game::players()
+int Game::players() const
 {
 	return m_players;
 }
@@ -107,7 +107,7 @@ void Game::setPlayers(int players)
 	}
 }
 
-Player *Game::master()
+Player *Game::master() const
 {
 	return m_master;
 }

@@ -47,7 +47,7 @@ void Trade::removePlayer(Player *player)
 	m_playerAcceptMap[player] = false;
 }
 
-unsigned int Trade::count( bool acceptOnly )
+unsigned int Trade::count( bool acceptOnly ) const
 {
 	unsigned int count = 0;
 	QMapIterator<Player *, bool> it(m_playerAcceptMap);

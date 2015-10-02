@@ -31,19 +31,19 @@ Q_OBJECT
 public:
 	Player(int playerId);
 
-	int id() { return m_id; }
+	int id() const { return m_id; }
 	void setGame(Game *game);
-	Game *game();
+	Game *game() const;
 	void setLocation(Estate *location);
-	Estate *location() { return m_location; }
+	Estate *location() const { return m_location; }
 	void setDestination(Estate *destination);
-	Estate *destination() { return m_destination; }
+	Estate *destination() const { return m_destination; }
 	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
 	void setBankrupt(bool bankrupt);
-	bool isBankrupt() { return m_bankrupt; }
+	bool isBankrupt() const { return m_bankrupt; }
 	void setHasDebt(bool hasDebt);
-	bool hasDebt() { return m_hasDebt; }
+	bool hasDebt() const { return m_hasDebt; }
 	void setHasTurn(const bool hasTurn);
 	bool hasTurn() const { return m_hasTurn; }
 	void setCanRoll(bool canRoll);

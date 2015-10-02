@@ -27,7 +27,7 @@ Q_OBJECT
 
 public:
 	EstateGroup(const int id);
-	int id() { return m_id; }
+	int id() const { return m_id; }
 	void setName(const QString name);
 	QString name() const { return m_name; }
 	void update(bool force = false);
