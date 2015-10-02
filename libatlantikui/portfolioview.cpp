@@ -72,7 +72,7 @@ PortfolioView::~PortfolioView()
 	delete qpixmap;
 }
 
-Player *PortfolioView::player()
+Player *PortfolioView::player() const
 {
 	return m_player;
 }

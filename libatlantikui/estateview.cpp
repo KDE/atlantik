@@ -148,7 +148,7 @@ void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, b
 		update();
 }
 
-QPixmap *EstateView::rotatePixmap(QPixmap *p)
+QPixmap *EstateView::rotatePixmap(QPixmap *p) const
 {
 	if (p==0 || p->isNull())
 		return 0;

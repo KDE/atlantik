@@ -37,9 +37,9 @@ Q_OBJECT
 			   bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent);
 		~EstateView();
 		void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects);
-		Estate *estate() { return m_estate; }
+		Estate *estate() const { return m_estate; }
 		void updatePE();
-		EstateOrientation orientation() { return m_orientation; }
+		EstateOrientation orientation() const { return m_orientation; }
 
 	public slots:
 		void slotResizeAftermath();
@@ -60,7 +60,7 @@ private:
 	void updateToolTip();
 		void loadIcon(const QString &_icon);
 
-		QPixmap *rotatePixmap(QPixmap *);
+		QPixmap *rotatePixmap(QPixmap *) const;
 		void drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c2);
 		void repositionPortfolioEstate();
 

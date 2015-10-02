@@ -42,7 +42,7 @@ public:
 	void buildPortfolio();
 	void clearPortfolio();
 
-	Player *player();
+	Player *player() const;
 
 protected:
 	void paintEvent(QPaintEvent *);

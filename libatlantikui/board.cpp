@@ -110,7 +110,7 @@ int AtlantikBoard::heightForWidth(int width) const
 	return width;
 }
 
-EstateView *AtlantikBoard::findEstateView(Estate *estate)
+EstateView *AtlantikBoard::findEstateView(Estate *estate) const
 {
 	foreach (EstateView *estateView, m_estateViews)
 	{
@@ -180,7 +180,7 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 	connect(auction, SIGNAL(completed()), this, SLOT(displayDefault()));
 }
 
-Token *AtlantikBoard::findToken(Player *player)
+Token *AtlantikBoard::findToken(Player *player) const
 {
 	foreach (Token *token, m_tokens)
 		if (token->player() == player)

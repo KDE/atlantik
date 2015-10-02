@@ -54,7 +54,7 @@ public:
 	void removeToken(Player *player);
 
 	void indicateUnownedChanged();
-	EstateView *findEstateView(Estate *estate);
+	EstateView *findEstateView(Estate *estate) const;
 	QWidget *centerWidget();
 
 public Q_SLOTS:
@@ -78,7 +78,7 @@ protected:
 	void resizeEvent(QResizeEvent *);
 
 private:
-	Token *findToken(Player *player);
+	Token *findToken(Player *player) const;
 	void jumpToken(Token *token);
 	void moveToken(Token *token);
 	QPoint calculateTokenDestination(Token *token, Estate *estate = 0);

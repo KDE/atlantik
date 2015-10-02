@@ -32,7 +32,7 @@ Q_OBJECT
 
 public:
 	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent);
-	Estate *estate() { return m_estate; }
+	Estate *estate() const { return m_estate; }
 	static QPixmap drawPixmap(Estate *estate, Player *player = 0, bool alwaysOwned = true);
 
 protected:

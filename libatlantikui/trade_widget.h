@@ -45,7 +45,7 @@ Q_OBJECT
 public:
 	TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent=0);
 
-	Trade *trade() { return mTrade; }
+	Trade *trade() const { return mTrade; }
 
 protected:
 	void closeEvent(QCloseEvent *e);

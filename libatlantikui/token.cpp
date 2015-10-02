@@ -59,7 +59,7 @@ Token::~Token()
 	delete qpixmap;
 }
 
-Player *Token::player()
+Player *Token::player() const
 {
 	return m_player;
 }

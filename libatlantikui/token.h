@@ -32,13 +32,13 @@ Q_OBJECT
 	public:
 		Token (Player *player, AtlantikBoard *parent);
 		~Token();
-		Player *player();
+		Player *player() const;
 		void setLocation(Estate *estate);
-		Estate *location() { return m_location; }
+		Estate *location() const { return m_location; }
 		void setDestination(Estate *estate);
-		Estate *destination() { return m_destination; }
+		Estate *destination() const { return m_destination; }
 		void setInJail (bool inJail) { m_inJail = inJail; }
-		bool inJail() { return m_inJail; }
+		bool inJail() const { return m_inJail; }
 
 	private slots:
 		void playerChanged();
