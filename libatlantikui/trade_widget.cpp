@@ -36,7 +36,7 @@
 #include <portfolioestate.h>
 #include <card.h>
 
-#include "trade_widget.moc"
+#include "trade_widget.h"
 
 TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent)
 	: KDialog(parent,

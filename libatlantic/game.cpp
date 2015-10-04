@@ -120,5 +120,3 @@ void Game::setMaster(Player *master)
 		m_changed = true;
 	}
 }
-
-#include "game.moc"

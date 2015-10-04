@@ -26,6 +26,8 @@
 
 #include <kxmlguiwindow.h>
 
+#include "connectioncookie.h"
+
 class QScrollArea;
 class QAction;
 class QLineEdit;
@@ -37,7 +39,6 @@ class AtlantikNetwork;
 class PortfolioView;
 class AtlantikBoard;
 class Auction;
-class ConnectionCookie;
 
 struct AtlantikConfig
 {

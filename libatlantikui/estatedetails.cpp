@@ -331,5 +331,3 @@ void EstateDetails::clearButtons()
 	}
 	m_buttons.resize(0); // Keep the capacity allocated
 }
-
-#include "estatedetails.moc"

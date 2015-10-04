@@ -95,5 +95,3 @@ void ConfigOption::update(bool force)
 		m_changed = false;
 	}
 }
-
-#include "configoption.moc"

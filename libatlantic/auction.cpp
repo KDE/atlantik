@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "auction.h"
-#include "auction.moc"
 #include "player.h"
 #include "estate.h"
 

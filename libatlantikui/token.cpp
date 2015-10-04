@@ -26,7 +26,7 @@
 #include "estate.h"
 #include "player.h"
 
-#include "token.moc"
+#include "token.h"
 
 #define ICONSIZE	32
 

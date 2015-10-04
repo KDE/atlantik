@@ -33,7 +33,7 @@
 #include <kpushbutton.h>
 
 #include "event.h"
-#include "eventlogwidget.moc"
+#include "eventlogwidget.h"
 
 EventLog::EventLog()
 	: QAbstractItemModel()

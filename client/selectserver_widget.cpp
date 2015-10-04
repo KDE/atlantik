@@ -31,7 +31,7 @@
 
 #include "metatlantic.h"
 
-#include "selectserver_widget.moc"
+#include "selectserver_widget.h"
 
 MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port)
 {

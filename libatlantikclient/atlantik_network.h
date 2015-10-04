@@ -25,6 +25,12 @@
 #include <libatlantikclient_export.h>
 
 class AtlanticCore;
+class Auction;
+class Card;
+class Estate;
+class EstateGroup;
+class Player;
+class Trade;
 class QTcpSocket;
 
 class  LIBATLANTIKCLIENT_EXPORT AtlantikNetwork: public QObject

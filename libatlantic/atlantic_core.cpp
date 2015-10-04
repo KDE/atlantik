@@ -390,5 +390,3 @@ void AtlanticCore::printDebug() const
 	foreach (Card *card, m_cards)
 		std::cout << "CA: " << QString::number(card->cardId()).toLatin1().constData() << std::endl;
 }
-
-#include "atlantic_core.moc"

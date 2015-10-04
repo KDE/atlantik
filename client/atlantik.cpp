@@ -44,7 +44,7 @@
 #include <estate.h>
 #include <player.h>
 #include <trade.h>
-#include "atlantik.moc"
+#include "atlantik.h"
 
 #include <atlantik_network.h>
 
@@ -59,7 +59,6 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 #include "configdlg.h"
-#include "connectioncookie.h"
 
 #include <settings.h>
 

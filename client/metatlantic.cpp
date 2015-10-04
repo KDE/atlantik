@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "metatlantic.h"
-#include "metatlantic.moc"
 
 #include <QDomDocument>
 #include <QTcpSocket>

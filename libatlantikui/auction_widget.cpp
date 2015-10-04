@@ -30,7 +30,7 @@
 #include <estate.h>
 #include <auction.h>
 
-#include "auction_widget.moc"
+#include "auction_widget.h"
 
 AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : QWidget(parent)
 {

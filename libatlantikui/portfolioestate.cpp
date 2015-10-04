@@ -18,7 +18,7 @@
 #include <qpainter.h>
 #include <QMouseEvent>
 
-#include "portfolioestate.moc"
+#include "portfolioestate.h"
 #include "estate.h"
 
 PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent) : QWidget(parent)

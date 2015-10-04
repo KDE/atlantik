@@ -32,7 +32,7 @@
 
 #include "portfolioestate.h"
 
-#include "estateview.moc"
+#include "estateview.h"
 
 EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
                        bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)

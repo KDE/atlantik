@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "trade.h"
-#include "trade.moc"
 #include "player.h"
 #include "estate.h"
 #include "card.h"

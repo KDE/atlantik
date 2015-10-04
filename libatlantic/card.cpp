@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "card.h"
-#include "card.moc"
 #include "player.h"
 
 Card::Card(int cardId) : QObject()

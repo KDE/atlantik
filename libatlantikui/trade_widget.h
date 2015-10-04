@@ -33,6 +33,7 @@ class KComboBox;
 class KPushButton;
 
 class AtlanticCore;
+class Card;
 class Estate;
 class Player;
 class Trade;

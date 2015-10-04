@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "configdlg.h"
-#include "configdlg.moc"
 
 #include <settings.h>
 

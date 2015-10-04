@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "estategroup.h"
-#include "estategroup.moc"
 
 EstateGroup::EstateGroup(const int id) : QObject()
 {

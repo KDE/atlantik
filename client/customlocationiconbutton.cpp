@@ -16,7 +16,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "customlocationiconbutton.h"
-#include "customlocationiconbutton.moc"
 
 #include <QFile>
 #include <QFileInfo>

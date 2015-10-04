@@ -30,7 +30,7 @@
 #include <game.h>
 #include <player.h>
 
-#include "selectconfiguration_widget.moc"
+#include "selectconfiguration_widget.h"
 
 SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent) : QWidget(parent)
 {

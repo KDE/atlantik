@@ -218,5 +218,3 @@ void SelectGame::connectClicked()
 			emit newGame(item->data(0, GameTypeRole).toString());
 	}
 }
-
-#include "selectgame_widget.moc"

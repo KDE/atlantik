@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include "player.h"
-#include "player.moc"
 #include "estate.h"
 
 Player::Player(int playerId) : QObject()

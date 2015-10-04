@@ -32,7 +32,7 @@
 #include <estategroup.h>
 #include <portfolioestate.h>
 
-#include "portfolioview.moc"
+#include "portfolioview.h"
 
 #include <algorithm>
 

@@ -33,7 +33,6 @@
 #include "token.h"
 
 #include "board.h"
-#include "board.moc"
 
 AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent) : QWidget(parent)
 {

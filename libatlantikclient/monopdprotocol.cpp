@@ -26,7 +26,6 @@
 #include <estate.h>
 
 #include "monopdprotocol.h"
-#include "monopdprotocol.moc"
 
 MonopdProtocol::MonopdProtocol() : QObject()
 {

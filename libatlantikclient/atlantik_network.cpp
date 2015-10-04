@@ -943,4 +943,3 @@ void AtlantikNetwork::processNode(QDomNode n) {
         // processNode(node);
     }
 }
-#include "atlantik_network.moc"

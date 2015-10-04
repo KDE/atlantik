@@ -17,6 +17,7 @@
 #ifndef ATLANTIK_SELECTCONFIGURATION_WIDGET_H
 #define ATLANTIK_SELECTCONFIGURATION_WIDGET_H
 
+#include <QMap>
 #include <QWidget>
 
 class QCheckBox;
