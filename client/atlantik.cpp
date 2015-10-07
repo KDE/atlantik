@@ -26,7 +26,6 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kcmdlineargs.h>
-#include <kconfig.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
@@ -34,7 +33,6 @@
 #include <kstatusbar.h>
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
-#include <ktoolbar.h>
 #include <klocale.h>
 
 #include <kdebug.h>
