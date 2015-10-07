@@ -177,8 +177,7 @@ Atlantik::Atlantik ()
 	m_jailRoll->setEnabled(false);
 
 	// Mix code and XML into GUI
-	KXmlGuiWindow::createGUI();
-	applyMainWindowSettings( KGlobal::config()->group( "AtlantikMainWindow" ) );
+	setupGUI();
 	KXmlGuiWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
 	KXmlGuiWindow::statusBar()->insertItem(QString::null, 1, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
@@ -861,8 +860,6 @@ void Atlantik::closeEvent(QCloseEvent *e)
 		if ( m_atlantikNetwork && m_atlantikNetwork->isConnected() )
 			m_atlantikNetwork->leaveGame();
 
-                KConfigGroup cg( KGlobal::config(), "AtlantikMainWindow");
-		saveMainWindowSettings( cg );
 		KXmlGuiWindow::closeEvent(e);
 	}
 	else
