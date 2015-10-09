@@ -22,12 +22,12 @@
 #include <QVBoxLayout>
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QMenu>
 
 #include <klocalizedstring.h>
 #include <kicon.h>
 #include <kpushbutton.h>
 #include <kcombobox.h>
-#include <kmenu.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -439,7 +439,7 @@ void TradeDisplay::contextMenu(const QPoint &pos)
 
 	m_contextTradeItem = m_componentRevMap[item];
 
-	KMenu *rmbMenu = new KMenu(mainWidget());
+	QMenu *rmbMenu = new QMenu(mainWidget());
 	QAction *act = rmbMenu->addAction(i18n("Remove From Trade"));
 	connect(act, SIGNAL(triggered()), this, SLOT(contextMenuClickedRemove()));
 
