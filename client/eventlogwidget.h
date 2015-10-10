@@ -33,7 +33,7 @@ class EventLog : public QAbstractItemModel
 Q_OBJECT
 
 public:
-	EventLog();
+	EventLog(QObject *parent = 0);
 	~EventLog();
 	QList<Event*> events();
 

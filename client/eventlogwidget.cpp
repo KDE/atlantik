@@ -35,8 +35,8 @@
 #include "event.h"
 #include "eventlogwidget.h"
 
-EventLog::EventLog()
-	: QAbstractItemModel()
+EventLog::EventLog(QObject *parent)
+	: QAbstractItemModel(parent)
 {
 }
 

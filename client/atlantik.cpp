@@ -729,7 +729,7 @@ void Atlantik::gainedTurn()
 
 void Atlantik::initEventLog()
 {
-	m_eventLog = new EventLog();
+	m_eventLog = new EventLog(this);
 }
 
 void Atlantik::initNetworkObject()
