@@ -52,7 +52,7 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	m_mainLayout = new QVBoxLayout(this );
 	Q_CHECK_PTR(m_mainLayout);
 
-	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
+	m_mainLayout->addItem(new QSpacerItem(5, StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
 	m_infoListView = new QListWidget(this);
 	m_infoListView->setWordWrap(true);
