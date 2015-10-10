@@ -38,10 +38,6 @@ Q_OBJECT
 public:
 	SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent);
 
-	void setCanStart(const bool &canStart);
-	QString hostToConnect() const;
-	int portToConnect();
-
 private slots:
 	void addConfigOption(ConfigOption *configOption);
 	void changeOption();

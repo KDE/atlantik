@@ -36,11 +36,6 @@ Q_OBJECT
 public:
 	SelectGame(AtlanticCore *atlanticCore, QWidget *parent);
 
-	void initPage();
-	bool validateNext();
-	QString hostToConnect() const;
-	int portToConnect();
-
 private slots:
 	void connectClicked();
 	void addGame(Game *game);

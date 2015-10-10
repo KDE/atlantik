@@ -53,7 +53,6 @@ public:
 	void addToken(Player *player);
 	void removeToken(Player *player);
 
-	void indicateUnownedChanged();
 	EstateView *findEstateView(Estate *estate) const;
 	QWidget *centerWidget();
 

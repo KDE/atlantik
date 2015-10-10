@@ -67,11 +67,7 @@ public:
 	SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent);
 	virtual ~SelectServer();
 
-	void initPage();
 	void setHideDevelopmentServers(bool hideDevelopmentServers);
-	bool validateNext();
-	QString hostToConnect() const;
-	int portToConnect();
 
 public slots:
 	void validateConnectButton();
