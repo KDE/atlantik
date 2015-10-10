@@ -196,7 +196,11 @@ void EventLogWidget::closeEvent(QCloseEvent *e)
 
 void EventLogWidget::save()
 {
-	QFile file( KFileDialog::getSaveFileName() );
+	const QString filename = KFileDialog::getSaveFileName(KUrl(), QString(), this, QString(), KFileDialog::ConfirmOverwrite);
+	if (filename.isEmpty())
+		return;
+
+	QFile file(filename);
 	if ( file.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&file);
