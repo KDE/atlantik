@@ -270,7 +270,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		else
 			painter.setBrush(m_estate->bgColor());
 
-		painter.drawRect(rect());
+		painter.drawRect(rect().adjusted(0, 0, -1, -1));
 
 		// Paint icon only when it exists and fits
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
@@ -292,7 +292,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			switch(m_orientation)
 			{
 				case North:
-					painter.drawRect(0, 0, width(), m_titleHeight);
+					painter.drawRect(0, 0, width()-1, m_titleHeight-1);
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
@@ -306,7 +306,7 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(redHotel);
-							painter.drawRect(2, 2, (width()/2)-4, (m_titleHeight)-4);
+							painter.drawRect(2, 2, (width()/2)-4-1, (m_titleHeight)-4-1);
 						}
 						else
 						{
@@ -314,12 +314,12 @@ void EstateView::paintEvent(QPaintEvent *)
 							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect(2+(i*(w+2)), 2, w, h);
+								painter.drawRect(2+(i*(w+2)), 2, w-1, h-1);
 						}
 					}
 					break;
 				case South:
-					painter.drawRect(0, height()-(m_titleHeight), width(), m_titleHeight);
+					painter.drawRect(0, height()-(m_titleHeight), width()-1, m_titleHeight-1);
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
@@ -333,7 +333,7 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(redHotel);
-							painter.drawRect(2, (3*(m_titleHeight))+2, (width()/2)-4, (m_titleHeight)-4);
+							painter.drawRect(2, (3*(m_titleHeight))+2, (width()/2)-4-1, (m_titleHeight)-4-1);
 						}
 						else
 						{
@@ -341,12 +341,12 @@ void EstateView::paintEvent(QPaintEvent *)
 							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect(2+(i*(w+2)), (3*(m_titleHeight))+2, w, h);
+								painter.drawRect(2+(i*(w+2)), (3*(m_titleHeight))+2, w-1, h-1);
 						}
 					}
 					break;
 				case West:
-					painter.drawRect(0, 0, m_titleWidth, height());
+					painter.drawRect(0, 0, m_titleWidth-1, height()-1);
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
@@ -360,7 +360,7 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(redHotel);
-							painter.drawRect(2, 2, (m_titleWidth)-4, (height()/2)-4);
+							painter.drawRect(2, 2, (m_titleWidth)-4-1, (height()/2)-4-1);
 						}
 						else
 						{
@@ -368,12 +368,12 @@ void EstateView::paintEvent(QPaintEvent *)
 							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect(2, 2+(i*(h+2)), w, h);
+								painter.drawRect(2, 2+(i*(h+2)), w-1, h-1);
 						}
 					}
 					break;
 				case East:
-					painter.drawRect(width()-(m_titleWidth), 0, m_titleWidth, height());
+					painter.drawRect(width()-(m_titleWidth), 0, m_titleWidth-1, height()-1);
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
@@ -387,7 +387,7 @@ void EstateView::paintEvent(QPaintEvent *)
 						{
 							// Hotel
 							painter.setBrush(redHotel);
-							painter.drawRect((3*(m_titleWidth))+2, 2, (m_titleWidth)-4, (height()/2)-4);
+							painter.drawRect((3*(m_titleWidth))+2, 2, (m_titleWidth)-4-1, (height()/2)-4-1);
 						}
 						else
 						{
@@ -395,7 +395,7 @@ void EstateView::paintEvent(QPaintEvent *)
 							painter.setBrush(greenHouse);
 							int h = (m_titleHeight)-4, w = (m_titleWidth)-4;
 							for( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-								painter.drawRect((3*(m_titleWidth))+2, 2+(i*(h+2)), w, h);
+								painter.drawRect((3*(m_titleWidth))+2, 2+(i*(h+2)), w-1, h-1);
 						}
 					}
 					break;

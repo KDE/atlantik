@@ -120,7 +120,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		painter.setPen(Qt::black);
 
 		painter.setBrush(m_estate ? m_estate->bgColor() : Qt::white);
-		painter.drawRect(rect());
+		painter.drawRect(rect().adjusted(0, 0, -1, -1));
 
 /*
 		// Paint icon only when it exists and fits
@@ -139,7 +139,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
                         quartzPainter.initFrom( this);
 
 			painter.setBrush(titleColor);
-			painter.drawRect(0, 0, width(), StaticTitleHeight);
+			painter.drawRect(0, 0, width()-1, StaticTitleHeight-1);
 
 			if (m_quartzBlocks)
 			{
@@ -155,7 +155,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 				{
 					// Hotel
 					painter.setBrush(redHotel);
-					painter.drawRect(2, 2, titleWidth-4, StaticTitleHeight-4);
+					painter.drawRect(2, 2, titleWidth-4-1, StaticTitleHeight-4-1);
 				}
 				else
 				{
@@ -163,7 +163,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 					painter.setBrush(greenHouse);
 						int h = StaticTitleHeight-4, w = titleWidth-4;
 						for ( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-						painter.drawRect(2+(i*(w+2)), 2, w, h);
+						painter.drawRect(2+(i*(w+2)), 2, w-1, h-1);
 				}
 			}
 
