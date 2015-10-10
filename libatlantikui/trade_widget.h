@@ -46,7 +46,7 @@ Q_OBJECT
 public:
 	TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent=0);
 
-	Trade *trade() const { return mTrade; }
+	Trade *trade() const { return m_trade; }
 
 protected:
 	void closeEvent(QCloseEvent *e);
@@ -88,7 +88,7 @@ private:
 	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
 	AtlanticCore *m_atlanticCore;
-	Trade *mTrade, *m_trade;
+	Trade *m_trade;
 	TradeItem *m_contextTradeItem;
 
 	// TODO: Wouldn't QPair make more sense here?
