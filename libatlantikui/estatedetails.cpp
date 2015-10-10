@@ -35,6 +35,8 @@
 
 #include "estatedetails.h"
 
+static const int StaticTitleHeight = 50;
+
 EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : QWidget(parent)
 {
 	m_pixmap = 0;
@@ -50,7 +52,7 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	m_mainLayout = new QVBoxLayout(this );
 	Q_CHECK_PTR(m_mainLayout);
 
-	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+50, QSizePolicy::Fixed, QSizePolicy::Minimum));
+	m_mainLayout->addItem(new QSpacerItem(KDialog::spacingHint(), KDialog::spacingHint()+StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
 	m_infoListView = new QListWidget(this);
 	m_infoListView->setWordWrap(true);
@@ -128,7 +130,6 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 		if (m_estate)
 		{
-			int titleHeight = 50;
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 
 			QPixmap* quartzBuffer = new QPixmap(25, (height()/4)-2);
@@ -138,7 +139,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
                         quartzPainter.initFrom( this);
 
 			painter.setBrush(titleColor);
-			painter.drawRect(0, 0, width(), titleHeight);
+			painter.drawRect(0, 0, width(), StaticTitleHeight);
 
 			if (m_quartzBlocks)
 			{
@@ -154,13 +155,13 @@ void EstateDetails::paintEvent(QPaintEvent *)
 				{
 					// Hotel
 					painter.setBrush(redHotel);
-					painter.drawRect(2, 2, titleWidth-4, titleHeight-4);
+					painter.drawRect(2, 2, titleWidth-4, StaticTitleHeight-4);
 				}
 				else
 				{
 					// Houses
 					painter.setBrush(greenHouse);
-						int h = titleHeight-4, w = titleWidth-4;
+						int h = StaticTitleHeight-4, w = titleWidth-4;
 						for ( unsigned int i=0 ; i < m_estate->houses() ; i++ )
 						painter.drawRect(2+(i*(w+2)), 2, w, h);
 				}
@@ -178,7 +179,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 				fontSize = KGlobalSettings::generalFont().pixelSize();
 
 			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
-			painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), titleHeight, Qt::AlignJustify, m_estate->name());
+			painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), StaticTitleHeight, Qt::AlignJustify, m_estate->name());
 
 			painter.setPen(Qt::black);
 
@@ -187,12 +188,12 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			// Estate group
 			if (m_estate->estateGroup())
 			{
-				xText = titleHeight - fontSize - KDialog::marginHint();
+				xText = StaticTitleHeight - fontSize - KDialog::marginHint();
 				painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
-				painter.drawText(5, xText, width()-10, titleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
+				painter.drawText(5, xText, width()-10, StaticTitleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
 			}
 
-			xText = titleHeight + fontSize + 5;
+			xText = StaticTitleHeight + fontSize + 5;
 			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
 		}
 		b_recreate = false;
