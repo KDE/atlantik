@@ -41,7 +41,7 @@ public:
 private slots:
 	void addConfigOption(ConfigOption *configOption);
 	void changeOption();
-	void gameOption(QString title, QString type, QString value, QString edit, QString command);
+	void gameOption(const QString &title, const QString &type, const QString &value, const QString &edit, const QString &command);
 	void optionChanged(ConfigOption *configOption);
 	void optionChanged();
 	void slotEndUpdate();
@@ -55,7 +55,7 @@ signals:
 	void joinConfiguration(int configurationId);
 	void newConfiguration();
 	void changeOption(int configId, const QString &value);
-	void buttonCommand(QString);
+	void buttonCommand(const QString &);
 	void iconSelected(const QString &);
 	void statusMessage(const QString &message);
 

@@ -56,7 +56,7 @@ public:
 	bool canUseCard() const { return m_canUseCard; }
 	void setInJail(const bool inJail);
 	bool inJail() const { return m_inJail; }
-	void setName(const QString _n);
+	void setName(const QString &_n);
 	QString name() const { return m_name; }
 	void setHost(const QString &host);
 	QString host() const { return m_host; }

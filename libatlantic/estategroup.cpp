@@ -21,7 +21,7 @@ EstateGroup::EstateGroup(const int id) : QObject()
 	m_id = id;
 }
 
-void EstateGroup::setName(const QString name)
+void EstateGroup::setName(const QString &name)
 {
 	if (m_name != name)
 	{

@@ -41,8 +41,8 @@ public:
 	AtlantikNetwork(AtlanticCore *atlanticCore);
 	virtual ~AtlantikNetwork(void);
 
-	void setName(QString name);
-	void cmdChat(QString msg);
+	void setName(const QString &name);
+	void cmdChat(const QString &msg);
 
 	QString host() const;
 	int port() const;
@@ -52,13 +52,13 @@ public:
 	void reset();
 
 private slots:
-	void slotwriteData(QString msg);
+	void slotwriteData(const QString &msg);
 	void slotLookupFinished();
 	void slotConnectionSuccess();
 	void slotConnectionFailed(QAbstractSocket::SocketError error);
 	void slotClosed();
 
-	void writeData(QString data);
+	void writeData(const QString &data);
 
 
 	void rollDice();
@@ -88,7 +88,7 @@ private slots:
 
 
 public slots:
-	void serverConnect(const QString host, int port);
+	void serverConnect(const QString &host, int port);
 	void slotRead();
 
 	void joinGame(int gameId);
@@ -100,17 +100,17 @@ signals:
 	void connectionFailed(QAbstractSocket::SocketError error);
 	void closed(int status);
 
-	void msgInfo(QString);
-	void msgError(QString);
-	void msgChat(QString, QString);
+	void msgInfo(const QString &);
+	void msgError(const QString &);
+	void msgChat(const QString &, const QString &);
 	void msgStatus(const QString &data, const QString &icon = QString::null);
 	void networkEvent(const QString &data, const QString &icon);
-	void displayDetails(QString text, bool clearText, bool clearButtons, Estate *estate = 0);
-	void displayText(QString text, bool clearText, bool clearButtons);
-	void addCommandButton(QString command, QString caption, bool enabled);
+	void displayDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
+	void displayText(const QString &text, bool clearText, bool clearButtons);
+	void addCommandButton(const QString &command, const QString &caption, bool enabled);
 	void addCloseButton();
 
-	void gameOption(QString title, QString type, QString value, QString edit, QString command);
+	void gameOption(const QString &title, const QString &type, const QString &value, const QString &edit, const QString &command);
 	void endConfigUpdate();
 
 	void gameConfig();
@@ -118,7 +118,7 @@ signals:
 	void gameRun();
 	void gameEnd();
 	void receivedHandshake();
-	void clientCookie(QString cookie);
+	void clientCookie(const QString &cookie);
 	void newEstate(Estate *estate);
 
 	void newEstateGroup(EstateGroup *estateGroup);

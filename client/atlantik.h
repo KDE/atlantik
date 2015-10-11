@@ -117,7 +117,7 @@ public:
 	 *
 	 * @param msg Message to be appended.
 	 */
-	void serverMsgsAppend(QString msg);
+	void serverMsgsAppend(const QString &msg);
 
 	AtlantikConfig config() { return m_config; }
 
@@ -128,7 +128,7 @@ private slots:
 	void initBoard();
 	void showBoard();
 	void freezeBoard();
-	void clientCookie(QString cookie);
+	void clientCookie(const QString &cookie);
 	void sendHandshake();
 	void statusBarClick(int);
 
@@ -191,7 +191,7 @@ public slots:
 	 *
 	 * @param msg The message to be appended.
 	 */
-	void slotMsgInfo(QString msg);
+	void slotMsgInfo(const QString &msg);
 
 	void slotMsgStatus(const QString &message, const QString &icon = QString::null);
 
@@ -201,7 +201,7 @@ public slots:
 	 *
 	 * @param msg The error message to be appended.
 	 */
-	void slotMsgError(QString msg);
+	void slotMsgError(const QString &msg);
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the
@@ -210,7 +210,7 @@ public slots:
 	 * @param player The name of the player chatting.
 	 * @param msg    The chat message to be appended.
 	 */
-	void slotMsgChat(QString player, QString msg);
+	void slotMsgChat(const QString &player, const QString &msg);
 
 	void slotReconnect();
 

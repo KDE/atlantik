@@ -86,7 +86,7 @@ bool AtlantikNetwork::isConnected() const
 	return m_monopdsocket && m_monopdsocket->state() == QAbstractSocket::ConnectedState;
 }
 
-void AtlantikNetwork::slotwriteData(QString msg)
+void AtlantikNetwork::slotwriteData(const QString &msg)
 {
 	emit networkEvent(msg, "arrow-right");
 
@@ -117,7 +117,7 @@ void AtlantikNetwork::slotRead()
 
 
 
-void AtlantikNetwork::serverConnect(const QString host, int port)
+void AtlantikNetwork::serverConnect(const QString &host, int port)
 {
 	emit msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), "network-disconnect");
 	m_host = host;
@@ -152,7 +152,7 @@ void AtlantikNetwork::slotClosed()
 	emit closed(0);
 }
 
-void AtlantikNetwork::writeData(QString data) {
+void AtlantikNetwork::writeData(const QString &data) {
 
 	emit networkEvent(data, "arrow-right");
 	//data.append("\n");
@@ -199,7 +199,7 @@ void AtlantikNetwork::endTurn()
         writeData(".E");
 }
 
-void AtlantikNetwork::setName(QString name)
+void AtlantikNetwork::setName(const QString &name)
 {
         // Almost deprecated, will be replaced by libmonopdprotocol
         writeData(QString(".n%1").arg(name));
@@ -237,7 +237,7 @@ void AtlantikNetwork::joinGame(int gameId)
 			kDebug()<< "joining game" << gameId << endl;
 }
 
-void AtlantikNetwork::cmdChat(QString msg)
+void AtlantikNetwork::cmdChat(const QString &msg)
 {
         writeData(msg);
 }

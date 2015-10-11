@@ -71,7 +71,7 @@ private Q_SLOTS:
 
 Q_SIGNALS:
 	void tokenConfirmation(Estate *estate);
-	void buttonCommand(QString command);
+	void buttonCommand(const QString &command);
 
 protected:
 	void resizeEvent(QResizeEvent *);

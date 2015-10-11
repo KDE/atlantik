@@ -110,7 +110,7 @@ void SelectConfiguration::addConfigOption(ConfigOption *configOption)
 	connect(configOption, SIGNAL(changed(ConfigOption *)), this, SLOT(optionChanged(ConfigOption *)));
 }
 
-void SelectConfiguration::gameOption(QString title, QString type, QString value, QString edit, QString command)
+void SelectConfiguration::gameOption(const QString &title, const QString &type, const QString &value, const QString &edit, const QString &command)
 {
 	// Find if option exists in GUI yet
 	if (QCheckBox *checkBox = dynamic_cast<QCheckBox *>(m_checkBoxMap[command]))

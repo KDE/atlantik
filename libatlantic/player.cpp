@@ -136,7 +136,7 @@ void Player::setInJail(const bool inJail)
 	}
 }
 
-void Player::setName(const QString _n)
+void Player::setName(const QString &_n)
 {
 	if (m_name != _n)
 	{

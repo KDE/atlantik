@@ -72,7 +72,7 @@ public:
 public slots:
 	void validateConnectButton();
 	void slotRefresh(bool useMonopigator = true);
-	void slotMetatlanticAdd(QString host, int port, QString version, int users);
+	void slotMetatlanticAdd(const QString &host, int port, const QString &version, int users);
 
 private slots:
 	void slotConnect();
@@ -81,7 +81,7 @@ private slots:
 	void metatlanticTimeout();
 
 signals:
-	void serverConnect(const QString host, int port);
+	void serverConnect(const QString &host, int port);
 	void msgStatus(const QString &message);
 	void showDevelopmentServers(bool show);
 

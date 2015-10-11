@@ -218,7 +218,7 @@ void SelectServer::initMonopigator()
 	m_metatlantic->loadData("meta.atlanticd.net", 1240);
 }
 
-void SelectServer::slotMetatlanticAdd(QString host, int port, QString version, int users)
+void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QString &version, int users)
 {
 	MetaserverEntry *item = new MetaserverEntry(host, port, version, users);
 	m_serverList->addTopLevelItem(item);

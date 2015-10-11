@@ -352,7 +352,7 @@ void Atlantik::showSelectServer()
 	m_reconnect->setEnabled(false);
 	m_reconnecting = false;
 
-	connect(m_selectServer, SIGNAL(serverConnect(const QString, int)), m_atlantikNetwork, SLOT(serverConnect(const QString, int)));
+	connect(m_selectServer, SIGNAL(serverConnect(QString, int)), m_atlantikNetwork, SLOT(serverConnect(QString, int)));
 	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
 
 	m_selectServer->slotRefresh( m_config.connectOnStart );
@@ -627,12 +627,12 @@ void Atlantik::slotSendMsg()
 	m_input->setText(QString::null);
 }
 
-void Atlantik::slotMsgInfo(QString msg)
+void Atlantik::slotMsgInfo(const QString &msg)
 {
 	serverMsgsAppend(msg);
 }
 
-void Atlantik::slotMsgError(QString msg)
+void Atlantik::slotMsgError(const QString &msg)
 {
 	serverMsgsAppend("Error: " + msg);
 }
@@ -643,7 +643,7 @@ void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
 	m_eventLog->addEvent(message, icon);
 }
 
-void Atlantik::slotMsgChat(QString player, QString msg)
+void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
 	if (m_config.chatTimestamps)
 	{
@@ -657,7 +657,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, Qt::escape(msg)));
 }
 
-void Atlantik::serverMsgsAppend(QString msg)
+void Atlantik::serverMsgsAppend(const QString &msg)
 {
 	m_serverMsgs->insertPlainText(msg + '\n');
 }
@@ -770,7 +770,7 @@ void Atlantik::initNetworkObject()
 	connect(this, SIGNAL(reconnect(QString)), m_atlantikNetwork, SLOT(reconnect(QString)));
 }
 
-void Atlantik::clientCookie(QString cookie)
+void Atlantik::clientCookie(const QString &cookie)
 {
 	ConnectionCookie *newCookie = 0;
 
