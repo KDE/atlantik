@@ -510,7 +510,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     Player *player;
                     if (!(player = m_atlanticCore->findPlayer(playerId)))
                         player = m_atlanticCore->newPlayer( playerId, (m_playerId == playerId) );
-                    else
+                    else if (m_playerId == playerId)
                         m_atlanticCore->setPlayerSelf(player);
 
                     // Update player name
