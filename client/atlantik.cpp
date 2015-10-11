@@ -661,8 +661,7 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 
 void Atlantik::serverMsgsAppend(QString msg)
 {
-	// Use append, not setText(old+new) because that one doesn't wrap
-	m_serverMsgs->append(msg);
+	m_serverMsgs->insertPlainText(msg + '\n');
 }
 
 void Atlantik::playerChanged(Player *player)
