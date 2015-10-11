@@ -96,10 +96,8 @@ Atlantik::Atlantik ()
 	readConfig();
 
 	// Toolbar: Game
-//	KStandardGameAction::gameNew(this, SLOT(slotNewGame()), actionCollection(), "game_new");
         m_showEventLog = actionCollection()->addAction("showeventlog");
         m_showEventLog->setText(i18n("Show Event &Log"));
-		//m_showEventLog->setShortcut(KStandardShortcut::shortcut(KStandardShortcut::New));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
 	m_reconnect = actionCollection()->addAction("reconnect");
 	m_reconnect->setText(i18n("&Reconnect (after crash)"));
