@@ -497,8 +497,10 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     int playerId = a.value().toInt();
 
                     Player *player = m_atlanticCore->findPlayer(playerId);
-                    if (player)
+                    if (player) {
+                        m_playerLocationMap.remove(player);
                         m_atlanticCore->removePlayer(player);
+                    }
                 }
             } else if (e.tagName() == "playerupdate") {
                 int playerId = -1;
