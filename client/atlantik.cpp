@@ -542,14 +542,13 @@ void Atlantik::configureNotifications()
 
 void Atlantik::slotUpdateConfig()
 {
-	bool optBool, configChanged = false;
+	bool optBool, viewConfigChanged = false;
 	QString optStr;
 
 	optBool = Settings::chatTimeStamps();
 	if (m_config.chatTimestamps != optBool)
 	{
 		m_config.chatTimestamps = optBool;
-		configChanged = true;
 	}
 
 	optStr = Settings::playerName();
@@ -572,42 +571,41 @@ void Atlantik::slotUpdateConfig()
 	if (m_config.indicateUnowned != optBool)
 	{
 		m_config.indicateUnowned = optBool;
-		configChanged = true;
+		viewConfigChanged = true;
 	}
 
 	optBool = Settings::highliteUnowned();
 	if (m_config.highliteUnowned != optBool)
 	{
 		m_config.highliteUnowned = optBool;
-		configChanged = true;
+		viewConfigChanged = true;
 	}
 
 	optBool = Settings::darkenMortgaged();
 	if (m_config.darkenMortgaged != optBool)
 	{
 		m_config.darkenMortgaged = optBool;
-		configChanged = true;
+		viewConfigChanged = true;
 	}
 
 	optBool = Settings::animateToken();
 	if (m_config.animateTokens != optBool)
 	{
 		m_config.animateTokens = optBool;
-		configChanged = true;
+		viewConfigChanged = true;
 	}
 
 	optBool = Settings::quartzEffects();
 	if (m_config.quartzEffects != optBool)
 	{
 		m_config.quartzEffects = optBool;
-		configChanged = true;
+		viewConfigChanged = true;
 	}
 
 	optBool = Settings::connectOnStart();
 	if (m_config.connectOnStart != optBool)
 	{
 		m_config.connectOnStart = optBool;
-		configChanged = true;
 	}
 
 	optBool = Settings::hideDevelopmentServers();
@@ -616,11 +614,9 @@ void Atlantik::slotUpdateConfig()
 		m_config.hideDevelopmentServers = optBool;
 		if (m_selectServer)
 			m_selectServer->setHideDevelopmentServers(optBool);
-
-		configChanged = true;
 	}
 
-	if (configChanged && m_board)
+	if (viewConfigChanged && m_board)
 		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 }
 
