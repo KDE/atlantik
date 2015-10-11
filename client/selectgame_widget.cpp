@@ -114,7 +114,7 @@ void SelectGame::addGame(Game *game)
 		item->setDisabled(!game->canBeJoined());
 		m_gameList->addTopLevelItem(item);
 
-		KNotification::event("newgame");
+		KNotification::event("newgame", i18n("New game available."));
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}

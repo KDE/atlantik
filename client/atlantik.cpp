@@ -21,6 +21,7 @@
 #include <QCloseEvent>
 #include <QApplication>
 #include <QScrollArea>
+#include <QTextDocument>
 
 #include <kaboutapplicationdialog.h>
 #include <kaction.h>
@@ -288,7 +289,8 @@ void Atlantik::newPlayer(Player *player)
 	connect(player, SIGNAL(gainedTurn()), this, SLOT(gainedTurn()));
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
-	KNotification::event("newplayer");
+	if (!player->isSelf())
+		KNotification::event("newplayer", i18n("New player joined."));
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -652,7 +654,9 @@ void Atlantik::slotMsgChat(QString player, QString msg)
 	}
 	else
 		serverMsgsAppend(player + ": " + msg);
-	KNotification::event("chat");
+	Player *playerSelf = m_atlanticCore->playerSelf();
+	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
+		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, Qt::escape(msg)));
 }
 
 void Atlantik::serverMsgsAppend(QString msg)
