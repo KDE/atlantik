@@ -303,6 +303,15 @@ Auction *AtlanticCore::newAuction(int auctionId, Estate *estate)
 	return auction;
 }
 
+Auction *AtlanticCore::findAuction(int auctionId) const
+{
+	foreach (Auction *auction, m_auctions)
+		if (auction->auctionId() == auctionId)
+			return auction;
+
+	return 0;
+}
+
 void AtlanticCore::delAuction(Auction *auction)
 {
 	m_auctions.removeOne(auction);

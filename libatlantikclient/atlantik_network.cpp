@@ -870,12 +870,11 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if (!a.isNull()) {
                     int auctionId = a.value().toInt();
 
-                    Auction *auction;
+                    Auction *auction = m_atlanticCore->findAuction(auctionId);
                     bool b_newAuction = false;
-                    if (!(auction = m_auctions[auctionId])) {
+                    if (!auction) {
                         // Create auction object
                         auction = m_atlanticCore->newAuction(auctionId, m_atlanticCore->findEstate(e.attributeNode(QString("estateid")).value().toInt()));
-                        m_auctions[auctionId] = auction;
 
                         QObject::connect(auction, SIGNAL(bid(Auction *, int)), this, SLOT(auctionBid(Auction *, int)));
 
@@ -898,7 +897,6 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         // TODO: find a good way to visually represent "sold!"
                         if (status == 3) {
                             m_atlanticCore->delAuction(auction);
-                            m_auctions[auctionId] = 0;
                             auction = 0;
                         }
                     }

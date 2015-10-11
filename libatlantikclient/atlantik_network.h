@@ -137,7 +137,6 @@ private:
 	int m_playerId;
 	QString m_serverVersion;
 	QMap<Player *, int> m_playerLocationMap;
-	QMap<int, Auction *> m_auctions;
 	QString m_host;
 	int m_port;
 };

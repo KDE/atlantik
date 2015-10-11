@@ -74,6 +74,7 @@ public:
 
 	QList<Auction *> auctions() const;
 	Auction *newAuction(int auctionId, Estate *estate);
+	Auction *findAuction(int auctionId) const;
 	void delAuction(Auction *auction);
 
 	QList<ConfigOption *> configOptions() const;
