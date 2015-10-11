@@ -38,13 +38,13 @@ public:
 	Estate *location() const { return m_location; }
 	void setDestination(Estate *destination);
 	Estate *destination() const { return m_destination; }
-	void setIsSelf(const bool isSelf) { m_isSelf = isSelf; }
+	void setIsSelf(bool isSelf) { m_isSelf = isSelf; }
 	bool isSelf() const { return m_isSelf; }
 	void setBankrupt(bool bankrupt);
 	bool isBankrupt() const { return m_bankrupt; }
 	void setHasDebt(bool hasDebt);
 	bool hasDebt() const { return m_hasDebt; }
-	void setHasTurn(const bool hasTurn);
+	void setHasTurn(bool hasTurn);
 	bool hasTurn() const { return m_hasTurn; }
 	void setCanRoll(bool canRoll);
 	bool canRoll() const { return m_canRoll; }
@@ -54,7 +54,7 @@ public:
 	bool canAuction() const { return m_canAuction; }
 	void setCanUseCard(bool canUseCard);
 	bool canUseCard() const { return m_canUseCard; }
-	void setInJail(const bool inJail);
+	void setInJail(bool inJail);
 	bool inJail() const { return m_inJail; }
 	void setName(const QString &_n);
 	QString name() const { return m_name; }

@@ -97,25 +97,25 @@ void Estate::setBgColor(QColor color)
 	}
 }
 
-void Estate::setCanBeOwned(const bool canBeOwned)
+void Estate::setCanBeOwned(bool canBeOwned)
 {
 	if (m_canBeOwned != canBeOwned)
 		m_canBeOwned = canBeOwned;
 }
 
-void Estate::setCanBuyHouses(const bool canBuyHouses)
+void Estate::setCanBuyHouses(bool canBuyHouses)
 {
 	if (m_canBuyHouses != canBuyHouses)
 		m_canBuyHouses = canBuyHouses;
 }
 
-void Estate::setCanSellHouses(const bool canSellHouses)
+void Estate::setCanSellHouses(bool canSellHouses)
 {
 	if (m_canSellHouses != canSellHouses)
 		m_canSellHouses = canSellHouses;
 }
 
-void Estate::setIsMortgaged(const bool isMortgaged)
+void Estate::setIsMortgaged(bool isMortgaged)
 {
 	if (m_isMortgaged != isMortgaged)
 	{
@@ -124,7 +124,7 @@ void Estate::setIsMortgaged(const bool isMortgaged)
 	}
 }
 
-void Estate::setCanToggleMortgage(const bool canToggleMortgage)
+void Estate::setCanToggleMortgage(bool canToggleMortgage)
 {
 	if (m_canToggleMortgage != canToggleMortgage)
 	{

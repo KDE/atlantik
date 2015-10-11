@@ -28,7 +28,7 @@ int Game::id() const
 	return m_id;
 }
 
-void Game::setCanBeJoined(const bool &canBeJoined)
+void Game::setCanBeJoined(bool canBeJoined)
 {
 	if (m_canBeJoined != canBeJoined)
 	{

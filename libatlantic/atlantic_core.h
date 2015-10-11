@@ -46,7 +46,7 @@ public:
 	Player *playerSelf() const;
 
 	QList<Player *> players() const;
-	Player *newPlayer(int playerId, const bool &playerSelf = false);
+	Player *newPlayer(int playerId, bool playerSelf = false);
 	Player *findPlayer(int playerId) const;
 	void removePlayer(Player *player);
 

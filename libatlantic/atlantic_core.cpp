@@ -111,7 +111,7 @@ QList<Player *> AtlanticCore::players() const
 	return m_players;
 }
 
-Player *AtlanticCore::newPlayer(int playerId, const bool &playerSelf)
+Player *AtlanticCore::newPlayer(int playerId, bool playerSelf)
 {
 	Player *player = new Player(playerId);
 	m_players.append(player);

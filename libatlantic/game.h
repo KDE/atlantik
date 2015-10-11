@@ -31,7 +31,7 @@ public:
 	Game(int gameId);
 
 	int id() const;
-	void setCanBeJoined(const bool &canBeJoined);
+	void setCanBeJoined(bool canBeJoined);
 	bool canBeJoined() const;
 	void setDescription(const QString &description);
 	QString description() const;

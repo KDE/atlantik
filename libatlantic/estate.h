@@ -42,19 +42,19 @@ public:
 	Player *owner() const { return m_owner; }
 	void setHouses(unsigned int houses);
 	unsigned int houses() const { return m_houses; }
-	void setCanBeOwned(const bool canBeOwned);
+	void setCanBeOwned(bool canBeOwned);
 	bool canBeOwned() const { return m_canBeOwned; }
-	void setCanBuyHouses(const bool canBuyHouses);
+	void setCanBuyHouses(bool canBuyHouses);
 	bool canBuyHouses() const { return m_canBuyHouses; }
-	void setCanSellHouses(const bool canSellHouses);
+	void setCanSellHouses(bool canSellHouses);
 	bool canSellHouses() const { return m_canSellHouses; }
 	void setHousePrice(const unsigned int housePrice) { m_housePrice = housePrice; }
         unsigned int housePrice() const { return m_housePrice; }
         void setHouseSellPrice(const unsigned int houseSellPrice) { m_houseSellPrice = houseSellPrice; }
         unsigned int houseSellPrice() const { return m_houseSellPrice; }
-	void setIsMortgaged(const bool isMortgaged);
+	void setIsMortgaged(bool isMortgaged);
 	bool isMortgaged() const { return m_isMortgaged; }
-	void setCanToggleMortgage(const bool canToggleMortgage);
+	void setCanToggleMortgage(bool canToggleMortgage);
 	bool canToggleMortgage() const { return m_canToggleMortgage; }
 	void setMortgagePrice(const unsigned int mortgagePrice) { m_mortgagePrice = mortgagePrice; }
         unsigned int mortgagePrice() const { return m_mortgagePrice; }

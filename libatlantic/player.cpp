@@ -80,7 +80,7 @@ void Player::setHasDebt(bool hasDebt)
 	}
 }
 
-void Player::setHasTurn(const bool hasTurn)
+void Player::setHasTurn(bool hasTurn)
 {
 	if (m_hasTurn != hasTurn)
 	{
@@ -127,7 +127,7 @@ void Player::setCanUseCard(bool canUseCard)
 	}
 }
 
-void Player::setInJail(const bool inJail)
+void Player::setInJail(bool inJail)
 {
 	if (m_inJail != inJail)
 	{
