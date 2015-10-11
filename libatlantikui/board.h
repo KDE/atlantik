@@ -87,7 +87,7 @@ private:
 	AtlanticCore *m_atlanticCore;
 	DisplayMode m_mode;
 
-	QWidget *spacer, *m_lastServerDisplay;
+	QWidget *spacer, *m_lastServerDisplay, *m_lastServerDisplayBeforeAuction;
 	QGridLayout *m_gridLayout;
 	Token *m_movingToken;
 	QTimer *m_timer;

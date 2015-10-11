@@ -41,6 +41,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_mode = mode;
 	m_animateTokens = false;
 	m_lastServerDisplay = 0;
+	m_lastServerDisplayBeforeAuction = 0;
 
 	setMinimumSize(QSize(500, 500));
 
@@ -172,6 +173,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 void AtlantikBoard::addAuctionWidget(Auction *auction)
 {
 	AuctionWidget *auctionW = new AuctionWidget(m_atlanticCore, auction, this);
+	m_lastServerDisplayBeforeAuction = m_lastServerDisplay;
 	m_lastServerDisplay = auctionW;
 	m_displayQueue.prepend(auctionW);
 	updateCenter();
@@ -498,6 +500,8 @@ void AtlantikBoard::displayDefault()
 		if (m_displayQueue.first() == m_lastServerDisplay)
 			m_lastServerDisplay = 0;
 		delete m_displayQueue.takeFirst();
+		if (m_lastServerDisplayBeforeAuction)
+			m_lastServerDisplay = m_lastServerDisplayBeforeAuction;
 		break;
 	}
 	updateCenter();
