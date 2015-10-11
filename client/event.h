@@ -23,7 +23,7 @@
 class Event
 {
 public:
-	Event(const QDateTime &dateTime, const QString &description, const QString &icon = QString::null);
+	Event(const QDateTime &dateTime, const QString &description, const QString &icon = QString());
 	QDateTime dateTime() const;
 	QString description() const;
 	QString icon() const;

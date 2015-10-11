@@ -103,7 +103,7 @@ signals:
 	void msgInfo(const QString &);
 	void msgError(const QString &);
 	void msgChat(const QString &, const QString &);
-	void msgStatus(const QString &data, const QString &icon = QString::null);
+	void msgStatus(const QString &data, const QString &icon = QString());
 	void networkEvent(const QString &data, const QString &icon);
 	void displayDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void displayText(const QString &text, bool clearText, bool clearButtons);

@@ -150,7 +150,7 @@ void SelectGame::updateGame(Game *game)
 	else
 	{
 		Player *master = game->master();
-		item->setText( 0, i18n("Join %1's %2 Game", (master ? master->name() : QString::null), game->name() ) );
+		item->setText( 0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name() ) );
 		item->setText( 3, QString::number( game->players() ) );
 		item->setDisabled(!game->canBeJoined());
 

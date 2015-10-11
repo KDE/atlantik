@@ -193,7 +193,7 @@ public slots:
 	 */
 	void slotMsgInfo(const QString &msg);
 
-	void slotMsgStatus(const QString &message, const QString &icon = QString::null);
+	void slotMsgStatus(const QString &message, const QString &icon = QString());
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the

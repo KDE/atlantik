@@ -176,7 +176,7 @@ Atlantik::Atlantik ()
 	// Mix code and XML into GUI
 	setupGUI();
 	KXmlGuiWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
-	KXmlGuiWindow::statusBar()->insertItem(QString::null, 1, 1);
+	KXmlGuiWindow::statusBar()->insertItem(QString(), 1, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
@@ -624,7 +624,7 @@ void Atlantik::slotSendMsg()
 {
 	if (m_atlantikNetwork->isConnected())
 		m_atlantikNetwork->cmdChat(m_input->text());
-	m_input->setText(QString::null);
+	m_input->setText(QString());
 }
 
 void Atlantik::slotMsgInfo(const QString &msg)

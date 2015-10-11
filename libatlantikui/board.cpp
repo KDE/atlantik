@@ -574,7 +574,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 
 	if (m_displayQueue.first() == m_lastServerDisplay)
 	{
-		eDetails = new EstateDetails(estate, QString::null, this);
+		eDetails = new EstateDetails(estate, QString(), this);
 		m_displayQueue.prepend(eDetails);
 
 		connect(eDetails, SIGNAL(buttonCommand(QString)), this, SIGNAL(buttonCommand(QString)));
@@ -586,7 +586,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 		if (eDetails)
 		{
 			eDetails->setEstate(estate);
-			eDetails->setText( QString::null );
+			eDetails->setText( QString() );
 			// eDetails->clearButtons();
 		}
 		else

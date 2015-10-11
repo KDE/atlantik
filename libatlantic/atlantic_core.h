@@ -51,7 +51,7 @@ public:
 	void removePlayer(Player *player);
 
 	QList<Game *> games() const;
-	Game *newGame(int gameId, const QString &type = QString::null);
+	Game *newGame(int gameId, const QString &type = QString());
 	Game *findGame(const QString &type) const; // finds game types
 	Game *findGame(int gameId) const; // finds actual games
 	Game *gameSelf() const;

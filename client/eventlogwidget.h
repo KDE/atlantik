@@ -45,7 +45,7 @@ public:
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
 public slots:
-	void addEvent(const QString &description, const QString &icon = QString::null);
+	void addEvent(const QString &description, const QString &icon = QString());
 
 private:
 	QList<Event*> m_events;

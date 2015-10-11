@@ -37,7 +37,7 @@ void AtlantikProtocol::get( const KUrl& url )
 
 	QString host = url.hasHost() ? url.host() : url.queryItem("host");
 	int game = url.queryItem("game").toInt();
-	QString gameString = game ? QString::number( game ) : QString::null;
+	QString gameString = game ? QString::number( game ) : QString();
 
 	if (!host.isEmpty())
 	{
