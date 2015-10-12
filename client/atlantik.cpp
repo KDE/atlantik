@@ -107,10 +107,8 @@ Atlantik::Atlantik ()
         actionCollection()->addAction("game_quit", act);
 
 	// Toolbar: Settings
-	act = KStandardAction::preferences(this, SLOT(slotConfigure()), this);
-        actionCollection()->addAction(act->objectName(), act);
-	act = KStandardAction::configureNotifications(this, SLOT(configureNotifications()), this);
-        actionCollection()->addAction(act->objectName(), act);
+	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
+	(void) KStandardAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
 
 	// Initialize pointers to 0L
 	m_board = 0;
@@ -132,8 +130,7 @@ Atlantik::Atlantik ()
 	initNetworkObject();
 
 	// Menu,toolbar: Move
-	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), this);
-        actionCollection()->addAction(m_roll->objectName(), m_roll);
+	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
 	m_roll->setEnabled(false);
 
 	m_buyEstate = actionCollection()->addAction("atlantik_buy_estate");
@@ -151,8 +148,7 @@ Atlantik::Atlantik ()
 	m_auctionEstate->setEnabled(false);
 
 
-	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), this);
-        actionCollection()->addAction(m_endTurn->objectName(), m_endTurn);
+	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
 
 	m_jailCard = actionCollection()->addAction("move_jailcard");
