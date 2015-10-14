@@ -211,6 +211,7 @@ void AtlantikBoard::addToken(Player *player)
 
 	Token *token = new Token(player, this);
         token->setObjectName( "token" );
+	token->setTokenTheme(m_tokenTheme);
 	m_tokens.append(token);
 	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
 
@@ -612,4 +613,11 @@ void AtlantikBoard::updateCenter()
 QWidget *AtlantikBoard::centerWidget()
 {
 	return m_displayQueue.first();
+}
+
+void AtlantikBoard::setTokenTheme(const TokenTheme &theme)
+{
+	m_tokenTheme = theme;
+	foreach (Token *token, m_tokens)
+		token->setTokenTheme(m_tokenTheme);
 }

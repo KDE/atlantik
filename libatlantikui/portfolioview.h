@@ -21,6 +21,7 @@
 #include <QtCore/QList>
 
 #include "libatlantikui_export.h"
+#include "tokentheme.h"
 
 class QColor;
 class QPixmap;
@@ -44,6 +45,8 @@ public:
 
 	Player *player() const;
 
+	void setTokenTheme(const TokenTheme &theme);
+
 protected:
 	void paintEvent(QPaintEvent *);
 	void resizeEvent(QResizeEvent *);
@@ -60,7 +63,7 @@ private Q_SLOTS:
 	void slotMenuActionKick();
 
 private:
-	void loadIcon();
+	void loadIcon(bool force = false);
 
 	AtlanticCore *m_atlanticCore;
 	Player *m_player;
@@ -70,6 +73,7 @@ private:
 	QString m_imageName;
 	bool b_recreate;
 	QList<PortfolioEstate *> m_portfolioEstates;
+	TokenTheme m_tokenTheme;
 };
 
 #endif

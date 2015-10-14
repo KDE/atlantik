@@ -24,12 +24,14 @@
 #include <ui_configmetaserver.h>
 #include <ui_configplayer.h>
 
+class TokenTheme;
+
 class ConfigDialog : public KConfigDialog
 {
 Q_OBJECT
 
 public:
-	ConfigDialog(QWidget *parent = 0);
+	ConfigDialog(const TokenTheme &theme, QWidget *parent = 0);
 
 private:
 	Ui::ConfigGeneral m_uiGeneral;

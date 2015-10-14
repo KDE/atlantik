@@ -22,7 +22,6 @@
 
 #include <kicondialog.h>
 #include <kiconloader.h>
-#include <kstandarddirs.h>
 
 CustomLocationIconButton::CustomLocationIconButton(QWidget *parent) : QPushButton(parent)
 {
@@ -35,10 +34,9 @@ CustomLocationIconButton::~CustomLocationIconButton()
 {
 }
 
-void CustomLocationIconButton::setLocation(const QByteArray &resource, const QString &path)
+void CustomLocationIconButton::setTokenTheme(const TokenTheme &theme)
 {
-	m_resource = resource;
-	m_path = path;
+	m_tokenTheme = theme;
 }
 
 void CustomLocationIconButton::setImage(const QString &image)
@@ -46,11 +44,10 @@ void CustomLocationIconButton::setImage(const QString &image)
 	if (!checkValid())
 		return;
 
-	const QString filename = KStandardDirs::locate(m_resource.constData(), m_path + image);
-	if (!QFile::exists(filename))
+	const QPixmap p = m_tokenTheme.tokenPixmap(image);
+	if (p.isNull())
 		return;
 
-	const QPixmap p(filename);
 	setIcon(QIcon(p));
 	setIconSize(p.size());
 	m_image = image;
@@ -67,7 +64,7 @@ void CustomLocationIconButton::slotChooseImage()
 		return;
 
 	KIconDialog iconDialog(this);
-	iconDialog.setCustomLocation(KStandardDirs::locate(m_resource.constData(), m_path));
+	iconDialog.setCustomLocation(m_tokenTheme.path());
 	// begin with user icons, lock editing
 	iconDialog.setup(KIconLoader::Desktop, KIconLoader::Application, false, 0, true, true, true);
 
@@ -83,5 +80,5 @@ void CustomLocationIconButton::slotChooseImage()
 
 bool CustomLocationIconButton::checkValid() const
 {
-	return !m_resource.isEmpty() && !m_path.isEmpty();
+	return m_tokenTheme.isValid();
 }

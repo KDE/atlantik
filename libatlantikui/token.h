@@ -19,6 +19,8 @@
 
 #include <QWidget>
 
+#include "tokentheme.h"
+
 class QPixmap;
 
 class Player;
@@ -39,6 +41,7 @@ Q_OBJECT
 		Estate *destination() const { return m_destination; }
 		void setInJail (bool inJail) { m_inJail = inJail; }
 		bool inJail() const { return m_inJail; }
+		void setTokenTheme(const TokenTheme &theme);
 
 	private slots:
 		void playerChanged();
@@ -57,6 +60,7 @@ private:
 		bool b_recreate;
 		QPixmap *qpixmap, *m_image;
 		QString m_imageName;
+		TokenTheme m_theme;
 };
 
 #endif

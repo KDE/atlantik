@@ -20,6 +20,8 @@
 
 #include <QPushButton>
 
+#include <tokentheme.h>
+
 class CustomLocationIconButton : public QPushButton
 {
 Q_OBJECT
@@ -30,7 +32,7 @@ public:
 	CustomLocationIconButton(QWidget *parent = 0);
 	~CustomLocationIconButton();
 
-	void setLocation(const QByteArray &resource, const QString &path);
+	void setTokenTheme(const TokenTheme &theme);
 
 	void setImage(const QString &image);
 	QString image() const;
@@ -44,8 +46,7 @@ private slots:
 private:
 	bool checkValid() const;
 
-	QByteArray m_resource;
-	QString m_path;
+	TokenTheme m_tokenTheme;
 	QString m_image;
 };
 

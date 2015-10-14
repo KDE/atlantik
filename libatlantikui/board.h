@@ -22,6 +22,7 @@
 #include <QtCore/QList>
 
 #include "libatlantikui_export.h"
+#include "tokentheme.h"
 
 class QGridLayout;
 class QPoint;
@@ -55,6 +56,8 @@ public:
 
 	EstateView *findEstateView(Estate *estate) const;
 	QWidget *centerWidget();
+
+	void setTokenTheme(const TokenTheme &theme);
 
 public Q_SLOTS:
 	void slotMoveToken();
@@ -99,6 +102,8 @@ private:
 	QList<EstateView *> m_estateViews;
 	QList<Token *> m_tokens;
 	QList<QWidget *> m_displayQueue;
+
+	TokenTheme m_tokenTheme;
 };
 
 #endif

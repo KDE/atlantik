@@ -26,6 +26,8 @@
 
 #include <kxmlguiwindow.h>
 
+#include <tokentheme.h>
+
 #include "connectioncookie.h"
 
 class QScrollArea;
@@ -276,6 +278,8 @@ private:
 	QScopedPointer<ConnectionCookie> m_cookie;
 	QScopedPointer<ConnectionCookie> m_reconnectCookie;
 	bool m_reconnecting;
+
+	TokenTheme m_tokenTheme;
 };
 
 #endif

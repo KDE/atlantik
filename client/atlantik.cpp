@@ -240,6 +240,8 @@ Atlantik::Atlantik ()
 	// Connection cookie
 	m_reconnectCookie.reset(ConnectionCookie::read());
 	m_reconnect->setEnabled(m_reconnectCookie);
+
+	m_tokenTheme = TokenTheme::defaultTheme();
 }
 
 void Atlantik::readConfig()
@@ -429,6 +431,7 @@ void Atlantik::initBoard()
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget);
         m_board->setObjectName( "board" );
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
+	m_board->setTokenTheme(m_tokenTheme);
 
 	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, bool, bool, Estate *)), m_board, SLOT(insertDetails(QString, bool, bool, Estate *)));
 	connect(m_atlantikNetwork, SIGNAL(displayText(QString, bool, bool)), m_board, SLOT(insertText(QString, bool, bool)));
@@ -518,7 +521,7 @@ void Atlantik::slotConfigure()
 	if (KConfigDialog::showDialog("configdialog"))
 		return;
 
-	ConfigDialog *dialog = new ConfigDialog(this);
+	ConfigDialog *dialog = new ConfigDialog(m_tokenTheme, this);
 	connect(dialog, SIGNAL(settingsChanged(QString)), this, SLOT(slotUpdateConfig()));
 
 	dialog->show();
@@ -813,6 +816,7 @@ void Atlantik::statusBarClick(int item)
 PortfolioView *Atlantik::addPortfolioView(Player *player)
 {
 	PortfolioView *portfolioView = new PortfolioView(m_atlanticCore, player, m_config.activeColor, m_config.inactiveColor, m_portfolioWidget);
+	portfolioView->setTokenTheme(m_tokenTheme);
 	m_portfolioViews.append(portfolioView);
 	if ( m_portfolioViews.count() > 0 && m_portfolioScroll->isHidden() )
 		m_portfolioScroll->show();

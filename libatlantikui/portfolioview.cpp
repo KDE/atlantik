@@ -24,7 +24,6 @@
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 #include <kmenu.h>
-#include <kstandarddirs.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -61,7 +60,6 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 
 	// Init icon
 	m_image = 0;
-	m_imageName = "hamburger.png";
 	loadIcon();
 }
 
@@ -158,44 +156,42 @@ void PortfolioView::clearPortfolio()
 	m_portfolioEstates.clear();
 }
 
-void PortfolioView::loadIcon()
+void PortfolioView::setTokenTheme(const TokenTheme &theme)
 {
-	if (m_imageName == m_player->image())
+	m_tokenTheme = theme;
+	loadIcon(true);
+	b_recreate = true;
+	update();
+}
+
+void PortfolioView::loadIcon(bool force)
+{
+	if (m_imageName == m_player->image() && !force)
 		return;
 	m_imageName = m_player->image();
 
 	delete m_image;
 	m_image = 0;
 
-	if (!m_imageName.isEmpty())
-	{
-		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (QFile::exists(filename))
-			m_image = new QPixmap(filename);
-	}
-
-	if (!m_image)
-	{
+	if (!m_tokenTheme.isValid())
 		return;
 
-/*
-		m_imageName = "hamburger.png";
-
-		QString filename = locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (QFile::exists(filename))
-			m_image = new QPixmap(filename);
-*/
+	QString imageFile;
+	if (!m_imageName.isEmpty())
+		imageFile = m_tokenTheme.tokenPath(m_imageName);
+	if (imageFile.isEmpty())
+	{
+		m_imageName = m_tokenTheme.fallbackIcon();
+		imageFile = m_tokenTheme.tokenPath(m_imageName);
 	}
-	else if (ICONSIZE > minimumHeight())
-		setMinimumHeight(ICONSIZE);
+
+	const QPixmap pix(imageFile);
+	if (pix.isNull())
+		return;
 
 	QMatrix m;
-	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
-	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
-	*scaledPixmap = m_image->transformed(m);
-
-	delete m_image;
-	m_image = scaledPixmap;
+	m.scale(double(ICONSIZE) / pix.width(), double(ICONSIZE) / pix.height());
+	m_image = new QPixmap(pix.transformed(m));
 }
 
 void PortfolioView::paintEvent(QPaintEvent *)

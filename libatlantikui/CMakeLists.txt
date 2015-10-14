@@ -10,6 +10,7 @@ set(atlantikui_LIB_SRCS
    portfolioestate.cpp 
    portfolioview.cpp 
    token.cpp 
+   tokentheme.cpp
    trade_widget.cpp )
 kde4_add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 target_link_libraries(atlantikui ${KDE4_KDECORE_LIBS} atlantic ${KDE4_KDEUI_LIBRARY})
@@ -21,6 +22,7 @@ install(TARGETS atlantikui ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES
    board.h
    portfolioview.h
+   tokentheme.h
    trade_widget.h
    libatlantikui_export.h
    DESTINATION ${INCLUDE_INSTALL_DIR}/atlantik/ui)

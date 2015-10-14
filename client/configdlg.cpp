@@ -16,9 +16,11 @@
 
 #include "configdlg.h"
 
+#include <tokentheme.h>
+
 #include <settings.h>
 
-ConfigDialog::ConfigDialog(QWidget *parent) : KConfigDialog(parent, "configdialog", Settings::self())
+ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent) : KConfigDialog(parent, "configdialog", Settings::self())
 {
     setCaption(i18n("Configure Atlantik"));
     setFaceType(KPageDialog::List);
@@ -31,7 +33,7 @@ ConfigDialog::ConfigDialog(QWidget *parent) : KConfigDialog(parent, "configdialo
 
 	w = new QWidget(this);
 	m_uiPlayer.setupUi(w);
-	m_uiPlayer.kcfg_PlayerImage->setLocation("appdata", "themes/default/tokens/");
+	m_uiPlayer.kcfg_PlayerImage->setTokenTheme(theme);
 	w->layout()->setMargin(0);
 	w->setObjectName("configPlayer");
 	addPage(w, i18n("Personalization"), "user-identity", i18n("Personalization"));

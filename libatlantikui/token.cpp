@@ -19,7 +19,6 @@
 #include <QFont>
 #include <QFile>
 
-#include <kstandarddirs.h>
 #include <kglobalsettings.h>
 
 #include "board.h"
@@ -76,6 +75,14 @@ void Token::setDestination(Estate *estateView)
 		m_destination = estateView;
 }
 
+void Token::setTokenTheme(const TokenTheme &theme)
+{
+	m_theme = theme;
+	loadIcon();
+	b_recreate = true;
+	update();
+}
+
 void Token::playerChanged()
 {
 	if (m_imageName != m_player->image())
@@ -92,30 +99,25 @@ void Token::loadIcon()
 	delete m_image;
 	m_image = 0;
 
+	if (!m_theme.isValid())
+		return;
+
+	QString imageFile;
 	if (!m_imageName.isEmpty())
+		imageFile = m_theme.tokenPath(m_imageName);
+	if (imageFile.isEmpty())
 	{
-		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (QFile::exists(filename))
-			m_image = new QPixmap(filename);
+		m_imageName = m_theme.fallbackIcon();
+		imageFile = m_theme.tokenPath(m_imageName);
 	}
 
-	if (!m_image)
-	{
-		m_imageName = "hamburger.png";
-
-		QString filename = KStandardDirs::locate("data", "atlantik/themes/default/tokens/" + m_imageName);
-		if (filename.isNull())
-			return;	
-		m_image = new QPixmap(filename);
-	}
+	const QPixmap pix(imageFile);
+	if (pix.isNull())
+		return;
 
 	QMatrix m;
-	m.scale(double(ICONSIZE) / m_image->width(), double(ICONSIZE) / m_image->height());
-	QPixmap *scaledPixmap = new QPixmap(ICONSIZE, ICONSIZE);
-	*scaledPixmap = m_image->transformed(m);
-
-	delete m_image;
-	m_image = scaledPixmap;
+	m.scale(double(ICONSIZE) / pix.width(), double(ICONSIZE) / pix.height());
+	m_image = new QPixmap(pix.transformed(m));
 }
 
 void Token::paintEvent(QPaintEvent *)
