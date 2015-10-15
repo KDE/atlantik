@@ -83,7 +83,7 @@ AtlantikBoard::~AtlantikBoard()
 
 void AtlantikBoard::reset()
 {
-	kDebug() << "AtlantikBoard::reset";
+	kDebug();
 
 	qDeleteAll(m_tokens);
 	m_tokens.clear();
@@ -223,7 +223,7 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged(Player *player)
 {
-	kDebug() << "playerChanged: playerLoc " << (player->location() ? player->location()->name() : "none");
+	kDebug() << "playerLoc" << (player->location() ? player->location()->name() : "none");
 
 	Player *playerSelf = 0;
 	if (m_atlanticCore)
@@ -233,7 +233,7 @@ void AtlantikBoard::playerChanged(Player *player)
 	Token *token = findToken(player);
 	if (token)
 	{
-		kDebug() << "playerChanged: tokenLoc " << (token->location() ? token->location()->name() : "none");
+		kDebug() << "tokenLoc" << (token->location() ? token->location()->name() : "none");
 		if (player->isBankrupt() || (playerSelf && playerSelf->game() != player->game()) )
 			token->hide();
 		if (player->hasTurn())
@@ -302,7 +302,7 @@ void AtlantikBoard::jumpToken(Token *token)
 	if (!token || !token->location())
 		return;
 
-	kDebug() << "jumpToken to " << token->location()->name();
+	kDebug() << "to" << token->location()->name();
 
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
@@ -330,7 +330,7 @@ void AtlantikBoard::jumpToken(Token *token)
 
 void AtlantikBoard::moveToken(Token *token)
 {
-	kDebug() << "moveToken to " << token->destination()->name();
+	kDebug() << "to" << token->destination()->name();
 
 	m_movingToken = token;
 
@@ -381,7 +381,7 @@ void AtlantikBoard::slotMoveToken()
 	// Requires a core with estates to operate on
 	if (!m_atlanticCore)
 	{
-		kDebug() << "slotMoveToken ignored - no atlanticCore";
+		kDebug() << "ignored - no atlanticCore";
 		return;
 	}
 
@@ -470,7 +470,7 @@ void AtlantikBoard::resizeEvent(QResizeEvent *)
 
 void AtlantikBoard::slotResizeAftermath()
 {
-	kDebug() << "AtlantikBoard::slotResizeAftermath";
+	kDebug();
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.

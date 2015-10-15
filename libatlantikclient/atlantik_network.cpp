@@ -157,7 +157,7 @@ void AtlantikNetwork::writeData(const QString &data) {
 	emit networkEvent(data, "arrow-right");
 	//data.append("\n");
 	m_monopdstream << data << endl;
-	kDebug() << "writing Data: " << data;
+	kDebug() << "writing data:" << data;
 
 }
 
@@ -203,7 +203,7 @@ void AtlantikNetwork::setName(const QString &name)
 {
         // Almost deprecated, will be replaced by libmonopdprotocol
         writeData(QString(".n%1").arg(name));
-		kDebug() << "set name to: " << name;
+        kDebug() << "set name to:" << name;
 }
 
 void AtlantikNetwork::tokenConfirmation(Estate *estate)
@@ -234,7 +234,7 @@ void AtlantikNetwork::newGame(const QString &gameType)
 void AtlantikNetwork::joinGame(int gameId)
 {
         writeData(QString(".gj%1").arg(gameId));
-			kDebug()<< "joining game" << gameId;
+        kDebug() << "joining game" << gameId;
 }
 
 void AtlantikNetwork::cmdChat(const QString &msg)
@@ -310,7 +310,7 @@ void AtlantikNetwork::changeOption(int configId, const QString &value)
 
 void AtlantikNetwork::processMsg(const QString &msg) {
     emit networkEvent(msg, "arrow-left");
-	kDebug() << msg;
+    kDebug() << msg;
     QDomDocument dom;
     dom.setContent(msg);
     QDomElement e = dom.documentElement();
@@ -334,7 +334,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 a = e.attributeNode( QString("version") );
                 if ( !a.isNull() )
                     m_serverVersion = a.value();
-					kDebug() << "processNode: receivedHandshake";
+                    kDebug() << "receivedHandshake";
                 emit receivedHandshake();
             } else if (e.tagName() == "msg") {
                 a = e.attributeNode(QString("type"));
@@ -438,9 +438,9 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                     Player *playerSelf = m_atlanticCore->playerSelf();
                     if ( playerSelf && playerSelf->game() )
-                        kDebug() << "gameupdate for " << QString::number(gameId) << " with playerSelf in game " << QString::number(playerSelf->game()->id());
+                        kDebug() << "gameupdate for" << gameId << "with playerSelf in game" << playerSelf->game()->id();
                     else
-                        kDebug() << "gameupdate for " << QString::number(gameId);
+                        kDebug() << "gameupdate for" << gameId;
 
 
                     Game *game = 0;
@@ -936,7 +936,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         card->update();
                 }
             } else
-                kDebug() << "ignored TAG: " << e.tagName();
+                kDebug() << "ignored TAG:" << e.tagName();
         }
         // TODO: remove permanently?
         // QDomNode node = n.firstChild();
