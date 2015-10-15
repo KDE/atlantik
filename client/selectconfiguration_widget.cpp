@@ -144,7 +144,7 @@ void SelectConfiguration::changeOption()
 	ConfigOption *configOption = m_configMap[(QObject *)QObject::sender()];
 	if (configOption)
 	{
-		kDebug() << "checked " << ((QCheckBox *)QObject::sender())->isChecked() << endl;
+		kDebug() << "checked " << ((QCheckBox *)QObject::sender())->isChecked();
 		emit changeOption( configOption->id(), QString::number( ((QCheckBox *)QObject::sender())->isChecked() ) );
 	}
 }
@@ -178,11 +178,11 @@ void SelectConfiguration::slotEndUpdate()
 
 void SelectConfiguration::playerChanged(Player *player)
 {
-	kDebug() << "playerChanged" << endl;
+	kDebug() << "playerChanged";
 
 	if (player->game() != m_game)
 	{
-		kDebug() << "playerChanged::change" << endl;
+		kDebug() << "playerChanged::change";
 
 		if (m_game)
 			disconnect(m_game, SIGNAL(changed(Game *)), this, SLOT(gameChanged(Game *)));

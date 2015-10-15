@@ -797,7 +797,7 @@ void Atlantik::sendHandshake()
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	QString game = args->getOption("game");
-	kDebug() << "received Handshake; joining game: " << game.toInt() << endl;
+	kDebug() << "received Handshake; joining game: " << game.toInt();
 	if (!game.isEmpty())
 		m_atlantikNetwork->joinGame(game.toInt());
 }

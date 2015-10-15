@@ -83,7 +83,7 @@ AtlantikBoard::~AtlantikBoard()
 
 void AtlantikBoard::reset()
 {
-	kDebug() << "AtlantikBoard::reset" << endl;
+	kDebug() << "AtlantikBoard::reset";
 
 	qDeleteAll(m_tokens);
 	m_tokens.clear();
@@ -193,7 +193,7 @@ void AtlantikBoard::addToken(Player *player)
 {
 	if (!player->location())
 	{
-		kDebug() << "addToken ignored - estateView null" << endl;
+		kDebug() << "addToken ignored - estateView null";
 		return;
 	}
 
@@ -203,11 +203,11 @@ void AtlantikBoard::addToken(Player *player)
 
 	if (playerSelf && playerSelf->game() != player->game() )
 	{
-		kDebug() << "addToken ignored - not in same game as playerSelf" << endl;
+		kDebug() << "addToken ignored - not in same game as playerSelf";
 		return;
 	}
 
-	kDebug() << "addToken" << endl;
+	kDebug() << "addToken";
 
 	Token *token = new Token(player, this);
         token->setObjectName( "token" );
@@ -223,7 +223,7 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged(Player *player)
 {
-	kDebug() << "playerChanged: playerLoc " << (player->location() ? player->location()->name() : "none") << endl;
+	kDebug() << "playerChanged: playerLoc " << (player->location() ? player->location()->name() : "none");
 
 	Player *playerSelf = 0;
 	if (m_atlanticCore)
@@ -233,7 +233,7 @@ void AtlantikBoard::playerChanged(Player *player)
 	Token *token = findToken(player);
 	if (token)
 	{
-		kDebug() << "playerChanged: tokenLoc " << (token->location() ? token->location()->name() : "none") << endl;
+		kDebug() << "playerChanged: tokenLoc " << (token->location() ? token->location()->name() : "none");
 		if (player->isBankrupt() || (playerSelf && playerSelf->game() != player->game()) )
 			token->hide();
 		if (player->hasTurn())
@@ -302,7 +302,7 @@ void AtlantikBoard::jumpToken(Token *token)
 	if (!token || !token->location())
 		return;
 
-	kDebug() << "jumpToken to " << token->location()->name() << endl;
+	kDebug() << "jumpToken to " << token->location()->name();
 
 	QPoint tGeom = calculateTokenDestination(token);
 	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
@@ -330,7 +330,7 @@ void AtlantikBoard::jumpToken(Token *token)
 
 void AtlantikBoard::moveToken(Token *token)
 {
-	kDebug() << "moveToken to " << token->destination()->name() << endl;
+	kDebug() << "moveToken to " << token->destination()->name();
 
 	m_movingToken = token;
 
@@ -381,7 +381,7 @@ void AtlantikBoard::slotMoveToken()
 	// Requires a core with estates to operate on
 	if (!m_atlanticCore)
 	{
-		kDebug() << "slotMoveToken ignored - no atlanticCore" << endl;
+		kDebug() << "slotMoveToken ignored - no atlanticCore";
 		return;
 	}
 
@@ -417,7 +417,7 @@ void AtlantikBoard::slotMoveToken()
 	else
 		yDest = yCurrent;
 
-//	kDebug() << "TOKEN: at " << xCurrent << "," << yCurrent << " and going to " << xDest << "," << yDest << endl;
+//	kDebug() << "TOKEN: at " << xCurrent << "," << yCurrent << " and going to " << xDest << "," << yDest;
 
 	if (xCurrent != xDest || yCurrent != yDest)
 	{
@@ -470,7 +470,7 @@ void AtlantikBoard::resizeEvent(QResizeEvent *)
 
 void AtlantikBoard::slotResizeAftermath()
 {
-	kDebug() << "AtlantikBoard::slotResizeAftermath" << endl;
+	kDebug() << "AtlantikBoard::slotResizeAftermath";
 	// Move tokens back to their last known location (this has to be done
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
@@ -592,7 +592,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 		}
 		else
 		{
-			kDebug() << "manual estatedetails with first in queue neither server nor details" << endl;
+			kDebug() << "manual estatedetails with first in queue neither server nor details";
 			return;
 		}
 	}

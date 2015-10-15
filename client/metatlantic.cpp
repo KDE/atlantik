@@ -80,7 +80,7 @@ void Metatlantic::closeSocket()
 
 void Metatlantic::processMsg(const QString &msg)
 {
-	kDebug() << msg <<endl;
+	kDebug() << msg;
 	QDomDocument dom;
 	dom.setContent(msg);
 	QDomElement e = dom.documentElement();
@@ -116,7 +116,7 @@ void Metatlantic::processMsg(const QString &msg)
 				emit metatlanticAdd(host, port, version, users);
 				do_close = true;
 			} else
-				kDebug() << "ignored TAG: " << e.tagName() << endl;
+				kDebug() << "ignored TAG: " << e.tagName();
 		}
 	}
 	if (do_send_follow)
