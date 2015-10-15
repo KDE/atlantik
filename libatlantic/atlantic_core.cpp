@@ -374,12 +374,12 @@ void AtlanticCore::printDebug() const
 {
 	foreach (Player *player, m_players)
 		if (player == m_playerSelf)
-			std::cout << "PS: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
+			std::cout << "PS: " << player->name().toLatin1().constData() << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 		else
-			std::cout << " P: " << player->name().toLatin1().constData() << ", game " << QString::number(player->game() ? player->game()->id() : -1).toLatin1().constData() << std::endl;
+			std::cout << " P: " << player->name().toLatin1().constData() << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 
 	foreach (Game *game, m_games)
-		std::cout << " G: " << QString::number(game->id()).toLatin1().constData() << ", master: " << QString::number(game->master() ? game->master()->id() : -1 ).toLatin1().constData() << std::endl;
+		std::cout << " G: " << game->id() << ", master: " << (game->master() ? game->master()->id() : -1 ) << std::endl;
 
 	foreach (Estate *estate, m_estates)
 		std::cout << " E: " << estate->name().toLatin1().constData() << std::endl;
@@ -388,14 +388,14 @@ void AtlanticCore::printDebug() const
 		std::cout << "EG: " << estateGroup->name().toLatin1().constData() << std::endl;
 
 	foreach (Auction *auction, m_auctions)
-		std::cout << " A: " << QString::number(auction->auctionId()).toLatin1().constData() << std::endl;
+		std::cout << " A: " << auction->auctionId() << std::endl;
 
 	foreach (Trade *trade, m_trades)
-		std::cout << " T: " << QString::number(trade->tradeId()).toLatin1().constData() << std::endl;
+		std::cout << " T: " << trade->tradeId() << std::endl;
 
 	foreach (ConfigOption *configOption, m_configOptions)
-		std::cout << "CO:" << QString::number(configOption->id()).toLatin1().constData() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
+		std::cout << "CO:" << configOption->id() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
 
 	foreach (Card *card, m_cards)
-		std::cout << "CA: " << QString::number(card->cardId()).toLatin1().constData() << std::endl;
+		std::cout << "CA: " << card->cardId() << std::endl;
 }
