@@ -372,20 +372,22 @@ Card *AtlanticCore::findCard(int cardId) const
 
 void AtlanticCore::printDebug() const
 {
+#define LP(string) (string).toLatin1().constData()
+
 	foreach (Player *player, m_players)
 		if (player == m_playerSelf)
-			std::cout << "PS: " << player->name().toLatin1().constData() << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
+			std::cout << "PS: " << LP(player->name()) << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 		else
-			std::cout << " P: " << player->name().toLatin1().constData() << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
+			std::cout << " P: " << LP(player->name()) << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 
 	foreach (Game *game, m_games)
 		std::cout << " G: " << game->id() << ", master: " << (game->master() ? game->master()->id() : -1 ) << std::endl;
 
 	foreach (Estate *estate, m_estates)
-		std::cout << " E: " << estate->name().toLatin1().constData() << std::endl;
+		std::cout << " E: " << LP(estate->name()) << std::endl;
 
 	foreach (EstateGroup *estateGroup, m_estateGroups)
-		std::cout << "EG: " << estateGroup->name().toLatin1().constData() << std::endl;
+		std::cout << "EG: " << LP(estateGroup->name()) << std::endl;
 
 	foreach (Auction *auction, m_auctions)
 		std::cout << " A: " << auction->auctionId() << std::endl;
@@ -394,8 +396,10 @@ void AtlanticCore::printDebug() const
 		std::cout << " T: " << trade->tradeId() << std::endl;
 
 	foreach (ConfigOption *configOption, m_configOptions)
-		std::cout << "CO:" << configOption->id() << " " << configOption->name().toLatin1().constData() << " " << configOption->value().toLatin1().constData() << std::endl;
+		std::cout << "CO:" << configOption->id() << " " << LP(configOption->name()) << " " << LP(configOption->value()) << std::endl;
 
 	foreach (Card *card, m_cards)
 		std::cout << "CA: " << card->cardId() << std::endl;
+
+#undef LP
 }
