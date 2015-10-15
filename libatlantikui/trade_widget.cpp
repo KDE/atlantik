@@ -86,7 +86,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	updateComponentBoxLayout->addWidget(m_cardCombo);
 	foreach (Card *card, m_atlanticCore->cards())
 	{
-		if (card->owner() != NULL)
+		if (card->isOwned())
 		{
 			m_cardCombo->addItem(card->title());
 			m_cardMap[m_cardCombo->count() - 1] = card;

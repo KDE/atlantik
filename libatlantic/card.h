@@ -38,6 +38,7 @@ public:
 
 	void setOwner(Player *player);
 	Player *owner() const { return m_owner; }
+	bool isOwned() const { return m_owner != NULL; }
 
 	void update(bool force = false);
 
