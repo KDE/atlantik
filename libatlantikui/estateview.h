@@ -72,6 +72,8 @@ private:
 		int m_titleWidth, m_titleHeight;
 		EstateOrientation m_orientation;
 		PortfolioEstate *pe;
+		QString m_estateIcon;
+		QColor m_estateColor;
 
 	private slots:
 		void estateChanged();

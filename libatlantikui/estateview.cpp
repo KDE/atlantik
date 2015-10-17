@@ -60,6 +60,8 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	icon = 0;
 	loadIcon(_icon);
 
+	m_estateColor = m_estate->color();
+
 	updateToolTip();
 }
 
@@ -100,6 +102,7 @@ void EstateView::updateToolTip()
 
 void EstateView::loadIcon(const QString &_icon)
 {
+	m_estateIcon = QString();
 	delete icon;
 	if (_icon.isEmpty())
 	{
@@ -113,7 +116,10 @@ void EstateView::loadIcon(const QString &_icon)
 		icon = 0;
 	}
 	else
+	{
 		icon = rotatePixmap(icon);
+		m_estateIcon = _icon;
+	}
 }
 
 void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
@@ -200,10 +206,14 @@ void EstateView::updatePE()
 void EstateView::estateChanged()
 {
 	updateToolTip();
-	loadIcon(m_estate->icon());
+	if (m_estate->icon() != m_estateIcon)
+		loadIcon(m_estate->icon());
 
+	if (m_estate->color() != m_estateColor)
+		m_recreateQuartz = true;
 	b_recreate = true;
-	m_recreateQuartz = true;
+
+	m_estateColor = m_estate->color();
 
 	update();
 	updatePE();
@@ -232,7 +242,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			m_quartzBlocks = 0;
 		}
 
-		if (m_quartzEffects && m_estate->color().isValid())
+		if (m_quartzEffects && m_estateColor.isValid())
 		{
 			m_quartzBlocks = new QPixmap();
 
@@ -241,7 +251,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			else
 				*m_quartzBlocks = QPixmap(25, m_titleWidth-2);
 
-			drawQuartzBlocks(m_quartzBlocks, m_estate->color().light(60), m_estate->color());
+			drawQuartzBlocks(m_quartzBlocks, m_estateColor.light(60), m_estateColor);
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 		}
 
@@ -275,9 +285,9 @@ void EstateView::paintEvent(QPaintEvent *)
 		if (icon!=0 && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
-		if (m_estate->color().isValid())
+		if (m_estateColor.isValid())
 		{
-			painter.setBrush(m_estate->color());
+			painter.setBrush(m_estateColor);
 			switch(m_orientation)
 			{
 				case North:
@@ -391,13 +401,13 @@ void EstateView::paintEvent(QPaintEvent *)
 		painter.setFont(font);
 		QString estateName = m_estate->name();
 		QFontMetrics fm( font );
-                if ( m_estate->color().isValid() && ( m_orientation == West || m_orientation == East ) )
+		if ( m_estateColor.isValid() && ( m_orientation == West || m_orientation == East ) )
 		{
 			estateName = fm.elidedText( m_estate->name(), Qt::ElideRight, 3*width()/4 );
 		}
 		else
 			estateName = fm.elidedText( m_estate->name(), Qt::ElideRight,width() );
-		if (m_estate->color().isValid() && m_orientation == West)
+		if (m_estateColor.isValid() && m_orientation == West)
                         painter.drawText( width()/4 + 2, height()/2, estateName );
 		else
 			painter.drawText(2, height()/2, estateName );
