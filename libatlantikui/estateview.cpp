@@ -278,16 +278,6 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (m_estate->color().isValid())
 		{
-			QPixmap* quartzBuffer = new QPixmap;
-			if (m_orientation == North || m_orientation == South)
-				*quartzBuffer = QPixmap(25, m_titleHeight-2);
-			else
-				*quartzBuffer = QPixmap(m_titleWidth-2, 25);
-
-			QPainter quartzPainter;
-			quartzPainter.begin(quartzBuffer );
-                        quartzPainter.initFrom( this );
-
 			painter.setBrush(m_estate->color());
 			switch(m_orientation)
 			{
@@ -296,8 +286,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
-						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-						painter.drawPixmap(1, 1, *quartzBuffer);
+						painter.drawPixmap(1, 1, *m_quartzBlocks);
 					}
 
 					if (m_estate->houses() > 0)
@@ -323,8 +312,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
-						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-						painter.drawPixmap(width()-quartzBuffer->width()-1, height()-m_titleHeight+1, *quartzBuffer);
+						painter.drawPixmap(width()-m_quartzBlocks->width()-1, height()-m_titleHeight+1, *m_quartzBlocks);
 					}
 
 					if (m_estate->houses() > 0)
@@ -350,8 +338,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
-						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-						painter.drawPixmap(1, height()-quartzBuffer->height()-1, *quartzBuffer);
+						painter.drawPixmap(1, height()-m_quartzBlocks->height()-1, *m_quartzBlocks);
 					}
 
 					if (m_estate->houses() > 0)
@@ -377,8 +364,7 @@ void EstateView::paintEvent(QPaintEvent *)
 
 					if (m_quartzEffects && m_quartzBlocks)
 					{
-						quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-						painter.drawPixmap(width()-quartzBuffer->width()-1, 1, *quartzBuffer);
+						painter.drawPixmap(width()-m_quartzBlocks->width()-1, 1, *m_quartzBlocks);
 					}
 
 					if (m_estate->houses() > 0)
@@ -400,10 +386,6 @@ void EstateView::paintEvent(QPaintEvent *)
 					}
 					break;
 			}
-
-
-			quartzPainter.end();
-			delete quartzBuffer;
 		}
 
 		QFont font = QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal );
