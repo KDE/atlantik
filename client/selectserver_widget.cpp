@@ -127,6 +127,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 
 	m_hostEdit = new KLineEdit();
 	customLayout->addWidget(m_hostEdit);
+	connect(m_hostEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
 	QLabel *portLabel = new QLabel(i18n("Port:"));
 	customLayout->addWidget(portLabel);
@@ -137,6 +138,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	policy.setHorizontalPolicy(QSizePolicy::Policy(policy.horizontalPolicy() & ~QSizePolicy::ExpandFlag));
 	m_portEdit->setSizePolicy(policy);
 	customLayout->addWidget(m_portEdit);
+	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
 	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network-wired"),customGroup);
 	customLayout->addWidget(connectButton);
