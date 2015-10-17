@@ -232,7 +232,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 			painter.setPen(Qt::black);
 			painter.setBrush(Qt::white);
 
-			painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal));
+			painter.setFont(KGlobalSettings::generalFont());
 			painter.drawText(ICONSIZE + KDialog::marginHint(), 30, m_player->host());
 		}
 

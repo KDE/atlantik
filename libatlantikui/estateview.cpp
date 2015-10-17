@@ -388,7 +388,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			}
 		}
 
-		QFont font = QFont( KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Normal );
+		const QFont font = KGlobalSettings::generalFont();
 		painter.setFont(font);
 		QString estateName = m_estate->name();
 		QFontMetrics fm( font );
