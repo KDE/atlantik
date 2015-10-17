@@ -21,7 +21,6 @@
 
 class QTreeWidget;
 class QTreeWidgetItem;
-class QVBoxLayout;
 
 class KPushButton;
 
@@ -54,7 +53,6 @@ private:
 	QTreeWidgetItem *findItem(Game *game);
 
 	AtlanticCore *m_atlanticCore;
-	QVBoxLayout *m_mainLayout;
 	QTreeWidget *m_gameList;
 	KPushButton *m_connectButton;
 };

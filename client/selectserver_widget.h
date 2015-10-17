@@ -22,8 +22,6 @@
 #include <QElapsedTimer>
 
 class QTcpSocket;
-class QVBoxLayout;
-class QHBoxLayout;
 class QTreeWidget;
 
 class KLineEdit;
@@ -88,11 +86,9 @@ signals:
 private:
 	void initMonopigator();
 
-	QVBoxLayout *m_mainLayout;
-	QHBoxLayout *m_customLayout;
 	QTreeWidget *m_serverList;
 	KLineEdit *m_hostEdit, *m_portEdit;
-	KPushButton *m_addServerButton, *m_refreshButton, *m_customConnect, *m_connectButton;
+	KPushButton *m_refreshButton, *m_connectButton;
 	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;
 };

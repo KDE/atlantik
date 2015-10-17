@@ -67,7 +67,6 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	Player *m_player;
-	PortfolioEstate *m_lastPE;
 	QColor m_activeColor, m_inactiveColor;
 	QPixmap *qpixmap, *m_image;
 	QString m_imageName;

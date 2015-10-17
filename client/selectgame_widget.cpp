@@ -42,13 +42,13 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	connect(m_atlanticCore, SIGNAL(createGUI(Game *)), this, SLOT(addGame(Game *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Game *)), this, SLOT(delGame(Game *)));
 
-	m_mainLayout = new QVBoxLayout( this );
-        Q_CHECK_PTR(m_mainLayout);
-        m_mainLayout->setMargin(0);
+	QVBoxLayout *mainLayout = new QVBoxLayout( this );
+	Q_CHECK_PTR(mainLayout);
+	mainLayout->setMargin(0);
 
 	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this);
 	groupBox->setObjectName(QLatin1String("groupBox"));
-	m_mainLayout->addWidget(groupBox);
+	mainLayout->addWidget(groupBox);
 	QVBoxLayout *groupBoxLayout = new QVBoxLayout(groupBox);
 
 	// List of games
@@ -64,14 +64,14 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	m_gameList->setRootIsDecorated(false);
 	m_gameList->setAllColumnsShowFocus(true);
 	m_gameList->header()->setClickable(false);
-//	m_mainLayout->addWidget(m_gameList);
+//	mainLayout->addWidget(m_gameList);
 
 	connect(m_gameList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(connectClicked()));
 	connect(m_gameList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout();
-        m_mainLayout->addItem( buttonBox );
+	mainLayout->addItem( buttonBox );
 
 	KPushButton *backButton = new KPushButton(KIcon("go-previous"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);

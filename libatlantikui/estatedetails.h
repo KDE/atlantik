@@ -23,8 +23,6 @@
 
 class QPixmap;
 class QHBoxLayout;
-class QVBoxLayout;
-class QVGroupBox;
 
 class QListWidget;
 class KPushButton;
@@ -63,9 +61,7 @@ private:
 	QListWidget *m_infoListView;
 	KPushButton *m_closeButton;
 	bool b_recreate, m_recreateQuartz;
-	QVBoxLayout *m_mainLayout;
 	QHBoxLayout *m_buttonBox;
-	QVGroupBox *m_textGroupBox;
 	QSignalMapper m_buttonCommandMapper;
 	QVector<KPushButton *> m_buttons;
 };

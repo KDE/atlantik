@@ -48,7 +48,6 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	m_player = player;
 	m_activeColor = activeColor;
 	m_inactiveColor = inactiveColor;
-	m_lastPE = 0;
 
 	qpixmap = 0;
 	b_recreate = true;

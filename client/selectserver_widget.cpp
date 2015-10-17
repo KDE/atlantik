@@ -109,41 +109,41 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 {
 	m_hideDevelopmentServers = hideDevelopmentServers;
 
-	m_mainLayout = new QVBoxLayout( this );
-        m_mainLayout->setMargin(0);
-	Q_CHECK_PTR(m_mainLayout);
+	QVBoxLayout *mainLayout = new QVBoxLayout( this );
+	mainLayout->setMargin(0);
+	Q_CHECK_PTR(mainLayout);
 
 	// Custom server group
 	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this);
 	customGroup->setObjectName(QLatin1String("customGroup"));
-	m_customLayout = new QHBoxLayout(customGroup);
-	customGroup->setLayout(m_customLayout);
-	m_mainLayout->addWidget(customGroup);
+	QHBoxLayout *customLayout = new QHBoxLayout(customGroup);
+	customGroup->setLayout(customLayout);
+	mainLayout->addWidget(customGroup);
 
 	QLabel *hostLabel = new QLabel(i18n("Hostname:"));
-	m_customLayout->addWidget(hostLabel);
+	customLayout->addWidget(hostLabel);
 
 	m_hostEdit = new KLineEdit();
-	m_customLayout->addWidget(m_hostEdit);
+	customLayout->addWidget(m_hostEdit);
 
 	QLabel *portLabel = new QLabel(i18n("Port:"));
-	m_customLayout->addWidget(portLabel);
+	customLayout->addWidget(portLabel);
 
 	m_portEdit = new KLineEdit(QString::number(1234),customGroup);
 	// avoid the port edit to expand
 	QSizePolicy policy = m_portEdit->sizePolicy();
 	policy.setHorizontalPolicy(QSizePolicy::Policy(policy.horizontalPolicy() & ~QSizePolicy::ExpandFlag));
 	m_portEdit->setSizePolicy(policy);
-	m_customLayout->addWidget(m_portEdit);
+	customLayout->addWidget(m_portEdit);
 
 	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network-wired"),customGroup);
-	m_customLayout->addWidget(connectButton);
+	customLayout->addWidget(connectButton);
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// Server list group
 	QGroupBox *bgroup = new QGroupBox(i18n("Select monopd Server"), this);
 	bgroup->setObjectName("bgroup");
-	m_mainLayout->addWidget(bgroup);
+	mainLayout->addWidget(bgroup);
 
 	QVBoxLayout *bgroupLayout = new QVBoxLayout(bgroup);
 
@@ -170,7 +170,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	QHBoxLayout *buttonBox = new QHBoxLayout();
-        m_mainLayout->addItem( buttonBox );
+	mainLayout->addItem( buttonBox );
 	buttonBox->setSpacing(KDialog::spacingHint());
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 

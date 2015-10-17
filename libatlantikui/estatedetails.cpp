@@ -49,20 +49,20 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	m_closeButton = 0;
 	m_buttons.reserve(3); // Usually there are no more than 3 action buttons
 
-	m_mainLayout = new QVBoxLayout(this );
-	Q_CHECK_PTR(m_mainLayout);
+	QVBoxLayout *mainLayout = new QVBoxLayout(this );
+	Q_CHECK_PTR(mainLayout);
 
-	m_mainLayout->addItem(new QSpacerItem(5, StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
+	mainLayout->addItem(new QSpacerItem(5, StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
 
 	m_infoListView = new QListWidget(this);
 	m_infoListView->setWordWrap(true);
-	m_mainLayout->addWidget(m_infoListView);
+	mainLayout->addWidget(m_infoListView);
 
 	appendText(text);
 
 	m_buttonBox = new QHBoxLayout();
         m_buttonBox->setSpacing(KDialog::spacingHint());
-	m_mainLayout->addItem(m_buttonBox);
+	mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
