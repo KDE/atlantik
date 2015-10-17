@@ -140,8 +140,7 @@ void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, b
 	if (m_quartzEffects != quartzEffects)
 	{
 		m_quartzEffects = quartzEffects;
-		b_recreate = true;
-//		m_recreateQuartz = true;
+		m_recreateQuartz = true;
 	}
 
 	if (b_recreate || m_recreateQuartz)
@@ -233,7 +232,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			m_quartzBlocks = 0;
 		}
 
-		if (m_estate->color().isValid())
+		if (m_quartzEffects && m_estate->color().isValid())
 		{
 			m_quartzBlocks = new QPixmap();
 
