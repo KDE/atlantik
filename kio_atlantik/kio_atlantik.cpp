@@ -19,6 +19,8 @@
 #include <kcomponentdata.h>
 #include <kprocess.h>
 
+#include <monopd.h>
+
 extern "C"
 {
 	int KDE_EXPORT kdemain( int, char **argv )
@@ -41,7 +43,7 @@ void AtlantikProtocol::get( const KUrl& url )
 
 	if (!host.isEmpty())
 	{
-		const QString port = QString::number(url.port(1234));
+		const QString port = QString::number(url.port(MONOPD_PORT));
 		args << "--host" << host << "--port" << port;
 		if (!gameString.isEmpty())
 			args << "--game" << gameString;

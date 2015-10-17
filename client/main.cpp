@@ -22,6 +22,7 @@
 
 #include "version.h"
 #include "atlantik.h"
+#include "monopd.h"
 
 int main(int argc, char *argv[])
 {
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
 	options.add("h");
 	options.add("host <argument>", ki18n("Connect to this host"));
 	options.add("p");
-	options.add("port <argument>", ki18n("Connect at this port"), "1234");
+	options.add("port <argument>", ki18n("Connect at this port"), QByteArray::number(MONOPD_PORT));
 	options.add("g");
 	options.add("game <argument>", ki18n("Join this game"));
 	KCmdLineArgs::addCmdLineOptions (options);

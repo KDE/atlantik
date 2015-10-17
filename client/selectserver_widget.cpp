@@ -29,6 +29,8 @@
 #include <klineedit.h>
 #include <kpushbutton.h>
 
+#include <monopd.h>
+
 #include "metatlantic.h"
 
 #include "selectserver_widget.h"
@@ -129,7 +131,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	QLabel *portLabel = new QLabel(i18n("Port:"));
 	customLayout->addWidget(portLabel);
 
-	m_portEdit = new KLineEdit(QString::number(1234),customGroup);
+	m_portEdit = new KLineEdit(QString::number(MONOPD_PORT),customGroup);
 	// avoid the port edit to expand
 	QSizePolicy policy = m_portEdit->sizePolicy();
 	policy.setHorizontalPolicy(QSizePolicy::Policy(policy.horizontalPolicy() & ~QSizePolicy::ExpandFlag));
@@ -215,7 +217,7 @@ void SelectServer::initMonopigator()
 	emit msgStatus(i18n("Retrieving server list..."));
 
 	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "view-refresh"));
-	m_metatlantic->loadData("meta.atlanticd.net", 1240);
+	m_metatlantic->loadData(METATLANTIC_HOST, METATLANTIC_PORT);
 }
 
 void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QString &version, int users)
