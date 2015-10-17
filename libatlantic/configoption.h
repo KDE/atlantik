@@ -27,7 +27,7 @@ Q_OBJECT
 
 public:
 	ConfigOption(int configId);
-	int id();
+	int id() const;
 	void setName(const QString &name);
 	QString name() const;
 	void setDescription(const QString &description);

@@ -64,7 +64,7 @@ Q_OBJECT
 public:
 	TradeEstate(Estate *estate, Trade *trade, Player *to);
 
-	Estate *estate() { return mEstate; }
+	Estate *estate() const { return mEstate; }
 	
 	virtual QString text() const;
 
@@ -119,7 +119,7 @@ Q_OBJECT
 
 public:
 	Trade(int tradeId);
-	int tradeId() { return m_tradeId; }
+	int tradeId() const { return m_tradeId; }
 
 	void setRevision(int revision);
 	int revision() const;

@@ -31,7 +31,7 @@ Q_OBJECT
 
 public:
 	Estate(int estateId);
-	int id() { return m_id; }
+	int id() const { return m_id; }
 	void setName(const QString& name);
 	QString name() const;
 	void setEstateGroup(EstateGroup *estateGroup);

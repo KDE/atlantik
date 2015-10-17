@@ -26,7 +26,7 @@ ConfigOption::ConfigOption(int configId) : QObject()
 	m_changed = false;
 }
 
-int ConfigOption::id()
+int ConfigOption::id() const
 {
 	return m_id;
 }

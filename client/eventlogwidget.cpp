@@ -54,7 +54,7 @@ void EventLog::addEvent(const QString &description, const QString &icon)
 	endInsertRows();
 }
 
-QList<Event*> EventLog::events()
+QList<Event*> EventLog::events() const
 {
 	return m_events;
 }

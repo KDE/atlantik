@@ -35,7 +35,7 @@ Q_OBJECT
 public:
 	EventLog(QObject *parent = 0);
 	~EventLog();
-	QList<Event*> events();
+	QList<Event*> events() const;
 
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
