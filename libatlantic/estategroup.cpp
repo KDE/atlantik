@@ -19,6 +19,7 @@
 EstateGroup::EstateGroup(const int id) : QObject()
 {
 	m_id = id;
+	m_changed = false;
 }
 
 void EstateGroup::setName(const QString &name)

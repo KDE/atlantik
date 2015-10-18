@@ -24,6 +24,7 @@ Estate::Estate(int estateId)
 	m_houses = 0;
 	m_price = 0;
 	m_money = 0;
+	m_housePrice = m_houseSellPrice = m_mortgagePrice = m_unmortgagePrice = 0;
 	m_estateGroup = 0;
 	m_changed = m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
 }
