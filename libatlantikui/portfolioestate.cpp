@@ -31,12 +31,43 @@ PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwne
     setFixedSize(s);
 
     b_recreate = true;
+
+	// react to changes in the estate only when we do not draw it
+	// as always owned
+	if (!m_alwaysOwned)
+	{
+		m_estateColor = m_estate->color();
+		m_estateOwner = m_estate->owner();
+		connect(m_estate, SIGNAL(changed()), this, SLOT(estateChanged()));
+	}
 }
 
 void PortfolioEstate::estateChanged()
 {
-	b_recreate = true;
-	update();
+	// if we get here, then we are not assuming the estate is
+	// always owned
+
+	// update if the color changed
+	if (m_estate->color() != m_estateColor)
+	{
+		m_estateColor = m_estate->color();
+		b_recreate = true;
+	}
+
+	// update if the owner changed ...
+	if (m_estate->owner() != m_estateOwner)
+	{
+		Player *prevOwner = m_estateOwner;
+		m_estateOwner = m_estate->owner();
+
+		// ... but only if the previous owner or the new one
+		// is the own player
+		if (m_estate->owner() == m_player || prevOwner == m_player)
+			b_recreate = true;
+	}
+
+	if (b_recreate)
+		update();
 }
 
 QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysOwned)

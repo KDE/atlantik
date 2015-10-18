@@ -50,6 +50,8 @@ private:
 	Player *m_player;
 	QPixmap m_pixmap;
 	bool b_recreate, m_alwaysOwned;
+	QColor m_estateColor;
+	Player *m_estateOwner;
 };
 
 #endif

@@ -136,8 +136,6 @@ void PortfolioView::buildPortfolio()
 					portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
 					portfolioEstate->show();
 
-					connect(estate, SIGNAL(changed()), portfolioEstate, SLOT(estateChanged()));
-
 					lastPE = portfolioEstate;
 				}
 			}
