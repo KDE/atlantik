@@ -43,7 +43,7 @@ Q_SIGNALS:
 
 private:
 	int m_id;
-	bool m_changed, m_edit;
+	bool m_changed : 1, m_edit : 1;
 	QString m_name, m_description, m_value;
 };
 

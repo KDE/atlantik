@@ -72,8 +72,8 @@ Q_SIGNALS:
 
 private:
 	int m_id;
-	bool m_changed, m_isSelf;
-	bool m_bankrupt, m_hasDebt, m_hasTurn, m_canRoll, m_canBuy, m_canAuction, m_canUseCard, m_inJail;
+	bool m_changed : 1, m_isSelf : 1;
+	bool m_bankrupt : 1, m_hasDebt : 1, m_hasTurn : 1, m_canRoll : 1, m_canBuy : 1, m_canAuction : 1, m_canUseCard : 1, m_inJail : 1;
 	unsigned int m_money;
 	QString m_name, m_host, m_image;
 	Game *m_game;

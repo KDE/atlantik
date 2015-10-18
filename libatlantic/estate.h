@@ -90,7 +90,7 @@ private:
 	EstateGroup *m_estateGroup;
 	unsigned int m_houses, m_price, m_housePrice, m_houseSellPrice, m_mortgagePrice, m_unmortgagePrice;
 	int m_money;
-	bool m_canBeOwned, m_canBuyHouses, m_canSellHouses, m_isMortgaged, m_canToggleMortgage;
+	bool m_canBeOwned : 1, m_canBuyHouses : 1, m_canSellHouses : 1, m_isMortgaged : 1, m_canToggleMortgage : 1;
 	QColor m_bgColor, m_color;
 };
 
