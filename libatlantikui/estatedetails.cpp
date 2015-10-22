@@ -132,19 +132,12 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		{
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 
-			QPixmap* quartzBuffer = new QPixmap(25, (height()/4)-2);
-
-			QPainter quartzPainter;
-			quartzPainter.begin( quartzBuffer );
-                        quartzPainter.initFrom( this);
-
 			painter.setBrush(titleColor);
 			painter.drawRect(0, 0, width()-1, StaticTitleHeight-1);
 
 			if (m_quartzBlocks)
 			{
-				quartzPainter.drawPixmap(0, 0, *m_quartzBlocks);
-				painter.drawPixmap(1, 1, *quartzBuffer);
+				painter.drawPixmap(1, 1, *m_quartzBlocks);
 			}
 
 			if (m_estate->houses() > 0)
@@ -166,9 +159,6 @@ void EstateDetails::paintEvent(QPaintEvent *)
 						painter.drawRect(2+(i*(w+2)), 2, w-1, h-1);
 				}
 			}
-
-			quartzPainter.end();
-			delete quartzBuffer;
 
 			// TODO: steal blur code from kicker/taskbar/taskcontainer.cpp
 
