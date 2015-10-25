@@ -21,11 +21,9 @@
 #include <QTreeWidgetItem>
 #include <QElapsedTimer>
 
-class QTcpSocket;
-class QTreeWidget;
+#include <ui_selectserver.h>
 
-class KLineEdit;
-class KPushButton;
+class QTcpSocket;
 
 class Metatlantic;
 
@@ -57,7 +55,7 @@ private:
 	bool m_isDev;
 };
 
-class SelectServer : public QWidget
+class SelectServer : public QWidget, private Ui::SelectServer
 {
 Q_OBJECT
 
@@ -86,9 +84,6 @@ signals:
 private:
 	void initMonopigator();
 
-	QTreeWidget *m_serverList;
-	KLineEdit *m_hostEdit, *m_portEdit;
-	KPushButton *m_refreshButton, *m_connectButton;
 	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;
 };

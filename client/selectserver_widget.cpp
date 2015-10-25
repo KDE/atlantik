@@ -14,21 +14,13 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <QLabel>
-#include <qsizepolicy.h>
 #include <QTcpSocket>
 #include <QHeaderView>
 #include <QIntValidator>
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGroupBox>
-#include <kdialog.h>
 #include <klocalizedstring.h>
 #include <kicon.h>
 #include <kdebug.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
 
 #include <monopd.h>
 
@@ -112,84 +104,35 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 {
 	m_hideDevelopmentServers = hideDevelopmentServers;
 
-	QVBoxLayout *mainLayout = new QVBoxLayout( this );
-	mainLayout->setMargin(0);
-	Q_CHECK_PTR(mainLayout);
+	setupUi(this);
+	layout()->setMargin(0);
 
-	// Custom server group
-	QGroupBox *customGroup = new QGroupBox(i18n("Enter Custom monopd Server"), this);
-	customGroup->setObjectName(QLatin1String("customGroup"));
-	QHBoxLayout *customLayout = new QHBoxLayout(customGroup);
-	customGroup->setLayout(customLayout);
-	mainLayout->addWidget(customGroup);
-
-	QLabel *hostLabel = new QLabel(i18n("Hostname:"));
-	customLayout->addWidget(hostLabel);
-
-	m_hostEdit = new KLineEdit();
-	customLayout->addWidget(m_hostEdit);
 	connect(m_hostEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
-	QLabel *portLabel = new QLabel(i18n("Port:"));
-	customLayout->addWidget(portLabel);
-
-	m_portEdit = new KLineEdit(QString::number(MONOPD_PORT),customGroup);
-	// avoid the port edit to expand
-	QSizePolicy policy = m_portEdit->sizePolicy();
-	policy.setHorizontalPolicy(QSizePolicy::Policy(policy.horizontalPolicy() & ~QSizePolicy::ExpandFlag));
-	m_portEdit->setSizePolicy(policy);
+	m_portEdit->setText(QString::number(MONOPD_PORT));
 	m_portEdit->setValidator(new QIntValidator(1, 65535, m_portEdit));
-	customLayout->addWidget(m_portEdit);
 	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
-	KPushButton *connectButton = new KPushButton( KGuiItem(i18n("Connect"), "network-wired"),customGroup);
-	customLayout->addWidget(connectButton);
+	connectButton->setIcon(KIcon("network-wired"));
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
-	// Server list group
-	QGroupBox *bgroup = new QGroupBox(i18n("Select monopd Server"), this);
-	bgroup->setObjectName("bgroup");
-	mainLayout->addWidget(bgroup);
-
-	QVBoxLayout *bgroupLayout = new QVBoxLayout(bgroup);
-
 	// List of servers
-	m_serverList = new QTreeWidget(bgroup);
-	m_serverList->setObjectName( "m_serverList" );
-	QStringList headers;
-	headers << i18n("Host");
-	headers << i18n("Latency");
-	headers << i18n("Version");
-	headers << i18n("Users");
-	m_serverList->setHeaderLabels(headers);
-	m_serverList->setRootIsDecorated(false);
-	m_serverList->setSortingEnabled(true);
 	m_serverList->sortItems(1, Qt::AscendingOrder);
 	m_serverList->header()->setClickable(false);
 	m_serverList->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	m_serverList->header()->setResizeMode(2, QHeaderView::ResizeToContents);
 	m_serverList->header()->setResizeMode(3, QHeaderView::ResizeToContents);
-	bgroupLayout->addWidget(m_serverList);
 
 	connect(m_serverList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotConnect()));
 	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout();
-	mainLayout->addItem( buttonBox );
-	buttonBox->setSpacing(KDialog::spacingHint());
-	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
 	// Server List / Refresh
-	m_refreshButton = new KPushButton( KGuiItem(useMonopigatorOnStart ? i18n("Reload Server List") : i18n("Get Server List"), useMonopigatorOnStart ? "view-refresh" : "network-wired"), this);
-	buttonBox->addWidget(m_refreshButton);
-
+	m_refreshButton->setGuiItem(useMonopigatorOnStart ? KGuiItem(i18n("Reload Server List"), "view-refresh") : KGuiItem(i18n("Get Server List"), "network-wired"));
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton = new KPushButton(KIcon("go-next"), i18n("Connect"), this);
-	m_connectButton->setEnabled(false);
-	buttonBox->addWidget(m_connectButton);
+	m_connectButton->setIcon(KIcon("go-next"));
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
