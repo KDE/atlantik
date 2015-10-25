@@ -18,6 +18,7 @@
 #include <qsizepolicy.h>
 #include <QTcpSocket>
 #include <QHeaderView>
+#include <QIntValidator>
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -137,6 +138,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	QSizePolicy policy = m_portEdit->sizePolicy();
 	policy.setHorizontalPolicy(QSizePolicy::Policy(policy.horizontalPolicy() & ~QSizePolicy::ExpandFlag));
 	m_portEdit->setSizePolicy(policy);
+	m_portEdit->setValidator(new QIntValidator(1, 65535, m_portEdit));
 	customLayout->addWidget(m_portEdit);
 	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
