@@ -58,6 +58,7 @@ private slots:
 	void slotConnectionFailed(QAbstractSocket::SocketError error);
 	void slotClosed();
 
+	void slotRead();
 	void writeData(const QString &data);
 
 
@@ -89,7 +90,6 @@ private slots:
 
 public slots:
 	void serverConnect(const QString &host, int port);
-	void slotRead();
 
 	void joinGame(int gameId);
 	void leaveGame();
