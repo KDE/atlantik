@@ -62,8 +62,10 @@ bool Estate::isOwnedBySelf() const
 void Estate::setHouses(unsigned int houses)
 {
 	if (m_houses != houses)
+	{
 		m_houses = houses;
 		m_changed = true;
+	}
 }
 
 void Estate::setName(const QString& name)
