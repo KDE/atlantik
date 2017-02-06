@@ -46,6 +46,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_atlanticCore = atlanticCore;
 
 	setCaption(i18n("Trade %1", trade->tradeId()));
+	setButtons(KDialog::None);
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
 	listCompBox->setMargin(0);
