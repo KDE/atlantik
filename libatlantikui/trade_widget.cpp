@@ -172,10 +172,6 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	listCompBox->addWidget(m_status);
 	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal.", m_trade->count( true ), m_trade->count( false ) ) );
 
-//	mPlayerList->header()->hide();
-//	mPlayerList->setRootIsDecorated(true);
-//	mPlayerList->setResizeMode(K3ListView::AllColumns);
-
 	connect(m_trade, SIGNAL(itemAdded(TradeItem *)), this, SLOT(tradeItemAdded(TradeItem *)));
 	connect(m_trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
 	connect(m_trade, SIGNAL(changed(Trade *)), this, SLOT(tradeChanged()));

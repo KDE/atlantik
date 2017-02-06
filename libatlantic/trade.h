@@ -130,28 +130,6 @@ public:
 	unsigned int count( bool acceptOnly ) const;
 
 	bool isRejected() const { return m_rejected; }
-	
-#if 0
-	/**
-	 * select the Trade of the given template type, with the given
-	 * from and to
-	 **/
-	template <class Type> Type *select(Player *from, Player *to)
-	{
-		for (Q3PtrListIterator<Player> i(mPlayers); *i; ++i)
-		{
-			if (
-					i.current()->from()==from
-					&& i.current()->to()==to
-					&& dynamic_cast<Player*>(*i)
-				)
-			{
-				return *i;
-			}
-		}
-	
-	}
-#endif
 
 private Q_SLOTS:
 	/**
@@ -184,9 +162,6 @@ private:
 	bool m_changed, m_rejected;
 	int m_tradeId, m_revision;
 
-#if 0
-	Q3PtrList<Player> mPlayers;
-#endif
 	QMap<Player *, bool> m_playerAcceptMap;
 	
 	QList<TradeItem *> mTradeItems;
