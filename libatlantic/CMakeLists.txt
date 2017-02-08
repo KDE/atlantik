@@ -10,8 +10,8 @@ set(atlantic_LIB_SRCS
    game.cpp 
    player.cpp 
    trade.cpp )
-kde4_add_library(atlantic SHARED ${atlantic_LIB_SRCS})
-target_link_libraries(atlantic ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+add_library(atlantic SHARED ${atlantic_LIB_SRCS})
+target_link_libraries(atlantic Qt5::Core Qt5::Gui)
 set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 install(TARGETS atlantic ${INSTALL_TARGETS_DEFAULT_ARGS})
 

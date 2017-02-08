@@ -1,16 +1,40 @@
 project(atlantik)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
-include(MacroLibrary)
-find_package(KDEGames 4.9.0 REQUIRED)
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(FeatureSummary)
+
+find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
+
+find_package(KF5 REQUIRED
+  Config
+  ConfigWidgets
+  CoreAddons
+  DocTools
+  I18n
+  IconThemes
+  KDELibs4Support
+  KDEGames
+  KIO
+  Notifications
+  NotifyConfig
+  XmlGui
+  WidgetsAddons
+)
+
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 add_definitions(-DQT_STRICT_ITERATORS)
-include_directories(${KDEGAMES_INCLUDE_DIRS} ${KDE4_INCLUDES})
+
+set(GENERIC_LIB_SOVERSION "5")
+set(GENERIC_LIB_VERSION "5.0.0")
 
 add_subdirectory( libatlantic ) 
 add_subdirectory( libatlantikui ) 
