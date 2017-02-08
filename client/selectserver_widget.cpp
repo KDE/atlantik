@@ -19,7 +19,7 @@
 #include <QIntValidator>
 
 #include <klocalizedstring.h>
-#include <kicon.h>
+#include <kiconloader.h>
 #include <kdebug.h>
 #include <kguiitem.h>
 
@@ -35,7 +35,7 @@ MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &v
 	setText(1, QString::number(m_latency));
 	setText(2, version);
 	setText(3, users == -1 ? i18n("unknown") : QString::number(m_users));
-	setIcon(0, KIcon("atlantik"));
+	setIcon(0, KDE::icon("atlantik"));
 	setDisabled(true);
 
 	m_isDev = version.indexOf("CVS") != -1 || version.indexOf("-dev") != -1;
@@ -114,7 +114,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	m_portEdit->setValidator(new QIntValidator(1, 65535, m_portEdit));
 	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 
-	connectButton->setIcon(KIcon("network-wired"));
+	connectButton->setIcon(KDE::icon("network-wired"));
 	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// List of servers
@@ -133,7 +133,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton->setIcon(KIcon("go-next"));
+	m_connectButton->setIcon(KDE::icon("go-next"));
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 

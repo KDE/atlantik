@@ -35,7 +35,7 @@
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <klocale.h>
-#include <kicon.h>
+#include <kiconloader.h>
 #include <kcomponentdata.h>
 
 #include <kdebug.h>
@@ -138,14 +138,14 @@ Atlantik::Atlantik ()
 	m_buyEstate = actionCollection()->addAction("atlantik_buy_estate");
         m_buyEstate->setText(i18n("&Buy"));
 	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) );
-	m_buyEstate->setIcon(KIcon("atlantik_buy_estate"));
+	m_buyEstate->setIcon(KDE::icon("atlantik_buy_estate"));
 	connect (m_buyEstate,SIGNAL(triggered()), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
 	m_auctionEstate = actionCollection()->addAction("auction");
         m_auctionEstate->setText(i18n("&Auction"));
 	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A));
-	m_auctionEstate->setIcon(KIcon("auction"));
+	m_auctionEstate->setIcon(KDE::icon("auction"));
 	connect(m_auctionEstate,SIGNAL(triggered()),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
@@ -161,7 +161,7 @@ Atlantik::Atlantik ()
 	m_jailPay = actionCollection()->addAction("jail_pay");
         m_jailPay->setText(i18n("&Pay to Leave Jail"));
 	m_jailPay->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
-	m_jailPay->setIcon(KIcon("jail_pay"));
+	m_jailPay->setIcon(KDE::icon("jail_pay"));
 	connect(m_jailPay, SIGNAL(triggered()),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 

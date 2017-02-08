@@ -22,7 +22,7 @@
 #include <QTreeWidget>
 #include <QPushButton>
 
-#include <kicon.h>
+#include <kiconloader.h>
 #include <klocalizedstring.h>
 
 #include <atlantic_core.h>
@@ -69,7 +69,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 			QTreeWidgetItem *item = new QTreeWidgetItem();
 			item->setText(0, player->name());
 			item->setText(1, QString("0"));
-			item->setIcon(0, KIcon("user-identity"));
+			item->setIcon(0, KDE::icon("user-identity"));
 			m_playerItems[player] = item;
 			items << item;
 

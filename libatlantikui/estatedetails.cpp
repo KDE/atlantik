@@ -23,7 +23,7 @@
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
-#include <kicon.h>
+#include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <KStandardGuiItem>
 
@@ -210,7 +210,7 @@ void EstateDetails::addDetails()
 		{
 			infoText = new QListWidgetItem();
 			infoText->setText(i18n("Price: %1", m_estate->price()));
-			infoText->setIcon(KIcon("document-properties"));
+			infoText->setIcon(KDE::icon("document-properties"));
 			m_infoListView->addItem(infoText);
 		}
 
@@ -219,19 +219,19 @@ void EstateDetails::addDetails()
 		{
 			infoText = new QListWidgetItem();
 			infoText->setText(i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
-			infoText->setIcon(KIcon("document-properties"));
+			infoText->setIcon(KDE::icon("document-properties"));
 			m_infoListView->addItem(infoText);
 
 			if (m_estate->isOwned())
 			{
 				infoText = new QListWidgetItem();
 				infoText->setText(i18n("Houses: %1", m_estate->houses()));
-				infoText->setIcon(KIcon("document-properties"));
+				infoText->setIcon(KDE::icon("document-properties"));
 				m_infoListView->addItem(infoText);
 
 				infoText = new QListWidgetItem();
 				infoText->setText(i18n("Mortgaged: %1", m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
-				infoText->setIcon(KIcon("document-properties"));
+				infoText->setIcon(KDE::icon("document-properties"));
 				m_infoListView->addItem(infoText);
 			}
 		}
@@ -299,9 +299,9 @@ void EstateDetails::appendText(const QString &text)
 	QListWidgetItem *infoText = new QListWidgetItem();
 	infoText->setText(text);
 	if (text.contains(" rolls "))
-		infoText->setIcon(KIcon("roll"));
+		infoText->setIcon(KDE::icon("roll"));
 	else
-		infoText->setIcon(KIcon("atlantik"));
+		infoText->setIcon(KDE::icon("atlantik"));
 	m_infoListView->addItem(infoText);
 
 	m_infoListView->scrollToItem(infoText);

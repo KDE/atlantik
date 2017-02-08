@@ -26,7 +26,7 @@
 #include <QPushButton>
 
 #include <klocalizedstring.h>
-#include <kicon.h>
+#include <kiconloader.h>
 #include <kcombobox.h>
 
 #include <atlantic_core.h>
@@ -157,12 +157,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new QPushButton(KIcon("dialog-cancel"), i18n("Reject"), mainWidget());
+	m_rejectButton = new QPushButton(KDE::icon("dialog-cancel"), i18n("Reject"), mainWidget());
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new QPushButton(KIcon("dialog-ok"), i18n("Accept"), mainWidget());
+	m_acceptButton = new QPushButton(KDE::icon("dialog-ok"), i18n("Accept"), mainWidget());
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 
@@ -208,8 +208,8 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 	item->setText(3, tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
-	item->setIcon(0, KIcon("user-identity"));
-	item->setIcon(2, KIcon("user-identity"));
+	item->setIcon(0, KDE::icon("user-identity"));
+	item->setIcon(2, KDE::icon("user-identity"));
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(tradeItem))
 		item->setIcon(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
@@ -235,9 +235,9 @@ void TradeDisplay::tradeItemChanged(TradeItem *t)
 	if (item)
 	{
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
-		item->setIcon(0, KIcon("user-identity"));
+		item->setIcon(0, KDE::icon("user-identity"));
 		item->setText(2, t->to() ? t->to()->name() : QString("?"));
-		item->setIcon(2, KIcon("user-identity"));
+		item->setIcon(2, KDE::icon("user-identity"));
 		item->setText(3, t->text());
 	}
 }

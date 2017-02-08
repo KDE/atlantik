@@ -23,7 +23,7 @@
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
-#include <kicon.h>
+#include <kiconloader.h>
 #include <knotification.h>
 
 #include <atlantic_core.h>
@@ -73,14 +73,14 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	QHBoxLayout *buttonBox = new QHBoxLayout();
 	mainLayout->addItem( buttonBox );
 
-	QPushButton *backButton = new QPushButton(KIcon("go-previous"), i18n("Server List"), this);
+	QPushButton *backButton = new QPushButton(KDE::icon("go-previous"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new QPushButton(KIcon("go-next"), i18n("Create Game"), this);
+	m_connectButton = new QPushButton(KDE::icon("go-next"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 
@@ -98,7 +98,7 @@ void SelectGame::addGame(Game *game)
 		item->setText(0, i18n("Create a new %1 Game", game->name()));
 		item->setText(1, game->description());
 		item->setData(0, GameTypeRole, game->type());
-		item->setIcon(0, KIcon("document-new"));
+		item->setIcon(0, KDE::icon("document-new"));
 		m_gameList->addTopLevelItem(item);
 	}
 	else
@@ -110,7 +110,7 @@ void SelectGame::addGame(Game *game)
 		item->setText(2, QString::number(game->id()));
 		item->setText(3, QString::number(game->players()));
 		item->setData(0, GameTypeRole, game->type());
-		item->setIcon(0, KIcon("atlantik"));
+		item->setIcon(0, KDE::icon("atlantik"));
 		item->setDisabled(!game->canBeJoined());
 		m_gameList->addTopLevelItem(item);
 

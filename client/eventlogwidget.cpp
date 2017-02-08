@@ -30,7 +30,7 @@
 
 #include <klocalizedstring.h>
 #include <kdialog.h>
-#include <kicon.h>
+#include <kiconloader.h>
 
 #include "event.h"
 #include "eventlogwidget.h"
@@ -81,7 +81,7 @@ QVariant EventLog::data(const QModelIndex &index, int role) const
 		switch (role)
 		{
 		case Qt::DecorationRole:
-			return e->icon().isEmpty() ? KIcon("atlantik") : KIcon(e->icon());
+			return e->icon().isEmpty() ? KDE::icon("atlantik") : KDE::icon(e->icon());
 		case Qt::DisplayRole:
 			return e->description();
 		}
