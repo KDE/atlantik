@@ -17,9 +17,9 @@
 #ifndef LIBATLANTIC_TRADE_H
 #define LIBATLANTIC_TRADE_H
 
-#include <QtCore/QObject>
-#include <QtCore/QMap>
-#include <QtCore/QList>
+#include <QObject>
+#include <QMap>
+#include <QList>
 
 #include "libatlantic_export.h"
 

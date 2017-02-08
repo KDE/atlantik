@@ -17,8 +17,8 @@
 #ifndef LIBATLANTIC_ESTATE_H
 #define LIBATLANTIC_ESTATE_H
 
-#include <QtCore/QObject>
-#include <QtGui/QColor>
+#include <QObject>
+#include <QColor>
 
 #include "libatlantic_export.h"
 

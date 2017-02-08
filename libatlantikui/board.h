@@ -17,9 +17,9 @@
 #ifndef ATLANTIK_BOARD_H
 #define ATLANTIK_BOARD_H
 
-#include <QtGui/QWidget>
-#include <QtCore/QTimer>
-#include <QtCore/QList>
+#include <QWidget>
+#include <QTimer>
+#include <QList>
 
 #include "libatlantikui_export.h"
 #include "tokentheme.h"

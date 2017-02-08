@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_GAME_H
 #define LIBATLANTIC_GAME_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

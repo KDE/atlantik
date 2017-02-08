@@ -17,8 +17,8 @@
 #ifndef LIBATLANTIC_CORE_H
 #define LIBATLANTIC_CORE_H
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
+#include <QList>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

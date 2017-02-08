@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_PLAYER_H
 #define LIBATLANTIC_PLAYER_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

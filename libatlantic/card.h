@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_CARD_H
 #define LIBATLANTIC_CARD_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "libatlantic_export.h"
 

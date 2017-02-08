@@ -17,7 +17,7 @@
 #ifndef TRADEWIDGET_H
 #define TRADEWIDGET_H
 
-#include <QtCore/QMap>
+#include <QMap>
 
 #include <kdialog.h>
 

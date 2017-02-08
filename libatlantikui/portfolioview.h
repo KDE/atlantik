@@ -17,8 +17,8 @@
 #ifndef ATLANTIK_PORTFOLIOVIEW_H
 #define ATLANTIK_PORTFOLIOVIEW_H
 
-#include <QtGui/QWidget>
-#include <QtCore/QList>
+#include <QWidget>
+#include <QList>
 
 #include "libatlantikui_export.h"
 #include "tokentheme.h"

@@ -17,7 +17,7 @@
 #ifndef LIBATLANTIC_CONFIGOPTION_H
 #define LIBATLANTIC_CONFIGOPTION_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "libatlantic_export.h"
 
