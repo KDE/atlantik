@@ -23,7 +23,7 @@
 
 extern "C"
 {
-	int KDE_EXPORT kdemain( int, char **argv )
+	Q_DECL_EXPORT int kdemain( int, char **argv )
 	{
 		KComponentData componentData( "kio_atlantik" );
 		AtlantikProtocol slave(argv[2], argv[3]);
@@ -32,13 +32,16 @@ extern "C"
 	}
 }
 
-void AtlantikProtocol::get( const KUrl& url )
+void AtlantikProtocol::get( const QUrl& url )
 {
 	QStringList args;
+	const QUrlQuery query( url );
 	args << "atlantik";
 
-	QString host = url.hasHost() ? url.host() : url.queryItem("host");
-	int game = url.queryItem("game").toInt();
+	QString host = url.host();
+	if (host.isEmpty())
+		host = query.queryItemValue("host");
+	int game = query.queryItemValue("game").toInt();
 	QString gameString = game ? QString::number( game ) : QString();
 
 	if (!host.isEmpty())
