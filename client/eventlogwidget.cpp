@@ -25,10 +25,10 @@
 #include <QCloseEvent>
 #include <QTreeView>
 #include <QHeaderView>
+#include <QFileDialog>
 
 #include <klocalizedstring.h>
 #include <kdialog.h>
-#include <kfiledialog.h>
 #include <kicon.h>
 #include <kpushbutton.h>
 
@@ -196,7 +196,7 @@ void EventLogWidget::closeEvent(QCloseEvent *e)
 
 void EventLogWidget::save()
 {
-	const QString filename = KFileDialog::getSaveFileName(KUrl(), QString(), this, QString(), KFileDialog::ConfirmOverwrite);
+	const QString filename = QFileDialog::getSaveFileName(this);
 	if (filename.isEmpty())
 		return;
 
