@@ -20,10 +20,10 @@
 #include <QGroupBox>
 #include <QHeaderView>
 #include <QTreeWidget>
+#include <QPushButton>
 
 #include <kicon.h>
 #include <klocalizedstring.h>
-#include <kpushbutton.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -87,7 +87,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	m_bidSpinBox->setSingleStep(1);
 	bidLayout->addWidget(m_bidSpinBox);
 
-	KPushButton *bidButton = new KPushButton(i18n("Make Bid"), this);
+	QPushButton *bidButton = new QPushButton(i18n("Make Bid"), this);
 	bidButton->setObjectName( "bidButton" );
 	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
 	bidLayout->addWidget(bidButton);

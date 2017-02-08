@@ -18,12 +18,12 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
+#include <QPushButton>
 
 #include <kdebug.h>
 #include <kdialog.h>
 #include <klocalizedstring.h>
 #include <kicon.h>
-#include <kpushbutton.h>
 
 #include <atlantic_core.h>
 #include <configoption.h>
@@ -63,14 +63,14 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
         m_mainLayout->addItem( serverButtons );
 	serverButtons->setSpacing(KDialog::spacingHint());
 
-	m_backButton = new KPushButton(KIcon("go-previous"), i18n("Leave Game"), this);
+	m_backButton = new QPushButton(KIcon("go-previous"), i18n("Leave Game"), this);
 	serverButtons->addWidget(m_backButton);
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
 	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_startButton = new KPushButton(KIcon("go-next"), i18n("Start Game"), this);
+	m_startButton = new QPushButton(KIcon("go-next"), i18n("Start Game"), this);
 	serverButtons->addWidget(m_startButton);
 	m_startButton->setEnabled(false);
 

@@ -22,9 +22,8 @@
 
 class QCheckBox;
 class QGroupBox;
+class QPushButton;
 class QVBoxLayout;
-
-class KPushButton;
 
 class AtlanticCore;
 class ConfigOption;
@@ -62,7 +61,7 @@ signals:
 private:
 	QVBoxLayout *m_mainLayout;
 	QGroupBox *m_configBox, *m_messageBox;
-	KPushButton *m_backButton, *m_startButton;
+	QPushButton *m_backButton, *m_startButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QObject *, ConfigOption *> m_configMap;
 	QMap <ConfigOption *, QCheckBox *> m_configBoxMap;

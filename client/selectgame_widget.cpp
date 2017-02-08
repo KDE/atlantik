@@ -19,12 +19,12 @@
 #include <QHBoxLayout>
 #include <QTreeWidget>
 #include <QHeaderView>
+#include <QPushButton>
 
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kicon.h>
 #include <knotification.h>
-#include <kpushbutton.h>
 
 #include <atlantic_core.h>
 #include <game.h>
@@ -73,14 +73,14 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	QHBoxLayout *buttonBox = new QHBoxLayout();
 	mainLayout->addItem( buttonBox );
 
-	KPushButton *backButton = new KPushButton(KIcon("go-previous"), i18n("Server List"), this);
+	QPushButton *backButton = new QPushButton(KIcon("go-previous"), i18n("Server List"), this);
 	buttonBox->addWidget(backButton);
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
 	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_connectButton = new KPushButton(KIcon("go-next"), i18n("Create Game"), this);
+	m_connectButton = new QPushButton(KIcon("go-next"), i18n("Create Game"), this);
 	m_connectButton->setEnabled(false);
 	buttonBox->addWidget(m_connectButton);
 

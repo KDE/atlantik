@@ -23,10 +23,10 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QMenu>
+#include <QPushButton>
 
 #include <klocalizedstring.h>
 #include <kicon.h>
-#include <kpushbutton.h>
 #include <kcombobox.h>
 
 #include <atlantic_core.h>
@@ -127,7 +127,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 		}
 	}
 
-	m_updateButton = new KPushButton(i18n("Update"), m_updateComponentBox);
+	m_updateButton = new QPushButton(i18n("Update"), m_updateComponentBox);
 	m_updateButton->setEnabled(false);
 	updateComponentBoxLayout->addWidget(m_updateButton);
 
@@ -157,12 +157,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new KPushButton(KIcon("dialog-cancel"), i18n("Reject"), mainWidget());
+	m_rejectButton = new QPushButton(KIcon("dialog-cancel"), i18n("Reject"), mainWidget());
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new KPushButton(KIcon("dialog-ok"), i18n("Accept"), mainWidget());
+	m_acceptButton = new QPushButton(KIcon("dialog-ok"), i18n("Accept"), mainWidget());
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 

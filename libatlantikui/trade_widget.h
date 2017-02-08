@@ -25,12 +25,12 @@
 
 class QLabel;
 class QGroupBox;
+class QPushButton;
 class QSpinBox;
 class QTreeWidget;
 class QTreeWidgetItem;
 
 class KComboBox;
-class KPushButton;
 
 class AtlanticCore;
 class Card;
@@ -85,7 +85,7 @@ private:
 
 	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
 	QTreeWidget *m_componentList;
-	KPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
+	QPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
 	AtlanticCore *m_atlanticCore;
 	Trade *m_trade;

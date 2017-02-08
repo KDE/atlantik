@@ -26,11 +26,11 @@
 #include <QTreeView>
 #include <QHeaderView>
 #include <QFileDialog>
+#include <QPushButton>
 
 #include <klocalizedstring.h>
 #include <kdialog.h>
 #include <kicon.h>
-#include <kpushbutton.h>
 
 #include "event.h"
 #include "eventlogwidget.h"

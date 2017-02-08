@@ -21,6 +21,7 @@
 #include <klocalizedstring.h>
 #include <kicon.h>
 #include <kdebug.h>
+#include <kguiitem.h>
 
 #include <monopd.h>
 
@@ -128,7 +129,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	// Server List / Refresh
-	m_refreshButton->setGuiItem(useMonopigatorOnStart ? KGuiItem(i18n("Reload Server List"), "view-refresh") : KGuiItem(i18n("Get Server List"), "network-wired"));
+	KGuiItem::assign(m_refreshButton, useMonopigatorOnStart ? KGuiItem(i18n("Reload Server List"), "view-refresh") : KGuiItem(i18n("Get Server List"), "network-wired"));
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
@@ -163,7 +164,7 @@ void SelectServer::initMonopigator()
 	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
 	emit msgStatus(i18n("Retrieving server list..."));
 
-	m_refreshButton->setGuiItem(KGuiItem(i18n("Reload Server List"), "view-refresh"));
+	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), "view-refresh"));
 	m_metatlantic->loadData(METATLANTIC_HOST, METATLANTIC_PORT);
 }
 

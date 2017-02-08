@@ -25,7 +25,7 @@ class QPixmap;
 class QHBoxLayout;
 
 class QListWidget;
-class KPushButton;
+class QPushButton;
 
 class Estate;
 
@@ -59,11 +59,11 @@ private:
 	QPixmap *m_pixmap;
 	QPixmap *m_quartzBlocks;
 	QListWidget *m_infoListView;
-	KPushButton *m_closeButton;
+	QPushButton *m_closeButton;
 	bool b_recreate, m_recreateQuartz;
 	QHBoxLayout *m_buttonBox;
 	QSignalMapper m_buttonCommandMapper;
-	QVector<KPushButton *> m_buttons;
+	QVector<QPushButton *> m_buttons;
 };
 
 #endif

@@ -19,10 +19,9 @@
 
 #include <QWidget>
 
+class QPushButton;
 class QTreeWidget;
 class QTreeWidgetItem;
-
-class KPushButton;
 
 class AtlanticCore;
 class Game;
@@ -54,7 +53,7 @@ private:
 
 	AtlanticCore *m_atlanticCore;
 	QTreeWidget *m_gameList;
-	KPushButton *m_connectButton;
+	QPushButton *m_connectButton;
 };
 
 #endif

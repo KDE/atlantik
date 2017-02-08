@@ -19,12 +19,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidget>
+#include <QPushButton>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <kicon.h>
 #include <klocalizedstring.h>
-#include <kpushbutton.h>
 #include <KStandardGuiItem>
 
 #include <kdebug.h>
@@ -240,7 +240,7 @@ void EstateDetails::addDetails()
 
 void EstateDetails::addButton(const QString &command, const QString &caption, bool enabled)
 {
-	KPushButton *button = new KPushButton(caption, this);
+	QPushButton *button = new QPushButton(caption, this);
 	m_buttons.append(button);
 	m_buttonCommandMapper.setMapping((QObject *)button, command);
 	m_buttonBox->addWidget(button);
@@ -266,7 +266,8 @@ void EstateDetails::addCloseButton()
 {
 	if (!m_closeButton)
 	{
-		m_closeButton = new KPushButton(KStandardGuiItem::close(), this);
+		m_closeButton = new QPushButton(this);
+		KStandardGuiItem::assign(m_closeButton, KStandardGuiItem::Close);
 		m_buttonBox->addWidget(m_closeButton);
 		m_closeButton->show();
 		connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
@@ -315,7 +316,7 @@ void EstateDetails::clearButtons()
 	}
 
 	// Delete buttons
-	foreach (KPushButton *button, m_buttons)
+	foreach (QPushButton *button, m_buttons)
 	{
 		m_buttonCommandMapper.removeMappings((QObject *)button);
 		delete button;

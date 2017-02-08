@@ -115,7 +115,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="KPushButton" name="m_refreshButton">
+      <widget class="QPushButton" name="m_refreshButton">
        <property name="text">
         <string/>
        </property>
@@ -132,13 +132,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
