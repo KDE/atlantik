@@ -21,10 +21,10 @@
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QLinearGradient>
+#include <QMenu>
 
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
-#include <kmenu.h>
 #include <kstandarddirs.h>
 
 #include <player.h>
@@ -430,8 +430,8 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::RightButton && m_estate->isOwned())
 	{
-		KMenu *rmbMenu = new KMenu(this);
-		rmbMenu->addTitle(m_estate->name());
+		QMenu *rmbMenu = new QMenu(this);
+		rmbMenu->setTitle(m_estate->name());
 
 		if (m_estate->isOwnedBySelf())
 		{

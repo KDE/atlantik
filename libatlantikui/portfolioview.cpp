@@ -19,11 +19,11 @@
 #include <QMouseEvent>
 #include <QFile>
 #include <QMultiHash>
+#include <QMenu>
 
 #include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
-#include <kmenu.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -259,8 +259,8 @@ void PortfolioView::mousePressEvent(QMouseEvent *e)
 
 	if ( e->button()==Qt::RightButton && (m_player != playerSelf) )
 	{
-		KMenu rmbMenu(this);
-		rmbMenu.addTitle(m_player->name());
+		QMenu rmbMenu(this);
+		rmbMenu.setTitle(m_player->name());
 		QAction *act;
 
 		if ( m_portfolioEstates.count() )
