@@ -9,6 +9,7 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
+include(GenerateExportHeader)
 
 find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
 
