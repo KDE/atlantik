@@ -20,9 +20,7 @@
 #include <QDirIterator>
 #include <QFileInfo>
 #include <QSet>
-
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <QStandardPaths>
 
 struct TokenThemeFiller
 {
@@ -40,7 +38,7 @@ struct SpecificThemeData
 
 void TokenThemeFiller::iterateThemes(void *data, void (*fun)(void *, const QString &, const QString &))
 {
-	foreach (const QString &dir, KGlobal::dirs()->findDirs("data", "atlantik/themes/"))
+	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "atlantik/themes/", QStandardPaths::LocateDirectory))
 	{
 		QDirIterator it(dir, QDir::Dirs | QDir::NoDotAndDotDot);
 		while (it.hasNext())

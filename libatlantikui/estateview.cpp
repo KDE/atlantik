@@ -22,10 +22,10 @@
 #include <QMouseEvent>
 #include <QLinearGradient>
 #include <QMenu>
+#include <QStandardPaths>
 
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
-#include <kstandarddirs.h>
 
 #include <player.h>
 #include <estate.h>
@@ -109,7 +109,7 @@ void EstateView::loadIcon(const QString &_icon)
 		icon = 0;
 		return;
 	}
-	icon = new QPixmap(KStandardDirs::locate("data", "atlantik/pics/" + _icon));
+	icon = new QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "atlantik/pics/" + _icon));
 	if (icon->isNull())
 	{
 		delete icon;

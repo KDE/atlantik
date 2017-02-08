@@ -17,21 +17,22 @@
 #include "connectioncookie.h"
 
 #include <QDataStream>
+#include <QDir>
 #include <QFile>
-
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <QFileInfo>
+#include <QStandardPaths>
 
 static const int ConnectionCookieVersion = 1;
 
 static QString filePath()
 {
-	return KGlobal::dirs()->saveLocation("cache") + "atlantik.cookie";
+	return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/atlantik.cookie";
 }
 
 ConnectionCookie::ConnectionCookie(const QString &host, int port, const QString &cookie) : m_host(host), m_port(port), m_cookie(cookie)
 {
 	QFile f(filePath());
+	QDir().mkpath(QFileInfo(f).absolutePath());
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Truncate))
 		return;
 
