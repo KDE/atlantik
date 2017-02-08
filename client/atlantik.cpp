@@ -35,6 +35,8 @@
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <klocale.h>
+#include <kicon.h>
+#include <kcomponentdata.h>
 
 #include <kdebug.h>
 

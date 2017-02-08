@@ -19,6 +19,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QVariant>
 
 #include <kicondialog.h>
 #include <kiconloader.h>
