@@ -173,8 +173,10 @@ Atlantik::Atlantik ()
 
 	// Mix code and XML into GUI
 	setupGUI();
-	KXmlGuiWindow::statusBar()->insertItem("Atlantik " ATLANTIK_VERSION_STRING, 0);
-	KXmlGuiWindow::statusBar()->insertItem(QString(), 1, 1);
+	m_sbVersion = new QLabel("Atlantik " ATLANTIK_VERSION_STRING);
+	KXmlGuiWindow::statusBar()->addWidget(m_sbVersion, 0);
+	m_sbStatus = new QLabel();
+	KXmlGuiWindow::statusBar()->addWidget(m_sbStatus, 1);
 	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
@@ -640,7 +642,7 @@ void Atlantik::slotMsgError(const QString &msg)
 
 void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
 {
-	KXmlGuiWindow::statusBar()->changeItem(message, 1);
+	m_sbStatus->setText(message);
 	m_eventLog->addEvent(message, icon);
 }
 
@@ -806,6 +808,8 @@ void Atlantik::sendHandshake()
 
 void Atlantik::statusBarClick(int item)
 {
+	// TODO KF5
+#if 0
 	if ( item == 0 )
 	{
 		KAboutApplicationDialog dialog(KGlobal::mainComponent().aboutData(), this);
@@ -813,6 +817,7 @@ void Atlantik::statusBarClick(int item)
 	}
 	else if ( item == 1)
 		showEventLog();
+#endif
 }
 
 PortfolioView *Atlantik::addPortfolioView(Player *player)

@@ -250,6 +250,8 @@ private:
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;
+	QLabel *m_sbVersion;
+	QLabel *m_sbStatus;
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
