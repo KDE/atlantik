@@ -14,7 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <kaboutdata.h>
+#include <k4aboutdata.h>
 #include <kcmdlineargs.h>
 #include <klocalizedstring.h>
 #include <kapplication.h>
@@ -26,11 +26,11 @@
 
 int main(int argc, char *argv[])
 {
-	KAboutData aboutData(
+	K4AboutData aboutData(
 		"atlantik", 0,
 		ki18n("Atlantik"), ATLANTIK_VERSION_STRING,
 		ki18n("The Atlantic board game"),
-		KAboutData::License_GPL,
+		K4AboutData::License_GPL,
 		ki18n("(c) 1998-2004 Rob Kaper"),
 		ki18n("KDE client for playing Monopoly-like games on the monopd network."),
 		"http://unixcode.org/atlantik/"
