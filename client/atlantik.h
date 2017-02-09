@@ -42,6 +42,7 @@ class AtlantikNetwork;
 class PortfolioView;
 class AtlantikBoard;
 class Auction;
+class ClickableLabel;
 
 struct AtlantikConfig
 {
@@ -133,7 +134,7 @@ private slots:
 	void freezeBoard();
 	void clientCookie(const QString &cookie);
 	void sendHandshake();
-	void statusBarClick(int);
+	void showAboutDialog();
 
 public slots:
 
@@ -253,8 +254,8 @@ private:
 	QWidget *m_mainWidget, *m_portfolioWidget;
 	QGridLayout *m_mainLayout;
 	QVBoxLayout *m_portfolioLayout;
-	QLabel *m_sbVersion;
-	QLabel *m_sbStatus;
+	ClickableLabel *m_sbVersion;
+	ClickableLabel *m_sbStatus;
 
 	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;

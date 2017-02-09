@@ -9,6 +9,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui
 
 set(atlantik_SRCS 
    atlantik.cpp 
+   clickablelabel.cpp
    configdlg.cpp 
    connectioncookie.cpp
    customlocationiconbutton.cpp

@@ -36,7 +36,7 @@
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <kiconloader.h>
-#include <kcomponentdata.h>
+#include <kaboutdata.h>
 
 #include <atlantic_core.h>
 #include <auction.h>
@@ -57,6 +57,7 @@
 #include "selectgame_widget.h"
 #include "selectconfiguration_widget.h"
 #include "configdlg.h"
+#include "clickablelabel.h"
 
 #include <settings.h>
 #include <atlantik_debug.h>
@@ -172,11 +173,13 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Mix code and XML into GUI
 	setupGUI();
-	m_sbVersion = new QLabel("Atlantik " ATLANTIK_VERSION_STRING);
+	m_sbVersion = new ClickableLabel();
+	m_sbVersion->setText("Atlantik " ATLANTIK_VERSION_STRING);
+	connect(m_sbVersion, SIGNAL(clicked()), this, SLOT(showAboutDialog()));
 	KXmlGuiWindow::statusBar()->addWidget(m_sbVersion, 0);
-	m_sbStatus = new QLabel();
+	m_sbStatus = new ClickableLabel();
+	connect(m_sbStatus, SIGNAL(clicked()), this, SLOT(showEventLog()));
 	KXmlGuiWindow::statusBar()->addWidget(m_sbStatus, 1);
-	connect(statusBar(), SIGNAL(released(int)), this, SLOT(statusBarClick(int)));
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this);
@@ -801,18 +804,10 @@ void Atlantik::sendHandshake()
 		m_atlantikNetwork->joinGame(game.toInt());
 }
 
-void Atlantik::statusBarClick(int item)
+void Atlantik::showAboutDialog()
 {
-	// TODO KF5
-#if 0
-	if ( item == 0 )
-	{
-		KAboutApplicationDialog dialog(KGlobal::mainComponent().aboutData(), this);
-		dialog.exec();
-	}
-	else if ( item == 1)
-		showEventLog();
-#endif
+	KAboutApplicationDialog dialog(KAboutData::applicationData(), this);
+	dialog.exec();
 }
 
 PortfolioView *Atlantik::addPortfolioView(Player *player)
