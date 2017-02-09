@@ -16,16 +16,20 @@
 
 #include "kio_atlantik.h"
 
-#include <kcomponentdata.h>
+#include <QCoreApplication>
+#include <QUrlQuery>
+
 #include <kprocess.h>
 
 #include <monopd.h>
 
 extern "C"
 {
-	Q_DECL_EXPORT int kdemain( int, char **argv )
+	int Q_DECL_EXPORT kdemain(int argc, char **argv)
 	{
-		KComponentData componentData( "kio_atlantik" );
+		QCoreApplication app(argc, argv);
+		app.setApplicationName(QLatin1String("kio_atlantik"));
+
 		AtlantikProtocol slave(argv[2], argv[3]);
 		slave.dispatchLoop();
 		return 0;
