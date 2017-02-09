@@ -38,8 +38,6 @@
 #include <kiconloader.h>
 #include <kcomponentdata.h>
 
-#include <kdebug.h>
-
 #include <atlantic_core.h>
 #include <auction.h>
 #include <estate.h>
@@ -62,6 +60,7 @@
 #include "configdlg.h"
 
 #include <settings.h>
+#include <atlantik_debug.h>
 
 LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
 {
@@ -801,7 +800,7 @@ void Atlantik::sendHandshake()
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 	QString game = args->getOption("game");
-	kDebug() << "received Handshake; joining game:" << game.toInt();
+	qCDebug(ATLANTIK_LOG) << "received Handshake; joining game:" << game.toInt();
 	if (!game.isEmpty())
 		m_atlantikNetwork->joinGame(game.toInt());
 }

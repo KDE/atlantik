@@ -20,7 +20,6 @@
 
 #include <klocalizedstring.h>
 #include <kiconloader.h>
-#include <kdebug.h>
 #include <kguiitem.h>
 
 #include <monopd.h>
@@ -28,6 +27,8 @@
 #include "metatlantic.h"
 
 #include "selectserver_widget.h"
+
+#include <atlantik_debug.h>
 
 MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port)
 {
@@ -80,14 +81,14 @@ bool MetaserverEntry::operator<(const QTreeWidgetItem &other) const
 void MetaserverEntry::resolved()
 {
 	m_timer.start();
-	kDebug() << host() << "resolved; timer starts";
+	qCDebug(ATLANTIK_LOG) << host() << "resolved; timer starts";
 }
 
 void MetaserverEntry::connected()
 {
 	m_latency = m_timer.elapsed();
 	m_latencySocket->abort();
-	kDebug() << "connected to" << host() << "- latency =" << m_latency;
+	qCDebug(ATLANTIK_LOG) << "connected to" << host() << "- latency =" << m_latency;
 	setDisabled(false);
 	setText(1, QString::number(m_latency));
 	disconnect(m_latencySocket, 0, this, 0);

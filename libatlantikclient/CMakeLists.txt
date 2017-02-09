@@ -3,6 +3,12 @@ include_directories( ${CMAKE_SOURCE_DIR}/libatlantic  )
 ########### next target ###############
 
 set(atlantikclient_LIB_SRCS atlantik_network.cpp monopdprotocol.cpp )
+ecm_qt_declare_logging_category(atlantikclient_LIB_SRCS
+  HEADER libatlantikclient_debug.h
+  IDENTIFIER LIBATLANTIKCLIENT_LOG
+  CATEGORY_NAME atlantik.libatlantikclient
+  DEFAULT_SEVERITY Warning
+)
 add_library(atlantikclient SHARED ${atlantikclient_LIB_SRCS})
 generate_export_header(atlantikclient BASE_NAME libatlantikclient)
 target_link_libraries(atlantikclient Qt5::Core Qt5::Gui Qt5::Xml Qt5::Network KF5::I18n KF5::KDELibs4Support atlantic)

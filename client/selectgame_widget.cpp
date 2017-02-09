@@ -21,7 +21,6 @@
 #include <QHeaderView>
 #include <QPushButton>
 
-#include <kdebug.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <knotification.h>

@@ -21,7 +21,7 @@
 #include <QTextCodec>
 #include <QTimer>
 
-#include <kdebug.h>
+#include <atlantik_debug.h>
 
 Metatlantic::Metatlantic()
 {
@@ -80,7 +80,7 @@ void Metatlantic::closeSocket()
 
 void Metatlantic::processMsg(const QString &msg)
 {
-	kDebug() << msg;
+	qCDebug(ATLANTIK_LOG) << msg;
 	QDomDocument dom;
 	dom.setContent(msg);
 	QDomElement e = dom.documentElement();
@@ -103,7 +103,7 @@ void Metatlantic::processMsg(const QString &msg)
 				if (!a.isNull())
 				{
 					const QString serverVersion = a.value();
-					kDebug() << "metaserver version" << serverVersion;
+					qCDebug(ATLANTIK_LOG) << "metaserver version" << serverVersion;
 				}
 				do_send_follow = true;
 			}
@@ -116,7 +116,7 @@ void Metatlantic::processMsg(const QString &msg)
 				emit metatlanticAdd(host, port, version, users);
 				do_close = true;
 			} else
-				kDebug() << "ignored TAG:" << e.tagName();
+				qCDebug(ATLANTIK_LOG) << "ignored TAG:" << e.tagName();
 		}
 	}
 	if (do_send_follow)

@@ -27,8 +27,6 @@
 #include <klocalizedstring.h>
 #include <KStandardGuiItem>
 
-#include <kdebug.h>
-
 #include <estate.h>
 #include <estategroup.h>
 #include <player.h>

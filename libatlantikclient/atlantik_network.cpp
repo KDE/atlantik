@@ -21,7 +21,6 @@
 #include <QTcpSocket>
 #include <QHostAddress>
 
-#include <kdebug.h>
 #include <klocalizedstring.h>
 
 #include <atlantic_core.h>
@@ -35,6 +34,8 @@
 #include <trade.h>
 
 #include "atlantik_network.h"
+
+#include <libatlantikclient_debug.h>
 
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 {
@@ -157,7 +158,7 @@ void AtlantikNetwork::writeData(const QString &data) {
 	emit networkEvent(data, "arrow-right");
 	//data.append("\n");
 	m_monopdstream << data << endl;
-	kDebug() << "writing data:" << data;
+	qCDebug(LIBATLANTIKCLIENT_LOG) << "writing data:" << data;
 
 }
 
@@ -203,7 +204,7 @@ void AtlantikNetwork::setName(const QString &name)
 {
         // Almost deprecated, will be replaced by libmonopdprotocol
         writeData(QString(".n%1").arg(name));
-        kDebug() << "set name to:" << name;
+        qCDebug(LIBATLANTIKCLIENT_LOG) << "set name to:" << name;
 }
 
 void AtlantikNetwork::tokenConfirmation(Estate *estate)
@@ -234,7 +235,7 @@ void AtlantikNetwork::newGame(const QString &gameType)
 void AtlantikNetwork::joinGame(int gameId)
 {
         writeData(QString(".gj%1").arg(gameId));
-        kDebug() << "joining game" << gameId;
+        qCDebug(LIBATLANTIKCLIENT_LOG) << "joining game" << gameId;
 }
 
 void AtlantikNetwork::cmdChat(const QString &msg)
@@ -310,7 +311,7 @@ void AtlantikNetwork::changeOption(int configId, const QString &value)
 
 void AtlantikNetwork::processMsg(const QString &msg) {
     emit networkEvent(msg, "arrow-left");
-    kDebug() << msg;
+    qCDebug(LIBATLANTIKCLIENT_LOG) << msg;
     QDomDocument dom;
     dom.setContent(msg);
     QDomElement e = dom.documentElement();
@@ -334,7 +335,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 a = e.attributeNode( QString("version") );
                 if ( !a.isNull() )
                     m_serverVersion = a.value();
-                    kDebug() << "receivedHandshake";
+                    qCDebug(LIBATLANTIKCLIENT_LOG) << "receivedHandshake";
                 emit receivedHandshake();
             } else if (e.tagName() == "msg") {
                 a = e.attributeNode(QString("type"));
@@ -438,9 +439,9 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                     Player *playerSelf = m_atlanticCore->playerSelf();
                     if ( playerSelf && playerSelf->game() )
-                        kDebug() << "gameupdate for" << gameId << "with playerSelf in game" << playerSelf->game()->id();
+                        qCDebug(LIBATLANTIKCLIENT_LOG) << "gameupdate for" << gameId << "with playerSelf in game" << playerSelf->game()->id();
                     else
-                        kDebug() << "gameupdate for" << gameId;
+                        qCDebug(LIBATLANTIKCLIENT_LOG) << "gameupdate for" << gameId;
 
 
                     Game *game = 0;
@@ -843,7 +844,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                                         pTo = m_atlanticCore->findPlayer(a.value().toInt());
 
                                     a = e_child.attributeNode(QString("money"));
-                                    kDebug() << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1");
+                                    qCDebug(LIBATLANTIKCLIENT_LOG) << "tradeupdatemoney" << (pFrom ? "1" : "0") << (pTo ? "1" : "0") << (a.isNull() ? "0" : "1");
                                     if (trade && pFrom && pTo && !a.isNull())
                                         trade->updateMoney(a.value().toInt(), pFrom, pTo);
                                 } else if (e_child.tagName() == "tradecard") {
@@ -936,7 +937,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         card->update();
                 }
             } else
-                kDebug() << "ignored TAG:" << e.tagName();
+                qCDebug(LIBATLANTIKCLIENT_LOG) << "ignored TAG:" << e.tagName();
         }
         // TODO: remove permanently?
         // QDomNode node = n.firstChild();

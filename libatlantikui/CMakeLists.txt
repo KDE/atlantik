@@ -12,6 +12,12 @@ set(atlantikui_LIB_SRCS
    token.cpp 
    tokentheme.cpp
    trade_widget.cpp )
+ecm_qt_declare_logging_category(atlantikui_LIB_SRCS
+  HEADER libatlantikui_debug.h
+  IDENTIFIER LIBATLANTIKUI_LOG
+  CATEGORY_NAME atlantik.libatlantikui
+  DEFAULT_SEVERITY Warning
+)
 add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 generate_export_header(atlantikui BASE_NAME libatlantikui)
 target_link_libraries(atlantikui Qt5::Widgets KF5::I18n KF5::IconThemes KF5::WidgetsAddons KF5::KDELibs4Support atlantic)

@@ -10,6 +10,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
 include(GenerateExportHeader)
+include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
 
