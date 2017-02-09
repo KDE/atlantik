@@ -657,7 +657,7 @@ void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 		serverMsgsAppend(player + ": " + msg);
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
-		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, Qt::escape(msg)));
+		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, msg.toHtmlEscaped()));
 }
 
 void Atlantik::serverMsgsAppend(const QString &msg)
