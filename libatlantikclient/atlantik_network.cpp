@@ -322,7 +322,8 @@ void AtlantikNetwork::processMsg(const QString &msg) {
     }
     QDomNode n = e.firstChild();
     processNode(n);
-    m_atlanticCore->printDebug();
+    if (LIBATLANTIKCLIENT_LOG().isDebugEnabled())
+        m_atlanticCore->printDebug();
 }
 
 void AtlantikNetwork::processNode(QDomNode n) {
