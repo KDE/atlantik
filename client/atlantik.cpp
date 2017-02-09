@@ -23,6 +23,7 @@
 #include <QScrollArea>
 #include <QTextDocument>
 #include <QCommandLineParser>
+#include <QLocale>
 
 #include <kaboutapplicationdialog.h>
 #include <kaction.h>
@@ -34,7 +35,6 @@
 #include <kstatusbar.h>
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
-#include <klocale.h>
 #include <kiconloader.h>
 #include <kcomponentdata.h>
 
@@ -49,7 +49,6 @@
 
 #include <board.h>
 #include <trade_widget.h>
-#include <kglobal.h>
 #include <portfolioview.h>
 
 #include "eventlogwidget.h"
@@ -648,7 +647,7 @@ void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
 	if (m_config.chatTimestamps)
 	{
-		const QString timeString = KGlobal::locale()->formatLocaleTime(QTime::currentTime());
+		const QString timeString = QLocale::system().toString(QTime::currentTime(), QLocale::ShortFormat);
 		serverMsgsAppend(QString("[%1] %2: %3").arg(timeString, player, msg));
 	}
 	else
