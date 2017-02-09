@@ -22,11 +22,11 @@
 #include <QApplication>
 #include <QScrollArea>
 #include <QTextDocument>
+#include <QCommandLineParser>
 
 #include <kaboutapplicationdialog.h>
 #include <kaction.h>
 #include <kactioncollection.h>
-#include <kcmdlineargs.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
@@ -88,8 +88,9 @@ void LogTextEdit::contextMenuEvent(QContextMenuEvent *event)
 	menu.exec(event->globalPos());
 }
 
-Atlantik::Atlantik ()
+Atlantik::Atlantik(QCommandLineParser *parser)
  :	KXmlGuiWindow (),
+	m_cliParser(parser),
  	m_runningGame( false ),
 	m_reconnecting(false)
 {
@@ -231,10 +232,8 @@ Atlantik::Atlantik ()
 	m_mainLayout->setColumnStretch(1, 1); // make m_board stretch horizontally, not the rest
 
 	// Check command-line args to see if we need to connect or show Monopigator window
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-	QString host = args->getOption("host");
-	QString port = args->getOption("port");
+	QString host = m_cliParser ? m_cliParser->value("host") : QString();
+	QString port = m_cliParser ? m_cliParser->value("port") : QString();
 	if (!host.isEmpty() && !port.isEmpty())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -797,9 +796,7 @@ void Atlantik::sendHandshake()
 	m_atlantikNetwork->setImage(m_config.playerImage);
 
 	// Check command-line args to see if we need to auto-join
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-	QString game = args->getOption("game");
+	QString game = m_cliParser ? m_cliParser->value("game") : QString();
 	qCDebug(ATLANTIK_LOG) << "received Handshake; joining game:" << game.toInt();
 	if (!game.isEmpty())
 		m_atlantikNetwork->joinGame(game.toInt());

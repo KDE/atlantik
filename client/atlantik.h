@@ -36,6 +36,7 @@ class QLineEdit;
 class QLabel;
 class QVBoxLayout;
 class QGridLayout;
+class QCommandLineParser;
 class AtlanticCore;
 class AtlantikNetwork;
 class PortfolioView;
@@ -106,7 +107,7 @@ public:
 	 * Create an Atlantik window.
 	 *
 	 */
-	Atlantik();
+	Atlantik(QCommandLineParser *parser = 0);
 
 	/**
 	 * Read the configuration settings using KConfig.
@@ -245,6 +246,8 @@ private:
 	void initNetworkObject();
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
+
+	QCommandLineParser *m_cliParser;
 
 	QScrollArea *m_portfolioScroll;
 	QWidget *m_mainWidget, *m_portfolioWidget;
