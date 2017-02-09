@@ -185,8 +185,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	m_eventList->setModel(proxy);
 	m_eventList->setRootIsDecorated(false);
-	m_eventList->header()->setClickable(false);
-	m_eventList->header()->setResizeMode(0, QHeaderView::ResizeToContents);
+	m_eventList->header()->setSectionsClickable(false);
+	m_eventList->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
 
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(accept()));
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));

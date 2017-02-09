@@ -62,7 +62,7 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	m_gameList->setHeaderLabels(headers);
 	m_gameList->setRootIsDecorated(false);
 	m_gameList->setAllColumnsShowFocus(true);
-	m_gameList->header()->setClickable(false);
+	m_gameList->header()->setSectionsClickable(false);
 //	mainLayout->addWidget(m_gameList);
 
 	connect(m_gameList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));

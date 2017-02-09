@@ -55,8 +55,8 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	m_playerList = new QTreeWidget(m_playerGroupBox);
 	m_playerList->setHeaderLabels(QStringList() << i18n("Player") << i18n("Bid"));
 	m_playerList->setRootIsDecorated(false);
-	m_playerList->header()->setClickable(false);
-	m_playerList->header()->setResizeMode(QHeaderView::ResizeToContents);
+	m_playerList->header()->setSectionsClickable(false);
+	m_playerList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	playerGroupBoxLayout->addWidget(m_playerList);
 
 	QList<QTreeWidgetItem *> items;

@@ -137,7 +137,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
         m_componentList->setObjectName( "componentList" );
 	m_componentList->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_componentList->setRootIsDecorated(false);
-	m_componentList->header()->setResizeMode(QHeaderView::ResizeToContents);
+	m_componentList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	listCompBox->addWidget(m_componentList);
 
 	QStringList headers;

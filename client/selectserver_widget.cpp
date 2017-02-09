@@ -120,10 +120,10 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 
 	// List of servers
 	m_serverList->sortItems(1, Qt::AscendingOrder);
-	m_serverList->header()->setClickable(false);
-	m_serverList->header()->setResizeMode(1, QHeaderView::ResizeToContents);
-	m_serverList->header()->setResizeMode(2, QHeaderView::ResizeToContents);
-	m_serverList->header()->setResizeMode(3, QHeaderView::ResizeToContents);
+	m_serverList->header()->setSectionsClickable(false);
+	m_serverList->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+	m_serverList->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+	m_serverList->header()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
 	connect(m_serverList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
 	connect(m_serverList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotConnect()));
