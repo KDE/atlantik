@@ -136,14 +136,14 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	m_buyEstate = actionCollection()->addAction("atlantik_buy_estate");
         m_buyEstate->setText(i18n("&Buy"));
-	m_buyEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_B) );
+	actionCollection()->setDefaultShortcut(m_buyEstate, QKeySequence(Qt::CTRL + Qt::Key_B));
 	m_buyEstate->setIcon(KDE::icon("atlantik_buy_estate"));
 	connect (m_buyEstate,SIGNAL(triggered()), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
 	m_auctionEstate = actionCollection()->addAction("auction");
         m_auctionEstate->setText(i18n("&Auction"));
-	m_auctionEstate->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_A));
+	actionCollection()->setDefaultShortcut(m_auctionEstate, QKeySequence(Qt::CTRL + Qt::Key_A));
 	m_auctionEstate->setIcon(KDE::icon("auction"));
 	connect(m_auctionEstate,SIGNAL(triggered()),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
@@ -159,14 +159,14 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	m_jailPay = actionCollection()->addAction("jail_pay");
         m_jailPay->setText(i18n("&Pay to Leave Jail"));
-	m_jailPay->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_P));
+	actionCollection()->setDefaultShortcut(m_jailPay, QKeySequence(Qt::CTRL + Qt::Key_P));
 	m_jailPay->setIcon(KDE::icon("jail_pay"));
 	connect(m_jailPay, SIGNAL(triggered()),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 
 	m_jailRoll = actionCollection()->addAction("move_jailroll");
         m_jailRoll->setText(i18n("Roll to Leave &Jail"));
-	m_jailRoll->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
+	actionCollection()->setDefaultShortcut(m_jailRoll, QKeySequence(Qt::CTRL + Qt::Key_J));
 	connect(m_jailRoll, SIGNAL(triggered()), this, SIGNAL(jailRoll()));
 	m_jailRoll->setEnabled(false);
 
