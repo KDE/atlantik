@@ -22,8 +22,8 @@
 #include <QMenu>
 #include <QApplication>
 #include <QStyle>
+#include <QFontDatabase>
 
-#include <kglobalsettings.h>
 #include <klocalizedstring.h>
 
 #include <atlantic_core.h>
@@ -197,6 +197,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 	if (b_recreate)
 	{
 		const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
+		const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
@@ -222,7 +223,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		}
 
 		painter.setPen(Qt::white);
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
+		painter.setFont(QFont(generalFont.family(), generalFont.pointSize(), QFont::Bold));
 		painter.drawText(ICONSIZE + marginHint, 15, m_player->name());
 
 		if ( m_portfolioEstates.count() )
@@ -232,7 +233,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 			painter.setPen(Qt::black);
 			painter.setBrush(Qt::white);
 
-			painter.setFont(KGlobalSettings::generalFont());
+			painter.setFont(generalFont);
 			painter.drawText(ICONSIZE + marginHint, 30, m_player->host());
 		}
 

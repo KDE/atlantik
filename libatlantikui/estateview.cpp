@@ -23,8 +23,8 @@
 #include <QLinearGradient>
 #include <QMenu>
 #include <QStandardPaths>
+#include <QFontDatabase>
 
-#include <kglobalsettings.h>
 #include <klocalizedstring.h>
 
 #include <player.h>
@@ -397,7 +397,7 @@ void EstateView::paintEvent(QPaintEvent *)
 			}
 		}
 
-		const QFont font = KGlobalSettings::generalFont();
+		const QFont font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 		painter.setFont(font);
 		QString estateName = m_estate->name();
 		QFontMetrics fm( font );

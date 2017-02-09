@@ -22,8 +22,8 @@
 #include <QPushButton>
 #include <QApplication>
 #include <QStyle>
+#include <QFontDatabase>
 
-#include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
 #include <KStandardGuiItem>
@@ -131,6 +131,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		{
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
+			const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
 			painter.setBrush(titleColor);
 			painter.drawRect(0, 0, width()-1, StaticTitleHeight-1);
@@ -164,11 +165,11 @@ void EstateDetails::paintEvent(QPaintEvent *)
 
 			// Estate name
 			painter.setPen(Qt::white);
-			int fontSize = KGlobalSettings::generalFont().pointSize();
+			int fontSize = generalFont.pointSize();
 			if (fontSize == -1)
-				fontSize = KGlobalSettings::generalFont().pixelSize();
+				fontSize = generalFont.pixelSize();
 
-			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
+			painter.setFont(QFont(generalFont.family(), fontSize * 2, QFont::Bold));
 			painter.drawText(marginHint, marginHint, width()-marginHint, StaticTitleHeight, Qt::AlignJustify, m_estate->name());
 
 			painter.setPen(Qt::black);
@@ -179,12 +180,12 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			if (m_estate->estateGroup())
 			{
 				xText = StaticTitleHeight - fontSize - marginHint;
-				painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
+				painter.setFont(QFont(generalFont.family(), fontSize, QFont::Bold));
 				painter.drawText(5, xText, width()-10, StaticTitleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
 			}
 
 			xText = StaticTitleHeight + fontSize + 5;
-			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Normal));
+			painter.setFont(QFont(generalFont.family(), fontSize, QFont::Normal));
 		}
 		b_recreate = false;
 

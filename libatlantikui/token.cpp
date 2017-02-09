@@ -18,8 +18,7 @@
 #include <qpixmap.h>
 #include <QFont>
 #include <QFile>
-
-#include <kglobalsettings.h>
+#include <QFontDatabase>
 
 #include "board.h"
 #include "estate.h"
@@ -49,7 +48,7 @@ Token::Token(Player *player, AtlantikBoard *parent) : QWidget(parent)
 	m_image = 0;
 	loadIcon();
 
-	setFixedSize(QSize(ICONSIZE, ICONSIZE + KGlobalSettings::generalFont().pointSize()));
+	setFixedSize(QSize(ICONSIZE, ICONSIZE + QFontDatabase::systemFont(QFontDatabase::GeneralFont).pointSize()));
 }
 
 Token::~Token()
@@ -124,6 +123,7 @@ void Token::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
 	{
+		const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
@@ -142,10 +142,10 @@ void Token::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::black);
 		painter.setBrush(Qt::black);
-		painter.drawRect(0, ICONSIZE, width()-1, KGlobalSettings::generalFont().pointSize()-1);
+		painter.drawRect(0, ICONSIZE, width()-1, generalFont.pointSize()-1);
 
 		painter.setPen(Qt::white);
-		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::DemiBold));
+		painter.setFont(QFont(generalFont.family(), generalFont.pointSize(), QFont::DemiBold));
 		painter.drawText(1, height()-1, (m_player ? m_player->name() : QString()));
 
 		b_recreate = false;
