@@ -20,7 +20,6 @@
 #include <QGroupBox>
 #include <QPushButton>
 
-#include <kdialog.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 
@@ -52,7 +51,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	// Player buttons.
 	QHBoxLayout *playerButtons = new QHBoxLayout();
         m_mainLayout->addItem( playerButtons );
-	playerButtons->setSpacing(KDialog::spacingHint());
 
 	playerButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
@@ -62,7 +60,6 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	// Server buttons.
 	QHBoxLayout *serverButtons = new QHBoxLayout();
         m_mainLayout->addItem( serverButtons );
-	serverButtons->setSpacing(KDialog::spacingHint());
 
 	m_backButton = new QPushButton(KDE::icon("go-previous"), i18n("Leave Game"), this);
 	serverButtons->addWidget(m_backButton);

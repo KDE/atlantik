@@ -24,11 +24,12 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QPushButton>
+#include <QApplication>
+#include <QStyle>
 
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kcombobox.h>
-#include <kdialog.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -150,7 +151,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_componentList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(setCombos(QTreeWidgetItem*)));
 
 	QHBoxLayout *actionBox = new QHBoxLayout();
-	actionBox->setSpacing(KDialog::spacingHint());
+	actionBox->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 	actionBox->setMargin(0);
 	listCompBox->addItem(actionBox);
 

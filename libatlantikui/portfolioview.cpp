@@ -20,8 +20,9 @@
 #include <QFile>
 #include <QMultiHash>
 #include <QMenu>
+#include <QApplication>
+#include <QStyle>
 
-#include <kdialog.h>
 #include <kglobalsettings.h>
 #include <klocalizedstring.h>
 
@@ -195,6 +196,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 {
 	if (b_recreate)
 	{
+		const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
 		delete qpixmap;
 		qpixmap = new QPixmap(width(), height());
 
@@ -221,7 +223,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(KGlobalSettings::generalFont().family(), KGlobalSettings::generalFont().pointSize(), QFont::Bold));
-		painter.drawText(ICONSIZE + KDialog::marginHint(), 15, m_player->name());
+		painter.drawText(ICONSIZE + marginHint, 15, m_player->name());
 
 		if ( m_portfolioEstates.count() )
 			painter.drawText(width() - 50, 15, QString::number(m_player->money()));
@@ -231,7 +233,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 			painter.setBrush(Qt::white);
 
 			painter.setFont(KGlobalSettings::generalFont());
-			painter.drawText(ICONSIZE + KDialog::marginHint(), 30, m_player->host());
+			painter.drawText(ICONSIZE + marginHint, 30, m_player->host());
 		}
 
 		b_recreate = false;

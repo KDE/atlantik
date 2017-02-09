@@ -20,8 +20,9 @@
 #include <QVBoxLayout>
 #include <QListWidget>
 #include <QPushButton>
+#include <QApplication>
+#include <QStyle>
 
-#include <kdialog.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <klocalizedstring.h>
@@ -59,7 +60,7 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	appendText(text);
 
 	m_buttonBox = new QHBoxLayout();
-        m_buttonBox->setSpacing(KDialog::spacingHint());
+	m_buttonBox->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 	mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -129,6 +130,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 		if (m_estate)
 		{
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
+			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
 
 			painter.setBrush(titleColor);
 			painter.drawRect(0, 0, width()-1, StaticTitleHeight-1);
@@ -167,7 +169,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 				fontSize = KGlobalSettings::generalFont().pixelSize();
 
 			painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize * 2, QFont::Bold));
-			painter.drawText(KDialog::marginHint(), KDialog::marginHint(), width()-KDialog::marginHint(), StaticTitleHeight, Qt::AlignJustify, m_estate->name());
+			painter.drawText(marginHint, marginHint, width()-marginHint, StaticTitleHeight, Qt::AlignJustify, m_estate->name());
 
 			painter.setPen(Qt::black);
 
@@ -176,7 +178,7 @@ void EstateDetails::paintEvent(QPaintEvent *)
 			// Estate group
 			if (m_estate->estateGroup())
 			{
-				xText = StaticTitleHeight - fontSize - KDialog::marginHint();
+				xText = StaticTitleHeight - fontSize - marginHint;
 				painter.setFont(QFont(KGlobalSettings::generalFont().family(), fontSize, QFont::Bold));
 				painter.drawText(5, xText, width()-10, StaticTitleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
 			}
