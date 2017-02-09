@@ -26,10 +26,10 @@
 #include <QPushButton>
 #include <QApplication>
 #include <QStyle>
+#include <QComboBox>
 
 #include <klocalizedstring.h>
 #include <kiconloader.h>
-#include <kcombobox.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -56,7 +56,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	QHBoxLayout *updateComponentBoxLayout = new QHBoxLayout(m_updateComponentBox);
 
-	m_editTypeCombo = new KComboBox(m_updateComponentBox);
+	m_editTypeCombo = new QComboBox(m_updateComponentBox);
 	m_editTypeCombo->addItem(i18n("Estate"));
 	m_editTypeCombo->addItem(i18n("Money"));
 	m_editTypeCombo->addItem(i18n("Card"));
@@ -64,7 +64,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_editTypeCombo, SIGNAL(activated(int)), this, SLOT(setTypeCombo(int)));
 
-	m_estateCombo = new KComboBox(m_updateComponentBox);
+	m_estateCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_estateCombo);
 	foreach (Estate *estate, m_atlanticCore->estates())
 	{
@@ -83,7 +83,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_moneyBox->setSingleStep(1);
 	updateComponentBoxLayout->addWidget(m_moneyBox);
 
-	m_cardCombo = new KComboBox(m_updateComponentBox);
+	m_cardCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_cardCombo);
 	foreach (Card *card, m_atlanticCore->cards())
 	{
@@ -102,13 +102,13 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_fromLabel = new QLabel(m_updateComponentBox);
 	m_fromLabel->setText(i18n("From"));
 	updateComponentBoxLayout->addWidget(m_fromLabel);
-	m_playerFromCombo = new KComboBox(m_updateComponentBox);
+	m_playerFromCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_playerFromCombo);
 
 	m_toLabel = new QLabel(m_updateComponentBox);
 	m_toLabel->setText(i18n("To"));
 	updateComponentBoxLayout->addWidget(m_toLabel);
-	m_playerTargetCombo = new KComboBox(m_updateComponentBox);
+	m_playerTargetCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_playerTargetCombo);
 
 	foreach (Player *player, m_atlanticCore->players())

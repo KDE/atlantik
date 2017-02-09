@@ -22,14 +22,13 @@
 
 #include "libatlantikui_export.h"
 
+class QComboBox;
 class QLabel;
 class QGroupBox;
 class QPushButton;
 class QSpinBox;
 class QTreeWidget;
 class QTreeWidgetItem;
-
-class KComboBox;
 
 class AtlanticCore;
 class Card;
@@ -82,7 +81,7 @@ private:
 	QLabel *m_status, *m_fromLabel, *m_toLabel;
 	QSpinBox *m_moneyBox;
 
-	KComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
+	QComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
 	QTreeWidget *m_componentList;
 	QPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
 
