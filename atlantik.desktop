@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=atlantik -caption %c
+Exec=atlantik -qwindowtitle %c
 Name=Atlantik
 Name[xx]=xxAtlantikxx
 GenericName=Monopoly®-like Board Games
