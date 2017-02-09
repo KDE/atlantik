@@ -19,7 +19,6 @@
 
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 
 #include "version.h"
@@ -65,7 +64,6 @@ int main(int argc, char *argv[])
 	aboutData.setupCommandLine(&parser);
 	parser.process(kapplication);
 	aboutData.processCommandLine(&parser);
-    KGlobal::locale()->insertCatalog("libkdegames");
 
 	if (kapplication.isSessionRestored())
 		kRestoreMainWindows<Atlantik>();
