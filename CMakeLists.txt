@@ -52,4 +52,5 @@ add_subdirectory( doc )
 ########### install files ###############
 
 install( FILES atlantik.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES atlantikui.rc atlantik.notifyrc  DESTINATION  ${DATA_INSTALL_DIR}/atlantik )
+install(FILES atlantikui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/atlantik)
+install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
