@@ -28,6 +28,7 @@
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kcombobox.h>
+#include <kdialog.h>
 
 #include <atlantic_core.h>
 #include <player.h>
@@ -39,19 +40,17 @@
 #include "trade_widget.h"
 
 TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent)
-	: KDialog(parent,
+	: QDialog(parent,
 	  Qt::WindowContextHelpButtonHint)
 {
 	m_trade = trade;
 	m_atlanticCore = atlanticCore;
 
-	setCaption(i18n("Trade %1", trade->tradeId()));
-	setButtons(KDialog::None);
+	setWindowTitle(i18n("Trade %1", trade->tradeId()));
 
-	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
-	listCompBox->setMargin(0);
+	QVBoxLayout *listCompBox = new QVBoxLayout(this);
 
-	m_updateComponentBox = new QGroupBox(i18n("Add Component"), mainWidget());
+	m_updateComponentBox = new QGroupBox(i18n("Add Component"), this);
 	listCompBox->addWidget(m_updateComponentBox);
 
 	QHBoxLayout *updateComponentBoxLayout = new QHBoxLayout(m_updateComponentBox);
@@ -133,7 +132,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
-	m_componentList = new QTreeWidget(mainWidget());
+	m_componentList = new QTreeWidget(this);
         m_componentList->setObjectName( "componentList" );
 	m_componentList->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_componentList->setRootIsDecorated(false);
@@ -157,18 +156,18 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new QPushButton(KDE::icon("dialog-cancel"), i18n("Reject"), mainWidget());
+	m_rejectButton = new QPushButton(KDE::icon("dialog-cancel"), i18n("Reject"), this);
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new QPushButton(KDE::icon("dialog-ok"), i18n("Accept"), mainWidget());
+	m_acceptButton = new QPushButton(KDE::icon("dialog-ok"), i18n("Accept"), this);
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 
 	connect(m_acceptButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-	m_status = new QLabel(mainWidget());
+	m_status = new QLabel(this);
 	listCompBox->addWidget(m_status);
 	m_status->setText( i18n( "%1 out of %2 players accept current trade proposal.", m_trade->count( true ), m_trade->count( false ) ) );
 
@@ -436,7 +435,7 @@ void TradeDisplay::contextMenu(const QPoint &pos)
 
 	m_contextTradeItem = m_componentRevMap[item];
 
-	QMenu *rmbMenu = new QMenu(mainWidget());
+	QMenu *rmbMenu = new QMenu(this);
 	QAction *act = rmbMenu->addAction(i18n("Remove From Trade"));
 	connect(act, SIGNAL(triggered()), this, SLOT(contextMenuClickedRemove()));
 

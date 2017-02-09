@@ -17,9 +17,8 @@
 #ifndef TRADEWIDGET_H
 #define TRADEWIDGET_H
 
+#include <QDialog>
 #include <QMap>
-
-#include <kdialog.h>
 
 #include "libatlantikui_export.h"
 
@@ -39,7 +38,7 @@ class Player;
 class Trade;
 class TradeItem;
 
-class LIBATLANTIKUI_EXPORT TradeDisplay : public KDialog
+class LIBATLANTIKUI_EXPORT TradeDisplay : public QDialog
 {
 Q_OBJECT
 

@@ -19,8 +19,7 @@
 
 #include <QSortFilterProxyModel>
 #include <QList>
-
-#include <kdialog.h>
+#include <QDialog>
 
 class QString;
 
@@ -69,7 +68,7 @@ private:
 	int m_count;
 };
 
-class EventLogWidget : public KDialog
+class EventLogWidget : public QDialog
 {
 Q_OBJECT
 

@@ -27,10 +27,11 @@
 #include <QHeaderView>
 #include <QFileDialog>
 #include <QPushButton>
+#include <QDialogButtonBox>
 
 #include <klocalizedstring.h>
-#include <kdialog.h>
 #include <kiconloader.h>
+#include <kguiitem.h>
 
 #include "event.h"
 #include "eventlogwidget.h"
@@ -157,24 +158,25 @@ bool LastMessagesProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
 }
 
 EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
-	: KDialog(parent,
+	: QDialog(parent,
 	  Qt::WindowContextHelpButtonHint)
 {
-	setButtons(Close|User1);
-	setDefaultButton(Close);
-	setButtonGuiItem(User1, KGuiItem(i18n("&Save As..."), "document-save"));
 	setModal(false);
 
 	m_eventLog = eventLog;
 
 	setWindowTitle(i18n("Event Log"));
 
-	QVBoxLayout *listCompBox = new QVBoxLayout(mainWidget());
-	listCompBox->setMargin(0);
+	QVBoxLayout *listCompBox = new QVBoxLayout(this);
 
-	m_eventList = new QTreeView(mainWidget());
+	m_eventList = new QTreeView(this);
 	m_eventList->setObjectName( "eventList" );
 	listCompBox->addWidget(m_eventList);
+
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, this);
+	QPushButton *saveButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
+	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), "document-save"));
+	listCompBox->addWidget(buttonBox);
 
 	LastMessagesProxyModel *proxy = new LastMessagesProxyModel(m_eventList);
 	// FIXME: allow a way to show older messages
@@ -186,7 +188,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	m_eventList->header()->setClickable(false);
 	m_eventList->header()->setResizeMode(0, QHeaderView::ResizeToContents);
 
-	connect(this, SIGNAL(user1Clicked()), this, SLOT(save()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(accept()));
+	connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));
 }
 
 void EventLogWidget::closeEvent(QCloseEvent *e)
