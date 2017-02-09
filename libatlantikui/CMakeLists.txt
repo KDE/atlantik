@@ -20,7 +20,7 @@ ecm_qt_declare_logging_category(atlantikui_LIB_SRCS
 )
 add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 generate_export_header(atlantikui BASE_NAME libatlantikui)
-target_link_libraries(atlantikui Qt5::Widgets KF5::I18n KF5::IconThemes KF5::WidgetsAddons KF5::KDELibs4Support atlantic)
+target_link_libraries(atlantikui Qt5::Widgets KF5::I18n KF5::IconThemes KF5::WidgetsAddons atlantic)
 set_target_properties(atlantikui PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
 install(TARGETS atlantikui ${INSTALL_TARGETS_DEFAULT_ARGS})
 
