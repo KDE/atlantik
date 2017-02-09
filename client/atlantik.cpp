@@ -24,15 +24,14 @@
 #include <QTextDocument>
 #include <QCommandLineParser>
 #include <QLocale>
+#include <QStatusBar>
 
 #include <kaboutapplicationdialog.h>
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
 #include <knotification.h>
-#include <kstatusbar.h>
 #include <kstandardgameaction.h>
 #include <kstandardaction.h>
 #include <kiconloader.h>
