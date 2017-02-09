@@ -22,7 +22,6 @@ find_package(KF5 REQUIRED
   DocTools
   I18n
   IconThemes
-  KDELibs4Support
   KDEGames
   KIO
   Notifications
