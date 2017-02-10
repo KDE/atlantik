@@ -16,4 +16,4 @@ target_link_libraries(atlantikclient
   PRIVATE Qt5::Xml Qt5::Network KF5::I18n
 )
 set_target_properties(atlantikclient PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install(TARGETS atlantikclient ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS atlantikclient ${INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
