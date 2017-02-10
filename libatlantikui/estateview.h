@@ -54,6 +54,7 @@ Q_OBJECT
 	protected:
 		void paintEvent(QPaintEvent *);
 		void resizeEvent(QResizeEvent *);
+		void contextMenuEvent(QContextMenuEvent *);
 		void mousePressEvent(QMouseEvent *);
 
 private:

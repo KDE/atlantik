@@ -256,11 +256,11 @@ void PortfolioView::playerChanged()
 	update();
 }
 
-void PortfolioView::mousePressEvent(QMouseEvent *e)
+void PortfolioView::contextMenuEvent(QContextMenuEvent *e)
 {
 	Player *playerSelf = m_atlanticCore->playerSelf();
 
-	if ( e->button()==Qt::RightButton && (m_player != playerSelf) )
+	if (m_player != playerSelf)
 	{
 		QMenu rmbMenu(this);
 		rmbMenu.setTitle(m_player->name());

@@ -426,9 +426,9 @@ void EstateView::resizeEvent(QResizeEvent *)
 	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
-void EstateView::mousePressEvent(QMouseEvent *e)
+void EstateView::contextMenuEvent(QContextMenuEvent *)
 {
-	if (e->button()==Qt::RightButton && m_estate->isOwned())
+	if (m_estate->isOwned())
 	{
 		QMenu *rmbMenu = new QMenu(this);
 		rmbMenu->setTitle(m_estate->name());
@@ -481,7 +481,11 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 		rmbMenu->exec(g);
 		delete rmbMenu;
 	}
-	else if (e->button()==Qt::LeftButton)
+}
+
+void EstateView::mousePressEvent(QMouseEvent *e)
+{
+	if (e->button()==Qt::LeftButton)
 		emit LMBClicked(m_estate);
 }
 

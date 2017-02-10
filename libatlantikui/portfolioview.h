@@ -50,7 +50,7 @@ public:
 protected:
 	void paintEvent(QPaintEvent *);
 	void resizeEvent(QResizeEvent *);
-	void mousePressEvent(QMouseEvent *);
+	void contextMenuEvent(QContextMenuEvent *);
 
 Q_SIGNALS:
 	void newTrade(Player *player);
