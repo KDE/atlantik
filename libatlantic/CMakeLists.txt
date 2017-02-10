@@ -12,7 +12,9 @@ set(atlantic_LIB_SRCS
    trade.cpp )
 add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 generate_export_header(atlantic BASE_NAME libatlantic)
-target_link_libraries(atlantic Qt5::Core Qt5::Gui)
+target_link_libraries(atlantic
+  PUBLIC Qt5::Core Qt5::Gui
+)
 set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 install(TARGETS atlantic ${INSTALL_TARGETS_DEFAULT_ARGS})
 
