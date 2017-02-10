@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_SOURCE_DIR}/libatlantic  )
-
 ########### next target ###############
 
 set(atlantikui_LIB_SRCS 

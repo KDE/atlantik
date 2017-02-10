@@ -1,10 +1,3 @@
-include_directories(
-${CMAKE_CURRENT_SOURCE_DIR} 
-${CMAKE_CURRENT_SOURCE_DIR}/../libatlantic 
-${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikclient 
-${CMAKE_CURRENT_SOURCE_DIR}/../libatlantikui 
-)
-
 ########### next target ###############
 
 set(atlantik_SRCS 

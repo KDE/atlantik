@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_SOURCE_DIR}/libatlantic  )
-
 ########### next target ###############
 
 set(atlantikclient_LIB_SRCS atlantik_network.cpp monopdprotocol.cpp )
