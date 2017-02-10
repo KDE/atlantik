@@ -15,8 +15,9 @@ generate_export_header(atlantic BASE_NAME libatlantic)
 target_link_libraries(atlantic
   PUBLIC Qt5::Core Qt5::Gui
 )
-set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
-install(TARGETS atlantic ${INSTALL_TARGETS_DEFAULT_ARGS})
+set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} EXPORT_NAME Atlantic)
+target_include_directories(atlantic INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/atlantic>")
+install(TARGETS atlantic EXPORT AtlanticTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 

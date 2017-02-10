@@ -12,6 +12,7 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
 include(ECMInstallIcons)
+include(ECMPackageConfigHelpers)
 
 find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
 
@@ -49,8 +50,18 @@ add_subdirectory( pics )
 add_subdirectory( themes ) 
 add_subdirectory( doc )
 
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Atlantik")
+ecm_configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/AtlantikConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake"
+  INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+)
+
 ########### install files ###############
 
 install( FILES atlantik.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install(FILES atlantikui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/atlantik)
 install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake" DESTINATION "${CMAKECONFIG_INSTALL_DIR}" COMPONENT Devel)
+install(EXPORT AtlanticTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlanticTargets.cmake NAMESPACE Atlantik:: )
+install(EXPORT AtlantikUiTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlantikUiTargets.cmake NAMESPACE Atlantik:: )

@@ -24,8 +24,9 @@ target_link_libraries(atlantikui
   PUBLIC Qt5::Widgets atlantic
   PRIVATE KF5::I18n KF5::IconThemes KF5::WidgetsAddons
 )
-set_target_properties(atlantikui PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} )
-install(TARGETS atlantikui ${INSTALL_TARGETS_DEFAULT_ARGS})
+set_target_properties(atlantikui PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} EXPORT_NAME AtlantikUi)
+target_include_directories(atlantikui INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/atlantik/ui>")
+install(TARGETS atlantikui EXPORT AtlantikUiTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 
