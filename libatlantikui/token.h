@@ -47,8 +47,8 @@ Q_OBJECT
 		void playerChanged();
 
 	protected:
-		void paintEvent(QPaintEvent *);
-		void resizeEvent(QResizeEvent *);
+		void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+		void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
 
 private:
 		void loadIcon();

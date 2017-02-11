@@ -36,12 +36,12 @@ public:
 	~EventLog();
 	QList<Event*> events() const;
 
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
-	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-	QModelIndex parent(const QModelIndex &index) const;
-	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+	QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+	QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
 
 public slots:
 	void addEvent(const QString &description, const QString &icon = QString());
@@ -59,10 +59,10 @@ public:
 
 	void setMessagesCount(int n);
 
-	void setSourceModel(QAbstractItemModel *model);
+	void setSourceModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
 
 protected:
-	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
 
 private:
 	int m_count;
@@ -78,7 +78,7 @@ public:
 	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
 
 protected:
-	void closeEvent(QCloseEvent *e);
+	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
 private slots:
 	void save();

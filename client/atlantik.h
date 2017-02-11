@@ -87,7 +87,7 @@ public:
 	virtual ~LogTextEdit();
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
+	void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
 
 private:
 	QAction *m_clear, *m_selectAll, *m_copy;
@@ -240,7 +240,7 @@ signals:
 	void reconnect(const QString &cookie);
 
 protected:
-	void closeEvent(QCloseEvent *);
+	void closeEvent(QCloseEvent *) Q_DECL_OVERRIDE;
 
 private:
 	void initEventLog();

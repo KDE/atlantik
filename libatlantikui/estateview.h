@@ -52,10 +52,10 @@ Q_OBJECT
 		void LMBClicked(Estate *estate);
 
 	protected:
-		void paintEvent(QPaintEvent *);
-		void resizeEvent(QResizeEvent *);
-		void contextMenuEvent(QContextMenuEvent *);
-		void mousePressEvent(QMouseEvent *);
+		void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+		void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
+		void contextMenuEvent(QContextMenuEvent *) Q_DECL_OVERRIDE;
+		void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 
 private:
 	void updateToolTip();

@@ -39,7 +39,7 @@ public:
 	QString host() const;
 	int port() const;
 
-	bool operator<(const QTreeWidgetItem &other) const;
+	bool operator<(const QTreeWidgetItem &other) const Q_DECL_OVERRIDE;
 
 private slots:
 	void resolved();

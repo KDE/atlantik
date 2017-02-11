@@ -47,8 +47,8 @@ public:
 	void clearButtons();
 
 protected:
-	void paintEvent(QPaintEvent *);
-	void resizeEvent(QResizeEvent *);
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
 
 signals:
 	void buttonCommand(const QString&);

@@ -66,7 +66,7 @@ public:
 
 	Estate *estate() const { return mEstate; }
 	
-	virtual QString text() const;
+	virtual QString text() const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *player);
@@ -86,7 +86,7 @@ public:
 	unsigned int money() const { return m_money; }
 	void setMoney(unsigned int money);
 	
-	virtual QString text() const;
+	virtual QString text() const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
 	void changed(TradeItem *tradeItem);
@@ -104,7 +104,7 @@ public:
 
 	Card *card() const { return mCard; }
 	
-	virtual QString text() const;
+	virtual QString text() const Q_DECL_OVERRIDE;
 
 Q_SIGNALS:
 

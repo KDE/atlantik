@@ -47,7 +47,7 @@ public:
 	Trade *trade() const { return m_trade; }
 
 protected:
-	void closeEvent(QCloseEvent *e);
+	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
 	void tradeItemAdded(TradeItem *);
@@ -63,8 +63,8 @@ private Q_SLOTS:
 	void setCombos(QTreeWidgetItem *i);
 
 	void updateComponent();
-	void reject();
-	void accept();
+	void reject() Q_DECL_OVERRIDE;
+	void accept() Q_DECL_OVERRIDE;
 
 	void contextMenu(const QPoint& pos);
 	void contextMenuClickedRemove();
