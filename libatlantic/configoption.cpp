@@ -19,10 +19,7 @@
 ConfigOption::ConfigOption(int configId) : QObject()
 {
 	m_id = configId;
-	m_name = "";
-	m_description = "";
 	m_edit = false;
-	m_value = "";
 	m_changed = false;
 }
 
