@@ -39,11 +39,13 @@ int Trade::revision() const
 void Trade::addPlayer(Player *player)
 {
 	m_playerAcceptMap[player] = false;
+	emit playerAdded(player);
 }
 
 void Trade::removePlayer(Player *player)
 {
 	m_playerAcceptMap[player] = false;
+	emit playerRemoved(player);
 }
 
 unsigned int Trade::count( bool acceptOnly ) const
@@ -57,6 +59,11 @@ unsigned int Trade::count( bool acceptOnly ) const
 			count++;
 	}
 	return count;
+}
+
+QList<Player *> Trade::participants() const
+{
+	return m_playerAcceptMap.keys();
 }
 
 void Trade::updateEstate(Estate *estate, Player *to)
@@ -184,11 +191,14 @@ void Trade::updateCard(Card *card, Player *to)
 
 void Trade::updateAccept(Player *player, bool accept)
 {
+	const bool hadItem = m_playerAcceptMap.contains(player);
 	if (m_playerAcceptMap[player] != accept)
 	{
 		m_playerAcceptMap[player] = accept;
+		emit acceptChanged(player, accept);
 		m_changed = true;
-	}
+	} else if (!hadItem)
+		emit acceptChanged(player, accept);
 }
 
 void Trade::reject(Player *player)

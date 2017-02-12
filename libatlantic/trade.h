@@ -131,6 +131,8 @@ public:
 
 	bool isRejected() const { return m_rejected; }
 
+	QList<Player *> participants() const;
+
 private Q_SLOTS:
 	/**
 	 * tell someone that this changed
@@ -155,8 +157,12 @@ Q_SIGNALS:
 	void updateEstate(Trade *trade, Estate *estate, Player *to);
 	void updateMoney(Trade *trade, unsigned int money, Player *from, Player *to);
 	void updateCard(Trade *trade, Card *card, Player *to);
+	void acceptChanged(Player *player, bool accept);
 	void reject(Trade *trade);
 	void accept(Trade *trade);
+
+	void playerAdded(Player *player);
+	void playerRemoved(Player *player);
 
 private:
 	bool m_changed, m_rejected;
