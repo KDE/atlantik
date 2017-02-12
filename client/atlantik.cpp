@@ -104,8 +104,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_reconnect->setText(i18n("&Reconnect (after crash)"));
 	connect(m_reconnect, SIGNAL(triggered()), this, SLOT(slotReconnect()));
 	m_reconnect->setEnabled(false);
-        QAction *act = KStandardAction::quit(qApp, SLOT(closeAllWindows()), this);
-        actionCollection()->addAction("game_quit", act);
+	(void) KStandardGameAction::quit(qApp, SLOT(closeAllWindows()), actionCollection());
 
 	// Toolbar: Settings
 	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
