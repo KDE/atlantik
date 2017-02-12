@@ -133,12 +133,31 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	connect(m_updateButton, SIGNAL(clicked()), this, SLOT(updateComponent()));
 
+	QHBoxLayout *centralLayout = new QHBoxLayout();
+	listCompBox->addLayout(centralLayout);
+
+	m_participantsList = new QTreeWidget(this);
+	m_participantsList->setRootIsDecorated(false);
+	m_participantsList->header()->setSectionResizeMode(QHeaderView::Stretch);
+	m_participantsList->setHeaderLabels(QStringList() << i18n("Participants"));
+	QList<QTreeWidgetItem *> items;
+	foreach (Player *player, m_trade->participants())
+	{
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, player->name());
+		m_playerListMap.insert(player, item);
+		items << item;
+	}
+	m_participantsList->addTopLevelItems(items);
+	m_participantsList->setMaximumWidth(175); // FIXME grr
+	centralLayout->addWidget(m_participantsList);
+
 	m_componentList = new QTreeWidget(this);
         m_componentList->setObjectName( "componentList" );
 	m_componentList->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_componentList->setRootIsDecorated(false);
 	m_componentList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-	listCompBox->addWidget(m_componentList);
+	centralLayout->addWidget(m_componentList, 1);
 
 	QStringList headers;
 	headers << i18n("Player");
@@ -176,6 +195,9 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_trade, SIGNAL(itemRemoved(TradeItem *)), this, SLOT(tradeItemRemoved(TradeItem *)));
 	connect(m_trade, SIGNAL(changed(Trade *)), this, SLOT(tradeChanged()));
 	connect(m_trade, SIGNAL(rejected(Player *)), this, SLOT(tradeRejected(Player *)));
+	connect(m_trade, SIGNAL(playerAdded(Player *)), this, SLOT(slotPlayerAdded(Player *)));
+	connect(m_trade, SIGNAL(playerRemoved(Player *)), this, SLOT(slotPlayerRemoved(Player *)));
+	connect(m_trade, SIGNAL(acceptChanged(Player *, bool)), this, SLOT(slotAcceptChanged(Player *, bool)));
 	connect(this, SIGNAL(updateEstate(Trade *, Estate *, Player *)), m_trade, SIGNAL(updateEstate(Trade *, Estate *, Player *)));
 	connect(this, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)), m_trade, SIGNAL(updateMoney(Trade *, unsigned int, Player *, Player *)));
 	connect(this, SIGNAL(updateCard(Trade *, Card *, Player *)), m_trade, SIGNAL(updateCard(Trade *, Card *, Player *)));
@@ -261,8 +283,12 @@ void TradeDisplay::playerChanged(Player *player)
 void TradeDisplay::tradeRejected(Player *player)
 {
 	if (player)
+	{
 		m_status->setText(i18n("Trade proposal was rejected by %1.", player->name()));
-	else
+		QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+		if (item)
+			item->setIcon(0, KDE::icon("dialog-cancel"));
+	} else
 		m_status->setText(i18n("Trade proposal was rejected."));
 
 	// Disable GUI elements
@@ -272,6 +298,37 @@ void TradeDisplay::tradeRejected(Player *player)
 	m_acceptButton->setEnabled(false);
 
 	// TODO: add/enable close button
+}
+
+void TradeDisplay::slotPlayerAdded(Player *player)
+{
+	QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+	if (item)
+		return;
+
+	item = new QTreeWidgetItem();
+	item->setText(0, player->name());
+	m_playerListMap.insert(player, item);
+	m_participantsList->addTopLevelItem(item);
+	tradeChanged();
+}
+
+void TradeDisplay::slotPlayerRemoved(Player *player)
+{
+	QTreeWidgetItem *item = m_playerListMap.take(player);
+	if (!item)
+		return;
+
+	delete item;
+	tradeChanged();
+}
+
+void TradeDisplay::slotAcceptChanged(Player *player, bool accept)
+{
+	slotPlayerAdded(player);
+	QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+	Q_ASSERT(item);  // slotPlayerAdded made sure there's an item for player
+	item->setIcon(0, accept ? KDE::icon("dialog-ok") : QIcon());
 }
 
 void TradeDisplay::setTypeCombo(int index)

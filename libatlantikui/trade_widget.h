@@ -56,6 +56,9 @@ private Q_SLOTS:
 	void tradeChanged();
 	void playerChanged(Player *player);
 	void tradeRejected(Player *);
+	void slotPlayerAdded(Player *player);
+	void slotPlayerRemoved(Player *player);
+	void slotAcceptChanged(Player *player, bool accept);
 
 	void setTypeCombo(int);
 	void setEstateCombo(int);
@@ -84,6 +87,7 @@ private:
 	QComboBox *m_editTypeCombo, *m_playerFromCombo, *m_playerTargetCombo, *m_estateCombo, *m_cardCombo;
 	QTreeWidget *m_componentList;
 	QPushButton *m_updateButton, *m_rejectButton, *m_acceptButton;
+	QTreeWidget *m_participantsList;
 
 	AtlanticCore *m_atlanticCore;
 	Trade *m_trade;
@@ -98,6 +102,7 @@ private:
 	QMap<Player *, int> m_playerFromRevMap, m_playerTargetRevMap;
 	QMap<int, Card *> m_cardMap;
 	QMap<Card *, int> m_cardRevMap;
+	QMap<Player *, QTreeWidgetItem *> m_playerListMap;
 };
 
 #endif
