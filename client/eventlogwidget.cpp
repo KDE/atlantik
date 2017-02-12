@@ -175,7 +175,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	QPushButton *saveButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
-	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), "document-save"));
+	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), "document-save-as"));
 	listCompBox->addWidget(buttonBox);
 
 	LastMessagesProxyModel *proxy = new LastMessagesProxyModel(m_eventList);
