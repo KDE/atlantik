@@ -72,6 +72,7 @@ private slots:
 	void estateToggleMortgage(Estate *estate);
 	void estateHouseBuy(Estate *estate);
 	void estateHouseSell(Estate *estate);
+	void estateSell(Estate *estate);
 	void jailCard();
 	void jailPay();
 	void jailRoll();

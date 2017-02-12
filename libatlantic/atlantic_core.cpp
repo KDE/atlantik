@@ -349,6 +349,15 @@ ConfigOption *AtlanticCore::findConfigOption(int configId) const
 	return 0;
 }
 
+ConfigOption *AtlanticCore::findConfigOption(const QString &name) const
+{
+	foreach (ConfigOption *configOption, m_configOptions)
+		if (configOption->name() == name)
+			return configOption;
+
+	return 0;
+}
+
 QList<Card *> AtlanticCore::cards() const
 {
 	return m_cards;

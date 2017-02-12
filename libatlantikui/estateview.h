@@ -40,6 +40,7 @@ Q_OBJECT
 		Estate *estate() const { return m_estate; }
 		void updatePE();
 		EstateOrientation orientation() const { return m_orientation; }
+		void setAllowEstateSales(bool allow);
 
 	public slots:
 		void slotResizeAftermath();
@@ -48,6 +49,7 @@ Q_OBJECT
 		void estateToggleMortgage(Estate *estate);
 		void estateHouseBuy(Estate *estate);
 		void estateHouseSell(Estate *estate);
+		void estateSell(Estate *estate);
 		void newTrade(Player *player);
 		void LMBClicked(Estate *estate);
 
@@ -68,6 +70,7 @@ private:
 		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
 		QPixmap *m_quartzBlocks;
+		bool m_allowEstateSales;
 		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
 		int m_titleWidth, m_titleHeight;
@@ -81,6 +84,7 @@ private:
 		void slotToggleMortgage();
 		void slotHouseBuy();
 		void slotHouseSell();
+		void slotSell();
 		void slotNewTrade();
 };
 

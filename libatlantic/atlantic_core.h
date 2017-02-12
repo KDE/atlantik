@@ -81,6 +81,7 @@ public:
 	ConfigOption *newConfigOption(int configId);
 	void removeConfigOption(ConfigOption *configOption);
 	ConfigOption *findConfigOption(int configId) const;
+	ConfigOption *findConfigOption(const QString &name) const;
 
 	QList<Card *> cards() const;
 	Card *newCard(int cardId);

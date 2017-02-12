@@ -29,6 +29,7 @@ class QPoint;
 
 class AtlanticCore;
 class Auction;
+class ConfigOption;
 class Estate;
 class Player;
 class Token;
@@ -71,6 +72,9 @@ private Q_SLOTS:
 	void insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void insertText(const QString &text, bool clearText, bool clearButtons);
 	void addCloseButton();
+	void slotConfigOptionAdded(ConfigOption *opt);
+	void slotConfigOptionChanged(ConfigOption *opt);
+	void slotConfigOptionRemoved(ConfigOption *opt);
 
 Q_SIGNALS:
 	void tokenConfirmation(Estate *estate);
@@ -95,6 +99,7 @@ private:
 	Token *m_movingToken;
 	QTimer *m_timer;
 	bool m_resumeTimer;
+	ConfigOption *m_allowestatesalesOption;
 
 	bool m_animateTokens;
 	int m_maxEstates;

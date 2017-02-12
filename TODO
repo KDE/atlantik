@@ -23,7 +23,6 @@ For 0.6.0
 - .D command
 - cards in portfolio
 - Support .gd game description.
-- support .es (sell estate), depends on game::allowestatesales
 
 For 0.7.0
 ---------

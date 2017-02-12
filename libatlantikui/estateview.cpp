@@ -40,6 +40,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 {
 	m_estate = estate;
 	m_orientation = orientation;
+	m_allowEstateSales = false;
 
 	m_indicateUnowned = indicateUnowned;
 	m_highliteUnowned = highliteUnowned;
@@ -201,6 +202,11 @@ void EstateView::updatePE()
 		else if (!pe->isVisible())
 			pe->show();
 	}
+}
+
+void EstateView::setAllowEstateSales(bool allow)
+{
+	m_allowEstateSales = allow;
 }
 
 void EstateView::estateChanged()
@@ -469,6 +475,11 @@ void EstateView::contextMenuEvent(QContextMenuEvent *)
 
 			if (!(m_estate->canSellHouses()))
 				act->setEnabled(false);
+
+			// Estate sell
+			act = rmbMenu->addAction(i18n("Sell"), this, SLOT(slotSell()));
+			if (!m_allowEstateSales)
+				act->setEnabled(false);
 		}
 		else
 		{
@@ -507,6 +518,11 @@ void EstateView::slotHouseBuy()
 void EstateView::slotHouseSell()
 {
 	emit estateHouseSell(m_estate);
+}
+
+void EstateView::slotSell()
+{
+	emit estateSell(m_estate);
 }
 
 void EstateView::slotNewTrade()

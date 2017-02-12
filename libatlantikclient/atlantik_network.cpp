@@ -227,6 +227,11 @@ void AtlantikNetwork::estateHouseSell(Estate *estate)
         writeData(QString(".hs%1").arg(estate ? estate->id() : -1));
 }
 
+void AtlantikNetwork::estateSell(Estate *estate)
+{
+        writeData(QString(".es%1").arg(estate ? estate->id() : -1));
+}
+
 void AtlantikNetwork::newGame(const QString &gameType)
 {
         writeData(QString(".gn%1").arg(gameType));
@@ -660,6 +665,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         QObject::connect(estate, SIGNAL(estateToggleMortgage(Estate *)), this, SLOT(estateToggleMortgage(Estate *)));
                         QObject::connect(estate, SIGNAL(estateHouseBuy(Estate *)), this, SLOT(estateHouseBuy(Estate *)));
                         QObject::connect(estate, SIGNAL(estateHouseSell(Estate *)), this, SLOT(estateHouseSell(Estate *)));
+                        QObject::connect(estate, SIGNAL(estateSell(Estate *)), this, SLOT(estateSell(Estate *)));
                         QObject::connect(estate, SIGNAL(newTrade(Player *)), this, SLOT(newTrade(Player *)));
 
                         // Players without estate should get one

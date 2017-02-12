@@ -27,6 +27,7 @@
 #include <auction.h>
 
 #include "auction_widget.h"
+#include "configoption.h"
 #include "estatedetails.h"
 #include "estateview.h"
 #include "token.h"
@@ -43,6 +44,7 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	m_animateTokens = false;
 	m_lastServerDisplay = 0;
 	m_lastServerDisplayBeforeAuction = 0;
+	m_allowestatesalesOption = 0;
 
 	setMinimumSize(QSize(500, 500));
 
@@ -75,6 +77,12 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 //	m_gridLayout->addWidget(spacer, sideLen, sideLen); // SE
 
 	displayDefault();
+
+	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), this, SLOT(slotConfigOptionAdded(ConfigOption *)));
+	connect(m_atlanticCore, SIGNAL(removeGUI(ConfigOption *)), this, SLOT(slotConfigOptionRemoved(ConfigOption *)));
+
+	if (ConfigOption *opt = m_atlanticCore->findConfigOption("allowestatesales"))
+		slotConfigOptionAdded(opt);
 }
 
 AtlantikBoard::~AtlantikBoard()
@@ -139,6 +147,8 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects, this);
         estateView->setObjectName( "estateview" );
+	if (m_allowestatesalesOption)
+		estateView->setAllowEstateSales(m_allowestatesalesOption->value().toInt() != 0);
 	m_estateViews.append(estateView);
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
@@ -146,6 +156,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 	connect(estateView, SIGNAL(LMBClicked(Estate *)), estate, SIGNAL(LMBClicked(Estate *)));
 	connect(estateView, SIGNAL(estateHouseBuy(Estate *)), estate, SIGNAL(estateHouseBuy(Estate *)));
 	connect(estateView, SIGNAL(estateHouseSell(Estate *)), estate, SIGNAL(estateHouseSell(Estate *)));
+	connect(estateView, SIGNAL(estateSell(Estate *)), estate, SIGNAL(estateSell(Estate *)));
 	connect(estateView, SIGNAL(newTrade(Player *)), estate, SIGNAL(newTrade(Player *)));
 
 	// Designer has its own LMBClicked slot
@@ -621,4 +632,36 @@ void AtlantikBoard::setTokenTheme(const TokenTheme &theme)
 	m_tokenTheme = theme;
 	foreach (Token *token, m_tokens)
 		token->setTokenTheme(m_tokenTheme);
+}
+
+void AtlantikBoard::slotConfigOptionAdded(ConfigOption *opt)
+{
+	if (m_allowestatesalesOption)
+		return;
+
+	connect(opt, SIGNAL(changed(ConfigOption *)), this, SLOT(slotConfigOptionChanged(ConfigOption *)));
+	if (opt->name() != "allowestatesales")
+		return;
+
+	m_allowestatesalesOption = opt;
+}
+
+void AtlantikBoard::slotConfigOptionChanged(ConfigOption *opt)
+{
+	if (opt->name() != "allowestatesales")
+		return;
+
+	m_allowestatesalesOption = opt;
+	const bool value = m_allowestatesalesOption->value().toInt() != 0;
+	foreach (EstateView *view, m_estateViews)
+		view->setAllowEstateSales(value);
+}
+
+void AtlantikBoard::slotConfigOptionRemoved(ConfigOption *opt)
+{
+	if (!m_allowestatesalesOption || opt->name() != m_allowestatesalesOption->name())
+		return;
+
+	disconnect(m_allowestatesalesOption, 0, this, 0);
+	m_allowestatesalesOption = 0;
 }
