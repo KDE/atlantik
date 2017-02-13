@@ -14,6 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
+#include <algorithm>
 #include <iostream>
 
 #include "atlantic_core.h"
@@ -232,7 +233,7 @@ Estate *AtlanticCore::findEstate(int estateId) const
 Estate *AtlanticCore::estateAfter(Estate *estate) const
 {
 	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : 0;
-	QList<Estate *>::const_iterator it = qFind(m_estates, estate);
+	QList<Estate *>::const_iterator it = std::find(m_estates.constBegin(), m_estates.constEnd(), estate);
 	if (it == m_estates.constEnd())
 		return eFirst;
 	++it;
