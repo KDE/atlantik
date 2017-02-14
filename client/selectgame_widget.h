@@ -19,6 +19,8 @@
 
 #include <QWidget>
 
+#include <ui_selectgame.h>
+
 class QPushButton;
 class QTreeWidget;
 class QTreeWidgetItem;
@@ -27,7 +29,7 @@ class AtlanticCore;
 class Game;
 class Player;
 
-class SelectGame : public QWidget
+class SelectGame : public QWidget, private Ui::SelectGame
 {
 Q_OBJECT
 
@@ -52,8 +54,6 @@ private:
 	QTreeWidgetItem *findItem(Game *game);
 
 	AtlanticCore *m_atlanticCore;
-	QTreeWidget *m_gameList;
-	QPushButton *m_connectButton;
 };
 
 #endif

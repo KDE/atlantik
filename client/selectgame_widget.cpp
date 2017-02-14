@@ -41,47 +41,22 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	connect(m_atlanticCore, SIGNAL(createGUI(Game *)), this, SLOT(addGame(Game *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Game *)), this, SLOT(delGame(Game *)));
 
-	QVBoxLayout *mainLayout = new QVBoxLayout( this );
-	Q_CHECK_PTR(mainLayout);
-	mainLayout->setMargin(0);
-
-	QGroupBox *groupBox = new QGroupBox(i18n("Create or Select monopd Game"), this);
-	groupBox->setObjectName(QLatin1String("groupBox"));
-	mainLayout->addWidget(groupBox);
-	QVBoxLayout *groupBoxLayout = new QVBoxLayout(groupBox);
+	setupUi(this);
+	layout()->setMargin(0);
 
 	// List of games
-	m_gameList = new QTreeWidget(groupBox);
-	groupBoxLayout->addWidget(m_gameList);
-	m_gameList->setObjectName( "m_gameList" );
-	QStringList headers;
-	headers << i18n("Game");
-	headers << i18n("Description");
-	headers << i18n("Id");
-	headers << i18n("Players");
-	m_gameList->setHeaderLabels(headers);
-	m_gameList->setRootIsDecorated(false);
-	m_gameList->setAllColumnsShowFocus(true);
 	m_gameList->header()->setSectionsClickable(false);
-//	mainLayout->addWidget(m_gameList);
 
 	connect(m_gameList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(validateConnectButton()));
 	connect(m_gameList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(connectClicked()));
 	connect(m_gameList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
-	QHBoxLayout *buttonBox = new QHBoxLayout();
-	mainLayout->addItem( buttonBox );
-
-	QPushButton *backButton = new QPushButton(KDE::icon("go-previous"), i18n("Server List"), this);
-	buttonBox->addWidget(backButton);
+	backButton->setIcon(KDE::icon("go-previous"));
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
-	buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	m_connectButton = new QPushButton(KDE::icon("go-next"), i18n("Create Game"), this);
+	m_connectButton->setIcon(KDE::icon("go-next"));
 	m_connectButton->setEnabled(false);
-	buttonBox->addWidget(m_connectButton);
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));
 

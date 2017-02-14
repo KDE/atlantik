@@ -14,7 +14,7 @@ set(atlantik_SRCS
    selectgame_widget.cpp 
    selectserver_widget.cpp )
 kconfig_add_kcfg_files(atlantik_SRCS settings.kcfgc)
-ki18n_wrap_ui(atlantik_SRCS configboard.ui configgeneral.ui configmetaserver.ui configplayer.ui selectserver.ui)
+ki18n_wrap_ui(atlantik_SRCS configboard.ui configgeneral.ui configmetaserver.ui configplayer.ui selectgame.ui selectserver.ui)
 ecm_qt_declare_logging_category(atlantik_SRCS
   HEADER atlantik_debug.h
   IDENTIFIER ATLANTIK_LOG
