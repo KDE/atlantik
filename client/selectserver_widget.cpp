@@ -21,6 +21,7 @@
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kguiitem.h>
+#include <kstandardguiitem.h>
 
 #include <monopd.h>
 
@@ -134,7 +135,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
 
 	// Connect
-	m_connectButton->setIcon(KDE::icon("go-next"));
+	m_connectButton->setIcon(KStandardGuiItem::forward(KStandardGuiItem::UseRTL).icon());
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 

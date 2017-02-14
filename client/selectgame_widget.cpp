@@ -24,6 +24,8 @@
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <knotification.h>
+#include <kguiitem.h>
+#include <kstandardguiitem.h>
 
 #include <atlantic_core.h>
 #include <game.h>
@@ -44,6 +46,8 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	setupUi(this);
 	layout()->setMargin(0);
 
+	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
+
 	// List of games
 	m_gameList->header()->setSectionsClickable(false);
 
@@ -51,11 +55,11 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	connect(m_gameList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(connectClicked()));
 	connect(m_gameList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
-	backButton->setIcon(KDE::icon("go-previous"));
+	backButton->setIcon(icons.first.icon());
 
 	connect(backButton, SIGNAL(clicked()), this, SIGNAL(leaveServer()));
 
-	m_connectButton->setIcon(KDE::icon("go-next"));
+	m_connectButton->setIcon(icons.second.icon());
 	m_connectButton->setEnabled(false);
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(connectClicked()));

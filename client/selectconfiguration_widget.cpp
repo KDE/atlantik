@@ -21,7 +21,8 @@
 #include <QPushButton>
 
 #include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <kguiitem.h>
+#include <kstandardguiitem.h>
 
 #include <atlantic_core.h>
 #include <configoption.h>
@@ -40,6 +41,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	m_mainLayout = new QVBoxLayout(this );
         m_mainLayout->setMargin(0);
 	Q_CHECK_PTR(m_mainLayout);
+
+	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
 
 	// Game configuration.
 	m_configBox = new QGroupBox(i18n("Game Configuration"), this);
@@ -61,14 +64,14 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	QHBoxLayout *serverButtons = new QHBoxLayout();
         m_mainLayout->addItem( serverButtons );
 
-	m_backButton = new QPushButton(KDE::icon("go-previous"), i18n("Leave Game"), this);
+	m_backButton = new QPushButton(icons.first.icon(), i18n("Leave Game"), this);
 	serverButtons->addWidget(m_backButton);
 
 	connect(m_backButton, SIGNAL(clicked()), this, SIGNAL(leaveGame()));
 
 	serverButtons->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_startButton = new QPushButton(KDE::icon("go-next"), i18n("Start Game"), this);
+	m_startButton = new QPushButton(icons.second.icon(), i18n("Start Game"), this);
 	serverButtons->addWidget(m_startButton);
 	m_startButton->setEnabled(false);
 
