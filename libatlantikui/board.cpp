@@ -81,8 +81,11 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), this, SLOT(slotConfigOptionAdded(ConfigOption *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(ConfigOption *)), this, SLOT(slotConfigOptionRemoved(ConfigOption *)));
 
-	if (ConfigOption *opt = m_atlanticCore->findConfigOption("allowestatesales"))
-		slotConfigOptionAdded(opt);
+	if (m_atlanticCore)
+	{
+		if (ConfigOption *opt = m_atlanticCore->findConfigOption("allowestatesales"))
+			slotConfigOptionAdded(opt);
+	}
 }
 
 AtlantikBoard::~AtlantikBoard()
