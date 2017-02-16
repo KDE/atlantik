@@ -264,7 +264,7 @@ void PortfolioView::contextMenuEvent(QContextMenuEvent *e)
 {
 	Player *playerSelf = m_atlanticCore->playerSelf();
 
-	if (m_player != playerSelf)
+	if (m_player != playerSelf && !playerSelf->isSpectator())
 	{
 		QMenu rmbMenu(this);
 		rmbMenu.setTitle(m_player->name());
