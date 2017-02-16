@@ -600,6 +600,11 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         // TODO: emit signal with player ptr so board can setText and display something
                     }
 
+                    // Update whether player is a spectator
+                    a = e.attributeNode(QString("spectator"));
+                    if (player && !a.isNull())
+                        player->setSpectator(a.value().toInt());
+
                     // Update player location
                     a = e.attributeNode(QString("location"));
                     if (!a.isNull()) {

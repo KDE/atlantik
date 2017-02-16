@@ -64,6 +64,8 @@ public:
 	const QString image() const { return m_image; }
 	void setMoney(unsigned int _m);
 	unsigned int money() const { return m_money; }
+	void setSpectator(bool spectator);
+	bool isSpectator() const { return m_spectator; }
 	void update(bool force = false);
 
 Q_SIGNALS:
@@ -74,6 +76,7 @@ private:
 	int m_id;
 	bool m_changed : 1, m_isSelf : 1;
 	bool m_bankrupt : 1, m_hasDebt : 1, m_hasTurn : 1, m_canRoll : 1, m_canBuy : 1, m_canAuction : 1, m_canUseCard : 1, m_inJail : 1;
+	bool m_spectator : 1;
 	unsigned int m_money;
 	QString m_name, m_host, m_image;
 	Game *m_game;

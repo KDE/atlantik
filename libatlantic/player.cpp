@@ -25,6 +25,7 @@ Player::Player(int playerId) : QObject()
 	m_money = 0;
 	m_changed = m_isSelf = false;
 	m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_canAuction = m_canUseCard = m_inJail = false;
+	m_spectator = false;
 }
 
 void Player::setGame(Game *game)
@@ -165,6 +166,15 @@ void Player::setMoney(unsigned int money)
 	if (m_money != money)
 	{
 		m_money = money;
+		m_changed = true;
+	}
+}
+
+void Player::setSpectator(bool spectator)
+{
+	if (m_spectator != spectator)
+	{
+		m_spectator = spectator;
 		m_changed = true;
 	}
 }
