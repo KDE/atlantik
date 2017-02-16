@@ -393,6 +393,7 @@ void Atlantik::showSelectGame()
 	}
 
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
+	connect(m_selectGame, SIGNAL(watchGame(int)), m_atlantikNetwork, SLOT(watchGame(int)));
 	connect(m_selectGame, SIGNAL(newGame(const QString &)), m_atlantikNetwork, SLOT(newGame(const QString &)));
 	connect(m_selectGame, SIGNAL(leaveServer()), this, SLOT(showSelectServer()));
 	connect(m_selectGame, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));

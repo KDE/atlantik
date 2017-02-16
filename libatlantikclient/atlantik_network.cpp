@@ -243,6 +243,12 @@ void AtlantikNetwork::joinGame(int gameId)
         qCDebug(LIBATLANTIKCLIENT_LOG) << "joining game" << gameId;
 }
 
+void AtlantikNetwork::watchGame(int gameId)
+{
+        writeData(QString(".gS%1").arg(gameId));
+        qCDebug(LIBATLANTIKCLIENT_LOG) << "watching game" << gameId;
+}
+
 void AtlantikNetwork::cmdChat(const QString &msg)
 {
         writeData(msg);

@@ -46,6 +46,7 @@ private slots:
 
 signals:
 	void joinGame(int gameId);
+	void watchGame(int gameId);
 	void newGame(const QString &gameType);
 	void leaveServer();
 	void msgStatus(const QString &status);

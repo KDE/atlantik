@@ -93,6 +93,7 @@ public slots:
 	void serverConnect(const QString &host, int port);
 
 	void joinGame(int gameId);
+	void watchGame(int gameId);
 	void leaveGame();
 	void setImage(const QString &name);
 

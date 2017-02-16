@@ -83,13 +83,16 @@ void SelectGame::addGame(Game *game)
 	{
 		Player *master = game->master();
 		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setText(0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name()));
+		if (!game->canBeJoined() && game->canBeWatched())
+			item->setText(0, i18n("Watch %1's %2 Game", (master ? master->name() : QString()), game->name()));
+		else
+			item->setText(0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name()));
 		item->setText(1, game->description());
 		item->setText(2, QString::number(game->id()));
 		item->setText(3, QString::number(game->players()));
 		item->setData(0, GameTypeRole, game->type());
 		item->setIcon(0, KDE::icon("atlantik"));
-		item->setDisabled(!game->canBeJoined());
+		item->setDisabled(!game->canBeJoined() && !game->canBeWatched());
 		m_gameList->addTopLevelItem(item);
 
 		KNotification::event("newgame", i18n("New game available."));
@@ -128,9 +131,12 @@ void SelectGame::updateGame(Game *game)
 	else
 	{
 		Player *master = game->master();
-		item->setText( 0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name() ) );
+		if (!game->canBeJoined() && game->canBeWatched())
+			item->setText(0, i18n("Watch %1's %2 Game", (master ? master->name() : QString()), game->name()));
+		else
+			item->setText(0, i18n("Join %1's %2 Game", (master ? master->name() : QString()), game->name()));
 		item->setText( 3, QString::number( game->players() ) );
-		item->setDisabled(!game->canBeJoined());
+		item->setDisabled(!game->canBeJoined() && !game->canBeWatched());
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
@@ -149,7 +155,10 @@ void SelectGame::playerChanged(Player *player)
 		game = m_atlanticCore->findGame( item->text(2).toInt() );
 		if ( game && game->master() == player )
 		{
-			item->setText( 0, i18n("Join %1's %2 Game", player->name(), game->name() ) );
+			if (!game->canBeJoined() && game->canBeWatched())
+				item->setText( 0, i18n("Watch %1's %2 Game", player->name(), game->name() ) );
+			else
+				item->setText( 0, i18n("Join %1's %2 Game", player->name(), game->name() ) );
 			return;
 		}
 	}
@@ -174,7 +183,13 @@ void SelectGame::validateConnectButton()
 	{
 		const QTreeWidgetItem *item = items.first();
 		if (item->text(2).toInt() > 0)
-			m_connectButton->setText(i18n("Join Game"));
+		{
+			Game *game = m_atlanticCore->findGame(item->text(2).toInt());
+			if (!game->canBeJoined() && game->canBeWatched())
+				m_connectButton->setText(i18n("Watch Game"));
+			else
+				m_connectButton->setText(i18n("Join Game"));
+		}
 		else
 			m_connectButton->setText(i18n("Create Game"));
 
@@ -191,7 +206,13 @@ void SelectGame::connectClicked()
 	{
 		const QTreeWidgetItem *item = items.first();
 		if (int gameId = item->text(2).toInt())
-			emit joinGame(gameId);
+		{
+			Game *game = m_atlanticCore->findGame(item->text(2).toInt());
+			if (!game->canBeJoined() && game->canBeWatched())
+				emit watchGame(gameId);
+			else
+				emit joinGame(gameId);
+		}
 		else
 			emit newGame(item->data(0, GameTypeRole).toString());
 	}
