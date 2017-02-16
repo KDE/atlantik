@@ -462,6 +462,10 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     if (game && !a.isNull())
                         game->setCanBeJoined(a.value().toInt());
 
+                    a = e.attributeNode(QString("canbewatched"));
+                    if (game && !a.isNull())
+                        game->setCanBeWatched(a.value().toInt());
+
                     a = e.attributeNode(QString("description"));
                     if (game && !a.isNull())
                         game->setDescription(a.value());

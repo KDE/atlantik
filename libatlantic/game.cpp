@@ -120,3 +120,17 @@ void Game::setMaster(Player *master)
 		m_changed = true;
 	}
 }
+
+void Game::setCanBeWatched(bool canBeWatched)
+{
+	if (m_canBeWatched != canBeWatched)
+	{
+		m_canBeWatched = canBeWatched;
+		m_changed = true;
+	}
+}
+
+bool Game::canBeWatched() const
+{
+	return m_canBeWatched;
+}

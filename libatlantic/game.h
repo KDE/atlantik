@@ -43,6 +43,8 @@ public:
 	void setPlayers(int players);
 	Player *master() const;
 	void setMaster(Player *master);
+	void setCanBeWatched(bool canBeWatched);
+	bool canBeWatched() const;
 
 	void update(bool force = false);
 
@@ -52,6 +54,7 @@ Q_SIGNALS:
 private:
 	bool m_changed;
 	bool m_canBeJoined;
+	bool m_canBeWatched;
 	QString m_description, m_name, m_type;
 	int m_id, m_players;
 	Player *m_master;
