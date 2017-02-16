@@ -251,7 +251,9 @@ void AtlantikBoard::playerChanged(Player *player)
 		qCDebug(LIBATLANTIKUI_LOG) << "tokenLoc" << (token->location() ? token->location()->name() : "none");
 		if (player->isBankrupt() || player->isSpectator() || (playerSelf && playerSelf->game() != player->game()) )
 			token->hide();
-		if (player->hasTurn() || !player->isSpectator())
+		if (!player->isSpectator())
+			token->show();
+		if (player->hasTurn())
 			token->raise();
 
 		bool jump = false, move = false;
