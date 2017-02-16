@@ -253,6 +253,10 @@ void PortfolioView::playerChanged()
 	loadIcon();
 
 	b_recreate = true;
+	if (m_player->isSpectator())
+		clearPortfolio();
+	else if (m_portfolioEstates.isEmpty())
+		buildPortfolio();
 	update();
 }
 
