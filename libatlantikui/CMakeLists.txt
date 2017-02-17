@@ -4,6 +4,7 @@ set(atlantikui_LIB_SRCS
    auction_widget.cpp 
    board.cpp 
    estatedetails.cpp 
+   estatedetailsbase.cpp
    estateview.cpp 
    portfolioestate.cpp 
    portfolioview.cpp 

@@ -14,44 +14,38 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#ifndef ATLANTIK_ESTATEDETAILS_H
-#define ATLANTIK_ESTATEDETAILS_H
+#ifndef ATLANTIK_ESTATEDETAILSBASE_H
+#define ATLANTIK_ESTATEDETAILSBASE_H
 
-#include "estatedetailsbase.h"
+#include <QWidget>
 
-#include <QVector>
-#include <QSignalMapper>
+class QPixmap;
 
-class QHBoxLayout;
+class Estate;
 
-class QListWidget;
-class QPushButton;
-
-class EstateDetails : public EstateDetailsBase
+class EstateDetailsBase : public QWidget
 {
 Q_OBJECT
 
 public:
-	EstateDetails(Estate *estate, const QString &text, QWidget *parent);
-	~EstateDetails();
+	EstateDetailsBase(Estate *estate, QWidget *parent);
+	~EstateDetailsBase();
+	Estate *estate() const { return m_estate; }
 
-	void addDetails();
-	void addButton(const QString &command, const QString &caption, bool enabled);
-	void addCloseButton();
-	void setText(const QString &text);
-	void appendText(const QString &text);
-	void clearButtons();
+	void setEstate(Estate *estate);
 
-signals:
-	void buttonCommand(const QString&);
-	void buttonClose();
+protected:
+	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
+
+	QWidget *widget() { return m_widget; }
 
 private:
-	QListWidget *m_infoListView;
-	QPushButton *m_closeButton;
-	QHBoxLayout *m_buttonBox;
-	QSignalMapper m_buttonCommandMapper;
-	QVector<QPushButton *> m_buttons;
+	Estate *m_estate;
+	QWidget *m_widget;
+	QPixmap *m_pixmap;
+	QPixmap *m_quartzBlocks;
+	bool b_recreate, m_recreateQuartz;
 };
 
 #endif

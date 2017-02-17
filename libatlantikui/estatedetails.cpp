@@ -14,10 +14,7 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qpainter.h>
-#include <qpixmap.h>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QListWidget>
 #include <QPushButton>
 #include <QApplication>
@@ -29,12 +26,9 @@
 #include <KStandardGuiItem>
 
 #include <estate.h>
-#include <estategroup.h>
 #include <player.h>
 
 #include "estatedetails.h"
-
-static const int StaticTitleHeight = 50;
 
 static QIcon iconForCommandButton(const QString &command)
 {
@@ -51,24 +45,17 @@ static QIcon iconForCommandButton(const QString &command)
 	return QIcon();
 }
 
-EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : QWidget(parent)
+EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : EstateDetailsBase(estate, parent)
 {
-	m_pixmap = 0;
-	m_quartzBlocks = 0;
-	b_recreate = true;
-	m_recreateQuartz = true;
-
-	m_estate = 0;
-
 	m_closeButton = 0;
 	m_buttons.reserve(3); // Usually there are no more than 3 action buttons
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(this );
-	Q_CHECK_PTR(mainLayout);
+	QWidget *w = widget();
 
-	mainLayout->addItem(new QSpacerItem(5, StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
+	QVBoxLayout *mainLayout = new QVBoxLayout(w);
+	mainLayout->setMargin(0);
 
-	m_infoListView = new QListWidget(this);
+	m_infoListView = new QListWidget(w);
 	m_infoListView->setWordWrap(true);
 	mainLayout->addWidget(m_infoListView);
 
@@ -80,173 +67,48 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	setEstate(estate);
-
 	connect(&m_buttonCommandMapper, SIGNAL(mapped(QString)), this, SIGNAL(buttonCommand(QString)));
 }
 
 EstateDetails::~EstateDetails()
 {
-	delete m_pixmap;
-	delete m_quartzBlocks;
 	delete m_infoListView;
-}
-
-void EstateDetails::paintEvent(QPaintEvent *)
-{
-	if (m_recreateQuartz)
-	{
-/*
-		if (m_quartzBlocks)
-		{
-			delete m_quartzBlocks;
-			m_quartzBlocks = 0;
-		}
-
-		if (m_estate->color().isValid())
-		{
-			m_quartzBlocks = new QPixmap();
-
-			if (m_orientation == North || m_orientation == South)
-				m_quartzBlocks->resize(25, m_titleHeight-2);
-			else
-				m_quartzBlocks->resize(25, m_titleWidth-2);
-
-			drawQuartzBlocks(m_quartzBlocks, *m_quartzBlocks, m_estate->color().light(60), m_estate->color());
-			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
-		}
-*/
-		m_recreateQuartz = false;
-		b_recreate = true;
-	}
-
-	if (b_recreate)
-	{
-		delete m_pixmap;
-		m_pixmap = new QPixmap(width(), height());
-
-		QColor greenHouse(0, 255, 0);
-		QColor redHotel(255, 51, 51);
-		QPainter painter;
-                painter.begin(m_pixmap);
-                painter.initFrom(this);
-
-		painter.setPen(Qt::black);
-
-		painter.setBrush(m_estate ? m_estate->bgColor() : Qt::white);
-		painter.drawRect(rect().adjusted(0, 0, -1, -1));
-
-/*
-		// Paint icon only when it exists and fits
-		if (icon!=0 && width() > icon->width() && height() > icon->height())
-			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
-*/
-
-		if (m_estate)
-		{
-			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
-			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
-			const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-
-			painter.setBrush(titleColor);
-			painter.drawRect(0, 0, width()-1, StaticTitleHeight-1);
-
-			if (m_quartzBlocks)
-			{
-				painter.drawPixmap(1, 1, *m_quartzBlocks);
-			}
-
-			if (m_estate->houses() > 0)
-			{
-				int titleWidth = width() / 5;
-
-				if (m_estate->houses() == 5)
-				{
-					// Hotel
-					painter.setBrush(redHotel);
-					painter.drawRect(2, 2, titleWidth-4-1, StaticTitleHeight-4-1);
-				}
-				else
-				{
-					// Houses
-					painter.setBrush(greenHouse);
-						int h = StaticTitleHeight-4, w = titleWidth-4;
-						for ( unsigned int i=0 ; i < m_estate->houses() ; i++ )
-						painter.drawRect(2+(i*(w+2)), 2, w-1, h-1);
-				}
-			}
-
-			// TODO: steal blur code from kicker/taskbar/taskcontainer.cpp
-
-			// Estate name
-			painter.setPen(Qt::white);
-			int fontSize = generalFont.pointSize();
-			if (fontSize == -1)
-				fontSize = generalFont.pixelSize();
-
-			painter.setFont(QFont(generalFont.family(), fontSize * 2, QFont::Bold));
-			painter.drawText(marginHint, marginHint, width()-marginHint, StaticTitleHeight, Qt::AlignJustify, m_estate->name());
-
-			painter.setPen(Qt::black);
-
-			int xText = 0;
-
-			// Estate group
-			if (m_estate->estateGroup())
-			{
-				xText = StaticTitleHeight - fontSize - marginHint;
-				painter.setFont(QFont(generalFont.family(), fontSize, QFont::Bold));
-				painter.drawText(5, xText, width()-10, StaticTitleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
-			}
-
-			xText = StaticTitleHeight + fontSize + 5;
-			painter.setFont(QFont(generalFont.family(), fontSize, QFont::Normal));
-		}
-		b_recreate = false;
-
-	}
-	QPainter painter(this);
-	painter.drawPixmap(0, 0, *m_pixmap);
-}
-
-void EstateDetails::resizeEvent(QResizeEvent *)
-{
-	m_recreateQuartz = true;
-	b_recreate = true;
 }
 
 void EstateDetails::addDetails()
 {
-	if (m_estate)
+	Estate *e = estate();
+
+	if (e)
 	{
 		QListWidgetItem *infoText = 0;
 
 		// Price
-		if (m_estate->price())
+		if (e->price())
 		{
 			infoText = new QListWidgetItem();
-			infoText->setText(i18n("Price: %1", m_estate->price()));
+			infoText->setText(i18n("Price: %1", e->price()));
 			infoText->setIcon(KDE::icon("document-properties"));
 			m_infoListView->addItem(infoText);
 		}
 
 		// Owner, houses, isMortgaged
-		if (m_estate->canBeOwned())
+		if (e->canBeOwned())
 		{
 			infoText = new QListWidgetItem();
-			infoText->setText(i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
+			infoText->setText(i18n("Owner: %1", e->owner() ? e->owner()->name() : i18n("unowned")));
 			infoText->setIcon(KDE::icon("document-properties"));
 			m_infoListView->addItem(infoText);
 
-			if (m_estate->isOwned())
+			if (e->isOwned())
 			{
 				infoText = new QListWidgetItem();
-				infoText->setText(i18n("Houses: %1", m_estate->houses()));
+				infoText->setText(i18n("Houses: %1", e->houses()));
 				infoText->setIcon(KDE::icon("document-properties"));
 				m_infoListView->addItem(infoText);
 
 				infoText = new QListWidgetItem();
-				infoText->setText(i18n("Mortgaged: %1", m_estate->isMortgaged() ? i18n("Yes") : i18n("No")));
+				infoText->setText(i18n("Mortgaged: %1", e->isMortgaged() ? i18n("Yes") : i18n("No")));
 				infoText->setIcon(KDE::icon("document-properties"));
 				m_infoListView->addItem(infoText);
 			}
@@ -256,15 +118,17 @@ void EstateDetails::addDetails()
 
 void EstateDetails::addButton(const QString &command, const QString &caption, bool enabled)
 {
-	QPushButton *button = new QPushButton(iconForCommandButton(command), caption, this);
+	QPushButton *button = new QPushButton(iconForCommandButton(command), caption, widget());
 	m_buttons.append(button);
 	m_buttonCommandMapper.setMapping((QObject *)button, command);
 	m_buttonBox->addWidget(button);
 
-	if (m_estate)
+	Estate *e = estate();
+
+	if (e)
 	{
 		QColor bgColor, fgColor;
-		bgColor = m_estate->bgColor().light(110);
+		bgColor = e->bgColor().light(110);
 		fgColor = ( bgColor.red() + bgColor.green() + bgColor.blue() < 255 ) ? Qt::white : Qt::black;
 
 		QPalette pal = button->palette();
@@ -282,22 +146,11 @@ void EstateDetails::addCloseButton()
 {
 	if (!m_closeButton)
 	{
-		m_closeButton = new QPushButton(this);
+		m_closeButton = new QPushButton(widget());
 		KStandardGuiItem::assign(m_closeButton, KStandardGuiItem::Close);
 		m_buttonBox->addWidget(m_closeButton);
 		m_closeButton->show();
 		connect(m_closeButton, SIGNAL(pressed()), this, SIGNAL(buttonClose()));
-	}
-}
-
-void EstateDetails::setEstate(Estate *estate)
-{
-	if (m_estate != estate)
-	{
-		m_estate = estate;
-
-		b_recreate = true;
-		update();
 	}
 }
 
