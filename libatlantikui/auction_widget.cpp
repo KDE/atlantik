@@ -32,6 +32,8 @@
 
 #include "auction_widget.h"
 
+#include <ui_auction.h>
+
 AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : QWidget(parent)
 {
 	m_atlanticCore = atlanticCore;
@@ -41,23 +43,15 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(m_auction, SIGNAL(updateBid(Player *, int)), this, SLOT(updateBid(Player *, int)));
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
-	m_mainLayout = new QVBoxLayout(this );
-	Q_CHECK_PTR(m_mainLayout);
+	m_ui = new Ui::AuctionWidget();
+	m_ui->setupUi(this);
 
 	// Player list
 	Estate *estate = auction->estate();
-	m_playerGroupBox = new QGroupBox(estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"), this);
-	m_playerGroupBox->setObjectName("groupBox");
-	m_mainLayout->addWidget(m_playerGroupBox);
+	m_ui->playerGroupBox->setTitle(estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"));
 
-	QVBoxLayout *playerGroupBoxLayout = new QVBoxLayout(m_playerGroupBox);
-
-	m_playerList = new QTreeWidget(m_playerGroupBox);
-	m_playerList->setHeaderLabels(QStringList() << i18n("Player") << i18n("Bid"));
-	m_playerList->setRootIsDecorated(false);
-	m_playerList->header()->setSectionsClickable(false);
-	m_playerList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-	playerGroupBoxLayout->addWidget(m_playerList);
+	m_ui->playerList->header()->setSectionsClickable(false);
+	m_ui->playerList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
 	QList<QTreeWidgetItem *> items;
 	Player *pSelf = m_atlanticCore->playerSelf();
@@ -76,26 +70,15 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 		}
 	}
-	m_playerList->addTopLevelItems(items);
+	m_ui->playerList->addTopLevelItems(items);
 
 	// Bid spinbox and button
-	QHBoxLayout *bidLayout = new QHBoxLayout();
-	m_mainLayout->addItem(bidLayout);
+	connect(m_ui->bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
+}
 
-	m_bidSpinBox = new QSpinBox(this);
-	m_bidSpinBox->setRange(1, 10000);
-	m_bidSpinBox->setSingleStep(1);
-	bidLayout->addWidget(m_bidSpinBox);
-
-	QPushButton *bidButton = new QPushButton(i18n("Make Bid"), this);
-	bidButton->setObjectName( "bidButton" );
-	connect(bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
-	bidLayout->addWidget(bidButton);
-
-	// Status label
-	m_statusLabel = new QLabel(this );
-        m_statusLabel->setObjectName( "statusLabel" );
-	m_mainLayout->addWidget(m_statusLabel);
+AuctionWidget::~AuctionWidget()
+{
+	delete m_ui;
 }
 
 void AuctionWidget::auctionChanged()
@@ -118,7 +101,7 @@ void AuctionWidget::auctionChanged()
 	default:
 		status.clear();
 	}
-	m_statusLabel->setText(status);
+	m_ui->statusLabel->setText(status);
 }
 
 void AuctionWidget::playerChanged(Player *player)
@@ -143,10 +126,10 @@ void AuctionWidget::updateBid(Player *player, int amount)
 		return;
 
 	item->setText(1, QString::number(amount));
-	m_bidSpinBox->setMinimum(amount+1);
+	m_ui->bidSpinBox->setMinimum(amount+1);
 }
 
 void AuctionWidget::slotBidButtonClicked()
 {
-	emit bid(m_auction, m_bidSpinBox->value());
+	emit bid(m_auction, m_ui->bidSpinBox->value());
 }

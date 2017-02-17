@@ -10,6 +10,7 @@ set(atlantikui_LIB_SRCS
    token.cpp 
    tokentheme.cpp
    trade_widget.cpp )
+ki18n_wrap_ui(atlantikui_LIB_SRCS auction.ui)
 ecm_qt_declare_logging_category(atlantikui_LIB_SRCS
   HEADER libatlantikui_debug.h
   IDENTIFIER LIBATLANTIKUI_LOG

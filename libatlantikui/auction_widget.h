@@ -20,16 +20,16 @@
 #include <QWidget>
 #include <QMap>
 
-class QGroupBox;
-class QSpinBox;
-class QLabel;
-class QVBoxLayout;
-class QTreeWidget;
 class QTreeWidgetItem;
 
 class AtlanticCore;
 class Player;
 class Auction;
+
+namespace Ui
+{
+class AuctionWidget;
+}
 
 class AuctionWidget : public QWidget
 {
@@ -37,6 +37,7 @@ Q_OBJECT
 
 public:
 	AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent);
+	~AuctionWidget();
 
 private slots:
 	void auctionChanged();
@@ -48,13 +49,8 @@ signals:
 	void bid(Auction *auction, int amount);
 
 private:
-	QVBoxLayout *m_mainLayout;
-	QGroupBox *m_playerGroupBox;
-	QSpinBox *m_bidSpinBox;
+	Ui::AuctionWidget *m_ui;
 	QMap<Player *, QTreeWidgetItem *> m_playerItems;
-	QLabel *m_statusLabel;
-
-	QTreeWidget *m_playerList;
 
 	AtlanticCore *m_atlanticCore;
 	Auction *m_auction;
