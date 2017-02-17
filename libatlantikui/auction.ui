@@ -12,29 +12,20 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="playerGroupBox">
-     <property name="title">
-      <string/>
+    <widget class="QTreeWidget" name="playerList">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QTreeWidget" name="playerList">
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string>Player</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Bid</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
+     <column>
+      <property name="text">
+       <string>Player</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Bid</string>
+      </property>
+     </column>
     </widget>
    </item>
    <item>

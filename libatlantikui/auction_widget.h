@@ -17,7 +17,8 @@
 #ifndef ATLANTIK_AUCTION_WIDGET_H
 #define ATLANTIK_AUCTION_WIDGET_H
 
-#include <QWidget>
+#include "estatedetailsbase.h"
+
 #include <QMap>
 
 class QTreeWidgetItem;
@@ -31,7 +32,7 @@ namespace Ui
 class AuctionWidget;
 }
 
-class AuctionWidget : public QWidget
+class AuctionWidget : public EstateDetailsBase
 {
 Q_OBJECT
 

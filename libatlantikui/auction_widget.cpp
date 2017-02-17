@@ -34,7 +34,7 @@
 
 #include <ui_auction.h>
 
-AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : QWidget(parent)
+AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : EstateDetailsBase(auction->estate(), parent)
 {
 	m_atlanticCore = atlanticCore;
 
@@ -44,12 +44,10 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
 	m_ui = new Ui::AuctionWidget();
-	m_ui->setupUi(this);
+	m_ui->setupUi(widget());
+	widget()->layout()->setMargin(0);
 
 	// Player list
-	Estate *estate = auction->estate();
-	m_ui->playerGroupBox->setTitle(estate ? i18n("Auction: %1", estate->name()) : i18n("Auction"));
-
 	m_ui->playerList->header()->setSectionsClickable(false);
 	m_ui->playerList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
