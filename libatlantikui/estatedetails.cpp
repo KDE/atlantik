@@ -231,7 +231,7 @@ void EstateDetails::addDetails()
 		}
 
 		// Owner, houses, isMortgaged
-		if (m_estate && m_estate->canBeOwned())
+		if (m_estate->canBeOwned())
 		{
 			infoText = new QListWidgetItem();
 			infoText->setText(i18n("Owner: %1", m_estate->owner() ? m_estate->owner()->name() : i18n("unowned")));
