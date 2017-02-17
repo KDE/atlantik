@@ -36,6 +36,21 @@
 
 static const int StaticTitleHeight = 50;
 
+static QIcon iconForCommandButton(const QString &command)
+{
+	if (command == ".r")
+		return KDE::icon("roll");
+	if (command == ".eb")
+		return KDE::icon("atlantik_buy_estate");
+	if (command == ".ea")
+		return KDE::icon("auction");
+	if (command == ".E")
+		return KDE::icon("games-endturn");
+	if (command == ".jp")
+		return KDE::icon("jail_pay");
+	return QIcon();
+}
+
 EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : QWidget(parent)
 {
 	m_pixmap = 0;
@@ -241,7 +256,7 @@ void EstateDetails::addDetails()
 
 void EstateDetails::addButton(const QString &command, const QString &caption, bool enabled)
 {
-	QPushButton *button = new QPushButton(caption, this);
+	QPushButton *button = new QPushButton(iconForCommandButton(command), caption, this);
 	m_buttons.append(button);
 	m_buttonCommandMapper.setMapping((QObject *)button, command);
 	m_buttonBox->addWidget(button);
