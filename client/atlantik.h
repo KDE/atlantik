@@ -116,13 +116,6 @@ public:
 	 */
 	void readConfig();
 
-	/**
-	 * Appends a message the text view.
-	 *
-	 * @param msg Message to be appended.
-	 */
-	void serverMsgsAppend(const QString &msg);
-
 	AtlantikConfig config() { return m_config; }
 
 private slots:
@@ -243,10 +236,12 @@ protected:
 	void closeEvent(QCloseEvent *) Q_DECL_OVERRIDE;
 
 private:
+	enum MsgType { ErrorMsg, InfoMsg, ChatMsg };
 	void initEventLog();
 	void initNetworkObject();
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);
+	void appendMsg(const QString &msg, MsgType type);
 
 	QCommandLineParser *m_cliParser;
 

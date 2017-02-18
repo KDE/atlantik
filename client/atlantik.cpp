@@ -211,7 +211,6 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	// Text view for chat and status messages from server.
 	m_serverMsgs = new LogTextEdit(m_mainWidget);
 	m_serverMsgs->setObjectName(QLatin1String("serverMsgs"));
-	m_serverMsgs->setAcceptRichText(false);
 	m_serverMsgs->setReadOnly(true);
 	m_serverMsgs->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	m_serverMsgs->setMinimumWidth(200);
@@ -490,13 +489,13 @@ void Atlantik::slotNetworkError(QAbstractSocket::SocketError errnum)
 {
 	switch (errnum) {
 	case QAbstractSocket::ConnectionRefusedError:
-		serverMsgsAppend(i18n("Error connecting: connection refused by host."));
+		appendMsg(i18n("Error connecting: connection refused by host."), ErrorMsg);
 		break;
 	case QAbstractSocket::HostNotFoundError:
-		serverMsgsAppend(i18n("Error connecting: host not found."));
+		appendMsg(i18n("Error connecting: host not found."), ErrorMsg);
 		break;
 	default:
-		serverMsgsAppend(i18n("Error connecting: error %1.", QString::number(errnum)));
+		appendMsg(i18n("Error connecting: error %1.", QString::number(errnum)), ErrorMsg);
 		break;
 	}
 
@@ -631,12 +630,12 @@ void Atlantik::slotSendMsg()
 
 void Atlantik::slotMsgInfo(const QString &msg)
 {
-	serverMsgsAppend(msg);
+	appendMsg(msg, InfoMsg);
 }
 
 void Atlantik::slotMsgError(const QString &msg)
 {
-	serverMsgsAppend("Error: " + msg);
+	appendMsg(msg, ErrorMsg);
 }
 
 void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
@@ -647,21 +646,39 @@ void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
 
 void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
-	if (m_config.chatTimestamps)
-	{
-		const QString timeString = QLocale::system().toString(QTime::currentTime(), QLocale::ShortFormat);
-		serverMsgsAppend(QString("[%1] %2: %3").arg(timeString, player, msg));
-	}
-	else
-		serverMsgsAppend(player + ": " + msg);
+	appendMsg(QString("<%1> %2").arg(player, msg), ChatMsg);
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
 		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, msg.toHtmlEscaped()));
 }
 
-void Atlantik::serverMsgsAppend(const QString &msg)
+void Atlantik::appendMsg(const QString &msg, MsgType type)
 {
-	m_serverMsgs->insertPlainText(msg + '\n');
+	const QString escaped = msg.toHtmlEscaped();
+	QString ts;
+	QString res;
+
+	if (m_config.chatTimestamps)
+	{
+		const QString timeString = QLocale::system().toString(QTime::currentTime(), QLocale::ShortFormat);
+		ts = QString("[%1] ").arg(timeString);
+	}
+
+	switch (type)
+	{
+	case ErrorMsg:
+		res = QString("<font color=\"%1\">%2[%3] %4</font>").arg("#ff0000", ts, i18nc("error message", "Error"), escaped);
+		break;
+	case InfoMsg:
+		res = QString("<font color=\"%1\">%2[%3] %4</font>").arg("#91640a", ts, i18nc("informative message", "Info"), escaped);
+		break;
+	case ChatMsg:
+		res = QString("<font color=\"%1\">%2</font>%3").arg("#709070", ts, escaped);
+		break;
+	}
+	res += "<br/>\n";
+
+	m_serverMsgs->insertHtml(res);
 }
 
 void Atlantik::playerChanged(Player *player)
