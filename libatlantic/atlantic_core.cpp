@@ -41,10 +41,15 @@ void AtlanticCore::reset(bool deletePermanents)
 	m_estates.clear();
 	qDeleteAll(m_estateGroups);
 	m_estateGroups.clear();
-	qDeleteAll(m_configOptions);
-	m_configOptions.clear();
 	qDeleteAll(m_cards);
 	m_cards.clear();
+
+	foreach (ConfigOption *option, m_configOptions)
+	{
+		emit removeGUI(option);
+		option->deleteLater();
+	}
+	m_configOptions.clear();
 
 	foreach (Trade *trade, m_trades)
 	{
