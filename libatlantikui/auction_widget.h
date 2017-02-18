@@ -43,6 +43,8 @@ public:
 private slots:
 	void auctionChanged();
 	void playerChanged(Player *player);
+	void playerCreated(Player *player);
+	void playerRemoved(Player *player);
 	void updateBid(Player *player, int amount);
 	void slotBidButtonClicked();
 
@@ -50,6 +52,8 @@ signals:
 	void bid(Auction *auction, int amount);
 
 private:
+	QTreeWidgetItem *createPlayerItem(Player *player);
+
 	Ui::AuctionWidget *m_ui;
 	QMap<Player *, QTreeWidgetItem *> m_playerItems;
 

@@ -56,22 +56,20 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 
 	foreach (Player *player, m_atlanticCore->players())
 	{
-		if (player->game() == pSelf->game())
-		{
-			QTreeWidgetItem *item = new QTreeWidgetItem();
-			item->setText(0, player->name());
-			item->setText(1, QString("0"));
-			item->setIcon(0, KDE::icon("user-identity"));
-			m_playerItems[player] = item;
-			items << item;
+		if (player->game() == pSelf->game() && !player->isSpectator())
+			items << createPlayerItem(player);
 
-			connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
-		}
+		// Monitor all the players, as they could join this auction
+		connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
 	m_ui->playerList->addTopLevelItems(items);
 
 	// Bid spinbox and button
 	connect(m_ui->bidButton, SIGNAL(clicked()), this, SLOT(slotBidButtonClicked()));
+
+	// Monitor for players added/removed
+	connect(m_atlanticCore, SIGNAL(createGUI(Player *)), this, SLOT(playerCreated(Player *)));
+	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(playerRemoved(Player *)));
 }
 
 AuctionWidget::~AuctionWidget()
@@ -107,11 +105,47 @@ void AuctionWidget::playerChanged(Player *player)
 	if (!player)
 		return;
 
-	QTreeWidgetItem *item;
-	if (!(item = m_playerItems.value(player, 0)))
+	Game *pSelfGame = m_atlanticCore->playerSelf()->game();
+	QTreeWidgetItem *item = m_playerItems.value(player, 0);
+
+	if (item)
+	{
+		// There was an item for this player, so the player was
+		// already in the game
+
+		if (player->game() != pSelfGame)
+		{
+			// The player is no more in the game
+			delete item;
+			m_playerItems.remove(player);
+		}
+		else
+		{
+			// The player is still in the game
+			item->setText(0, player->name());
+		}
+	}
+	else if ((player->game() == pSelfGame) && !player->isSpectator())
+	{
+		// The player was not already in the game, but it is now,
+		// and they are not a spectator -- add it
+		m_ui->playerList->addTopLevelItem(createPlayerItem(player));
+	}
+}
+
+void AuctionWidget::playerCreated(Player *player)
+{
+	connect(player, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+
+	if (player->game() != m_atlanticCore->playerSelf()->game())
 		return;
 
-	item->setText(0, player->name());
+	m_ui->playerList->addTopLevelItem(createPlayerItem(player));
+}
+
+void AuctionWidget::playerRemoved(Player *player)
+{
+	delete m_playerItems.take(player);
 }
 
 void AuctionWidget::updateBid(Player *player, int amount)
@@ -130,4 +164,14 @@ void AuctionWidget::updateBid(Player *player, int amount)
 void AuctionWidget::slotBidButtonClicked()
 {
 	emit bid(m_auction, m_ui->bidSpinBox->value());
+}
+
+QTreeWidgetItem *AuctionWidget::createPlayerItem(Player *player)
+{
+	QTreeWidgetItem *item = new QTreeWidgetItem();
+	item->setText(0, player->name());
+	item->setText(1, QString("0"));
+	item->setIcon(0, KDE::icon("user-identity"));
+	m_playerItems.insert(player, item);
+	return item;
 }
