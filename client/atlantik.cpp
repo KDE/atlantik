@@ -646,7 +646,16 @@ void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
 
 void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
-	appendMsg(QString("<%1> %2").arg(player, msg), ChatMsg);
+	QString res;
+	if (msg == "/me")
+		res = QString("* %1").arg(player);
+	else if (msg.startsWith("/me "))
+		res = QString("* %1 %2").arg(player, msg.mid(4));
+	else if (msg.startsWith("[ACTION] "))
+		res = QString("* %1 %2").arg(player, msg.mid(9));
+	else
+		res = QString("<%1> %2").arg(player, msg);
+	appendMsg(res, ChatMsg);
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
 		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, msg.toHtmlEscaped()));
