@@ -104,6 +104,10 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_reconnect->setText(i18n("&Reconnect (after crash)"));
 	connect(m_reconnect, SIGNAL(triggered()), this, SLOT(slotReconnect()));
 	m_reconnect->setEnabled(false);
+	m_leaveGame = actionCollection()->addAction("leave_game");
+	m_leaveGame->setText(i18n("&Leave Game"));
+	connect(m_leaveGame, SIGNAL(triggered()), this, SLOT(slotLeaveGame()));
+	m_leaveGame->setEnabled(false);
 	(void) KStandardGameAction::quit(qApp, SLOT(closeAllWindows()), actionCollection());
 
 	// Toolbar: Settings
@@ -350,6 +354,7 @@ void Atlantik::showSelectServer()
 
 	m_reconnect->setEnabled(false);
 	m_reconnecting = false;
+	m_leaveGame->setEnabled(false);
 
 	connect(m_selectServer, SIGNAL(serverConnect(QString, int)), m_atlantikNetwork, SLOT(serverConnect(QString, int)));
 	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
@@ -365,6 +370,7 @@ void Atlantik::showSelectGame()
 
 	m_selectGame = new SelectGame(m_atlanticCore, m_mainWidget);
 	m_atlanticCore->emitGames();
+	m_leaveGame->setEnabled(false);
 
 	m_mainLayout->addWidget(m_selectGame, 0, 1, 3, 1);
 	m_selectGame->show();
@@ -414,6 +420,7 @@ void Atlantik::showSelectConfiguration()
         m_selectConfiguration->setObjectName("selectConfiguration");
 	m_mainLayout->addWidget(m_selectConfiguration, 0, 1, 3, 1);
 	m_selectConfiguration->show();
+	m_leaveGame->setEnabled(true);
 
 	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), m_selectConfiguration, SLOT(addConfigOption(ConfigOption *)));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
@@ -462,6 +469,7 @@ void Atlantik::showBoard()
 		initBoard();
 
 	m_runningGame = true;
+	m_leaveGame->setEnabled(true);
 
 	m_mainLayout->addWidget(m_board, 0, 1, 3, 1);
 	m_board->displayDefault();
@@ -477,6 +485,7 @@ void Atlantik::freezeBoard()
 		showBoard();
 
 	m_runningGame = false;
+	m_leaveGame->setEnabled(false);
 	// TODO: m_board->freeze();
 }
 
@@ -891,4 +900,16 @@ void Atlantik::slotReconnect()
 
 	m_atlantikNetwork->serverConnect(m_reconnectCookie->host(), m_reconnectCookie->port());
 	m_reconnecting = true;
+}
+
+void Atlantik::slotLeaveGame()
+{
+	Game *gameSelf = m_atlanticCore->gameSelf();
+	Player *playerSelf = m_atlanticCore->playerSelf();
+
+	if (!gameSelf)
+		return;
+
+	if (!m_runningGame || playerSelf->isBankrupt() || (KMessageBox::warningContinueCancel(this, i18n("You are currently part of an active game. Are you sure you want to leave it? If you do, you forfeit the game."), i18n("Leave & Forfeit?"), KGuiItem(i18n("Leave && Forfeit"))) == KMessageBox::Continue))
+		m_atlantikNetwork->leaveGame();
 }

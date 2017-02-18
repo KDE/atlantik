@@ -210,6 +210,7 @@ public slots:
 	void slotMsgChat(const QString &player, const QString &msg);
 
 	void slotReconnect();
+	void slotLeaveGame();
 
 	void newPlayer(Player *player);
 	void newEstate(Estate *estate);
@@ -258,7 +259,7 @@ private:
 
 	QAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
 		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
-		*m_showEventLog, *m_reconnect;
+		*m_showEventLog, *m_reconnect, *m_leaveGame;
 
 	AtlanticCore *m_atlanticCore;
 	AtlantikNetwork *m_atlantikNetwork;

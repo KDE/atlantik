@@ -1,10 +1,11 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="atlantik" version="3">
+<kpartgui name="atlantik" version="4">
 <MenuBar>
   <Menu name="game"><text>&amp;Game</text>
     <Action name="showeventlog"/>
     <Separator />
     <Action name="reconnect"/>
+    <Action name="leave_game"/>
   </Menu>
   <Menu name="move"><text>&amp;Move</text>
     <Action name="move_roll"/>
