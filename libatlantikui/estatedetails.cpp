@@ -82,13 +82,14 @@ void EstateDetails::addDetails()
 	if (e)
 	{
 		QListWidgetItem *infoText = 0;
+		const QIcon infoIcon = KDE::icon("document-properties");
 
 		// Price
 		if (e->price())
 		{
 			infoText = new QListWidgetItem();
 			infoText->setText(i18n("Price: %1", e->price()));
-			infoText->setIcon(KDE::icon("document-properties"));
+			infoText->setIcon(infoIcon);
 			m_infoListView->addItem(infoText);
 		}
 
@@ -97,19 +98,19 @@ void EstateDetails::addDetails()
 		{
 			infoText = new QListWidgetItem();
 			infoText->setText(i18n("Owner: %1", e->owner() ? e->owner()->name() : i18n("unowned")));
-			infoText->setIcon(KDE::icon("document-properties"));
+			infoText->setIcon(infoIcon);
 			m_infoListView->addItem(infoText);
 
 			if (e->isOwned())
 			{
 				infoText = new QListWidgetItem();
 				infoText->setText(i18n("Houses: %1", e->houses()));
-				infoText->setIcon(KDE::icon("document-properties"));
+				infoText->setIcon(infoIcon);
 				m_infoListView->addItem(infoText);
 
 				infoText = new QListWidgetItem();
 				infoText->setText(i18n("Mortgaged: %1", e->isMortgaged() ? i18n("Yes") : i18n("No")));
-				infoText->setIcon(KDE::icon("document-properties"));
+				infoText->setIcon(infoIcon);
 				m_infoListView->addItem(infoText);
 			}
 		}

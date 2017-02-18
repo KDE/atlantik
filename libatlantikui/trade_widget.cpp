@@ -230,8 +230,9 @@ void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 	item->setText(3, tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
-	item->setIcon(0, KDE::icon("user-identity"));
-	item->setIcon(2, KDE::icon("user-identity"));
+	const QIcon userIcon = KDE::icon("user-identity");
+	item->setIcon(0, userIcon);
+	item->setIcon(2, userIcon);
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(tradeItem))
 		item->setIcon(3, PortfolioEstate::drawPixmap(tradeEstate->estate()));
@@ -256,10 +257,11 @@ void TradeDisplay::tradeItemChanged(TradeItem *t)
 	QTreeWidgetItem *item = m_componentMap.value(t, 0);
 	if (item)
 	{
+		const QIcon userIcon = KDE::icon("user-identity");
 		item->setText(0, t->from() ? t->from()->name() : QString("?"));
-		item->setIcon(0, KDE::icon("user-identity"));
+		item->setIcon(0, userIcon);
 		item->setText(2, t->to() ? t->to()->name() : QString("?"));
-		item->setIcon(2, KDE::icon("user-identity"));
+		item->setIcon(2, userIcon);
 		item->setText(3, t->text());
 	}
 }
