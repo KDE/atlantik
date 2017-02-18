@@ -20,6 +20,8 @@
 #include <QSortFilterProxyModel>
 #include <QList>
 #include <QDialog>
+#include <QHash>
+#include <QIcon>
 
 class QString;
 
@@ -47,7 +49,10 @@ public slots:
 	void addEvent(const QString &description, const QString &icon = QString());
 
 private:
+	QIcon cachedIcon(const QString &name) const;
+
 	QList<Event*> m_events;
+	mutable QHash<QString, QIcon> m_iconCache;
 };
 
 class LastMessagesProxyModel : public QSortFilterProxyModel

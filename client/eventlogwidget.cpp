@@ -82,7 +82,7 @@ QVariant EventLog::data(const QModelIndex &index, int role) const
 		switch (role)
 		{
 		case Qt::DecorationRole:
-			return e->icon().isEmpty() ? KDE::icon("atlantik") : KDE::icon(e->icon());
+			return cachedIcon(e->icon().isEmpty() ? "atlantik" : e->icon());
 		case Qt::DisplayRole:
 			return e->description();
 		}
@@ -124,6 +124,17 @@ QModelIndex EventLog::parent(const QModelIndex &) const
 int EventLog::rowCount(const QModelIndex &parent) const
 {
 	return parent.isValid() ? 0 : m_events.count();
+}
+
+QIcon EventLog::cachedIcon(const QString &name) const
+{
+	const QHash<QString, QIcon>::ConstIterator it = m_iconCache.constFind(name);
+	if (it != m_iconCache.constEnd())
+		return it.value();
+
+	const QIcon icon = KDE::icon(name);
+	m_iconCache.insert(name, icon);
+	return icon;
 }
 
 LastMessagesProxyModel::LastMessagesProxyModel(QObject *parent)
