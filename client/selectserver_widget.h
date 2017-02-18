@@ -60,7 +60,7 @@ class SelectServer : public QWidget, private Ui::SelectServer
 Q_OBJECT
 
 public:
-	SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent);
+	SelectServer(bool hideDevelopmentServers, QWidget *parent);
 	virtual ~SelectServer();
 
 	void setHideDevelopmentServers(bool hideDevelopmentServers);
@@ -68,7 +68,7 @@ public:
 public slots:
 	void validateConnectButton();
 	void validateCustomConnectButton();
-	void slotRefresh(bool useMonopigator = true);
+	void reloadServerList();
 	void slotMetatlanticAdd(const QString &host, int port, const QString &version, int users);
 
 private slots:

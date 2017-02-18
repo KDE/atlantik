@@ -102,7 +102,7 @@ void MetaserverEntry::showDevelopmentServers(bool show)
 	setHidden(!show);
 }
 
-SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServers, QWidget *parent)
+SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
     : QWidget(parent)
 {
 	m_hideDevelopmentServers = hideDevelopmentServers;
@@ -133,8 +133,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	// Server List / Refresh
-	KGuiItem::assign(m_refreshButton, useMonopigatorOnStart ? KGuiItem(i18n("Reload Server List"), "view-refresh") : KGuiItem(i18n("Get Server List"), "network-wired"));
-	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
+	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Get Server List"), "network-wired"));
+	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(reloadServerList()));
 
 	// Connect
 	m_connectButton->setIcon(KStandardGuiItem::forward(KStandardGuiItem::UseRTL).icon());
@@ -148,6 +148,7 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_metatlantic, SIGNAL(finished()), SLOT(metatlanticFinished()));
 	connect(m_metatlantic, SIGNAL(timeout()), SLOT(metatlanticTimeout()));
 
+	validateConnectButton();
 	validateCustomConnectButton();
 }
 
@@ -214,16 +215,13 @@ void SelectServer::validateCustomConnectButton()
 	m_customConnectButton->setEnabled(!m_hostEdit->text().isEmpty() && !m_portEdit->text().isEmpty());
 }
 
-void SelectServer::slotRefresh(bool useMonopigator)
+void SelectServer::reloadServerList()
 {
 	m_serverList->clear();
 	validateConnectButton();
 
-	if (useMonopigator)
-	{
-		m_refreshButton->setEnabled(false);
-		initMonopigator();
-	}
+	m_refreshButton->setEnabled(false);
+	initMonopigator();
 }
 
 void SelectServer::slotConnect()

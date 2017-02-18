@@ -334,7 +334,7 @@ void Atlantik::showSelectServer()
 	if (m_selectServer)
 		return;
 
-	m_selectServer = new SelectServer(m_config.connectOnStart, m_config.hideDevelopmentServers, m_mainWidget );
+	m_selectServer = new SelectServer(m_config.hideDevelopmentServers, m_mainWidget );
         m_selectServer->setObjectName("selectServer");
 	m_mainLayout->addWidget(m_selectServer, 0, 1, 3, 1);
 	m_selectServer->show();
@@ -354,7 +354,8 @@ void Atlantik::showSelectServer()
 	connect(m_selectServer, SIGNAL(serverConnect(QString, int)), m_atlantikNetwork, SLOT(serverConnect(QString, int)));
 	connect(m_selectServer, SIGNAL(msgStatus(const QString &)), this, SLOT(slotMsgStatus(const QString &)));
 
-	m_selectServer->slotRefresh( m_config.connectOnStart );
+	if (m_config.connectOnStart)
+		m_selectServer->reloadServerList();
 }
 
 void Atlantik::showSelectGame()
