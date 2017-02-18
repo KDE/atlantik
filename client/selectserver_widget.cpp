@@ -111,13 +111,15 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	layout()->setMargin(0);
 
 	connect(m_hostEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
+	connect(m_hostEdit, SIGNAL(textChanged(QString)), this, SLOT(validateCustomConnectButton()));
 
 	m_portEdit->setText(QString::number(MONOPD_PORT));
 	m_portEdit->setValidator(new QIntValidator(1, 65535, m_portEdit));
 	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
+	connect(m_portEdit, SIGNAL(textChanged(QString)), this, SLOT(validateCustomConnectButton()));
 
-	connectButton->setIcon(KDE::icon("network-wired"));
-	connect(connectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
+	m_customConnectButton->setIcon(KDE::icon("network-wired"));
+	connect(m_customConnectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// List of servers
 	m_serverList->sortItems(1, Qt::AscendingOrder);
@@ -145,6 +147,8 @@ SelectServer::SelectServer(bool useMonopigatorOnStart, bool hideDevelopmentServe
 	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
 	connect(m_metatlantic, SIGNAL(finished()), SLOT(metatlanticFinished()));
 	connect(m_metatlantic, SIGNAL(timeout()), SLOT(metatlanticTimeout()));
+
+	validateCustomConnectButton();
 }
 
 SelectServer::~SelectServer()
@@ -203,6 +207,11 @@ void SelectServer::validateConnectButton()
 		m_connectButton->setEnabled(true);
 	else
 		m_connectButton->setEnabled(false);
+}
+
+void SelectServer::validateCustomConnectButton()
+{
+	m_customConnectButton->setEnabled(!m_hostEdit->text().isEmpty() && !m_portEdit->text().isEmpty());
 }
 
 void SelectServer::slotRefresh(bool useMonopigator)

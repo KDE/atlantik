@@ -67,6 +67,7 @@ public:
 
 public slots:
 	void validateConnectButton();
+	void validateCustomConnectButton();
 	void slotRefresh(bool useMonopigator = true);
 	void slotMetatlanticAdd(const QString &host, int port, const QString &version, int users);
 
