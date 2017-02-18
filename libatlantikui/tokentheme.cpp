@@ -22,21 +22,14 @@
 #include <QSet>
 #include <QStandardPaths>
 
+#include <functional>
+
 struct TokenThemeFiller
 {
-	static void iterateThemes(void *data, void (*fun)(void *, const QString &, const QString &));
-	static void fillNames(void *data, const QString &, const QString &name);
-	static void createTheme(void *data, const QString &dir, const QString &name);
-	static void getSpecificTheme(void *data, const QString &dir, const QString &name);
+	static void iterateThemes(std::function<void(const QString &, const QString &)> fun);
 };
 
-struct SpecificThemeData
-{
-	QString name;
-	TokenTheme theme;
-};
-
-void TokenThemeFiller::iterateThemes(void *data, void (*fun)(void *, const QString &, const QString &))
+void TokenThemeFiller::iterateThemes(std::function<void(const QString &, const QString &)> fun)
 {
 	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "atlantik/themes/", QStandardPaths::LocateDirectory))
 	{
@@ -47,26 +40,9 @@ void TokenThemeFiller::iterateThemes(void *data, void (*fun)(void *, const QStri
 			const QString fn = it.fileName();
 			d += "/tokens/";
 			if (QFileInfo(d).isDir())
-				fun(data, d, fn);
+				fun(d, fn);
 		}
 	}
-}
-
-void TokenThemeFiller::fillNames(void *data, const QString &, const QString &name)
-{
-	static_cast<QSet<QString> *>(data)->insert(name);
-}
-
-void TokenThemeFiller::createTheme(void *data, const QString &dir, const QString &name)
-{
-	static_cast<QVector<TokenTheme> *>(data)->append(TokenTheme(name, dir));
-}
-
-void TokenThemeFiller::getSpecificTheme(void *data, const QString &dir, const QString &name)
-{
-	SpecificThemeData &d = *static_cast<SpecificThemeData *>(data);
-	if (name == d.name)
-		d.theme = TokenTheme(name, dir);
 }
 
 TokenTheme::TokenTheme()
@@ -136,7 +112,12 @@ QStringList TokenTheme::themeNames()
 {
 	QSet<QString> set;
 
-	TokenThemeFiller::iterateThemes(&set, &TokenThemeFiller::fillNames);
+	TokenThemeFiller::iterateThemes(
+		[&set](const QString &, const QString &name)
+		{
+			set.insert(name);
+		}
+	);
 
 	return set.toList();
 }
@@ -145,17 +126,27 @@ QVector<TokenTheme> TokenTheme::themes()
 {
 	QVector<TokenTheme> list;
 
-	TokenThemeFiller::iterateThemes(&list, &TokenThemeFiller::createTheme);
+	TokenThemeFiller::iterateThemes(
+		[&list](const QString &dir, const QString &name)
+		{
+			list.append(TokenTheme(name, dir));
+		}
+	);
 
 	return list;
 }
 
 TokenTheme TokenTheme::theme(const QString &theme)
 {
-	SpecificThemeData data;
-	data.name = theme;
+	TokenTheme newTheme;
 
-	TokenThemeFiller::iterateThemes(&data, &TokenThemeFiller::getSpecificTheme);
+	TokenThemeFiller::iterateThemes(
+		[&newTheme, theme](const QString &dir, const QString &name)
+		{
+			if (name == theme)
+				newTheme = TokenTheme(name, dir);
+		}
+	);
 
-	return data.theme;
+	return newTheme;
 }
