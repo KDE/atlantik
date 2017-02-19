@@ -212,6 +212,12 @@ void AtlantikBoard::addToken(Player *player)
 		return;
 	}
 
+	if (player->isSpectator())
+	{
+		qCDebug(LIBATLANTIKUI_LOG) << "addToken ignored - is a spectator";
+		return;
+	}
+
 	Player *playerSelf = 0;
 	if (m_atlanticCore)
 		playerSelf = m_atlanticCore->playerSelf();

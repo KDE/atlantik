@@ -476,6 +476,7 @@ void Atlantik::showBoard()
 	m_board->show();
 
 	foreach (PortfolioView *portfolioView, m_portfolioViews)
+		if (!portfolioView->player()->isSpectator())
 			portfolioView->buildPortfolio();
 }
 
