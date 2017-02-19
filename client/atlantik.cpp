@@ -304,7 +304,7 @@ void Atlantik::newTrade(Trade *trade)
 {
 	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore);
         tradeDisplay->setObjectName("tradeDisplay");
-	m_tradeGUIMap[trade] = tradeDisplay;
+	m_tradeGUIMap.insert(trade, tradeDisplay);
 	tradeDisplay->show();
 }
 

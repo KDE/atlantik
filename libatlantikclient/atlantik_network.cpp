@@ -614,7 +614,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     // Update player location
                     a = e.attributeNode(QString("location"));
                     if (!a.isNull()) {
-                        m_playerLocationMap[player] = a.value().toInt();
+                        m_playerLocationMap.insert(player, a.value().toInt());
 
                         bool directMove = false;
 
@@ -685,7 +685,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                         // Players without estate should get one
                         foreach (Player *player, m_atlanticCore->players())
-                            if (m_playerLocationMap[player] == estate->id())
+                            if (m_playerLocationMap.value(player) == estate->id())
                                 player->setLocation(estate);
                     }
 
