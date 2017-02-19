@@ -17,10 +17,11 @@
 #ifndef ATLANTIK_EVENTLOGWIDGET_H
 #define ATLANTIK_EVENTLOGWIDGET_H
 
+#include <network_defs.h>
+
 #include <QSortFilterProxyModel>
 #include <QList>
 #include <QDialog>
-#include <QHash>
 #include <QIcon>
 
 class QString;
@@ -46,13 +47,13 @@ public:
 	int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
 
 public slots:
-	void addEvent(const QString &description, const QString &icon = QString());
+	void addEvent(const QString &description, EventType type);
 
 private:
-	QIcon cachedIcon(const QString &name) const;
+	QIcon cachedIcon(EventType type) const;
 
 	QList<Event*> m_events;
-	mutable QHash<QString, QIcon> m_iconCache;
+	mutable QIcon m_iconCache[ET_LastEvent];
 };
 
 class LastMessagesProxyModel : public QSortFilterProxyModel

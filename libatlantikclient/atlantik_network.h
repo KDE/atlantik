@@ -17,6 +17,8 @@
 #ifndef LIBATLANTIK_NETWORK_H
 #define LIBATLANTIK_NETWORK_H
 
+#include "network_defs.h"
+
 #include <QMap>
 #include <QTextStream>
 #include <QDomNode>
@@ -105,8 +107,8 @@ signals:
 	void msgInfo(const QString &);
 	void msgError(const QString &);
 	void msgChat(const QString &, const QString &);
-	void msgStatus(const QString &data, const QString &icon = QString());
-	void networkEvent(const QString &data, const QString &icon);
+	void msgStatus(const QString &data, EventType type);
+	void networkEvent(const QString &data, EventType type);
 	void displayDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
 	void displayText(const QString &text, bool clearText, bool clearButtons);
 	void addCommandButton(const QString &command, const QString &caption, bool enabled);

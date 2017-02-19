@@ -17,20 +17,23 @@
 #ifndef ATLANTIK_EVENT_H
 #define ATLANTIK_EVENT_H
 
+#include <network_defs.h>
+
 #include <QDateTime>
 #include <QString>
 
 class Event
 {
 public:
-	Event(const QDateTime &dateTime, const QString &description, const QString &icon = QString());
+	Event(const QDateTime &dateTime, const QString &description, EventType type);
 	QDateTime dateTime() const;
 	QString description() const;
-	QString icon() const;
+	EventType type() const;
 
 private:
 	QDateTime m_dateTime;
-	QString m_description, m_icon;
+	QString m_description;
+	EventType m_type : 8;
 };
 
 #endif

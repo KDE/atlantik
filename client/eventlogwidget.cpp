@@ -46,11 +46,11 @@ EventLog::~EventLog()
 	qDeleteAll(m_events);
 }
 
-void EventLog::addEvent(const QString &description, const QString &icon)
+void EventLog::addEvent(const QString &description, EventType type)
 {
 	const int oldCount = m_events.count();
 	beginInsertRows(QModelIndex(), oldCount, oldCount);
-	Event *event = new Event(QDateTime::currentDateTime(), description, icon);
+	Event *event = new Event(QDateTime::currentDateTime(), description, type);
 	m_events.append(event);
 	endInsertRows();
 }
@@ -82,7 +82,7 @@ QVariant EventLog::data(const QModelIndex &index, int role) const
 		switch (role)
 		{
 		case Qt::DecorationRole:
-			return cachedIcon(e->icon().isEmpty() ? "atlantik" : e->icon());
+			return cachedIcon(e->type());
 		case Qt::DisplayRole:
 			return e->description();
 		}
@@ -126,14 +126,38 @@ int EventLog::rowCount(const QModelIndex &parent) const
 	return parent.isValid() ? 0 : m_events.count();
 }
 
-QIcon EventLog::cachedIcon(const QString &name) const
+QIcon EventLog::cachedIcon(EventType type) const
 {
-	const QHash<QString, QIcon>::ConstIterator it = m_iconCache.constFind(name);
-	if (it != m_iconCache.constEnd())
-		return it.value();
+	if (!m_iconCache[type].isNull())
+		return m_iconCache[type];
+
+	QString name;
+	switch (type)
+	{
+		case ET_Generic:
+			name = "atlantik";
+			break;
+		case ET_NetIn:
+			name = "arrow-left";
+			break;
+		case ET_NetOut:
+			name = "arrow-right";
+			break;
+		case ET_NetGeneric:
+			name = "network-disconnect";  // FIXME
+			break;
+		case ET_NetConnected:
+			name = "network-connect";
+			break;
+		case ET_NetError:
+			name = "network-disconnect";
+			break;
+		case ET_LastEvent:
+			return QIcon();
+	};
 
 	const QIcon icon = KDE::icon(name);
-	m_iconCache.insert(name, icon);
+	m_iconCache[type] = icon;
 	return icon;
 }
 

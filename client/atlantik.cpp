@@ -648,10 +648,10 @@ void Atlantik::slotMsgError(const QString &msg)
 	appendMsg(msg, ErrorMsg);
 }
 
-void Atlantik::slotMsgStatus(const QString &message, const QString &icon)
+void Atlantik::slotMsgStatus(const QString &message, EventType type)
 {
 	m_sbStatus->setText(message);
-	m_eventLog->addEvent(message, icon);
+	m_eventLog->addEvent(message, type);
 }
 
 void Atlantik::slotMsgChat(const QString &player, const QString &msg)
@@ -778,7 +778,7 @@ void Atlantik::initNetworkObject()
 	m_atlantikNetwork = new AtlantikNetwork(m_atlanticCore);
 	connect(m_atlantikNetwork, SIGNAL(msgInfo(QString)), this, SLOT(slotMsgInfo(QString)));
 	connect(m_atlantikNetwork, SIGNAL(msgError(QString)), this, SLOT(slotMsgError(QString)));
-	connect(m_atlantikNetwork, SIGNAL(msgStatus(const QString &, const QString &)), this, SLOT(slotMsgStatus(const QString &, const QString &)));
+	connect(m_atlantikNetwork, SIGNAL(msgStatus(const QString &, EventType)), this, SLOT(slotMsgStatus(const QString &, EventType)));
 	connect(m_atlantikNetwork, SIGNAL(msgChat(QString, QString)), this, SLOT(slotMsgChat(QString, QString)));
 
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
@@ -796,7 +796,7 @@ void Atlantik::initNetworkObject()
 	connect(m_atlantikNetwork, SIGNAL(newAuction(Auction *)), this, SLOT(newAuction(Auction *)));
 
 	connect(m_atlantikNetwork, SIGNAL(clientCookie(QString)), this, SLOT(clientCookie(QString)));
-	connect(m_atlantikNetwork, SIGNAL(networkEvent(const QString &, const QString &)), m_eventLog, SLOT(addEvent(const QString &, const QString &)));
+	connect(m_atlantikNetwork, SIGNAL(networkEvent(const QString &, EventType)), m_eventLog, SLOT(addEvent(const QString &, EventType)));
 
 	connect(this, SIGNAL(rollDice()), m_atlantikNetwork, SLOT(rollDice()));
 	connect(this, SIGNAL(buyEstate()), m_atlantikNetwork, SLOT(buyEstate()));

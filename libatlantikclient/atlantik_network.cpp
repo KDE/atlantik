@@ -89,7 +89,7 @@ bool AtlantikNetwork::isConnected() const
 
 void AtlantikNetwork::slotwriteData(const QString &msg)
 {
-	emit networkEvent(msg, "arrow-right");
+	emit networkEvent(msg, ET_NetOut);
 
 }
 
@@ -120,7 +120,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString &host, int port)
 {
-	emit msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), "network-disconnect");
+	emit msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), ET_NetGeneric);
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connectToHost(host, port);
@@ -128,12 +128,12 @@ void AtlantikNetwork::serverConnect(const QString &host, int port)
 
 void AtlantikNetwork::slotLookupFinished()
 {
-	emit msgStatus(i18n("Server host name lookup finished..."));
+	emit msgStatus(i18n("Server host name lookup finished..."), ET_NetGeneric);
 }
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
-	emit msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)));
+	emit msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)), ET_NetConnected);
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
@@ -144,7 +144,7 @@ void AtlantikNetwork::slotConnectionSuccess()
 void AtlantikNetwork::slotConnectionFailed(QAbstractSocket::SocketError error)
 {
 	emit connectionFailed(error);
-	emit msgStatus(i18n("Connection failed! Error code: %1", error), "connect-no");
+	emit msgStatus(i18n("Connection failed! Error code: %1", error), ET_NetError);
 }
 
 void AtlantikNetwork::slotClosed()
@@ -155,7 +155,7 @@ void AtlantikNetwork::slotClosed()
 
 void AtlantikNetwork::writeData(const QString &data) {
 
-	emit networkEvent(data, "arrow-right");
+	emit networkEvent(data, ET_NetOut);
 	//data.append("\n");
 	m_monopdstream << data << endl;
 	qCDebug(LIBATLANTIKCLIENT_LOG) << "writing data:" << data;
@@ -321,7 +321,7 @@ void AtlantikNetwork::changeOption(int configId, const QString &value)
 
 
 void AtlantikNetwork::processMsg(const QString &msg) {
-    emit networkEvent(msg, "arrow-left");
+    emit networkEvent(msg, ET_NetIn);
     qCDebug(LIBATLANTIKCLIENT_LOG) << msg;
     QDomDocument dom;
     dom.setContent(msg);

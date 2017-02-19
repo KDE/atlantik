@@ -27,6 +27,7 @@
 #include <kxmlguiwindow.h>
 
 #include <tokentheme.h>
+#include <network_defs.h>
 
 #include "connectioncookie.h"
 
@@ -190,7 +191,7 @@ public slots:
 	 */
 	void slotMsgInfo(const QString &msg);
 
-	void slotMsgStatus(const QString &message, const QString &icon = QString());
+	void slotMsgStatus(const QString &message, EventType type = ET_Generic);
 
 	/**
 	 * Informs serverMsgs() to append an incoming message from the

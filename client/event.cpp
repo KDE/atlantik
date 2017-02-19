@@ -16,11 +16,11 @@
 
 #include "event.h"
 
-Event::Event(const QDateTime &dateTime, const QString &description, const QString &icon)
+Event::Event(const QDateTime &dateTime, const QString &description, EventType type)
 {
 	m_dateTime = dateTime;
 	m_description = description;
-	m_icon = icon;
+	m_type = type >= 0 && type < ET_LastEvent ? type : ET_Generic;
 }
 
 QDateTime Event::dateTime() const
@@ -33,7 +33,7 @@ QString Event::description() const
 	return m_description;
 }
 
-QString Event::icon() const
+EventType Event::type() const
 {
-	return m_icon;
+	return m_type;
 }
