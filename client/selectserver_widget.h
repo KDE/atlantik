@@ -20,6 +20,7 @@
 #include <QWidget>
 #include <QTreeWidgetItem>
 #include <QElapsedTimer>
+#include <QVector>
 
 #include <ui_selectserver.h>
 
@@ -44,7 +45,6 @@ public:
 private slots:
 	void resolved();
 	void connected();
-	void showDevelopmentServers(bool show);
 
 private:
 	int m_latency;
@@ -80,13 +80,13 @@ private slots:
 signals:
 	void serverConnect(const QString &host, int port);
 	void msgStatus(const QString &message);
-	void showDevelopmentServers(bool show);
 
 private:
 	void initMonopigator();
 
 	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;
+	QVector<MetaserverEntry *> m_developmentServers;
 };
 
 #endif

@@ -97,11 +97,6 @@ void MetaserverEntry::connected()
 	m_latencySocket = 0;
 }
 
-void MetaserverEntry::showDevelopmentServers(bool show)
-{
-	setHidden(!show);
-}
-
 SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
     : QWidget(parent)
 {
@@ -162,7 +157,8 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 	if ( m_hideDevelopmentServers != hideDevelopmentServers )
 	{
 		m_hideDevelopmentServers = hideDevelopmentServers;
-		emit showDevelopmentServers( !m_hideDevelopmentServers );
+		foreach (MetaserverEntry *e, m_developmentServers)
+			e->setHidden(m_hideDevelopmentServers);
 	}
 }
 
@@ -183,8 +179,8 @@ void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QStri
 
 	if ( item->isDev() )
 	{
+		m_developmentServers.append(item);
 		item->setHidden(m_hideDevelopmentServers);
-		connect(this, SIGNAL(showDevelopmentServers(bool)), item, SLOT(showDevelopmentServers(bool)));
 	}
 
 	validateConnectButton();
@@ -217,6 +213,7 @@ void SelectServer::validateCustomConnectButton()
 
 void SelectServer::reloadServerList()
 {
+	m_developmentServers.resize(0); // Keep the capacity allocated
 	m_serverList->clear();
 	validateConnectButton();
 
