@@ -32,6 +32,8 @@
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kguiitem.h>
+#include <ksharedconfig.h>
+#include <kwindowconfig.h>
 
 #include "event.h"
 #include "eventlogwidget.h"
@@ -225,6 +227,18 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(accept()));
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));
+}
+
+void EventLogWidget::restoreSettings()
+{
+	const KConfigGroup group(KSharedConfig::openConfig(), "EventLogWidget");
+	KWindowConfig::restoreWindowSize(windowHandle(), group);
+}
+
+EventLogWidget::~EventLogWidget()
+{
+	KConfigGroup group(KSharedConfig::openConfig(), "EventLogWidget");
+	KWindowConfig::saveWindowSize(windowHandle(), group);
 }
 
 void EventLogWidget::closeEvent(QCloseEvent *e)

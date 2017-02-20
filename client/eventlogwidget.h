@@ -82,6 +82,8 @@ public:
 	enum EventLogType { Default, Net_In, Net_Out };
 
 	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
+	~EventLogWidget();
+	void restoreSettings();
 
 protected:
 	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;

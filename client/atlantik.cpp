@@ -542,9 +542,15 @@ void Atlantik::slotConfigure()
 
 void Atlantik::showEventLog()
 {
+	bool created = false;
 	if (!m_eventLogWidget)
+	{
 		m_eventLogWidget = new EventLogWidget(m_eventLog, this);
+		created = true;
+	}
 	m_eventLogWidget->show();
+	if (created)
+		m_eventLogWidget->restoreSettings();
 }
 
 void Atlantik::configureNotifications()
