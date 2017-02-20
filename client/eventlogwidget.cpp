@@ -62,6 +62,14 @@ QList<Event*> EventLog::events() const
 	return m_events;
 }
 
+void EventLog::clear()
+{
+	beginResetModel();
+	qDeleteAll(m_events);
+	m_events.clear();
+	endResetModel();
+}
+
 int EventLog::columnCount(const QModelIndex &parent) const
 {
 	return parent.isValid() ? 0 : 2;
@@ -213,6 +221,8 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	QPushButton *saveButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
 	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), "document-save-as"));
+	QPushButton *clearButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
+	KGuiItem::assign(clearButton, KGuiItem(i18n("&Clear Log"), "edit-clear"));
 	listCompBox->addWidget(buttonBox);
 
 	LastMessagesProxyModel *proxy = new LastMessagesProxyModel(m_eventList);
@@ -227,6 +237,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(accept()));
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(save()));
+	connect(clearButton, SIGNAL(clicked()), m_eventLog, SLOT(clear()));
 }
 
 void EventLogWidget::restoreSettings()

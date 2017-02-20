@@ -48,6 +48,7 @@ public:
 
 public slots:
 	void addEvent(const QString &description, EventType type);
+	void clear();
 
 private:
 	QIcon cachedIcon(EventType type) const;
