@@ -543,7 +543,7 @@ void Atlantik::slotConfigure()
 void Atlantik::showEventLog()
 {
 	if (!m_eventLogWidget)
-		m_eventLogWidget = new EventLogWidget(m_eventLog, 0);
+		m_eventLogWidget = new EventLogWidget(m_eventLog, this);
 	m_eventLogWidget->show();
 }
 
