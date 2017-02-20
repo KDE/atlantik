@@ -20,6 +20,7 @@
 #include <QApplication>
 #include <QStyle>
 #include <QFontDatabase>
+#include <QPaintEvent>
 
 #include <estate.h>
 #include <estategroup.h>
@@ -38,6 +39,8 @@ EstateDetailsBase::EstateDetailsBase(Estate *estate, QWidget *parent) : QWidget(
 
 	m_estate = 0;
 
+	setAutoFillBackground(true);
+
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
 	mainLayout->addItem(new QSpacerItem(5, StaticTitleHeight, QSizePolicy::Fixed, QSizePolicy::Minimum));
@@ -46,6 +49,15 @@ EstateDetailsBase::EstateDetailsBase(Estate *estate, QWidget *parent) : QWidget(
 	mainLayout->addWidget(m_widget);
 
 	setEstate(estate);
+
+	// If 'estate' is not null, setEstate initialized the palette with
+	// its color
+	if (!estate)
+	{
+		QPalette pal = palette();
+		pal.setColor(backgroundRole(), Qt::white);
+		setPalette(pal);
+	}
 }
 
 EstateDetailsBase::~EstateDetailsBase()
@@ -54,7 +66,7 @@ EstateDetailsBase::~EstateDetailsBase()
 	delete m_quartzBlocks;
 }
 
-void EstateDetailsBase::paintEvent(QPaintEvent *)
+void EstateDetailsBase::paintEvent(QPaintEvent *e)
 {
 	if (m_recreateQuartz)
 	{
@@ -85,27 +97,20 @@ void EstateDetailsBase::paintEvent(QPaintEvent *)
 	if (b_recreate)
 	{
 		delete m_pixmap;
-		m_pixmap = new QPixmap(width(), height());
-
-		QColor greenHouse(0, 255, 0);
-		QColor redHotel(255, 51, 51);
-		QPainter painter;
-                painter.begin(m_pixmap);
-                painter.initFrom(this);
-
-		painter.setPen(Qt::black);
-
-		painter.setBrush(m_estate ? m_estate->bgColor() : Qt::white);
-		painter.drawRect(rect().adjusted(0, 0, -1, -1));
-
-/*
-		// Paint icon only when it exists and fits
-		if (icon!=0 && width() > icon->width() && height() > icon->height())
-			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
-*/
+		m_pixmap = 0;
 
 		if (m_estate)
 		{
+			m_pixmap = new QPixmap(width(), StaticTitleHeight);
+
+			QColor greenHouse(0, 255, 0);
+			QColor redHotel(255, 51, 51);
+			QPainter painter;
+			painter.begin(m_pixmap);
+			painter.initFrom(this);
+
+			painter.setPen(Qt::black);
+
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
 			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
 			const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
@@ -168,7 +173,19 @@ void EstateDetailsBase::paintEvent(QPaintEvent *)
 
 	}
 	QPainter painter(this);
-	painter.drawPixmap(0, 0, *m_pixmap);
+	// Draw the border, as simple polyline
+	painter.setPen(Qt::black);
+	const QPointF points[5] = {
+		QPointF(0, 0),
+		QPointF(0, height() - 1),
+		QPointF(width() - 1, height() - 1),
+		QPointF(width() - 1, 0),
+		QPointF(0, 0),
+	};
+	painter.drawPolyline(points, sizeof(points)/sizeof(points[0]));
+	// Draw the title, if its area was damaged
+	if (m_pixmap && e->rect().intersects(QRect(0, 0, width(), StaticTitleHeight)))
+		painter.drawPixmap(0, 0, *m_pixmap);
 }
 
 void EstateDetailsBase::resizeEvent(QResizeEvent *)
@@ -182,6 +199,10 @@ void EstateDetailsBase::setEstate(Estate *estate)
 	if (m_estate != estate)
 	{
 		m_estate = estate;
+
+		QPalette pal = palette();
+		pal.setColor(backgroundRole(), m_estate ? m_estate->bgColor() : Qt::white);
+		setPalette(pal);
 
 		b_recreate = true;
 		update();
