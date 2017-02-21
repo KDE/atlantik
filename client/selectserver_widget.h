@@ -82,7 +82,7 @@ signals:
 	void msgStatus(const QString &message);
 
 private:
-	void initMonopigator();
+	void initMetaserver();
 
 	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;

@@ -47,7 +47,7 @@ ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent) : KConfigDi
 	w = new QWidget(this);
 	m_uiMetaserver.setupUi(w);
 	w->layout()->setMargin(0);
-	w->setObjectName("configMonopigator");
+	w->setObjectName("configMetaserver");
 	addPage(w, i18n("Meta Server"), "network-wired", i18n("Meta Server"));
 
 	setMinimumSize(sizeHint());

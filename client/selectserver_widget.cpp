@@ -136,7 +136,7 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
-	// Monopigator
+	// Metaserver
 	m_metatlantic = new Metatlantic();
 
 	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
@@ -162,7 +162,7 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 	}
 }
 
-void SelectServer::initMonopigator()
+void SelectServer::initMetaserver()
 {
 	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
 	emit msgStatus(i18n("Retrieving server list..."));
@@ -218,7 +218,7 @@ void SelectServer::reloadServerList()
 	validateConnectButton();
 
 	m_refreshButton->setEnabled(false);
-	initMonopigator();
+	initMetaserver();
 }
 
 void SelectServer::slotConnect()
