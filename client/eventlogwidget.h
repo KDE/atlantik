@@ -86,9 +86,6 @@ public:
 	~EventLogWidget();
 	void restoreSettings();
 
-protected:
-	void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
-
 private slots:
 	void save();
 

@@ -207,6 +207,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	  Qt::WindowContextHelpButtonHint)
 {
 	setModal(false);
+	setAttribute(Qt::WA_DeleteOnClose);
 
 	m_eventLog = eventLog;
 
@@ -250,11 +251,6 @@ EventLogWidget::~EventLogWidget()
 {
 	KConfigGroup group(KSharedConfig::openConfig(), "EventLogWidget");
 	KWindowConfig::saveWindowSize(windowHandle(), group);
-}
-
-void EventLogWidget::closeEvent(QCloseEvent *e)
-{
-	e->accept();
 }
 
 void EventLogWidget::save()

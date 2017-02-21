@@ -23,6 +23,7 @@
 #include <QAbstractSocket>
 #include <QColor>
 #include <QScopedPointer>
+#include <QPointer>
 
 #include <kxmlguiwindow.h>
 
@@ -271,7 +272,7 @@ private:
 	SelectGame *m_selectGame;
 	SelectConfiguration *m_selectConfiguration;
 	EventLog *m_eventLog;
-	EventLogWidget *m_eventLogWidget;
+	QPointer<EventLogWidget> m_eventLogWidget;
 
 	QList<PortfolioView *> m_portfolioViews;
 	QMap<Trade *, TradeDisplay *> m_tradeGUIMap;

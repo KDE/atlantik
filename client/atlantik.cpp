@@ -116,7 +116,6 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Initialize pointers to 0L
 	m_board = 0;
-	m_eventLogWidget = 0;
 	m_selectServer = 0;
 	m_selectGame = 0;
 	m_selectConfiguration = 0;
