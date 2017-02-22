@@ -23,29 +23,41 @@
 
 #include <atlantik_debug.h>
 
-Metatlantic::Metatlantic()
+Metatlantic::Metatlantic(const QString &host, int port, QObject *parent)
+	: KJob(parent)
 {
+	m_host = host;
+	m_port = port;
 	m_socket = 0;
+
+	setCapabilities(Killable);
 }
 
 Metatlantic::~Metatlantic()
 {
 }
 
-void Metatlantic::loadData(const QString &host, int port)
+void Metatlantic::start()
 {
 	m_socket = new QTcpSocket(this);
 	m_socket->setSocketOption(QAbstractSocket::LowDelayOption, true);
 	connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotSocketError(QAbstractSocket::SocketError)));
 	connect(m_socket, SIGNAL(connected()), this, SLOT(slotSocketConnected()));
 
-	m_socket->connectToHost(host, port);
+	m_socket->connectToHost(m_host, m_port);
+}
+
+bool Metatlantic::doKill()
+{
+	closeSocket(false);
+	return true;
 }
 
 void Metatlantic::slotSocketError(QAbstractSocket::SocketError socketError)
 {
-	if (socketError == QAbstractSocket::SocketTimeoutError)
-		emit timeout();
+	setError(UserDefinedError + socketError);
+	setErrorText(m_socket->errorString());
+	emitResult();
 }
 
 void Metatlantic::slotSocketConnected()
@@ -68,14 +80,15 @@ void Metatlantic::slotSocketRead()
 	}
 }
 
-void Metatlantic::closeSocket()
+void Metatlantic::closeSocket(bool doEmitResult)
 {
 	m_stream.setDevice(0);
 	m_socket->close();
 	disconnect(m_socket, 0, this, 0);
 	m_socket->deleteLater();
 	m_socket = 0;
-	emit finished();
+	if (doEmitResult)
+		emitResult();
 }
 
 void Metatlantic::processMsg(const QString &msg)

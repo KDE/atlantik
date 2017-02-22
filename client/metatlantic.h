@@ -17,25 +17,27 @@
 #ifndef ATLANTIK_METATLANTIC_H
 #define ATLANTIK_METATLANTIC_H
 
-#include <QObject>
+#include <kjob.h>
+
 #include <QTextStream>
 #include <QAbstractSocket>
 
 class QTcpSocket;
 
-class Metatlantic : public QObject
+class Metatlantic : public KJob
 {
 Q_OBJECT
 
 public:
-	Metatlantic();
+	Metatlantic(const QString &host, int port, QObject *parent = 0);
 	~Metatlantic();
-	void loadData(const QString &host, int port);
+	void start() Q_DECL_OVERRIDE;
 
 signals:
 	void metatlanticAdd(const QString &host, int port, const QString &version, int users);
-	void finished();
-	void timeout();
+
+protected:
+	bool doKill() Q_DECL_OVERRIDE;
 
 private slots:
 	void slotSocketError(QAbstractSocket::SocketError socketError);
@@ -43,9 +45,11 @@ private slots:
 	void slotSocketRead();
 
 private:
-	void closeSocket();
+	void closeSocket(bool doEmitResult = true);
 	void processMsg(const QString &msg);
 
+	QString m_host;
+	int m_port;
 	QTcpSocket *m_socket;
 	QTextStream m_stream;
 };

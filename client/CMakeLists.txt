@@ -22,5 +22,5 @@ ecm_qt_declare_logging_category(atlantik_SRCS
   DEFAULT_SEVERITY Warning
 )
 add_executable(atlantik ${atlantik_SRCS})
-target_link_libraries(atlantik KF5::ConfigCore KF5::ConfigWidgets KF5::I18n KF5::IconThemes KF5::Notifications KF5::NotifyConfig KF5::XmlGui KF5::WidgetsAddons KF5KDEGames atlantic atlantikui atlantikclient)
+target_link_libraries(atlantik KF5::ConfigCore KF5::ConfigWidgets KF5::CoreAddons KF5::I18n KF5::IconThemes KF5::Notifications KF5::NotifyConfig KF5::XmlGui KF5::WidgetsAddons KF5KDEGames atlantic atlantikui atlantikclient)
 install(TARGETS atlantik ${INSTALL_TARGETS_DEFAULT_ARGS})

@@ -75,7 +75,6 @@ private slots:
 	void slotConnect();
 	void customConnect();
 	void metatlanticFinished();
-	void metatlanticTimeout();
 
 signals:
 	void serverConnect(const QString &host, int port);

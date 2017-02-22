@@ -137,11 +137,7 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
 
 	// Metaserver
-	m_metatlantic = new Metatlantic();
-
-	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
-	connect(m_metatlantic, SIGNAL(finished()), SLOT(metatlanticFinished()));
-	connect(m_metatlantic, SIGNAL(timeout()), SLOT(metatlanticTimeout()));
+	m_metatlantic = 0;
 
 	validateConnectButton();
 	validateCustomConnectButton();
@@ -149,6 +145,8 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 
 SelectServer::~SelectServer()
 {
+	if (m_metatlantic)
+		m_metatlantic->kill();
 	delete m_metatlantic;
 }
 
@@ -168,7 +166,12 @@ void SelectServer::initMetaserver()
 	emit msgStatus(i18n("Retrieving server list..."));
 
 	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), "view-refresh"));
-	m_metatlantic->loadData(METATLANTIC_HOST, METATLANTIC_PORT);
+	m_metatlantic = new Metatlantic(METATLANTIC_HOST, METATLANTIC_PORT);
+
+	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
+	connect(m_metatlantic, SIGNAL(result(KJob*)), SLOT(metatlanticFinished()));
+
+	m_metatlantic->start();
 }
 
 void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QString &version, int users)
@@ -188,13 +191,11 @@ void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QStri
 
 void SelectServer::metatlanticFinished()
 {
-	emit msgStatus(i18n("Retrieved server list."));
-	m_refreshButton->setEnabled(true);
-}
-
-void SelectServer::metatlanticTimeout()
-{
-	emit msgStatus(i18n("Error while retrieving the server list."));
+	if (m_metatlantic->error())
+		emit msgStatus(i18n("Error while retrieving the server list."));
+	else
+		emit msgStatus(i18n("Retrieved server list."));
+	m_metatlantic = 0;
 	m_refreshButton->setEnabled(true);
 }
 
