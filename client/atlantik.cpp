@@ -177,10 +177,10 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_sbVersion = new ClickableLabel();
 	m_sbVersion->setText("Atlantik " ATLANTIK_VERSION_STRING);
 	connect(m_sbVersion, SIGNAL(clicked()), this, SLOT(showAboutDialog()));
-	KXmlGuiWindow::statusBar()->addWidget(m_sbVersion, 0);
+	statusBar()->addWidget(m_sbVersion, 0);
 	m_sbStatus = new ClickableLabel();
 	connect(m_sbStatus, SIGNAL(clicked()), this, SLOT(showEventLog()));
-	KXmlGuiWindow::statusBar()->addWidget(m_sbStatus, 1);
+	statusBar()->addWidget(m_sbStatus, 1);
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this);
