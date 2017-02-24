@@ -186,10 +186,6 @@ void EstateDetails::clearButtons()
 	}
 
 	// Delete buttons
-	foreach (QPushButton *button, m_buttons)
-	{
-		m_buttonCommandMapper.removeMappings((QObject *)button);
-		delete button;
-	}
+	qDeleteAll(m_buttons);
 	m_buttons.resize(0); // Keep the capacity allocated
 }
