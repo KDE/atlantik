@@ -38,10 +38,11 @@
 #include <libatlantikclient_debug.h>
 
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
+	: QObject()
+	, m_atlanticCore(atlanticCore)
+	, m_monopdsocket(0)
+	, m_playerId(-1)
 {
-	m_atlanticCore = atlanticCore;
-	m_monopdsocket = 0;
-
 	reset();
 }
 

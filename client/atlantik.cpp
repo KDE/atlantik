@@ -61,7 +61,8 @@
 #include <settings.h>
 #include <atlantik_debug.h>
 
-LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
+LogTextEdit::LogTextEdit(QWidget *parent)
+	: QTextEdit(parent)
 {
 	m_clear = KStandardAction::clear( this, SLOT( clear() ), 0 );
 	m_selectAll = KStandardAction::selectAll( this, SLOT( selectAll() ), 0 );
@@ -88,10 +89,16 @@ void LogTextEdit::contextMenuEvent(QContextMenuEvent *event)
 }
 
 Atlantik::Atlantik(QCommandLineParser *parser)
- :	KXmlGuiWindow (),
-	m_cliParser(parser),
- 	m_runningGame( false ),
-	m_reconnecting(false)
+	: KXmlGuiWindow()
+	, m_cliParser(parser)
+	, m_atlantikNetwork(0)
+	, m_board(0)
+	, m_selectServer(0)
+	, m_selectGame(0)
+	, m_selectConfiguration(0)
+	, m_runningGame(false)
+	, m_reconnecting(false)
+	, m_tokenTheme(TokenTheme::defaultTheme())
 {
 	// Read application configuration
 	readConfig();
@@ -113,13 +120,6 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	// Toolbar: Settings
 	(void) KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
 	(void) KStandardAction::configureNotifications(this, SLOT(configureNotifications()), actionCollection());
-
-	// Initialize pointers to 0L
-	m_board = 0;
-	m_selectServer = 0;
-	m_selectGame = 0;
-	m_selectConfiguration = 0;
-	m_atlantikNetwork = 0;
 
 	// Game and network core
 	m_atlanticCore = new AtlanticCore(this);
@@ -244,8 +244,6 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	// Connection cookie
 	m_reconnectCookie.reset(ConnectionCookie::read());
 	m_reconnect->setEnabled(m_reconnectCookie);
-
-	m_tokenTheme = TokenTheme::defaultTheme();
 }
 
 void Atlantik::readConfig()

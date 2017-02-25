@@ -17,10 +17,10 @@
 #include "event.h"
 
 Event::Event(const QDateTime &dateTime, const QString &description, EventType type)
+	: m_dateTime(dateTime)
+	, m_description(description)
+	, m_type(type >= 0 && type < ET_LastEvent ? type : ET_Generic)
 {
-	m_dateTime = dateTime;
-	m_description = description;
-	m_type = type >= 0 && type < ET_LastEvent ? type : ET_Generic;
 }
 
 QDateTime Event::dateTime() const

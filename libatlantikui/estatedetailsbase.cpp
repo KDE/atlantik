@@ -30,15 +30,14 @@
 
 static const int StaticTitleHeight = 50;
 
-EstateDetailsBase::EstateDetailsBase(Estate *estate, QWidget *parent) : QWidget(parent)
+EstateDetailsBase::EstateDetailsBase(Estate *estate, QWidget *parent)
+	: QWidget(parent)
+	, m_estate(0)
+	, m_pixmap(0)
+	, m_quartzBlocks(0)
+	, b_recreate(true)
+	, m_recreateQuartz(true)
 {
-	m_pixmap = 0;
-	m_quartzBlocks = 0;
-	b_recreate = true;
-	m_recreateQuartz = true;
-
-	m_estate = 0;
-
 	setAutoFillBackground(true);
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);

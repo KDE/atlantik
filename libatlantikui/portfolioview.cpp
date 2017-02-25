@@ -43,23 +43,22 @@
 #define PE_MARGINH	2
 #define ICONSIZE	48
 
-PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent) : QWidget(parent)
+PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeColor, QColor inactiveColor, QWidget *parent)
+	: QWidget(parent)
+	, m_atlanticCore(core)
+	, m_player(player)
+	, m_activeColor(activeColor)
+	, m_inactiveColor(inactiveColor)
+	, qpixmap(0)
+	, m_image(0)
+	, b_recreate(true)
 {
-	m_atlanticCore = core;
-	m_player = player;
-	m_activeColor = activeColor;
-	m_inactiveColor = inactiveColor;
-
-	qpixmap = 0;
-	b_recreate = true;
-
 	QPalette pal = palette();
 	pal.setColor(backgroundRole(), Qt::white);
 	setPalette(pal);
 	setMinimumHeight(ICONSIZE);
 
 	// Init icon
-	m_image = 0;
 	loadIcon();
 }
 

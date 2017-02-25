@@ -33,11 +33,11 @@
 
 #include <atlantik_debug.h>
 
-SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent) : QWidget(parent)
+SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent)
+	: QWidget(parent)
+	, m_game(0)
+	, m_atlanticCore(atlanticCore)
 {
-	m_atlanticCore = atlanticCore;
-	m_game = 0;
-
 	m_mainLayout = new QVBoxLayout(this );
         m_mainLayout->setMargin(0);
 	Q_CHECK_PTR(m_mainLayout);

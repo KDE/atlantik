@@ -36,6 +36,11 @@ extern "C"
 	}
 }
 
+AtlantikProtocol::AtlantikProtocol(const QByteArray &pool, const QByteArray &app)
+	: KIO::SlaveBase("atlantik", pool, app)
+{
+}
+
 void AtlantikProtocol::get( const QUrl& url )
 {
 	QStringList args;

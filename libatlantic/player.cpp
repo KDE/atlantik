@@ -17,15 +17,25 @@
 #include "player.h"
 #include "estate.h"
 
-Player::Player(int playerId) : QObject()
+Player::Player(int playerId)
+	: QObject()
+	, m_id(playerId)
+	, m_changed(false)
+	, m_isSelf(false)
+	, m_bankrupt(false)
+	, m_hasDebt(false)
+	, m_hasTurn(false)
+	, m_canRoll(false)
+	, m_canBuy(false)
+	, m_canAuction(false)
+	, m_canUseCard(false)
+	, m_inJail(false)
+	, m_spectator(false)
+	, m_money(0)
+	, m_game(0)
+	, m_location(0)
+	, m_destination(0)
 {
-	m_id = playerId;
-	m_game = 0;
-	m_location = m_destination = 0;
-	m_money = 0;
-	m_changed = m_isSelf = false;
-	m_bankrupt = m_hasDebt = m_hasTurn = m_canRoll = m_canBuy = m_canAuction = m_canUseCard = m_inJail = false;
-	m_spectator = false;
 }
 
 void Player::setGame(Game *game)

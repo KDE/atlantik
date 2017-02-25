@@ -28,24 +28,22 @@
 
 #define ICONSIZE	32
 
-Token::Token(Player *player, AtlantikBoard *parent) : QWidget(parent)
+Token::Token(Player *player, AtlantikBoard *parent)
+	: QWidget(parent)
+	, m_player(player)
+	, m_location(m_player->location())
+	, m_destination(0)
+	, m_inJail(m_player->inJail())
+	, m_parentBoard(parent)
+	, b_recreate(true)
+	, qpixmap(0)
+	, m_image(0)
 {
         setAttribute(Qt::WA_NoSystemBackground, true);
 
-	m_parentBoard = parent;
-
-	m_player = player;
 	connect(m_player, SIGNAL(changed(Player *)), this, SLOT(playerChanged()));
 
-	m_inJail = m_player->inJail();
-	m_location = m_player->location();
-	m_destination = 0;
-
-	qpixmap = 0;
-	b_recreate = true;
-
 	// Init icon
-	m_image = 0;
 	loadIcon();
 
 	setFixedSize(QSize(ICONSIZE, ICONSIZE + QFontDatabase::systemFont(QFontDatabase::GeneralFont).pointSize()));

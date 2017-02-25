@@ -36,32 +36,27 @@
 
 EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
                        bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
+	, m_estate(estate)
+	, qpixmap(0)
+	, icon(0)
+	, m_quartzBlocks(0)
+	, m_allowEstateSales(false)
+	, m_indicateUnowned(indicateUnowned)
+	, m_highliteUnowned(highliteUnowned)
+	, m_darkenMortgaged(darkenMortgaged)
+	, m_quartzEffects(quartzEffects)
+	, b_recreate(true)
+	, m_recreateQuartz(true)
+	, m_orientation(orientation)
+	, pe(0)
+	, m_estateColor(m_estate->color())
 {
-	m_estate = estate;
-	m_orientation = orientation;
-	m_allowEstateSales = false;
-
-	m_indicateUnowned = indicateUnowned;
-	m_highliteUnowned = highliteUnowned;
-	m_darkenMortgaged = darkenMortgaged;
-	m_quartzEffects = quartzEffects;
-
         setAttribute(Qt::WA_NoSystemBackground, true);
 
-	qpixmap = 0;
-	b_recreate = true;
-
-	m_quartzBlocks = 0;
-	m_recreateQuartz = true;
-
-	pe = 0;
 	updatePE();
 
-	icon = 0;
 	loadIcon(_icon);
-
-	m_estateColor = m_estate->color();
 
 	updateToolTip();
 }

@@ -45,9 +45,10 @@ static QIcon iconForCommandButton(const QString &command)
 	return QIcon();
 }
 
-EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent) : EstateDetailsBase(estate, parent)
+EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent)
+	: EstateDetailsBase(estate, parent)
+	, m_closeButton(0)
 {
-	m_closeButton = 0;
 	m_buttons.reserve(3); // Usually there are no more than 3 action buttons
 
 	QWidget *w = widget();

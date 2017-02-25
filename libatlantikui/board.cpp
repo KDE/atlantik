@@ -36,25 +36,25 @@
 
 #include <libatlantikui_debug.h>
 
-AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent) : QWidget(parent)
+AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, DisplayMode mode, QWidget *parent)
+	: QWidget(parent)
+	, m_atlanticCore(atlanticCore)
+	, m_mode(mode)
+	, m_lastServerDisplay(0)
+	, m_lastServerDisplayBeforeAuction(0)
+	, m_movingToken(0)
+	, m_resumeTimer(false)
+	, m_allowestatesalesOption(0)
+	, m_animateTokens(false)
+	, m_maxEstates(maxEstates)
 {
-	m_atlanticCore = atlanticCore;
-	m_maxEstates = maxEstates;
-	m_mode = mode;
-	m_animateTokens = false;
-	m_lastServerDisplay = 0;
-	m_lastServerDisplayBeforeAuction = 0;
-	m_allowestatesalesOption = 0;
-
 	setMinimumSize(QSize(500, 500));
 
 	int sideLen = maxEstates/4;
 
 	// Animated token movement
-	m_movingToken = 0;
 	m_timer = new QTimer(this);
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotMoveToken()));
-	m_resumeTimer = false;
 
 	m_gridLayout = new QGridLayout( this );
 	m_gridLayout->setSpacing(0);

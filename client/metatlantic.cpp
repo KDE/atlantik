@@ -25,11 +25,10 @@
 
 Metatlantic::Metatlantic(const QString &host, int port, QObject *parent)
 	: KJob(parent)
+	, m_host(host)
+	, m_port(port)
+	, m_socket(0)
 {
-	m_host = host;
-	m_port = port;
-	m_socket = 0;
-
 	setCapabilities(Killable);
 }
 

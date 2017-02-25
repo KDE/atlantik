@@ -18,7 +18,8 @@
 
 #include <QMouseEvent>
 
-ClickableLabel::ClickableLabel(QWidget *parent) : QLabel(parent)
+ClickableLabel::ClickableLabel(QWidget *parent)
+	: QLabel(parent)
 {
 }
 

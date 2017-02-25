@@ -36,10 +36,9 @@
 enum { GameTypeRole = Qt::UserRole + 1 };
 
 SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent) 
-        : QWidget(parent)
+	: QWidget(parent)
+	, m_atlanticCore(atlanticCore)
 {
-	m_atlanticCore = atlanticCore;
-
 	connect(m_atlanticCore, SIGNAL(createGUI(Game *)), this, SLOT(addGame(Game *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Game *)), this, SLOT(delGame(Game *)));
 

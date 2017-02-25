@@ -20,7 +20,8 @@
 
 #include <settings.h>
 
-ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent) : KConfigDialog(parent, "configdialog", Settings::self())
+ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent)
+	: KConfigDialog(parent, "configdialog", Settings::self())
 {
 	setWindowTitle(i18n("Configure Atlantik"));
     setFaceType(KPageDialog::List);

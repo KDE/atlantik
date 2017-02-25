@@ -16,10 +16,11 @@
 
 #include "estategroup.h"
 
-EstateGroup::EstateGroup(const int id) : QObject()
+EstateGroup::EstateGroup(const int id)
+	: QObject()
+	, m_id(id)
+	, m_changed(false)
 {
-	m_id = id;
-	m_changed = false;
 }
 
 void EstateGroup::setName(const QString &name)

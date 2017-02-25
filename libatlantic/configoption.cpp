@@ -16,11 +16,12 @@
 
 #include "configoption.h"
 
-ConfigOption::ConfigOption(int configId) : QObject()
+ConfigOption::ConfigOption(int configId)
+	: QObject()
+	, m_id(configId)
+	, m_changed(false)
+	, m_edit(false)
 {
-	m_id = configId;
-	m_edit = false;
-	m_changed = false;
 }
 
 int ConfigOption::id() const

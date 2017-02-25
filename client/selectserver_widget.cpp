@@ -31,7 +31,13 @@
 
 #include <atlantik_debug.h>
 
-MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &version, int users) : QObject(), QTreeWidgetItem(MetaserverType), m_latency(9999), m_users(users), m_port(port)
+MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &version, int users)
+	: QObject()
+	, QTreeWidgetItem(MetaserverType)
+	, m_latency(9999)
+	, m_users(users)
+	, m_port(port)
+	, m_isDev(version.indexOf("CVS") != -1 || version.indexOf("-dev") != -1)
 {
 	setText(0, host);
 	setText(1, QString::number(m_latency));
@@ -39,8 +45,6 @@ MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &v
 	setText(3, users == -1 ? i18n("unknown") : QString::number(m_users));
 	setIcon(0, KDE::icon("atlantik"));
 	setDisabled(true);
-
-	m_isDev = version.indexOf("CVS") != -1 || version.indexOf("-dev") != -1;
 
 	m_latencySocket = new QTcpSocket();
 	m_latencySocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
@@ -98,10 +102,10 @@ void MetaserverEntry::connected()
 }
 
 SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
+	, m_metatlantic(0)
+	, m_hideDevelopmentServers(hideDevelopmentServers)
 {
-	m_hideDevelopmentServers = hideDevelopmentServers;
-
 	setupUi(this);
 	layout()->setMargin(0);
 
@@ -135,9 +139,6 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	m_connectButton->setIcon(KStandardGuiItem::forward(KStandardGuiItem::UseRTL).icon());
 
 	connect(m_connectButton, SIGNAL(clicked()), this, SLOT(slotConnect()));
-
-	// Metaserver
-	m_metatlantic = 0;
 
 	validateConnectButton();
 	validateCustomConnectButton();

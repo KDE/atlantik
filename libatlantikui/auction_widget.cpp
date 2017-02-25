@@ -34,16 +34,16 @@
 
 #include <ui_auction.h>
 
-AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent) : EstateDetailsBase(auction->estate(), parent)
+AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent)
+	: EstateDetailsBase(auction->estate(), parent)
+	, m_ui(new Ui::AuctionWidget)
+	, m_atlanticCore(atlanticCore)
+	, m_auction(auction)
 {
-	m_atlanticCore = atlanticCore;
-
-	m_auction = auction;
 	connect(m_auction, SIGNAL(changed()), this, SLOT(auctionChanged()));
 	connect(m_auction, SIGNAL(updateBid(Player *, int)), this, SLOT(updateBid(Player *, int)));
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
-	m_ui = new Ui::AuctionWidget();
 	m_ui->setupUi(widget());
 	widget()->layout()->setMargin(0);
 

@@ -24,7 +24,8 @@
 #include <kicondialog.h>
 #include <kiconloader.h>
 
-CustomLocationIconButton::CustomLocationIconButton(QWidget *parent) : QPushButton(parent)
+CustomLocationIconButton::CustomLocationIconButton(QWidget *parent)
+	: QPushButton(parent)
 {
 	setProperty("kcfg_property", QByteArray("image"));
 

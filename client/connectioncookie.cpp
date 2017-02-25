@@ -29,7 +29,10 @@ static QString filePath()
 	return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/atlantik.cookie";
 }
 
-ConnectionCookie::ConnectionCookie(const QString &host, int port, const QString &cookie) : m_host(host), m_port(port), m_cookie(cookie)
+ConnectionCookie::ConnectionCookie(const QString &host, int port, const QString &cookie)
+	: m_host(host)
+	, m_port(port)
+	, m_cookie(cookie)
 {
 	QFile f(filePath());
 	QDir().mkpath(QFileInfo(f).absolutePath());

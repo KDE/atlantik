@@ -19,7 +19,13 @@
 #include "game.h"
 
 Game::Game(int gameId)
-	: m_changed(false), m_canBeJoined(false), m_canBeWatched(false), m_id(gameId), m_players(0), m_master(0)
+	: QObject()
+	, m_changed(false)
+	, m_canBeJoined(false)
+	, m_canBeWatched(false)
+	, m_id(gameId)
+	, m_players(0)
+	, m_master(0)
 {
 }
 

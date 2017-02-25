@@ -203,13 +203,11 @@ bool LastMessagesProxyModel::filterAcceptsRow(int source_row, const QModelIndex 
 }
 
 EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
-	: QDialog(parent,
-	  Qt::WindowContextHelpButtonHint)
+	: QDialog(parent, Qt::WindowContextHelpButtonHint)
+	, m_eventLog(eventLog)
 {
 	setModal(false);
 	setAttribute(Qt::WA_DeleteOnClose);
-
-	m_eventLog = eventLog;
 
 	setWindowTitle(i18n("Event Log"));
 

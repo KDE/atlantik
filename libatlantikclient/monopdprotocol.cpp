@@ -27,7 +27,8 @@
 
 #include "monopdprotocol.h"
 
-MonopdProtocol::MonopdProtocol() : QObject()
+MonopdProtocol::MonopdProtocol()
+	: QObject()
 {
 }
 

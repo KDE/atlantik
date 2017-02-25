@@ -50,12 +50,14 @@ TokenTheme::TokenTheme()
 }
 
 TokenTheme::TokenTheme(const QString &name, const QString &dir)
-	: m_name(name), m_dir(dir)
+	: m_name(name)
+	, m_dir(dir)
 {
 }
 
 TokenTheme::TokenTheme(const TokenTheme &other)
-	: m_name(other.m_name), m_dir(other.m_dir)
+	: m_name(other.m_name)
+	, m_dir(other.m_dir)
 {
 }
 

@@ -21,16 +21,15 @@
 #include "portfolioestate.h"
 #include "estate.h"
 
-PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent) : QWidget(parent)
+PortfolioEstate::PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent)
+	: QWidget(parent)
+	, m_estate(estate)
+	, m_player(player)
+	, b_recreate(true)
+	, m_alwaysOwned(alwaysOwned)
 {
-	m_estate = estate;
-	m_player = player;
-	m_alwaysOwned = alwaysOwned;
-
     QSize s(PE_WIDTH, PE_HEIGHT);
     setFixedSize(s);
-
-    b_recreate = true;
 
 	// react to changes in the estate only when we do not draw it
 	// as always owned

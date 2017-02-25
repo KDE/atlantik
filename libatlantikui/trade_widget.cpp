@@ -41,12 +41,11 @@
 #include "trade_widget.h"
 
 TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *parent)
-	: QDialog(parent,
-	  Qt::WindowContextHelpButtonHint)
+	: QDialog(parent, Qt::WindowContextHelpButtonHint)
+	, m_atlanticCore(atlanticCore)
+	, m_trade(trade)
+	, m_contextTradeItem(0)
 {
-	m_trade = trade;
-	m_atlanticCore = atlanticCore;
-
 	setWindowTitle(i18n("Trade %1", trade->tradeId()));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this);
@@ -206,8 +205,6 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	setTypeCombo(m_editTypeCombo->currentIndex());
 	setEstateCombo(m_estateCombo->currentIndex());
-
-	m_contextTradeItem = 0;
 }
 
 void TradeDisplay::closeEvent(QCloseEvent *e)

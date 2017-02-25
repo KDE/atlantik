@@ -19,6 +19,6 @@
 class AtlantikProtocol : public KIO::SlaveBase
 {
 public:
-	AtlantikProtocol( const QByteArray &pool, const QByteArray &app) : SlaveBase( "atlantik", pool, app ) {}
+	AtlantikProtocol( const QByteArray &pool, const QByteArray &app);
 	virtual void get( const QUrl& url ) Q_DECL_OVERRIDE;
 };

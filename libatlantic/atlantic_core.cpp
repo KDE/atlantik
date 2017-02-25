@@ -28,9 +28,10 @@
 #include "player.h"
 #include "trade.h"
 
-AtlanticCore::AtlanticCore(QObject *parent) : QObject(parent)
+AtlanticCore::AtlanticCore(QObject *parent)
+	: QObject(parent)
+	, m_playerSelf(0)
 {
-	m_playerSelf = 0;
 }
 
 void AtlanticCore::reset(bool deletePermanents)

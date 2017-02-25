@@ -18,15 +18,24 @@
 #include "player.h"
 
 Estate::Estate(int estateId)
+	: QObject()
+	, m_changed(false)
+	, m_id(estateId)
+	, m_owner(0)
+	, m_estateGroup(0)
+	, m_houses(0)
+	, m_price(0)
+	, m_housePrice(0)
+	, m_houseSellPrice(0)
+	, m_mortgagePrice(0)
+	, m_unmortgagePrice(0)
+	, m_money(0)
+	, m_canBeOwned(false)
+	, m_canBuyHouses(false)
+	, m_canSellHouses(false)
+	, m_isMortgaged(false)
+	, m_canToggleMortgage(false)
 {
-	m_id = estateId;
-	m_owner = 0;
-	m_houses = 0;
-	m_price = 0;
-	m_money = 0;
-	m_housePrice = m_houseSellPrice = m_mortgagePrice = m_unmortgagePrice = 0;
-	m_estateGroup = 0;
-	m_changed = m_canBeOwned = m_canBuyHouses = m_canSellHouses = m_isMortgaged = m_canToggleMortgage = false;
 }
 
 void Estate::setEstateGroup(EstateGroup *estateGroup)

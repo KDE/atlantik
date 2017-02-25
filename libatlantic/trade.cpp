@@ -20,10 +20,12 @@
 #include "card.h"
 
 Trade::Trade(int tradeId)
+	: QObject()
+	, m_changed(false)
+	, m_rejected(false)
+	, m_tradeId(tradeId)
+	, m_revision(0)
 {
-	m_tradeId = tradeId;
-	m_revision = 0;
-	m_changed = m_rejected = false;
 }
 
 void Trade::setRevision(int revision)
