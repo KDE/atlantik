@@ -24,12 +24,7 @@
 
 #include <functional>
 
-struct TokenThemeFiller
-{
-	static void iterateThemes(std::function<void(const QString &, const QString &)> fun);
-};
-
-void TokenThemeFiller::iterateThemes(std::function<void(const QString &, const QString &)> fun)
+static void iterateTokenThemes(std::function<void(const QString &, const QString &)> fun)
 {
 	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "atlantik/themes/", QStandardPaths::LocateDirectory))
 	{
@@ -114,7 +109,7 @@ QStringList TokenTheme::themeNames()
 {
 	QSet<QString> set;
 
-	TokenThemeFiller::iterateThemes(
+	iterateTokenThemes(
 		[&set](const QString &, const QString &name)
 		{
 			set.insert(name);
@@ -128,7 +123,7 @@ QVector<TokenTheme> TokenTheme::themes()
 {
 	QVector<TokenTheme> list;
 
-	TokenThemeFiller::iterateThemes(
+	iterateTokenThemes(
 		[&list](const QString &dir, const QString &name)
 		{
 			list.append(TokenTheme(name, dir));
@@ -142,7 +137,7 @@ TokenTheme TokenTheme::theme(const QString &theme)
 {
 	TokenTheme newTheme;
 
-	TokenThemeFiller::iterateThemes(
+	iterateTokenThemes(
 		[&newTheme, theme](const QString &dir, const QString &name)
 		{
 			if (name == theme)
