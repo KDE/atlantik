@@ -250,12 +250,10 @@ void EstateView::paintEvent(QPaintEvent *)
 
 		if (m_quartzEffects && m_estateColor.isValid())
 		{
-			m_quartzBlocks = new QPixmap();
-
 			if (m_orientation == North || m_orientation == South)
-				*m_quartzBlocks = QPixmap(25, m_titleHeight-2);
+				m_quartzBlocks = new QPixmap(25, m_titleHeight-2);
 			else
-				*m_quartzBlocks = QPixmap(25, m_titleWidth-2);
+				m_quartzBlocks = new QPixmap(25, m_titleWidth-2);
 
 			drawQuartzBlocks(m_quartzBlocks, m_estateColor.light(60), m_estateColor);
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
