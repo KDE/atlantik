@@ -100,12 +100,13 @@ void EstateView::loadIcon(const QString &_icon)
 {
 	m_estateIcon = QString();
 	delete icon;
+	icon = 0;
 	if (_icon.isEmpty())
-	{
-		icon = 0;
 		return;
-	}
-	icon = new QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "atlantik/pics/" + _icon));
+	const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "atlantik/pics/" + _icon);
+	if (path.isEmpty())
+		return;
+	icon = new QPixmap(path);
 	if (icon->isNull())
 	{
 		delete icon;
