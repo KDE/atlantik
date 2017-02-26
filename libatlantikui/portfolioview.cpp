@@ -186,9 +186,7 @@ void PortfolioView::loadIcon(bool force)
 	if (pix.isNull())
 		return;
 
-	QMatrix m;
-	m.scale(double(ICONSIZE) / pix.width(), double(ICONSIZE) / pix.height());
-	m_image = new QPixmap(pix.transformed(m));
+	m_image = new QPixmap(pix.scaled(ICONSIZE, ICONSIZE, Qt::KeepAspectRatio));
 }
 
 void PortfolioView::paintEvent(QPaintEvent *)
@@ -218,7 +216,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 			painter.setBrush(Qt::white);
 			painter.drawRect(0, 0, ICONSIZE - 1, ICONSIZE - 1);
 
-			painter.drawPixmap(0, 0, *m_image);
+			painter.drawPixmap((ICONSIZE - m_image->width()) / 2, (ICONSIZE - m_image->height()) / 2, *m_image);
 		}
 
 		painter.setPen(Qt::white);
