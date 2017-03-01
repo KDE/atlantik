@@ -90,6 +90,9 @@ void PortfolioView::buildPortfolio()
 	foreach (Estate *estate, m_atlanticCore->estates())
 		groups.insert(estate->estateGroup(), estate);
 
+	if (!groups.isEmpty())
+		m_portfolioEstates.reserve(groups.count());
+
 	foreach (EstateGroup *estateGroup, m_atlanticCore->estateGroups())
 	{
 		{
