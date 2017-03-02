@@ -59,8 +59,6 @@ void AtlantikNetwork::reset()
 	if (m_monopdsocket) {
 		m_monopdsocket->close();
 		delete m_monopdsocket;
-
-		emit closed(0);
 	}
 	m_monopdsocket = new QTcpSocket(this);
 	m_monopdsocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
@@ -68,6 +66,7 @@ void AtlantikNetwork::reset()
 	connect(m_monopdsocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
 	connect(m_monopdsocket, SIGNAL(connected()), this, SLOT(slotConnectionSuccess()));
 	connect(m_monopdsocket, SIGNAL(hostFound()), this, SLOT(slotLookupFinished()));
+	connect(m_monopdsocket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
 }
 
 QString AtlantikNetwork::host() const
@@ -149,10 +148,10 @@ void AtlantikNetwork::slotConnectionFailed(QAbstractSocket::SocketError error)
 	emit msgStatus(i18n("Connection failed! Error code: %1", error), ET_NetError);
 }
 
-void AtlantikNetwork::slotClosed()
+void AtlantikNetwork::slotDisconnected()
 {
-	// TODO: fix value
-	emit closed(0);
+	emit msgStatus(i18n("Disconnected from %1:%2.", m_host, QString::number(m_port)), ET_NetGeneric);
+	emit disconnected();
 }
 
 void AtlantikNetwork::writeData(const QString &data) {

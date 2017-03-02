@@ -511,7 +511,7 @@ void Atlantik::slotNetworkError(QAbstractSocket::SocketError errnum)
 	initNetworkObject();
 }
 
-void Atlantik::networkClosed(int /*status*/)
+void Atlantik::slotNetworkDisconnected()
 {
 // 	switch( status )
 // 	{
@@ -787,7 +787,7 @@ void Atlantik::initNetworkObject()
 
 	connect(m_atlantikNetwork, SIGNAL(connectionSuccess()), this, SLOT(slotNetworkConnected()));
 	connect(m_atlantikNetwork, SIGNAL(connectionFailed(QAbstractSocket::SocketError)), this, SLOT(slotNetworkError(QAbstractSocket::SocketError)));
-	connect(m_atlantikNetwork, SIGNAL(closed(int)), this, SLOT(networkClosed(int)));
+	connect(m_atlantikNetwork, SIGNAL(disconnected()), this, SLOT(slotNetworkDisconnected()));
 
 	connect(m_atlantikNetwork, SIGNAL(receivedHandshake()), this, SLOT(sendHandshake()));
 

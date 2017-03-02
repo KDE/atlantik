@@ -148,7 +148,7 @@ public slots:
 	 */
 	void slotNetworkError(QAbstractSocket::SocketError errnum);
 
-	void networkClosed(int status);
+	void slotNetworkDisconnected();
 
 	/**
 	 * Creates a new modeless configure dialog or raises it when it already exists.

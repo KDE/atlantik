@@ -58,7 +58,7 @@ private slots:
 	void slotLookupFinished();
 	void slotConnectionSuccess();
 	void slotConnectionFailed(QAbstractSocket::SocketError error);
-	void slotClosed();
+	void slotDisconnected();
 
 	void slotRead();
 	void writeData(const QString &data);
@@ -102,7 +102,7 @@ public slots:
 signals:
 	void connectionSuccess();
 	void connectionFailed(QAbstractSocket::SocketError error);
-	void closed(int status);
+	void disconnected();
 
 	void msgInfo(const QString &);
 	void msgError(const QString &);
