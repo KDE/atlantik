@@ -67,6 +67,7 @@ void AtlantikNetwork::reset()
 
 	connect(m_monopdsocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
 	connect(m_monopdsocket, SIGNAL(connected()), this, SLOT(slotConnectionSuccess()));
+	connect(m_monopdsocket, SIGNAL(hostFound()), this, SLOT(slotLookupFinished()));
 }
 
 QString AtlantikNetwork::host() const
