@@ -23,6 +23,7 @@
 #include <QMenu>
 #include <QStandardPaths>
 #include <QFontDatabase>
+#include <QPaintEvent>
 
 #include <klocalizedstring.h>
 
@@ -212,7 +213,7 @@ void EstateView::estateChanged()
 	updatePE();
 }
 
-void EstateView::paintEvent(QPaintEvent *)
+void EstateView::paintEvent(QPaintEvent *e)
 {
 	m_titleHeight = height()/4;
 	m_titleWidth = width()/4;
@@ -403,7 +404,7 @@ void EstateView::paintEvent(QPaintEvent *)
 		b_recreate = false;
 	}
 	QPainter painter(this);
-	painter.drawPixmap(0, 0, *qpixmap);
+	painter.drawPixmap(e->rect(), *qpixmap, e->rect());
 }
 
 void EstateView::resizeEvent(QResizeEvent *)

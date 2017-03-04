@@ -17,6 +17,7 @@
 #include <QColor>
 #include <qpainter.h>
 #include <QMouseEvent>
+#include <QPaintEvent>
 
 #include "portfolioestate.h"
 #include "estate.h"
@@ -107,7 +108,7 @@ QPixmap PortfolioEstate::drawPixmap(Estate *estate, Player *player, bool alwaysO
 	return qpixmap;
 }
 
-void PortfolioEstate::paintEvent(QPaintEvent *)
+void PortfolioEstate::paintEvent(QPaintEvent *e)
 {
 	if (b_recreate)
 	{
@@ -115,7 +116,7 @@ void PortfolioEstate::paintEvent(QPaintEvent *)
 		b_recreate = false;
 	}
 	QPainter painter(this);
-	painter.drawPixmap(0, 0, m_pixmap);
+	painter.drawPixmap(e->rect(), m_pixmap, e->rect());
 }
 
 void PortfolioEstate::mousePressEvent(QMouseEvent *e)

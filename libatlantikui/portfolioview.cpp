@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QStyle>
 #include <QFontDatabase>
+#include <QPaintEvent>
 
 #include <klocalizedstring.h>
 
@@ -192,7 +193,7 @@ void PortfolioView::loadIcon(bool force)
 	m_image = new QPixmap(pix.scaled(ICONSIZE, ICONSIZE, Qt::KeepAspectRatio));
 }
 
-void PortfolioView::paintEvent(QPaintEvent *)
+void PortfolioView::paintEvent(QPaintEvent *e)
 {
 	if (b_recreate)
 	{
@@ -240,7 +241,7 @@ void PortfolioView::paintEvent(QPaintEvent *)
 		b_recreate = false;
 	}
 	QPainter painter(this);
-	painter.drawPixmap(0, 0, *qpixmap);
+	painter.drawPixmap(e->rect(), *qpixmap, e->rect());
 }
 
 void PortfolioView::resizeEvent(QResizeEvent *)

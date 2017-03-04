@@ -19,6 +19,7 @@
 #include <QFont>
 #include <QFile>
 #include <QFontDatabase>
+#include <QPaintEvent>
 
 #include "board.h"
 #include "estate.h"
@@ -115,7 +116,7 @@ void Token::loadIcon()
 	m_image = new QPixmap(pix.scaled(ICONSIZE, ICONSIZE, Qt::KeepAspectRatio));
 }
 
-void Token::paintEvent(QPaintEvent *)
+void Token::paintEvent(QPaintEvent *e)
 {
 	if (b_recreate)
 	{
@@ -147,7 +148,7 @@ void Token::paintEvent(QPaintEvent *)
 		b_recreate = false;
 	}
 	QPainter painter(this);
-	painter.drawPixmap(0, 0, *qpixmap);
+	painter.drawPixmap(e->rect(), *qpixmap, e->rect());
 }
 
 void Token::resizeEvent(QResizeEvent *)
