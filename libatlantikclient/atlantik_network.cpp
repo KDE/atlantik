@@ -49,6 +49,7 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 AtlantikNetwork::~AtlantikNetwork(void)
 {
 	if (m_monopdsocket) {
+	m_monopdstream.setDevice(0);
 	m_monopdsocket->close();
 	delete m_monopdsocket;
 	}
@@ -57,6 +58,7 @@ AtlantikNetwork::~AtlantikNetwork(void)
 void AtlantikNetwork::reset()
 {
 	if (m_monopdsocket) {
+		m_monopdstream.setDevice(0);
 		m_monopdsocket->close();
 		delete m_monopdsocket;
 	}
