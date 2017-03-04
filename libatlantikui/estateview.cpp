@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qpainter.h>
-#include <QTimer>
 #include <qmatrix.h>
 #include <qcursor.h>
 #include <QPixmap>
@@ -41,6 +40,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	, qpixmap(0)
 	, icon(0)
 	, m_quartzBlocks(0)
+	, m_pe(0)
 	, m_allowEstateSales(false)
 	, m_indicateUnowned(indicateUnowned)
 	, m_highliteUnowned(highliteUnowned)
@@ -49,7 +49,6 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	, b_recreate(true)
 	, m_recreateQuartz(true)
 	, m_orientation(orientation)
-	, pe(0)
 	, m_estateColor(m_estate->color())
 {
         setAttribute(Qt::WA_NoSystemBackground, true);
@@ -66,6 +65,7 @@ EstateView::~EstateView()
 	delete qpixmap;
 	delete icon;
 	delete m_quartzBlocks;
+	delete m_pe;
 }
 
 void EstateView::updateToolTip()
@@ -180,23 +180,14 @@ void EstateView::updatePE()
 	// or when the user has configured Atlantik not to show them.
 	if (m_estate->isOwned() || !m_estate->canBeOwned() || m_indicateUnowned==false)
 	{
-		delete pe;
-		pe = 0;
+		delete m_pe;
+		m_pe = 0;
 	}
-	else
+	else if (!m_pe)
 	{
-		if (pe==0)
-		{
-			// Display a coloured portfolioestate to indicate property is
-			// for sale
-                        pe = new PortfolioEstate(m_estate, 0, true, this );
-                        pe->setObjectName(  "board-portfolioestate");
-			repositionPortfolioEstate();
-
-			pe->show();
-		}
-		else if (!pe->isVisible())
-			pe->show();
+		// Display a coloured portfolioestate to indicate property is
+		// for sale
+		m_pe = new QPixmap(PortfolioEstate::drawPixmap(m_estate, 0, true));
 	}
 }
 
@@ -219,16 +210,6 @@ void EstateView::estateChanged()
 
 	update();
 	updatePE();
-}
-
-void EstateView::repositionPortfolioEstate()
-{
-	if (pe!=0)
-	{
-		int x = (m_orientation == West ? (width()-2 - pe->width()) : 2);
-		int y = (m_orientation == North ? (height()-2 - pe->height()) : 2);
-		pe->setGeometry(x, y, pe->width(), pe->height());
-	}
 }
 
 void EstateView::paintEvent(QPaintEvent *)
@@ -412,6 +393,13 @@ void EstateView::paintEvent(QPaintEvent *)
 		else
 			painter.drawText(2, height()/2, estateName );
 
+		if (m_pe)
+		{
+			int x = (m_orientation == West ? (width()-2 - m_pe->width()) : 2);
+			int y = (m_orientation == North ? (height()-2 - m_pe->height()) : 2);
+			painter.drawPixmap(x, y, *m_pe);
+		}
+
 		b_recreate = false;
 	}
 	QPainter painter(this);
@@ -422,8 +410,6 @@ void EstateView::resizeEvent(QResizeEvent *)
 {
 	m_recreateQuartz = true;
 	b_recreate = true;
-
-	QTimer::singleShot(0, this, SLOT(slotResizeAftermath()));
 }
 
 void EstateView::contextMenuEvent(QContextMenuEvent *)
@@ -492,11 +478,6 @@ void EstateView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::LeftButton)
 		emit LMBClicked(m_estate);
-}
-
-void EstateView::slotResizeAftermath()
-{
-	repositionPortfolioEstate();
 }
 
 void EstateView::slotToggleMortgage()

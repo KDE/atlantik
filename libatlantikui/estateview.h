@@ -26,8 +26,6 @@ class QPixmap;
 class Player;
 class Estate;
 
-class PortfolioEstate;
-
 class EstateView : public QWidget
 {
 Q_OBJECT
@@ -41,9 +39,6 @@ Q_OBJECT
 		void updatePE();
 		EstateOrientation orientation() const { return m_orientation; }
 		void setAllowEstateSales(bool allow);
-
-	public slots:
-		void slotResizeAftermath();
 
 	signals:
 		void estateToggleMortgage(Estate *estate);
@@ -65,17 +60,15 @@ private:
 
 		QPixmap *rotatePixmap(QPixmap *) const;
 		void drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c2);
-		void repositionPortfolioEstate();
 
 		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
-		QPixmap *m_quartzBlocks;
+		QPixmap *m_quartzBlocks, *m_pe;
 		bool m_allowEstateSales;
 		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
 		int m_titleWidth, m_titleHeight;
 		EstateOrientation m_orientation;
-		PortfolioEstate *pe;
 		QString m_estateIcon;
 		QColor m_estateColor;
 
