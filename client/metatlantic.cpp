@@ -16,10 +16,10 @@
 
 #include "metatlantic.h"
 
-#include <QDomDocument>
 #include <QTcpSocket>
 #include <QTextCodec>
 #include <QTimer>
+#include <QXmlStreamReader>
 
 #include <atlantik_debug.h>
 
@@ -93,43 +93,37 @@ void Metatlantic::closeSocket(bool doEmitResult)
 void Metatlantic::processMsg(const QString &msg)
 {
 	qCDebug(ATLANTIK_LOG) << msg;
-	QDomDocument dom;
-	dom.setContent(msg);
-	QDomElement e = dom.documentElement();
-	if (e.tagName() != "meta_atlantic") {
+	QXmlStreamReader reader(msg);
+	if (!reader.readNextStartElement() || reader.name() != "meta_atlantic")
+	{
 		// Invalid data, close the connection
 		closeSocket();
 		return;
 	}
-	QDomNode n = e.firstChild();
-	QDomAttr a;
 	bool do_send_follow = false;
 	bool do_close = false;
-	for (; !n.isNull() ; n = n.nextSibling()) {
-		QDomElement e = n.toElement();
-		if (!e.isNull())
+	while (reader.readNextStartElement()) {
+		const QStringRef name = reader.name();
+		if (name == "metaserver")
 		{
-			if (e.tagName() == "metaserver")
-			{
-				a = e.attributeNode("version");
-				if (!a.isNull())
-				{
-					const QString serverVersion = a.value();
-					qCDebug(ATLANTIK_LOG) << "metaserver version" << serverVersion;
-				}
-				do_send_follow = true;
-			}
-			else if (e.tagName() == "server")
-			{
-				const QString host = e.attributeNode("host").value();
-				const int port = e.attributeNode("port").value().toInt();
-				const QString version = e.attributeNode("version").value();
-				const int users = e.attributeNode("users").value().toInt();
-				emit metatlanticAdd(host, port, version, users);
-				do_close = true;
-			} else
-				qCDebug(ATLANTIK_LOG) << "ignored TAG:" << e.tagName();
+			const QStringRef serverVersion = reader.attributes().value("version");
+			if (!serverVersion.isNull())
+				qCDebug(ATLANTIK_LOG) << "metaserver version" << serverVersion;
+			do_send_follow = true;
 		}
+		else if (name == "server")
+		{
+			const QXmlStreamAttributes attrs = reader.attributes();
+			const QString host = attrs.value("host").toString();
+			const int port = attrs.value("port").toInt();
+			const QString version = attrs.value("version").toString();
+			const int users = attrs.value("users").toInt();
+			emit metatlanticAdd(host, port, version, users);
+			do_close = true;
+		}
+		else
+			qCDebug(ATLANTIK_LOG) << "ignored TAG:" << name;
+		reader.skipCurrentElement();
 	}
 	if (do_send_follow)
 		m_stream << "FOLLOW" << endl;
