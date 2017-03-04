@@ -20,6 +20,7 @@ find_package(KF5 REQUIRED
   Config
   ConfigWidgets
   CoreAddons
+  Crash
   DocTools
   I18n
   IconThemes

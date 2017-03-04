@@ -20,6 +20,7 @@
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
+#include <kcrash.h>
 
 #include "version.h"
 #include "atlantik.h"
@@ -54,6 +55,8 @@ int main(int argc, char *argv[])
 	KAboutData::setApplicationData(aboutData);
 
 	kapplication.setWindowIcon(KDE::icon("atlantik"));
+
+	KCrash::initialize();
 
 	QCommandLineParser parser;
 	parser.addHelpOption();
