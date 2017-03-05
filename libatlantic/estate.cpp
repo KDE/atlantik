@@ -41,7 +41,10 @@ Estate::Estate(int estateId)
 void Estate::setEstateGroup(EstateGroup *estateGroup)
 {
 	if (m_estateGroup != estateGroup)
+	{
 		m_estateGroup = estateGroup;
+		m_changed = true;
+	}
 }
 
 void Estate::setOwner(Player *player)
@@ -112,19 +115,46 @@ void Estate::setBgColor(QColor color)
 void Estate::setCanBeOwned(bool canBeOwned)
 {
 	if (m_canBeOwned != canBeOwned)
+	{
 		m_canBeOwned = canBeOwned;
+		m_changed = true;
+	}
 }
 
 void Estate::setCanBuyHouses(bool canBuyHouses)
 {
 	if (m_canBuyHouses != canBuyHouses)
+	{
 		m_canBuyHouses = canBuyHouses;
+		m_changed = true;
+	}
 }
 
 void Estate::setCanSellHouses(bool canSellHouses)
 {
 	if (m_canSellHouses != canSellHouses)
+	{
 		m_canSellHouses = canSellHouses;
+		m_changed = true;
+	}
+}
+
+void Estate::setHousePrice(unsigned int housePrice)
+{
+	if (m_housePrice != housePrice)
+	{
+		m_housePrice = housePrice;
+		m_changed = true;
+	}
+}
+
+void Estate::setHouseSellPrice(unsigned int houseSellPrice)
+{
+	if (m_houseSellPrice != houseSellPrice)
+	{
+		m_houseSellPrice = houseSellPrice;
+		m_changed = true;
+	}
 }
 
 void Estate::setIsMortgaged(bool isMortgaged)
@@ -141,6 +171,33 @@ void Estate::setCanToggleMortgage(bool canToggleMortgage)
 	if (m_canToggleMortgage != canToggleMortgage)
 	{
 		m_canToggleMortgage = canToggleMortgage;
+		m_changed = true;
+	}
+}
+
+void Estate::setMortgagePrice(unsigned int mortgagePrice)
+{
+	if (m_mortgagePrice != mortgagePrice)
+	{
+		m_mortgagePrice = mortgagePrice;
+		m_changed = true;
+	}
+}
+
+void Estate::setUnmortgagePrice(unsigned int unmortgagePrice)
+{
+	if (m_unmortgagePrice != unmortgagePrice)
+	{
+		m_unmortgagePrice = unmortgagePrice;
+		m_changed = true;
+	}
+}
+
+void Estate::setPrice(unsigned int price)
+{
+	if (m_price != price)
+	{
+		m_price = price;
 		m_changed = true;
 	}
 }

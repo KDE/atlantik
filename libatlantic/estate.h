@@ -48,23 +48,23 @@ public:
 	bool canBuyHouses() const { return m_canBuyHouses; }
 	void setCanSellHouses(bool canSellHouses);
 	bool canSellHouses() const { return m_canSellHouses; }
-	void setHousePrice(const unsigned int housePrice) { m_housePrice = housePrice; }
+	void setHousePrice(unsigned int housePrice);
         unsigned int housePrice() const { return m_housePrice; }
-        void setHouseSellPrice(const unsigned int houseSellPrice) { m_houseSellPrice = houseSellPrice; }
+	void setHouseSellPrice(unsigned int houseSellPrice);
         unsigned int houseSellPrice() const { return m_houseSellPrice; }
 	void setIsMortgaged(bool isMortgaged);
 	bool isMortgaged() const { return m_isMortgaged; }
 	void setCanToggleMortgage(bool canToggleMortgage);
 	bool canToggleMortgage() const { return m_canToggleMortgage; }
-	void setMortgagePrice(const unsigned int mortgagePrice) { m_mortgagePrice = mortgagePrice; }
+	void setMortgagePrice(unsigned int mortgagePrice);
         unsigned int mortgagePrice() const { return m_mortgagePrice; }
-        void setUnmortgagePrice(const unsigned int unmortgagePrice) { m_unmortgagePrice = unmortgagePrice; }
+	void setUnmortgagePrice(unsigned int unmortgagePrice);
         unsigned int unmortgagePrice() const { return m_unmortgagePrice; }
 	void setColor(QColor color);
 	QColor color() const { return m_color; }
 	void setBgColor(QColor color);
 	QColor bgColor() const { return m_bgColor; }
-	void setPrice(const unsigned int price) { m_price = price; }
+	void setPrice(unsigned int price);
 	unsigned int price() const { return m_price; }
 	void setMoney(int money);
 	int money() const;
