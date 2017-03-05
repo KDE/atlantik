@@ -21,6 +21,7 @@
 #include <QStyle>
 #include <QFontDatabase>
 #include <QPaintEvent>
+#include <QResizeEvent>
 
 #include <estate.h>
 #include <estategroup.h>
@@ -187,10 +188,13 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 		painter.drawPixmap(0, 0, *m_pixmap);
 }
 
-void EstateDetailsBase::resizeEvent(QResizeEvent *)
+void EstateDetailsBase::resizeEvent(QResizeEvent *e)
 {
-	m_recreateQuartz = true;
-	b_recreate = true;
+	if (e->oldSize().width() != e->size().width())
+	{
+		m_recreateQuartz = true;
+		b_recreate = true;
+	}
 }
 
 void EstateDetailsBase::setEstate(Estate *estate)
