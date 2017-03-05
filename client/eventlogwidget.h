@@ -80,8 +80,6 @@ class EventLogWidget : public QDialog
 Q_OBJECT
 
 public:
-	enum EventLogType { Default, Net_In, Net_Out };
-
 	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
 	~EventLogWidget();
 	void restoreSettings();
