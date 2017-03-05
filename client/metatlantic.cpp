@@ -34,6 +34,8 @@ Metatlantic::Metatlantic(const QString &host, int port, QObject *parent)
 
 Metatlantic::~Metatlantic()
 {
+	if (m_socket)
+		closeSocket(false);
 }
 
 void Metatlantic::start()
