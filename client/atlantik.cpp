@@ -419,7 +419,6 @@ void Atlantik::showSelectConfiguration()
 	m_selectConfiguration->show();
 	m_leaveGame->setEnabled(true);
 
-	connect(m_atlanticCore, SIGNAL(createGUI(ConfigOption *)), m_selectConfiguration, SLOT(addConfigOption(ConfigOption *)));
 	connect(m_atlantikNetwork, SIGNAL(gameOption(QString, QString, QString, QString, QString)), m_selectConfiguration, SLOT(gameOption(QString, QString, QString, QString, QString)));
 	connect(m_atlantikNetwork, SIGNAL(gameInit()), m_selectConfiguration, SLOT(initGame()));
 	connect(m_selectConfiguration, SIGNAL(startGame()), m_atlantikNetwork, SLOT(startGame()));

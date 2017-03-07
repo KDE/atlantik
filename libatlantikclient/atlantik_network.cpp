@@ -397,13 +397,22 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if (!a.isNull())
                     emit clientCookie(a.value());
             } else if (e.tagName() == "configupdate") {
-                int configId = -1;
-                a = e.attributeNode(QString("configid"));
+                Game *game = 0;
+                a = e.attributeNode(QString("gameid"));
                 if (!a.isNull()) {
-                    configId = a.value().toInt();
-                    ConfigOption *configOption;
-                    if (!(configOption = m_atlanticCore->findConfigOption(configId)))
-                        configOption = m_atlanticCore->newConfigOption( configId );
+                    int gameId = a.value().toInt();
+                    game = m_atlanticCore->findGame(gameId);
+                }
+
+                a = e.attributeNode(QString("configid"));
+                if (!a.isNull() && game) {
+                    int configId = a.value().toInt();
+                    ConfigOption *configOption = game->findConfigOption(configId);
+                    bool created = false;
+                    if (!configOption) {
+                        configOption = new ConfigOption(configId);
+                        created = true;
+                    }
 
                     a = e.attributeNode(QString("name"));
                     if (configOption && !a.isNull())
@@ -421,20 +430,9 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     if (configOption && !a.isNull())
                         configOption->setValue(a.value());
 
-                    if (configOption)
-                        configOption->update();
-                }
-
-                int gameId = -1;
-                a = e.attributeNode(QString("gameid"));
-                if (!a.isNull()) {
-                    gameId = a.value().toInt();
-                    for( QDomNode nOptions = n.firstChild() ; !nOptions.isNull() ; nOptions = nOptions.nextSibling() ) {
-                        QDomElement eOption = nOptions.toElement();
-                        if (!eOption.isNull() && eOption.tagName() == "option")
-                            emit gameOption(eOption.attributeNode(QString("title")).value(), eOption.attributeNode(QString("type")).value(), eOption.attributeNode(QString("value")).value(), eOption.attributeNode(QString("edit")).value(), eOption.attributeNode(QString("command")).value());
-                    }
-                    emit endConfigUpdate();
+                    configOption->update();
+                    if (created)
+                        game->addConfigOption(configOption);
                 }
             } else if (e.tagName() == "deletegame") {
                 a = e.attributeNode(QString("gameid"));

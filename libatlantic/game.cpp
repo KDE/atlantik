@@ -18,6 +18,8 @@
 
 #include "game.h"
 
+#include "configoption.h"
+
 Game::Game(int gameId)
 	: QObject()
 	, m_changed(false)
@@ -27,6 +29,11 @@ Game::Game(int gameId)
 	, m_players(0)
 	, m_master(0)
 {
+}
+
+Game::~Game()
+{
+	qDeleteAll(m_configOptions);
 }
 
 int Game::id() const
@@ -139,4 +146,40 @@ void Game::setCanBeWatched(bool canBeWatched)
 bool Game::canBeWatched() const
 {
 	return m_canBeWatched;
+}
+
+QList<ConfigOption *> Game::configOptions() const
+{
+	return m_configOptions;
+}
+
+void Game::addConfigOption(ConfigOption *configOption)
+{
+	m_configOptions.append(configOption);
+	emit createGUI(configOption);
+}
+
+void Game::removeConfigOption(ConfigOption *configOption)
+{
+	m_configOptions.removeOne(configOption);
+	emit removeGUI(configOption);
+	configOption->deleteLater();
+}
+
+ConfigOption *Game::findConfigOption(int configId) const
+{
+	foreach (ConfigOption *configOption, m_configOptions)
+		if (configOption->id() == configId)
+			return configOption;
+
+	return 0;
+}
+
+ConfigOption *Game::findConfigOption(const QString &name) const
+{
+	foreach (ConfigOption *configOption, m_configOptions)
+		if (configOption->name() == name)
+			return configOption;
+
+	return 0;
 }

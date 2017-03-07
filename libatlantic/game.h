@@ -22,6 +22,7 @@
 #include "libatlantic_export.h"
 
 class Player;
+class ConfigOption;
 
 class LIBATLANTIC_EXPORT Game : public QObject
 {
@@ -29,6 +30,7 @@ Q_OBJECT
 
 public:
 	Game(int gameId);
+	~Game();
 
 	int id() const;
 	void setCanBeJoined(bool canBeJoined);
@@ -46,10 +48,18 @@ public:
 	void setCanBeWatched(bool canBeWatched);
 	bool canBeWatched() const;
 
+	QList<ConfigOption *> configOptions() const;
+	void addConfigOption(ConfigOption *configOption);
+	void removeConfigOption(ConfigOption *configOption);
+	ConfigOption *findConfigOption(int configId) const;
+	ConfigOption *findConfigOption(const QString &name) const;
+
 	void update(bool force = false);
 
 Q_SIGNALS:
 	void changed(Game *game);
+	void createGUI(ConfigOption *configOption);
+	void removeGUI(ConfigOption *configOption);
 
 private:
 	bool m_changed;
@@ -58,6 +68,7 @@ private:
 	QString m_description, m_name, m_type;
 	int m_id, m_players;
 	Player *m_master;
+	QList<ConfigOption *> m_configOptions;
 };
 
 #endif

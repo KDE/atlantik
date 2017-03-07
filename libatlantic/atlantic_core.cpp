@@ -45,13 +45,6 @@ void AtlanticCore::reset(bool deletePermanents)
 	qDeleteAll(m_cards);
 	m_cards.clear();
 
-	foreach (ConfigOption *option, m_configOptions)
-	{
-		emit removeGUI(option);
-		option->deleteLater();
-	}
-	m_configOptions.clear();
-
 	foreach (Trade *trade, m_trades)
 	{
 		emit removeGUI(trade);
@@ -325,46 +318,6 @@ void AtlanticCore::delAuction(Auction *auction)
 	delete auction;
 }
 
-QList<ConfigOption *> AtlanticCore::configOptions() const
-{
-	return m_configOptions;
-}
-
-ConfigOption *AtlanticCore::newConfigOption(int configId)
-{
-	ConfigOption *configOption = new ConfigOption(configId);
-	m_configOptions.append(configOption);
-
-	emit createGUI(configOption);
-
-	return configOption;
-}
-
-void AtlanticCore::removeConfigOption(ConfigOption *configOption)
-{
-	m_configOptions.removeOne(configOption);
-	emit removeGUI(configOption);
-	configOption->deleteLater();
-}
-
-ConfigOption *AtlanticCore::findConfigOption(int configId) const
-{
-	foreach (ConfigOption *configOption, m_configOptions)
-		if (configOption->id() == configId)
-			return configOption;
-
-	return 0;
-}
-
-ConfigOption *AtlanticCore::findConfigOption(const QString &name) const
-{
-	foreach (ConfigOption *configOption, m_configOptions)
-		if (configOption->name() == name)
-			return configOption;
-
-	return 0;
-}
-
 QList<Card *> AtlanticCore::cards() const
 {
 	return m_cards;
@@ -397,7 +350,11 @@ void AtlanticCore::printDebug() const
 			std::cout << " P: " << LP(player->name()) << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 
 	foreach (Game *game, m_games)
+	{
 		std::cout << " G: " << game->id() << ", master: " << (game->master() ? game->master()->id() : -1 ) << std::endl;
+		foreach (ConfigOption *configOption, game->configOptions())
+			std::cout << "    CO:" << configOption->id() << " " << LP(configOption->name()) << " " << LP(configOption->value()) << std::endl;
+	}
 
 	foreach (Estate *estate, m_estates)
 		std::cout << " E: " << LP(estate->name()) << std::endl;
@@ -410,9 +367,6 @@ void AtlanticCore::printDebug() const
 
 	foreach (Trade *trade, m_trades)
 		std::cout << " T: " << trade->tradeId() << std::endl;
-
-	foreach (ConfigOption *configOption, m_configOptions)
-		std::cout << "CO:" << configOption->id() << " " << LP(configOption->name()) << " " << LP(configOption->value()) << std::endl;
 
 	foreach (Card *card, m_cards)
 		std::cout << "CA: " << card->cardId() << std::endl;

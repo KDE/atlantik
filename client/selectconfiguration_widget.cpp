@@ -85,8 +85,12 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 	emit statusMessage(i18n("Retrieving configuration list..."));
 
-	foreach (ConfigOption *opt, m_atlanticCore->configOptions())
-		addConfigOption(opt);
+	if (m_game) {
+		foreach (ConfigOption *opt, m_game->configOptions())
+			addConfigOption(opt);
+
+		connect(m_game, SIGNAL(createGUI(ConfigOption *)), this, SLOT(addConfigOption(ConfigOption *)));
+	}
 }
 
 void SelectConfiguration::initGame()
@@ -186,12 +190,18 @@ void SelectConfiguration::playerChanged(Player *player)
 		qCDebug(ATLANTIK_LOG) << "change";
 
 		if (m_game)
+		{
+			disconnect(m_game, SIGNAL(createGUI(ConfigOption *)), this, SLOT(addConfigOption(ConfigOption *)));
 			disconnect(m_game, SIGNAL(changed(Game *)), this, SLOT(gameChanged(Game *)));
+		}
 
 		m_game = player->game();
 
 		if (m_game)
+		{
+			connect(m_game, SIGNAL(createGUI(ConfigOption *)), this, SLOT(addConfigOption(ConfigOption *)));
 			connect(m_game, SIGNAL(changed(Game *)), this, SLOT(gameChanged(Game *)));
+		}
 	}
 }
 

@@ -23,7 +23,6 @@
 #include "libatlantic_export.h"
 
 class Player;
-class ConfigOption;
 class Estate;
 class EstateGroup;
 class Game;
@@ -77,12 +76,6 @@ public:
 	Auction *findAuction(int auctionId) const;
 	void delAuction(Auction *auction);
 
-	QList<ConfigOption *> configOptions() const;
-	ConfigOption *newConfigOption(int configId);
-	void removeConfigOption(ConfigOption *configOption);
-	ConfigOption *findConfigOption(int configId) const;
-	ConfigOption *findConfigOption(const QString &name) const;
-
 	QList<Card *> cards() const;
 	Card *newCard(int cardId);
 	Card *findCard(int cardId) const;
@@ -96,8 +89,6 @@ Q_SIGNALS:
 	void removeGUI(Game *game);
 	void createGUI(Trade *trade);
 	void removeGUI(Trade *trade);
-	void createGUI(ConfigOption *configOption);
-	void removeGUI(ConfigOption *configOption);
 
 private:
 	Player *m_playerSelf;
@@ -107,7 +98,6 @@ private:
 	QList<EstateGroup *> m_estateGroups;
 	QList<Trade *> m_trades;
 	QList<Auction *> m_auctions;
-	QList<ConfigOption *> m_configOptions;
 	QList<Card *> m_cards;
 };
 
