@@ -426,6 +426,10 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     if (configOption && !a.isNull())
                         configOption->setEdit(a.value().toInt());
 
+                    a = e.attributeNode(QString("type"));
+                    if (configOption && !a.isNull())
+                        configOption->setType(a.value());
+
                     a = e.attributeNode(QString("value"));
                     if (configOption && !a.isNull())
                         configOption->setValue(a.value());

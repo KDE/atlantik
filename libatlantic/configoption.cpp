@@ -71,6 +71,20 @@ bool ConfigOption::edit() const
 	return m_edit;
 }
 
+void ConfigOption::setType(const QString &type)
+{
+	if (m_type != type)
+	{
+		m_type = type;
+		m_changed = true;
+	}
+}
+
+QString ConfigOption::type() const
+{
+	return m_type;
+}
+
 void ConfigOption::setValue(const QString &value)
 {
 	if (m_value != value)

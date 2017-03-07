@@ -34,6 +34,8 @@ public:
 	QString description() const;
 	void setEdit(bool edit);
 	bool edit() const;
+	void setType(const QString &type);
+	QString type() const;
 	void setValue(const QString &value);
 	QString value() const;
 	void update(bool force = false);
@@ -44,7 +46,7 @@ Q_SIGNALS:
 private:
 	int m_id;
 	bool m_changed : 1, m_edit : 1;
-	QString m_name, m_description, m_value;
+	QString m_name, m_description, m_type, m_value;
 };
 
 #endif
