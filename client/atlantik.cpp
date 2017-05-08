@@ -233,7 +233,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_mainLayout->setRowStretch(1, 1); // make m_board+m_serverMsgs stretch vertically, not the rest
 	m_mainLayout->setColumnStretch(1, 1); // make m_board stretch horizontally, not the rest
 
-	// Check command-line args to see if we need to connect or show Monopigator window
+	// Check command-line args to see if we need to connect or show the metaserver window
 	QString host = m_cliParser ? m_cliParser->value("host") : QString();
 	QString port = m_cliParser ? m_cliParser->value("port") : QString();
 	if (!host.isEmpty() && !port.isEmpty())
