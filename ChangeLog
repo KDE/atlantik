@@ -1,3 +1,27 @@
+0.7.80
+------
+
+- ported to Qt 5 + KDE Frameworks 5
+  - thanks to the many people in the KDE community that worked on the
+    KDE 4 port, started 12 years ago
+  - use categorized logging (#139174)
+- switch from Monopigator to Metatlantic as meta-server
+- track cards, and support trading them; they are not shown in portfolios
+  of players, yet
+- support reconnection, usually after client crash (#93833)
+- show icons of estates, if they have an icon set and there is a local copy
+  of the requested icon
+- show a list of participants in the trading dialog
+- allow to sell estates back to the bank
+- allow to watch games as spectator (when they allow spectators)
+- prettify chat/message view (#137653)
+- add an action to leave a game, with no need to quit Atlantik
+  (point (4) of #77941; #112046)
+- add a button in the log viewer to remove all the messages
+- fix unitialised memory, and memory leaks
+- various optimizations
+- other minor changes and fixes
+
 0.7.5 (KDE 3.4)
 -----
 
