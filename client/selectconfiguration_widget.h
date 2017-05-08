@@ -59,6 +59,8 @@ signals:
 	void statusMessage(const QString &message);
 
 private:
+	void addConfigOptionBool(ConfigOption *configOption);
+
 	QVBoxLayout *m_mainLayout;
 	QGroupBox *m_configBox, *m_messageBox;
 	QPushButton *m_backButton, *m_startButton;

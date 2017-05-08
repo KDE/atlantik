@@ -91,6 +91,8 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 		connect(m_game, SIGNAL(createGUI(ConfigOption *)), this, SLOT(addConfigOption(ConfigOption *)));
 	}
+
+	slotEndUpdate();
 }
 
 void SelectConfiguration::initGame()
@@ -100,19 +102,31 @@ void SelectConfiguration::initGame()
 
 void SelectConfiguration::addConfigOption(ConfigOption *configOption)
 {
-	// FIXME: only bool types supported!
-	QCheckBox *checkBox = new QCheckBox(configOption->description(), m_configBox);
-	m_configBox->layout()->addWidget(checkBox);
-	checkBox->setObjectName("checkbox");
-	m_configMap[(QObject *)checkBox] = configOption;
-	m_configBoxMap[configOption] = checkBox;
+	const QString type = configOption->type();
+	if (type == "bool")
+		addConfigOptionBool(configOption);
+	else
+		qCDebug(ATLANTIK_LOG) << "unknown type" << type << "for option" << configOption->name();
+}
 
-	checkBox->setChecked( configOption->value().toInt() );
-	checkBox->setEnabled( configOption->edit() && m_atlanticCore->selfIsMaster() );
-	checkBox->show();
+void SelectConfiguration::addConfigOptionBool(ConfigOption *configOption)
+{
+	QCheckBox *checkBox = m_configBoxMap.value(configOption);
 
-	connect(checkBox, SIGNAL(clicked()), this, SLOT(changeOption()));
-	connect(configOption, SIGNAL(changed(ConfigOption *)), this, SLOT(optionChanged(ConfigOption *)));
+	if (!checkBox)
+	{
+		checkBox = new QCheckBox(configOption->description(), m_configBox);
+		m_configBox->layout()->addWidget(checkBox);
+		checkBox->setObjectName("checkbox");
+		m_configMap.insert((QObject *)checkBox, configOption);
+		m_configBoxMap.insert(configOption, checkBox);
+
+		connect(checkBox, SIGNAL(clicked()), this, SLOT(changeOption()));
+		connect(configOption, SIGNAL(changed(ConfigOption *)), this, SLOT(optionChanged(ConfigOption *)));
+	}
+
+	checkBox->setChecked(configOption->value().toInt());
+	checkBox->setEnabled(configOption->edit() && m_atlanticCore->selfIsMaster());
 }
 
 void SelectConfiguration::gameOption(const QString &title, const QString &type, const QString &value, const QString &edit, const QString &command)
