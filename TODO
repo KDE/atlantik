@@ -2,40 +2,26 @@
 ^ in progress
 v implemented
 
-monopd API changes (features)
-------------------
-
-- API: allow for reconnect with .R
-
 Bugfixes
 --------
 
 - Update messages views after resize.
 - all player/core dependencies in Board should only be there in Mode::Play
 - don't display trade results over auction, but stack it behind it in the queue
-- "retrieving server list" stats message is not signalled on auto-load
+- fix right-to-left mode (mainly board, and portfolio)
 
-For 0.6.0
----------
+Unsorted for later versions
+---------------------------
 
 - make build/unmortgage protection configurable
 - use gameupdate for game list in SelectGame
-- .D command
 - cards in portfolio
 - Support .gd game description.
-
-For 0.7.0
----------
-
 - invite button
   - kaddressbook hooks
   - e-mail invites
   - IM invites
 - multiplayer support (multiple local players)
-
-For 1.0.0
----------
-
 - header documentation
 - visualization of owners on board itself
 - themes (Star Trek/Wars, Kiki Dunst, Simpsons, etc)
