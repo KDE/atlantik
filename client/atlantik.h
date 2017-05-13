@@ -240,7 +240,6 @@ protected:
 
 private:
 	enum MsgType { ErrorMsg, InfoMsg, ChatMsg };
-	void initEventLog();
 	void initNetworkObject();
 	PortfolioView *addPortfolioView(Player *player);
 	PortfolioView *findPortfolioView(Player *player);

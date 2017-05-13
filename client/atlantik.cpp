@@ -129,7 +129,8 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	connect(m_atlanticCore, SIGNAL(createGUI(Trade *)), this, SLOT(newTrade(Trade *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Trade *)), this, SLOT(removeGUI(Trade *)));
 
-	initEventLog();
+	m_eventLog = new EventLog(this);
+
 	initNetworkObject();
 
 	// Menu,toolbar: Move
@@ -763,11 +764,6 @@ void Atlantik::playerChanged(Player *player)
 void Atlantik::gainedTurn()
 {
 	KNotification::event("gainedturn", i18n("It is your turn now."), QPixmap() ,this );
-}
-
-void Atlantik::initEventLog()
-{
-	m_eventLog = new EventLog(this);
 }
 
 void Atlantik::initNetworkObject()
