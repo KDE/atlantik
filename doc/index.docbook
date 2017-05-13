@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY kappname "&atlantik;">
-  <!ENTITY package "kdegames">
+  <!ENTITY Monopoly '<trademark class="registered">Monopoly</trademark>'>
+  <!ENTITY monopd "<command>monopd</command>">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
 
-<book lang="&language;">
+<book id="atlantik" lang="&language;">
 
 <bookinfo>
 <title>The &atlantik; Handbook</title>
@@ -29,14 +29,13 @@
 <holder>&Rob.Kaper;</holder>
 </copyright>
 
-<date>2005-12-10</date>
-<releaseinfo>0.7.5</releaseinfo>
+<date>2017-05-13</date>
+<releaseinfo>0.7.80</releaseinfo>
 
 <abstract>
 <para>
-&atlantik; is a &kde; client for playing <trademark
-class="registered">Monopoly</trademark>-like boardgames on the
-<command>monopd</command> network.
+&atlantik; is a &kde; client for playing &Monopoly;-like board games on the
+&monopd; network.
 </para>
 
 </abstract>
@@ -59,9 +58,9 @@ cities in North America and Europe while being a transatlantic traveler. To
 win the game, players improve monopolized land with profitable buildings in
 the hopes of bankrupting all other players.</para>
 
-<para>All game modes are served by monopd, a dedicated game server designed
+<para>All game modes are served by &monopd;, a dedicated game server designed
 for &atlantik;. One of the game modes plays like the popular real estate
-board game known as <trademark class="registered">Monopoly</trademark>.</para>
+board game known as &Monopoly;.</para>
 
 </chapter>
 
@@ -73,81 +72,77 @@ Internet connection, you can request a list of public Internet servers and
 you will not require additional software. If you want to play &atlantik;
 locally, on a <acronym>LAN</acronym> or on a private Internet server, you
 can enter the hostname and port to connect to. In this case, you will need
-the <ulink url="http://robertjohnkaper.com/software/atlantik/download.html">
-<command>monopd</command></ulink> server
+the <ulink url="http://gtkatlantic.gradator.net/">&monopd;</ulink> server
 software installed and running on the host you are connecting to.</para>
 
 <para>If you have problems connecting to a server, the following troubleshoot
 notes might help you:</para>
 
 <itemizedlist>
-<listitem><para>Try another server. The public server list is updated every
-three minutes, and the server you are trying to connect to might not be
-available any longer.</para>
+<listitem><para>Try another server.</para>
 </listitem>
 <listitem>
 <para>Check your firewall and masquerading settings. Restrictions might be in
 place preventing you from connecting to servers or receiving reply traffic.
-By default, monopd servers use TCP port 1234. If you're not sure, contact
+By default, &monopd; servers use TCP port 1234. If you are not sure, contact
 your system administrator.</para>
 </listitem>
-<listitem><para>&atlantik; makes use of
-<classname>KExtendedSocket</classname> for network connections, which in
-turn uses <classname>QDns</classname>. This might cause issues with IPv6
-and/or resolving hostnames.</para></listitem>
 </itemizedlist>
 
 </chapter>
 
-<chapter id="menu-reference">
-<title>Menu Reference</title>
+<chapter id="primary-menu-items">
+<title>The Menubar</title>
 
-<sect1 id="game-menu">
-<title><guimenu>Game</guimenu> Menu</title>
+<sect1 id="menu-game">
+<title>The Game Menu</title>
 
 <variablelist>
 <varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo></shortcut>
+<term><menuchoice>
 <guimenu>Game</guimenu><guimenuitem>Show Event Log</guimenuitem></menuchoice></term>
-<listitem><para>Display the event log</para></listitem>
+<listitem><para><action>Display</action> the event log window.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Game</guimenu><guimenuitem>Reconnect (after crash)</guimenuitem></menuchoice></term>
+<listitem><para><action>Reconnect</action> to the last game. This is available
+only in case &atlantik; did not quit cleanly from a game (usually because it
+crashed), and cannot be done anymore once you connect to a server.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Game</guimenu><guimenuitem>Leave Game</guimenuitem></menuchoice></term>
+<listitem><para><action>Leave the current game</action>, without closing
+&atlantik;.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
 <guimenu>Game</guimenu><guimenuitem>Quit</guimenuitem></menuchoice></term>
-<listitem><para>Quits &atlantik;.</para></listitem>
+<listitem><para><action>Close</action> &atlantik;.</para></listitem>
 </varlistentry>
 </variablelist>
 </sect1>
 
-<sect1 id="move-menu">
-<title><guimenu>Move</guimenu> Menu</title>
+<sect1 id="menu-move">
+<title>The Move Menu</title>
 
 <variablelist>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
-<guimenu>Move</guimenu><guimenuitem>Roll Dice</guimenuitem></menuchoice></term>
-<listitem><para><action>As you may expect, roll the dice.</action></para></listitem>
-</varlistentry>
-
 <varlistentry>
 <term><menuchoice>
 <guimenu>Move</guimenu><guimenuitem>End Turn</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Let the other player know you have finished
+<listitem><para><action>Let the other players know you have finished
 moving.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
 <guimenu>Move</guimenu><guimenuitem>Roll Dice</guimenuitem></menuchoice></term>
-<listitem><para><action>As you may expect, roll the dice.</action></para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></shortcut>
-<guimenu>Move</guimenu><guimenuitem>Buy</guimenuitem></menuchoice></term>
-<listitem><para>Buy land or buy buildings on your properties.</para></listitem>
+<listitem><para><action>Roll the dice.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -159,13 +154,7 @@ moving.</action></para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Move</guimenu><guimenuitem>Use Card to Leave Jail</guimenuitem></menuchoice></term>
-<listitem><para>Use a card to leave jail</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></shortcut>
-<guimenu>Move</guimenu><guimenuitem>Pay to Leave Jail</guimenuitem></menuchoice></term>
-<listitem><para>Pay money to leave the jail.</para></listitem>
+<listitem><para>Use a card to leave jail.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -176,35 +165,13 @@ moving.</action></para></listitem>
 </variablelist>
 </sect1>
 
-<sect1 id="settings-menu">
-<title><guimenu>Settings</guimenu> Menu</title>
+<sect1 id="menu-settings-help">
+<title>The Settings and Help Menus</title>
 
-<variablelist>
-<varlistentry>
-<term><menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure Notifications...</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para><action>Displays</action> a standard &kde; notifications
-configuration dialog to change the audio and visual notifications for &atlantik;.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Configure &atlantik;...</guimenuitem></menuchoice></term>
-<listitem><para>Opens the configuration
-dialog which lets you tweak a lot of &atlantik;'s options.</para></listitem>
-</varlistentry>
-</variablelist>
-</sect1>
-
-<sect1 id="help-menu">
-<title><guimenu>Help</guimenu> Menu</title>
-
-&help.menu.documentation;
+<para>&atlantik; has the the common &kde; <guimenu>Settings</guimenu> and
+<guimenu>Help</guimenu> menus described in the <ulink
+url="help:/fundamentals/ui.html#menus">Menu</ulink> chapter of the &kde;
+Fundamentals documentation.</para>
 
 </sect1>
 </chapter>
@@ -217,12 +184,10 @@ it. Developers often catch and fix bugs themselves, but you might
 experience issues not yet known. Not reporting your problems might
 very well prevent them from being fixed indefinitely.</para>
 
-<para>Some bugs might be in the monopd server instead of &atlantik;, but you
-don't need to worry about that: you can report all bugs under the &atlantik;
-package on the <ulink url="http://bugs.kde.org/">&kde; bug
-wizard</ulink>. Use the
+<para>You can report bugs for &atlantik; at the <ulink
+url="https://bugs.kde.org/">&kde; Bug Tracking System</ulink>. Use the
 <menuchoice><guimenu>Help</guimenu><guimenuitem>Report
-Bug</guimenuitem></menuchoice> menu item to visit the bug wizard with some
+Bug...</guimenuitem></menuchoice> menu item to visit the bug wizard with some
 details of your &atlantik; version filled in automatically.</para>
 
 <para>Please specify details in your bug report, such as game
@@ -230,26 +195,6 @@ conditions. For example, a bug might only occur when people are in jail, or
 during an auction. If possible, save the event log and attach it to the bug
 report or send it to the author. It might contain vital clues about behavior
 that could lead to a faster resolution for the bug.</para>
-
-</chapter>
-
-<chapter id="download">
-<title>Download</title>
-
-<para>&atlantik; is part of &kde; releases and as such the recommended
-releases are those shipped with &kde;, part of the &package; package. Some
-vendors might have individual packages for &atlantik; based on these
-releases.</para>
-
-<para>Users interested in the development version can likewise use the
-standard <ulink url="http://developer.kde.org/source/anonsvn.html">&kde; SVN
-instructions</ulink> to acquire &atlantik; from the kdegames module.</para>
-
-<para>Bleeding edge development requiring the development version of monopd
-is done using arch. For more information on this, or releases in general,
-visit the <ulink
-url="http://robertjohnkaper.com/software/atlantik/download.html">&atlantik;</ulink> download
-page.</para>
 
 </chapter>
 
@@ -264,9 +209,7 @@ page.</para>
 </question>
 <answer>
 <para>Unfortunately, computer opponents are not yet supported by &atlantik;.
-Work is in progress to development a network bot that can connect to
-servers, called Pacifik, but is has
-not yet reached a useful level.</para>
+</para>
 <para>Users are advised to take advantage of the public
 Internet servers or a private <acronym>LAN</acronym> server.</para>
 </answer>
@@ -292,8 +235,8 @@ involved with tradeable items.</para>
 </qandaset>
 </chapter>
 
-<chapter id="credits-and-licenses">
-<title>Credits and Licenses</title>
+<chapter id="credits">
+<title>Credits and License</title>
 
 <para>The program &atlantik; and the documentation are copyright &copy;
 1998-2004 &Rob.Kaper; <email>kaper@kde.org</email>.</para>

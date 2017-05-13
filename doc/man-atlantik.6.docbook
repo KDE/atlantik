@@ -1,14 +1,22 @@
 <?xml version="1.0" ?>
 <!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
 
+<!ENTITY Monopoly '<trademark class="registered">Monopoly</trademark>'>
+<!ENTITY monopd "<command>monopd</command>">
 <!ENTITY % English "INCLUDE">
 ]>
 
 <refentry lang="&language;">
 <refentryinfo>
-<author><personname><firstname>Lauri</firstname><surname>Watts</surname></personname>
+<title>Atlantik User's Manual</title>
+<author><firstname>Lauri</firstname><surname>Watts</surname>
+<contrib>Atlantik man page.</contrib>
 <email>lauri@kde.org</email></author>
-<date>March 7, 2003</date>
+<author><firstname>Pino</firstname><surname>Toscano</surname>
+<contrib>Atlantik man page.</contrib>
+<email>pino@kde.org</email></author>
+<date>2017-05-13</date>
+<releaseinfo>Atlantik 0.7.80</releaseinfo>
 </refentryinfo>
 
 <refmeta>
@@ -17,43 +25,44 @@
 </refmeta>
 
 <refnamediv>
-<refname><command>atlantik</command></refname>
+<refname>atlantik</refname>
 <refpurpose>&kde; monopd client</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv>
+<refsynopsisdiv id='synopsis'>
 <cmdsynopsis>
 <command>atlantik</command>
-<group><option>-h, --host</option> <replaceable> host</replaceable></group>
-<group><option>-p, --port</option> <replaceable> port</replaceable></group>
-<group><option>-g, --game</option> <replaceable> game</replaceable></group>
-<group><option>KDE Generic Options</option></group>
-<group><option>Qt Generic Options</option></group>
+<arg choice="opt"><replaceable>Atlantik options</replaceable></arg>
 
 </cmdsynopsis>
 </refsynopsisdiv>
 
-<refsect1>
+<refsect1 id="description">
 <title>Description</title>
 
-<para>&atlantik; is a &kde; client for playing Monopoly-like
-boardgames on the monopd network.</para>
+<para>
+&atlantik; is a &kde; client for playing &Monopoly;-like board games on the
+&monopd; network.
+</para>
 
-<para>Purpose of the atlantik board game is to acquire land in major
-cities in North America and Europe while being a transatlantic
-traveller. All game modes are served by monopd, a dedicated game
-server designed for &atlantik;. One of the game modes plays like the
-popular real estate board game known as Monopoly.</para>  
+<para>Purpose of the &atlantik; board game is to acquire land in major
+cities in North America and Europe while being a transatlantic traveler. To
+win the game, players improve monopolized land with profitable buildings in
+the hopes of bankrupting all other players.</para>
+
+<para>All game modes are served by &monopd;, a dedicated game server designed
+for &atlantik;. One of the game modes plays like the popular real estate
+board game known as &Monopoly;.</para>
 
 </refsect1>
 
-<refsect1>
-<title>Options</title>
+<refsect1 id="options">
+<title>Atlantik options</title>
 
 <variablelist>
 <title>&atlantik; options</title>
 <varlistentry>
-<term><option>-h, --host</option> <parameter>host</parameter></term>
+<term><option>--host</option> <parameter>host</parameter></term>
 <listitem>
 <para>Connect to this host.</para>
 </listitem>
@@ -75,12 +84,16 @@ popular real estate board game known as Monopoly.</para>
 <refsect1>
 <title>See Also</title>
 
-<para>More detailed user documentation is available from <ulink
+<simplelist>
+<member>More detailed user documentation is available from <ulink
 url="help:/atlantik">help:/atlantik</ulink> (either enter this
 <acronym>URL</acronym> into &konqueror;, or run
 <userinput><command>khelpcenter</command>
-<parameter>help:/atlantik</parameter></userinput>).</para>
- 
+<parameter>help:/atlantik</parameter></userinput>).</member>
+<member>kf5options(7)</member>
+<member>qt5options(7)</member>
+</simplelist>
+
 </refsect1>
 
 </refentry>
