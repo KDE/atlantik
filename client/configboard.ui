@@ -28,7 +28,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="kcfg_HighliteUnowned">
+       <widget class="QCheckBox" name="kcfg_HighlightUnowned">
         <property name="whatsThis">
          <string>If checked, unowned properties on the board are highlighted to indicate the property is for sale.</string>
         </property>

@@ -35,7 +35,7 @@
 #include "estateview.h"
 
 EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QString &_icon, bool indicateUnowned,
-                       bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
+                       bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
 	: QWidget(parent)
 	, m_estate(estate)
 	, qpixmap(0)
@@ -44,7 +44,7 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
 	, m_pe(0)
 	, m_allowEstateSales(false)
 	, m_indicateUnowned(indicateUnowned)
-	, m_highliteUnowned(highliteUnowned)
+	, m_highlightUnowned(highlightUnowned)
 	, m_darkenMortgaged(darkenMortgaged)
 	, m_quartzEffects(quartzEffects)
 	, b_recreate(true)
@@ -120,7 +120,7 @@ void EstateView::loadIcon(const QString &_icon)
 	}
 }
 
-void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
+void EstateView::setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects)
 {
 	if (m_indicateUnowned != indicateUnowned)
 	{
@@ -129,9 +129,9 @@ void EstateView::setViewProperties(bool indicateUnowned, bool highliteUnowned, b
 		updatePE();
 	}
 
-	if (m_highliteUnowned != highliteUnowned)
+	if (m_highlightUnowned != highlightUnowned)
 	{
-		m_highliteUnowned = highliteUnowned;
+		m_highlightUnowned = highlightUnowned;
 		b_recreate = true;
 	}
 
@@ -256,7 +256,7 @@ void EstateView::paintEvent(QPaintEvent *e)
 
 		if (m_darkenMortgaged==true && m_estate->isMortgaged())
 			painter.setBrush(m_estate->bgColor().light(10));
-		else if (m_highliteUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
+		else if (m_highlightUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
 			painter.setBrush(m_estate->bgColor().light(190));
 		else
 			painter.setBrush(m_estate->bgColor());

@@ -32,9 +32,9 @@ Q_OBJECT
 
 	public:
 		EstateView(Estate *estate, EstateOrientation orientation, const QString &, 
-			   bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent);
+			   bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent);
 		~EstateView();
-		void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects);
+		void setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects);
 		Estate *estate() const { return m_estate; }
 		void updatePE();
 		EstateOrientation orientation() const { return m_orientation; }
@@ -65,7 +65,7 @@ private:
 		QPixmap *qpixmap, *icon;
 		QPixmap *m_quartzBlocks, *m_pe;
 		bool m_allowEstateSales;
-		bool m_indicateUnowned, m_highliteUnowned, m_darkenMortgaged, m_quartzEffects;
+		bool m_indicateUnowned, m_highlightUnowned, m_darkenMortgaged, m_quartzEffects;
 		bool b_recreate, m_recreateQuartz;
 		int m_titleWidth, m_titleHeight;
 		EstateOrientation m_orientation;

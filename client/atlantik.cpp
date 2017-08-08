@@ -260,7 +260,7 @@ void Atlantik::readConfig()
 
 	// Board configuration
 	m_config.indicateUnowned = Settings::indicateUnowned();
-	m_config.highliteUnowned = Settings::highliteUnowned();
+	m_config.highlightUnowned = Settings::highlightUnowned();
 	m_config.darkenMortgaged = Settings::darkenMortgaged();
 	m_config.animateTokens = Settings::animateToken();
 	m_config.quartzEffects = Settings::quartzEffects();
@@ -295,7 +295,7 @@ void Atlantik::newPlayer(Player *player)
 void Atlantik::newEstate(Estate *estate)
 {
 	initBoard();
-	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
+	m_board->addEstateView(estate, m_config.indicateUnowned, m_config.highlightUnowned, m_config.darkenMortgaged, m_config.quartzEffects);
 }
 
 void Atlantik::newTrade(Trade *trade)
@@ -437,7 +437,7 @@ void Atlantik::initBoard()
 
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget);
         m_board->setObjectName( "board" );
-	m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
+	m_board->setViewProperties(m_config.indicateUnowned, m_config.highlightUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 	m_board->setTokenTheme(m_tokenTheme);
 
 	connect(m_atlantikNetwork, SIGNAL(displayDetails(QString, bool, bool, Estate *)), m_board, SLOT(insertDetails(QString, bool, bool, Estate *)));
@@ -589,10 +589,10 @@ void Atlantik::slotUpdateConfig()
 		viewConfigChanged = true;
 	}
 
-	optBool = Settings::highliteUnowned();
-	if (m_config.highliteUnowned != optBool)
+	optBool = Settings::highlightUnowned();
+	if (m_config.highlightUnowned != optBool)
 	{
-		m_config.highliteUnowned = optBool;
+		m_config.highlightUnowned = optBool;
 		viewConfigChanged = true;
 	}
 
@@ -632,7 +632,7 @@ void Atlantik::slotUpdateConfig()
 	}
 
 	if (viewConfigChanged && m_board)
-		m_board->setViewProperties(m_config.indicateUnowned, m_config.highliteUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
+		m_board->setViewProperties(m_config.indicateUnowned, m_config.highlightUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 }
 
 void Atlantik::slotSendMsg()

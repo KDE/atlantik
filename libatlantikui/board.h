@@ -46,9 +46,9 @@ public:
 	~AtlantikBoard();
 	void reset();
 
-	void setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
+	void setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
 	int heightForWidth(int) const Q_DECL_OVERRIDE;
-	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highliteUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
+	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highlightUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
 
 	void addToken(Player *player);

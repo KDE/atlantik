@@ -98,14 +98,14 @@ void AtlantikBoard::reset()
 	m_movingToken = 0;
 }
 
-void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
+void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
 {
 	if (m_animateTokens != animateTokens)
 		m_animateTokens = animateTokens;
 
 	// Update EstateViews
 	foreach (EstateView *estateView, m_estateViews)
-			estateView->setViewProperties(indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects);
+			estateView->setViewProperties(indicateUnowned, highlightUnowned, darkenMortgaged, quartzEffects);
 }
 
 int AtlantikBoard::heightForWidth(int width) const
@@ -123,7 +123,7 @@ EstateView *AtlantikBoard::findEstateView(Estate *estate) const
 	return 0;
 }
 
-void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highliteUnowned, bool darkenMortgaged, bool quartzEffects)
+void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects)
 {
 	QString icon = estate->icon();
 	int estateId = estate->id();
@@ -139,7 +139,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 	else //if (estateId < 4*sideLen)
 		orientation = West;
 
-	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highliteUnowned, darkenMortgaged, quartzEffects, this);
+	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highlightUnowned, darkenMortgaged, quartzEffects, this);
         estateView->setObjectName( "estateview" );
 	estateView->setAllowEstateSales(true); // XXX should use the allowestatesales config option
 	m_estateViews.append(estateView);
