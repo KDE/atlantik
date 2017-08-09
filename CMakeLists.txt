@@ -13,6 +13,12 @@ include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
 include(ECMInstallIcons)
 include(ECMPackageConfigHelpers)
+include(ECMSetupVersion)
+
+ecm_setup_version(0.7.80
+   VARIABLE_PREFIX ATLANTIK
+   VERSION_HEADER client/version.h
+)
 
 find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
 
