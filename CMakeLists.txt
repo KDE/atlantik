@@ -14,6 +14,7 @@ include(ECMQtDeclareLoggingCategory)
 include(ECMInstallIcons)
 include(ECMPackageConfigHelpers)
 include(ECMSetupVersion)
+include(ECMAddAppIcon)
 
 ecm_setup_version(0.7.80
    VARIABLE_PREFIX ATLANTIK

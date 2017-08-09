@@ -1,5 +1,7 @@
 ########### next target ###############
 
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-atlantik.png")
+
 set(atlantik_SRCS 
    atlantik.cpp 
    clickablelabel.cpp
@@ -21,6 +23,7 @@ ecm_qt_declare_logging_category(atlantik_SRCS
   CATEGORY_NAME atlantik.client
   DEFAULT_SEVERITY Warning
 )
+ecm_add_app_icon(atlantik_SRCS ICONS ${ICONS_SRCS})
 add_executable(atlantik ${atlantik_SRCS})
 target_link_libraries(atlantik KF5::ConfigCore KF5::ConfigWidgets KF5::CoreAddons KF5::Crash KF5::I18n KF5::IconThemes KF5::Notifications KF5::NotifyConfig KF5::XmlGui KF5::WidgetsAddons KF5KDEGames atlantic atlantikui atlantikclient)
 install(TARGETS atlantik ${INSTALL_TARGETS_DEFAULT_ARGS})
