@@ -44,7 +44,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	: QDialog(parent, Qt::WindowContextHelpButtonHint)
 	, m_atlanticCore(atlanticCore)
 	, m_trade(trade)
-	, m_contextTradeItem(0)
+	, m_contextTradeItem(Q_NULLPTR)
 {
 	setWindowTitle(i18n("Trade %1", trade->tradeId()));
 
@@ -251,7 +251,7 @@ void TradeDisplay::tradeItemRemoved(TradeItem *t)
 
 void TradeDisplay::tradeItemChanged(TradeItem *t)
 {
-	QTreeWidgetItem *item = m_componentMap.value(t, 0);
+	QTreeWidgetItem *item = m_componentMap.value(t, Q_NULLPTR);
 	if (item)
 	{
 		const QIcon userIcon = KDE::icon("user-identity");
@@ -284,7 +284,7 @@ void TradeDisplay::tradeRejected(Player *player)
 	if (player)
 	{
 		m_status->setText(i18n("Trade proposal was rejected by %1.", player->name()));
-		QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+		QTreeWidgetItem *item = m_playerListMap.value(player, Q_NULLPTR);
 		if (item)
 			item->setIcon(0, KDE::icon("dialog-cancel"));
 	} else
@@ -301,7 +301,7 @@ void TradeDisplay::tradeRejected(Player *player)
 
 void TradeDisplay::slotPlayerAdded(Player *player)
 {
-	QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+	QTreeWidgetItem *item = m_playerListMap.value(player, Q_NULLPTR);
 	if (item)
 		return;
 
@@ -325,7 +325,7 @@ void TradeDisplay::slotPlayerRemoved(Player *player)
 void TradeDisplay::slotAcceptChanged(Player *player, bool accept)
 {
 	slotPlayerAdded(player);
-	QTreeWidgetItem *item = m_playerListMap.value(player, 0);
+	QTreeWidgetItem *item = m_playerListMap.value(player, Q_NULLPTR);
 	Q_ASSERT(item);  // slotPlayerAdded made sure there's an item for player
 	item->setIcon(0, accept ? KDE::icon("dialog-ok") : QIcon());
 }
@@ -397,7 +397,7 @@ void TradeDisplay::setEstateCombo(int index)
 	if (m_estateCombo->currentIndex() != index)
 		m_estateCombo->setCurrentIndex(index);
 
-	if (Estate *estate = m_estateMap.value(index, 0))
+	if (Estate *estate = m_estateMap.value(index, Q_NULLPTR))
 		m_playerFromCombo->setCurrentIndex( m_playerFromRevMap[estate->owner()] );
 }
 
@@ -406,7 +406,7 @@ void TradeDisplay::setCardCombo(int index)
 	if (m_cardCombo->currentIndex() != index)
 		m_cardCombo->setCurrentIndex(index);
 
-	if (Card *card = m_cardMap.value(index, 0))
+	if (Card *card = m_cardMap.value(index, Q_NULLPTR))
 		m_playerFromCombo->setCurrentIndex(m_playerFromRevMap[card->owner()]);
 }
 
@@ -505,11 +505,11 @@ void TradeDisplay::contextMenuClickedRemove()
 		return;
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
-		emit updateEstate(m_trade, tradeEstate->estate(), 0);
+		emit updateEstate(m_trade, tradeEstate->estate(), Q_NULLPTR);
 	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
 		emit updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
 	else if (TradeCard *tradeCard = dynamic_cast<TradeCard*>(m_contextTradeItem))
-		emit updateCard(m_trade, tradeCard->card(), 0);
+		emit updateCard(m_trade, tradeCard->card(), Q_NULLPTR);
 
-	m_contextTradeItem = 0;
+	m_contextTradeItem = Q_NULLPTR;
 }

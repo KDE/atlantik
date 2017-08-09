@@ -146,7 +146,7 @@ void SelectGame::updateGame(Game *game)
 void SelectGame::playerChanged(Player *player)
 {
 	const int count = m_gameList->topLevelItemCount();
-	Game *game = 0;
+	Game *game = Q_NULLPTR;
 
 	for (int i = 0; i < count; ++i)
 	{
@@ -172,7 +172,7 @@ QTreeWidgetItem *SelectGame::findItem(Game *game)
 		if ( (game->id() == -1 || item->text(2) == QString::number(game->id())) && item->data(0, GameTypeRole).toString() == game->type() )
 			return item;
 	}
-	return 0;
+	return Q_NULLPTR;
 }
 
 void SelectGame::validateConnectButton()

@@ -31,7 +31,7 @@ class ConfigDialog : public KConfigDialog
 Q_OBJECT
 
 public:
-	ConfigDialog(const TokenTheme &theme, QWidget *parent = 0);
+	ConfigDialog(const TokenTheme &theme, QWidget *parent = Q_NULLPTR);
 
 private:
 	Ui::ConfigGeneral m_uiGeneral;

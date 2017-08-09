@@ -41,9 +41,9 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	: QWidget(parent)
 	, m_atlanticCore(atlanticCore)
 	, m_mode(mode)
-	, m_lastServerDisplay(0)
-	, m_lastServerDisplayBeforeAuction(0)
-	, m_movingToken(0)
+	, m_lastServerDisplay(Q_NULLPTR)
+	, m_lastServerDisplayBeforeAuction(Q_NULLPTR)
+	, m_movingToken(Q_NULLPTR)
 	, m_resumeTimer(false)
 	, m_animateTokens(false)
 	, m_maxEstates(maxEstates)
@@ -94,8 +94,8 @@ void AtlantikBoard::reset()
 	m_estateViews.clear();
 	qDeleteAll(m_displayQueue);
 	m_displayQueue.clear();
-	m_lastServerDisplay = 0;
-	m_movingToken = 0;
+	m_lastServerDisplay = Q_NULLPTR;
+	m_movingToken = Q_NULLPTR;
 }
 
 void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens)
@@ -120,7 +120,7 @@ EstateView *AtlantikBoard::findEstateView(Estate *estate) const
 		if (estateView->estate() == estate)
 			return estateView;
 	}
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects)
@@ -191,7 +191,7 @@ Token *AtlantikBoard::findToken(Player *player) const
 	foreach (Token *token, m_tokens)
 		if (token->player() == player)
 			return token;
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlantikBoard::addToken(Player *player)
@@ -208,7 +208,7 @@ void AtlantikBoard::addToken(Player *player)
 		return;
 	}
 
-	Player *playerSelf = 0;
+	Player *playerSelf = Q_NULLPTR;
 	if (m_atlanticCore)
 		playerSelf = m_atlanticCore->playerSelf();
 
@@ -236,7 +236,7 @@ void AtlantikBoard::playerChanged(Player *player)
 {
 	qCDebug(LIBATLANTIKUI_LOG) << "playerLoc" << (player->location() ? player->location()->name() : "none");
 
-	Player *playerSelf = 0;
+	Player *playerSelf = Q_NULLPTR;
 	if (m_atlanticCore)
 		playerSelf = m_atlanticCore->playerSelf();
 
@@ -303,7 +303,7 @@ void AtlantikBoard::removeToken(Player *player)
 	if (token == m_movingToken)
 	{
 		m_timer->stop();
-		m_movingToken = 0;
+		m_movingToken = Q_NULLPTR;
 	}
 
 	m_tokens.removeOne(token);
@@ -324,7 +324,7 @@ void AtlantikBoard::jumpToken(Token *token)
 	if (player)
 	{
 		player->setLocation(token->location());
-		player->setDestination(0);
+		player->setDestination(Q_NULLPTR);
 
 		if (token->isHidden() && !player->isBankrupt() && !player->isSpectator())
 			token->show();
@@ -335,7 +335,7 @@ void AtlantikBoard::jumpToken(Token *token)
 		m_timer->stop();
 
 		if (!m_resumeTimer)
-			m_movingToken = 0;
+			m_movingToken = Q_NULLPTR;
 	}
 
 	emit tokenConfirmation(token->location());
@@ -446,18 +446,18 @@ void AtlantikBoard::slotMoveToken()
 	// We have arrived at our _final_ destination!
 	if (eDest == m_movingToken->destination())
 	{
-		m_movingToken->setDestination(0);
-		m_movingToken->player()->setDestination(0);
+		m_movingToken->setDestination(Q_NULLPTR);
+		m_movingToken->player()->setDestination(Q_NULLPTR);
 
 		m_timer->stop();
-		m_movingToken = 0;
+		m_movingToken = Q_NULLPTR;
 	}
 }
 
 void AtlantikBoard::resizeEvent(QResizeEvent *)
 {
 	// Stop moving tokens, slotResizeAftermath will re-enable this
-	if (m_timer!=0 && m_timer->isActive())
+	if (m_timer!=Q_NULLPTR && m_timer->isActive())
 	{
 		m_timer->stop();
 		m_resumeTimer=true;
@@ -492,7 +492,7 @@ void AtlantikBoard::slotResizeAftermath()
 		jumpToken(token);
 
 	// Restart the timer that was stopped in resizeEvent
-	if (m_resumeTimer && m_timer!=0 && !m_timer->isActive())
+	if (m_resumeTimer && m_timer!=Q_NULLPTR && !m_timer->isActive())
 	{
 		m_timer->start(15);
 		m_resumeTimer=false;
@@ -508,11 +508,11 @@ void AtlantikBoard::displayDefault()
 		break;
 	case 1:
 		if (EstateDetails *display = dynamic_cast<EstateDetails*>(m_lastServerDisplay))
-			display->setEstate(0);
+			display->setEstate(Q_NULLPTR);
 		break;
 	default:
 		if (m_displayQueue.first() == m_lastServerDisplay)
-			m_lastServerDisplay = 0;
+			m_lastServerDisplay = Q_NULLPTR;
 		delete m_displayQueue.takeFirst();
 		if (m_lastServerDisplayBeforeAuction)
 			m_lastServerDisplay = m_lastServerDisplayBeforeAuction;
@@ -529,14 +529,14 @@ void AtlantikBoard::displayButton(const QString &command, const QString &caption
 
 void AtlantikBoard::addCloseButton()
 {
-	EstateDetails *eDetails = 0;
+	EstateDetails *eDetails = Q_NULLPTR;
 	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)) && eDetails != m_displayQueue.last())
 		eDetails->addCloseButton();
 }
 
 void AtlantikBoard::insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate)
 {
-	EstateDetails *eDetails = 0;
+	EstateDetails *eDetails = Q_NULLPTR;
 
 	if ((eDetails = dynamic_cast<EstateDetails*>(m_lastServerDisplay)))
 	{
@@ -584,7 +584,7 @@ void AtlantikBoard::prependEstateDetails(Estate *estate)
 	if (!estate)
 		return;
 
-	EstateDetails *eDetails = 0;
+	EstateDetails *eDetails = Q_NULLPTR;
 
 	if (m_displayQueue.first() == m_lastServerDisplay)
 	{

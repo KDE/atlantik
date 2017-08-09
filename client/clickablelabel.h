@@ -24,7 +24,7 @@ class ClickableLabel : public QLabel
 Q_OBJECT
 
 public:
-	ClickableLabel(QWidget *parent = 0);
+	ClickableLabel(QWidget *parent = Q_NULLPTR);
 	~ClickableLabel();
 
 signals:

@@ -30,7 +30,7 @@
 
 AtlanticCore::AtlanticCore(QObject *parent)
 	: QObject(parent)
-	, m_playerSelf(0)
+	, m_playerSelf(Q_NULLPTR)
 {
 }
 
@@ -61,14 +61,14 @@ void AtlanticCore::reset(bool deletePermanents)
 		}
 		else
 		{
-			player->setLocation(0);
-			player->setDestination(0);
+			player->setLocation(Q_NULLPTR);
+			player->setDestination(Q_NULLPTR);
 		}
 	}
 	if (deletePermanents)
 	{
 		m_players.clear();
-		m_playerSelf = 0;
+		m_playerSelf = Q_NULLPTR;
 
 		foreach (Game *game, m_games)
 		{
@@ -133,7 +133,7 @@ Player *AtlanticCore::findPlayer(int playerId) const
 		if (player->id() == playerId)
 			return player;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlanticCore::removePlayer(Player *player)
@@ -141,7 +141,7 @@ void AtlanticCore::removePlayer(Player *player)
 	m_players.removeOne(player);
 	emit removeGUI(player);
 	if (player == m_playerSelf)
-		m_playerSelf = 0;
+		m_playerSelf = Q_NULLPTR;
 	player->deleteLater();
 }
 
@@ -169,24 +169,24 @@ Game *AtlanticCore::findGame(const QString &type) const
 		if (game->id() == -1 && game->type() == type)
 			return game;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 Game *AtlanticCore::findGame(int gameId) const
 {
 	if (gameId == -1)
-		return 0;
+		return Q_NULLPTR;
 
 	foreach (Game *game, m_games)
 		if (game->id() == gameId)
 			return game;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 Game *AtlanticCore::gameSelf() const
 {
-	return( m_playerSelf ? m_playerSelf->game() : 0 );
+	return( m_playerSelf ? m_playerSelf->game() : Q_NULLPTR );
 }
 
 void AtlanticCore::removeGame(Game *game)
@@ -195,7 +195,7 @@ void AtlanticCore::removeGame(Game *game)
 	foreach (Player *player, m_players)
 		if (player->game() && player->game()->id() == game->id())
 		{
-			player->setGame(0);
+			player->setGame(Q_NULLPTR);
 			player->update();
 		}
 	emit removeGUI(game);
@@ -226,12 +226,12 @@ Estate *AtlanticCore::findEstate(int estateId) const
 		if (estate->id() == estateId)
 			return estate;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 Estate *AtlanticCore::estateAfter(Estate *estate) const
 {
-	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : 0;
+	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : Q_NULLPTR;
 	QList<Estate *>::const_iterator it = std::find(m_estates.constBegin(), m_estates.constEnd(), estate);
 	if (it == m_estates.constEnd())
 		return eFirst;
@@ -257,7 +257,7 @@ EstateGroup *AtlanticCore::findEstateGroup(int groupId) const
 		if (estateGroup->id() == groupId)
 			return estateGroup;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 QList<Trade *> AtlanticCore::trades() const
@@ -281,7 +281,7 @@ Trade *AtlanticCore::findTrade(int tradeId) const
 		if (trade->tradeId() == tradeId)
 			return trade;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlanticCore::removeTrade(Trade *trade)
@@ -309,7 +309,7 @@ Auction *AtlanticCore::findAuction(int auctionId) const
 		if (auction->auctionId() == auctionId)
 			return auction;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlanticCore::delAuction(Auction *auction)
@@ -336,7 +336,7 @@ Card *AtlanticCore::findCard(int cardId) const
 		if (card->cardId() == cardId)
 			return card;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 void AtlanticCore::printDebug() const

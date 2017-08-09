@@ -106,7 +106,7 @@ void AuctionWidget::playerChanged(Player *player)
 		return;
 
 	Game *pSelfGame = m_atlanticCore->playerSelf()->game();
-	QTreeWidgetItem *item = m_playerItems.value(player, 0);
+	QTreeWidgetItem *item = m_playerItems.value(player, Q_NULLPTR);
 
 	if (item)
 	{
@@ -154,7 +154,7 @@ void AuctionWidget::updateBid(Player *player, int amount)
 		return;
 
 	QTreeWidgetItem *item;
-	if (!(item = m_playerItems.value(player, 0)))
+	if (!(item = m_playerItems.value(player, Q_NULLPTR)))
 		return;
 
 	item->setText(1, QString::number(amount));

@@ -85,7 +85,7 @@ class LogTextEdit : public QTextEdit
 Q_OBJECT
 
 public:
-	LogTextEdit(QWidget *parent = 0);
+	LogTextEdit(QWidget *parent = Q_NULLPTR);
 	virtual ~LogTextEdit();
 
 protected:
@@ -110,7 +110,7 @@ public:
 	 * Create an Atlantik window.
 	 *
 	 */
-	Atlantik(QCommandLineParser *parser = 0);
+	Atlantik(QCommandLineParser *parser = Q_NULLPTR);
 
 	/**
 	 * Read the configuration settings using KConfig.

@@ -35,7 +35,7 @@ class EventLog : public QAbstractItemModel
 Q_OBJECT
 
 public:
-	EventLog(QObject *parent = 0);
+	EventLog(QObject *parent = Q_NULLPTR);
 	~EventLog();
 	QList<Event*> events() const;
 
@@ -62,7 +62,7 @@ class LastMessagesProxyModel : public QSortFilterProxyModel
 Q_OBJECT
 
 public:
-	LastMessagesProxyModel(QObject *parent = 0);
+	LastMessagesProxyModel(QObject *parent = Q_NULLPTR);
 
 	void setMessagesCount(int n);
 
@@ -80,7 +80,7 @@ class EventLogWidget : public QDialog
 Q_OBJECT
 
 public:
-	EventLogWidget(EventLog *eventLog, QWidget *parent=0);
+	EventLogWidget(EventLog *eventLog, QWidget *parent=Q_NULLPTR);
 	~EventLogWidget();
 	void restoreSettings();
 

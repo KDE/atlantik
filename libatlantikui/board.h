@@ -68,7 +68,7 @@ private Q_SLOTS:
 	void playerChanged(Player *player);
 	void displayButton(const QString &command, const QString &caption, bool enabled);
 	void prependEstateDetails(Estate *);
-	void insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = 0);
+	void insertDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = Q_NULLPTR);
 	void insertText(const QString &text, bool clearText, bool clearButtons);
 	void addCloseButton();
 
@@ -83,7 +83,7 @@ private:
 	Token *findToken(Player *player) const;
 	void jumpToken(Token *token);
 	void moveToken(Token *token);
-	QPoint calculateTokenDestination(Token *token, Estate *estate = 0);
+	QPoint calculateTokenDestination(Token *token, Estate *estate = Q_NULLPTR);
 
 	void updateCenter();
 

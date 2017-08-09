@@ -21,7 +21,7 @@ Card::Card(int cardId)
 	: QObject()
 	, m_changed(false)
 	, m_cardId(cardId)
-	, m_owner(0)
+	, m_owner(Q_NULLPTR)
 {
 }
 

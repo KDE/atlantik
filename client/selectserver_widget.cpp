@@ -96,14 +96,14 @@ void MetaserverEntry::connected()
 	qCDebug(ATLANTIK_LOG) << "connected to" << host() << "- latency =" << m_latency;
 	setDisabled(false);
 	setText(1, QString::number(m_latency));
-	disconnect(m_latencySocket, 0, this, 0);
+	disconnect(m_latencySocket, Q_NULLPTR, this, Q_NULLPTR);
 	m_latencySocket->deleteLater();
-	m_latencySocket = 0;
+	m_latencySocket = Q_NULLPTR;
 }
 
 SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	: QWidget(parent)
-	, m_metatlantic(0)
+	, m_metatlantic(Q_NULLPTR)
 	, m_hideDevelopmentServers(hideDevelopmentServers)
 {
 	setupUi(this);
@@ -196,7 +196,7 @@ void SelectServer::metatlanticFinished()
 		emit msgStatus(i18n("Error while retrieving the server list."));
 	else
 		emit msgStatus(i18n("Retrieved server list."));
-	m_metatlantic = 0;
+	m_metatlantic = Q_NULLPTR;
 	m_refreshButton->setEnabled(true);
 }
 

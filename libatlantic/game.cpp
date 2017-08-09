@@ -27,7 +27,7 @@ Game::Game(int gameId)
 	, m_canBeWatched(false)
 	, m_id(gameId)
 	, m_players(0)
-	, m_master(0)
+	, m_master(Q_NULLPTR)
 {
 }
 
@@ -172,7 +172,7 @@ ConfigOption *Game::findConfigOption(int configId) const
 		if (configOption->id() == configId)
 			return configOption;
 
-	return 0;
+	return Q_NULLPTR;
 }
 
 ConfigOption *Game::findConfigOption(const QString &name) const
@@ -181,5 +181,5 @@ ConfigOption *Game::findConfigOption(const QString &name) const
 		if (configOption->name() == name)
 			return configOption;
 
-	return 0;
+	return Q_NULLPTR;
 }

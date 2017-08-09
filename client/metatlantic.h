@@ -29,7 +29,7 @@ class Metatlantic : public KJob
 Q_OBJECT
 
 public:
-	Metatlantic(const QString &host, int port, QObject *parent = 0);
+	Metatlantic(const QString &host, int port, QObject *parent = Q_NULLPTR);
 	~Metatlantic();
 	void start() Q_DECL_OVERRIDE;
 

@@ -29,7 +29,7 @@ Q_OBJECT
 Q_PROPERTY(QString image READ image WRITE setImage NOTIFY imageChanged)
 
 public:
-	CustomLocationIconButton(QWidget *parent = 0);
+	CustomLocationIconButton(QWidget *parent = Q_NULLPTR);
 	~CustomLocationIconButton();
 
 	void setTokenTheme(const TokenTheme &theme);
