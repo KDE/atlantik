@@ -64,11 +64,11 @@ private:
 		Estate *m_estate;
 		QPixmap *qpixmap, *icon;
 		QPixmap *m_quartzBlocks, *m_pe;
-		bool m_allowEstateSales;
-		bool m_indicateUnowned, m_highlightUnowned, m_darkenMortgaged, m_quartzEffects;
-		bool b_recreate, m_recreateQuartz;
+		bool m_allowEstateSales : 1;
+		bool m_indicateUnowned : 1, m_highlightUnowned : 1, m_darkenMortgaged : 1, m_quartzEffects : 1;
+		bool b_recreate : 1, m_recreateQuartz : 1;
+		EstateOrientation m_orientation : 3;
 		int m_titleWidth, m_titleHeight;
-		EstateOrientation m_orientation;
 		QString m_estateIcon;
 		QColor m_estateColor;
 
