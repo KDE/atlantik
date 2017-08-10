@@ -884,7 +884,10 @@ void Atlantik::closeEvent(QCloseEvent *e)
 	if ( result == KMessageBox::Continue )
 	{
 		if ( m_atlantikNetwork && m_atlantikNetwork->isConnected() )
+		{
 			m_atlantikNetwork->leaveGame();
+			m_atlantikNetwork->disconnect();
+		}
 
 		KXmlGuiWindow::closeEvent(e);
 	}

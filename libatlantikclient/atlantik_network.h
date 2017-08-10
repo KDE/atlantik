@@ -52,6 +52,7 @@ public:
 	bool isConnected() const;
 
 	void reset();
+	void disconnect();
 
 private slots:
 	void slotwriteData(const QString &msg);

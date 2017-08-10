@@ -48,20 +48,22 @@ AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 
 AtlantikNetwork::~AtlantikNetwork(void)
 {
-	if (m_monopdsocket) {
-	m_monopdstream.setDevice(Q_NULLPTR);
-	m_monopdsocket->close();
-	delete m_monopdsocket;
-	}
+	disconnect();
 }
 
-void AtlantikNetwork::reset()
+void AtlantikNetwork::disconnect()
 {
 	if (m_monopdsocket) {
 		m_monopdstream.setDevice(Q_NULLPTR);
 		m_monopdsocket->close();
 		delete m_monopdsocket;
+		m_monopdsocket = Q_NULLPTR;
 	}
+}
+
+void AtlantikNetwork::reset()
+{
+	disconnect();
 	m_monopdsocket = new QTcpSocket(this);
 	m_monopdsocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
 
