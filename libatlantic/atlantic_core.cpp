@@ -231,12 +231,14 @@ Estate *AtlanticCore::findEstate(int estateId) const
 
 Estate *AtlanticCore::estateAfter(Estate *estate) const
 {
-	Estate *eFirst = !m_estates.isEmpty() ? m_estates.at(0) : Q_NULLPTR;
-	QList<Estate *>::const_iterator it = std::find(m_estates.constBegin(), m_estates.constEnd(), estate);
-	if (it == m_estates.constEnd())
-		return eFirst;
+	if (m_estates.isEmpty())
+		return Q_NULLPTR;
+	const QList<Estate *>::const_iterator itEnd = m_estates.constEnd();
+	QList<Estate *>::const_iterator it = std::find(m_estates.constBegin(), itEnd, estate);
+	if (it == itEnd)
+		return m_estates.at(0);
 	++it;
-	return it != m_estates.constEnd() ? *it : eFirst;
+	return it != itEnd ? *it : m_estates.at(0);
 }
 
 QList<EstateGroup *> AtlanticCore::estateGroups() const
