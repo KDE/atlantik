@@ -87,7 +87,7 @@ QVariant EventLog::data(const QModelIndex &index, int role) const
 	case 0:
 		if (role != Qt::DisplayRole)
 			return QVariant();
-		return e->dateTime().toString("yyyy-MM-dd hh:mm:ss zzz");
+		return e->dateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss zzz"));
 	case 1:
 		switch (role)
 		{
@@ -145,22 +145,22 @@ QIcon EventLog::cachedIcon(EventType type) const
 	switch (type)
 	{
 		case ET_Generic:
-			name = "atlantik";
+			name = QStringLiteral("atlantik");
 			break;
 		case ET_NetIn:
-			name = "arrow-left";
+			name = QStringLiteral("arrow-left");
 			break;
 		case ET_NetOut:
-			name = "arrow-right";
+			name = QStringLiteral("arrow-right");
 			break;
 		case ET_NetGeneric:
-			name = "network-disconnect";  // FIXME
+			name = QStringLiteral("network-disconnect");  // FIXME
 			break;
 		case ET_NetConnected:
-			name = "network-connect";
+			name = QStringLiteral("network-connect");
 			break;
 		case ET_NetError:
-			name = "network-disconnect";
+			name = QStringLiteral("network-disconnect");
 			break;
 		case ET_LastEvent:
 			return QIcon();
@@ -214,14 +214,14 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	QVBoxLayout *listCompBox = new QVBoxLayout(this);
 
 	m_eventList = new QTreeView(this);
-	m_eventList->setObjectName( "eventList" );
+	m_eventList->setObjectName(QStringLiteral("eventList"));
 	listCompBox->addWidget(m_eventList);
 
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	QPushButton *saveButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
-	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), "document-save-as"));
+	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), QStringLiteral("document-save-as")));
 	QPushButton *clearButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
-	KGuiItem::assign(clearButton, KGuiItem(i18n("&Clear Log"), "edit-clear"));
+	KGuiItem::assign(clearButton, KGuiItem(i18n("&Clear Log"), QStringLiteral("edit-clear")));
 	listCompBox->addWidget(buttonBox);
 
 	LastMessagesProxyModel *proxy = new LastMessagesProxyModel(m_eventList);
@@ -241,13 +241,13 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 void EventLogWidget::restoreSettings()
 {
-	const KConfigGroup group(KSharedConfig::openConfig(), "EventLogWidget");
+	const KConfigGroup group(KSharedConfig::openConfig(), QStringLiteral("EventLogWidget"));
 	KWindowConfig::restoreWindowSize(windowHandle(), group);
 }
 
 EventLogWidget::~EventLogWidget()
 {
-	KConfigGroup group(KSharedConfig::openConfig(), "EventLogWidget");
+	KConfigGroup group(KSharedConfig::openConfig(), QStringLiteral("EventLogWidget"));
 	KWindowConfig::saveWindowSize(windowHandle(), group);
 }
 
@@ -262,10 +262,10 @@ void EventLogWidget::save()
 	{
 		QTextStream stream(&file);
 
-		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ) << endl;
+		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) ) << endl;
 
 		foreach (Event *e, m_eventLog->events())
-			stream << e->dateTime().toString("yyyy-MM-dd hh:mm:ss") << " " << e->description() << endl;
+			stream << e->dateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) << " " << e->description() << endl;
 		file.close();
 	}
 }

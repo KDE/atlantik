@@ -26,14 +26,14 @@
 
 static void iterateTokenThemes(std::function<void(const QString &, const QString &)> fun)
 {
-	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "atlantik/themes/", QStandardPaths::LocateDirectory))
+	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("atlantik/themes/"), QStandardPaths::LocateDirectory))
 	{
 		QDirIterator it(dir, QDir::Dirs | QDir::NoDotAndDotDot);
 		while (it.hasNext())
 		{
 			QString d = it.next();
 			const QString fn = it.fileName();
-			d += "/tokens/";
+			d += QLatin1String("/tokens/");
 			if (QFileInfo(d).isDir())
 				fun(d, fn);
 		}
@@ -84,7 +84,7 @@ QString TokenTheme::path() const
 
 QString TokenTheme::fallbackIcon() const
 {
-	return "hamburger.png";
+	return QStringLiteral("hamburger.png");
 }
 
 QString TokenTheme::tokenPath(const QString &name) const

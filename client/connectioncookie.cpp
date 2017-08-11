@@ -26,7 +26,7 @@ static const int ConnectionCookieVersion = 1;
 
 static QString filePath()
 {
-	return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + "/atlantik.cookie";
+	return QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + QStringLiteral("/atlantik.cookie");
 }
 
 ConnectionCookie::ConnectionCookie(const QString &host, int port, const QString &cookie)

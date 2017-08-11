@@ -34,41 +34,41 @@ MonopdProtocol::MonopdProtocol()
 
 void MonopdProtocol::auctionEstate()
 {
-	sendData(QString::fromLatin1(".ea"));
+	sendData(QStringLiteral(".ea"));
 }
 
 void MonopdProtocol::buyEstate()
 {
-	sendData(QString::fromLatin1(".eb"));
+	sendData(QStringLiteral(".eb"));
 }
 
 void MonopdProtocol::confirmTokenLocation(Estate *estate)
 {
-	QString data(".t");
+	QString data(QStringLiteral(".t"));
 	data.append(QString::number(estate ? estate->id() : -1));
 	sendData(data);
 }
 
 void MonopdProtocol::endTurn()
 {
-	sendData(QString::fromLatin1(".E"));
+	sendData(QStringLiteral(".E"));
 }
 
 void MonopdProtocol::rollDice()
 {
-	sendData(QString::fromLatin1(".r"));
+	sendData(QStringLiteral(".r"));
 }
 
 void MonopdProtocol::setName(const QString &name)
 {
-	QString data(".n");
+	QString data(QStringLiteral(".n"));
 	data.append(name);
 	sendData(data);
 }
 
 void MonopdProtocol::startGame()
 {
-	sendData(QString::fromLatin1(".gs"));
+	sendData(QStringLiteral(".gs"));
 }
 
 void MonopdProtocol::sendData(const QString&)

@@ -48,6 +48,7 @@ add_definitions(-DTRANSLATION_DOMAIN="atlantik")
 add_definitions(-DQT_DEPRECATED_WARNINGS)
 add_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 add_definitions(-DQT_NO_CAST_TO_ASCII)
+add_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 set(GENERIC_LIB_SOVERSION "5")
 set(GENERIC_LIB_VERSION "5.0.0")

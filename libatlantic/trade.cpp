@@ -253,7 +253,7 @@ void TradeMoney::setMoney(unsigned int money)
 
 QString TradeMoney::text() const
 {
-	return QString("$%1").arg(m_money);
+	return QStringLiteral("$%1").arg(m_money);
 }
 
 TradeCard::TradeCard(Card *card, Trade *trade, Player *to) : TradeItem(trade, card->owner(), to), mCard(card)

@@ -37,13 +37,13 @@ MetaserverEntry::MetaserverEntry(const QString &host, int port, const QString &v
 	, m_latency(9999)
 	, m_users(users)
 	, m_port(port)
-	, m_isDev(version.indexOf("CVS") != -1 || version.indexOf("-dev") != -1)
+	, m_isDev(version.indexOf(QLatin1String("CVS")) != -1 || version.indexOf(QLatin1String("-dev")) != -1)
 {
 	setText(0, host);
 	setText(1, QString::number(m_latency));
 	setText(2, version);
 	setText(3, users == -1 ? i18n("unknown") : QString::number(m_users));
-	setIcon(0, KDE::icon("atlantik"));
+	setIcon(0, KDE::icon(QStringLiteral("atlantik")));
 	setDisabled(true);
 
 	m_latencySocket = new QTcpSocket();
@@ -117,7 +117,7 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	connect(m_portEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 	connect(m_portEdit, SIGNAL(textChanged(QString)), this, SLOT(validateCustomConnectButton()));
 
-	m_customConnectButton->setIcon(KDE::icon("network-wired"));
+	m_customConnectButton->setIcon(KDE::icon(QStringLiteral("network-wired")));
 	connect(m_customConnectButton, SIGNAL(clicked()), this, SLOT(customConnect()));
 
 	// List of servers
@@ -132,7 +132,7 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	connect(m_serverList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(validateConnectButton()));
 
 	// Server List / Refresh
-	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Get Server List"), "network-wired"));
+	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Get Server List"), QStringLiteral("network-wired")));
 	connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(reloadServerList()));
 
 	// Connect
@@ -166,8 +166,8 @@ void SelectServer::initMetaserver()
 	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
 	emit msgStatus(i18n("Retrieving server list..."));
 
-	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), "view-refresh"));
-	m_metatlantic = new Metatlantic(METATLANTIC_HOST, METATLANTIC_PORT);
+	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), QStringLiteral("view-refresh")));
+	m_metatlantic = new Metatlantic(QString::fromLatin1(METATLANTIC_HOST), METATLANTIC_PORT);
 
 	connect(m_metatlantic, SIGNAL(metatlanticAdd(QString,int,QString,int)), this, SLOT(slotMetatlanticAdd(QString,int,QString,int)));
 	connect(m_metatlantic, SIGNAL(result(KJob*)), SLOT(metatlanticFinished()));

@@ -45,20 +45,20 @@ void AtlantikProtocol::get( const QUrl& url )
 {
 	QStringList args;
 	const QUrlQuery query( url );
-	args << "atlantik";
+	args << QStringLiteral("atlantik");
 
 	QString host = url.host();
 	if (host.isEmpty())
-		host = query.queryItemValue("host");
-	int game = query.queryItemValue("game").toInt();
+		host = query.queryItemValue(QStringLiteral("host"));
+	int game = query.queryItemValue(QStringLiteral("game")).toInt();
 	QString gameString = game ? QString::number( game ) : QString();
 
 	if (!host.isEmpty())
 	{
 		const QString port = QString::number(url.port(MONOPD_PORT));
-		args << "--host" << host << "--port" << port;
+		args << QStringLiteral("--host") << host << QStringLiteral("--port") << port;
 		if (!gameString.isEmpty())
-			args << "--game" << gameString;
+			args << QStringLiteral("--game") << gameString;
 	}
 
 	// TODO: check the return value?

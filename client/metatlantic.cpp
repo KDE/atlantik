@@ -96,7 +96,7 @@ void Metatlantic::processMsg(const QString &msg)
 {
 	qCDebug(ATLANTIK_LOG) << msg;
 	QXmlStreamReader reader(msg);
-	if (!reader.readNextStartElement() || reader.name() != "meta_atlantic")
+	if (!reader.readNextStartElement() || reader.name() != QLatin1String("meta_atlantic"))
 	{
 		// Invalid data, close the connection
 		closeSocket();
@@ -106,20 +106,20 @@ void Metatlantic::processMsg(const QString &msg)
 	bool do_close = false;
 	while (reader.readNextStartElement()) {
 		const QStringRef name = reader.name();
-		if (name == "metaserver")
+		if (name == QLatin1String("metaserver"))
 		{
-			const QStringRef serverVersion = reader.attributes().value("version");
+			const QStringRef serverVersion = reader.attributes().value(QStringLiteral("version"));
 			if (!serverVersion.isNull())
 				qCDebug(ATLANTIK_LOG) << "metaserver version" << serverVersion;
 			do_send_follow = true;
 		}
-		else if (name == "server")
+		else if (name == QLatin1String("server"))
 		{
 			const QXmlStreamAttributes attrs = reader.attributes();
-			const QString host = attrs.value("host").toString();
-			const int port = attrs.value("port").toInt();
-			const QString version = attrs.value("version").toString();
-			const int users = attrs.value("users").toInt();
+			const QString host = attrs.value(QStringLiteral("host")).toString();
+			const int port = attrs.value(QStringLiteral("port")).toInt();
+			const QString version = attrs.value(QStringLiteral("version")).toString();
+			const int users = attrs.value(QStringLiteral("users")).toInt();
 			emit metatlanticAdd(host, port, version, users);
 			do_close = true;
 		}

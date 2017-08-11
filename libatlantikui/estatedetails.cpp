@@ -32,16 +32,16 @@
 
 static QIcon iconForCommandButton(const QString &command)
 {
-	if (command == ".r")
-		return KDE::icon("roll");
-	if (command == ".eb")
-		return KDE::icon("atlantik_buy_estate");
-	if (command == ".ea")
-		return KDE::icon("auction");
-	if (command == ".E")
-		return KDE::icon("games-endturn");
-	if (command == ".jp")
-		return KDE::icon("jail_pay");
+	if (command == QLatin1String(".r"))
+		return KDE::icon(QStringLiteral("roll"));
+	if (command == QLatin1String(".eb"))
+		return KDE::icon(QStringLiteral("atlantik_buy_estate"));
+	if (command == QLatin1String(".ea"))
+		return KDE::icon(QStringLiteral("auction"));
+	if (command == QLatin1String(".E"))
+		return KDE::icon(QStringLiteral("games-endturn"));
+	if (command == QLatin1String(".jp"))
+		return KDE::icon(QStringLiteral("jail_pay"));
 	return QIcon();
 }
 
@@ -83,7 +83,7 @@ void EstateDetails::addDetails()
 	if (e)
 	{
 		QListWidgetItem *infoText = Q_NULLPTR;
-		const QIcon infoIcon = KDE::icon("document-properties");
+		const QIcon infoIcon = KDE::icon(QStringLiteral("document-properties"));
 
 		// Price
 		if (e->price())
@@ -169,10 +169,10 @@ void EstateDetails::appendText(const QString &text)
 
 	QListWidgetItem *infoText = new QListWidgetItem();
 	infoText->setText(text);
-	if (text.contains(" rolls "))
-		infoText->setIcon(KDE::icon("roll"));
+	if (text.contains(QLatin1String(" rolls ")))
+		infoText->setIcon(KDE::icon(QStringLiteral("roll")));
 	else
-		infoText->setIcon(KDE::icon("atlantik"));
+		infoText->setIcon(KDE::icon(QStringLiteral("atlantik")));
 	m_infoListView->addItem(infoText);
 
 	m_infoListView->scrollToItem(infoText);

@@ -104,14 +104,14 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	readConfig();
 
 	// Toolbar: Game
-        m_showEventLog = actionCollection()->addAction("showeventlog");
+        m_showEventLog = actionCollection()->addAction(QStringLiteral("showeventlog"));
         m_showEventLog->setText(i18n("Show Event &Log"));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
-	m_reconnect = actionCollection()->addAction("reconnect");
+	m_reconnect = actionCollection()->addAction(QStringLiteral("reconnect"));
 	m_reconnect->setText(i18n("&Reconnect (after crash)"));
 	connect(m_reconnect, SIGNAL(triggered()), this, SLOT(slotReconnect()));
 	m_reconnect->setEnabled(false);
-	m_leaveGame = actionCollection()->addAction("leave_game");
+	m_leaveGame = actionCollection()->addAction(QStringLiteral("leave_game"));
 	m_leaveGame->setText(i18n("&Leave Game"));
 	connect(m_leaveGame, SIGNAL(triggered()), this, SLOT(slotLeaveGame()));
 	m_leaveGame->setEnabled(false);
@@ -123,7 +123,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Game and network core
 	m_atlanticCore = new AtlanticCore(this);
-        m_atlanticCore->setObjectName("atlanticCore");
+        m_atlanticCore->setObjectName(QStringLiteral("atlanticCore"));
 	connect(m_atlanticCore, SIGNAL(createGUI(Player *)), this, SLOT(newPlayer(Player *)));
 	connect(m_atlanticCore, SIGNAL(removeGUI(Player *)), this, SLOT(removeGUI(Player *)));
 	connect(m_atlanticCore, SIGNAL(createGUI(Trade *)), this, SLOT(newTrade(Trade *)));
@@ -137,17 +137,17 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_roll = KStandardGameAction::roll(this, SIGNAL(rollDice()), actionCollection());
 	m_roll->setEnabled(false);
 
-	m_buyEstate = actionCollection()->addAction("atlantik_buy_estate");
+	m_buyEstate = actionCollection()->addAction(QStringLiteral("atlantik_buy_estate"));
         m_buyEstate->setText(i18n("&Buy"));
 	actionCollection()->setDefaultShortcut(m_buyEstate, QKeySequence(Qt::CTRL + Qt::Key_B));
-	m_buyEstate->setIcon(KDE::icon("atlantik_buy_estate"));
+	m_buyEstate->setIcon(KDE::icon(QStringLiteral("atlantik_buy_estate")));
 	connect (m_buyEstate,SIGNAL(triggered()), this, SIGNAL(buyEstate()));
 	m_buyEstate->setEnabled(false);
 
-	m_auctionEstate = actionCollection()->addAction("auction");
+	m_auctionEstate = actionCollection()->addAction(QStringLiteral("auction"));
         m_auctionEstate->setText(i18n("&Auction"));
 	actionCollection()->setDefaultShortcut(m_auctionEstate, QKeySequence(Qt::CTRL + Qt::Key_A));
-	m_auctionEstate->setIcon(KDE::icon("auction"));
+	m_auctionEstate->setIcon(KDE::icon(QStringLiteral("auction")));
 	connect(m_auctionEstate,SIGNAL(triggered()),this, SIGNAL(auctionEstate()));
 	m_auctionEstate->setEnabled(false);
 
@@ -155,19 +155,19 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_endTurn = KStandardGameAction::endTurn(this, SIGNAL(endTurn()), actionCollection());
 	m_endTurn->setEnabled(false);
 
-	m_jailCard = actionCollection()->addAction("move_jailcard");
+	m_jailCard = actionCollection()->addAction(QStringLiteral("move_jailcard"));
         m_jailCard->setText(i18n("Use Card to Leave Jail"));
 	connect(m_jailCard, SIGNAL(triggered()),this, SIGNAL(jailCard()));
 	m_jailCard->setEnabled(false);
 
-	m_jailPay = actionCollection()->addAction("jail_pay");
+	m_jailPay = actionCollection()->addAction(QStringLiteral("jail_pay"));
         m_jailPay->setText(i18n("&Pay to Leave Jail"));
 	actionCollection()->setDefaultShortcut(m_jailPay, QKeySequence(Qt::CTRL + Qt::Key_P));
-	m_jailPay->setIcon(KDE::icon("jail_pay"));
+	m_jailPay->setIcon(KDE::icon(QStringLiteral("jail_pay")));
 	connect(m_jailPay, SIGNAL(triggered()),this, SIGNAL(jailPay()));
 	m_jailPay->setEnabled(false);
 
-	m_jailRoll = actionCollection()->addAction("move_jailroll");
+	m_jailRoll = actionCollection()->addAction(QStringLiteral("move_jailroll"));
         m_jailRoll->setText(i18n("Roll to Leave &Jail"));
 	actionCollection()->setDefaultShortcut(m_jailRoll, QKeySequence(Qt::CTRL + Qt::Key_J));
 	connect(m_jailRoll, SIGNAL(triggered()), this, SIGNAL(jailRoll()));
@@ -176,7 +176,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	// Mix code and XML into GUI
 	setupGUI();
 	m_sbVersion = new ClickableLabel();
-	m_sbVersion->setText("Atlantik " ATLANTIK_VERSION_STRING);
+	m_sbVersion->setText(QString::fromLatin1("Atlantik " ATLANTIK_VERSION_STRING));
 	connect(m_sbVersion, SIGNAL(clicked()), this, SLOT(showAboutDialog()));
 	statusBar()->addWidget(m_sbVersion, 0);
 	m_sbStatus = new ClickableLabel();
@@ -185,14 +185,14 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Main widget, containing all others
  	m_mainWidget = new QWidget(this);
-        m_mainWidget->setObjectName( "main" );
+        m_mainWidget->setObjectName(QStringLiteral("main"));
 	m_mainWidget->show();
 	m_mainLayout = new QGridLayout(m_mainWidget);
 	setCentralWidget(m_mainWidget);
 
 	// Vertical view area for portfolios.
 	m_portfolioScroll = new QScrollArea(m_mainWidget);
-	m_portfolioScroll->setObjectName("pfScroll");
+	m_portfolioScroll->setObjectName(QStringLiteral("pfScroll"));
 	m_mainLayout->addWidget( m_portfolioScroll, 0, 0 );
 	m_portfolioScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	m_portfolioScroll->setWidgetResizable(true);
@@ -200,7 +200,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_portfolioScroll->hide();
 
 	m_portfolioWidget = new QWidget();
-        m_portfolioWidget->setObjectName( "pfWidget" );
+        m_portfolioWidget->setObjectName(QStringLiteral("pfWidget"));
 	m_portfolioScroll->setWidget(m_portfolioWidget);
 	m_portfolioWidget->show();
 
@@ -223,7 +223,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// LineEdit to enter commands and chat messages.
 	m_input = new QLineEdit(m_mainWidget);
-	m_input->setObjectName("input");
+	m_input->setObjectName(QStringLiteral("input"));
 	m_mainLayout->addWidget(m_input, 2, 0);
 
 	m_serverMsgs->setFocusProxy(m_input);
@@ -235,8 +235,8 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_mainLayout->setColumnStretch(1, 1); // make m_board stretch horizontally, not the rest
 
 	// Check command-line args to see if we need to connect or show the metaserver window
-	QString host = m_cliParser ? m_cliParser->value("host") : QString();
-	QString port = m_cliParser ? m_cliParser->value("port") : QString();
+	QString host = m_cliParser ? m_cliParser->value(QStringLiteral("host")) : QString();
+	QString port = m_cliParser ? m_cliParser->value(QStringLiteral("port")) : QString();
 	if (!host.isEmpty() && !port.isEmpty())
 		m_atlantikNetwork->serverConnect(host, port.toInt());
 	else
@@ -289,7 +289,7 @@ void Atlantik::newPlayer(Player *player)
 	connect(player, SIGNAL(changed(Player *)), m_board, SLOT(playerChanged(Player *)));
 
 	if (!player->isSelf())
-		KNotification::event("newplayer", i18n("New player joined."));
+		KNotification::event(QStringLiteral("newplayer"), i18n("New player joined."));
 }
 
 void Atlantik::newEstate(Estate *estate)
@@ -301,7 +301,7 @@ void Atlantik::newEstate(Estate *estate)
 void Atlantik::newTrade(Trade *trade)
 {
 	TradeDisplay *tradeDisplay = new TradeDisplay(trade, m_atlanticCore);
-        tradeDisplay->setObjectName("tradeDisplay");
+        tradeDisplay->setObjectName(QStringLiteral("tradeDisplay"));
 	m_tradeGUIMap.insert(trade, tradeDisplay);
 	tradeDisplay->show();
 }
@@ -337,7 +337,7 @@ void Atlantik::showSelectServer()
 		return;
 
 	m_selectServer = new SelectServer(m_config.hideDevelopmentServers, m_mainWidget );
-        m_selectServer->setObjectName("selectServer");
+        m_selectServer->setObjectName(QStringLiteral("selectServer"));
 	m_mainLayout->addWidget(m_selectServer, 0, 1, 3, 1);
 	m_selectServer->show();
 
@@ -415,7 +415,7 @@ void Atlantik::showSelectConfiguration()
 	}
 
 	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget );
-        m_selectConfiguration->setObjectName("selectConfiguration");
+        m_selectConfiguration->setObjectName(QStringLiteral("selectConfiguration"));
 	m_mainLayout->addWidget(m_selectConfiguration, 0, 1, 3, 1);
 	m_selectConfiguration->show();
 	m_leaveGame->setEnabled(true);
@@ -436,7 +436,7 @@ void Atlantik::initBoard()
 		return;
 
 	m_board = new AtlantikBoard(m_atlanticCore, 40, AtlantikBoard::Play, m_mainWidget);
-        m_board->setObjectName( "board" );
+        m_board->setObjectName(QStringLiteral("board"));
 	m_board->setViewProperties(m_config.indicateUnowned, m_config.highlightUnowned, m_config.darkenMortgaged, m_config.quartzEffects, m_config.animateTokens);
 	m_board->setTokenTheme(m_tokenTheme);
 
@@ -528,7 +528,7 @@ void Atlantik::slotNetworkDisconnected()
 
 void Atlantik::slotConfigure()
 {
-	if (KConfigDialog::showDialog("configdialog"))
+	if (KConfigDialog::showDialog(QStringLiteral("configdialog")))
 		return;
 
 	ConfigDialog *dialog = new ConfigDialog(m_tokenTheme, this);
@@ -661,18 +661,18 @@ void Atlantik::slotMsgStatus(const QString &message, EventType type)
 void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
 	QString res;
-	if (msg == "/me")
-		res = QString("* %1").arg(player);
-	else if (msg.startsWith("/me "))
-		res = QString("* %1 %2").arg(player, msg.mid(4));
-	else if (msg.startsWith("[ACTION] "))
-		res = QString("* %1 %2").arg(player, msg.mid(9));
+	if (msg == QLatin1String("/me"))
+		res = QStringLiteral("* %1").arg(player);
+	else if (msg.startsWith(QLatin1String("/me ")))
+		res = QStringLiteral("* %1 %2").arg(player, msg.mid(4));
+	else if (msg.startsWith(QLatin1String("[ACTION] ")))
+		res = QStringLiteral("* %1 %2").arg(player, msg.mid(9));
 	else
-		res = QString("<%1> %2").arg(player, msg);
+		res = QStringLiteral("<%1> %2").arg(player, msg);
 	appendMsg(res, ChatMsg);
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
-		KNotification::event("chat", QString::fromLatin1("%1: %2").arg(player, msg.toHtmlEscaped()));
+		KNotification::event(QStringLiteral("chat"), QStringLiteral("%1: %2").arg(player, msg.toHtmlEscaped()));
 }
 
 void Atlantik::appendMsg(const QString &msg, MsgType type)
@@ -684,22 +684,22 @@ void Atlantik::appendMsg(const QString &msg, MsgType type)
 	if (m_config.chatTimestamps)
 	{
 		const QString timeString = QLocale::system().toString(QTime::currentTime(), QLocale::ShortFormat);
-		ts = QString("[%1] ").arg(timeString);
+		ts = QStringLiteral("[%1] ").arg(timeString);
 	}
 
 	switch (type)
 	{
 	case ErrorMsg:
-		res = QString("<font color=\"%1\">%2[%3] %4</font>").arg("#ff0000", ts, i18nc("error message", "Error"), escaped);
+		res = QStringLiteral("<font color=\"%1\">%2[%3] %4</font>").arg(QStringLiteral("#ff0000"), ts, i18nc("error message", "Error"), escaped);
 		break;
 	case InfoMsg:
-		res = QString("<font color=\"%1\">%2[%3] %4</font>").arg("#91640a", ts, i18nc("informative message", "Info"), escaped);
+		res = QStringLiteral("<font color=\"%1\">%2[%3] %4</font>").arg(QStringLiteral("#91640a"), ts, i18nc("informative message", "Info"), escaped);
 		break;
 	case ChatMsg:
-		res = QString("<font color=\"%1\">%2</font>%3").arg("#709070", ts, escaped);
+		res = QStringLiteral("<font color=\"%1\">%2</font>%3").arg(QStringLiteral("#709070"), ts, escaped);
 		break;
 	}
-	res += "<br/>\n";
+	res += QStringLiteral("<br/>\n");
 
 	m_serverMsgs->insertHtml(res);
 }
@@ -763,7 +763,7 @@ void Atlantik::playerChanged(Player *player)
 
 void Atlantik::gainedTurn()
 {
-	KNotification::event("gainedturn", i18n("It is your turn now."), QPixmap() ,this );
+	KNotification::event(QStringLiteral("gainedturn"), i18n("It is your turn now."), QPixmap() ,this );
 }
 
 void Atlantik::initNetworkObject()
@@ -832,7 +832,7 @@ void Atlantik::sendHandshake()
 	m_atlantikNetwork->setImage(m_config.playerImage);
 
 	// Check command-line args to see if we need to auto-join
-	QString game = m_cliParser ? m_cliParser->value("game") : QString();
+	QString game = m_cliParser ? m_cliParser->value(QStringLiteral("game")) : QString();
 	qCDebug(ATLANTIK_LOG) << "received Handshake; joining game:" << game.toInt();
 	if (!game.isEmpty())
 		m_atlantikNetwork->joinGame(game.toInt());

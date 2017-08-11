@@ -75,7 +75,7 @@ void SelectGame::addGame(Game *game)
 		item->setText(0, i18n("Create a new %1 Game", game->name()));
 		item->setText(1, game->description());
 		item->setData(0, GameTypeRole, game->type());
-		item->setIcon(0, KDE::icon("document-new"));
+		item->setIcon(0, KDE::icon(QStringLiteral("document-new")));
 		m_gameList->addTopLevelItem(item);
 	}
 	else
@@ -90,11 +90,11 @@ void SelectGame::addGame(Game *game)
 		item->setText(2, QString::number(game->id()));
 		item->setText(3, QString::number(game->players()));
 		item->setData(0, GameTypeRole, game->type());
-		item->setIcon(0, KDE::icon("atlantik"));
+		item->setIcon(0, KDE::icon(QStringLiteral("atlantik")));
 		item->setDisabled(!game->canBeJoined() && !game->canBeWatched());
 		m_gameList->addTopLevelItem(item);
 
-		KNotification::event("newgame", i18n("New game available."));
+		KNotification::event(QStringLiteral("newgame"), i18n("New game available."));
 
 		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}

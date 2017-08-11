@@ -140,7 +140,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 		orientation = West;
 
 	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highlightUnowned, darkenMortgaged, quartzEffects, this);
-        estateView->setObjectName( "estateview" );
+        estateView->setObjectName(QStringLiteral("estateview"));
 	estateView->setAllowEstateSales(true); // XXX should use the allowestatesales config option
 	m_estateViews.append(estateView);
 
@@ -221,7 +221,7 @@ void AtlantikBoard::addToken(Player *player)
 	qCDebug(LIBATLANTIKUI_LOG) << "addToken";
 
 	Token *token = new Token(player, this);
-        token->setObjectName( "token" );
+        token->setObjectName(QStringLiteral("token"));
 	token->setTokenTheme(m_tokenTheme);
 	m_tokens.append(token);
 	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
@@ -234,7 +234,7 @@ void AtlantikBoard::addToken(Player *player)
 
 void AtlantikBoard::playerChanged(Player *player)
 {
-	qCDebug(LIBATLANTIKUI_LOG) << "playerLoc" << (player->location() ? player->location()->name() : "none");
+	qCDebug(LIBATLANTIKUI_LOG) << "playerLoc" << (player->location() ? player->location()->name() : QStringLiteral("none"));
 
 	Player *playerSelf = Q_NULLPTR;
 	if (m_atlanticCore)
@@ -244,7 +244,7 @@ void AtlantikBoard::playerChanged(Player *player)
 	Token *token = findToken(player);
 	if (token)
 	{
-		qCDebug(LIBATLANTIKUI_LOG) << "tokenLoc" << (token->location() ? token->location()->name() : "none");
+		qCDebug(LIBATLANTIKUI_LOG) << "tokenLoc" << (token->location() ? token->location()->name() : QStringLiteral("none"));
 		if (player->isBankrupt() || player->isSpectator() || (playerSelf && playerSelf->game() != player->game()) )
 			token->hide();
 		if (!player->isSpectator())

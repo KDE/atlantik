@@ -46,7 +46,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 	// Game configuration.
 	m_configBox = new QGroupBox(i18n("Game Configuration"), this);
-	m_configBox->setObjectName("configBox");
+	m_configBox->setObjectName(QStringLiteral("configBox"));
 	m_mainLayout->addWidget(m_configBox);
 	QVBoxLayout *configBoxLayout = new QVBoxLayout(m_configBox);
 	Q_UNUSED(configBoxLayout)
@@ -103,7 +103,7 @@ void SelectConfiguration::initGame()
 void SelectConfiguration::addConfigOption(ConfigOption *configOption)
 {
 	const QString type = configOption->type();
-	if (type == "bool")
+	if (type == QLatin1String("bool"))
 		addConfigOptionBool(configOption);
 	else
 		qCDebug(ATLANTIK_LOG) << "unknown type" << type << "for option" << configOption->name();
@@ -117,7 +117,7 @@ void SelectConfiguration::addConfigOptionBool(ConfigOption *configOption)
 	{
 		checkBox = new QCheckBox(configOption->description(), m_configBox);
 		m_configBox->layout()->addWidget(checkBox);
-		checkBox->setObjectName("checkbox");
+		checkBox->setObjectName(QStringLiteral("checkbox"));
 		m_configMap.insert((QObject *)checkBox, configOption);
 		m_configBoxMap.insert(configOption, checkBox);
 
@@ -140,11 +140,11 @@ void SelectConfiguration::gameOption(const QString &title, const QString &type, 
 	}
 
 	// Create option
-	if (type == "bool")
+	if (type == QLatin1String("bool"))
 	{
 		QCheckBox *checkBox = new QCheckBox(title, m_configBox);
 		m_configBox->layout()->addWidget(checkBox);
-		checkBox->setObjectName("checkbox");
+		checkBox->setObjectName(QStringLiteral("checkbox"));
 		m_optionCommandMap[(QObject *)checkBox] = command;
 		m_checkBoxMap[command] = checkBox;
 		checkBox->setChecked(value.toInt());

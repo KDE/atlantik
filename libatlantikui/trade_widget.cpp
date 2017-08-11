@@ -152,7 +152,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	centralLayout->addWidget(m_participantsList);
 
 	m_componentList = new QTreeWidget(this);
-        m_componentList->setObjectName( "componentList" );
+        m_componentList->setObjectName(QStringLiteral("componentList"));
 	m_componentList->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_componentList->setRootIsDecorated(false);
 	m_componentList->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -175,12 +175,12 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
-	m_rejectButton = new QPushButton(KDE::icon("dialog-cancel"), i18n("Reject"), this);
+	m_rejectButton = new QPushButton(KDE::icon(QStringLiteral("dialog-cancel")), i18n("Reject"), this);
 	actionBox->addWidget(m_rejectButton);
 
 	connect(m_rejectButton, SIGNAL(clicked()), this, SLOT(reject()));
 
-	m_acceptButton = new QPushButton(KDE::icon("dialog-ok"), i18n("Accept"), this);
+	m_acceptButton = new QPushButton(KDE::icon(QStringLiteral("dialog-ok")), i18n("Accept"), this);
 //	m_acceptButton->setEnabled(false);
 	actionBox->addWidget(m_acceptButton);
 
@@ -221,13 +221,13 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 void TradeDisplay::tradeItemAdded(TradeItem *tradeItem)
 {
 	QTreeWidgetItem *item = new QTreeWidgetItem();
-	item->setText(0, tradeItem->from() ? tradeItem->from()->name() : QString("?"));
+	item->setText(0, tradeItem->from() ? tradeItem->from()->name() : QStringLiteral("?"));
 	item->setText(1, i18nc("gives is transitive ;)", "gives"));
-	item->setText(2, tradeItem->to() ? tradeItem->to()->name() : QString("?"));
+	item->setText(2, tradeItem->to() ? tradeItem->to()->name() : QStringLiteral("?"));
 	item->setText(3, tradeItem->text());
 	connect(tradeItem, SIGNAL(changed(TradeItem *)), this, SLOT(tradeItemChanged(TradeItem *)));
 
-	const QIcon userIcon = KDE::icon("user-identity");
+	const QIcon userIcon = KDE::icon(QStringLiteral("user-identity"));
 	item->setIcon(0, userIcon);
 	item->setIcon(2, userIcon);
 
@@ -254,10 +254,10 @@ void TradeDisplay::tradeItemChanged(TradeItem *t)
 	QTreeWidgetItem *item = m_componentMap.value(t, Q_NULLPTR);
 	if (item)
 	{
-		const QIcon userIcon = KDE::icon("user-identity");
-		item->setText(0, t->from() ? t->from()->name() : QString("?"));
+		const QIcon userIcon = KDE::icon(QStringLiteral("user-identity"));
+		item->setText(0, t->from() ? t->from()->name() : QStringLiteral("?"));
 		item->setIcon(0, userIcon);
-		item->setText(2, t->to() ? t->to()->name() : QString("?"));
+		item->setText(2, t->to() ? t->to()->name() : QStringLiteral("?"));
 		item->setIcon(2, userIcon);
 		item->setText(3, t->text());
 	}
@@ -286,7 +286,7 @@ void TradeDisplay::tradeRejected(Player *player)
 		m_status->setText(i18n("Trade proposal was rejected by %1.", player->name()));
 		QTreeWidgetItem *item = m_playerListMap.value(player, Q_NULLPTR);
 		if (item)
-			item->setIcon(0, KDE::icon("dialog-cancel"));
+			item->setIcon(0, KDE::icon(QStringLiteral("dialog-cancel")));
 	} else
 		m_status->setText(i18n("Trade proposal was rejected."));
 
@@ -327,7 +327,7 @@ void TradeDisplay::slotAcceptChanged(Player *player, bool accept)
 	slotPlayerAdded(player);
 	QTreeWidgetItem *item = m_playerListMap.value(player, Q_NULLPTR);
 	Q_ASSERT(item);  // slotPlayerAdded made sure there's an item for player
-	item->setIcon(0, accept ? KDE::icon("dialog-ok") : QIcon());
+	item->setIcon(0, accept ? KDE::icon(QStringLiteral("dialog-ok")) : QIcon());
 }
 
 void TradeDisplay::setTypeCombo(int index)

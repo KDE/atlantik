@@ -170,8 +170,8 @@ QTreeWidgetItem *AuctionWidget::createPlayerItem(Player *player)
 {
 	QTreeWidgetItem *item = new QTreeWidgetItem();
 	item->setText(0, player->name());
-	item->setText(1, QString("0"));
-	item->setIcon(0, KDE::icon("user-identity"));
+	item->setText(1, QStringLiteral("0"));
+	item->setIcon(0, KDE::icon(QStringLiteral("user-identity")));
 	m_playerItems.insert(player, item);
 	return item;
 }
