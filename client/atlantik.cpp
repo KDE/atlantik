@@ -658,6 +658,20 @@ void Atlantik::slotMsgStatus(const QString &message, EventType type)
 	m_eventLog->addEvent(message, type);
 }
 
+static bool commandForMe(const QVector<QStringRef> &parts, const QString &playerName)
+{
+	if (parts.size() <= 1)
+		return true;
+
+	foreach (const QStringRef &p, parts)
+	{
+		if (p == playerName)
+			return true;
+	}
+
+	return false;
+}
+
 void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 {
 	QString res;
@@ -673,6 +687,21 @@ void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 	Player *playerSelf = m_atlanticCore->playerSelf();
 	if (!isActiveWindow() && (!playerSelf || playerSelf->name() != player))
 		KNotification::event(QStringLiteral("chat"), QStringLiteral("%1: %2").arg(player, msg.toHtmlEscaped()));
+	if (m_atlantikNetwork->isConnected() && playerSelf && msg.startsWith(QLatin1Char('!')))
+	{
+		const QVector<QStringRef> &parts = msg.splitRef(QLatin1Char(' '), QString::SkipEmptyParts);
+		Q_ASSERT(!parts.isEmpty());
+		if (commandForMe(parts, playerSelf->name()))
+		{
+			const QStringRef cmd = parts.first();
+			if (cmd == QLatin1String("!date"))
+				m_atlantikNetwork->cmdChat(QLocale::c().toString(QDateTime::currentDateTime(), QLocale::ShortFormat));
+			else if (cmd == QLatin1String("!ping"))
+				m_atlantikNetwork->cmdChat(QStringLiteral("pong"));
+			else if (cmd == QLatin1String("!version"))
+				m_atlantikNetwork->cmdChat(QString::fromLatin1("Atlantik " ATLANTIK_VERSION_STRING));
+		}
+	}
 }
 
 void Atlantik::appendMsg(const QString &msg, MsgType type)
