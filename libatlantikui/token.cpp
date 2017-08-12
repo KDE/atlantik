@@ -39,6 +39,7 @@ Token::Token(Player *player, AtlantikBoard *parent)
 	, b_recreate(true)
 	, qpixmap(Q_NULLPTR)
 	, m_image(Q_NULLPTR)
+	, m_playerName(m_player->name())
 {
         setAttribute(Qt::WA_NoSystemBackground, true);
 
@@ -84,10 +85,18 @@ void Token::setTokenTheme(const TokenTheme &theme)
 void Token::playerChanged()
 {
 	if (m_imageName != m_player->image())
+	{
 		loadIcon();
+		b_recreate = true;
+	}
+	if (m_playerName != m_player->name())
+	{
+		m_playerName = m_player->name();
+		b_recreate = true;
+	}
 
-	b_recreate = true;
-	update();
+	if (b_recreate)
+		update();
 }
 
 void Token::loadIcon()
@@ -143,7 +152,7 @@ void Token::paintEvent(QPaintEvent *e)
 
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(generalFont.family(), generalFont.pointSize(), QFont::DemiBold));
-		painter.drawText(1, height()-1, (m_player ? m_player->name() : QString()));
+		painter.drawText(1, height()-1, m_playerName);
 
 		b_recreate = false;
 	}

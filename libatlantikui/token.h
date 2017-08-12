@@ -60,6 +60,7 @@ private:
 		bool b_recreate;
 		QPixmap *qpixmap, *m_image;
 		QString m_imageName;
+		QString m_playerName;
 		TokenTheme m_theme;
 };
 
