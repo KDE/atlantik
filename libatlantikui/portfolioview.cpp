@@ -199,8 +199,11 @@ void PortfolioView::paintEvent(QPaintEvent *e)
 	{
 		const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
 		const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-		delete qpixmap;
-		qpixmap = new QPixmap(width(), height());
+		if (!qpixmap || qpixmap->size() != size())
+		{
+			delete qpixmap;
+			qpixmap = new QPixmap(width(), height());
+		}
 
 		QPainter painter;
 		painter.begin(qpixmap);

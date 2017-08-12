@@ -238,8 +238,11 @@ void EstateView::paintEvent(QPaintEvent *e)
 
 	if (b_recreate)
 	{
-		delete qpixmap;
-		qpixmap = new QPixmap(width(), height());
+		if (!qpixmap || qpixmap->size() != size())
+		{
+			delete qpixmap;
+			qpixmap = new QPixmap(width(), height());
+		}
 
 		QColor greenHouse(0, 255, 0);
 		QColor redHotel(255, 51, 51);

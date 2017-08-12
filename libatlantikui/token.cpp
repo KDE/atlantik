@@ -121,8 +121,11 @@ void Token::paintEvent(QPaintEvent *e)
 	if (b_recreate)
 	{
 		const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-		delete qpixmap;
-		qpixmap = new QPixmap(width(), height());
+		if (!qpixmap || qpixmap->size() != size())
+		{
+			delete qpixmap;
+			qpixmap = new QPixmap(width(), height());
+		}
 
 		QPainter painter;
 		painter.begin(qpixmap );
