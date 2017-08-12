@@ -20,6 +20,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QList>
+#include <QHash>
 
 #include "libatlantikui_export.h"
 #include "tokentheme.h"
@@ -99,7 +100,7 @@ private:
 	bool m_animateTokens;
 	int m_maxEstates;
 
-	QList<EstateView *> m_estateViews;
+	QHash<Estate *, EstateView *> m_estateViews;
 	QList<Token *> m_tokens;
 	QList<QWidget *> m_displayQueue;
 

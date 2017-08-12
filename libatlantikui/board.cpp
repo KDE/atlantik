@@ -115,12 +115,7 @@ int AtlantikBoard::heightForWidth(int width) const
 
 EstateView *AtlantikBoard::findEstateView(Estate *estate) const
 {
-	foreach (EstateView *estateView, m_estateViews)
-	{
-		if (estateView->estate() == estate)
-			return estateView;
-	}
-	return Q_NULLPTR;
+	return m_estateViews.value(estate, Q_NULLPTR);
 }
 
 void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects)
@@ -142,7 +137,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 	EstateView *estateView = new EstateView(estate, orientation, icon, indicateUnowned, highlightUnowned, darkenMortgaged, quartzEffects, this);
         estateView->setObjectName(QStringLiteral("estateview"));
 	estateView->setAllowEstateSales(true); // XXX should use the allowestatesales config option
-	m_estateViews.append(estateView);
+	m_estateViews.insert(estate, estateView);
 
 	connect(estate, SIGNAL(changed()), estateView, SLOT(estateChanged()));
 	connect(estateView, SIGNAL(estateToggleMortgage(Estate *)), estate, SIGNAL(estateToggleMortgage(Estate *)));
