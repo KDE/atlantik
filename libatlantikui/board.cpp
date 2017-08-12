@@ -401,8 +401,9 @@ void AtlantikBoard::slotMoveToken()
 	}
 
 	// Where are we?
-	int xCurrent = m_movingToken->geometry().x();
-	int yCurrent = m_movingToken->geometry().y();
+	QRect tokenGeom = m_movingToken->geometry();
+	int xCurrent = tokenGeom.x();
+	int yCurrent = tokenGeom.y();
 
 	// Where do we want to go today?
 	Estate *eDest = m_atlanticCore->estateAfter(m_movingToken->location());
@@ -429,7 +430,9 @@ void AtlantikBoard::slotMoveToken()
 
 	if (xCurrent != xDest || yCurrent != yDest)
 	{
-		m_movingToken->setGeometry(xDest, yDest, m_movingToken->width(), m_movingToken->height());
+		tokenGeom.setX(xDest);
+		tokenGeom.setY(yDest);
+		m_movingToken->setGeometry(tokenGeom);
 		return;
 	}
 
