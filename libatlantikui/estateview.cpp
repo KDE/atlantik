@@ -71,10 +71,6 @@ EstateView::~EstateView()
 
 void EstateView::updateToolTip()
 {
-	setToolTip(QString());
-
-	if ( m_estate )
-	{
 		QString toolTip = m_estate->name();
 		if ( m_estate->isOwned() )
 		{
@@ -94,7 +90,6 @@ void EstateView::updateToolTip()
 			toolTip.append( QLatin1Char('\n') + i18n("Money: %1", m_estate->money() ) );
 
 		this->setToolTip( toolTip );
-	}
 }
 
 void EstateView::loadIcon(const QString &_icon)
