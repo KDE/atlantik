@@ -104,10 +104,7 @@ void Token::loadIcon()
 	if (!m_imageName.isEmpty())
 		imageFile = m_theme.tokenPath(m_imageName);
 	if (imageFile.isEmpty())
-	{
-		m_imageName = m_theme.fallbackIcon();
-		imageFile = m_theme.tokenPath(m_imageName);
-	}
+		imageFile = m_theme.tokenPath(m_theme.fallbackIcon());
 
 	const QPixmap pix(imageFile);
 	if (pix.isNull())
