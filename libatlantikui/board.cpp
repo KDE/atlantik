@@ -356,15 +356,17 @@ QPoint AtlantikBoard::calculateTokenDestination(Token *token, Estate *eDest)
 			return QPoint(0, 0);
 
 		int x = 0, y = 0;
+		const QRect evDestGeom = evDest->geometry();
 		if (token->player()->inJail())
 		{
-			x = evDest->geometry().right() - token->width() - 2;
-			y = evDest->geometry().top();
+			x = evDestGeom.right() - token->width() - 2;
+			y = evDestGeom.top();
 		}
 		else
 		{
-			x = evDest->geometry().center().x() - (token->width()/2);
-			y = evDest->geometry().center().y() - (token->height()/2);
+			const QPoint c = evDestGeom.center();
+			x = c.x() - (token->width()/2);
+			y = c.y() - (token->height()/2);
 
 /*
 			// Re-center because of EstateView headers
