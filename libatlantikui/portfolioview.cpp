@@ -137,7 +137,7 @@ void PortfolioView::buildPortfolio()
 						firstPEprevGroup = portfolioEstate;
 					}
 
-					portfolioEstate->setGeometry(x, y, portfolioEstate->width(), portfolioEstate->height());
+					portfolioEstate->move(x, y);
 					portfolioEstate->show();
 
 					lastPE = portfolioEstate;

@@ -313,7 +313,7 @@ void AtlantikBoard::jumpToken(Token *token)
 	qCDebug(LIBATLANTIKUI_LOG) << "to" << token->location()->name();
 
 	QPoint tGeom = calculateTokenDestination(token);
-	token->setGeometry(tGeom.x(), tGeom.y(), token->width(), token->height());
+	token->move(tGeom);
 
 	Player *player = token->player();
 	if (player)
@@ -401,9 +401,9 @@ void AtlantikBoard::slotMoveToken()
 	}
 
 	// Where are we?
-	QRect tokenGeom = m_movingToken->geometry();
-	int xCurrent = tokenGeom.x();
-	int yCurrent = tokenGeom.y();
+	QPoint tokenPos = m_movingToken->pos();
+	int xCurrent = tokenPos.x();
+	int yCurrent = tokenPos.y();
 
 	// Where do we want to go today?
 	Estate *eDest = m_atlanticCore->estateAfter(m_movingToken->location());
@@ -430,9 +430,9 @@ void AtlantikBoard::slotMoveToken()
 
 	if (xCurrent != xDest || yCurrent != yDest)
 	{
-		tokenGeom.setX(xDest);
-		tokenGeom.setY(yDest);
-		m_movingToken->setGeometry(tokenGeom);
+		tokenPos.setX(xDest);
+		tokenPos.setY(yDest);
+		m_movingToken->move(tokenPos);
 		return;
 	}
 
