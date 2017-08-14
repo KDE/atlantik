@@ -181,10 +181,7 @@ void PortfolioView::loadIcon(bool force)
 	if (!m_imageName.isEmpty())
 		imageFile = m_tokenTheme.tokenPath(m_imageName);
 	if (imageFile.isEmpty())
-	{
-		m_imageName = m_tokenTheme.fallbackIcon();
-		imageFile = m_tokenTheme.tokenPath(m_imageName);
-	}
+		imageFile = m_tokenTheme.tokenPath(m_tokenTheme.fallbackIcon());
 
 	const QPixmap pix(imageFile);
 	if (pix.isNull())
