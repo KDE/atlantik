@@ -183,10 +183,7 @@ void AtlantikBoard::addAuctionWidget(Auction *auction)
 
 Token *AtlantikBoard::findToken(Player *player) const
 {
-	foreach (Token *token, m_tokens)
-		if (token->player() == player)
-			return token;
-	return Q_NULLPTR;
+	return m_tokens.value(player, Q_NULLPTR);
 }
 
 void AtlantikBoard::addToken(Player *player)
@@ -218,7 +215,7 @@ void AtlantikBoard::addToken(Player *player)
 	Token *token = new Token(player, this);
         token->setObjectName(QStringLiteral("token"));
 	token->setTokenTheme(m_tokenTheme);
-	m_tokens.append(token);
+	m_tokens.insert(player, token);
 	connect(player, SIGNAL(changed(Player *)), token, SLOT(playerChanged()));
 
 	jumpToken(token);
@@ -291,7 +288,7 @@ void AtlantikBoard::playerChanged(Player *player)
 
 void AtlantikBoard::removeToken(Player *player)
 {
-	Token *token = findToken(player);
+	Token *token = m_tokens.take(player);
 	if (!token)
 		return;
 
@@ -301,7 +298,6 @@ void AtlantikBoard::removeToken(Player *player)
 		m_movingToken = Q_NULLPTR;
 	}
 
-	m_tokens.removeOne(token);
 	delete token;
 }
 

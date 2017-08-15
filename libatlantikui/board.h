@@ -101,7 +101,7 @@ private:
 	int m_maxEstates;
 
 	QHash<Estate *, EstateView *> m_estateViews;
-	QList<Token *> m_tokens;
+	QHash<Player *, Token *> m_tokens;
 	QList<QWidget *> m_displayQueue;
 
 	TokenTheme m_tokenTheme;
