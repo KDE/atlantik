@@ -28,6 +28,7 @@ class QString;
 
 class Event;
 
+class QTextStream;
 class QTreeView;
 
 class EventLog : public QAbstractItemModel
@@ -37,7 +38,6 @@ Q_OBJECT
 public:
 	EventLog(QObject *parent = Q_NULLPTR);
 	~EventLog();
-	QList<Event*> events() const;
 
 	int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
@@ -49,6 +49,7 @@ public:
 public slots:
 	void addEvent(const QString &description, EventType type);
 	void clear();
+	void saveAsText(QTextStream &stream) const;
 
 private:
 	QIcon cachedIcon(EventType type) const;
