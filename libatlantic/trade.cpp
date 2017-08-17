@@ -19,6 +19,8 @@
 #include "estate.h"
 #include "card.h"
 
+#include <algorithm>
+
 Trade::Trade(int tradeId)
 	: QObject()
 	, m_changed(false)
@@ -52,15 +54,9 @@ void Trade::removePlayer(Player *player)
 
 unsigned int Trade::count( bool acceptOnly ) const
 {
-	unsigned int count = 0;
-	QMapIterator<Player *, bool> it(m_playerAcceptMap);
-	while(it.hasNext())
-	{
-		it.next();
-		if ( !acceptOnly || it.value() )
-			count++;
-	}
-	return count;
+	return acceptOnly
+	     ? std::count(m_playerAcceptMap.constBegin(), m_playerAcceptMap.constEnd(), true)
+	     : m_playerAcceptMap.count();
 }
 
 QList<Player *> Trade::participants() const
