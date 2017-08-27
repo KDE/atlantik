@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 		i18n("KDE client for playing Monopoly-like games on the monopd network."),
 		QStringLiteral("http://unixcode.org/atlantik/")
 		);
+	aboutData.setDesktopFileName(QStringLiteral("org.kde.atlantik"));
 
 	aboutData.addAuthor(i18n("Rob Kaper"), i18n("main author"), QStringLiteral("cap@capsi.com"), QStringLiteral("http://capsi.com/"));
 
