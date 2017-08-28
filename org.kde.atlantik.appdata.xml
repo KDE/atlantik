@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>org.kde.atlantik.desktop</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-2.0</project_license>
+  <name>Atlantik</name>
+  <summary>Monopoly®-like Board Games</summary>
+  <description>
+    <p>
+      Atlantik is a KDE client for playing Monopoly®-like board games on the
+      monopd network.
+    </p>
+    <p>
+      Purpose of the Atlantik board game is to acquire land in major cities
+      in North America and Europe while being a transatlantic traveler.
+      To win the game, players improve monopolized land with profitable
+      buildings in the hopes of bankrupting all other players.
+    </p>
+    <p>
+      All game modes are served by monopd, a dedicated game server designed
+      for Atlantik. One of the game modes plays like the popular real estate
+      board game known as Monopoly®.
+    </p>
+  </description>
+  <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=atlantik</url>
+  <categories>
+    <category>Game</category>
+    <category>BoardGame</category>
+  </categories>
+  <provides>
+    <binary>atlantik</binary>
+  </provides>
+  <project_group>KDE</project_group>
+</component>
