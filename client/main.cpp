@@ -60,8 +60,6 @@ int main(int argc, char *argv[])
 	KCrash::initialize();
 
 	QCommandLineParser parser;
-	parser.addHelpOption();
-	parser.addVersionOption();
 	parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("host"), i18n("Connect to this host"), i18n("host")));
 	parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("p") << QStringLiteral("port"), i18n("Connect at this port"), i18n("port"), QString::number(MONOPD_PORT)));
 	parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("g") << QStringLiteral("game"), i18n("Join this game"), i18n("game")));
