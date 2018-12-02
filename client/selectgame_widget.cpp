@@ -96,7 +96,8 @@ void SelectGame::addGame(Game *game)
 
 		KNotification::event(QStringLiteral("newgame"), i18n("New game available."));
 
-		connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
+		if (master)
+			connect(master, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
 	m_gameList->resizeColumnToContents(0);
 	m_gameList->resizeColumnToContents(1);
