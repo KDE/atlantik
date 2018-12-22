@@ -28,10 +28,8 @@ find_package(KF5 5.7.0 REQUIRED
   ConfigWidgets
   CoreAddons
   Crash
-  DocTools
   I18n
   IconThemes
-  KIO
   Notifications
   NotifyConfig
   XmlGui
@@ -39,6 +37,9 @@ find_package(KF5 5.7.0 REQUIRED
 )
 
 find_package(KF5 REQUIRED KDEGames)
+
+find_package(KF5DocTools)
+find_package(KF5KIO)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
@@ -56,12 +57,16 @@ set(GENERIC_LIB_VERSION "5.0.0")
 
 add_subdirectory( libatlantic ) 
 add_subdirectory( libatlantikui ) 
-add_subdirectory( kio_atlantik )
+if(KF5KIO_FOUND)
+  add_subdirectory(kio_atlantik)
+endif()
 add_subdirectory( libatlantikclient ) 
 add_subdirectory( client )
 add_subdirectory( pics ) 
 add_subdirectory( themes ) 
-add_subdirectory( doc )
+if(KF5DocTools_FOUND)
+  add_subdirectory(doc)
+endif()
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Atlantik")
 ecm_configure_package_config_file(
