@@ -1,5 +1,5 @@
-<!DOCTYPE kpartgui>
-<kpartgui name="atlantik" version="4">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="atlantik" version="4">
 <MenuBar>
   <Menu name="game"><text>&amp;Game</text>
     <Action name="showeventlog"/>
@@ -24,4 +24,4 @@
     <Action name="move_endturn"/>
     <Action name="move_jailpay"/>
 </ToolBar>
-</kpartgui>
+</gui>
