@@ -1,38 +1,21 @@
 [Global]
 IconName=atlantik
 Comment=Atlantik
-Comment[x-test]=xxAtlantikxx
 
 [Event/gainedturn]
 Name=Gained Turn
-Name[fr]=Tour gagné
-Name[x-test]=xxGained Turnxx
 Comment=It is your turn now
-Comment[fr]=C'est à votre tour de jeter les dés
-Comment[x-test]=xxIt is your turn nowxx
 Action=PassivePopup|Taskbar
 
 [Event/chat]
 Name=Chat
-Name[fr]=Discussion
-Name[x-test]=xxChatxx
 Comment=A player sends a chat message
-Comment[fr]=Un joueur envoie un message
-Comment[x-test]=xxA player sends a chat messagexx
 default_presentation=Taskbar
 
 [Event/newplayer]
 Name=New player
-Name[fr]=Nouveau joueur
-Name[x-test]=xxNew playerxx
 Comment=A new player joins the game
-Comment[fr]=Un nouveau joueur vient de se joindre à la partie
-Comment[x-test]=xxA new player joins the gamexx
 
 [Event/newgame]
 Name=New game
-Name[fr]=Nouveau jeu
-Name[x-test]=xxNew gamexx
 Comment=A new game is created
-Comment[fr]=Une nouvelle partie vient d'être créée
-Comment[x-test]=xxA new game is createdxx
