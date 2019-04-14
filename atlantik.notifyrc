@@ -1,21 +1,39 @@
 [Global]
 IconName=atlantik
 Comment=Atlantik
+Comment[pt]=Atlantik
+Comment[uk]=Atlantik
 
 [Event/gainedturn]
 Name=Gained Turn
+Name[pt]=Jogada Ganha
+Name[uk]=Перехід ходу
 Comment=It is your turn now
+Comment[pt]=Agora é a sua vez
+Comment[uk]=Ваш хід
 Action=PassivePopup|Taskbar
 
 [Event/chat]
 Name=Chat
+Name[pt]=Conversa
+Name[uk]=Спілкування
 Comment=A player sends a chat message
+Comment[pt]=Um jogador envia uma mensagem de conversação
+Comment[uk]=Користувач надсилає повідомлення
 default_presentation=Taskbar
 
 [Event/newplayer]
 Name=New player
+Name[pt]=Novo jogador
+Name[uk]=Новий гравець
 Comment=A new player joins the game
+Comment[pt]=Um novo jogador junta-se ao jogo
+Comment[uk]=До гри долучається новий користувач
 
 [Event/newgame]
 Name=New game
+Name[pt]=Novo jogo
+Name[uk]=Нова гра
 Comment=A new game is created
+Comment[pt]=Foi criado um novo jogo
+Comment[uk]=Створено гру
