@@ -6,6 +6,7 @@
   <name>Atlantik</name>
   <name xml:lang="ca">Atlantik</name>
   <name xml:lang="ca-valencia">Atlantik</name>
+  <name xml:lang="es">Atlantik</name>
   <name xml:lang="gl">Atlantik</name>
   <name xml:lang="nl">Atlantik</name>
   <name xml:lang="pt">Atlantik</name>
@@ -16,6 +17,7 @@
   <summary>Monopoly®-like Board Games</summary>
   <summary xml:lang="ca">Jocs de taula semblants al Monopoly®</summary>
   <summary xml:lang="ca-valencia">Jocs de taula semblants al Monopoly®</summary>
+  <summary xml:lang="es">Juegos de tablero semejantes al Monopoly®</summary>
   <summary xml:lang="gl">Xogos de taboleiro estilo Monopoly®</summary>
   <summary xml:lang="nl">Monopoly®-achtige bordspellen</summary>
   <summary xml:lang="pt">Jogos de Tabuleiro do tipo Monopólio®</summary>
@@ -30,6 +32,7 @@
     </p>
     <p xml:lang="ca">L'Atlantik és un client del KDE per jugar als jocs de taula semblants al Monopoly® a la xarxa «monopd».</p>
     <p xml:lang="ca-valencia">L'Atlantik és un client del KDE per jugar als jocs de taula semblants al Monopoly® a la xarxa «monopd».</p>
+    <p xml:lang="es">Atlantik es un cliente de KDE para jugar partidas de tipo Monopoly en la red monopd.</p>
     <p xml:lang="gl">Atlantik é un cliente de KDE para xogos de taboleiro estilo Monopoly® na rede monopd.</p>
     <p xml:lang="nl">Atlantik is een KDE client voor het spelen van Monopoly®-achtige bordspellen op het monopd-netwerk.</p>
     <p xml:lang="pt">O Atlantik é um cliente do KDE para jogar jogos de tabuleiro do tipo Monopólio® na rede 'monopd'.</p>
