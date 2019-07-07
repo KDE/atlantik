@@ -20,7 +20,6 @@
 #include "estatedetailsbase.h"
 
 #include <QVector>
-#include <QSignalMapper>
 
 class QHBoxLayout;
 
@@ -50,7 +49,6 @@ private:
 	QListWidget *m_infoListView;
 	QPushButton *m_closeButton;
 	QHBoxLayout *m_buttonBox;
-	QSignalMapper m_buttonCommandMapper;
 	QVector<QPushButton *> m_buttons;
 };
 

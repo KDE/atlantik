@@ -67,8 +67,6 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	connect(&m_buttonCommandMapper, SIGNAL(mapped(QString)), this, SIGNAL(buttonCommand(QString)));
 }
 
 EstateDetails::~EstateDetails()
@@ -122,7 +120,6 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 {
 	QPushButton *button = new QPushButton(iconForCommandButton(command), caption, widget());
 	m_buttons.append(button);
-	m_buttonCommandMapper.setMapping((QObject *)button, command);
 	m_buttonBox->addWidget(button);
 
 	Estate *e = estate();
@@ -141,7 +138,7 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 	button->setEnabled(enabled);
 	button->show();
 
-	connect(button, SIGNAL(pressed()), &m_buttonCommandMapper, SLOT(map()));
+	connect(button, &QPushButton::pressed, this, [this, command]() { buttonCommand(command); });
 }
 
 void EstateDetails::addCloseButton()
