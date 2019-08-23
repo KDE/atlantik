@@ -3,6 +3,7 @@ Exec=atlantik -qwindowtitle %c
 Name=Atlantik
 Name[ca]=Atlantik
 Name[ca@valencia]=Atlantik
+Name[cs]=Atlantik
 Name[de]=Atlantik
 Name[es]=Atlantik
 Name[fr]=Atlantik
