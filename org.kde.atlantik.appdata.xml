@@ -9,6 +9,7 @@
   <name xml:lang="cs">Atlantik</name>
   <name xml:lang="de">Atlantik</name>
   <name xml:lang="es">Atlantik</name>
+  <name xml:lang="et">Atlantik</name>
   <name xml:lang="fr">Atlantik</name>
   <name xml:lang="gl">Atlantik</name>
   <name xml:lang="id">Atlantik</name>
@@ -26,6 +27,7 @@
   <summary xml:lang="ca-valencia">Jocs de taula semblants al Monopoly®</summary>
   <summary xml:lang="de">Monopoly®-ähnliches Brettspiel</summary>
   <summary xml:lang="es">Juegos de tablero semejantes al Monopoly®</summary>
+  <summary xml:lang="et">Monopoly® stiilis lauamängud</summary>
   <summary xml:lang="fr">Jeux de plateau de type Monopoly®</summary>
   <summary xml:lang="gl">Xogos de taboleiro estilo Monopoly®</summary>
   <summary xml:lang="id">Permainan Papan Seperti Monopoly®</summary>
@@ -46,6 +48,7 @@
     <p xml:lang="ca-valencia">L'Atlantik és un client del KDE per jugar als jocs de taula semblants al Monopoly® a la xarxa «monopd».</p>
     <p xml:lang="de">Atlantik ist ein KDE-Programm für Monopoly®-ähnliche Brettspiele im <command>monopd</command>-Netzwerk.</p>
     <p xml:lang="es">Atlantik es un cliente de KDE para jugar partidas de tipo Monopoly en la red monopd.</p>
+    <p xml:lang="et">Atlantik on KDE klient Monopoly® stiilis lauamängude mängimiseks monopd võrgus.</p>
     <p xml:lang="fr">Atlantik est un client KDE permettant de jouer à des jeux de plateau de type Monopoly® sur le réseau monopd.</p>
     <p xml:lang="gl">Atlantik é un cliente de KDE para xogos de taboleiro estilo Monopoly® na rede monopd.</p>
     <p xml:lang="id">Atlantik adalah sebuah klien KDE untuk memainkan permainan papan seperti Monopoly® pada jaringan monopd.</p>
@@ -66,6 +69,7 @@
     <p xml:lang="ca-valencia">L'objectiu del joc de taula Atlantik és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fans viatges transatlàntics. Per guanyar la partida, els jugadors cal que millorin els terrenys monopolitzats amb construccions que donin beneficis i amb l'esperança que els altres jugadors facen fallida.</p>
     <p xml:lang="de">In Atlantik muss man als transatlantischer Reisender versuchen, Land in den großen Städten von Nordamerika und Europa zu erwerben. Um das Spiel zu gewinnen, bauen die Spieler profitablen Gebäuden auf Ihrem Land, um damit alle anderen Spieler in den Bankrott zu treiben.</p>
     <p xml:lang="es">La finalidad del juego de tablero Atlantik es adquirir terrenos en las ciudades principales de Norteamérica y de Europa mientras viaja en un transatlántico. Para ganar, los jugadores deben mejorar los terrenos monopolizados con edificaciones rentables con la esperanza de llevar a la bancarrota al resto de jugadores.</p>
+    <p xml:lang="et">Lauamängu Atlantik eesmärk on omandada transatlantilise reisimehena valdusi Põhja-Ameerika ja Euroopa suurlinnades. Mängu võitmiseks tuleb mängijatel arendada monopoliseeritud maatükkidel kasutoovaid ehitisi lootuses ajada teised mängijad pankrotti.</p>
     <p xml:lang="fr">L'objectif du jeu de plateau Atlantik est d'acheter des terrains dans des grandes villes d'Europe et d'Amérique du Nord en devenant un voyageur transatlantique. Pour remporter la partie, les joueurs doivent monopoliser les terrains en installant des bâtiments profitables dans l'optique de provoquer la faillite des autres joueurs.</p>
     <p xml:lang="gl">O obxectivo do xogo de taboleiro Atlantik é conseguir terras nas principais cidades de América do Norte e Europa como viaxante transatlántico. Para gañar os xogadores deben mellorar as terras monopolizadas con edificios rendíbeis coa esperanza de levar ao resto de xogadores á bancarrota.</p>
     <p xml:lang="id">Tujuan dari permainan papan Atlantik adalah untuk memperoleh tanah di kota-kota besar di Amerika Utara dan Eropa sambil menjadi pengembara transatlantik. Untuk memenangkan permainan, pemain memperbaiki tanah yang dimonopoli dengan bangunan yang menguntungkan dengan harapan membangkrutkan semua pemain lain.</p>
@@ -85,6 +89,7 @@
     <p xml:lang="ca-valencia">Tots els mode de joc són servits pel «monopd», un servidor de jocs dedicat dissenya per a l'Atlantik. Un dels modes de joc és com el joc de taula de propietats immobiliàries conegut com a Monopoly®.</p>
     <p xml:lang="de">Alle Spielmodi werden über monopd gespielt, einem speziellen Spielserver fürAtlantik. Eine der Spielvarianten entspricht dem bekannten und beliebten Brettspiel Monopoly®.</p>
     <p xml:lang="es">Todos los modos de juego están servidos por monopd, un servidor de juego dedicado diseñado por Atlantik. Uno de los modos de juego es similar al del popular juego de tablero de propiedades conocido como Monopoly®.</p>
+    <p xml:lang="et">Kõiki mängurežiime pakub spetsiaalselt Atlantiku jaoks loodud monopd mänguserver. Üks mängurežiim meenutab väga populaarset kinnisvara-lauamängu, mida tuntakse Monopoly® nime all.</p>
     <p xml:lang="fr">Tous les modes de jeu sont proposés par monopd, un serveur de jeu dédié conçu pour Atlantik. L'un des modes de jeu est similaire au jeu de plateau populaire connu sous le nom de Monopoly®.</p>
     <p xml:lang="gl">Todos os modos de xogo sérveos monopd, un servidor de partidas dedicado deseñado para Atlantik. Un dos modos de xogo asimílase ao do popular xogo de taboleiro de propiedade de terras Monopoly®.</p>
     <p xml:lang="id">Semua mode permainan dilayani oleh monopd, server permainan berdedikasi yang dirancang untuk Atlantik. Salah satu mode permainan dimainkan seperti permainan papan lahan tanah populer yang dikenal sebagai Monopoly®.</p>
