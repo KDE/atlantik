@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qpainter.h>
-#include <qmatrix.h>
 #include <qcursor.h>
 #include <QPixmap>
 #include <QMouseEvent>
@@ -24,6 +23,7 @@
 #include <QStandardPaths>
 #include <QFontDatabase>
 #include <QPaintEvent>
+#include <QTransform>
 
 #include <klocalizedstring.h>
 
@@ -151,7 +151,7 @@ QPixmap *EstateView::rotatePixmap(QPixmap *p) const
 	if (p==Q_NULLPTR || p->isNull())
 		return Q_NULLPTR;
 
-	QMatrix m;
+	QTransform m;
 
 	switch(m_orientation)
 	{
