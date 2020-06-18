@@ -17,6 +17,7 @@ Comment[pt]=Atlantik
 Comment[sk]=Atlantik
 Comment[sv]=Atlantik
 Comment[uk]=Atlantik
+Comment[x-test]=xxAtlantikxx
 
 [Event/gainedturn]
 Name=Gained Turn
@@ -34,6 +35,7 @@ Name[pl]=Dostano turę
 Name[pt]=Jogada Ganha
 Name[sv]=Fick ett drag
 Name[uk]=Перехід ходу
+Name[x-test]=xxGained Turnxx
 Comment=It is your turn now
 Comment[ca]=Ara és el vostre torn
 Comment[ca@valencia]=Ara és el vostre torn
@@ -49,6 +51,7 @@ Comment[pl]=Teraz twój ruch
 Comment[pt]=Agora é a sua vez
 Comment[sv]=Det är din tur
 Comment[uk]=Ваш хід
+Comment[x-test]=xxIt is your turn nowxx
 Action=PassivePopup|Taskbar
 
 [Event/chat]
@@ -69,6 +72,7 @@ Name[pt]=Conversa
 Name[sk]=Rozhovor
 Name[sv]=Chatt
 Name[uk]=Спілкування
+Name[x-test]=xxChatxx
 Comment=A player sends a chat message
 Comment[ca]=Un jugador ha enviat un missatge de xat
 Comment[ca@valencia]=Un jugador ha enviat un missatge de xat
@@ -84,6 +88,7 @@ Comment[pl]=Gracz wysyła wiadomość
 Comment[pt]=Um jogador envia uma mensagem de conversação
 Comment[sv]=En spelare skickar ett chattmeddelande
 Comment[uk]=Користувач надсилає повідомлення
+Comment[x-test]=xxA player sends a chat messagexx
 default_presentation=Taskbar
 
 [Event/newplayer]
@@ -104,6 +109,7 @@ Name[pt]=Novo jogador
 Name[sk]=Nový hráč
 Name[sv]=Ny spelare
 Name[uk]=Новий гравець
+Name[x-test]=xxNew playerxx
 Comment=A new player joins the game
 Comment[ca]=Un jugador nou s'ha unit al joc
 Comment[ca@valencia]=Un jugador nou s'ha unit al joc
@@ -119,6 +125,7 @@ Comment[pl]=Nowy gracz dołącza do gry
 Comment[pt]=Um novo jogador junta-se ao jogo
 Comment[sv]=En ny spelare har gått med
 Comment[uk]=До гри долучається новий користувач
+Comment[x-test]=xxA new player joins the gamexx
 
 [Event/newgame]
 Name=New game
@@ -138,6 +145,7 @@ Name[pt]=Novo jogo
 Name[sk]=Nová hra
 Name[sv]=Nytt spel
 Name[uk]=Нова гра
+Name[x-test]=xxNew gamexx
 Comment=A new game is created
 Comment[ca]=S'ha creat una partida nova
 Comment[ca@valencia]=S'ha creat una partida nova
@@ -153,3 +161,4 @@ Comment[pl]=Utworzono nową grę
 Comment[pt]=Foi criado um novo jogo
 Comment[sv]=Ett nytt spel har skapats
 Comment[uk]=Створено гру
+Comment[x-test]=xxA new game is createdxx
