@@ -33,12 +33,12 @@ Token::Token(Player *player, AtlantikBoard *parent)
 	: QWidget(parent)
 	, m_player(player)
 	, m_location(m_player->location())
-	, m_destination(Q_NULLPTR)
+	, m_destination(nullptr)
 	, m_inJail(m_player->inJail())
 	, m_parentBoard(parent)
 	, b_recreate(true)
-	, qpixmap(Q_NULLPTR)
-	, m_image(Q_NULLPTR)
+	, qpixmap(nullptr)
+	, m_image(nullptr)
 	, m_playerName(m_player->name())
 {
         setAttribute(Qt::WA_NoSystemBackground, true);
@@ -104,7 +104,7 @@ void Token::loadIcon()
 	m_imageName = m_player->image();
 
 	delete m_image;
-	m_image = Q_NULLPTR;
+	m_image = nullptr;
 
 	if (!m_theme.isValid())
 		return;

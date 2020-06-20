@@ -47,7 +47,7 @@ static QIcon iconForCommandButton(const QString &command)
 
 EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *parent)
 	: EstateDetailsBase(estate, parent)
-	, m_closeButton(Q_NULLPTR)
+	, m_closeButton(nullptr)
 {
 	m_buttons.reserve(3); // Usually there are no more than 3 action buttons
 
@@ -80,7 +80,7 @@ void EstateDetails::addDetails()
 
 	if (e)
 	{
-		QListWidgetItem *infoText = Q_NULLPTR;
+		QListWidgetItem *infoText = nullptr;
 		const QIcon infoIcon = KDE::icon(QStringLiteral("document-properties"));
 
 		// Price
@@ -180,7 +180,7 @@ void EstateDetails::clearButtons()
 	if (m_closeButton)
 	{
 		delete m_closeButton;
-		m_closeButton = Q_NULLPTR;
+		m_closeButton = nullptr;
 	}
 
 	// Delete buttons

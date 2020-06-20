@@ -38,7 +38,7 @@ public:
 
 	void setOwner(Player *player);
 	Player *owner() const { return m_owner; }
-	bool isOwned() const { return m_owner != Q_NULLPTR; }
+	bool isOwned() const { return m_owner != nullptr; }
 
 	void update(bool force = false);
 

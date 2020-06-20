@@ -27,7 +27,7 @@ Metatlantic::Metatlantic(const QString &host, int port, QObject *parent)
 	: KJob(parent)
 	, m_host(host)
 	, m_port(port)
-	, m_socket(Q_NULLPTR)
+	, m_socket(nullptr)
 {
 	setCapabilities(Killable);
 }
@@ -83,11 +83,11 @@ void Metatlantic::slotSocketRead()
 
 void Metatlantic::closeSocket(bool doEmitResult)
 {
-	m_stream.setDevice(Q_NULLPTR);
+	m_stream.setDevice(nullptr);
 	m_socket->close();
-	disconnect(m_socket, Q_NULLPTR, this, Q_NULLPTR);
+	disconnect(m_socket, nullptr, this, nullptr);
 	m_socket->deleteLater();
-	m_socket = Q_NULLPTR;
+	m_socket = nullptr;
 	if (doEmitResult)
 		emitResult();
 }

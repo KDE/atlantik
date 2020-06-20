@@ -40,7 +40,7 @@
 AtlantikNetwork::AtlantikNetwork(AtlanticCore *atlanticCore)
 	: QObject()
 	, m_atlanticCore(atlanticCore)
-	, m_monopdsocket(Q_NULLPTR)
+	, m_monopdsocket(nullptr)
 	, m_playerId(-1)
 {
 	reset();
@@ -54,10 +54,10 @@ AtlantikNetwork::~AtlantikNetwork(void)
 void AtlantikNetwork::disconnect()
 {
 	if (m_monopdsocket) {
-		m_monopdstream.setDevice(Q_NULLPTR);
+		m_monopdstream.setDevice(nullptr);
 		m_monopdsocket->close();
 		delete m_monopdsocket;
-		m_monopdsocket = Q_NULLPTR;
+		m_monopdsocket = nullptr;
 	}
 }
 
@@ -365,7 +365,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         emit msgChat(e.attributeNode(QStringLiteral("author")).value(), e.attributeNode(QStringLiteral("value")).value());
                 }
             } else if (e.tagName() == QLatin1String("display")) {
-                Estate *estate = Q_NULLPTR;
+                Estate *estate = nullptr;
                 bool hasEstateId = false;
 
                 a = e.attributeNode(QStringLiteral("estateid"));
@@ -399,7 +399,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if (!a.isNull())
                     emit clientCookie(a.value());
             } else if (e.tagName() == QLatin1String("configupdate")) {
-                Game *game = Q_NULLPTR;
+                Game *game = nullptr;
                 a = e.attributeNode(QStringLiteral("gameid"));
                 if (!a.isNull()) {
                     int gameId = a.value().toInt();
@@ -463,7 +463,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         qCDebug(LIBATLANTIKCLIENT_LOG) << "gameupdate for" << gameId;
 
 
-                    Game *game = Q_NULLPTR;
+                    Game *game = nullptr;
                     if (gameId == -1) {
                         a = e.attributeNode(QStringLiteral("gametype"));
                         if ( !a.isNull() && !(game = m_atlanticCore->findGame(a.value())) )
@@ -549,7 +549,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     if (player && !a.isNull()) {
                         int gameId = a.value().toInt();
                         if (gameId == -1)
-                            player->setGame( Q_NULLPTR );
+                            player->setGame( nullptr );
                         else {
                             // Ensure setGame succeeds by creating game if necessary
                             Game *game = m_atlanticCore->findGame(a.value().toInt());
@@ -647,7 +647,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if (!a.isNull()) {
                     int groupId = a.value().toInt();
 
-                    EstateGroup *estateGroup = Q_NULLPTR;
+                    EstateGroup *estateGroup = nullptr;
                     bool b_newEstateGroup = false;
 
                     if (!(estateGroup = m_atlanticCore->findEstateGroup(groupId))) {
@@ -675,7 +675,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if (!a.isNull()) {
                     estateId = a.value().toInt();
 
-                    Estate *estate = Q_NULLPTR;
+                    Estate *estate = nullptr;
                     bool b_newEstate = false;
 
                     // FIXME: allow any estateId, GUI should not use it to determin its geometry
@@ -824,14 +824,14 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         emit msgTradeUpdateAccepted(trade);
                     else if (type == QLatin1String("completed") && trade) {
                         m_atlanticCore->removeTrade(trade);
-                        trade = Q_NULLPTR;
+                        trade = nullptr;
                     } else if (type == QLatin1String("rejected")) {
                         Player *player = m_atlanticCore->findPlayer(e.attributeNode(QStringLiteral("actor")).value().toInt());
                         if (trade)
                             trade->reject(player);
                         if ( player && player == m_atlanticCore->playerSelf() ) {
                             m_atlanticCore->removeTrade(trade);
-                            trade = Q_NULLPTR;
+                            trade = nullptr;
                         }
                     } else {
                         // No type specified, edit is implied.
@@ -862,7 +862,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                                         }
                                     }
                                 } else if (e_child.tagName() == QLatin1String("trademoney")) {
-                                    Player *pFrom = Q_NULLPTR, *pTo = Q_NULLPTR;
+                                    Player *pFrom = nullptr, *pTo = nullptr;
 
                                     a = e_child.attributeNode(QStringLiteral("playerfrom"));
                                     if (!a.isNull())
@@ -929,7 +929,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         // TODO: find a good way to visually represent "sold!"
                         if (status == 3) {
                             m_atlanticCore->delAuction(auction);
-                            auction = Q_NULLPTR;
+                            auction = nullptr;
                         }
                     }
 

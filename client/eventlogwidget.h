@@ -36,7 +36,7 @@ class EventLog : public QAbstractItemModel
 Q_OBJECT
 
 public:
-	EventLog(QObject *parent = Q_NULLPTR);
+	EventLog(QObject *parent = nullptr);
 	~EventLog();
 
 	int columnCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -63,7 +63,7 @@ class LastMessagesProxyModel : public QSortFilterProxyModel
 Q_OBJECT
 
 public:
-	LastMessagesProxyModel(QObject *parent = Q_NULLPTR);
+	LastMessagesProxyModel(QObject *parent = nullptr);
 
 	void setMessagesCount(int n);
 
@@ -81,7 +81,7 @@ class EventLogWidget : public QDialog
 Q_OBJECT
 
 public:
-	EventLogWidget(EventLog *eventLog, QWidget *parent=Q_NULLPTR);
+	EventLogWidget(EventLog *eventLog, QWidget *parent=nullptr);
 	~EventLogWidget();
 	void restoreSettings();
 

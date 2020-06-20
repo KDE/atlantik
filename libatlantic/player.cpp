@@ -32,9 +32,9 @@ Player::Player(int playerId)
 	, m_inJail(false)
 	, m_spectator(false)
 	, m_money(0)
-	, m_game(Q_NULLPTR)
-	, m_location(Q_NULLPTR)
-	, m_destination(Q_NULLPTR)
+	, m_game(nullptr)
+	, m_location(nullptr)
+	, m_destination(nullptr)
 {
 }
 

@@ -110,7 +110,7 @@ signals:
 	void msgChat(const QString &, const QString &);
 	void msgStatus(const QString &data, EventType type);
 	void networkEvent(const QString &data, EventType type);
-	void displayDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = Q_NULLPTR);
+	void displayDetails(const QString &text, bool clearText, bool clearButtons, Estate *estate = nullptr);
 	void displayText(const QString &text, bool clearText, bool clearButtons);
 	void addCommandButton(const QString &command, const QString &caption, bool enabled);
 	void addCloseButton();

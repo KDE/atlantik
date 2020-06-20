@@ -38,10 +38,10 @@ EstateView::EstateView(Estate *estate, EstateOrientation orientation, const QStr
                        bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, QWidget *parent)
 	: QWidget(parent)
 	, m_estate(estate)
-	, qpixmap(Q_NULLPTR)
-	, icon(Q_NULLPTR)
-	, m_quartzBlocks(Q_NULLPTR)
-	, m_pe(Q_NULLPTR)
+	, qpixmap(nullptr)
+	, icon(nullptr)
+	, m_quartzBlocks(nullptr)
+	, m_pe(nullptr)
 	, m_allowEstateSales(false)
 	, m_indicateUnowned(indicateUnowned)
 	, m_highlightUnowned(highlightUnowned)
@@ -96,7 +96,7 @@ void EstateView::loadIcon(const QString &_icon)
 {
 	m_estateIcon = QString();
 	delete icon;
-	icon = Q_NULLPTR;
+	icon = nullptr;
 	if (_icon.isEmpty())
 		return;
 	const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("atlantik/pics/") + _icon);
@@ -106,7 +106,7 @@ void EstateView::loadIcon(const QString &_icon)
 	if (icon->isNull())
 	{
 		delete icon;
-		icon = Q_NULLPTR;
+		icon = nullptr;
 	}
 	else
 	{
@@ -148,8 +148,8 @@ void EstateView::setViewProperties(bool indicateUnowned, bool highlightUnowned, 
 
 QPixmap *EstateView::rotatePixmap(QPixmap *p) const
 {
-	if (p==Q_NULLPTR || p->isNull())
-		return Q_NULLPTR;
+	if (p==nullptr || p->isNull())
+		return nullptr;
 
 	QTransform m;
 
@@ -177,13 +177,13 @@ void EstateView::updatePE()
 	if (m_estate->isOwned() || !m_estate->canBeOwned() || m_indicateUnowned==false)
 	{
 		delete m_pe;
-		m_pe = Q_NULLPTR;
+		m_pe = nullptr;
 	}
 	else if (!m_pe)
 	{
 		// Display a coloured portfolioestate to indicate property is
 		// for sale
-		m_pe = new QPixmap(PortfolioEstate::drawPixmap(m_estate, Q_NULLPTR, true));
+		m_pe = new QPixmap(PortfolioEstate::drawPixmap(m_estate, nullptr, true));
 	}
 }
 
@@ -218,7 +218,7 @@ void EstateView::paintEvent(QPaintEvent *e)
 		if (m_quartzBlocks)
 		{
 			delete m_quartzBlocks;
-			m_quartzBlocks = Q_NULLPTR;
+			m_quartzBlocks = nullptr;
 		}
 
 		if (m_quartzEffects && m_estateColor.isValid())
@@ -262,7 +262,7 @@ void EstateView::paintEvent(QPaintEvent *e)
 		painter.drawRect(rect().adjusted(0, 0, -1, -1));
 
 		// Paint icon only when it exists and fits
-		if (icon!=Q_NULLPTR && width() > icon->width() && height() > icon->height())
+		if (icon!=nullptr && width() > icon->width() && height() > icon->height())
 			painter.drawPixmap( (width() - icon->width())/2, (height() - icon->height())/2, *icon);
 
 		if (m_estateColor.isValid())
@@ -436,7 +436,7 @@ void EstateView::contextMenuEvent(QContextMenuEvent *)
 					act->setEnabled(false);
 			}
 
-			QAction *act = Q_NULLPTR;
+			QAction *act = nullptr;
 			// Estate construction
 			if (m_estate->houses()>=4)
 				act = rmbMenu->addAction(i18n("Build Hotel"), this, SLOT(slotHouseBuy()));
@@ -510,7 +510,7 @@ void EstateView::drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c
 {
 	QPainter px;
 
-	if (pi==Q_NULLPTR || pi->isNull())
+	if (pi==nullptr || pi->isNull())
 		return;
 
 	px.begin(pi);

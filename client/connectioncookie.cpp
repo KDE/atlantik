@@ -60,16 +60,16 @@ ConnectionCookie *ConnectionCookie::read()
 {
 	QFile f(filePath());
 	if (!f.exists())
-		return Q_NULLPTR;
+		return nullptr;
 	if (!f.open(QIODevice::ReadOnly))
-		return Q_NULLPTR;
+		return nullptr;
 
 	QDataStream in(&f);
 	in.setVersion(QDataStream::Qt_4_6);
 	int version;
 	in >> version;
 	if (version != ConnectionCookieVersion)
-		return Q_NULLPTR;
+		return nullptr;
 
 	ConnectionCookie *cookie = new ConnectionCookie();
 	in >> cookie->m_host;

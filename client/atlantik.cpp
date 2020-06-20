@@ -64,9 +64,9 @@
 LogTextEdit::LogTextEdit(QWidget *parent)
 	: QTextEdit(parent)
 {
-	m_clear = KStandardAction::clear( this, SLOT( clear() ), Q_NULLPTR );
-	m_selectAll = KStandardAction::selectAll( this, SLOT( selectAll() ), Q_NULLPTR );
-	m_copy = KStandardAction::copy( this, SLOT( copy() ), Q_NULLPTR );
+	m_clear = KStandardAction::clear( this, SLOT( clear() ), nullptr );
+	m_selectAll = KStandardAction::selectAll( this, SLOT( selectAll() ), nullptr );
+	m_copy = KStandardAction::copy( this, SLOT( copy() ), nullptr );
 	connect(this, SIGNAL(copyAvailable(bool)), m_copy, SLOT(setEnabled(bool)));
 	m_copy->setEnabled(false);
 }
@@ -91,11 +91,11 @@ void LogTextEdit::contextMenuEvent(QContextMenuEvent *event)
 Atlantik::Atlantik(QCommandLineParser *parser)
 	: KXmlGuiWindow()
 	, m_cliParser(parser)
-	, m_atlantikNetwork(Q_NULLPTR)
-	, m_board(Q_NULLPTR)
-	, m_selectServer(Q_NULLPTR)
-	, m_selectGame(Q_NULLPTR)
-	, m_selectConfiguration(Q_NULLPTR)
+	, m_atlantikNetwork(nullptr)
+	, m_board(nullptr)
+	, m_selectServer(nullptr)
+	, m_selectGame(nullptr)
+	, m_selectConfiguration(nullptr)
 	, m_runningGame(false)
 	, m_reconnecting(false)
 	, m_tokenTheme(TokenTheme::defaultTheme())
@@ -344,7 +344,7 @@ void Atlantik::showSelectServer()
 	if (m_selectGame)
 	{
 		delete m_selectGame;
-		m_selectGame = Q_NULLPTR;
+		m_selectGame = nullptr;
 	}
 
 	m_atlanticCore->reset(true);
@@ -379,7 +379,7 @@ void Atlantik::showSelectGame()
 		m_board->hide();
 		m_board->reset();
 //		delete m_board;
-//		m_board = Q_NULLPTR;
+//		m_board = nullptr;
 
 		// m_portfolioViews.clear();
 		m_atlanticCore->reset();
@@ -388,12 +388,12 @@ void Atlantik::showSelectGame()
 	if (m_selectServer)
 	{
 		delete m_selectServer;
-		m_selectServer = Q_NULLPTR;
+		m_selectServer = nullptr;
 	}
 	if (m_selectConfiguration)
 	{
 		delete m_selectConfiguration;
-		m_selectConfiguration = Q_NULLPTR;
+		m_selectConfiguration = nullptr;
 	}
 
 	connect(m_selectGame, SIGNAL(joinGame(int)), m_atlantikNetwork, SLOT(joinGame(int)));
@@ -411,7 +411,7 @@ void Atlantik::showSelectConfiguration()
 	if (m_selectGame)
 	{
 		delete m_selectGame;
-		m_selectGame = Q_NULLPTR;
+		m_selectGame = nullptr;
 	}
 
 	m_selectConfiguration = new SelectConfiguration(m_atlanticCore, m_mainWidget );
@@ -453,13 +453,13 @@ void Atlantik::showBoard()
 	if (m_selectGame)
 	{
 		delete m_selectGame;
-		m_selectGame = Q_NULLPTR;
+		m_selectGame = nullptr;
 	}
 
 	if (m_selectConfiguration)
 	{
 		delete m_selectConfiguration;
-		m_selectConfiguration = Q_NULLPTR;
+		m_selectConfiguration = nullptr;
 	}
 
 	if (!m_board)
@@ -838,7 +838,7 @@ void Atlantik::initNetworkObject()
 
 void Atlantik::clientCookie(const QString &cookie)
 {
-	ConnectionCookie *newCookie = Q_NULLPTR;
+	ConnectionCookie *newCookie = nullptr;
 
 	if (!cookie.isEmpty() && m_atlantikNetwork)
 		newCookie = new ConnectionCookie(m_atlantikNetwork->host(), m_atlantikNetwork->port(), cookie);
@@ -898,7 +898,7 @@ PortfolioView *Atlantik::findPortfolioView(Player *player)
 		if (player == portfolioView->player())
 			return portfolioView;
 
-	return Q_NULLPTR;
+	return nullptr;
 }
 
 void Atlantik::closeEvent(QCloseEvent *e)

@@ -50,8 +50,8 @@ PortfolioView::PortfolioView(AtlanticCore *core, Player *player, QColor activeCo
 	, m_player(player)
 	, m_activeColor(activeColor)
 	, m_inactiveColor(inactiveColor)
-	, qpixmap(Q_NULLPTR)
-	, m_image(Q_NULLPTR)
+	, qpixmap(nullptr)
+	, m_image(nullptr)
 	, b_recreate(true)
 {
 	QPalette pal = palette();
@@ -81,7 +81,7 @@ void PortfolioView::buildPortfolio()
 		clearPortfolio();
 
 	// Loop through estate groups in order
-	PortfolioEstate *lastPE = Q_NULLPTR, *firstPEprevGroup = Q_NULLPTR;
+	PortfolioEstate *lastPE = nullptr, *firstPEprevGroup = nullptr;
 
 	int x = 100, y = 25, marginHint = 5, bottom;
 	bottom = ICONSIZE - PE_HEIGHT - marginHint;
@@ -98,7 +98,7 @@ void PortfolioView::buildPortfolio()
 	{
 		{
 			// New group
-			lastPE = Q_NULLPTR;
+			lastPE = nullptr;
 
 			QList<Estate *> estates = groups.values(estateGroup);
 			// QMultiHash/QHash tracks multiple values per key
@@ -172,7 +172,7 @@ void PortfolioView::loadIcon(bool force)
 	m_imageName = m_player->image();
 
 	delete m_image;
-	m_image = Q_NULLPTR;
+	m_image = nullptr;
 
 	if (!m_tokenTheme.isValid())
 		return;

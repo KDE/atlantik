@@ -33,7 +33,7 @@ Q_OBJECT
 public:
 	PortfolioEstate(Estate *estate, Player *player, bool alwaysOwned, QWidget *parent);
 	Estate *estate() const { return m_estate; }
-	static QPixmap drawPixmap(Estate *estate, Player *player = Q_NULLPTR, bool alwaysOwned = true);
+	static QPixmap drawPixmap(Estate *estate, Player *player = nullptr, bool alwaysOwned = true);
 
 protected:
 	void paintEvent(QPaintEvent *) override;

@@ -35,7 +35,7 @@
 
 SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent)
 	: QWidget(parent)
-	, m_game(Q_NULLPTR)
+	, m_game(nullptr)
 	, m_atlanticCore(atlanticCore)
 {
 	m_mainLayout = new QVBoxLayout(this );

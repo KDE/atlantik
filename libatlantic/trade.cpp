@@ -66,7 +66,7 @@ QList<Player *> Trade::participants() const
 
 void Trade::updateEstate(Estate *estate, Player *to)
 {
-	TradeEstate *t=Q_NULLPTR;
+	TradeEstate *t=nullptr;
 	
 	foreach (TradeItem *i, mTradeItems)
 	{
@@ -78,7 +78,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		if (t->estate()==estate)
 			break;
 		
-		t=Q_NULLPTR;
+		t=nullptr;
 	}
 	if (t)
 	{
@@ -107,7 +107,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 
 void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
-	TradeMoney *t=Q_NULLPTR;
+	TradeMoney *t=nullptr;
 	
 	foreach (TradeItem *i, mTradeItems)
 	{
@@ -119,7 +119,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		if (t->from() == from && t->to() == to && t->money())
 			break;
 		
-		t=Q_NULLPTR;
+		t=nullptr;
 	}
 	if (t)
 	{
@@ -148,7 +148,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 
 void Trade::updateCard(Card *card, Player *to)
 {
-	TradeCard *t=Q_NULLPTR;
+	TradeCard *t=nullptr;
 	
 	foreach (TradeItem *i, mTradeItems)
 	{
@@ -160,7 +160,7 @@ void Trade::updateCard(Card *card, Player *to)
 		if (t->card()==card)
 			break;
 		
-		t=Q_NULLPTR;
+		t=nullptr;
 	}
 	if (t)
 	{

@@ -33,9 +33,9 @@ static const int StaticTitleHeight = 50;
 
 EstateDetailsBase::EstateDetailsBase(Estate *estate, QWidget *parent)
 	: QWidget(parent)
-	, m_estate(Q_NULLPTR)
-	, m_pixmap(Q_NULLPTR)
-	, m_quartzBlocks(Q_NULLPTR)
+	, m_estate(nullptr)
+	, m_pixmap(nullptr)
+	, m_quartzBlocks(nullptr)
 	, b_recreate(true)
 	, m_recreateQuartz(true)
 {
@@ -74,7 +74,7 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 		if (m_quartzBlocks)
 		{
 			delete m_quartzBlocks;
-			m_quartzBlocks = Q_NULLPTR;
+			m_quartzBlocks = nullptr;
 		}
 
 		if (m_estate->color().isValid())
@@ -97,7 +97,7 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 	if (b_recreate)
 	{
 		delete m_pixmap;
-		m_pixmap = Q_NULLPTR;
+		m_pixmap = nullptr;
 
 		if (m_estate)
 		{
