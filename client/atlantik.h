@@ -120,7 +120,7 @@ public:
 
 	AtlantikConfig config() { return m_config; }
 
-private slots:
+private Q_SLOTS:
 	void showSelectServer();
 	void showSelectGame();
 	void showSelectConfiguration();
@@ -131,7 +131,7 @@ private slots:
 	void sendHandshake();
 	void showAboutDialog();
 
-public slots:
+public Q_SLOTS:
 
 	/**
 	 * A network connection has been established, so we can show the game

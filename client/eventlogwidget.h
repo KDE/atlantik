@@ -46,7 +46,7 @@ public:
 	QModelIndex parent(const QModelIndex &index) const override;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-public slots:
+public Q_SLOTS:
 	void addEvent(const QString &description, EventType type);
 	void clear();
 	void saveAsText(QTextStream &stream) const;
@@ -85,7 +85,7 @@ public:
 	~EventLogWidget();
 	void restoreSettings();
 
-private slots:
+private Q_SLOTS:
 	void save();
 
 private:

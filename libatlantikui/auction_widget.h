@@ -40,7 +40,7 @@ public:
 	AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidget *parent);
 	~AuctionWidget();
 
-private slots:
+private Q_SLOTS:
 	void auctionChanged();
 	void playerChanged(Player *player);
 	void playerCreated(Player *player);

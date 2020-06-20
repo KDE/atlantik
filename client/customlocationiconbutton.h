@@ -40,7 +40,7 @@ public:
 signals:
 	void imageChanged(const QString &image);
 
-private slots:
+private Q_SLOTS:
 	void slotChooseImage();
 
 private:

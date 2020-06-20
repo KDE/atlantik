@@ -54,7 +54,7 @@ public:
 	void reset();
 	void disconnect();
 
-private slots:
+private Q_SLOTS:
 	void slotwriteData(const QString &msg);
 	void slotLookupFinished();
 	void slotConnectionSuccess();
@@ -92,7 +92,7 @@ private slots:
 
 
 
-public slots:
+public Q_SLOTS:
 	void serverConnect(const QString &host, int port);
 
 	void joinGame(int gameId);

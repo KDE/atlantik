@@ -39,7 +39,7 @@ protected:
 	void paintEvent(QPaintEvent *) override;
 	void mousePressEvent(QMouseEvent *) override;
 
-private slots:
+private Q_SLOTS:
 	void estateChanged();
 
 signals:

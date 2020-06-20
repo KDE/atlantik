@@ -39,7 +39,7 @@ signals:
 protected:
 	bool doKill() override;
 
-private slots:
+private Q_SLOTS:
 	void slotSocketError(QAbstractSocket::SocketError socketError);
 	void slotSocketConnected();
 	void slotSocketRead();

@@ -37,7 +37,7 @@ Q_OBJECT
 public:
 	SelectConfiguration(AtlanticCore *atlanticCore, QWidget *parent);
 
-private slots:
+private Q_SLOTS:
 	void addConfigOption(ConfigOption *configOption);
 	void changeOption();
 	void gameOption(const QString &title, const QString &type, const QString &value, const QString &edit, const QString &command);

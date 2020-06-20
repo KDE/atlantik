@@ -35,7 +35,7 @@ Q_OBJECT
 public:
 	MonopdProtocol();
 
-private slots:
+private Q_SLOTS:
 	void auctionEstate();
 	void buyEstate();
 	void confirmTokenLocation(Estate *estate);

@@ -43,7 +43,7 @@ Q_OBJECT
 		bool inJail() const { return m_inJail; }
 		void setTokenTheme(const TokenTheme &theme);
 
-	private slots:
+	private Q_SLOTS:
 		void playerChanged();
 
 	protected:

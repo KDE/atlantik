@@ -42,7 +42,7 @@ public:
 
 	bool operator<(const QTreeWidgetItem &other) const override;
 
-private slots:
+private Q_SLOTS:
 	void resolved();
 	void connected();
 
@@ -65,13 +65,13 @@ public:
 
 	void setHideDevelopmentServers(bool hideDevelopmentServers);
 
-public slots:
+public Q_SLOTS:
 	void validateConnectButton();
 	void validateCustomConnectButton();
 	void reloadServerList();
 	void slotMetatlanticAdd(const QString &host, int port, const QString &version, int users);
 
-private slots:
+private Q_SLOTS:
 	void slotConnect();
 	void customConnect();
 	void metatlanticFinished();

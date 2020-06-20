@@ -72,7 +72,7 @@ private:
 		QString m_estateIcon;
 		QColor m_estateColor;
 
-	private slots:
+	private Q_SLOTS:
 		void estateChanged();
 		void slotToggleMortgage();
 		void slotHouseBuy();

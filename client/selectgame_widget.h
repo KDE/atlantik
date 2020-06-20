@@ -36,7 +36,7 @@ Q_OBJECT
 public:
 	SelectGame(AtlanticCore *atlanticCore, QWidget *parent);
 
-private slots:
+private Q_SLOTS:
 	void connectClicked();
 	void addGame(Game *game);
 	void delGame(Game *game);
