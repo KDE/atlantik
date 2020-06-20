@@ -31,13 +31,13 @@ Q_OBJECT
 public:
 	Metatlantic(const QString &host, int port, QObject *parent = Q_NULLPTR);
 	~Metatlantic();
-	void start() Q_DECL_OVERRIDE;
+	void start() override;
 
 signals:
 	void metatlanticAdd(const QString &host, int port, const QString &version, int users);
 
 protected:
-	bool doKill() Q_DECL_OVERRIDE;
+	bool doKill() override;
 
 private slots:
 	void slotSocketError(QAbstractSocket::SocketError socketError);

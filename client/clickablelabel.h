@@ -31,7 +31,7 @@ signals:
 	void clicked();
 
 protected:
-	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	void mouseReleaseEvent(QMouseEvent *event) override;
 };
 
 #endif

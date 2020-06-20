@@ -35,8 +35,8 @@ public:
 	void setEstate(Estate *estate);
 
 protected:
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
-	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *) override;
+	void resizeEvent(QResizeEvent *) override;
 
 	QWidget *widget() { return m_widget; }
 

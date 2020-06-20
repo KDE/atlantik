@@ -48,7 +48,7 @@ public:
 	void reset();
 
 	void setViewProperties(bool indicateUnowned, bool highlightUnowned, bool darkenMortgaged, bool quartzEffects, bool animateTokens);
-	int heightForWidth(int) const Q_DECL_OVERRIDE;
+	int heightForWidth(int) const override;
 	void addEstateView(Estate *estate, bool indicateUnowned = false, bool highlightUnowned = false, bool darkenMortgaged = false, bool quartzEffects = false);
 	void addAuctionWidget(Auction *auction);
 
@@ -78,7 +78,7 @@ Q_SIGNALS:
 	void buttonCommand(const QString &command);
 
 protected:
-	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
+	void resizeEvent(QResizeEvent *) override;
 
 private:
 	Token *findToken(Player *player) const;

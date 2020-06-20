@@ -36,8 +36,8 @@ public:
 	static QPixmap drawPixmap(Estate *estate, Player *player = Q_NULLPTR, bool alwaysOwned = true);
 
 protected:
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
-	void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *) override;
+	void mousePressEvent(QMouseEvent *) override;
 
 private slots:
 	void estateChanged();

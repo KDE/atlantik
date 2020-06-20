@@ -48,9 +48,9 @@ public:
 	void setTokenTheme(const TokenTheme &theme);
 
 protected:
-	void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
-	void resizeEvent(QResizeEvent *) Q_DECL_OVERRIDE;
-	void contextMenuEvent(QContextMenuEvent *) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *) override;
+	void resizeEvent(QResizeEvent *) override;
+	void contextMenuEvent(QContextMenuEvent *) override;
 
 Q_SIGNALS:
 	void newTrade(Player *player);

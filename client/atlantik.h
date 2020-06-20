@@ -89,7 +89,7 @@ public:
 	virtual ~LogTextEdit();
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event) Q_DECL_OVERRIDE;
+	void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
 	QAction *m_clear, *m_selectAll, *m_copy;
@@ -236,7 +236,7 @@ signals:
 	void reconnect(const QString &cookie);
 
 protected:
-	void closeEvent(QCloseEvent *) Q_DECL_OVERRIDE;
+	void closeEvent(QCloseEvent *) override;
 
 private:
 	enum MsgType { ErrorMsg, InfoMsg, ChatMsg };
