@@ -42,7 +42,7 @@ protected:
 private Q_SLOTS:
 	void estateChanged();
 
-signals:
+Q_SIGNALS:
 	void estateClicked(Estate *estate);
 
 private:

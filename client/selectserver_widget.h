@@ -76,7 +76,7 @@ private Q_SLOTS:
 	void customConnect();
 	void metatlanticFinished();
 
-signals:
+Q_SIGNALS:
 	void serverConnect(const QString &host, int port);
 	void msgStatus(const QString &message);
 

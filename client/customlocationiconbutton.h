@@ -37,7 +37,7 @@ public:
 	void setImage(const QString &image);
 	QString image() const;
 
-signals:
+Q_SIGNALS:
 	void imageChanged(const QString &image);
 
 private Q_SLOTS:

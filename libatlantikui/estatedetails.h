@@ -41,7 +41,7 @@ public:
 	void appendText(const QString &text);
 	void clearButtons();
 
-signals:
+Q_SIGNALS:
 	void buttonCommand(const QString&);
 	void buttonClose();
 

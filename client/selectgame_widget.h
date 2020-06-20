@@ -44,7 +44,7 @@ private Q_SLOTS:
 	void playerChanged(Player *player);
 	void validateConnectButton();
 
-signals:
+Q_SIGNALS:
 	void joinGame(int gameId);
 	void watchGame(int gameId);
 	void newGame(const QString &gameType);

@@ -225,7 +225,7 @@ public Q_SLOTS:
 	void playerChanged(Player *player);
 	void gainedTurn();
 
-signals:
+Q_SIGNALS:
 	void rollDice();
 	void buyEstate();
 	void auctionEstate();

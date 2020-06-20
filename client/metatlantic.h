@@ -33,7 +33,7 @@ public:
 	~Metatlantic();
 	void start() override;
 
-signals:
+Q_SIGNALS:
 	void metatlanticAdd(const QString &host, int port, const QString &version, int users);
 
 protected:

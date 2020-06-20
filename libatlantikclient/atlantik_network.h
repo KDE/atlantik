@@ -100,7 +100,7 @@ public Q_SLOTS:
 	void leaveGame();
 	void setImage(const QString &name);
 
-signals:
+Q_SIGNALS:
 	void connectionSuccess();
 	void connectionFailed(QAbstractSocket::SocketError error);
 	void disconnected();

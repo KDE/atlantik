@@ -48,7 +48,7 @@ private Q_SLOTS:
 	void updateBid(Player *player, int amount);
 	void slotBidButtonClicked();
 
-signals:
+Q_SIGNALS:
 	void bid(Auction *auction, int amount);
 
 private:

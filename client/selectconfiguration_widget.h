@@ -48,7 +48,7 @@ private Q_SLOTS:
 	void playerChanged(Player *player);
 	void gameChanged(Game *game);
 
-signals:
+Q_SIGNALS:
 	void startGame();
 	void leaveGame();
 	void joinConfiguration(int configurationId);

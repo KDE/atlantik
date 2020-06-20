@@ -40,7 +40,7 @@ Q_OBJECT
 		EstateOrientation orientation() const { return m_orientation; }
 		void setAllowEstateSales(bool allow);
 
-	signals:
+	Q_SIGNALS:
 		void estateToggleMortgage(Estate *estate);
 		void estateHouseBuy(Estate *estate);
 		void estateHouseSell(Estate *estate);
