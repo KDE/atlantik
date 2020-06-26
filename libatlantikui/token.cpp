@@ -135,7 +135,6 @@ void Token::paintEvent(QPaintEvent *e)
 
 		QPainter painter;
 		painter.begin(qpixmap );
-                painter.initFrom( this );
 
         if (m_image)
 		{

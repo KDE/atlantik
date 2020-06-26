@@ -248,7 +248,6 @@ void EstateView::paintEvent(QPaintEvent *e)
 		QColor redHotel(255, 51, 51);
 		QPainter painter;
 		painter.begin( qpixmap );
-                painter.initFrom( this );
 
 		painter.setPen(Qt::black);
 
