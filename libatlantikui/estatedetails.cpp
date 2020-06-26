@@ -127,7 +127,7 @@ void EstateDetails::addButton(const QString &command, const QString &caption, bo
 	if (e)
 	{
 		QColor bgColor, fgColor;
-		bgColor = e->bgColor().light(110);
+		bgColor = e->bgColor().lighter(110);
 		fgColor = ( bgColor.red() + bgColor.green() + bgColor.blue() < 255 ) ? Qt::white : Qt::black;
 
 		QPalette pal = button->palette();

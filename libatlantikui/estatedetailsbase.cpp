@@ -111,7 +111,7 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 
 			painter.setPen(Qt::black);
 
-			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().light(80));
+			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().lighter(80));
 			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
 			const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 

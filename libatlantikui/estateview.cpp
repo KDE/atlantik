@@ -228,7 +228,7 @@ void EstateView::paintEvent(QPaintEvent *e)
 			else
 				m_quartzBlocks = new QPixmap(25, m_titleWidth-2);
 
-			drawQuartzBlocks(m_quartzBlocks, m_estateColor.light(60), m_estateColor);
+			drawQuartzBlocks(m_quartzBlocks, m_estateColor.lighter(60), m_estateColor);
 			m_quartzBlocks = rotatePixmap(m_quartzBlocks);
 		}
 
@@ -253,9 +253,9 @@ void EstateView::paintEvent(QPaintEvent *e)
 		painter.setPen(Qt::black);
 
 		if (m_darkenMortgaged==true && m_estate->isMortgaged())
-			painter.setBrush(m_estate->bgColor().light(10));
+			painter.setBrush(m_estate->bgColor().lighter(10));
 		else if (m_highlightUnowned==true && m_estate->canBeOwned() && !m_estate->isOwned())
-			painter.setBrush(m_estate->bgColor().light(190));
+			painter.setBrush(m_estate->bgColor().lighter(190));
 		else
 			painter.setBrush(m_estate->bgColor());
 
@@ -520,27 +520,27 @@ void EstateView::drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c
 	gradient.setColorAt(1, c2);
 	px.fillRect(pi->rect(), gradient);
 
-	px.fillRect( 2, 1, 3, 3, c1.light(120) );
+	px.fillRect( 2, 1, 3, 3, c1.lighter(120) );
 	px.fillRect( 2, 5, 3, 3, c1 );
-	px.fillRect( 2, 9, 3, 3, c1.light(110) );
+	px.fillRect( 2, 9, 3, 3, c1.lighter(110) );
 	px.fillRect( 2, 13, 3, 3, c1 );
 
-	px.fillRect( 6, 1, 3, 3, c1.light(110) );
-	px.fillRect( 6, 5, 3, 3, c2.light(110) );
-	px.fillRect( 6, 9, 3, 3, c1.light(120) );
-	px.fillRect( 6, 13, 3, 3, c2.light(130) );
+	px.fillRect( 6, 1, 3, 3, c1.lighter(110) );
+	px.fillRect( 6, 5, 3, 3, c2.lighter(110) );
+	px.fillRect( 6, 9, 3, 3, c1.lighter(120) );
+	px.fillRect( 6, 13, 3, 3, c2.lighter(130) );
 
-	px.fillRect( 10, 5, 3, 3, c1.light(110) );
-	px.fillRect( 10, 9, 3, 3, c2.light(120) );
-	px.fillRect( 10, 13, 3, 3, c2.light(150) );
+	px.fillRect( 10, 5, 3, 3, c1.lighter(110) );
+	px.fillRect( 10, 9, 3, 3, c2.lighter(120) );
+	px.fillRect( 10, 13, 3, 3, c2.lighter(150) );
 
 	px.fillRect( 14, 1, 3, 3, c1.dark(110) );
-	px.fillRect( 14, 9, 3, 3, c2.light(120) );
+	px.fillRect( 14, 9, 3, 3, c2.lighter(120) );
 	px.fillRect( 14, 13, 3, 3, c1.dark(120) );
 
-	px.fillRect( 18, 5, 3, 3, c1.light(110) );
+	px.fillRect( 18, 5, 3, 3, c1.lighter(110) );
 	px.fillRect( 18, 13, 3, 3, c1.dark(110) );
 
-	px.fillRect( 22, 9, 3, 3, c2.light(120));
-	px.fillRect( 22, 13, 3, 3, c2.light(110) );
+	px.fillRect( 22, 9, 3, 3, c2.lighter(120));
+	px.fillRect( 22, 13, 3, 3, c2.lighter(110) );
 }
