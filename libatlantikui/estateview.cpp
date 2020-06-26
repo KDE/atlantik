@@ -534,12 +534,12 @@ void EstateView::drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c
 	px.fillRect( 10, 9, 3, 3, c2.lighter(120) );
 	px.fillRect( 10, 13, 3, 3, c2.lighter(150) );
 
-	px.fillRect( 14, 1, 3, 3, c1.dark(110) );
+	px.fillRect( 14, 1, 3, 3, c1.darker(110) );
 	px.fillRect( 14, 9, 3, 3, c2.lighter(120) );
-	px.fillRect( 14, 13, 3, 3, c1.dark(120) );
+	px.fillRect( 14, 13, 3, 3, c1.darker(120) );
 
 	px.fillRect( 18, 5, 3, 3, c1.lighter(110) );
-	px.fillRect( 18, 13, 3, 3, c1.dark(110) );
+	px.fillRect( 18, 13, 3, 3, c1.darker(110) );
 
 	px.fillRect( 22, 9, 3, 3, c2.lighter(120));
 	px.fillRect( 22, 13, 3, 3, c2.lighter(110) );
