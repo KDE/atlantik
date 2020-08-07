@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component type="desktop">
-  <id>org.kde.atlantik.desktop</id>
+<component type="desktop-application">
+  <id>org.kde.atlantik</id>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0</project_license>
   <name>Atlantik</name>
@@ -120,4 +120,9 @@
     <binary>atlantik</binary>
   </provides>
   <project_group>KDE</project_group>
+  <launchable type="desktop-id">org.kde.atlantik.desktop</launchable>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="money-gambling">mild</content_attribute>
+  </content_rating>
 </component>
