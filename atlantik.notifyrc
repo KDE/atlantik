@@ -58,6 +58,7 @@ Comment[sl]=Vi ste na potezi
 Comment[sv]=Det är din tur
 Comment[uk]=Ваш хід
 Comment[x-test]=xxIt is your turn nowxx
+Comment[zh_CN]=轮到您了。
 Action=PassivePopup|Taskbar
 
 [Event/chat]
@@ -81,6 +82,7 @@ Name[sl]=Klepet
 Name[sv]=Chatt
 Name[uk]=Спілкування
 Name[x-test]=xxChatxx
+Name[zh_CN]=聊天
 Comment=A player sends a chat message
 Comment[ca]=Un jugador ha enviat un missatge de xat
 Comment[ca@valencia]=Un jugador ha enviat un missatge de xat
@@ -99,6 +101,7 @@ Comment[sl]=Igralec pošilja sporočilo za klepet
 Comment[sv]=En spelare skickar ett chattmeddelande
 Comment[uk]=Користувач надсилає повідомлення
 Comment[x-test]=xxA player sends a chat messagexx
+Comment[zh_CN]=一位玩家发送了聊天信息
 default_presentation=Taskbar
 
 [Event/newplayer]
@@ -122,6 +125,7 @@ Name[sl]=Nov igralec
 Name[sv]=Ny spelare
 Name[uk]=Новий гравець
 Name[x-test]=xxNew playerxx
+Name[zh_CN]=新建球手(&N)
 Comment=A new player joins the game
 Comment[ca]=Un jugador nou s'ha unit al joc
 Comment[ca@valencia]=Un jugador nou s'ha unit al joc
@@ -140,6 +144,7 @@ Comment[sl]=Nov igralec se je pridružil igri
 Comment[sv]=En ny spelare har gått med
 Comment[uk]=До гри долучається новий користувач
 Comment[x-test]=xxA new player joins the gamexx
+Comment[zh_CN]=一位新玩家加入了游戏
 
 [Event/newgame]
 Name=New game
@@ -162,6 +167,7 @@ Name[sl]=Nova igra
 Name[sv]=Nytt spel
 Name[uk]=Нова гра
 Name[x-test]=xxNew gamexx
+Name[zh_CN]=新游戏
 Comment=A new game is created
 Comment[ca]=S'ha creat una partida nova
 Comment[ca@valencia]=S'ha creat una partida nova
@@ -180,3 +186,4 @@ Comment[sl]=Ustvarjena je nova igra
 Comment[sv]=Ett nytt spel har skapats
 Comment[uk]=Створено гру
 Comment[x-test]=xxA new game is createdxx
+Comment[zh_CN]=新游戏已创建
