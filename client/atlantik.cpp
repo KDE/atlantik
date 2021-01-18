@@ -689,7 +689,11 @@ void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 		KNotification::event(QStringLiteral("chat"), QStringLiteral("%1: %2").arg(player, msg.toHtmlEscaped()));
 	if (m_atlantikNetwork->isConnected() && playerSelf && msg.startsWith(QLatin1Char('!')))
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+		const QVector<QStringRef> &parts = msg.splitRef(QLatin1Char(' '), Qt::SkipEmptyParts);
+#else
 		const QVector<QStringRef> &parts = msg.splitRef(QLatin1Char(' '), QString::SkipEmptyParts);
+#endif
 		Q_ASSERT(!parts.isEmpty());
 		if (commandForMe(parts, playerSelf->name()))
 		{
