@@ -162,7 +162,8 @@ void AtlantikNetwork::writeData(const QString &data) {
 
 	emit networkEvent(data, ET_NetOut);
 	//data.append("\n");
-	m_monopdstream << data << endl;
+	m_monopdstream << data << '\n';
+	m_monopdstream.flush();
 	qCDebug(LIBATLANTIKCLIENT_LOG) << "writing data:" << data;
 
 }

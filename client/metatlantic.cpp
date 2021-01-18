@@ -127,8 +127,10 @@ void Metatlantic::processMsg(const QString &msg)
 			qCDebug(ATLANTIK_LOG) << "ignored TAG:" << name;
 		reader.skipCurrentElement();
 	}
-	if (do_send_follow)
-		m_stream << "FOLLOW" << endl;
+	if (do_send_follow) {
+		m_stream << "FOLLOW" << '\n';
+		m_stream.flush();
+	}
 	if (do_close)
 		closeSocket();
 }

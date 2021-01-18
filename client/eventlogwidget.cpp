@@ -68,7 +68,7 @@ void EventLog::clear()
 void EventLog::saveAsText(QTextStream &stream) const
 {
 	foreach (Event *e, m_events)
-		stream << e->dateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) << " " << e->description() << endl;
+		stream << e->dateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) << " " << e->description() << '\n';
 }
 
 int EventLog::columnCount(const QModelIndex &parent) const
@@ -263,9 +263,8 @@ void EventLogWidget::save()
 	{
 		QTextStream stream(&file);
 
-		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) ) << endl;
+		stream << i18n( "Atlantik log file, saved at %1.", QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) ) << '\n';
 
 		m_eventLog->saveAsText(stream);
-		file.close();
 	}
 }
