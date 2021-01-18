@@ -116,7 +116,7 @@ QStringList TokenTheme::themeNames()
 		}
 	);
 
-	return set.toList();
+	return set.values();
 }
 
 QVector<TokenTheme> TokenTheme::themes()
