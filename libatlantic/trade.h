@@ -137,7 +137,7 @@ private Q_SLOTS:
 	/**
 	 * tell someone that this changed
 	 **/
-//	void changed(TradeItem *i) { emit itemChanged(i); }
+//	void changed(TradeItem *i) { Q_EMIT itemChanged(i); }
 
 public:
 	void update(bool force = false);

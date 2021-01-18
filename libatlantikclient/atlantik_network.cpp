@@ -94,7 +94,7 @@ bool AtlantikNetwork::isConnected() const
 
 void AtlantikNetwork::slotwriteData(const QString &msg)
 {
-	emit networkEvent(msg, ET_NetOut);
+	Q_EMIT networkEvent(msg, ET_NetOut);
 
 }
 
@@ -125,7 +125,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString &host, int port)
 {
-	emit msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), ET_NetGeneric);
+	Q_EMIT msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), ET_NetGeneric);
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connectToHost(host, port);
@@ -133,34 +133,34 @@ void AtlantikNetwork::serverConnect(const QString &host, int port)
 
 void AtlantikNetwork::slotLookupFinished()
 {
-	emit msgStatus(i18n("Server host name lookup finished..."), ET_NetGeneric);
+	Q_EMIT msgStatus(i18n("Server host name lookup finished..."), ET_NetGeneric);
 }
 
 void AtlantikNetwork::slotConnectionSuccess()
 {
-	emit msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)), ET_NetConnected);
+	Q_EMIT msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)), ET_NetConnected);
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
 
-	emit connectionSuccess();
+	Q_EMIT connectionSuccess();
 }
 
 void AtlantikNetwork::slotConnectionFailed(QAbstractSocket::SocketError error)
 {
-	emit connectionFailed(error);
-	emit msgStatus(i18n("Connection failed! Error code: %1", error), ET_NetError);
+	Q_EMIT connectionFailed(error);
+	Q_EMIT msgStatus(i18n("Connection failed! Error code: %1", error), ET_NetError);
 }
 
 void AtlantikNetwork::slotDisconnected()
 {
-	emit msgStatus(i18n("Disconnected from %1:%2.", m_host, QString::number(m_port)), ET_NetGeneric);
-	emit disconnected();
+	Q_EMIT msgStatus(i18n("Disconnected from %1:%2.", m_host, QString::number(m_port)), ET_NetGeneric);
+	Q_EMIT disconnected();
 }
 
 void AtlantikNetwork::writeData(const QString &data) {
 
-	emit networkEvent(data, ET_NetOut);
+	Q_EMIT networkEvent(data, ET_NetOut);
 	//data.append("\n");
 	m_monopdstream << data << '\n';
 	m_monopdstream.flush();
@@ -327,7 +327,7 @@ void AtlantikNetwork::changeOption(int configId, const QString &value)
 
 
 void AtlantikNetwork::processMsg(const QString &msg) {
-    emit networkEvent(msg, ET_NetIn);
+    Q_EMIT networkEvent(msg, ET_NetIn);
     qCDebug(LIBATLANTIKCLIENT_LOG) << msg;
     QDomDocument dom;
     dom.setContent(msg);
@@ -354,16 +354,16 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 if ( !a.isNull() )
                     m_serverVersion = a.value();
                     qCDebug(LIBATLANTIKCLIENT_LOG) << "receivedHandshake";
-                emit receivedHandshake();
+                Q_EMIT receivedHandshake();
             } else if (e.tagName() == QLatin1String("msg")) {
                 a = e.attributeNode(QStringLiteral("type"));
                 if (!a.isNull()) {
                     if (a.value() == QLatin1String("error"))
-                        emit msgError(e.attributeNode(QStringLiteral("value")).value());
+                        Q_EMIT msgError(e.attributeNode(QStringLiteral("value")).value());
                     else if (a.value() == QLatin1String("info"))
-                        emit msgInfo(e.attributeNode(QStringLiteral("value")).value());
+                        Q_EMIT msgInfo(e.attributeNode(QStringLiteral("value")).value());
                     else if (a.value() == QLatin1String("chat"))
-                        emit msgChat(e.attributeNode(QStringLiteral("author")).value(), e.attributeNode(QStringLiteral("value")).value());
+                        Q_EMIT msgChat(e.attributeNode(QStringLiteral("author")).value(), e.attributeNode(QStringLiteral("value")).value());
                 }
             } else if (e.tagName() == QLatin1String("display")) {
                 Estate *estate = nullptr;
@@ -375,22 +375,22 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     hasEstateId = true;
                 }
                 if (hasEstateId) {
-                    emit displayDetails(e.attributeNode(QStringLiteral("text")).value(), e.attributeNode(QStringLiteral("cleartext")).value().toInt(), e.attributeNode(QStringLiteral("clearbuttons")).value().toInt(), estate);
+                    Q_EMIT displayDetails(e.attributeNode(QStringLiteral("text")).value(), e.attributeNode(QStringLiteral("cleartext")).value().toInt(), e.attributeNode(QStringLiteral("clearbuttons")).value().toInt(), estate);
                 } else {
-                    emit displayText(e.attributeNode(QStringLiteral("text")).value(), e.attributeNode(QStringLiteral("cleartext")).value().toInt(), e.attributeNode(QStringLiteral("clearbuttons")).value().toInt());
+                    Q_EMIT displayText(e.attributeNode(QStringLiteral("text")).value(), e.attributeNode(QStringLiteral("cleartext")).value().toInt(), e.attributeNode(QStringLiteral("clearbuttons")).value().toInt());
                 }
 
                     bool hasButtons = false;
                     for( QDomNode nButtons = n.firstChild() ; !nButtons.isNull() ; nButtons = nButtons.nextSibling() ) {
                         QDomElement eButton = nButtons.toElement();
                         if (!eButton.isNull() && eButton.tagName() == QLatin1String("button")) {
-                            emit addCommandButton(eButton.attributeNode(QStringLiteral("command")).value(), eButton.attributeNode(QStringLiteral("caption")).value(), eButton.attributeNode(QStringLiteral("enabled")).value().toInt());
+                            Q_EMIT addCommandButton(eButton.attributeNode(QStringLiteral("command")).value(), eButton.attributeNode(QStringLiteral("caption")).value(), eButton.attributeNode(QStringLiteral("enabled")).value().toInt());
                             hasButtons = true;
                         }
                     }
 
                     if (!hasButtons)
-                        emit addCloseButton();
+                        Q_EMIT addCloseButton();
             } else if (e.tagName() == QLatin1String("client")) {
                 a = e.attributeNode(QStringLiteral("playerid"));
                 if (!a.isNull())
@@ -398,7 +398,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
 
                 a = e.attributeNode(QStringLiteral("cookie"));
                 if (!a.isNull())
-                    emit clientCookie(a.value());
+                    Q_EMIT clientCookie(a.value());
             } else if (e.tagName() == QLatin1String("configupdate")) {
                 Game *game = nullptr;
                 a = e.attributeNode(QStringLiteral("gameid"));
@@ -504,13 +504,13 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     QString status = e.attributeNode(QStringLiteral("status")).value();
                     if ( m_serverVersion.left(4) == QLatin1String("0.9.") || (playerSelf && playerSelf->game() == game) ) {
                         if (status == QLatin1String("config"))
-                            emit gameConfig();
+                            Q_EMIT gameConfig();
                         else if (status == QLatin1String("init"))
-                            emit gameInit();
+                            Q_EMIT gameInit();
                         else if (status == QLatin1String("run"))
-                            emit gameRun();
+                            Q_EMIT gameRun();
                         else if (status == QLatin1String("end"))
-                            emit gameEnd();
+                            Q_EMIT gameEnd();
                     }
 
                     if (game)
@@ -665,7 +665,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     // TODO:  port to atlanticcore and create view there
                     if (estateGroup) {
                         if (b_newEstateGroup)
-                            emit newEstateGroup(estateGroup);
+                            Q_EMIT newEstateGroup(estateGroup);
                         estateGroup->update();
                     }
                 }
@@ -777,7 +777,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     // TODO:  port to atlanticcore and create view there
                     if (estate) {
                         if (b_newEstate)
-                            emit newEstate(estate);
+                            Q_EMIT newEstate(estate);
                         estate->update();
                     }
                 }
@@ -822,7 +822,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                             n_player = n_player.nextSibling();
                         }
                     } else if (type == QLatin1String("accepted") && trade)
-                        emit msgTradeUpdateAccepted(trade);
+                        Q_EMIT msgTradeUpdateAccepted(trade);
                     else if (type == QLatin1String("completed") && trade) {
                         m_atlanticCore->removeTrade(trade);
                         trade = nullptr;
@@ -938,7 +938,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                     // TODO:  port to atlanticcore and create view there
                     if (auction) {
                         if (b_newAuction)
-                            emit newAuction(auction);
+                            Q_EMIT newAuction(auction);
                         auction->update();
                     }
                 }

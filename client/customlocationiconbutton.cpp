@@ -77,7 +77,7 @@ void CustomLocationIconButton::slotChooseImage()
 	m_image = QFileInfo(image).fileName();
 
 	setImage(m_image);
-	emit imageChanged(m_image);
+	Q_EMIT imageChanged(m_image);
 }
 
 bool CustomLocationIconButton::checkValid() const

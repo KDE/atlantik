@@ -209,11 +209,11 @@ void SelectGame::connectClicked()
 		{
 			Game *game = m_atlanticCore->findGame(item->text(2).toInt());
 			if (!game->canBeJoined() && game->canBeWatched())
-				emit watchGame(gameId);
+				Q_EMIT watchGame(gameId);
 			else
-				emit joinGame(gameId);
+				Q_EMIT joinGame(gameId);
 		}
 		else
-			emit newGame(item->data(0, GameTypeRole).toString());
+			Q_EMIT newGame(item->data(0, GameTypeRole).toString());
 	}
 }

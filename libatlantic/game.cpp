@@ -101,7 +101,7 @@ void Game::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed(this);
+		Q_EMIT changed(this);
 		m_changed = false;
 	}
 }
@@ -156,13 +156,13 @@ QList<ConfigOption *> Game::configOptions() const
 void Game::addConfigOption(ConfigOption *configOption)
 {
 	m_configOptions.append(configOption);
-	emit createGUI(configOption);
+	Q_EMIT createGUI(configOption);
 }
 
 void Game::removeConfigOption(ConfigOption *configOption)
 {
 	m_configOptions.removeOne(configOption);
-	emit removeGUI(configOption);
+	Q_EMIT removeGUI(configOption);
 	configOption->deleteLater();
 }
 

@@ -329,7 +329,7 @@ void AtlantikBoard::jumpToken(Token *token)
 			m_movingToken = nullptr;
 	}
 
-	emit tokenConfirmation(token->location());
+	Q_EMIT tokenConfirmation(token->location());
 }
 
 void AtlantikBoard::moveToken(Token *token)
@@ -437,7 +437,7 @@ void AtlantikBoard::slotMoveToken()
 	// We have arrived at our destination!
 	m_movingToken->setLocation(eDest);
 	m_movingToken->player()->setLocation(eDest);
-	emit tokenConfirmation(eDest);
+	Q_EMIT tokenConfirmation(eDest);
 
 	// We have arrived at our _final_ destination!
 	if (eDest == m_movingToken->destination())

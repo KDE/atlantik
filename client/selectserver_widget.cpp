@@ -164,7 +164,7 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 void SelectServer::initMetaserver()
 {
 	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
-	emit msgStatus(i18n("Retrieving server list..."));
+	Q_EMIT msgStatus(i18n("Retrieving server list..."));
 
 	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), QStringLiteral("view-refresh")));
 	m_metatlantic = new Metatlantic(QString::fromLatin1(METATLANTIC_HOST), METATLANTIC_PORT);
@@ -193,9 +193,9 @@ void SelectServer::slotMetatlanticAdd(const QString &host, int port, const QStri
 void SelectServer::metatlanticFinished()
 {
 	if (m_metatlantic->error())
-		emit msgStatus(i18n("Error while retrieving the server list."));
+		Q_EMIT msgStatus(i18n("Error while retrieving the server list."));
 	else
-		emit msgStatus(i18n("Retrieved server list."));
+		Q_EMIT msgStatus(i18n("Retrieved server list."));
 	m_metatlantic = nullptr;
 	m_refreshButton->setEnabled(true);
 }
@@ -231,12 +231,12 @@ void SelectServer::slotConnect()
 		const QTreeWidgetItem *item = items.first();
 		Q_ASSERT(item->type() == MetaserverEntry::MetaserverType);
 		const MetaserverEntry *e = static_cast<const MetaserverEntry *>(item);
-		emit serverConnect(e->host(), e->port());
+		Q_EMIT serverConnect(e->host(), e->port());
 	}
 }
 
 void SelectServer::customConnect()
 {
 	if (!m_hostEdit->text().isEmpty() && !m_portEdit->text().isEmpty())
-		emit serverConnect(m_hostEdit->text(), m_portEdit->text().toInt());
+		Q_EMIT serverConnect(m_hostEdit->text(), m_portEdit->text().toInt());
 }

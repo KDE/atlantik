@@ -43,13 +43,13 @@ int Trade::revision() const
 void Trade::addPlayer(Player *player)
 {
 	m_playerAcceptMap[player] = false;
-	emit playerAdded(player);
+	Q_EMIT playerAdded(player);
 }
 
 void Trade::removePlayer(Player *player)
 {
 	m_playerAcceptMap[player] = false;
-	emit playerRemoved(player);
+	Q_EMIT playerRemoved(player);
 }
 
 unsigned int Trade::count( bool acceptOnly ) const
@@ -91,7 +91,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		else
 		{
 			mTradeItems.removeOne(t);
-			emit itemRemoved(t);
+			Q_EMIT itemRemoved(t);
 			t->deleteLater();
 		}
 	}
@@ -101,7 +101,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 		t = new TradeEstate(estate, this, to);
 		
 		mTradeItems.append(t);
-		emit itemAdded(t);
+		Q_EMIT itemAdded(t);
 	}
 }
 
@@ -132,7 +132,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		else
 		{
 			mTradeItems.removeOne(t);
-			emit itemRemoved(t);
+			Q_EMIT itemRemoved(t);
 			t->deleteLater();
 		}
 	}
@@ -142,7 +142,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 		t = new TradeMoney(money, this, from, to);
 		
 		mTradeItems.append(t);
-		emit itemAdded(t);
+		Q_EMIT itemAdded(t);
 	}
 }
 
@@ -173,7 +173,7 @@ void Trade::updateCard(Card *card, Player *to)
 		else
 		{
 			mTradeItems.removeOne(t);
-			emit itemRemoved(t);
+			Q_EMIT itemRemoved(t);
 			t->deleteLater();
 		}
 	}
@@ -183,7 +183,7 @@ void Trade::updateCard(Card *card, Player *to)
 		t = new TradeCard(card, this, to);
 		
 		mTradeItems.append(t);
-		emit itemAdded(t);
+		Q_EMIT itemAdded(t);
 	}
 }
 
@@ -193,23 +193,23 @@ void Trade::updateAccept(Player *player, bool accept)
 	if (m_playerAcceptMap[player] != accept)
 	{
 		m_playerAcceptMap[player] = accept;
-		emit acceptChanged(player, accept);
+		Q_EMIT acceptChanged(player, accept);
 		m_changed = true;
 	} else if (!hadItem)
-		emit acceptChanged(player, accept);
+		Q_EMIT acceptChanged(player, accept);
 }
 
 void Trade::reject(Player *player)
 {
 	m_rejected = true;
-	emit rejected(player);
+	Q_EMIT rejected(player);
 }
 
 void Trade::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed(this);
+		Q_EMIT changed(this);
 		m_changed = false;
 	}
 }
@@ -222,7 +222,7 @@ TradeItem::TradeItem(Trade *trade, Player *from, Player *to) : mFrom(from), mTo(
 
 void TradeItem::playerChanged()
 {
-	emit changed(this);
+	Q_EMIT changed(this);
 }
 
 TradeEstate::TradeEstate(Estate *estate, Trade *trade, Player *to) : TradeItem(trade, estate->owner(), to), mEstate(estate)
@@ -243,7 +243,7 @@ void TradeMoney::setMoney(unsigned int money)
 	if (m_money != money)
 	{
 		m_money = money;
-		emit changed(this);
+		Q_EMIT changed(this);
 	}
 }
 

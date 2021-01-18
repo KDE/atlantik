@@ -213,7 +213,7 @@ void TradeDisplay::closeEvent(QCloseEvent *e)
 	if (m_trade->isRejected())
 		m_atlanticCore->removeTrade(m_trade);
 	else
-		emit reject(m_trade);
+		Q_EMIT reject(m_trade);
 
 	e->accept();
 }
@@ -448,7 +448,7 @@ void TradeDisplay::updateComponent()
 		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
 
 		if (estate && pTarget)
-			emit updateEstate(m_trade, estate, pTarget);
+			Q_EMIT updateEstate(m_trade, estate, pTarget);
 
 		break;
 
@@ -458,7 +458,7 @@ void TradeDisplay::updateComponent()
 		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
 
 		if (pFrom && pTarget)
-			emit updateMoney(m_trade, m_moneyBox->value(), pFrom, pTarget);
+			Q_EMIT updateMoney(m_trade, m_moneyBox->value(), pFrom, pTarget);
 
 		break;
 
@@ -468,7 +468,7 @@ void TradeDisplay::updateComponent()
 		pTarget = m_playerTargetMap[m_playerTargetCombo->currentIndex()];
 
 		if (card && pTarget)
-			emit updateCard(m_trade, card, pTarget);
+			Q_EMIT updateCard(m_trade, card, pTarget);
 
 		break;
 	}
@@ -476,12 +476,12 @@ void TradeDisplay::updateComponent()
 
 void TradeDisplay::reject()
 {
-	emit reject(m_trade);
+	Q_EMIT reject(m_trade);
 }
 
 void TradeDisplay::accept()
 {
-	emit accept(m_trade);
+	Q_EMIT accept(m_trade);
 }
 
 void TradeDisplay::contextMenu(const QPoint &pos)
@@ -505,11 +505,11 @@ void TradeDisplay::contextMenuClickedRemove()
 		return;
 
 	if (TradeEstate *tradeEstate = dynamic_cast<TradeEstate*>(m_contextTradeItem))
-		emit updateEstate(m_trade, tradeEstate->estate(), nullptr);
+		Q_EMIT updateEstate(m_trade, tradeEstate->estate(), nullptr);
 	else if (TradeMoney *tradeMoney = dynamic_cast<TradeMoney*>(m_contextTradeItem))
-		emit updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
+		Q_EMIT updateMoney(m_trade, 0, tradeMoney->from(), tradeMoney->to());
 	else if (TradeCard *tradeCard = dynamic_cast<TradeCard*>(m_contextTradeItem))
-		emit updateCard(m_trade, tradeCard->card(), nullptr);
+		Q_EMIT updateCard(m_trade, tradeCard->card(), nullptr);
 
 	m_contextTradeItem = nullptr;
 }

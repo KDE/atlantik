@@ -95,7 +95,7 @@ void Player::setHasTurn(bool hasTurn)
 		m_hasTurn = hasTurn;
 		m_changed = true;
 		if (m_hasTurn && m_isSelf)
-			emit gainedTurn();
+			Q_EMIT gainedTurn();
 	}
 }
 
@@ -193,7 +193,7 @@ void Player::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed(this);
+		Q_EMIT changed(this);
 		m_changed = false;
 	}
 }

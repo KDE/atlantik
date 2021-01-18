@@ -475,32 +475,32 @@ void EstateView::contextMenuEvent(QContextMenuEvent *)
 void EstateView::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::LeftButton)
-		emit LMBClicked(m_estate);
+		Q_EMIT LMBClicked(m_estate);
 }
 
 void EstateView::slotToggleMortgage()
 {
-	emit estateToggleMortgage(m_estate);
+	Q_EMIT estateToggleMortgage(m_estate);
 }
 
 void EstateView::slotHouseBuy()
 {
-	emit estateHouseBuy(m_estate);
+	Q_EMIT estateHouseBuy(m_estate);
 }
 
 void EstateView::slotHouseSell()
 {
-	emit estateHouseSell(m_estate);
+	Q_EMIT estateHouseSell(m_estate);
 }
 
 void EstateView::slotSell()
 {
-	emit estateSell(m_estate);
+	Q_EMIT estateSell(m_estate);
 }
 
 void EstateView::slotNewTrade()
 {
-	emit newTrade(m_estate->owner());
+	Q_EMIT newTrade(m_estate->owner());
 }
 
 // Kudos to Gallium <gallium@kde.org> for writing the Quartz KWin style and

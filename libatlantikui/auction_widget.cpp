@@ -163,7 +163,7 @@ void AuctionWidget::updateBid(Player *player, int amount)
 
 void AuctionWidget::slotBidButtonClicked()
 {
-	emit bid(m_auction, m_ui->bidSpinBox->value());
+	Q_EMIT bid(m_auction, m_ui->bidSpinBox->value());
 }
 
 QTreeWidgetItem *AuctionWidget::createPlayerItem(Player *player)

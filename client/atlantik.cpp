@@ -852,7 +852,7 @@ void Atlantik::sendHandshake()
 	if (m_reconnecting)
 	{
 		m_reconnecting = false;
-		emit reconnect(m_reconnectCookie->cookie());
+		Q_EMIT reconnect(m_reconnectCookie->cookie());
 		m_reconnectCookie.reset();
 		return;
 	}

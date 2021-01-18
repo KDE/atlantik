@@ -122,5 +122,5 @@ void PortfolioEstate::paintEvent(QPaintEvent *e)
 void PortfolioEstate::mousePressEvent(QMouseEvent *e)
 {
 	if (e->button()==Qt::LeftButton)
-		emit estateClicked(m_estate);
+		Q_EMIT estateClicked(m_estate);
 }

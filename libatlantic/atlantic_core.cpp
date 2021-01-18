@@ -47,7 +47,7 @@ void AtlanticCore::reset(bool deletePermanents)
 
 	foreach (Trade *trade, m_trades)
 	{
-		emit removeGUI(trade);
+		Q_EMIT removeGUI(trade);
 		trade->deleteLater();
 	}
 	m_trades.clear();
@@ -56,7 +56,7 @@ void AtlanticCore::reset(bool deletePermanents)
 	{
 		if (deletePermanents)
 		{
-			emit removeGUI(player);
+			Q_EMIT removeGUI(player);
 			player->deleteLater();
 		}
 		else
@@ -72,7 +72,7 @@ void AtlanticCore::reset(bool deletePermanents)
 
 		foreach (Game *game, m_games)
 		{
-			emit removeGUI(game);
+			Q_EMIT removeGUI(game);
 			game->deleteLater();
 		}
 		m_games.clear();
@@ -122,7 +122,7 @@ Player *AtlanticCore::newPlayer(int playerId, bool playerSelf)
 		m_playerSelf = player;
 	}
 
-	emit createGUI(player);
+	Q_EMIT createGUI(player);
 
 	return player;
 }
@@ -139,7 +139,7 @@ Player *AtlanticCore::findPlayer(int playerId) const
 void AtlanticCore::removePlayer(Player *player)
 {
 	m_players.removeOne(player);
-	emit removeGUI(player);
+	Q_EMIT removeGUI(player);
 	if (player == m_playerSelf)
 		m_playerSelf = nullptr;
 	player->deleteLater();
@@ -158,7 +158,7 @@ Game *AtlanticCore::newGame(int gameId, const QString &type)
 	if ( !type.isNull() )
 		game->setType(type);
 
-	emit createGUI(game);
+	Q_EMIT createGUI(game);
 
 	return game;
 }
@@ -198,14 +198,14 @@ void AtlanticCore::removeGame(Game *game)
 			player->setGame(nullptr);
 			player->update();
 		}
-	emit removeGUI(game);
+	Q_EMIT removeGUI(game);
 	game->deleteLater();
 }
 
 void AtlanticCore::emitGames()
 {
 	foreach (Game *game, m_games)
-		emit createGUI(game);
+		Q_EMIT createGUI(game);
 }
 
 QList<Estate *> AtlanticCore::estates() const
@@ -272,7 +272,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 	Trade *trade = new Trade(tradeId);
 	m_trades.append(trade);
 
-	emit createGUI(trade);
+	Q_EMIT createGUI(trade);
 
 	return trade;
 }
@@ -289,7 +289,7 @@ Trade *AtlanticCore::findTrade(int tradeId) const
 void AtlanticCore::removeTrade(Trade *trade)
 {
 	m_trades.removeOne(trade);
-	emit removeGUI(trade);
+	Q_EMIT removeGUI(trade);
 	trade->deleteLater();
 }
 

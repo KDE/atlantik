@@ -36,7 +36,7 @@ void EstateGroup::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed();
+		Q_EMIT changed();
 		m_changed = false;
 	}
 }

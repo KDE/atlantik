@@ -290,10 +290,10 @@ void PortfolioView::contextMenuEvent(QContextMenuEvent *e)
 
 void PortfolioView::slotMenuActionTrade()
 {
-	emit newTrade(m_player);
+	Q_EMIT newTrade(m_player);
 }
 
 void PortfolioView::slotMenuActionKick()
 {
-	emit kickPlayer(m_player);
+	Q_EMIT kickPlayer(m_player);
 }

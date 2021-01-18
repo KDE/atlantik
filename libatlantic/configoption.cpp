@@ -103,7 +103,7 @@ void ConfigOption::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed(this);
+		Q_EMIT changed(this);
 		m_changed = false;
 	}
 }

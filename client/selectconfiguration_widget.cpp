@@ -83,7 +83,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 		connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
 
-	emit statusMessage(i18n("Retrieving configuration list..."));
+	Q_EMIT statusMessage(i18n("Retrieving configuration list..."));
 
 	if (m_game) {
 		foreach (ConfigOption *opt, m_game->configOptions())
@@ -97,7 +97,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 void SelectConfiguration::initGame()
 {
-	emit statusMessage(i18n("Game started. Retrieving full game data..."));
+	Q_EMIT statusMessage(i18n("Game started. Retrieving full game data..."));
 }
 
 void SelectConfiguration::addConfigOption(ConfigOption *configOption)
@@ -164,7 +164,7 @@ void SelectConfiguration::changeOption()
 	if (configOption)
 	{
 		qCDebug(ATLANTIK_LOG) << "checked" << ((QCheckBox *)QObject::sender())->isChecked();
-		emit changeOption( configOption->id(), QString::number( ((QCheckBox *)QObject::sender())->isChecked() ) );
+		Q_EMIT changeOption( configOption->id(), QString::number( ((QCheckBox *)QObject::sender())->isChecked() ) );
 	}
 }
 
@@ -186,13 +186,13 @@ void SelectConfiguration::optionChanged()
 	if (QCheckBox *checkBox = m_checkBoxMap[command])
 	{
 		command.append(QString::number(checkBox->isChecked()));
-		emit buttonCommand(command);
+		Q_EMIT buttonCommand(command);
 	}
 }
 
 void SelectConfiguration::slotEndUpdate()
 {
-	emit statusMessage(i18n("Retrieved configuration list."));
+	Q_EMIT statusMessage(i18n("Retrieved configuration list."));
 }
 
 void SelectConfiguration::playerChanged(Player *player)

@@ -29,7 +29,7 @@ Auction::Auction(int auctionId, Estate *estate)
 
 Auction::~Auction()
 {
-	emit completed();
+	Q_EMIT completed();
 }
 
 void Auction::setStatus(int status)
@@ -43,14 +43,14 @@ void Auction::setStatus(int status)
 
 void Auction::newBid(Player *player, int amount)
 {
-	emit updateBid(player, amount);
+	Q_EMIT updateBid(player, amount);
 }
 
 void Auction::update(bool force)
 {
 	if (m_changed || force)
 	{
-		emit changed();
+		Q_EMIT changed();
 		m_changed = false;
 	}
 }

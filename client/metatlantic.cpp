@@ -120,7 +120,7 @@ void Metatlantic::processMsg(const QString &msg)
 			const int port = attrs.value(QStringLiteral("port")).toInt();
 			const QString version = attrs.value(QStringLiteral("version")).toString();
 			const int users = attrs.value(QStringLiteral("users")).toInt();
-			emit metatlanticAdd(host, port, version, users);
+			Q_EMIT metatlanticAdd(host, port, version, users);
 			do_close = true;
 		}
 		else
