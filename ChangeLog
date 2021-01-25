@@ -3,7 +3,7 @@
 
 - ported to Qt 5 + KDE Frameworks 5
   - thanks to the many people in the KDE community that worked on the
-    KDE 4 port, started 12 years ago
+    KDE 4 port, started 15 years ago
   - use categorized logging (#139174)
 - switch from Monopigator to Metatlantic as meta-server
 - track cards, and support trading them; they are not shown in portfolios
@@ -18,6 +18,11 @@
 - add an action to leave a game, with no need to quit Atlantik
   (point (4) of #77941; #112046)
 - add a button in the log viewer to remove all the messages
+- add !cmd chat pseudo-commands that GtkAtlantic recognizes
+  - !date: replies with the current date/time on the client side
+  - !ping: replies with "pong"
+  - !version: replies with name and version of the client
+- drop kio_atlantik: the concept was not used in the end
 - fix unitialised memory, and memory leaks
 - various optimizations
 - other minor changes and fixes
