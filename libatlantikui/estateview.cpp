@@ -15,7 +15,6 @@
 // Boston, MA 02110-1301, USA.
 
 #include <qpainter.h>
-#include <qcursor.h>
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QLinearGradient>
@@ -410,7 +409,7 @@ void EstateView::resizeEvent(QResizeEvent *)
 	b_recreate = true;
 }
 
-void EstateView::contextMenuEvent(QContextMenuEvent *)
+void EstateView::contextMenuEvent(QContextMenuEvent *e)
 {
 	if (m_estate->isOwned())
 	{
@@ -466,8 +465,7 @@ void EstateView::contextMenuEvent(QContextMenuEvent *)
 				rmbMenu->addAction(i18n("Request Trade with %1", player->name()), this, SLOT(slotNewTrade()));
 		}
 
-		QPoint g = QCursor::pos();
-		rmbMenu->exec(g);
+		rmbMenu->exec(e->globalPos());
 		delete rmbMenu;
 	}
 }
