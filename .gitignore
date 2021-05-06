@@ -1,2 +1,8 @@
 build/
 doc/*.html
+/.clang-format
+/compile_commands.json
+.clangd
+.cache
+.idea
+/cmake-build*
