@@ -85,10 +85,14 @@ board game known as &Monopoly;.</para>
 <refsect1>
 <title>See Also</title>
 
-<para>More detailed user documentation is available from <ulink
+<simplelist>
+<member>More detailed user documentation is available from <ulink
 url="help:/atlantik">help:/atlantik</ulink> (either enter this
 &URL;, or run <userinput><command>khelpcenter</command>
-<parameter>help:/atlantik</parameter></userinput>).</para>
+<parameter>help:/atlantik</parameter></userinput>).</member>
+<member>kf5options(7)</member>
+<member>qt5options(7)</member>
+</simplelist>
 
 </refsect1>
 
