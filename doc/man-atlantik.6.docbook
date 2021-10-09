@@ -8,15 +8,16 @@
 
 <refentry lang="&language;">
 <refentryinfo>
-<title>Atlantik User's Manual</title>
+<title>&atlantik; Manual Page</title>
 <author><firstname>Lauri</firstname><surname>Watts</surname>
-<contrib>Atlantik man page.</contrib>
-<email>lauri@kde.org</email></author>
+<contrib>&atlantik; man page.</contrib>
+&Lauri.Watts.mail;</author>
 <author><firstname>Pino</firstname><surname>Toscano</surname>
-<contrib>Atlantik man page.</contrib>
+<contrib>&atlantik; man page.</contrib>
 <email>pino@kde.org</email></author>
-<date>2017-05-13</date>
-<releaseinfo>Atlantik 0.7.80</releaseinfo>
+<date>2021-10-10</date>
+<releaseinfo>(KDE Gear 21.08)</releaseinfo>
+<productname>&atlantik; 0.7</productname>
 </refentryinfo>
 
 <refmeta>
@@ -26,13 +27,13 @@
 
 <refnamediv>
 <refname>atlantik</refname>
-<refpurpose>&kde; monopd client</refpurpose>
+<refpurpose>A monopd client</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv id='synopsis'>
 <cmdsynopsis>
 <command>atlantik</command>
-<arg choice="opt"><replaceable>Atlantik options</replaceable></arg>
+<arg choice="opt"><replaceable>options</replaceable></arg>
 
 </cmdsynopsis>
 </refsynopsisdiv>
@@ -41,7 +42,7 @@
 <title>Description</title>
 
 <para>
-&atlantik; is a &kde; client for playing &Monopoly;-like board games on the
+&atlantik; is a client for playing &Monopoly;-like board games on the
 &monopd; network.
 </para>
 
@@ -57,7 +58,7 @@ board game known as &Monopoly;.</para>
 </refsect1>
 
 <refsect1 id="options">
-<title>Atlantik options</title>
+<title>Options</title>
 
 <variablelist>
 <title>&atlantik; options</title>
@@ -70,12 +71,12 @@ board game known as &Monopoly;.</para>
 
 <varlistentry>
 <term><option>-p, --port</option> <parameter>port</parameter></term>
-<listitem><para>Connect to this port</para></listitem>
+<listitem><para>Connect to this port.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><option>-g, --game</option> <parameter>game</parameter></term>
-<listitem><para>Join this game</para></listitem>
+<listitem><para>Join this game.</para></listitem>
 </varlistentry>
 </variablelist>
 
@@ -84,15 +85,10 @@ board game known as &Monopoly;.</para>
 <refsect1>
 <title>See Also</title>
 
-<simplelist>
-<member>More detailed user documentation is available from <ulink
+<para>More detailed user documentation is available from <ulink
 url="help:/atlantik">help:/atlantik</ulink> (either enter this
-<acronym>URL</acronym> into &konqueror;, or run
-<userinput><command>khelpcenter</command>
-<parameter>help:/atlantik</parameter></userinput>).</member>
-<member>kf5options(7)</member>
-<member>qt5options(7)</member>
-</simplelist>
+&URL;, or run <userinput><command>khelpcenter</command>
+<parameter>help:/atlantik</parameter></userinput>).</para>
 
 </refsect1>
 

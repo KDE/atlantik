@@ -34,8 +34,7 @@
 
 <abstract>
 <para>
-&atlantik; is a &kde; client for playing &Monopoly;-like board games on the
-&monopd; network.
+&atlantik; is a client for playing &Monopoly;-like board games on the &monopd; network.
 </para>
 
 </abstract>
@@ -43,7 +42,7 @@
 
 <keywordset>
 <keyword>KDE</keyword>
-<keyword>kdegames</keyword>
+<keyword>network client</keyword>
 <keyword>Atlantik</keyword>
 <keyword>monopd</keyword>
 </keywordset>
@@ -72,7 +71,7 @@ Internet connection, you can request a list of public Internet servers and
 you will not require additional software. If you want to play &atlantik;
 locally, on a <acronym>LAN</acronym> or on a private Internet server, you
 can enter the hostname and port to connect to. In this case, you will need
-the <ulink url="http://gtkatlantic.gradator.net/">&monopd;</ulink> server
+the <ulink url="https://gtkatlantic.gradator.net/">&monopd;</ulink> server
 software installed and running on the host you are connecting to.</para>
 
 <para>If you have problems connecting to a server, the following troubleshoot
@@ -100,13 +99,13 @@ your system administrator.</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice>
-<guimenu>Game</guimenu><guimenuitem>Show Event Log</guimenuitem></menuchoice></term>
+<guimenu>Game</guimenu><guimenuitem>Show Event Log...</guimenuitem></menuchoice></term>
 <listitem><para><action>Display</action> the event log window.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
-<guimenu>Game</guimenu><guimenuitem>Reconnect (after crash)</guimenuitem></menuchoice></term>
+<guimenu>Game</guimenu><guimenuitem>Reconnect (After Crash)</guimenuitem></menuchoice></term>
 <listitem><para><action>Reconnect</action> to the last game. This is available
 only in case &atlantik; did not quit cleanly from a game (usually because it
 crashed), and cannot be done anymore once you connect to a server.</para></listitem>
@@ -249,7 +248,7 @@ involved with tradeable items.</para>
 
 </chapter>
 
-&documentation.index; 
+&documentation.index;
 
 </book>
 
