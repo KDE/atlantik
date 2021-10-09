@@ -105,10 +105,10 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Toolbar: Game
         m_showEventLog = actionCollection()->addAction(QStringLiteral("showeventlog"));
-        m_showEventLog->setText(i18n("Show Event &Log"));
+        m_showEventLog->setText(i18n("Show Event &Log..."));
 		connect(m_showEventLog, SIGNAL(triggered(bool)), this, SLOT(showEventLog()));
 	m_reconnect = actionCollection()->addAction(QStringLiteral("reconnect"));
-	m_reconnect->setText(i18n("&Reconnect (after crash)"));
+	m_reconnect->setText(i18n("&Reconnect (After Crash)"));
 	connect(m_reconnect, SIGNAL(triggered()), this, SLOT(slotReconnect()));
 	m_reconnect->setEnabled(false);
 	m_leaveGame = actionCollection()->addAction(QStringLiteral("leave_game"));

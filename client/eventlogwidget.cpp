@@ -210,7 +210,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 	setModal(false);
 	setAttribute(Qt::WA_DeleteOnClose);
 
-	setWindowTitle(i18n("Event Log"));
+	setWindowTitle(i18nc("@title:window", "Event Log"));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this);
 

@@ -46,7 +46,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	, m_trade(trade)
 	, m_contextTradeItem(nullptr)
 {
-	setWindowTitle(i18n("Trade %1", trade->tradeId()));
+	setWindowTitle(i18nc("@title:window", "Trade %1", trade->tradeId()));
 
 	QVBoxLayout *listCompBox = new QVBoxLayout(this);
 

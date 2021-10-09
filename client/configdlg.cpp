@@ -23,7 +23,7 @@
 ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent)
 	: KConfigDialog(parent, QStringLiteral("configdialog"), Settings::self())
 {
-	setWindowTitle(i18n("Configure Atlantik"));
+	setWindowTitle(i18nc("@title:window", "Configure Atlantik"));
     setFaceType(KPageDialog::List);
 
 	QWidget *w = new QWidget(this);
