@@ -14,7 +14,7 @@
    <item>
     <widget class="QGroupBox" name="customGroup">
      <property name="title">
-      <string>Enter custom monopd server</string>
+      <string>Enter Custom monopd Server</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -63,7 +63,7 @@
    <item>
     <widget class="QGroupBox" name="bgroup">
      <property name="title">
-      <string>Select monopd server</string>
+      <string>Select monopd Server</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
