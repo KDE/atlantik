@@ -20,6 +20,7 @@ Comment[sl]=Atlantik
 Comment[sv]=Atlantik
 Comment[uk]=Atlantik
 Comment[x-test]=xxAtlantikxx
+Comment[zh_CN]=Atlantik
 
 [Event/gainedturn]
 Name=Gained Turn
@@ -40,6 +41,7 @@ Name[sl]=Pridobljena poteza
 Name[sv]=Fick ett drag
 Name[uk]=Перехід ходу
 Name[x-test]=xxGained Turnxx
+Name[zh_CN]=获得一个额外回合
 Comment=It is your turn now
 Comment[ca]=Ara és el vostre torn
 Comment[ca@valencia]=Ara és el vostre torn
