@@ -69,7 +69,7 @@ Action=PassivePopup|Taskbar
 [Event/chat]
 Name=Chat
 Name[ca]=Xat
-Name[ca@valencia]=Chat
+Name[ca@valencia]=Xat
 Name[cs]=Rozhovor
 Name[de]=Chat
 Name[en_GB]=Chat
@@ -91,7 +91,7 @@ Name[x-test]=xxChatxx
 Name[zh_CN]=聊天
 Comment=A player sends a chat message
 Comment[ca]=Un jugador ha enviat un missatge de xat
-Comment[ca@valencia]=Un jugador ha enviat un missatge de chat
+Comment[ca@valencia]=Un jugador ha enviat un missatge de xat
 Comment[de]=Ein Spieler sendet eine Chat-Nachricht
 Comment[en_GB]=A player sends a chat message
 Comment[es]=Un jugador envía un mensaje de chat
