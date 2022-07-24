@@ -1,0 +1,16 @@
+Dependencies:
+- 'on': ['@all']
+  'require':
+    'frameworks/extra-cmake-modules': '@stable'
+    'frameworks/kconfig': '@stable'
+    'frameworks/kconfigwidgets': '@stable'
+    'frameworks/kcoreaddons': '@stable'
+    'frameworks/kcrash': '@stable'
+    'frameworks/ki18n': '@stable'
+    'frameworks/kiconthemes': '@stable'
+    'frameworks/knotifications': '@stable'
+    'frameworks/knotifyconfig': '@stable'
+    'frameworks/kxmlgui': '@stable'
+    'frameworks/kwidgetsaddons': '@stable'
+    'frameworks/kdoctools': '@stable'
+    'games/libkdegames': '@stable'
