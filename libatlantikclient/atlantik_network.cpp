@@ -139,7 +139,9 @@ void AtlantikNetwork::slotLookupFinished()
 void AtlantikNetwork::slotConnectionSuccess()
 {
 	Q_EMIT msgStatus(i18n("Connected to %1:%2.", m_host, QString::number(m_port)), ET_NetConnected);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	m_monopdstream.setCodec(QTextCodec::codecForName("UTF-8"));
+#endif
 	m_monopdstream.setDevice(m_monopdsocket);
 	connect(m_monopdsocket, SIGNAL(readyRead()), this, SLOT(slotRead()));
 

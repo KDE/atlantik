@@ -63,7 +63,9 @@ void Metatlantic::slotSocketError(QAbstractSocket::SocketError socketError)
 
 void Metatlantic::slotSocketConnected()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 	m_stream.setCodec(QTextCodec::codecForName("UTF-8"));
+#endif
 	m_stream.setDevice(m_socket);
 	connect(m_socket, SIGNAL(readyRead()), this, SLOT(slotSocketRead()));
 }
