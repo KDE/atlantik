@@ -81,16 +81,12 @@ configure_package_config_file(
 ########### install files ###############
 
 install(PROGRAMS org.kde.atlantik.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES atlantikui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/atlantik)
-install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(FILES atlantikui.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/atlantik)
+install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake" DESTINATION "${CMAKECONFIG_INSTALL_DIR}" COMPONENT Devel)
 install(EXPORT AtlanticTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlanticTargets.cmake NAMESPACE Atlantik:: )
 install(EXPORT AtlantikUiTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlantikUiTargets.cmake NAMESPACE Atlantik:: )
-if(${ECM_VERSION} VERSION_GREATER "5.58.0")
-  install(FILES atlantik.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
-else()
-  install(FILES atlantik.categories DESTINATION ${KDE_INSTALL_CONFDIR})
-endif()
+install(FILES atlantik.categories DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 install(FILES org.kde.atlantik.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 ki18n_install(po)
