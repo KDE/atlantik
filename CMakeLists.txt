@@ -5,7 +5,9 @@ project(atlantik)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(ECM 5.14.0 REQUIRED NO_MODULE)
+set(KF_MIN_VERSION "5.82.0")
+
+find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
 
 include(KDEInstallDirs)
@@ -26,7 +28,7 @@ ecm_setup_version(0.7.80
 
 find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
 
-find_package(KF5 5.7.0 REQUIRED
+find_package(KF5 ${KF_MIN_VERSION} REQUIRED
   Config
   ConfigWidgets
   CoreAddons
