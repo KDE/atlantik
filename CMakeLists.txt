@@ -77,8 +77,8 @@ ecm_configure_package_config_file(
 
 ########### install files ###############
 
-install(PROGRAMS org.kde.atlantik.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES atlantikui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/atlantik)
+install(PROGRAMS org.kde.atlantik.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES atlantikui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/atlantik)
 install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake" DESTINATION "${CMAKECONFIG_INSTALL_DIR}" COMPONENT Devel)
 install(EXPORT AtlanticTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlanticTargets.cmake NAMESPACE Atlantik:: )

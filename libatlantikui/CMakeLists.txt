@@ -25,8 +25,8 @@ target_link_libraries(atlantikui
   PRIVATE KF5::I18n KF5::IconThemes KF5::WidgetsAddons
 )
 set_target_properties(atlantikui PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} EXPORT_NAME AtlantikUi)
-target_include_directories(atlantikui INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/atlantik/ui>")
-install(TARGETS atlantikui EXPORT AtlantikUiTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+target_include_directories(atlantikui INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/atlantik/ui>")
+install(TARGETS atlantikui EXPORT AtlantikUiTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 
@@ -36,4 +36,4 @@ install(FILES
    tokentheme.h
    trade_widget.h
    ${CMAKE_CURRENT_BINARY_DIR}/libatlantikui_export.h
-   DESTINATION ${INCLUDE_INSTALL_DIR}/atlantik/ui)
+   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/atlantik/ui)

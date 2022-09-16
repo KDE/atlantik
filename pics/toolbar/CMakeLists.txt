@@ -6,6 +6,6 @@ ecm_install_icons(ICONS
   32-actions-atlantik_buy_estate.png
   32-actions-auction.png
   32-actions-jail_pay.png
-  DESTINATION ${DATA_INSTALL_DIR}/atlantik/icons
+  DESTINATION ${KDE_INSTALL_DATADIR}/atlantik/icons
   THEME hicolor
 )

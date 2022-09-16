@@ -8,6 +8,6 @@ ecm_install_icons(ICONS
   16-apps-atlantik.png
   32-apps-atlantik.png
   48-apps-atlantik.png
-  DESTINATION ${ICON_INSTALL_DIR}
+  DESTINATION ${KDE_INSTALL_ICONDIR}
   THEME hicolor
 )
