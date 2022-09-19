@@ -39,9 +39,9 @@ find_package(KF5 5.7.0 REQUIRED
   WidgetsAddons
 )
 
-find_package(KF5 REQUIRED KDEGames)
-
 find_package(KF5DocTools)
+
+find_package(KF5KDEGames 7.3.0 REQUIRED)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
