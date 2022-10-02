@@ -66,6 +66,7 @@ add_subdirectory( pics )
 add_subdirectory( themes ) 
 if(KF5DocTools_FOUND)
   add_subdirectory(doc)
+  kdoctools_install(po)
 endif()
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Atlantik")
@@ -89,3 +90,5 @@ else()
   install(FILES atlantik.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 endif()
 install(FILES org.kde.atlantik.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+
+ki18n_install(po)
