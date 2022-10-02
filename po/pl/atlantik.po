@@ -1,0 +1,919 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the atlantik package.
+#
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2019, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: atlantik\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-10-11 00:14+0000\n"
+"PO-Revision-Date: 2021-11-13 08:59+0100\n"
+"Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
+"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.12.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Łukasz Wojniłowicz"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "lukasz.wojnilowicz@gmail.com"
+
+#. i18n: ectx: Menu (game)
+#: atlantikui.rc:4
+#, kde-format
+msgid "&Game"
+msgstr "&Gra"
+
+#. i18n: ectx: Menu (move)
+#: atlantikui.rc:10
+#, kde-format
+msgid "&Move"
+msgstr "&Przenieś"
+
+#: client/atlantik.cpp:108
+#, kde-format
+msgid "Show Event &Log..."
+msgstr "&Pokaż dziennik wydarzeń..."
+
+#: client/atlantik.cpp:111
+#, kde-format
+msgid "&Reconnect (After Crash)"
+msgstr "Podłącz ponownie (po uste&rce)"
+
+#: client/atlantik.cpp:115
+#, kde-format
+msgid "&Leave Game"
+msgstr "&Opuść grę"
+
+#: client/atlantik.cpp:141
+#, kde-format
+msgid "&Buy"
+msgstr "&Kup"
+
+#: client/atlantik.cpp:148
+#, kde-format
+msgid "&Auction"
+msgstr "&Aukcja"
+
+#: client/atlantik.cpp:159
+#, kde-format
+msgid "Use Card to Leave Jail"
+msgstr "Użyj karty, aby opuścić więzienie"
+
+#: client/atlantik.cpp:164
+#, kde-format
+msgid "&Pay to Leave Jail"
+msgstr "Za&płać, aby opuścić więzienie"
+
+#: client/atlantik.cpp:171
+#, kde-format
+msgid "Roll to Leave &Jail"
+msgstr "&Rzuć kością, aby opuścić więzienie"
+
+#: client/atlantik.cpp:292
+#, kde-format
+msgid "New player joined."
+msgstr "Nowy gracz dołączył."
+
+#: client/atlantik.cpp:500
+#, kde-format
+msgid "Error connecting: connection refused by host."
+msgstr "Błąd połączenia: gospodarz odmówił połączenia."
+
+#: client/atlantik.cpp:503
+#, kde-format
+msgid "Error connecting: host not found."
+msgstr "Błąd połączenia: nie znaleziono gospodarza."
+
+#: client/atlantik.cpp:506
+#, kde-format
+msgid "Error connecting: error %1."
+msgstr "Błąd połączenia: błąd %1."
+
+#: client/atlantik.cpp:726
+#, kde-format
+msgctxt "error message"
+msgid "Error"
+msgstr "Błąd"
+
+#: client/atlantik.cpp:729
+#, kde-format
+msgctxt "informative message"
+msgid "Info"
+msgstr "Dane"
+
+#: client/atlantik.cpp:799
+#, kde-format
+msgid "It is your turn now."
+msgstr "Teraz Twój ruch."
+
+#: client/atlantik.cpp:915
+#, kde-format
+msgid ""
+"You are currently part of an active game. Are you sure you want to close "
+"Atlantik? If you do, you forfeit the game."
+msgstr ""
+"Uczestniczysz w grze. Czy na pewno chcesz zamknąć Atlantik? Jeśli tak, to "
+"przerwiesz grę."
+
+#: client/atlantik.cpp:915
+#, kde-format
+msgid "Close & Forfeit?"
+msgstr "Zamknąć i przerwać?"
+
+#: client/atlantik.cpp:915
+#, kde-format
+msgid "Close && Forfeit"
+msgstr "Zamknąć i przerwać"
+
+#: client/atlantik.cpp:948
+#, kde-format
+msgid ""
+"You are currently part of an active game. Are you sure you want to leave it? "
+"If you do, you forfeit the game."
+msgstr ""
+"Uczestniczysz w grze. Czy na pewno chcesz ją opuścić? Jeśli tak, to "
+"przerwiesz grę."
+
+#: client/atlantik.cpp:948
+#, kde-format
+msgid "Leave & Forfeit?"
+msgstr "Opuścić i przerwać?"
+
+#: client/atlantik.cpp:948
+#, kde-format
+msgid "Leave && Forfeit"
+msgstr "Opuścić i przerwać"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: client/configboard.ui:17
+#, kde-format
+msgid "Game Status Feedback"
+msgstr "Informacja zwrotna o stanie gry"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
+#: client/configboard.ui:23
+#, kde-format
+msgid ""
+"If checked, unowned properties on the board display an estate card to "
+"indicate the property is for sale."
+msgstr ""
+"Jeśli zaznaczono, to nieposiadane posiadłości na planszy wyświetlą kartę "
+"posiadłości, aby wskazać posiadłość do sprzedania."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
+#: client/configboard.ui:26
+#, kde-format
+msgid "Display title deed card on unowned properties"
+msgstr "Wyświetl kartę na kratce nieposiadanych posiadłości"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
+#: client/configboard.ui:33
+#, kde-format
+msgid ""
+"If checked, unowned properties on the board are highlighted to indicate the "
+"property is for sale."
+msgstr ""
+"Jeśli zaznaczono, to nieposiadane posiadłości na planszy zostaną "
+"podświetlone, aby wskazać posiadłość do sprzedania."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
+#: client/configboard.ui:36
+#, kde-format
+msgid "Highlight unowned properties"
+msgstr "Podświetl nieposiadane posiadłości"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
+#: client/configboard.ui:43
+#, kde-format
+msgid ""
+"If checked, mortgaged properties on the board will be colored darker than of "
+"the default color."
+msgstr ""
+"Jeśli zaznaczone, to posiadłości na kredyt na planszy zostaną zabarwione na "
+"ciemniejszą barwę niż domyślna."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
+#: client/configboard.ui:46
+#, kde-format
+msgid "Darken mortgaged properties"
+msgstr "Przyciemnij posiadłości na kredyt"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
+#: client/configboard.ui:53
+#, kde-format
+msgid ""
+"If checked, tokens will move across the board instead of jumping directly to "
+"their new location."
+msgstr ""
+"Jeśli zaznaczono, to tokeny będą przemieszczały się po planszy zamiast "
+"skakać bezpośrednio do nowego miejsca."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
+#: client/configboard.ui:56
+#, kde-format
+msgid "Animate token movement"
+msgstr "Animuj ruchy tokenów"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
+#: client/configboard.ui:63
+#, kde-format
+msgid ""
+"If checked, the colored headers of street estates on the board will have a "
+"Quartz effect similar to the Quartz KWin style."
+msgstr ""
+"Jeśli zaznaczone, to zabarwione nagłówki posiadłości na ulicy na planszy "
+"będą miały efekt Quartz podobny do wyglądu Quartz KWin."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
+#: client/configboard.ui:66
+#, kde-format
+msgid "Quartz effects"
+msgstr "Efekty Quartz"
+
+#: client/configdlg.cpp:26
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Atlantik"
+msgstr "Ustawienia Atlantik"
+
+#: client/configdlg.cpp:33
+#, kde-format
+msgid "General"
+msgstr "Ogólne"
+
+#: client/configdlg.cpp:40
+#, kde-format
+msgid "Personalization"
+msgstr "Dopasowywanie"
+
+#: client/configdlg.cpp:46
+#, kde-format
+msgid "Board"
+msgstr "Plansza"
+
+#: client/configdlg.cpp:52
+#, kde-format
+msgid "Meta Server"
+msgstr "Metaserwer"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
+#: client/configgeneral.ui:17
+#, kde-format
+msgid "If checked, Atlantik will add timestamps in front of chat messages."
+msgstr ""
+"Jeśli zaznaczone, to Atlantik będzie dodawał znaczniki czasu przez "
+"wiadomościami w rozmowie."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
+#: client/configgeneral.ui:20
+#, kde-format
+msgid "Show timestamps in chat messages"
+msgstr "Pokaż znaczniki czasu w wiadomościach rozmowy"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
+#: client/configmetaserver.ui:17
+#, kde-format
+msgid ""
+"If checked, Atlantik connects to a meta server on start-up to request a list "
+"of Internet servers."
+msgstr ""
+"Jeśli zaznaczone, to Atlantik będzie łączył się z metaserwerem na początku, "
+"aby odpytać o listę internetowych serwerów."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
+#: client/configmetaserver.ui:20
+#, kde-format
+msgid "Request list of Internet servers on start-up"
+msgstr "Zażądaj listy internetowych serwerów po uruchomieniu"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
+#: client/configmetaserver.ui:28
+#, kde-format
+msgid ""
+"Some of the Internet servers might be running development versions of the "
+"server software.\n"
+"If checked, Atlantik will not display these servers."
+msgstr ""
+"Niektóre z internetowych serwerów mogą działać na rozwojowych wersjach "
+"oprogramowania serwera.\n"
+"Jeśli zaznaczone, to Atlantik nie będzie wyświetlał tych serwerów."
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
+#: client/configmetaserver.ui:31
+#, kde-format
+msgid "Hide development servers"
+msgstr "Ukryj serwery rozwojowe"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: client/configplayer.ui:17
+#, kde-format
+msgid "Player name:"
+msgstr "Nazwa gracza:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: client/configplayer.ui:30
+#, kde-format
+msgid "Player image:"
+msgstr "Zdjęcie gracza:"
+
+#: client/eventlogwidget.cpp:115
+#, kde-format
+msgid "Date/Time"
+msgstr "Data/Czas"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/eventlogwidget.cpp:117 client/selectgame.ui:35
+#, kde-format
+msgid "Description"
+msgstr "Opis"
+
+#: client/eventlogwidget.cpp:213
+#, kde-format
+msgctxt "@title:window"
+msgid "Event Log"
+msgstr "Dziennik wydarzeń"
+
+#: client/eventlogwidget.cpp:223
+#, kde-format
+msgid "&Save As..."
+msgstr "Zapi&sz jako..."
+
+#: client/eventlogwidget.cpp:225
+#, kde-format
+msgid "&Clear Log"
+msgstr "Wy&czyść dziennik"
+
+#: client/eventlogwidget.cpp:266
+#, kde-format
+msgid "Atlantik log file, saved at %1."
+msgstr "Plik dziennika Atlantik, zapisany dnia %1."
+
+#: client/main.cpp:36
+#, kde-format
+msgid "Atlantik"
+msgstr "Atlantik"
+
+#: client/main.cpp:37
+#, kde-format
+msgid "The Atlantic board game"
+msgstr "Plansza Atlantic"
+
+#: client/main.cpp:39
+#, kde-format
+msgid "(c) 1998-2004 Rob Kaper"
+msgstr "(c) 1998-2004 Rob Kaper"
+
+#: client/main.cpp:40
+#, kde-format
+msgid "KDE client for playing Monopoly-like games on the monopd network."
+msgstr "Klient KDE do grania w gry rodzaju Monopoly w sieci monopd."
+
+#: client/main.cpp:45
+#, kde-format
+msgid "Rob Kaper"
+msgstr "Rob Kaper"
+
+#: client/main.cpp:45
+#, kde-format
+msgid "main author"
+msgstr "główny autor"
+
+#: client/main.cpp:48
+#, kde-format
+msgid "Thiago Macieira"
+msgstr "Thiago Macieira"
+
+#: client/main.cpp:48
+#, kde-format
+msgid "KExtendedSocket support"
+msgstr "Obsługa KExtendedSocket"
+
+#: client/main.cpp:49
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "Albert Astals Cid"
+
+#: client/main.cpp:49
+#, kde-format
+msgid "various patches"
+msgstr "różne łatki"
+
+#: client/main.cpp:51
+#, kde-format
+msgid "Bart Szyszka"
+msgstr "Bart Szyszka"
+
+#: client/main.cpp:51
+#, kde-format
+msgid "application icon"
+msgstr "ikona aplikacji"
+
+#: client/main.cpp:52
+#, kde-format
+msgid "Rob Malda"
+msgstr "Rob Malda"
+
+#: client/main.cpp:52
+#, kde-format
+msgid "token icons"
+msgstr "ikony tokenów"
+
+#: client/main.cpp:53
+#, kde-format
+msgid "Elhay Achiam"
+msgstr "Elhay Achiam"
+
+#: client/main.cpp:53 client/main.cpp:54
+#, kde-format
+msgid "icons"
+msgstr "ikony"
+
+#: client/main.cpp:54
+#, kde-format
+msgid "Carlo Caneva"
+msgstr "Carlo Caneva"
+
+#: client/main.cpp:63
+#, kde-format
+msgid "Connect to this host"
+msgstr "Połącz z gospodarzem"
+
+#: client/main.cpp:63
+#, kde-format
+msgid "host"
+msgstr "gospodarz"
+
+#: client/main.cpp:64
+#, kde-format
+msgid "Connect at this port"
+msgstr "Połącz na tym porcie"
+
+#: client/main.cpp:64
+#, kde-format
+msgid "port"
+msgstr "port"
+
+#: client/main.cpp:65
+#, kde-format
+msgid "Join this game"
+msgstr "Dołącz do tej gry"
+
+#: client/main.cpp:65
+#, kde-format
+msgid "game"
+msgstr "gra"
+
+#: client/main.cpp:76
+#, kde-format
+msgid "The Atlantic Board Game"
+msgstr "Gra planszowa Atlantic"
+
+#: client/selectconfiguration_widget.cpp:48
+#, kde-format
+msgid "Game Configuration"
+msgstr "Ustawienia gry"
+
+#: client/selectconfiguration_widget.cpp:67
+#, kde-format
+msgid "Leave Game"
+msgstr "Opuść grę"
+
+#: client/selectconfiguration_widget.cpp:74
+#, kde-format
+msgid "Start Game"
+msgstr "Rozpocznij grę"
+
+#: client/selectconfiguration_widget.cpp:86
+#, kde-format
+msgid "Retrieving configuration list..."
+msgstr "Pobieranie listy ustawień..."
+
+#: client/selectconfiguration_widget.cpp:100
+#, kde-format
+msgid "Game started. Retrieving full game data..."
+msgstr "Rozpoczęto grę. Pobieranie pełnych danych gry..."
+
+#: client/selectconfiguration_widget.cpp:195
+#, kde-format
+msgid "Retrieved configuration list."
+msgstr "Pobrano listę ustawień."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: client/selectgame.ui:17
+#, kde-format
+msgid "Create or Select monopd Game"
+msgstr "Utwórz lub wybierz grę monopd"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:30
+#, kde-format
+msgid "Game"
+msgstr "Gra"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:40
+#, kde-format
+msgid "Id"
+msgstr "Id"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:45
+#, kde-format
+msgid "Players"
+msgstr "Gracze"
+
+#. i18n: ectx: property (text), widget (QPushButton, backButton)
+#: client/selectgame.ui:58
+#, kde-format
+msgid "Server List"
+msgstr "Lista serwerów"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
+#: client/selectgame.ui:78 client/selectgame_widget.cpp:194
+#, kde-format
+msgid "Create Game"
+msgstr "Utwórz grę"
+
+#: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
+#, kde-format
+msgid "Create a new %1 Game"
+msgstr "Utwórz nową grę %1"
+
+#: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
+#: client/selectgame_widget.cpp:159
+#, kde-format
+msgid "Watch %1's %2 Game"
+msgstr "Oglądaj grę %2 %1"
+
+#: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
+#: client/selectgame_widget.cpp:161
+#, kde-format
+msgid "Join %1's %2 Game"
+msgstr "Dołącz %1 do gry %2"
+
+#: client/selectgame_widget.cpp:97
+#, kde-format
+msgid "New game available."
+msgstr "Nowa gra dostępna."
+
+#: client/selectgame_widget.cpp:189
+#, kde-format
+msgid "Watch Game"
+msgstr "Oglądaj grę"
+
+#: client/selectgame_widget.cpp:191
+#, kde-format
+msgid "Join Game"
+msgstr "Dołącz do gry"
+
+#. i18n: ectx: property (title), widget (QGroupBox, customGroup)
+#: client/selectserver.ui:17
+#, kde-format
+msgid "Enter Custom monopd Server"
+msgstr "Podaj własny serwer monopd"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: client/selectserver.ui:23
+#, kde-format
+msgid "Hostname:"
+msgstr "Nazwa gospodarza:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: client/selectserver.ui:36
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
+#. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
+#: client/selectserver.ui:56 client/selectserver.ui:127
+#, kde-format
+msgid "Connect"
+msgstr "Połącz"
+
+#. i18n: ectx: property (title), widget (QGroupBox, bgroup)
+#: client/selectserver.ui:66
+#, kde-format
+msgid "Select monopd Server"
+msgstr "Wybierz serwer monopd"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:79
+#, kde-format
+msgid "Host"
+msgstr "Gospodarz"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:84
+#, kde-format
+msgid "Latency"
+msgstr "Opóźnienie"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:89
+#, kde-format
+msgid "Version"
+msgstr "Wersja"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:94
+#, kde-format
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: client/selectserver_widget.cpp:45
+#, kde-format
+msgid "unknown"
+msgstr "nieznany"
+
+#: client/selectserver_widget.cpp:135
+#, kde-format
+msgid "Get Server List"
+msgstr "Pobierz listę serwerów"
+
+#: client/selectserver_widget.cpp:167
+#, kde-format
+msgid "Retrieving server list..."
+msgstr "Pobieranie listy serwerów..."
+
+#: client/selectserver_widget.cpp:169
+#, kde-format
+msgid "Reload Server List"
+msgstr "Wczytaj listę serwerów ponownie"
+
+#: client/selectserver_widget.cpp:196
+#, kde-format
+msgid "Error while retrieving the server list."
+msgstr "Błąd pobierania listy serwerów."
+
+#: client/selectserver_widget.cpp:198
+#, kde-format
+msgid "Retrieved server list."
+msgstr "Pobrano listę serwerów."
+
+#: libatlantikclient/atlantik_network.cpp:128
+#, kde-format
+msgid "Connecting to %1:%2..."
+msgstr "Łączenie z %1:%2..."
+
+#: libatlantikclient/atlantik_network.cpp:136
+#, kde-format
+msgid "Server host name lookup finished..."
+msgstr "Ukończono wyszukiwanie nazwy gospodarza serwera..."
+
+#: libatlantikclient/atlantik_network.cpp:141
+#, kde-format
+msgid "Connected to %1:%2."
+msgstr "Połączono z %1:%2."
+
+#: libatlantikclient/atlantik_network.cpp:152
+#, kde-format
+msgid "Connection failed! Error code: %1"
+msgstr "Nie udało się połączyć! Kod błędu: %1"
+
+#: libatlantikclient/atlantik_network.cpp:157
+#, kde-format
+msgid "Disconnected from %1:%2."
+msgstr "Rozłączono z  %1:%2."
+
+#. i18n: ectx: property (text), widget (QTreeWidget, playerList)
+#: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
+#: libatlantikui/trade_widget.cpp:164
+#, kde-format
+msgid "Player"
+msgstr "Gracz"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, playerList)
+#: libatlantikui/auction.ui:26
+#, kde-format
+msgid "Bid"
+msgstr "Oferta"
+
+#. i18n: ectx: property (text), widget (QPushButton, bidButton)
+#: libatlantikui/auction.ui:46
+#, kde-format
+msgid "Make Bid"
+msgstr "Złóż ofertę"
+
+#: libatlantikui/auction_widget.cpp:86
+#, kde-format
+msgid "Going once..."
+msgstr "Po raz pierwszy..."
+
+#: libatlantikui/auction_widget.cpp:90
+#, kde-format
+msgid "Going twice..."
+msgstr "Po raz drugi..."
+
+#: libatlantikui/auction_widget.cpp:94
+#, kde-format
+msgid "Sold!"
+msgstr "Sprzedane!"
+
+#: libatlantikui/estatedetails.cpp:90 libatlantikui/estateview.cpp:87
+#, kde-format
+msgid "Price: %1"
+msgstr "Cena: %1"
+
+#: libatlantikui/estatedetails.cpp:99 libatlantikui/estateview.cpp:76
+#, kde-format
+msgid "Owner: %1"
+msgstr "Posiadacz: %1"
+
+#: libatlantikui/estatedetails.cpp:99
+#, kde-format
+msgid "unowned"
+msgstr "nieposiadane"
+
+#: libatlantikui/estatedetails.cpp:106
+#, kde-format
+msgid "Houses: %1"
+msgstr "Domy: %1"
+
+#: libatlantikui/estatedetails.cpp:111
+#, kde-format
+msgid "Yes"
+msgstr "Tak"
+
+#: libatlantikui/estatedetails.cpp:111
+#, kde-format
+msgid "No"
+msgstr "Nie"
+
+#: libatlantikui/estatedetails.cpp:111
+#, kde-format
+msgid "Mortgaged: %1"
+msgstr "Na kredyt: %1"
+
+#: libatlantikui/estateview.cpp:78
+#, kde-format
+msgid "Unmortgage Price: %1"
+msgstr "Cena bez kredytu: %1"
+
+#: libatlantikui/estateview.cpp:80
+#, kde-format
+msgid "Mortgage Value: %1"
+msgstr "Wartość kredytu: %1"
+
+#: libatlantikui/estateview.cpp:82
+#, kde-format
+msgid "House Value: %1"
+msgstr "Wartość domu: %1"
+
+#: libatlantikui/estateview.cpp:84
+#, kde-format
+msgid "House Price: %1"
+msgstr "Cena domu: %1"
+
+#: libatlantikui/estateview.cpp:89
+#, kde-format
+msgid "Money: %1"
+msgstr "Pieniądze: %1"
+
+#: libatlantikui/estateview.cpp:426
+#, kde-format
+msgid "Unmortgage"
+msgstr "Bez kredytu"
+
+#: libatlantikui/estateview.cpp:432
+#, kde-format
+msgid "Mortgage"
+msgstr "Na kredyt"
+
+#: libatlantikui/estateview.cpp:440
+#, kde-format
+msgid "Build Hotel"
+msgstr "Zbuduj hotel"
+
+#: libatlantikui/estateview.cpp:442
+#, kde-format
+msgid "Build House"
+msgstr "Zbuduj dom"
+
+#: libatlantikui/estateview.cpp:449
+#, kde-format
+msgid "Sell Hotel"
+msgstr "Sprzedaj hotel"
+
+#: libatlantikui/estateview.cpp:451
+#, kde-format
+msgid "Sell House"
+msgstr "Sprzedaj dom"
+
+#: libatlantikui/estateview.cpp:457
+#, kde-format
+msgid "Sell"
+msgstr "Sprzedaj"
+
+#: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
+#, kde-format
+msgid "Request Trade with %1"
+msgstr "Zażądaj wymiany z %1"
+
+#: libatlantikui/portfolioview.cpp:282
+#, kde-format
+msgid "Boot Player %1 to Lounge"
+msgstr "Przenieś gracza %1 do poczekalni"
+
+#: libatlantikui/trade_widget.cpp:49
+#, kde-format
+msgctxt "@title:window"
+msgid "Trade %1"
+msgstr "Wymień się %1"
+
+#: libatlantikui/trade_widget.cpp:53
+#, kde-format
+msgid "Add Component"
+msgstr "Dodaj składnik"
+
+#: libatlantikui/trade_widget.cpp:59
+#, kde-format
+msgid "Estate"
+msgstr "Posiadłość"
+
+#: libatlantikui/trade_widget.cpp:60
+#, kde-format
+msgid "Money"
+msgstr "Pieniądze"
+
+#: libatlantikui/trade_widget.cpp:61
+#, kde-format
+msgid "Card"
+msgstr "Karta"
+
+#: libatlantikui/trade_widget.cpp:102
+#, kde-format
+msgid "From"
+msgstr "Od"
+
+#: libatlantikui/trade_widget.cpp:108
+#, kde-format
+msgid "To"
+msgstr "Do"
+
+#: libatlantikui/trade_widget.cpp:129
+#, kde-format
+msgid "Update"
+msgstr "Uaktualnij"
+
+#: libatlantikui/trade_widget.cpp:141
+#, kde-format
+msgid "Participants"
+msgstr "Uczestnicy"
+
+#: libatlantikui/trade_widget.cpp:163
+#, kde-format
+msgid "Gives"
+msgstr "Daje"
+
+#: libatlantikui/trade_widget.cpp:165
+#, kde-format
+msgid "Item"
+msgstr "Element"
+
+#: libatlantikui/trade_widget.cpp:178
+#, kde-format
+msgid "Reject"
+msgstr "Odrzuć"
+
+#: libatlantikui/trade_widget.cpp:183
+#, kde-format
+msgid "Accept"
+msgstr "Przyjmij"
+
+#: libatlantikui/trade_widget.cpp:191 libatlantikui/trade_widget.cpp:270
+#, kde-format
+msgid "%1 out of %2 players accept current trade proposal."
+msgstr "%1 z %2 graczy zgadza się na bieżącą ofertę wymiany."
+
+#: libatlantikui/trade_widget.cpp:225
+#, kde-format
+msgctxt "gives is transitive ;)"
+msgid "gives"
+msgstr "daje"
+
+#: libatlantikui/trade_widget.cpp:286
+#, kde-format
+msgid "Trade proposal was rejected by %1."
+msgstr "Oferta wymiany został odrzucona przez %1."
+
+#: libatlantikui/trade_widget.cpp:291
+#, kde-format
+msgid "Trade proposal was rejected."
+msgstr "Oferta wymiany został odrzucona."
+
+#: libatlantikui/trade_widget.cpp:496
+#, kde-format
+msgid "Remove From Trade"
+msgstr "Usuń z wymiany"

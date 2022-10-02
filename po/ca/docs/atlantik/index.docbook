@@ -1,0 +1,403 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Catalan  "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>El manual de l'&atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+&traductor.Antoni.Bella; 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>10 d'octubre de 2021</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>L'&atlantik; és un client per jugar als jocs de taula semblants al &Monopoly; a la xarxa «&monopd;». </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>client de xarxa</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducció</title>
+
+<para
+>L'objectiu del joc de taula &atlantik; és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fan viatges transatlàntics. Per guanyar la partida, els jugadors cal que millorin els terrenys monopolitzats amb construccions que donin beneficis i amb l'esperança que els altres jugadors facin fallida.</para>
+
+<para
+>Tots els modes de joc són servits pel «&monopd;», un servidor de jocs dedicat dissenya per a l'&atlantik;. Un dels modes de joc és com el joc de taula de propietats immobiliàries conegut com a &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Connectar amb un servidor</title>
+
+<para
+>L'&atlantik; requereix un servidor de jocs per a connectar-se. Si teniu una connexió a Internet, podreu demanar una llista de servidors públics d'Internet i no necessitareu programari addicional. Si voleu jugar localment, en una <acronym
+>LAN</acronym
+> o en un servidor privat d'Internet, podreu introduir el nom i el port de l'amfitrió per a connectar-vos. En aquest cas, necessitareu tenir instal·lat i execució el programari de servidor «<ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+>» a l'amfitrió on s'està connectant.</para>
+
+<para
+>Si teniu problemes per a connectar-vos amb un servidor, les següents notes de solució de problemes podrien ajudar:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Triar un altre servidor.</para>
+</listitem>
+<listitem>
+<para
+>Comproveu el tallafoc i la configuració de l'emmascarament. És possible que hi hagi restriccions que impedeixin connectar-vos amb els servidors o rebre el trànsit de resposta. De manera predeterminada, els servidors «&monopd;» empren el port TCP 1234. Si no esteu segur, poseu-vos en contacte amb l'administrador del sistema.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>La barra de menús</title>
+
+<sect1 id="menu-game">
+<title
+>El menú Joc</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Joc</guimenu
+><guimenuitem
+>Mostra el registre d'esdeveniments...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Mostra</action
+> la finestra del registre d'esdeveniments.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Joc</guimenu
+><guimenuitem
+>Reconnecta (després de fallar)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Torna a connectar</action
+> amb l'últim joc. Això només està disponible en cas que l'&atlantik; no surti netament d'un joc (generalment perquè va entrar en fallada), i no es podrà fer una vegada connecteu amb un servidor.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Joc</guimenu
+><guimenuitem
+>Surt de la partida</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Deixa el joc actual</action
+>, sense tancar l'&atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Joc</guimenu
+> <guimenuitem
+>Surt</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Tanca</action
+> l'&atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>El menú Mou</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mou</guimenu
+><guimenuitem
+>Finalitza el torn</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permet que els altres jugadors sàpiguen que heu acabat de moure.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mou</guimenu
+><guimenuitem
+>Tira els daus</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Tira els daus.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mou</guimenu
+><guimenuitem
+>Subhasta</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Inicia una subhasta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mou</guimenu
+><guimenuitem
+>Usa la targeta per sortir de la presó</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Usa la targeta per sortir de la presó.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mou</guimenu
+><guimenuitem
+>Tira els daus per sortir de la presó</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Tira els daus per sortir de la presó.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Els menús Arranjament i Ajuda</title>
+
+<para
+>L'&atlantik; té els menús <guimenu
+>Arranjament</guimenu
+> i <guimenu
+>Ajuda</guimenu
+> comuns al &kde; que es descriuen en el capítol <ulink url="help:/fundamentals/menus.html"
+>Menú</ulink
+> de la documentació Fonaments del &kde;.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Informar dels errors</title>
+
+<para
+>Si creieu que heu trobat un error a l'&atlantik;, informeu-ne si us plau. Els desenvolupadors sovint detecten i corregeixen errors ells mateixos, però és possible que experimenteu problemes encara no coneguts. No informar-ne podria evitar que se solucionin indefinidament.</para>
+
+<para
+>Podeu informar els errors per a &atlantik; en el <ulink url="https://bugs.kde.org/"
+>Sistema de seguiment d'errors del &kde;</ulink
+>. Utilitzeu l'element de menú <menuchoice
+><guimenu
+>Ajuda</guimenu
+><guimenuitem
+>Informa d'un error...</guimenuitem
+></menuchoice
+> per a visitar l'assistent d'errors amb alguns detalls de la vostra versió de l'&atlantik; completats de manera automàtica.</para>
+
+<para
+>Especifiqueu els detalls en el vostre informe d'error, com les condicions del joc. Per exemple, un error només pot ocórrer quan les persones estan a la presó o durant una subhasta. Si és possible, deseu el registre d'esdeveniments i adjunteu-lo a l'informe d'error o envieu-lo a l'autor. Pot contenir pistes vitals sobre el comportament que podrien conduir a una resolució més ràpida de l'error.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Respostes a les preguntes més freqüents</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Com puc afegir un jugador ordinador?</para>
+</question>
+<answer>
+<para
+>Malauradament, els ordinadors com a oponents encara no són admesos per l'&atlantik;. </para>
+<para
+>S'aconsella als usuaris que aprofitin els servidors públics d'Internet o un servidor <acronym
+>LAN</acronym
+> privat.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Com puc negociar?</para>
+</question>
+<answer>
+<para
+>Feu clic a la cartera d'un jugador o en l'estat amb el &BDR; i obrireu una negociació.</para>
+<para
+>Hi ha dos problemes d'usabilitat amb les transaccions que poden causar confusió. Si d'alguna manera incloeu a un altre jugador en un intercanvi, aquest jugador obtindrà la finestra de negociació. Qualsevol jugador pot rebutjar els termes, el qual també finalitza innecessàriament la sessió d'intercanvi per a tots els altres jugadors. Tots els jugadors hauran d'acceptar un intercanvi abans que pugui completar-se, el qual pot ser complicat perquè els jugadors segueixen sent participants en els acords fins i tot quan ja no estan involucrats amb elements intercanviables.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Crèdits i llicència</title>
+
+<para
+>El programa &atlantik; i la documentació són copyright &copy; 1998-2004 de &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Traductor de la documentació: &credits.Antoni.Bella;</para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

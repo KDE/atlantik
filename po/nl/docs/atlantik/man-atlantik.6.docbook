@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Dutch "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Handleidingpagina van &atlantik;</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>&atlantik; manpagina.</contrib
+> &Lauri.Watts.mail;</author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>&atlantik; man page.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>2021-10-10</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>Een monopd client</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>opties</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Beschrijving</title>
+
+<para
+>&atlantik; is een client voor het spelen van &Monopoly;-achtige bordspellen op het &monopd;-netwerk. </para>
+
+<para
+>Doel van het &atlantik; bordspel is om land in grote steden in Noord-Amerika en Europe te verkrijgen terwijl u een trans-Atlantische reiziger bent. Om het spel te winnen, verbeteren spelers gemonopoliseerd land met winstgevende gebouwen in de hoop alle andere spelers failliet te laten gaan.</para>
+
+<para
+>Alle spelmodi worden bediend door &monopd;, een spelserver speciaal ontworpen voor &atlantik;. In een van de spelmodi speelt u hetzelfde als het populaire vastgoed bordspel bekend als Monopoly®.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Opties</title>
+
+<variablelist>
+<title
+>&atlantik; opties</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>host</parameter
+></term>
+<listitem>
+<para
+>Met deze host verbinden.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>poort</parameter
+></term>
+<listitem
+><para
+>Naar deze poort verbinden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>spel</parameter
+></term>
+<listitem
+><para
+>Meedoen met spel.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Zie ook</title>
+
+<simplelist>
+<member
+>Meer uitgebreide informatie vindt u in <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (voer deze &URL; ofwel in in &konqueror; of voer <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+> in op de opdrachtregel).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,451 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Italian "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>Manuale di &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+><affiliation
+><address
+><email
+>toscano.pino@tiscali.it</email
+></address
+></affiliation
+><contrib
+>Traduzione della documentazione</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Andrea</firstname
+><surname
+>Celli</surname
+><affiliation
+><address
+><email
+>a.celli@caltanet.it</email
+></address
+></affiliation
+><contrib
+>Traduzione della documentazione</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Federico</firstname
+><surname
+>Cozzi</surname
+><affiliation
+><address
+><email
+>federico.cozzi@sns.it</email
+></address
+></affiliation
+><contrib
+>Revisione della documentazione</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>10/10/2021</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; è un client per giocare a dei giochi da tavola simili a &Monopoly; sulla rete &monopd;. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>client di rete</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introduzione</title>
+
+<para
+>Lo scopo del gioco da tavolo &atlantik; è di acquistare proprietà nelle principali città dell'Europa e del Nord America, muovendosi come un viaggiatore transatlantico. Per vincere i giocatori aumentano il valore dei terreni su cui hanno il monopolio costruendovi edifici che danno reddito, nella speranza di portare alla bancarotta gli avversari.</para>
+
+<para
+>Tutte le modalità di gioco sono fornite da &monopd;, un server di gioco specializzato per &atlantik;. Una delle modalità di gioco è molto simile a un famoso gioco da tavolo sul mercato immobiliare, noto come &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Connettersi al server</title>
+
+<para
+>&atlantik; richiede di potersi connettere ad un server di gioco. Se hai una connessione a Internet , puoi scaricare un elenco di server pubblici su Internet e non ti servirà alcun software aggiuntivo. Se vuoi giocare ad &atlantik; localmente, su una <acronym
+>LAN</acronym
+> o su un server Internet privato, puoi digitare il nome host e la porta ai quali connettersi. In questo caso, è necessario che un server <ulink url="http://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+> sia installato e in esecuzione sulla macchina alla quale vuoi connetterti.</para>
+
+<para
+>Se incontri dei problemi nel connetterti ad un server, questi accorgimenti potrebbero aiutarti:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Prova con un altro server.</para>
+</listitem>
+<listitem>
+<para
+>Controlla il tuo firewall e le impostazioni per il mascheramento. Potrebbero essere state attivate delle protezioni che ti impediscono di connetterti ai server o di riceverne le risposte. I server &monopd; utilizzano la porta 1234 come predefinita. Se hai dei dubbi, chiedi aiuto al tuo amministratore di sistema.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>La barra dei menu</title>
+
+<sect1 id="menu-game">
+<title
+>Il menu Partita</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Mostra registro degli eventi...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Mostra</action
+> il registro degli eventi.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Riconnetti (dopo un crash)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Riconnetti</action
+> all'ultima partita. È disponibile solo se &atlantik; non ha abbandonato una partita in modo pulito (di solito a causa di un crash), e non può essere più usato una volta che ci si è connessi ad un server.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Partita</guimenu
+><guimenuitem
+>Abbandona partita</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Abbandona la partita corrente</action
+>, senza chiudere &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Partita</guimenu
+><guimenuitem
+>Esci</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Chiudi</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Il menu Mossa</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mossa</guimenu
+><guimenuitem
+>Fine del turno</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Informa gli altri giocatori che tu hai finito le tue mosse.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mossa</guimenu
+><guimenuitem
+>Lancia i dadi</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Lancia i dadi.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mossa</guimenu
+><guimenuitem
+>Asta</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Avvia un'asta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mossa</guimenu
+><guimenuitem
+>Usa il cartellino per uscire di prigione</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Usa un cartellino per uscire di prigione.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mossa</guimenu
+><guimenuitem
+>Lancia i dadi per uscire di prigione</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Lancia i dadi per uscire di prigione.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>I menu Impostazioni e Aiuto</title>
+
+<para
+>&atlantik; ha i menu comuni di &kde; <guimenu
+>Impostazioni</guimenu
+> e <guimenu
+>Aiuto</guimenu
+> descritti nel capitolo <ulink url="help:/ffundamentals/menus.html"
+>Menu</ulink
+> della documentazione Fondamentali di &kde;.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Segnalare errori</title>
+
+<para
+>Se pensi di aver individuato un errore in &atlantik;, ti preghiamo di riferircelo. Gli sviluppatori spesso scovano e sistemano gli errori da soli, tuttavia  tu potresti esserti trovato in una situazione non ancora verificata. Se non segnali i tuoi problemi, molto probabilmente essi non saranno mai risolti.</para>
+
+<para
+>Puoi segnalare errori di &atlantik; tramite il <ulink url="https://bugs.kde.org/"
+>sistema di gestione errori di &kde;</ulink
+>. Se lo attivi dal menu <menuchoice
+><guimenu
+>Aiuto</guimenu
+><guimenuitem
+>Segnala un errore...</guimenuitem
+></menuchoice
+>, saranno inseriti automaticamente alcuni dati sulla versione di &atlantik; che stai utilizzando.</para>
+
+<para
+>Nel riferire il bug sei pregato di riportare tutti i dettagli che puoi, anche sulla partita in corso. Per esempio, un bug può verificarsi solo se qualcuno è in prigione, o durante un'asta. Se possibile, salva il log degli eventi e allegalo alla tua segnalazione o invialo all'autore. Potrebbe contenere importanti spunti per arrivare ad una più rapida risoluzione del problema.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Risposte per le domande più frequenti</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Come posso aggiungere un giocatore-computer?</para>
+</question>
+<answer>
+<para
+>Sfortunatamente i giocatori-computer non sono ancora stati implementati per &atlantik;. </para>
+<para
+>Si raccomanda agli utenti di sfruttare i server pubblici presenti in internet o un server sulla propria <acronym
+>LAN</acronym
+>.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Come si contratta?</para>
+</question>
+<answer>
+<para
+>Premendo il &RMB; sul portafoglio di un giocatore o su una proprietà puoi avviare una trattativa.</para>
+<para
+>Ci sono due caratteristiche delle trattative che possono generare confusione. Se in qualunque modo includi un altro giocatore nella trattativa, questo potrà vederne la finestra. Qualunque giocatore può respingere i termini dello scambio, benché ciò non obblighi gli altri a terminare la trattativa. Uno scambio deve essere accettato da tutti i giocatori coinvolti prima di diventare effettivo. Ciò può non essere così semplice. Infatti un giocatore continua a partecipare ad una trattativa anche se non ha più nulla da scambiare.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Ringraziamenti e licenze</title>
+
+<para
+>Il programma &atlantik; e la documentazione sono copyright &copy; 1998-2004 di &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Traduzione italiana di Andrea Celli <email
+>a.celli@caltanet.it</email
+></para
+> <para
+>Revisione della traduzione italiana di Federico Cozzi <email
+>federico.cozzi@sns.it</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

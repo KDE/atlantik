@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % German "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>Das Handbuch zu &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Maren</firstname
+><surname
+>Pakura</surname
+><affiliation
+><address
+><email
+>maren@kde.org</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>2017-05-13</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; ist ein &kde;-Programm für &Monopoly;-ähnliche Brettspiele im &monopd;-Netzwerk. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdegames</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Einleitung</title>
+
+<para
+>In &atlantik; muss man als transatlantischer Reisender versuchen, Land in den großen Städten von Nordamerika und Europa zu erwerben. Um das Spiel zu gewinnen, bauen die Spieler profitablen Gebäuden auf Ihrem Land, um damit alle anderen Spieler in den Bankrott zu treiben.</para>
+
+<para
+>Alle Spielmodi werden über &monopd; gespielt, einem speziellen Spielserver für&atlantik;. Eine der Spielvarianten entspricht dem bekannten und beliebten Brettspiel &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Verbindung zu einem Server</title>
+
+<para
+>&atlantik; benötigt einen Spielserver, mit dem man sich verbinden kann. Wenn Sie eine Internet-Verbindung haben, können Sie eine Liste der öffentlichen Internetserver anfordern, Dazu benötigen Sie keine zusätzliche Software. Wenn Sie &atlantik; lokal auf  einem <acronym
+>LAN</acronym
+> oder auf einem privaten Internetserver spielen mochten. geben Sie Rechnername und Port zur Verbindung an. In diesem Fall benötigen Sie die <ulink url="http://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+> Server-Software, die auf dem Rechner installiert sein muss und ausgeführt werden muss, mit dem Sie sich verbinden.</para>
+
+<para
+>Bei Verbindungsproblemen mit einem Server können folgende Hinweise helfen:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Versuchen Sie es mit einem anderen Server.</para>
+</listitem>
+<listitem>
+<para
+>Überprüfen Sie ihre Firewall. Eventuell sind die Zugriffsrechte in das Internet beschränkt und verhindern die Verbindung mit dem Server oder blockieren Antworten. Für den Spielserver &monopd; müssen in der Standardeinstellung ausgehender und eingehender Datenverkehr auf Port 1234 erlaubt sein. Bei Problemen wenden Sie sich an Ihre Systemverwaltung.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>Die Menüleiste</title>
+
+<sect1 id="menu-game">
+<title
+>Das Menü Spiel</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guimenuitem
+>Spielprotokoll anzeigen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Öffnet</action
+> das Fenster mit dem Spielprotokoll.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guimenuitem
+>Erneut verbinden (nach Absturz)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Verbindet erneut</action
+> mit dem letzten Spiel. Diese Funktion ist nur verfügbar, falls &atlantik; nicht ohne Fehler von einem Spiel nicht ohne Fehler abgemeldet wurde. Das passiert normalerweise, wenn &atlantik; abgestürzt ist. Diese Aktion ist nicht mehr verfügbar, wenn Sie sich mit einem Server verbinden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spiel</guimenu
+><guimenuitem
+>Spiel verlassen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Verlässt das aktuelle Spiel</action
+>, ohne &atlantik; zu beenden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Spiel</guimenu
+> <guimenuitem
+>Beenden</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Schließt</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Das Menü Zug</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Zug beenden</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Teilt den anderen Spielern mit, das Sie Ihren Zug ausgeführt haben.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+>Würfeln</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Würfelt.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+>Versteigerung</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Beginnt eine Versteigerung.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Zug</guimenu
+><guimenuitem
+>Eine Karte benutzen, um das Gefängnis zu verlassen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Benutzen Sie eine Karte, um das Gefängnis zu verlassen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Zug</guimenu
+><guimenuitem
+>Würfeln, um das Gefängnis zu verlassen</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Würfeln Sie, um das Gefängnis zu verlassen.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Die Menüs Einstellungen und Hilfe</title>
+
+<para
+>&atlantik; die bekannten &kde;-Menüeinträge <guimenu
+>Einstellungen</guimenu
+> und <guimenu
+>Hilfe</guimenu
+>, die im Kapitel <ulink url="help:/fundamentals/menus.html"
+>Menüs</ulink
+> der &kde;-Grundlagen beschrieben werden.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Berichten von Fehlern und Wünschen</title>
+
+<para
+>Falls Sie einen Fehler in &atlantik; gefunden haben, setzen Sie bitte die Entwickler davon in Kenntnis. Die Entwickler können nicht alle Fehler selbst finden, da deren Auftreten manchmal an komplexe Bedingungen gebunden ist.</para>
+
+<para
+>Fehler zu &atlantik; können Sie im <ulink url="https://bugs.kde.org/"
+>&kde;Fehlerverfolgungssystem</ulink
+> berichten. Benutzen Sie den Menüeintrag <menuchoice
+><guimenu
+>Hilfe</guimenu
+><guimenuitem
+>Probleme oder Wünsche berichten ...</guimenuitem
+></menuchoice
+>, um den Assistenten mit bereits automatisch ausgefüllten Informationen über Ihre &atlantik;-Version zu starten.</para>
+
+<para
+>Bitte geben Sie in Ihrem Fehlerbericht alle Einzelheiten an, wie z.B. die Spielbedingungen. Ein Fehler kann beispielsweise nur auftreten, wenn sich Personen im Gefängnis befinden oder während einer Versteigerung. Wenn möglich, speichern Sie das Ereignisprotokoll und hängen Sie es an den Fehlerbericht an oder senden Sie es an den Autor. Es könnte wichtige Hinweise enthalten, die zu einer schnelleren Behebung des Fehlers führen könnten.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Antworten auf häufig gestellte Fragen</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Wie kann ich einen Computerspieler hinzufügen?</para>
+</question>
+<answer>
+<para
+>Leider werden Computerspieler noch nicht von &atlantik; unterstützt. </para>
+<para
+>Es wird empfohlen, öffentliche Internet-Server oder einen privaten <acronym
+>LAN</acronym
+>-Server zu benutzen.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Wie kann ich handeln?</para>
+</question>
+<answer>
+<para
+>Klicken Sie auf das Portfolio oder den Grundbesitz eines Spielers mit der &RMBn;, um einen Handel zu eröffnen.</para>
+<para
+>Es gibt zwei Probleme beim Handeln, die zu Verwirrung führen können. Wenn Sie in irgendeiner Weise einen anderen Spieler in einen Handel einbeziehen, erhält dieser Spieler das Handelsfenster. Jeder Spieler kann die Bedingungen ablehnen, wodurch der unnötigerweise der Handel  auch für alle anderen Spieler beendet wird. Ein Handel muss von allen beteiligten Spielern angenommen werden, bevor er abgeschlossen werden kann. Das kann kompliziert sein, denn alle Spieler bleiben auch dann am Handel beteiligt, wenn sie keine Grundstücke mehr besitzen.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Danksagungen und Lizenz</title>
+
+<para
+>Copyright für das Programm &atlantik; und die Dokumentation &copy; 1998-2004 &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Deutsche Übersetzung von Maren Pakura <email
+>maren@kde.org</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index; 
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

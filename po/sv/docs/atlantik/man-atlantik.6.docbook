@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Swedish "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Manualsida &atlantik;</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>&atlantik; manualsida.</contrib
+> <email
+>lauri@kde.org</email
+></author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>&atlantik; manualsida.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>2021-10-10</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>En monopd-klient</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>väljare</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Beskrivning</title>
+
+<para
+>&atlantik; är en klient för att spela Monopol-liknande brädspel på &monopd;-nätverket. </para>
+
+<para
+>Syftet med brädspelet &atlantik; är att förvärva land i större nordamerikanska och europeiska städer, som en transatlantisk resenär. För att vinna spelet förbättrar spelarna monopoliserad mark med lönsamma byggnader med hopp om att göra alla andra spelare bankrutta.</para>
+
+<para
+>Alla speltyper betjänas av &monopd;, en dedicerad spelserver konstruerad för &atlantik;. En av speltyperna spelas som det populära fastighetsspelet känt som Monopol.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Alternativ</title>
+
+<variablelist>
+<title
+>&atlantik; väljare</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>värddator</parameter
+></term>
+<listitem>
+<para
+>Anslut till denna värddator.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>port</parameter
+></term>
+<listitem
+><para
+>Anslut till denna port.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>spel</parameter
+></term>
+<listitem
+><para
+>Gå med i spelet.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Se också</title>
+
+<simplelist>
+<member
+>Mer detaljerad användardokumentation är tillgänglig från <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (skriv antingen in webbadressen eller kör <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>

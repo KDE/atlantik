@@ -1,0 +1,159 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % German "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Benutzerhandbuch für Atlantik</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>Atlantik man page.</contrib
+> <email
+>lauri@kde.org</email
+></author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>Atlantik man page.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>2017-05-13</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>&kde;-Programm für monopd</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>Atlantik-Optionen</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Beschreibung</title>
+
+<para
+>&atlantik; ist ein &kde;-Programm für &Monopoly;-ähnliche Brettspiele im &monopd;-Netzwerk. </para>
+
+<para
+>In &atlantik; muss man als transatlantischer Reisender versuchen, Land in den großen Städten von Nordamerika und Europa zu erwerben. Um das Spiel zu gewinnen, bauen die Spieler profitablen Gebäuden auf Ihrem Land, um damit alle anderen Spieler in den Bankrott zu treiben.</para>
+
+<para
+>Alle Spielmodi werden über &monopd; gespielt, einem speziellen Spielserver für&atlantik;. Eine der Spielvarianten entspricht dem bekannten und beliebten Brettspiel &Monopoly;.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Optionen für Atlantik</title>
+
+<variablelist>
+<title
+>&atlantik;-Optionen</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>host</parameter
+></term>
+<listitem>
+<para
+>Mit diesem Rechner verbinden.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>port</parameter
+></term>
+<listitem
+><para
+>Mit diesem Port verbinden</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>game</parameter
+></term>
+<listitem
+><para
+>Diesem Spiel beitreten</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Siehe auch</title>
+
+<simplelist>
+<member
+>Weitere ausführliche Dokumentation finden Sie unter <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+>. Geben Sie diese <acronym
+>URL</acronym
+> entweder in &konqueror; ein oder starten Sie<userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>.</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>

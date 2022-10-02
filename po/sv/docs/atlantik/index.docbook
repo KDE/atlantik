@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>Handbok &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@bredband.net</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>2021-10-10</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; är en klient för att spela Monopol-liknande brädspel på &monopd;-nätverket. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>nätverksklient</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<para
+>Syftet med brädspelet &atlantik; är att förvärva land i större nordamerikanska och europeiska städer, som en transatlantisk resenär. För att vinna spelet förbättrar spelarna monopoliserad mark med lönsamma byggnader med hopp om att göra alla andra spelare bankrutta.</para>
+
+<para
+>Alla speltyper betjänas av &monopd;, en dedicerad spelserver konstruerad för &atlantik;. En av speltyperna spelas som det populära fastighetsspelet känt som Monopol.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Ansluta till en server</title>
+
+<para
+>&atlantik; behöver en spelserver att ansluta till. Om du har en Internetanslutning kan du hämta en lista med öppna Internetservrar och du behöver ingen ytterligare programvara. Om du vill spela &atlantik; lokalt på ett <acronym
+>LAN</acronym
+>, eller på en privat Internetserver, kan du ange värddatornamn och port att ansluta till. I detta fall behöver serverprogramvaran <ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+> vara installerad och köras på värddatorn du ansluter till.</para>
+
+<para
+>Om du har problem att ansluta till servern kan följande felsökningsanteckningar hjälpa dig:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Försök med en annan server.</para>
+</listitem>
+<listitem>
+<para
+>Kontrollera brandväggen och maskeradinställningar. Begränsningar kan finnas på plats som förhindrar dig från att ansluta till servrar eller ta emot svarstrafik. Normalt använder &monopd;-servrar TCP-port 1234. Om du inte är säker, kontakta systemadministratören.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>Menyraden</title>
+
+<sect1 id="menu-game">
+<title
+>Menyn Spel</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Visa händelselogg...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Visa</action
+> fönstret med händelseloggen.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Koppla upp igen (efter krasch)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Koppla upp igen</action
+> till det senaste spelet. Det är bara tillgängligt i fallet då &atlantik; inte avslutades snyggt från ett spel (oftast eftersom det kraschade), och kan inte längre göras när du väl har anslutit till en server.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Spel</guimenu
+><guimenuitem
+>Lämna spelet</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Lämna nuvarande spel</action
+> utan att stänga &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Spel</guimenu
+> <guimenuitem
+>Avsluta</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Stäng</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Menyn Drag</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Drag</guimenu
+><guimenuitem
+>Avsluta tur</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Låt de andra spelarna få reda på att du är klar med ditt drag.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Drag</guimenu
+><guimenuitem
+>Slå tärningarna</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Slå med tärningarna.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Drag</guimenu
+><guimenuitem
+>Auktion</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Starta en auktion.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Drag</guimenu
+><guimenuitem
+>Använd kort för att lämna fängelset</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Använd ett kort för att lämna fängelset.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Drag</guimenu
+><guimenuitem
+>Slå för att lämna fängelset</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Slå tärningarna för att lämna fängelset.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Menyerna Inställningar och Hjälp</title>
+
+<para
+>&atlantik; har de vanliga menyerna <guimenu
+>Inställningar</guimenu
+> och <guimenu
+>Hjälp</guimenu
+> i &kde; som beskrivs i kapitlet <ulink url="help:/fundamentals/menus.html"
+>Meny</ulink
+> i dokumentet &kde;:s grunder.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Rapportera fel</title>
+
+<para
+>Om du tror att du har hittat ett fel i &atlantik;, rapportera det gärna. Utvecklare hittar och rättar ofta fel själva, men du kan råka ut för problem som ännu inte är kända. Att inte rapportera dina problem kan mycket väl förhindra att de någonsin rättas.</para>
+
+<para
+>Du kan rapportera fel på &atlantik; med <ulink url="https://bugs.kde.org/"
+>&kde;:s felspårningssystem</ulink
+>. Använd menyalternativet <menuchoice
+><guimenu
+>Hjälp</guimenu
+><guimenuitem
+>Rapportera fel...</guimenuitem
+></menuchoice
+> för att gå till felguiden med viss information om din version av &atlantik; automatiskt ifylld.</para>
+
+<para
+>Ange detaljerad information i felrapporten, såsom spelets tillstånd. Ett fel kanske exempelvis bara visar sig när någon finns i fängelset, eller under en auktion. Spara om möjligt händelseloggen och bifoga den till felrapporten eller skicka den till upphovsmannen. Den kan innehålla viktiga ledtrådar om beteendet som kan leda till att felet löses snabbare.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Svar på vanliga frågor</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Hur lägger man till en datorspelare?</para>
+</question>
+<answer>
+<para
+>Tyvärr stöds inte datormotståndare ännu av &atlantik;. </para>
+<para
+>Användare råds att dra nytta av öppna Internetservrar eller en privat <acronym
+>LAN</acronym
+>-server.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Hur handlar man?</para>
+</question>
+<answer>
+<para
+>Klicka på en spelares portfölj eller egendom med höger musknapp så kan du börja handla.</para>
+<para
+>Det finns två användbarhetsproblem med handel som kan orsaka förvirring. Om du inkluderar en annan spelare i handeln på något sätt, får den personen handelsfönstret. Alla spelare kan avvisa villkoren, vilket också avslutar handelssessionen för alla andra i onödan. Handeln måste accepteras av alla spelare innan den kan slutföras, vilket kan vara komplicerat eftersom spelare förblir deltagare i transaktionerna även om de inte längre är delaktiga i handelsvarorna.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Tack till och licens</title>
+
+<para
+>Programmet &atlantik; och dokumentationen copyright &copy; 1998-2004 &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@bredband.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

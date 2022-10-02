@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>Підручник з &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>10 жовтня 2021 року</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; — клієнт для подібної до &Monopoly; гри на дошці у мережі &monopd;. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>клієнт мережі</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Вступ</title>
+
+<para
+>Метою гри на дошці &atlantik; є накопичення нерухомості у головних містах Північної Америки та Європи. Щоб виграти гру, гравець має забудовувати придбані земельні ділянки прибутковими будинками так, щоб довести до банкрутства інших гравців.</para>
+
+<para
+>Усі режими гри обслуговуються &monopd;, спеціалізованим ігровим сервером, розробленим для гри в &atlantik;. Один з режимів гри подібний до популярної гри на дошці у торгівлю нерухомістю, відомої за назвою &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Встановлення з'єднання із сервером</title>
+
+<para
+>&atlantik; потрібен ігровий сервер, з яким з'єднуватиметься програма. Якщо ваш комп'ютер з'єднано із інтернетом, ви можете надіслати програмі запит щодо відкритих інтернет-серверів — додаткове програмне забезпечення вам не знадобиться. Якщо ви хочете грати в &atlantik; локально, у <acronym
+>LAN</acronym
+> або на приватному інтернет-сервері, ви можете вказати назву вузла і порт, на якому слід встановити з'єднання. У цьому випадку на комп'ютері, з яким ви встановлюєте з'єднання, має бути встановлено із запущено серверне програмне забезпечення <ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+>.</para>
+
+<para
+>Якщо у вас виникають проблеми зі з'єднанням із сервером, вам можуть допомогти такі дії:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Спробувати інший сервер.</para>
+</listitem>
+<listitem>
+<para
+>Перевірте параметри брандмауера і системи маскування. Можливо, встановлено обмеження, які заважають з'єднанням із серверами або отриманню даних відповідей. Типово, у серверах &monopd; використовують для з'єднань порт TCP 1234. Якщо ви не певні, які дані слід вказати, зв'яжіться із вашим адміністратором системи.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>Панель меню</title>
+
+<sect1 id="menu-game">
+<title
+>Меню «Гра»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Гра</guimenu
+><guimenuitem
+>Показати журнал подій…</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Показати</action
+> вікно журналу подій.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Гра</guimenu
+><guimenuitem
+>Повторно з'єднатися (після аварії)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Повторно встановити з'єднання</action
+> із останньою грою. Пункт меню доступний, лише якщо вихід з гри в &atlantik; було здійснено не у звичайному режимі (зазвичай, внаслідок аварійного завершення роботи програми). Ним не можна буде скористатися, якщо ви просто з'єднаєтеся із сервером.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Гра</guimenu
+><guimenuitem
+>Полишити гру</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Полишити поточну гру</action
+> без завершення роботи &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Гра</guimenu
+> <guimenuitem
+>Вийти</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Завершити роботу</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Меню «Хід»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Хід</guimenu
+> <guimenuitem
+>Завершити хід</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Повідомити іншим гравцям, що ви завершили хід.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Хід</guimenu
+><guimenuitem
+>Кинути кістку</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Кинути кості.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Хід</guimenu
+><guimenuitem
+>Аукціон</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Почати аукціон.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Хід</guimenu
+><guimenuitem
+>Скористатися карткою, щоб вийти з в'язниці</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Скористатися карткою, щоб вийти з в'язниці.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Хід</guimenu
+><guimenuitem
+>Кинути кістку, щоб вийти з в'язниці</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Кинути кістку, щоб вийти з в'язниці.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Меню «Параметри» і «Довідка»</title>
+
+<para
+>Окрім типових для &kde; пунктів меню <guimenu
+>Параметри</guimenu
+> і <guimenu
+>Довідка</guimenu
+>, описаних у <ulink url="help:/fundamentals/menus.html"
+>розділі щодо меню</ulink
+> підручника з основ роботи у &kde;, у &atlantik; передбачено такі додаткові пункти:</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Надсилання звітів щодо вад</title>
+
+<para
+>Якщо ви вважаєте, що виявили ваду в &atlantik;, будь ласка, повідомте про неї розробникам. Часто розробники виявляють і виправляють вади власноруч, але ви можете зіткнутися із якоюсь досі невідомою вадою. Якщо ви нікому про неї не повідомите, можливо, її ніколи не буде виправлено.</para>
+
+<para
+>Повідомити про ваду в &atlantik; можна за допомогою <ulink url="https://bugs.kde.org/"
+>системи стеження за вадами &kde;</ulink
+>. Скористайтеся пунктом меню <menuchoice
+><guimenu
+>Довідка</guimenu
+><guimenuitem
+>Надіслати звіт про помилку...</guimenuitem
+></menuchoice
+>, щоб відкрити вікно майстра сповіщення щодо вад із деякими подробицями щодо версії &atlantik;, які програма визначить автоматично.</para>
+
+<para
+>Будь ласка, вкажіть у вашому звіті подробиці щодо вади, зокрема умови, у яких ви грали. Наприклад, вада може трапитися, лише якщо хтось сидить у тюрмі або лише під час аукціону. Якщо можна, збережіть журнал подій і долучіть його до звіту щодо вади або надішліть розробнику. У журналі можуть бути ключові підказки щодо поведінки програми, які допоможуть у швидшому усуванні вади.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Відповіді на поширені питання</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Як додати комп'ютерного гравця?</para>
+</question>
+<answer>
+<para
+>На жаль, підтримку комп'ютерних гравців в &atlantik; ще не реалізовано. </para>
+<para
+>Радимо користувачам скористатися перевагами відкритих серверів у інтернеті або приватного сервера <acronym
+>LAN</acronym
+>.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Як торгуватися?</para>
+</question>
+<answer>
+<para
+>Клацніть на пункті портфоліо або власності користувача правою кнопкою миші і відкрийте вікно торгівлі за допомогою пункту контекстного меню.</para>
+<para
+>Із торгівлею пов'язано дві проблеми у користуванні. Якщо ви у будь-який спосіб включите іншого гравця до торгової угоди, цьому гравцеві буде показано вікно торгівлі. Будь-який гравець може відкинути умови угоди, що не обов'язково призведе до завершення сеансу торгівлі для інших гравців. Перш ніж угоду буде укладено, її мають підтвердити усі гравці, що може бути складною справою, оскільки гравці лишаються учасниками угоди, навіть якщо їх вже не включено до її умов.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Подяки і ліцензування</title>
+
+<para
+>Авторські права на програму &atlantik; та документацію до неї належать &Rob.Kaper; <email
+>kaper@kde.org</email
+>, 1998–2004.</para>
+
+<para
+>Переклад українською: Юрій Чорноіван <email
+>yurchor@ukr.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

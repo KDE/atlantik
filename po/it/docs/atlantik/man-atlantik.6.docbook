@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Italian "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Manuale utente di &atlantik;</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>Pagina di manuale di &atlantik;.</contrib
+>&Lauri.Watts.mail;</author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>Pagina di manuale di &atlantik;.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>10/10/2021</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>Un client monopd</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>opzioni</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Descrizione</title>
+
+<para
+>&atlantik; è un client per giocare a dei giochi da tavola simili a &Monopoly; sulla rete &monopd;. </para>
+
+<para
+>Lo scopo del gioco da tavolo &atlantik; è di acquistare proprietà nelle principali città dell'Europa e del Nord America, muovendosi come un viaggiatore transatlantico. Per vincere i giocatori aumentano il valore dei terreni su cui hanno il monopolio costruendovi edifici che danno reddito, nella speranza di portare alla bancarotta gli avversari.</para>
+
+<para
+>Tutte le modalità di gioco sono fornite da &monopd;, un server di gioco specializzato per &atlantik;. Una delle modalità di gioco è molto simile a un famoso gioco da tavolo sul mercato immobiliare, noto come &Monopoly;.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Opzioni</title>
+
+<variablelist>
+<title
+>Opzioni di &atlantik;</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>host</parameter
+></term>
+<listitem>
+<para
+>Host a cui connettersi.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>porta</parameter
+></term>
+<listitem
+><para
+>Porta per connessione.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>partita</parameter
+></term>
+<listitem
+><para
+>Partecipa a questa partita.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Vedi anche</title>
+
+<simplelist>
+<member
+>Una documentazione più dettagliata è disponibile tramite <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (oppure immettendo questo &URL; o eseguendo <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>
