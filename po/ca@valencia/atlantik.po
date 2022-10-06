@@ -350,7 +350,7 @@ msgstr "Registre d'esdeveniments"
 #: client/eventlogwidget.cpp:223
 #, kde-format
 msgid "&Save As..."
-msgstr "&Anomena i guarda..."
+msgstr "Anomena i gu&arda..."
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
