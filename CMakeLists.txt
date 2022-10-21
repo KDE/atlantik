@@ -1,6 +1,6 @@
-project(atlantik)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+project(atlantik)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
