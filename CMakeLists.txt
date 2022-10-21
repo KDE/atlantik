@@ -15,7 +15,7 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMQtDeclareLoggingCategory)
 include(ECMInstallIcons)
-include(ECMPackageConfigHelpers)
+include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
 include(ECMAddAppIcon)
 
@@ -70,7 +70,7 @@ if(KF5DocTools_FOUND)
 endif()
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Atlantik")
-ecm_configure_package_config_file(
+configure_package_config_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/AtlantikConfig.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake"
   INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}
