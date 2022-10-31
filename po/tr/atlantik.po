@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-10-11 00:14+0000\n"
-"PO-Revision-Date: 2022-08-04 22:13+0300\n"
+"PO-Revision-Date: 2022-10-30 22:08+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -244,7 +244,7 @@ msgstr "Quartz efektleri"
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr "Atlantık'i Yapılandır"
+msgstr "Atlantik'i Yapılandır"
 
 #: client/configdlg.cpp:33
 #, kde-format
@@ -285,7 +285,7 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
-"Seçiliyse Atlantık internet sunucularının bir listesini istemek için "
+"Seçiliyse Atlantik, internet sunucularının bir listesini istemek için "
 "başlangıçta bir üst sunucuya bağlanır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
@@ -304,7 +304,7 @@ msgid ""
 msgstr ""
 "Bazı internet sunucuları, sunucu yazılımının geliştirme sürümlerini "
 "kullanıyor olabilir.\n"
-"Seçiliyse Atlantık bu sunucuları görüntülemez."
+"Seçiliyse Atlantik bu sunucuları görüntülemez."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
@@ -354,17 +354,17 @@ msgstr "&Günlüğü Temizle"
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr "Atlantık günlük dosyası, %1 konumuna kaydedildi."
+msgstr "Atlantik günlük dosyası, %1 konumuna kaydedildi."
 
 #: client/main.cpp:36
 #, kde-format
 msgid "Atlantik"
-msgstr "Atlantık"
+msgstr "Atlantik"
 
 #: client/main.cpp:37
 #, kde-format
 msgid "The Atlantic board game"
-msgstr "Atlantık tahta oyunu"
+msgstr "Atlantik tahta oyunu"
 
 #: client/main.cpp:39
 #, kde-format
