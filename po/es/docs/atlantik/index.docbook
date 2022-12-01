@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Spanish "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>El manual de &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Eloy</firstname
+><surname
+>Cuadra</surname
+><affiliation
+><address
+><email
+>ecuadra@eloihr.net</email
+></address
+></affiliation
+><contrib
+>Traductor</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>2021-10-10</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; es un cliente para jugar partidas de tipo &Monopoly; en la red &monopd;. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>cliente de red</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Introducción</title>
+
+<para
+>La finalidad del juego de tablero &atlantik; es adquirir terrenos en las ciudades principales de Norteamérica y de Europa mientras viaja en un transatlántico. Para ganar, los jugadores deben mejorar los terrenos monopolizados con edificaciones rentables con la esperanza de llevar a la bancarrota al resto de jugadores.</para>
+
+<para
+>Todos los modos de juego están servidos por &monopd;, un servidor de juego dedicado diseñado por &atlantik;. Uno de los modos de juego es similar al del popular juego de tablero de propiedades conocido como &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Conectarse a un servidor</title>
+
+<para
+>&atlantik; necesita un servidor de juego al que conectarse. Si dispone de una conexión a Internet, puede solicitar una lista de servidores públicos de Internet y no necesitará ningún software adicional. Si desea jugar con &atlantik; de forma local, en una <acronym
+>LAN</acronym
+> o en un servidor de Internet privado, puede introducir la máquina y el puerto al que conectarse. En este caso, necesitará tener instalado y en funcionamiento el servidor <ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+> en la máquina a la que se va a conectar.</para>
+
+<para
+>Si tiene problemas para conectarse a un servidor, las siguientes notas le pueden servir de ayuda:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Pruebe con otro servidor.</para>
+</listitem>
+<listitem>
+<para
+>Compruebe su cortafuegos y la configuración de enmascaramiento. Es posible que existan restricciones que le impidan conectarse a servidores o recibir tráfico de respuesta. De forma predeterminada, los servidores &monopd; usan el puerto TCP 1234. Si no está seguro, contacte con el administrador del sistema.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>La barra de menú</title>
+
+<sect1 id="menu-game">
+<title
+>El menú Juego</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Mostrar registro de eventos...</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Muestra</action
+> la ventana de registro de eventos.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Reconectar (tras un fallo)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Reconectarse</action
+> a la última partida. Esto solo estará disponible en el caso de que &atlantik; no haya salido limpiamente de una partida (por lo general, debido a un fallo de la aplicación), y ya no se puede hacer una vez que se conecta a un servidor.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Juego</guimenu
+><guimenuitem
+>Abandonar el juego</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Abandonar la partida actual</action
+> sin cerrar &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Juego</guimenu
+><guimenuitem
+>Salir</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Cierra</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>El menú Movimiento</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Finalizar turno</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Permite que los otros jugadores sepan que ha terminado de mover.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Lanzar dados</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Lanzar los dados.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Subastar</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Empezar una subasta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Mover</guimenu
+><guimenuitem
+>Usar tarjeta para salir de la cárcel</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Usar una tarjeta para salir de la cárcel.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Mover</guimenu
+><guimenuitem
+>Lanzar dados para salir de la cárcel</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Lanzar los dados para salir de la cárcel.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Los menús de Preferencias y de Ayuda</title>
+
+<para
+>&atlantik; dispone de los típicos menús <guimenu
+>Preferencias</guimenu
+> y <guimenu
+>Ayuda</guimenu
+> de &kde; que se describen en el capítulo <ulink url="help:/fundamentals/menus.html"
+>Menú</ulink
+> de la documentación de los principios básicos de &kde;.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Informar de fallos</title>
+
+<para
+>Si cree que ha encontrado un error en &atlantik;, háganoslo saber. A menudo, los desarrolladores detectan y solucionan fallos por sí mismos, pero es posible que usted experimente problemas aún desconocidos. Si no los comunica, es posible que nunca lleguen a solucionarse.</para>
+
+<para
+>Puede informar de errores en &atlantik; en el <ulink url="https://bugs.kde.org/"
+>sistema de seguimiento de errores de &kde;</ulink
+>. Use la opción del menú <menuchoice
+><guimenu
+>Ayuda</guimenu
+><guimenuitem
+>Informar de fallo...</guimenuitem
+></menuchoice
+> para lanzar el asistente de errores con algunos detalles sobre su versión de &atlantik; insertados automáticamente.</para>
+
+<para
+>Especifique los detalles en su informe de errores, como las condiciones del juego. Por ejemplo, un error solo puede ocurrir cuando las personas están en la cárcel o durante una subasta. Si es posible, guarde el registro de eventos y adjúntelo al informe de errores o envíeselo al autor. Puede contener pistas vitales sobre el comportamiento que podrían conducir a una resolución más rápida del error.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Respuestas a preguntas frecuentes</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>¿Como puedo añadir a la computadora como jugador?</para>
+</question>
+<answer>
+<para
+>Desafortunadamente, todavía no puede tener oponentes de computadora en &atlantik;. </para>
+<para
+>Se aconseja a los usuarios que aprovechen los servidores públicos de Internet o un servidor <acronym
+>LAN</acronym
+> privado.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>¿Cómo puedo negociar?</para>
+</question>
+<answer>
+<para
+>Haga clic en la cartera o patrimonio de un jugador con el &RMB; para abrir una negociación.</para>
+<para
+>Existen dos problemas de usabilidad en las negociaciones que pueden causar cierta confusión. Si de alguna manera incluye a otro jugador en una negociación, dicho jugador verá la ventana de negociación. Cualquier jugador puede rechazar las condiciones, lo que también finaliza innecesariamente la sesión de comercio para todos los demás jugadores. Todos los jugadores deben aceptar una negociación antes de que se pueda completar, lo que puede ser complicado porque los jugadores siguen participando en los acuerdos incluso cuando ya no están involucrados con artículos negociables.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Créditos y licencia</title>
+
+<para
+>El programa &atlantik; y su documentación tienen copyright &copy; 1998-2004 &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Traducido por Eloy Cuadra <email
+>ecuadra@eloihr.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
