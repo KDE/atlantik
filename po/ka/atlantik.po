@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-10-11 00:14+0000\n"
-"PO-Revision-Date: 2022-09-30 15:26+0200\n"
+"PO-Revision-Date: 2022-12-10 15:52+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -48,7 +48,7 @@ msgstr "ჟურნალის ჩვენება..."
 #: client/atlantik.cpp:111
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr ""
+msgstr "&თავიდან მიერთება (ავარიის შემდეგ)"
 
 #: client/atlantik.cpp:115
 #, kde-format
@@ -68,54 +68,54 @@ msgstr "&აუქციონი"
 #: client/atlantik.cpp:159
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr ""
+msgstr "ციხიდან გასასვლელად ბარათის გამოყენება"
 
 #: client/atlantik.cpp:164
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr ""
+msgstr "&გადახდა ციხიდან გასასვლელად"
 
 #: client/atlantik.cpp:171
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr ""
+msgstr "გაგორება &ციხიდან გასასვლელად"
 
 #: client/atlantik.cpp:292
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "შემოგვიერთდნენ ახალი მოთამაშეები."
 
 #: client/atlantik.cpp:500
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "მიერთების შეცდომა: მიერთება უარყოფილია ჰოსტის მიერ."
 
 #: client/atlantik.cpp:503
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "მიერთების შეცდომა: ჰოსტი ვერ ვიპოვე."
 
 #: client/atlantik.cpp:506
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "მიერთების შეცდომა: შეცდომა %1."
 
 #: client/atlantik.cpp:726
 #, kde-format
 msgctxt "error message"
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: client/atlantik.cpp:729
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
-msgstr ""
+msgstr "ინფორმაცია"
 
 #: client/atlantik.cpp:799
 #, kde-format
 msgid "It is your turn now."
-msgstr ""
+msgstr "თქვენი სვლაა."
 
 #: client/atlantik.cpp:915
 #, kde-format
@@ -123,16 +123,18 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
+"ამჟამად აქტიური თამაშის მოთამაშე ბრძანდებით. დარწმუნებული ბრძანდებით, რომ "
+"გნებავთ, დახუროთ Atlantik? თუ იზამთ, თამაში დაგაჯარიმებთ."
 
 #: client/atlantik.cpp:915
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr ""
+msgstr "დახურვა და დაჯარიმება?"
 
 #: client/atlantik.cpp:915
 #, kde-format
 msgid "Close && Forfeit"
-msgstr ""
+msgstr "დახურვა და დაჯარიმება"
 
 #: client/atlantik.cpp:948
 #, kde-format
@@ -140,22 +142,24 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
+"ამჟამად აქტიური თამაშის მოთამაშე ბრძანდებით. დარწმუნებული ბრძანდებით, რომ "
+"გნებავთ, გახვიდეთ? თუ იზამთ, თამაში დაგაჯარიმებთ."
 
 #: client/atlantik.cpp:948
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr ""
+msgstr "გასვლა და დაჯარიმება?"
 
 #: client/atlantik.cpp:948
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr ""
+msgstr "გასვლა და დაჯარიმება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/configboard.ui:17
 #, kde-format
 msgid "Game Status Feedback"
-msgstr ""
+msgstr "თამაშის სტატუსის უკუკავშირი"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:23
@@ -183,7 +187,7 @@ msgstr ""
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "უპატრონო ქონების გამოკვეთა"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -197,7 +201,7 @@ msgstr ""
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "იპოთეკიანი ქონების გამუქება"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -211,7 +215,7 @@ msgstr ""
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr ""
+msgstr "კოდის მოძრაობის ანიაცია"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -225,7 +229,7 @@ msgstr ""
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "კვარცის ეფექტები"
 
 #: client/configdlg.cpp:26
 #, kde-format
@@ -263,7 +267,7 @@ msgstr ""
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "საუბრის შეტყობინებებში დროის შტამპის ჩვენება"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -277,7 +281,7 @@ msgstr ""
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "გაშვებისას სერვერების სიის ინტერნეტიდან გამოთხოვა"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -292,7 +296,7 @@ msgstr ""
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "სატესტო სერვერების დამალვა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
@@ -336,7 +340,7 @@ msgstr "&ჟურნალის გასუფთავება"
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Atlantic-ის ჟურნალის ფაილი შენახულია, როგორც %1."
 
 #: client/main.cpp:36
 #, kde-format
@@ -346,7 +350,7 @@ msgstr "Atlantik"
 #: client/main.cpp:37
 #, kde-format
 msgid "The Atlantic board game"
-msgstr ""
+msgstr "სამაგიდო თამაში Atlantic"
 
 #: client/main.cpp:39
 #, kde-format
@@ -386,7 +390,7 @@ msgstr "Albert Astals Cid"
 #: client/main.cpp:49
 #, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "სხვადასხვა პაჩები"
 
 #: client/main.cpp:51
 #, kde-format
@@ -456,17 +460,17 @@ msgstr "თამაში"
 #: client/main.cpp:76
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "სამაგიდო თამაში Atlantic"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "თამაშის მორგება"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "თამაშიდან გასვლა"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
@@ -476,23 +480,23 @@ msgstr "თამაშის დაწყება"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list..."
-msgstr ""
+msgstr "კონფიგურაციების სიის მიღება..."
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data..."
-msgstr ""
+msgstr "თამაში დაიწყო. თამაშის სრული ინფორმაციის მიღება..."
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "კონფიგურაციების სია მიღებულია."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "შექმენით ან აირჩიეთ monopd-ის თამაში"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
@@ -516,51 +520,51 @@ msgstr "მოთამაშეები"
 #: client/selectgame.ui:58
 #, kde-format
 msgid "Server List"
-msgstr ""
+msgstr "სერვერების სია"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr ""
+msgstr "თამაშის შექმნა"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "ახალი %1 თამაშის შექმნა"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr ""
+msgstr "%1-ის %2-ის თამაშის ყურება"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr ""
+msgstr "%1-ის %2-ის თამაშის ყურება"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "ხელმისაწვდომია ახალი თამაში."
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr ""
+msgstr "თამაშის ყურება"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr ""
+msgstr "თამშშ შესვლა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "Monopd-ის სერვერის ხელით მითითება"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
@@ -585,7 +589,7 @@ msgstr "დაკავშირება"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "აირჩიეთ monopd-ის სერვერი"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
@@ -619,52 +623,52 @@ msgstr "უცნობი"
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr ""
+msgstr "სერვერების სიის მიღება"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list..."
-msgstr ""
+msgstr "სერვერების სიის მიღება..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr ""
+msgstr "სერვერების სიის თავიდან ჩატვირთვა"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr ""
+msgstr "შეცდომა სერვერების სიის მიღებისას."
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "სერვერბის სია მიღებულია."
 
 #: libatlantikclient/atlantik_network.cpp:128
 #, kde-format
 msgid "Connecting to %1:%2..."
-msgstr ""
+msgstr "%1:%2-თან მიერთება..."
 
 #: libatlantikclient/atlantik_network.cpp:136
 #, kde-format
 msgid "Server host name lookup finished..."
-msgstr ""
+msgstr "სერვერის ჰოსტის სახელის ამოხსნა დასრულდა..."
 
 #: libatlantikclient/atlantik_network.cpp:141
 #, kde-format
 msgid "Connected to %1:%2."
-msgstr ""
+msgstr "%1:%2-თან მიერთება."
 
 #: libatlantikclient/atlantik_network.cpp:152
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "მიერთების შეცდომა! შეცდომის კოდი: %1"
 
 #: libatlantikclient/atlantik_network.cpp:157
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "%1-სგან გათიშვა: %2."
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
@@ -677,23 +681,23 @@ msgstr "დამკვრელი"
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr ""
+msgstr "ფსონი"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr ""
+msgstr "ფსონის გაკეთება"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once..."
-msgstr ""
+msgstr "ერთხელ..."
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice..."
-msgstr ""
+msgstr "ორჯერ..."
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
@@ -733,22 +737,22 @@ msgstr "არა"
 #: libatlantikui/estatedetails.cpp:111
 #, kde-format
 msgid "Mortgaged: %1"
-msgstr ""
+msgstr "იპოთეკით: %1"
 
 #: libatlantikui/estateview.cpp:78
 #, kde-format
 msgid "Unmortgage Price: %1"
-msgstr ""
+msgstr "იპოთეკიდან დასხსნის ფასი: %1"
 
 #: libatlantikui/estateview.cpp:80
 #, kde-format
 msgid "Mortgage Value: %1"
-msgstr ""
+msgstr "იპოთეკის ფასი: %1"
 
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr ""
+msgstr "სახლის ფასი: %1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
@@ -763,63 +767,63 @@ msgstr "ფული: %1"
 #: libatlantikui/estateview.cpp:426
 #, kde-format
 msgid "Unmortgage"
-msgstr ""
+msgstr "იპოთეკიდან დასხსნა"
 
 #: libatlantikui/estateview.cpp:432
 #, kde-format
 msgid "Mortgage"
-msgstr ""
+msgstr "იპოთეკა"
 
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "სასტუმროს აშენება"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "სახლის აშენება"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "სასტუმროს გაყიდვა"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "სახლის გაყიდვა"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr ""
+msgstr "გაყიდვა"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "%1-თან ვაჭრობის მოთხოვნა"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "%1-ის ლაუნჯში გაგდება"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "%1-სთან ვაჭრობა"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "კომპონენტის დამატება"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "ქონება"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
@@ -839,7 +843,7 @@ msgstr "დაწყებული"
 #: libatlantikui/trade_widget.cpp:108
 #, kde-format
 msgid "To"
-msgstr ""
+msgstr "ვის"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
@@ -854,7 +858,7 @@ msgstr "მონაწილეები"
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
 msgid "Gives"
-msgstr ""
+msgstr "აძლევს"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
@@ -874,25 +878,25 @@ msgstr "დასტური"
 #: libatlantikui/trade_widget.cpp:191 libatlantikui/trade_widget.cpp:270
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%2-დან %1 მოთამაშე დაეთანხმა ვაჭრობის შეთავაზებას."
 
 #: libatlantikui/trade_widget.cpp:225
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
+msgstr "აძლევს"
 
 #: libatlantikui/trade_widget.cpp:286
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "%1-სთან ვაჭრობა უარყოფილია."
 
 #: libatlantikui/trade_widget.cpp:291
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "ვაჭრობა უარყოფილია."
 
 #: libatlantikui/trade_widget.cpp:496
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "ვაჭრობიდან მოცილება"
