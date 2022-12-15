@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-10-11 00:14+0000\n"
-"PO-Revision-Date: 2022-12-10 15:52+0100\n"
+"PO-Revision-Date: 2022-12-14 11:49+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -168,12 +168,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
+"თუ ჩართულია, მფლობელის გარეშე მყოფი ქონება დაფაზე გამოჩნდება ქონების ბარათი, "
+"რომ ქონება ყიდება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr ""
+msgstr "მფლობელის გარეშე ქონების სათაურის ბარათის ჩვენება"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -182,6 +184,8 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
+"თუ ჩართულია, მფლობელის გარეშე მყოფი ქონება დაფაზე გამოიკვეთება, როგორც "
+"გასაყიდი ქონება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
@@ -196,6 +200,7 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
+"თუ ჩართულია, იპოთეკიანი ქონებები დაფაზე ჩვეულებრივზე მუქი ფერებში გამოჩნდება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
@@ -209,7 +214,7 @@ msgstr "იპოთეკიანი ქონების გამუქე�
 msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
-msgstr ""
+msgstr "თუ ჩართულია, ჟეტონები მაგიდაზე გადახტომის მაგიერ გადაადგილდებიან."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
@@ -224,6 +229,8 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"თუ ჩართულია, ქუჩის ქონების ფერადი თავსართებს მაგიდაზე კვარცის ეფექტი "
+"ექნებათ, Quartz KWin სტილის მსგავსად."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
@@ -262,6 +269,7 @@ msgstr "მეტასერვერი"
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
+"თუ ჩართულია, Atlanik ჩატის შეტყობინებების წინ დროის შტამპებს დაამატებს."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
@@ -276,6 +284,8 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"თუ ჩართულია, გაშვებისას Atlantik-ი ინტერნეტ-სერვერების სიის მისაღებად მეტა "
+"სერვერს დაუკავშირდება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
@@ -291,6 +301,8 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"ზოგიერთ ინტერნეტ-სერვერზე სერვერული პროგრამის სატესტო ვერსიაა გაშვებული.\n"
+"თუ ჩართულია, Atlantik-ი ამ სერვერებს არ გაჩვენებთ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
@@ -361,6 +373,7 @@ msgstr "(c) 1998-2004 Rob Kaper"
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
 msgstr ""
+"KDE-ის კლიენტია Monopoly-ის მსგავსი სამაგიდო თამაშებისთვის monopd ქსელში."
 
 #: client/main.cpp:45
 #, kde-format
