@@ -583,8 +583,7 @@ msgstr "Unirse á partida"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
-#, fuzzy, kde-format
-#| msgid "Enter Custom monopd Server"
+#, kde-format
 msgid "Enter Custom monopd Server"
 msgstr "Introducir un servidor de monopd personalizado"
 
@@ -609,8 +608,7 @@ msgstr "Conectar"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
-#, fuzzy, kde-format
-#| msgid "Select monopd Server"
+#, kde-format
 msgid "Select monopd Server"
 msgstr "Seleccionar un servidor de monopd"
 
