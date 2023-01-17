@@ -487,7 +487,7 @@ msgstr "El joc de taula Atlantic"
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr "Configuració de la partida"
+msgstr "Configureu la partida"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
