@@ -129,6 +129,15 @@
     <p xml:lang="x-test">xxAll game modes are served by monopd, a dedicated game server designed for Atlantik. One of the game modes plays like the popular real estate board game known as Monopoly®.xx</p>
   </description>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=atlantik</url>
+  <url type="homepage">https://apps.kde.org/atlantik/</url>
+  <releases>
+    <release version="0.5.1" date="2003-01-02" type="stable"/>
+  </releases>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://cdn.kde.org/screenshots/atlantik/atlantik.png</image>
+    </screenshot>
+  </screenshots>
   <categories>
     <category>Game</category>
     <category>BoardGame</category>
