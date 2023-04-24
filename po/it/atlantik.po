@@ -3,7 +3,7 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003.
 # Andrea Celli <a.celli@caltanet.it>, 2003, 2004, 2005, 2006.
 # Pino Toscano <toscano.pino@tiscali.it>, 2019.
-# Paolo Zamponi <zapaolo@email.it>, 2022.
+# Paolo Zamponi <feus73@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
