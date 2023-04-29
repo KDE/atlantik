@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the atlantik package.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019, 2023.
 #
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-10-11 00:14+0000\n"
-"PO-Revision-Date: 2019-09-29 09:03+0200\n"
+"PO-Revision-Date: 2023-04-28 19:54+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.11.70\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -29,26 +29,23 @@ msgstr "adrian@chaves.io"
 
 #. i18n: ectx: Menu (game)
 #: atlantikui.rc:4
-#, fuzzy, kde-format
-#| msgid "Game"
+#, kde-format
 msgid "&Game"
-msgstr "Partida"
+msgstr "&Partida"
 
 #. i18n: ectx: Menu (move)
 #: atlantikui.rc:10
 #, kde-format
 msgid "&Move"
-msgstr ""
+msgstr "&Mover"
 
 #: client/atlantik.cpp:108
-#, fuzzy, kde-format
-#| msgid "Show Event &Log"
+#, kde-format
 msgid "Show Event &Log..."
-msgstr "Mostrar o rexistro de eventos"
+msgstr "Mostrar o &rexistro de eventos…"
 
 #: client/atlantik.cpp:111
-#, fuzzy, kde-format
-#| msgid "&Reconnect (after crash)"
+#, kde-format
 msgid "&Reconnect (After Crash)"
 msgstr "Conecta&r de novo (tras unha quebra)"
 
@@ -244,8 +241,7 @@ msgid "Quartz effects"
 msgstr "Efectos de Quartz"
 
 #: client/configdlg.cpp:26
-#, fuzzy, kde-format
-#| msgid "Configure Atlantik"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
 msgstr "Configurar Atlantik"
@@ -342,8 +338,7 @@ msgid "Description"
 msgstr "Descrición"
 
 #: client/eventlogwidget.cpp:213
-#, fuzzy, kde-format
-#| msgid "Event Log"
+#, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
 msgstr "Rexistro de eventos"
@@ -831,8 +826,7 @@ msgid "Boot Player %1 to Lounge"
 msgstr "Botar ao xogador %1 á sala de espera"
 
 #: libatlantikui/trade_widget.cpp:49
-#, fuzzy, kde-format
-#| msgid "Trade %1"
+#, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
 msgstr "Intercambiar %1"
