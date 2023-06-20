@@ -42,7 +42,7 @@ msgstr "&Mover"
 #: client/atlantik.cpp:108
 #, kde-format
 msgid "Show Event &Log..."
-msgstr "Mostrar o &rexistro de eventos…"
+msgstr "Amosar o &rexistro de eventos…"
 
 #: client/atlantik.cpp:111
 #, kde-format
@@ -167,14 +167,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
-"Se se marca, as propiedades sen dono do taboleiro mostran unha tarxeta de "
+"Se se marca, as propiedades sen dono do taboleiro amosan unha tarxeta de "
 "propiedade para indicar que a propiedade está á venda."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr "Mostrar a tarxeta de escritura das propiedades sen dono"
+msgstr "Amosar a tarxeta de escritura das propiedades sen dono"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -278,7 +278,7 @@ msgstr ""
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr "Mostrar marcas de tempo nas mensaxes de conversa"
+msgstr "Amosar marcas de tempo nas mensaxes de conversa"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -306,7 +306,7 @@ msgid ""
 msgstr ""
 "Algúns dos servidores de Internet poderían estar usando versións de "
 "desenvolvemento do software de servidor.\n"
-"Se se marca, Atlantik non mostrará estes servidores."
+"Se se marca, Atlantik non amosará estes servidores."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
