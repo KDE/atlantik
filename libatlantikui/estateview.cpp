@@ -541,3 +541,5 @@ void EstateView::drawQuartzBlocks(QPixmap *pi, const QColor &c1, const QColor &c
 	px.fillRect( 22, 9, 3, 3, c2.lighter(120));
 	px.fillRect( 22, 13, 3, 3, c2.lighter(110) );
 }
+
+#include "moc_estateview.cpp"

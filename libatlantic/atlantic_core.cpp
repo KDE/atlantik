@@ -375,3 +375,5 @@ void AtlanticCore::printDebug() const
 
 #undef LP
 }
+
+#include "moc_atlantic_core.cpp"

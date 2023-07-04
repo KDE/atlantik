@@ -240,3 +240,5 @@ void SelectServer::customConnect()
 	if (!m_hostEdit->text().isEmpty() && !m_portEdit->text().isEmpty())
 		Q_EMIT serverConnect(m_hostEdit->text(), m_portEdit->text().toInt());
 }
+
+#include "moc_selectserver_widget.cpp"

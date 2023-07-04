@@ -55,3 +55,5 @@ void Card::update(bool force)
 		m_changed = false;
 	}
 }
+
+#include "moc_card.cpp"

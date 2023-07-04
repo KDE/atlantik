@@ -217,3 +217,5 @@ void SelectGame::connectClicked()
 			Q_EMIT newGame(item->data(0, GameTypeRole).toString());
 	}
 }
+
+#include "moc_selectgame_widget.cpp"

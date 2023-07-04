@@ -183,3 +183,5 @@ ConfigOption *Game::findConfigOption(const QString &name) const
 
 	return nullptr;
 }
+
+#include "moc_game.cpp"

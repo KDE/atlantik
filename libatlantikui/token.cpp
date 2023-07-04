@@ -163,3 +163,5 @@ void Token::resizeEvent(QResizeEvent *)
 {
 	b_recreate = true;
 }
+
+#include "moc_token.cpp"

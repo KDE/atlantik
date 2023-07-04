@@ -513,3 +513,5 @@ void TradeDisplay::contextMenuClickedRemove()
 
 	m_contextTradeItem = nullptr;
 }
+
+#include "moc_trade_widget.cpp"

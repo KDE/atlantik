@@ -84,3 +84,5 @@ bool CustomLocationIconButton::checkValid() const
 {
 	return m_tokenTheme.isValid();
 }
+
+#include "moc_customlocationiconbutton.cpp"

@@ -54,3 +54,5 @@ void Auction::update(bool force)
 		m_changed = false;
 	}
 }
+
+#include "moc_auction.cpp"

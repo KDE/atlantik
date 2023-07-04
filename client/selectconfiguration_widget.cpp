@@ -231,3 +231,5 @@ while (it.hasNext()) {
     }
 
 }
+
+#include "moc_selectconfiguration_widget.cpp"

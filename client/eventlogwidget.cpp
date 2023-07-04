@@ -268,3 +268,5 @@ void EventLogWidget::save()
 		m_eventLog->saveAsText(stream);
 	}
 }
+
+#include "moc_eventlogwidget.cpp"

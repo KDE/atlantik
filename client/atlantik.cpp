@@ -948,3 +948,5 @@ void Atlantik::slotLeaveGame()
 	if (!m_runningGame || playerSelf->isBankrupt() || playerSelf->isSpectator() || (KMessageBox::warningContinueCancel(this, i18n("You are currently part of an active game. Are you sure you want to leave it? If you do, you forfeit the game."), i18n("Leave & Forfeit?"), KGuiItem(i18n("Leave && Forfeit"))) == KMessageBox::Continue))
 		m_atlantikNetwork->leaveGame();
 }
+
+#include "moc_atlantik.cpp"

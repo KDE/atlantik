@@ -233,3 +233,5 @@ void Estate::update(bool force)
 		m_changed = false;
 	}
 }
+
+#include "moc_estate.cpp"

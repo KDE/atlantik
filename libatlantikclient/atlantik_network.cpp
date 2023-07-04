@@ -974,3 +974,5 @@ void AtlantikNetwork::processNode(QDomNode n) {
         // processNode(node);
     }
 }
+
+#include "moc_atlantik_network.cpp"

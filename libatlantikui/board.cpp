@@ -630,3 +630,5 @@ void AtlantikBoard::setTokenTheme(const TokenTheme &theme)
 	foreach (Token *token, m_tokens)
 		token->setTokenTheme(m_tokenTheme);
 }
+
+#include "moc_board.cpp"

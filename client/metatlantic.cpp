@@ -134,3 +134,5 @@ void Metatlantic::processMsg(const QString &msg)
 	if (do_close)
 		closeSocket();
 }
+
+#include "moc_metatlantic.cpp"

@@ -187,3 +187,5 @@ void EstateDetails::clearButtons()
 	qDeleteAll(m_buttons);
 	m_buttons.resize(0); // Keep the capacity allocated
 }
+
+#include "moc_estatedetails.cpp"

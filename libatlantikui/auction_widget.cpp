@@ -175,3 +175,5 @@ QTreeWidgetItem *AuctionWidget::createPlayerItem(Player *player)
 	m_playerItems.insert(player, item);
 	return item;
 }
+
+#include "moc_auction_widget.cpp"

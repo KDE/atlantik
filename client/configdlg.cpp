@@ -53,3 +53,5 @@ ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent)
 
 	setMinimumSize(sizeHint());
 }
+
+#include "moc_configdlg.cpp"

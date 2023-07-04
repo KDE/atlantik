@@ -76,3 +76,5 @@ void MonopdProtocol::sendData(const QString&)
 	// Your reimplementation of this method should send send data over the
 	// network.
 }
+
+#include "moc_monopdprotocol.cpp"

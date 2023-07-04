@@ -124,3 +124,5 @@ void PortfolioEstate::mousePressEvent(QMouseEvent *e)
 	if (e->button()==Qt::LeftButton)
 		Q_EMIT estateClicked(m_estate);
 }
+
+#include "moc_portfolioestate.cpp"

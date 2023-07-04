@@ -210,3 +210,5 @@ void EstateDetailsBase::setEstate(Estate *estate)
 		update();
 	}
 }
+
+#include "moc_estatedetailsbase.cpp"

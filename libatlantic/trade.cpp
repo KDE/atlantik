@@ -260,3 +260,5 @@ QString TradeCard::text() const
 {
 	return mCard->title();
 }
+
+#include "moc_trade.cpp"

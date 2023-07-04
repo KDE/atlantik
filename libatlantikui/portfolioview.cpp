@@ -297,3 +297,5 @@ void PortfolioView::slotMenuActionKick()
 {
 	Q_EMIT kickPlayer(m_player);
 }
+
+#include "moc_portfolioview.cpp"
