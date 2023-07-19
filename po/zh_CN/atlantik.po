@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-10-11 00:14+0000\n"
-"PO-Revision-Date: 2023-07-03 11:38\n"
+"PO-Revision-Date: 2023-07-18 11:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -20,29 +20,29 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "KDE 中国, Dasferco"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "kde-china@kde.org, dasferco@gmail.com"
 
 #. i18n: ectx: Menu (game)
 #: atlantikui.rc:4
 #, kde-format
 msgid "&Game"
-msgstr ""
+msgstr "游戏(&G)"
 
 #. i18n: ectx: Menu (move)
 #: atlantikui.rc:10
 #, kde-format
 msgid "&Move"
-msgstr ""
+msgstr "移动(&M)"
 
 #: client/atlantik.cpp:108
 #, kde-format
 msgid "Show Event &Log..."
-msgstr ""
+msgstr "显示事件日志(&L)"
 
 #: client/atlantik.cpp:111
 #, kde-format
@@ -52,12 +52,12 @@ msgstr ""
 #: client/atlantik.cpp:115
 #, kde-format
 msgid "&Leave Game"
-msgstr ""
+msgstr "离开游戏(&L)"
 
 #: client/atlantik.cpp:141
 #, kde-format
 msgid "&Buy"
-msgstr ""
+msgstr "购买(&B)"
 
 #: client/atlantik.cpp:148
 #, kde-format
@@ -82,39 +82,39 @@ msgstr ""
 #: client/atlantik.cpp:292
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "新玩家已加入。"
 
 #: client/atlantik.cpp:500
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "连接出错：主机拒绝连接。"
 
 #: client/atlantik.cpp:503
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "连接出错：找不到主机。"
 
 #: client/atlantik.cpp:506
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "连接出错：错误 %1。"
 
 #: client/atlantik.cpp:726
 #, kde-format
 msgctxt "error message"
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: client/atlantik.cpp:729
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
-msgstr ""
+msgstr "详情"
 
 #: client/atlantik.cpp:799
 #, kde-format
 msgid "It is your turn now."
-msgstr ""
+msgstr "现在轮到您了。"
 
 #: client/atlantik.cpp:915
 #, kde-format
@@ -297,7 +297,7 @@ msgstr ""
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr ""
+msgstr "玩家姓名："
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
@@ -308,7 +308,7 @@ msgstr ""
 #: client/eventlogwidget.cpp:115
 #, kde-format
 msgid "Date/Time"
-msgstr ""
+msgstr "日期/时间"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
@@ -320,17 +320,17 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr ""
+msgstr "活动日志"
 
 #: client/eventlogwidget.cpp:223
 #, kde-format
 msgid "&Save As..."
-msgstr ""
+msgstr "另存为(&S)..."
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
-msgstr ""
+msgstr "清除日志(&C)"
 
 #: client/eventlogwidget.cpp:266
 #, kde-format
@@ -365,7 +365,7 @@ msgstr ""
 #: client/main.cpp:45
 #, kde-format
 msgid "main author"
-msgstr ""
+msgstr "主要作者"
 
 #: client/main.cpp:48
 #, kde-format
@@ -395,7 +395,7 @@ msgstr ""
 #: client/main.cpp:51
 #, kde-format
 msgid "application icon"
-msgstr ""
+msgstr "应用程序图标"
 
 #: client/main.cpp:52
 #, kde-format
@@ -430,7 +430,7 @@ msgstr ""
 #: client/main.cpp:63
 #, kde-format
 msgid "host"
-msgstr ""
+msgstr "主机名"
 
 #: client/main.cpp:64
 #, kde-format
@@ -440,7 +440,7 @@ msgstr ""
 #: client/main.cpp:64
 #, kde-format
 msgid "port"
-msgstr ""
+msgstr "端口"
 
 #: client/main.cpp:65
 #, kde-format
@@ -450,7 +450,7 @@ msgstr ""
 #: client/main.cpp:65
 #, kde-format
 msgid "game"
-msgstr ""
+msgstr "游戏"
 
 #: client/main.cpp:76
 #, kde-format
@@ -465,12 +465,12 @@ msgstr ""
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "离开游戏"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
 msgid "Start Game"
-msgstr ""
+msgstr "开始游戏"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
@@ -497,7 +497,7 @@ msgstr ""
 #: client/selectgame.ui:30
 #, kde-format
 msgid "Game"
-msgstr ""
+msgstr "游戏"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
@@ -509,19 +509,19 @@ msgstr ""
 #: client/selectgame.ui:45
 #, kde-format
 msgid "Players"
-msgstr ""
+msgstr "玩家"
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
 #, kde-format
 msgid "Server List"
-msgstr ""
+msgstr "服务器列表"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr ""
+msgstr "创建游戏"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
@@ -548,7 +548,7 @@ msgstr ""
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr ""
+msgstr "观看比赛"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
@@ -578,7 +578,7 @@ msgstr ""
 #: client/selectserver.ui:56 client/selectserver.ui:127
 #, kde-format
 msgid "Connect"
-msgstr ""
+msgstr "连接"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
@@ -602,33 +602,33 @@ msgstr ""
 #: client/selectserver.ui:89
 #, kde-format
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:94
 #, kde-format
 msgid "Users"
-msgstr ""
+msgstr "用户"
 
 #: client/selectserver_widget.cpp:45
 #, kde-format
 msgid "unknown"
-msgstr ""
+msgstr "未知"
 
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr ""
+msgstr "获取服务器列表"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list..."
-msgstr ""
+msgstr "正在获取服务器列表..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr ""
+msgstr "重新加载服务器列表"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
@@ -722,12 +722,12 @@ msgstr ""
 #: libatlantikui/estatedetails.cpp:111
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "有"
 
 #: libatlantikui/estatedetails.cpp:111
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: libatlantikui/estatedetails.cpp:111
 #, kde-format
