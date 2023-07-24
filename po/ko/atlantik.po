@@ -404,7 +404,7 @@ msgstr "Bart Szyszka"
 #: client/main.cpp:51
 #, kde-format
 msgid "application icon"
-msgstr "프로그램 아이콘"
+msgstr "앱 아이콘"
 
 #: client/main.cpp:52
 #, kde-format
