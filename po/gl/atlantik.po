@@ -271,14 +271,13 @@ msgstr "Servidor meta"
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
-"Se se marca, Atlantik engadirá marcas de tempo fronte ás mensaxes de "
-"conversa."
+"Se se marca, Atlantik engadirá marcas de tempo fronte ás mensaxes de charla."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr "Amosar marcas de tempo nas mensaxes de conversa"
+msgstr "Amosar marcas de tempo nas mensaxes de charla"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
