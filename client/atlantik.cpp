@@ -244,7 +244,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 
 	// Connection cookie
 	m_reconnectCookie.reset(ConnectionCookie::read());
-	m_reconnect->setEnabled(m_reconnectCookie);
+	m_reconnect->setEnabled(m_reconnectCookie != nullptr);
 }
 
 void Atlantik::readConfig()

@@ -22,7 +22,6 @@
 #include <QList>
 #include <QAbstractSocket>
 #include <QColor>
-#include <QScopedPointer>
 #include <QPointer>
 
 #include <kxmlguiwindow.h>
@@ -31,6 +30,8 @@
 #include <network_defs.h>
 
 #include "connectioncookie.h"
+
+#include <memory>
 
 class QScrollArea;
 class QAction;
@@ -278,8 +279,8 @@ private:
 
 	bool m_runningGame;
 
-	QScopedPointer<ConnectionCookie> m_cookie;
-	QScopedPointer<ConnectionCookie> m_reconnectCookie;
+	std::unique_ptr<ConnectionCookie> m_cookie;
+	std::unique_ptr<ConnectionCookie> m_reconnectCookie;
 	bool m_reconnecting;
 
 	TokenTheme m_tokenTheme;
