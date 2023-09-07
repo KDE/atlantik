@@ -28,26 +28,26 @@ ConfigDialog::ConfigDialog(const TokenTheme &theme, QWidget *parent)
 
 	QWidget *w = new QWidget(this);
 	m_uiGeneral.setupUi(w);
-	w->layout()->setMargin(0);
+	w->layout()->setContentsMargins(0, 0, 0, 0);
 	w->setObjectName(QStringLiteral("configGeneral"));
 	addPage(w, i18n("General"), QStringLiteral("configure"), i18n("General"));
 
 	w = new QWidget(this);
 	m_uiPlayer.setupUi(w);
 	m_uiPlayer.kcfg_PlayerImage->setTokenTheme(theme);
-	w->layout()->setMargin(0);
+	w->layout()->setContentsMargins(0, 0, 0, 0);
 	w->setObjectName(QStringLiteral("configPlayer"));
 	addPage(w, i18n("Personalization"), QStringLiteral("user-identity"), i18n("Personalization"));
 	
 	w = new QWidget(this);
 	m_uiBoard.setupUi(w);
-	w->layout()->setMargin(0);
+	w->layout()->setContentsMargins(0, 0, 0, 0);
 	w->setObjectName(QStringLiteral("configBoard"));
 	addPage(w, i18n("Board"), QStringLiteral("monop_board"), i18n("Board"));
 	
 	w = new QWidget(this);
 	m_uiMetaserver.setupUi(w);
-	w->layout()->setMargin(0);
+	w->layout()->setContentsMargins(0, 0, 0, 0);
 	w->setObjectName(QStringLiteral("configMetaserver"));
 	addPage(w, i18n("Meta Server"), QStringLiteral("network-wired"), i18n("Meta Server"));
 

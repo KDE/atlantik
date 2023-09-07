@@ -43,7 +43,7 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	connect(m_atlanticCore, SIGNAL(removeGUI(Game *)), this, SLOT(delGame(Game *)));
 
 	setupUi(this);
-	layout()->setMargin(0);
+	layout()->setContentsMargins(0, 0, 0, 0);
 
 	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
 

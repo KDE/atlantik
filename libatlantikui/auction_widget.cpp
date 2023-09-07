@@ -45,7 +45,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	connect(this, SIGNAL(bid(Auction *, int)), m_auction, SIGNAL(bid(Auction *, int)));
 
 	m_ui->setupUi(widget());
-	widget()->layout()->setMargin(0);
+	widget()->layout()->setContentsMargins(0, 0, 0, 0);
 
 	// Player list
 	m_ui->playerList->header()->setSectionsClickable(false);

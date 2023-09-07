@@ -107,7 +107,7 @@ SelectServer::SelectServer(bool hideDevelopmentServers, QWidget *parent)
 	, m_hideDevelopmentServers(hideDevelopmentServers)
 {
 	setupUi(this);
-	layout()->setMargin(0);
+	layout()->setContentsMargins(0, 0, 0, 0);
 
 	connect(m_hostEdit, SIGNAL(returnPressed()), this, SLOT(customConnect()));
 	connect(m_hostEdit, SIGNAL(textChanged(QString)), this, SLOT(validateCustomConnectButton()));

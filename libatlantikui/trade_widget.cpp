@@ -170,7 +170,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	QHBoxLayout *actionBox = new QHBoxLayout();
 	actionBox->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
-	actionBox->setMargin(0);
+	actionBox->setContentsMargins(0, 0, 0, 0);
 	listCompBox->addItem(actionBox);
 
 	actionBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));

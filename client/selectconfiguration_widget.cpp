@@ -39,7 +39,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	, m_atlanticCore(atlanticCore)
 {
 	m_mainLayout = new QVBoxLayout(this );
-        m_mainLayout->setMargin(0);
+        m_mainLayout->setContentsMargins(0, 0, 0, 0);
 	Q_CHECK_PTR(m_mainLayout);
 
 	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();

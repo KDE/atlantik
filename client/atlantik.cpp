@@ -205,7 +205,7 @@ Atlantik::Atlantik(QCommandLineParser *parser)
 	m_portfolioWidget->show();
 
 	m_portfolioLayout = new QVBoxLayout(m_portfolioWidget);
-	m_portfolioLayout->setMargin(0);
+	m_portfolioLayout->setContentsMargins(0, 0, 0, 0);
 
 	// Nice label
 //	m_portfolioLabel = new QLabel(i18n("Players"), m_portfolioWidget, "pfLabel");

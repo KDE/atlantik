@@ -54,7 +54,7 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	QWidget *w = widget();
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(w);
-	mainLayout->setMargin(0);
+	mainLayout->setContentsMargins(0, 0, 0, 0);
 
 	m_infoListView = new QListWidget(w);
 	m_infoListView->setWordWrap(true);
