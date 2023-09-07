@@ -63,7 +63,6 @@ EstateDetails::EstateDetails(Estate *estate, const QString &text, QWidget *paren
 	appendText(text);
 
 	m_buttonBox = new QHBoxLayout();
-	m_buttonBox->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 	mainLayout->addItem(m_buttonBox);
 
 	m_buttonBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));

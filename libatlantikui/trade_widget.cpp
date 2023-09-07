@@ -169,7 +169,6 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	connect(m_componentList, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(setCombos(QTreeWidgetItem*)));
 
 	QHBoxLayout *actionBox = new QHBoxLayout();
-	actionBox->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 	actionBox->setContentsMargins(0, 0, 0, 0);
 	listCompBox->addItem(actionBox);
 
