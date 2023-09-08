@@ -194,7 +194,7 @@ void PortfolioView::paintEvent(QPaintEvent *e)
 {
 	if (b_recreate)
 	{
-		const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
+		const int spacingHint = QApplication::style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
 		const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 		if (!qpixmap || qpixmap->size() != size())
 		{
@@ -224,7 +224,7 @@ void PortfolioView::paintEvent(QPaintEvent *e)
 
 		painter.setPen(Qt::white);
 		painter.setFont(QFont(generalFont.family(), generalFont.pointSize(), QFont::Bold));
-		painter.drawText(ICONSIZE + marginHint, 15, m_player->name());
+		painter.drawText(ICONSIZE + spacingHint, 15, m_player->name());
 
 		if ( m_portfolioEstates.count() )
 			painter.drawText(width() - 50, 15, QString::number(m_player->money()));
@@ -234,7 +234,7 @@ void PortfolioView::paintEvent(QPaintEvent *e)
 			painter.setBrush(Qt::white);
 
 			painter.setFont(generalFont);
-			painter.drawText(ICONSIZE + marginHint, 30, m_player->host());
+			painter.drawText(ICONSIZE + spacingHint, 30, m_player->host());
 		}
 
 		b_recreate = false;

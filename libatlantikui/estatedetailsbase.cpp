@@ -111,7 +111,9 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 			painter.setPen(Qt::black);
 
 			QColor titleColor = (m_estate->color().isValid() ? m_estate->color() : m_estate->bgColor().lighter(80));
-			const int marginHint = QApplication::style()->pixelMetric(QStyle::PM_DefaultChildMargin);
+			const int leftMarginHint = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
+			const int topMarginHint = QApplication::style()->pixelMetric(QStyle::PM_LayoutTopMargin);
+			const int spacingHint = QApplication::style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing);
 			const QFont generalFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
 			painter.setBrush(titleColor);
@@ -151,7 +153,7 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 				fontSize = generalFont.pixelSize();
 
 			painter.setFont(QFont(generalFont.family(), fontSize * 2, QFont::Bold));
-			painter.drawText(marginHint, marginHint, width()-marginHint, StaticTitleHeight, Qt::AlignJustify, m_estate->name());
+			painter.drawText(leftMarginHint, topMarginHint, width()-leftMarginHint, StaticTitleHeight, Qt::AlignJustify, m_estate->name());
 
 			painter.setPen(Qt::black);
 
@@ -160,7 +162,7 @@ void EstateDetailsBase::paintEvent(QPaintEvent *e)
 			// Estate group
 			if (m_estate->estateGroup())
 			{
-				xText = StaticTitleHeight - fontSize - marginHint;
+				xText = StaticTitleHeight - fontSize - spacingHint;
 				painter.setFont(QFont(generalFont.family(), fontSize, QFont::Bold));
 				painter.drawText(5, xText, width()-10, StaticTitleHeight, Qt::AlignRight, m_estate->estateGroup()->name().toUpper());
 			}
