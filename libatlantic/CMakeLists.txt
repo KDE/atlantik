@@ -13,7 +13,9 @@ set(atlantic_LIB_SRCS
 add_library(atlantic SHARED ${atlantic_LIB_SRCS})
 generate_export_header(atlantic BASE_NAME libatlantic)
 target_link_libraries(atlantic
-  PUBLIC Qt5::Core Qt5::Gui
+    PUBLIC
+      Qt${QT_MAJOR_VERSION}::Core
+      Qt${QT_MAJOR_VERSION}::Gui
 )
 set_target_properties(atlantic PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} EXPORT_NAME Atlantic)
 target_include_directories(atlantic INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/atlantic>")

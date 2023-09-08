@@ -21,8 +21,13 @@ ecm_qt_declare_logging_category(atlantikui_LIB_SRCS
 add_library(atlantikui SHARED ${atlantikui_LIB_SRCS})
 generate_export_header(atlantikui BASE_NAME libatlantikui)
 target_link_libraries(atlantikui
-  PUBLIC Qt5::Widgets atlantic
-  PRIVATE KF5::I18n KF5::IconThemes KF5::WidgetsAddons
+    PUBLIC
+        Qt${QT_MAJOR_VERSION}::Widgets
+        atlantic
+    PRIVATE
+        KF${KF_MAJOR_VERSION}::I18n
+        KF${KF_MAJOR_VERSION}::IconThemes
+        KF${KF_MAJOR_VERSION}::WidgetsAddons
 )
 set_target_properties(atlantikui PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION} EXPORT_NAME AtlantikUi)
 target_include_directories(atlantikui INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/atlantik/ui>")

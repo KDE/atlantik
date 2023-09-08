@@ -107,10 +107,10 @@ void Metatlantic::processMsg(const QString &msg)
 	bool do_send_follow = false;
 	bool do_close = false;
 	while (reader.readNextStartElement()) {
-		const QStringRef name = reader.name();
+		const auto name = reader.name();
 		if (name == QLatin1String("metaserver"))
 		{
-			const QStringRef serverVersion = reader.attributes().value(QStringLiteral("version"));
+			const auto serverVersion = reader.attributes().value(QStringLiteral("version"));
 			if (!serverVersion.isNull())
 				qCDebug(ATLANTIK_LOG) << "metaserver version" << serverVersion;
 			do_send_follow = true;
