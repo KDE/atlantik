@@ -67,7 +67,7 @@ void AtlantikNetwork::reset()
 	m_monopdsocket = new QTcpSocket(this);
 	m_monopdsocket->setSocketOption(QAbstractSocket::LowDelayOption, true);
 
-	connect(m_monopdsocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
+	connect(m_monopdsocket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(slotConnectionFailed(QAbstractSocket::SocketError)));
 	connect(m_monopdsocket, SIGNAL(connected()), this, SLOT(slotConnectionSuccess()));
 	connect(m_monopdsocket, SIGNAL(hostFound()), this, SLOT(slotLookupFinished()));
 	connect(m_monopdsocket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));

@@ -42,7 +42,7 @@ void Metatlantic::start()
 {
 	m_socket = new QTcpSocket(this);
 	m_socket->setSocketOption(QAbstractSocket::LowDelayOption, true);
-	connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotSocketError(QAbstractSocket::SocketError)));
+	connect(m_socket, SIGNAL(errorOccurred(QAbstractSocket::SocketError)), this, SLOT(slotSocketError(QAbstractSocket::SocketError)));
 	connect(m_socket, SIGNAL(connected()), this, SLOT(slotSocketConnected()));
 
 	m_socket->connectToHost(m_host, m_port);
