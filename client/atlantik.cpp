@@ -658,12 +658,12 @@ void Atlantik::slotMsgStatus(const QString &message, EventType type)
 	m_eventLog->addEvent(message, type);
 }
 
-static bool commandForMe(const QVector<QStringRef> &parts, const QString &playerName)
+static bool commandForMe(const QList<QStringView> &parts, const QString &playerName)
 {
 	if (parts.size() <= 1)
 		return true;
 
-	foreach (const QStringRef &p, parts)
+	foreach (const QStringView &p, parts)
 	{
 		if (p == playerName)
 			return true;
@@ -689,15 +689,11 @@ void Atlantik::slotMsgChat(const QString &player, const QString &msg)
 		KNotification::event(QStringLiteral("chat"), QStringLiteral("%1: %2").arg(player, msg.toHtmlEscaped()));
 	if (m_atlantikNetwork->isConnected() && playerSelf && msg.startsWith(QLatin1Char('!')))
 	{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-		const QVector<QStringRef> &parts = msg.splitRef(QLatin1Char(' '), Qt::SkipEmptyParts);
-#else
-		const QVector<QStringRef> &parts = msg.splitRef(QLatin1Char(' '), QString::SkipEmptyParts);
-#endif
+		const QList<QStringView> parts = QStringView(msg).split(QLatin1Char(' '), Qt::SkipEmptyParts);
 		Q_ASSERT(!parts.isEmpty());
 		if (commandForMe(parts, playerSelf->name()))
 		{
-			const QStringRef cmd = parts.first();
+			const QStringView cmd = parts.first();
 			if (cmd == QLatin1String("!date"))
 				m_atlantikNetwork->cmdChat(QLocale::c().toString(QDateTime::currentDateTime(), QLocale::ShortFormat));
 			else if (cmd == QLatin1String("!ping"))

@@ -5,6 +5,7 @@ project(atlantik)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(QT_MIN_VERSION "5.15.2")
 set(KF_MIN_VERSION "5.82.0")
 
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
@@ -26,7 +27,7 @@ ecm_setup_version(0.7.80
    VERSION_HEADER client/version.h
 )
 
-find_package(Qt5 CONFIG REQUIRED Core Gui Network Xml Widgets)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core Gui Network Xml Widgets)
 
 find_package(KF5 ${KF_MIN_VERSION} REQUIRED
   Config
