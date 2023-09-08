@@ -82,7 +82,6 @@ configure_package_config_file(
 ########### install files ###############
 
 install(PROGRAMS org.kde.atlantik.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES atlantikui.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/atlantik)
 install(FILES atlantik.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/AtlantikConfig.cmake" DESTINATION "${CMAKECONFIG_INSTALL_DIR}" COMPONENT Devel)
 install(EXPORT AtlanticTargets DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE AtlanticTargets.cmake NAMESPACE Atlantik:: )
