@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-project(atlantik)
+project(atlantik VERSION 0.7.80)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,7 +30,7 @@ else()
     set(KF_MAJOR_VERSION "5")
 endif()
 
-ecm_setup_version(0.7.80
+ecm_setup_version(PROJECT
    VARIABLE_PREFIX ATLANTIK
    VERSION_HEADER client/version.h
 )
