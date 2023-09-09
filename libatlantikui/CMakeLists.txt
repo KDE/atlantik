@@ -23,6 +23,8 @@ ecm_qt_declare_logging_category(atlantikui
     IDENTIFIER LIBATLANTIKUI_LOG
     CATEGORY_NAME atlantik.libatlantikui
     DEFAULT_SEVERITY Warning
+    DESCRIPTION "Atlantik - UI library"
+    EXPORT ATLANTIK
 )
 generate_export_header(atlantikui BASE_NAME libatlantikui)
 

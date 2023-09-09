@@ -30,6 +30,8 @@ ecm_qt_declare_logging_category(atlantik
     IDENTIFIER ATLANTIK_LOG
     CATEGORY_NAME atlantik.client
     DEFAULT_SEVERITY Warning
+    DESCRIPTION "Atlantik - App"
+    EXPORT ATLANTIK
 )
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-atlantik.png")

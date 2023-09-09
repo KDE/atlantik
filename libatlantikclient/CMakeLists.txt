@@ -14,6 +14,8 @@ ecm_qt_declare_logging_category(atlantikclient
     IDENTIFIER LIBATLANTIKCLIENT_LOG
     CATEGORY_NAME atlantik.libatlantikclient
     DEFAULT_SEVERITY Warning
+    DESCRIPTION "Atlantik - Client library"
+    EXPORT ATLANTIK
 )
 generate_export_header(atlantikclient BASE_NAME libatlantikclient)
 
