@@ -1,8 +1,6 @@
-########### next target ###############
+add_executable(atlantik)
 
-file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-atlantik.png")
-
-set(atlantik_SRCS 
+target_sources(atlantik PRIVATE
    atlantik.cpp 
    clickablelabel.cpp
    configdlg.cpp 
@@ -18,16 +16,25 @@ set(atlantik_SRCS
 
    atlantik.qrc
 )
-kconfig_add_kcfg_files(atlantik_SRCS settings.kcfgc)
-ki18n_wrap_ui(atlantik_SRCS configboard.ui configgeneral.ui configmetaserver.ui configplayer.ui selectgame.ui selectserver.ui)
-ecm_qt_declare_logging_category(atlantik_SRCS
-  HEADER atlantik_debug.h
-  IDENTIFIER ATLANTIK_LOG
-  CATEGORY_NAME atlantik.client
-  DEFAULT_SEVERITY Warning
+kconfig_add_kcfg_files(atlantik settings.kcfgc)
+ki18n_wrap_ui(atlantik
+    configboard.ui
+    configgeneral.ui
+    configmetaserver.ui
+    configplayer.ui
+    selectgame.ui
+    selectserver.ui
 )
-ecm_add_app_icon(atlantik_SRCS ICONS ${ICONS_SRCS})
-add_executable(atlantik ${atlantik_SRCS})
+ecm_qt_declare_logging_category(atlantik
+    HEADER atlantik_debug.h
+    IDENTIFIER ATLANTIK_LOG
+    CATEGORY_NAME atlantik.client
+    DEFAULT_SEVERITY Warning
+)
+
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../pics/*-apps-atlantik.png")
+ecm_add_app_icon(atlantik ICONS ${ICONS_SRCS})
+
 target_link_libraries(atlantik
     atlantic
     atlantikui
