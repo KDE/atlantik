@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-10-11 00:14+0000\n"
+"POT-Creation-Date: 2023-09-09 00:42+0000\n"
 "PO-Revision-Date: 2021-10-17 11:13+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -26,18 +26,6 @@ msgstr "Steve Allewell"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "steve.allewell@gmail.com"
-
-#. i18n: ectx: Menu (game)
-#: atlantikui.rc:4
-#, kde-format
-msgid "&Game"
-msgstr "&Game"
-
-#. i18n: ectx: Menu (move)
-#: atlantikui.rc:10
-#, kde-format
-msgid "&Move"
-msgstr "&Move"
 
 #: client/atlantik.cpp:108
 #, kde-format
@@ -99,19 +87,19 @@ msgstr "Error connecting: host not found."
 msgid "Error connecting: error %1."
 msgstr "Error connecting: error %1."
 
-#: client/atlantik.cpp:726
+#: client/atlantik.cpp:722
 #, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Error"
 
-#: client/atlantik.cpp:729
+#: client/atlantik.cpp:725
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Info"
 
-#: client/atlantik.cpp:799
+#: client/atlantik.cpp:795
 #, kde-format
 msgid "It is your turn now."
 msgstr "It is your turn now."
@@ -153,6 +141,18 @@ msgstr "Leave & Forfeit?"
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Leave && Forfeit"
+
+#. i18n: ectx: Menu (game)
+#: client/atlantikui.rc:4
+#, kde-format
+msgid "&Game"
+msgstr "&Game"
+
+#. i18n: ectx: Menu (move)
+#: client/atlantikui.rc:10
+#, kde-format
+msgid "&Move"
+msgstr "&Move"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/configboard.ui:17
@@ -674,12 +674,12 @@ msgstr "Server host name lookup finished..."
 msgid "Connected to %1:%2."
 msgstr "Connected to %1:%2."
 
-#: libatlantikclient/atlantik_network.cpp:152
+#: libatlantikclient/atlantik_network.cpp:154
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Connection failed! Error code: %1"
 
-#: libatlantikclient/atlantik_network.cpp:157
+#: libatlantikclient/atlantik_network.cpp:159
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "Disconnected from %1:%2."
@@ -718,37 +718,37 @@ msgstr "Going twice..."
 msgid "Sold!"
 msgstr "Sold!"
 
-#: libatlantikui/estatedetails.cpp:90 libatlantikui/estateview.cpp:87
+#: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
 msgstr "Price: %1"
 
-#: libatlantikui/estatedetails.cpp:99 libatlantikui/estateview.cpp:76
+#: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
 msgstr "Owner: %1"
 
-#: libatlantikui/estatedetails.cpp:99
+#: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
 msgstr "unowned"
 
-#: libatlantikui/estatedetails.cpp:106
+#: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
 msgstr "Houses: %1"
 
-#: libatlantikui/estatedetails.cpp:111
+#: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
 msgstr "Yes"
 
-#: libatlantikui/estatedetails.cpp:111
+#: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "No"
 msgstr "No"
 
-#: libatlantikui/estatedetails.cpp:111
+#: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Mortgaged: %1"
 msgstr "Mortgaged: %1"
@@ -879,38 +879,38 @@ msgstr "Gives"
 msgid "Item"
 msgstr "Item"
 
-#: libatlantikui/trade_widget.cpp:178
+#: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
 msgstr "Reject"
 
-#: libatlantikui/trade_widget.cpp:183
+#: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
 msgstr "Accept"
 
-#: libatlantikui/trade_widget.cpp:191 libatlantikui/trade_widget.cpp:270
+#: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
 msgstr "%1 out of %2 players accept current trade proposal."
 
-#: libatlantikui/trade_widget.cpp:225
+#: libatlantikui/trade_widget.cpp:224
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
 msgstr "gives"
 
-#: libatlantikui/trade_widget.cpp:286
+#: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
 msgstr "Trade proposal was rejected by %1."
 
-#: libatlantikui/trade_widget.cpp:291
+#: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
 msgstr "Trade proposal was rejected."
 
-#: libatlantikui/trade_widget.cpp:496
+#: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
 msgstr "Remove From Trade"
