@@ -41,25 +41,19 @@ target_link_libraries(atlantik
     atlantic
     atlantikui
     atlantikclient
-    KF${KF_MAJOR_VERSION}::ConfigCore
-    KF${KF_MAJOR_VERSION}::ConfigWidgets
-    KF${KF_MAJOR_VERSION}::CoreAddons
-    KF${KF_MAJOR_VERSION}::Crash
-    KF${KF_MAJOR_VERSION}::I18n
-    KF${KF_MAJOR_VERSION}::IconThemes
-    KF${KF_MAJOR_VERSION}::Notifications
-    KF${KF_MAJOR_VERSION}::NotifyConfig
-    KF${KF_MAJOR_VERSION}::XmlGui
-    KF${KF_MAJOR_VERSION}::WidgetsAddons
+    KDEGames6
+    KF6::ConfigCore
+    KF6::ConfigWidgets
+    KF6::CoreAddons
+    KF6::Crash
+    KF6::I18n
+    KF6::IconThemes
+    KF6::Notifications
+    KF6::NotifyConfig
+    KF6::XmlGui
+    KF6::WidgetsAddons
+    KF6::IconWidgets
+    Qt6::Core5Compat
 )
-if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(atlantik
-        KDEGames6
-        KF6::IconWidgets
-        Qt6::Core5Compat
-    )
-else()
-    target_link_libraries(atlantik KF5KDEGames)
-endif()
 
 install(TARGETS atlantik ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

@@ -800,11 +800,7 @@ void Atlantik::playerChanged(Player *player)
 
 void Atlantik::gainedTurn()
 {
-	KNotification::event(QStringLiteral("gainedturn"), i18n("It is your turn now."), QPixmap()
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-	,this
-#endif
-	);
+	KNotification::event(QStringLiteral("gainedturn"), i18n("It is your turn now."), QPixmap());
 }
 
 void Atlantik::initNetworkObject()

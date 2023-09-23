@@ -17,19 +17,3 @@ Dependencies:
     'frameworks/kwidgetsaddons': '@latest-kf6'
     'frameworks/kdoctools': '@latest-kf6'
     'games/libkdegames': '@latest-kf6'
-
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5', 'Windows/Qt5']
-  'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kconfigwidgets': '@stable'
-    'frameworks/kcoreaddons': '@stable'
-    'frameworks/kcrash': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kiconthemes': '@stable'
-    'frameworks/knotifications': '@stable'
-    'frameworks/knotifyconfig': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/kwidgetsaddons': '@stable'
-    'frameworks/kdoctools': '@stable'
-    'games/libkdegames': '@stable'

@@ -19,8 +19,8 @@ target_sources(atlantic PRIVATE
 generate_export_header(atlantic BASE_NAME libatlantic)
 target_link_libraries(atlantic
     PUBLIC
-        Qt${QT_MAJOR_VERSION}::Core
-        Qt${QT_MAJOR_VERSION}::Gui
+        Qt6::Core
+        Qt6::Gui
 )
 target_include_directories(atlantic INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/atlantic>")
 install(TARGETS atlantic EXPORT AtlanticTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

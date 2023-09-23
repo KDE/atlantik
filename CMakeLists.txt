@@ -2,11 +2,9 @@ cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(atlantik VERSION 0.7.80)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(QT_MIN_VERSION "5.15.2")
-set(KF_MIN_VERSION "5.82.0")
+set(QT_MIN_VERSION "6.5.0")
+set(KF_MIN_VERSION "5.240.0")
+set(KDE_COMPILERSETTINGS_LEVEL "5.84")
 
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
@@ -22,43 +20,37 @@ include(CMakePackageConfigHelpers)
 include(ECMSetupVersion)
 include(ECMAddAppIcon)
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-    set(QT_MIN_VERSION "6.5.0")
-    set(KF_MIN_VERSION "5.240.0")
-    set(KF_MAJOR_VERSION "6")
-else()
-    set(KF_MAJOR_VERSION "5")
-endif()
 
 ecm_setup_version(PROJECT
    VARIABLE_PREFIX ATLANTIK
    VERSION_HEADER client/version.h
 )
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core Gui Network Xml Widgets)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED Core5Compat)
-endif()
-find_package(KF${KF_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED
-  Config
-  ConfigWidgets
-  CoreAddons
-  Crash
-  I18n
-  IconThemes
-  Notifications
-  NotifyConfig
-  XmlGui
-  WidgetsAddons
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
+    Core
+    Core5Compat
+    Gui
+    Network
+    Xml
+    Widgets
 )
 
-find_package(KF${KF_MAJOR_VERSION}DocTools)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
+    Config
+    ConfigWidgets
+    CoreAddons
+    Crash
+    I18n
+    IconThemes
+    Notifications
+    NotifyConfig
+    XmlGui
+    WidgetsAddons
+)
 
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(KDEGames6 6.0.0 REQUIRED)
-else()
-    find_package(KF5KDEGames 7.3.0 REQUIRED)
-endif()
+find_package(KF6DocTools)
+
+find_package(KDEGames6 6.0.0 REQUIRED)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
@@ -81,7 +73,7 @@ add_subdirectory( libatlantikclient )
 add_subdirectory( client )
 add_subdirectory( pics ) 
 add_subdirectory( themes ) 
-if(KF${KF_MAJOR_VERSION}DocTools_FOUND)
+if(KF6DocTools_FOUND)
   add_subdirectory(doc)
   kdoctools_install(po)
 endif()

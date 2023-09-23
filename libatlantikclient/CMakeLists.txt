@@ -21,16 +21,14 @@ generate_export_header(atlantikclient BASE_NAME libatlantikclient)
 
 target_link_libraries(atlantikclient
     PUBLIC
-        Qt${QT_MAJOR_VERSION}::Core
-        Qt${QT_MAJOR_VERSION}::Gui
         atlantic
+        Qt6::Core
+        Qt6::Gui
     PRIVATE
-        Qt${QT_MAJOR_VERSION}::Xml
-        Qt${QT_MAJOR_VERSION}::Network
-        KF${KF_MAJOR_VERSION}::I18n
+        KF6::I18n
+        Qt6::Xml
+        Qt6::Network
+        Qt6::Core5Compat
 )
-if (QT_MAJOR_VERSION STREQUAL "6")
-    target_link_libraries(atlantikclient PRIVATE Qt6::Core5Compat)
-endif()
 
 install(TARGETS atlantikclient ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)

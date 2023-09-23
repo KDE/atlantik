@@ -30,12 +30,12 @@ generate_export_header(atlantikui BASE_NAME libatlantikui)
 
 target_link_libraries(atlantikui
     PUBLIC
-        Qt${QT_MAJOR_VERSION}::Widgets
         atlantic
+        Qt6::Widgets
     PRIVATE
-        KF${KF_MAJOR_VERSION}::I18n
-        KF${KF_MAJOR_VERSION}::IconThemes
-        KF${KF_MAJOR_VERSION}::WidgetsAddons
+        KF6::I18n
+        KF6::IconThemes
+        KF6::WidgetsAddons
 )
 target_include_directories(atlantikui INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR}/atlantik/ui>")
 install(TARGETS atlantikui EXPORT AtlantikUiTargets ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
