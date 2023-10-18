@@ -32,7 +32,11 @@
 #include <kmessagebox.h>
 #include <knotifyconfigwidget.h>
 #include <knotification.h>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <kgamestandardaction.h>
+#else
 #include <kstandardgameaction.h>
+#endif
 #include <kstandardaction.h>
 #include <kiconloader.h>
 #include <kaboutdata.h>
@@ -60,6 +64,10 @@
 
 #include <settings.h>
 #include <atlantik_debug.h>
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+namespace KStandardGameAction = KGameStandardAction;
+#endif
 
 LogTextEdit::LogTextEdit(QWidget *parent)
 	: QTextEdit(parent)
