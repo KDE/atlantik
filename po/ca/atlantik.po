@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-09 00:42+0000\n"
+"POT-Creation-Date: 2023-10-19 00:40+0000\n"
 "PO-Revision-Date: 2021-10-25 19:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,84 +31,84 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: client/atlantik.cpp:108
+#: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
 msgstr "Mostra el &registre d'esdeveniments..."
 
-#: client/atlantik.cpp:111
+#: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
 msgstr "&Reconnecta (després de fallar)"
 
-#: client/atlantik.cpp:115
+#: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
 msgstr "Surt de la &partida"
 
-#: client/atlantik.cpp:141
+#: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
 msgstr "&Compra"
 
-#: client/atlantik.cpp:148
+#: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
 msgstr "Subh&asta"
 
-#: client/atlantik.cpp:159
+#: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
 msgstr "Usa la targeta per a sortir de la presó"
 
-#: client/atlantik.cpp:164
+#: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
 msgstr "&Paga per a sortir de la presó"
 
-#: client/atlantik.cpp:171
+#: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
 msgstr "&Tira els daus per a sortir de la presó"
 
-#: client/atlantik.cpp:292
+#: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
 msgstr "S'ha unit un jugador nou."
 
-#: client/atlantik.cpp:500
+#: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
 msgstr "Error de connexió: connexió refusada pel servidor."
 
-#: client/atlantik.cpp:503
+#: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
 msgstr "Error de connexió: no s'ha trobat el servidor."
 
-#: client/atlantik.cpp:506
+#: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
 msgstr "Error de connexió: error %1."
 
-#: client/atlantik.cpp:722
+#: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Error"
 
-#: client/atlantik.cpp:725
+#: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Informació"
 
-#: client/atlantik.cpp:795
+#: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
 msgstr "Ara és el vostre torn."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -117,17 +117,17 @@ msgstr ""
 "Ara formeu part d'una partida activa. Esteu segur que voleu tancar "
 "l'Atlantik? Si ho feu, abandonareu la partida."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Tanco i abandono?"
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Tanca i abandona"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -136,12 +136,12 @@ msgstr ""
 "Ara formeu part d'una partida activa. Esteu segur que voleu sortir? Si ho "
 "feu, abandonareu la partida."
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Surto i abandono?"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Surt i abandona"

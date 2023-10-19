@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-09 00:42+0000\n"
+"POT-Creation-Date: 2023-10-19 00:40+0000\n"
 "PO-Revision-Date: 2021-10-11 08:15+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -30,84 +30,84 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yurchor@ukr.net"
 
-#: client/atlantik.cpp:108
+#: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
 msgstr "Показати &журнал подій…"
 
-#: client/atlantik.cpp:111
+#: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
 msgstr "Повторно з'є&днатися (після аварії)"
 
-#: client/atlantik.cpp:115
+#: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
 msgstr "По&лишити гру"
 
-#: client/atlantik.cpp:141
+#: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
 msgstr "П&ридбати"
 
-#: client/atlantik.cpp:148
+#: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
 msgstr "&Аукціон"
 
-#: client/atlantik.cpp:159
+#: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
 msgstr "Скористатися карткою, щоб вийти з в'язниці"
 
-#: client/atlantik.cpp:164
+#: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
 msgstr "З&аплатити, щоб вийти з в'язниці"
 
-#: client/atlantik.cpp:171
+#: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
 msgstr "Кинути кістку, щоб вийти з в'&язниці"
 
-#: client/atlantik.cpp:292
+#: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
 msgstr "Долучився новий гравець."
 
-#: client/atlantik.cpp:500
+#: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
 msgstr "Помилка під час спроби встановити з'єднання: відмовлено у з'єднанні."
 
-#: client/atlantik.cpp:503
+#: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
 msgstr "Помилка під час спроби встановити з'єднання: вузол не знайдено."
 
-#: client/atlantik.cpp:506
+#: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
 msgstr "Не вдалося з'єднатися: помилка %1."
 
-#: client/atlantik.cpp:722
+#: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Помилка"
 
-#: client/atlantik.cpp:725
+#: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Відомості"
 
-#: client/atlantik.cpp:795
+#: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
 msgstr "Ваш хід."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -116,17 +116,17 @@ msgstr ""
 "Зараз ви є гравцем у активній грі. Ви справді хочете завершити роботу "
 "Atlantik? Якщо це так, вийдіть з гри."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Закрити і вийти?"
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Закрити і вийти"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -135,12 +135,12 @@ msgstr ""
 "Зараз ви є гравцем у активній грі. Ви справді хочете полишити гру? Якщо це "
 "так, вийдіть з гри."
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Полишити і вийти?"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Полишити і вийти"

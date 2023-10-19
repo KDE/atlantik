@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-09 00:42+0000\n"
+"POT-Creation-Date: 2023-10-19 00:40+0000\n"
 "PO-Revision-Date: 2021-10-11 05:52+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -28,84 +28,84 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "matjaz.jeran@amis.net"
 
-#: client/atlantik.cpp:108
+#: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
 msgstr "Prikaži dnevnik dogodkov..."
 
-#: client/atlantik.cpp:111
+#: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
 msgstr "Ponovno se priklopi (po izpadu)"
 
-#: client/atlantik.cpp:115
+#: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
 msgstr "Zapusti igro"
 
-#: client/atlantik.cpp:141
+#: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
 msgstr "Kupi"
 
-#: client/atlantik.cpp:148
+#: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
 msgstr "Dražba"
 
-#: client/atlantik.cpp:159
+#: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
 msgstr "Uporabi kartico, da zapustiš zapor"
 
-#: client/atlantik.cpp:164
+#: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
 msgstr "Plačaj, da zapustiš zapor"
 
-#: client/atlantik.cpp:171
+#: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
 msgstr "Vrzi kocko, da zapustiš zapor"
 
-#: client/atlantik.cpp:292
+#: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
 msgstr "Pridružil se je nov igralec."
 
-#: client/atlantik.cpp:500
+#: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
 msgstr "Napaka pri povezovanju: gostitelj je povezavo zavrnil."
 
-#: client/atlantik.cpp:503
+#: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
 msgstr "Napaka pri povezovanju: gostitelja ni mogoče najti."
 
-#: client/atlantik.cpp:506
+#: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
 msgstr "Napaka pri povezovanju: napaka %1."
 
-#: client/atlantik.cpp:722
+#: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Napaka"
 
-#: client/atlantik.cpp:725
+#: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Informacije"
 
-#: client/atlantik.cpp:795
+#: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
 msgstr "Zdaj ste vi na vrsti."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -114,17 +114,17 @@ msgstr ""
 "Trenutno ste del aktivne igre. Ali ste prepričani, da želite "
 "zapretiAtlantik? Če to storite, je igro izgubite."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Zapri in zaseg?"
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Zapri in zaseg"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -133,12 +133,12 @@ msgstr ""
 "Trenutno ste del aktivne igre. Ali ste prepričani, da jo želite zapustiti? "
 "Če to storite, je igra zasežena."
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Zapri in zasezi igro?"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Zapri in zasezi igro"

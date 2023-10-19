@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-09 00:42+0000\n"
+"POT-Creation-Date: 2023-10-19 00:40+0000\n"
 "PO-Revision-Date: 2020-01-22 21:15+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -27,86 +27,86 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "duke@linux.ee, hasso@linux.ee, qiilaq69@gmail.com"
 
-#: client/atlantik.cpp:108
+#: client/atlantik.cpp:116
 #, fuzzy, kde-format
 #| msgid "Show Event &Log"
 msgid "Show Event &Log..."
 msgstr "Näita sündmuste &logi"
 
-#: client/atlantik.cpp:111
+#: client/atlantik.cpp:119
 #, fuzzy, kde-format
 #| msgid "&Reconnect (after crash)"
 msgid "&Reconnect (After Crash)"
 msgstr "Ü&henda uuesti (pärast krahhi)"
 
-#: client/atlantik.cpp:115
+#: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
 msgstr "&Lahku mängust"
 
-#: client/atlantik.cpp:141
+#: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
 msgstr "&Osta"
 
-#: client/atlantik.cpp:148
+#: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
 msgstr "O&ksion"
 
-#: client/atlantik.cpp:159
+#: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
 msgstr "Kasuta kaarti vanglast vabanemiseks"
 
-#: client/atlantik.cpp:164
+#: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
 msgstr "&Maksa vanglast vabanemiseks"
 
-#: client/atlantik.cpp:171
+#: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
 msgstr "&Viska täringut vanglast vabanemiseks"
 
-#: client/atlantik.cpp:292
+#: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
 msgstr "Liitus uus mängija."
 
-#: client/atlantik.cpp:500
+#: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
 msgstr "Tõrge ühendumisel: masin keeldus ühendusest."
 
-#: client/atlantik.cpp:503
+#: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
 msgstr "Tõrge ühendumisel: masinat ei leitud."
 
-#: client/atlantik.cpp:506
+#: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
 msgstr "Tõrge ühendumisel: tõrge %1."
 
-#: client/atlantik.cpp:722
+#: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Tõrge"
 
-#: client/atlantik.cpp:725
+#: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Teave"
 
-#: client/atlantik.cpp:795
+#: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
 msgstr "Sinu kord täringut veeretada."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -115,17 +115,17 @@ msgstr ""
 "Sa osaled praegu aktiivses mängus. Kas tõesti Atlantik sulgeda? Sellisel "
 "juhul lüüakse sind mängust välja."
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Kas sulgeda ja loobuda mängust?"
 
-#: client/atlantik.cpp:915
+#: client/atlantik.cpp:923
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Sulge ja loobu"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -134,12 +134,12 @@ msgstr ""
 "Sa osaled praegu aktiivses mängus. Kas tõesti soovid lahkuda? Sellisel juhul "
 "lüüakse sind mängust välja."
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Kas lahkuda ja loobuda mängust?"
 
-#: client/atlantik.cpp:948
+#: client/atlantik.cpp:956
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Lahku ja loobu"
