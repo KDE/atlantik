@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2022-04-07 18:00+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -102,36 +102,36 @@ msgstr "Info"
 msgid "It is your turn now."
 msgstr ""
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr ""
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr ""
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr ""
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr ""
@@ -655,12 +655,12 @@ msgstr ""
 msgid "Connected to %1:%2."
 msgstr "Pripojený k %1:%2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr ""

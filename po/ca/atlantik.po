@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2021-10-25 19:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -108,7 +108,7 @@ msgstr "Informació"
 msgid "It is your turn now."
 msgstr "Ara és el vostre torn."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -117,17 +117,17 @@ msgstr ""
 "Ara formeu part d'una partida activa. Esteu segur que voleu tancar "
 "l'Atlantik? Si ho feu, abandonareu la partida."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Tanco i abandono?"
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Tanca i abandona"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -136,12 +136,12 @@ msgstr ""
 "Ara formeu part d'una partida activa. Esteu segur que voleu sortir? Si ho "
 "feu, abandonareu la partida."
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Surto i abandono?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Surt i abandona"
@@ -684,12 +684,12 @@ msgstr "Ha acabat la cerca de nom de màquina del servidor..."
 msgid "Connected to %1:%2."
 msgstr "Connectat amb %1:%2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Ha fallat la connexió! Codi d'error: %1"
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "S'ha desconnectat de %1:%2."

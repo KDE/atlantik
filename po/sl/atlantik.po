@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2021-10-11 05:52+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -105,7 +105,7 @@ msgstr "Informacije"
 msgid "It is your turn now."
 msgstr "Zdaj ste vi na vrsti."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -114,17 +114,17 @@ msgstr ""
 "Trenutno ste del aktivne igre. Ali ste prepričani, da želite "
 "zapretiAtlantik? Če to storite, je igro izgubite."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Zapri in zaseg?"
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Zapri in zaseg"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -133,12 +133,12 @@ msgstr ""
 "Trenutno ste del aktivne igre. Ali ste prepričani, da jo želite zapustiti? "
 "Če to storite, je igra zasežena."
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Zapri in zasezi igro?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Zapri in zasezi igro"
@@ -676,12 +676,12 @@ msgstr "Dokončanje iskanja imena gostitelja strežnika..."
 msgid "Connected to %1:%2."
 msgstr "Povezan na %1:%2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Povezava ni uspela! Koda napake: %1"
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "Odklopljen od %1:%2."

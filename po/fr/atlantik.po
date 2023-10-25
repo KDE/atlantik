@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2021-10-12 11:41+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -105,7 +105,7 @@ msgstr "Informations"
 msgid "It is your turn now."
 msgstr "C'est à votre tour maintenant."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -114,17 +114,17 @@ msgstr ""
 "Vous êtes un joueur dans une partie active. Voulez-vous vraiment quitter "
 "Atlantik ? Dans ce cas, vous perdez la partie."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Quitter & perdre ?"
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Quitter && perdre "
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -133,12 +133,12 @@ msgstr ""
 "Vous êtes un joueur dans une partie active. Voulez-vous vraiment la "
 "quitter ? Dans ce cas, vous perdez la partie."
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Quitter & perdre ?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Quitter && perdre "
@@ -679,12 +679,12 @@ msgstr "Recherche d'un nom de serveur hôte terminée..."
 msgid "Connected to %1:%2."
 msgstr "Connecté à %1 : %2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Erreur de connexion ! Code d'erreur : %1"
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "Déconnecté de %1 : %2"

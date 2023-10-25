@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2022-04-14 18:11+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -105,7 +105,7 @@ msgstr "Info"
 msgid "It is your turn now."
 msgstr "Sie sind am Zug."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -114,17 +114,17 @@ msgstr ""
 "Sie nehmen derzeit aktiv an einem Spiel teil. Sind Sie sicher, dass Sie "
 "Atlantik schließen wollen? Sie brechen damit das Spiel ab."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Schließen und Abbrechen?"
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Schließen und Abbrechen"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -133,12 +133,12 @@ msgstr ""
 "Sie nehmen derzeit aktiv an einem Spiel teil. Sind Sie sicher, dass Sie das "
 "Spiel verlassen möchten? Sie brechen damit das Spiel ab."
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Verlassen & Abbrechen?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Verlassen && Abbrechen"
@@ -677,12 +677,12 @@ msgstr "Namensauflösung des Serverrechners beendet.."
 msgid "Connected to %1:%2."
 msgstr "Verbunden mit %1: %2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Verbindung fehlgeschlagen! Fehlermeldung: %1"
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "Verbindung mit %1:%2 beendet."

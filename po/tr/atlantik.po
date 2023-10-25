@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-19 00:40+0000\n"
+"POT-Creation-Date: 2023-10-25 01:49+0000\n"
 "PO-Revision-Date: 2022-10-30 22:08+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -104,7 +104,7 @@ msgstr "Bilgi"
 msgid "It is your turn now."
 msgstr "Şimdi sizin sıranız."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to close "
@@ -113,17 +113,17 @@ msgstr ""
 "Şu anda etkin bir oyunun bir parçasısınız. Atlantik'i kapatmak istediğinize "
 "emin misiniz? Kapatırsanız oyunu kaybetmiş sayılacaksınız."
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
 msgstr "Kapat ve Kaybet?"
 
-#: client/atlantik.cpp:923
+#: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
 msgstr "Kapat ve Kaybet?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
@@ -132,12 +132,12 @@ msgstr ""
 "Şu anda etkin bir oyunun bir parçasısınız. Ayrılmak istediğinize emin "
 "misiniz? Ayrılırsanız oyunu kaybetmiş sayılacaksınız."
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
 msgstr "Ayrıl ve Kaybet?"
 
-#: client/atlantik.cpp:956
+#: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
 msgstr "Ayrıl ve Kaybet?"
@@ -674,12 +674,12 @@ msgstr "Sunucu makine adı araması bitti..."
 msgid "Connected to %1:%2."
 msgstr "Bağlı: %1:%2."
 
-#: libatlantikclient/atlantik_network.cpp:154
+#: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "Bağlantı başarısız! Hata kodu: %1"
 
-#: libatlantikclient/atlantik_network.cpp:159
+#: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "Bağlantı kesildi: %1:%2."
