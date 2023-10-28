@@ -51,7 +51,7 @@
 
 <abstract>
 <para
->L'&atlantik; és un client per jugar als jocs de taula semblants al &Monopoly; a la xarxa «&monopd;». </para>
+>L'&atlantik; és un client per a jugar als jocs de taula semblants al &Monopoly; a la xarxa «&monopd;». </para>
 
 </abstract>
 
@@ -74,7 +74,7 @@
 >Introducció</title>
 
 <para
->L'objectiu del joc de taula &atlantik; és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fan viatges transatlàntics. Per guanyar la partida, els jugadors cal que millorin els terrenys monopolitzats amb construccions que donin beneficis i amb l'esperança que els altres jugadors facin fallida.</para>
+>L'objectiu del joc de taula &atlantik; és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fan viatges transatlàntics. Per a guanyar la partida, els jugadors cal que millorin els terrenys monopolitzats amb construccions que donin beneficis i amb l'esperança que els altres jugadors facin fallida.</para>
 
 <para
 >Tots els modes de joc són servits pel «&monopd;», un servidor de jocs dedicat dissenya per a l'&atlantik;. Un dels modes de joc és com el joc de taula de propietats immobiliàries conegut com a &Monopoly;.</para>
@@ -265,12 +265,12 @@
 ><guimenu
 >Mou</guimenu
 ><guimenuitem
->Usa la targeta per sortir de la presó</guimenuitem
+>Usa la targeta per a sortir de la presó</guimenuitem
 ></menuchoice
 ></term>
 <listitem
 ><para
->Usa la targeta per sortir de la presó.</para
+>Usa la targeta per a sortir de la presó.</para
 ></listitem>
 </varlistentry>
 
@@ -286,12 +286,12 @@
 > <guimenu
 >Mou</guimenu
 ><guimenuitem
->Tira els daus per sortir de la presó</guimenuitem
+>Tira els daus per a sortir de la presó</guimenuitem
 ></menuchoice
 ></term>
 <listitem
 ><para
->Tira els daus per sortir de la presó.</para
+>Tira els daus per a sortir de la presó.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -366,7 +366,7 @@
 <para
 >Feu clic a la cartera d'un jugador o en l'estat amb el &BDR; i obrireu una negociació.</para>
 <para
->Hi ha dos problemes d'usabilitat amb les transaccions que poden causar confusió. Si d'alguna manera incloeu a un altre jugador en un intercanvi, aquest jugador obtindrà la finestra de negociació. Qualsevol jugador pot rebutjar els termes, el qual també finalitza innecessàriament la sessió d'intercanvi per a tots els altres jugadors. Tots els jugadors hauran d'acceptar un intercanvi abans que pugui completar-se, el qual pot ser complicat perquè els jugadors segueixen sent participants en els acords fins i tot quan ja no estan involucrats amb elements intercanviables.</para>
+>Hi ha dos problemes d'usabilitat amb les transaccions que poden causar confusió. Si d'alguna manera incloeu a un altre jugador en un intercanvi, aquest jugador obtindrà la finestra de negociació. Qualsevol jugador pot rebutjar els termes, el qual també finalitza innecessàriament la sessió d'intercanvi per a tots els altres jugadors. Tots els jugadors hauran d'acceptar un intercanvi abans que pugui completar-se, el qual pot ser complicat perquè els jugadors segueixen sent participants en els acords fins i tot quan ja no estan involucrats en elements intercanviables.</para>
 </answer>
 </qandaentry>
 

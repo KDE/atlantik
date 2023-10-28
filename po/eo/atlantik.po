@@ -1,111 +1,109 @@
-# Translation for atlantik.po to Euskara/Basque (eu).
-# Copyright (C) 2023 This file is copyright:
+# translation of atlantik.pot to esperanto
+# Copyright (C) 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atlantik package.
-# SPDX-FileCopyrightText: 2023 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# Oliver Kellogg <okellogg@users.sourceforge.net, 2023.
 #
-# Translators:
-# SPDX-FileCopyrightText: 2023 Iñigo Salvador Azurmendi <xalba@ni.eus>
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:49+0000\n"
-"PO-Revision-Date: 2023-10-26 18:40+0200\n"
-"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
-"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
-"Language: eu\n"
+"PO-Revision-Date: 2023-10-27 19:36+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Iñigo Salvador Azurmendi"
+msgstr "Oliver Kellogg"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "xalba@ni.eus"
+msgstr "okellogg@users.sourceforge.net"
 
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
-msgstr "Erakutsi gertaeren e&gunkaria..."
+msgstr "Montri Eventprotoko&lon..."
 
 #: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr "Birkonektatu (kraskaldiaren ondoren)"
+msgstr "&Rekonekti (Post Paneo)"
 
 #: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
-msgstr "&Irten jokotik"
+msgstr "For&lasi Ludon"
 
 #: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
-msgstr "&Erosi"
+msgstr "Aĉe&ti"
 
 #: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
-msgstr "En&kantea"
+msgstr "&Aŭkcio"
 
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr "Erabili txartela espetxetik irteteko"
+msgstr "Uzi Karton por Eliri Malliberejon"
 
 #: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr "&Ordaindu espetxetik irteteko"
+msgstr "&Pagi por Eliri Malliberejon"
 
 #: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr "Dadoak bota es&petxetik irteteko"
+msgstr "Rulu por Foriri Mallibere&jon"
 
 #: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
-msgstr "Jokalari berria batu da."
+msgstr "Nova ludanto aliĝis."
 
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr "Konektatzeko errorea: ostalariak konexioa errefusatu du."
+msgstr "Eraro konektante: konekto rifuzita de gastiganto."
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr "Konektatzeko errorea: ostalaria ez da aurkitu."
+msgstr "Eraro en la konekto: gastiganto ne trovita."
 
 #: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr "Konektatzeko errorea: %1 errorea."
+msgstr "Eraro konektante: eraro %1."
 
 #: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
-msgstr "Errorea"
+msgstr "Eraro"
 
 #: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
-msgstr "Informazioa"
+msgstr "Info"
 
 #: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
-msgstr "Orain zure txanda da."
+msgstr "Estas via vico nun."
 
 #: client/atlantik.cpp:919
 #, kde-format
@@ -113,18 +111,18 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
-"Oraintxe martxan dagoen joko baten partaide zara. Ziur zaude «Atlantik» itxi "
-"nahi duzula? Egiten baduzu, jokoa galduko duzu."
+"Vi nuntempe estas parto de aktiva ludo. Ĉu vi certas, ke vi volas fermi "
+"Atlantik? Se vi faras, vi perdas la ludon."
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr "Itxi eta galdu?"
+msgstr "Ĉu Fermi & Rezigni?"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
-msgstr "Itxi e&ta galdu"
+msgstr "Fermi && Perdi"
 
 #: client/atlantik.cpp:952
 #, kde-format
@@ -132,36 +130,36 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
-"Oraintxe martxan dagoen joko baten partaide zara. Ziur zaude irten nahi "
-"duzula? Egiten baduzu, jokoa galduko duzu."
+"Vi nuntempe estas parto de aktiva ludo. Ĉu vi certas, ke vi volas forlasi "
+"ĝin? Se vi faras, vi perdas la ludon."
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr "Irten eta galdu?"
+msgstr "Ĉu Foriri & Rezigni?"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr "Irten e&ta galdu"
+msgstr "Forlasi && Perdi"
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
 #, kde-format
 msgid "&Game"
-msgstr "&Jokoa"
+msgstr "&Ludo"
 
 #. i18n: ectx: Menu (move)
 #: client/atlantikui.rc:10
 #, kde-format
 msgid "&Move"
-msgstr "&Mugitu"
+msgstr "&Movi"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/configboard.ui:17
 #, kde-format
 msgid "Game Status Feedback"
-msgstr "Joko egoeraren berrelikadura"
+msgstr "Ludo-Stato-Reago"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:23
@@ -170,14 +168,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
-"Markatuta badago, taulako jaberik gabeko ondasunek higiezin-txartel bat "
-"azaltzen dute jabegoa salgai dagoela adierazteko."
+"Se kontrolite, neposedataj posedaĵoj sur la tabulo montras bienokarton por "
+"indiki ke la posedaĵo estas vendota."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr "Azaldu eskritura jaberik gabeko ondasunetan"
+msgstr "Montri titolkarton sur neposedataj proprietoj"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -186,14 +184,14 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
-"Markatuta badago, jaberik gabeko taulako ondasunak nabarmentzen dira "
-"ondasuna salgai dagoela adierazteko."
+"Se markite, neposedataj posedaĵoj sur la tabulo estas emfazitaj por indiki, "
+"ke la posedaĵo estas vendota."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr "Nabarmendu jaberik gabeko ondasunak"
+msgstr "Emfazu neposedatajn proprietojn"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -202,14 +200,14 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
-"Markatuta badago, taulan hipotekatu dauden ondasunak kolore lehenetsia baino "
-"kolore ilunagoarekin margotuko dira."
+"Se kontrolite, hipotekitaj propraĵoj sur la tabulo estos koloritaj pli "
+"malhele ol de la defaŭlta koloro."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr "Ilundu hipotekatutako ondasunak"
+msgstr "Mallumigi hipotekitajn proprietojn"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -218,14 +216,14 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
-"Markatuta badago, fitxak taulan zehar mugituko dira haien kokaleku berrira "
-"zuzenean jauzi egin ordez."
+"Se kontrolite, ĵetonoj moviĝos trans la tabulon anstataŭ salti rekte al sia "
+"nova loko."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr "Fitxen mugimendu biziduna"
+msgstr "Animaci ĵetonan movadon"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -234,54 +232,52 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
-"Markatuta badago, taulako kaleetako higiezinen goiburu koloreztatuek "
-"«Quartz» efektu bat izango dute, «KWin»eko «Quartz» estiloaren antzekoa."
+"Se markite, la koloraj titoloj de stratbiendomoj sur la tabulo havos Quartz-"
+"efikon similan al la Quartz KWin-stilo."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr "«Quartz» efektuak"
+msgstr "Kvarcaj efikoj"
 
 #: client/configdlg.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr "Konfiguratu «Atlantik»"
+msgstr "Agordi Atlantik"
 
 #: client/configdlg.cpp:33
 #, kde-format
 msgid "General"
-msgstr "Orokorra"
+msgstr "Ĝeneralo"
 
 #: client/configdlg.cpp:40
 #, kde-format
 msgid "Personalization"
-msgstr "Neurrira egokitzea"
+msgstr "Personigo"
 
 #: client/configdlg.cpp:46
 #, kde-format
 msgid "Board"
-msgstr "Taula"
+msgstr "Estraro"
 
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr "Meta-zerbitzaria"
+msgstr "Meta Servilo"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
-msgstr ""
-"Markatuta badago, «Atantik»ek denbora-zigiluak gehituko ditu berriketa-"
-"mezuen aurretik."
+msgstr "Se kontrolite, Atlantik aldonos tempomarkojn antaŭ babilmesaĝoj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr "Erakutsi denbora-zigiluak berriketa-mezuetan"
+msgstr "Montri tempomarkojn en babilmesaĝoj"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -290,14 +286,14 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
-"Markatuta badago, «Atlantik», abiatzean, meta-zerbitzari batera konektatuko "
-"da Interneteko zerbitzarien zerrenda bat eskatzeko."
+"Se kontrolita, Atlantik konektas al meta-servilo dum ekfunkciigo por peti "
+"liston de interretaj serviloj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr "Abioan Interneteko zerbitzarien zerrenda bat eskatu"
+msgstr "Peti liston de interretaj serviloj ĉe ekfunkciigo"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -307,59 +303,59 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
-"Baliteke Interneteko zerbitzarietako batzuk zerbitzari-softwarearen "
-"garapeneko bertsioak erabiltzea.\n"
-"Markatuta badago, «Atlantik»ek ez ditu zerbitzari horiek azalduko."
+"Iuj el la interretaj serviloj eble funkcias evoluigajn versiojn de la "
+"servila programaro.\n"
+"Se kontrolite, Atlantik ne montros ĉi tiujn servilojn."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr "Ezkutatu garapen zerbitzariak"
+msgstr "Kaŝi disvolvajn servilojn"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr "Jokalariaren izena:"
+msgstr "Ludantonomo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr "Jokalariaren irudia:"
+msgstr "Ludanta bildo:"
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
 msgid "Date/Time"
-msgstr "Data/Ordua"
+msgstr "Dato Tempo"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
 #, kde-format
 msgid "Description"
-msgstr "Deskribapena"
+msgstr "Priskribo"
 
 #: client/eventlogwidget.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr "Gertaeren egunkaria"
+msgstr "Eventprotokolo"
 
 #: client/eventlogwidget.cpp:223
 #, kde-format
 msgid "&Save As..."
-msgstr "&Gorde honela..."
+msgstr "Kon&servi kiel..."
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
-msgstr "Gar&bitu egunkaria"
+msgstr "&Forigi Protokolon"
 
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr "«Atlantik» egunkari fitxategia, %1(e)an gordea."
+msgstr "Atlantik-protokoldosiero, konservita ĉe %1."
 
 #: client/main.cpp:36
 #, kde-format
@@ -369,7 +365,7 @@ msgstr "Atlantik"
 #: client/main.cpp:37
 #, kde-format
 msgid "The Atlantic board game"
-msgstr "«Atlantik» mahai-jokoa"
+msgstr "La Atlantik-tabulludo"
 
 #: client/main.cpp:39
 #, kde-format
@@ -379,8 +375,7 @@ msgstr "(c) 1998-2004 Rob Kaper"
 #: client/main.cpp:40
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
-"«monopod» sarean Monopoly® antzeko mahai jokoetan jokatzeko KDEren bezeroa."
+msgstr "KDE-kliento por ludi Monopoly-similajn ludojn sur la monopd-reto."
 
 #: client/main.cpp:45
 #, kde-format
@@ -390,7 +385,7 @@ msgstr "Rob Kaper"
 #: client/main.cpp:45
 #, kde-format
 msgid "main author"
-msgstr "egile nagusia"
+msgstr "ĉefa aŭtoro"
 
 #: client/main.cpp:48
 #, kde-format
@@ -400,7 +395,7 @@ msgstr "Thiago Macieira"
 #: client/main.cpp:48
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr "«KExtendedSocket» euskarria"
+msgstr "KExtendedSocket-subteno"
 
 #: client/main.cpp:49
 #, kde-format
@@ -410,7 +405,7 @@ msgstr "Albert Astals Cid"
 #: client/main.cpp:49
 #, kde-format
 msgid "various patches"
-msgstr "hainbat adabaki"
+msgstr "diversaj flikoj"
 
 #: client/main.cpp:51
 #, kde-format
@@ -420,7 +415,7 @@ msgstr "Bart Szyszka"
 #: client/main.cpp:51
 #, kde-format
 msgid "application icon"
-msgstr "aplikazioaren ikonoa"
+msgstr "piktogramo de aplikaĵo"
 
 #: client/main.cpp:52
 #, kde-format
@@ -430,7 +425,7 @@ msgstr "Rob Malda"
 #: client/main.cpp:52
 #, kde-format
 msgid "token icons"
-msgstr "fitxen ikonoak"
+msgstr "ĵetonaj piktogramoj"
 
 #: client/main.cpp:53
 #, kde-format
@@ -440,7 +435,7 @@ msgstr "Elhay Achiam"
 #: client/main.cpp:53 client/main.cpp:54
 #, kde-format
 msgid "icons"
-msgstr "ikonoak"
+msgstr "piktogramoj"
 
 #: client/main.cpp:54
 #, kde-format
@@ -450,473 +445,473 @@ msgstr "Carlo Caneva"
 #: client/main.cpp:63
 #, kde-format
 msgid "Connect to this host"
-msgstr "Konektatu ostalari honetara"
+msgstr "Konekti al ĉi tiu gastiganto"
 
 #: client/main.cpp:63
 #, kde-format
 msgid "host"
-msgstr "ostalaria"
+msgstr "gastiganto"
 
 #: client/main.cpp:64
 #, kde-format
 msgid "Connect at this port"
-msgstr "Konektatu ataka honetan"
+msgstr "Konekti ĉe ĉi tiu pordo"
 
 #: client/main.cpp:64
 #, kde-format
 msgid "port"
-msgstr "ataka"
+msgstr "pordo"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "Join this game"
-msgstr "Batu joko honetara"
+msgstr "Aliĝi al ĉi tiu ludo"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "game"
-msgstr "jokoa"
+msgstr "ludo"
 
 #: client/main.cpp:76
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr "«Atlantik» mahai-jokoa"
+msgstr "La Atlantik-Tabulludo"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr "Jokoaren konfigurazioa"
+msgstr "Luda Agordo"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr "Irten jokotik"
+msgstr "Forlasi Ludon"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
 msgid "Start Game"
-msgstr "Hasi jokoa"
+msgstr "Komenci Ludon"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list..."
-msgstr "Konfiguratzeko zerrenda berreskuratzen..."
+msgstr "Prenante agordan liston..."
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data..."
-msgstr "Jokoa hasita. Joko osoaren datuak berreskuratzen..."
+msgstr "Ludo komenciĝis. Prenante plenajn ludajn datumojn..."
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr "Konfiguratzeko zerrenda berreskuratuta."
+msgstr "Prenis agordan liston."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr "Sortu edo hautatu «monopd» jokoa"
+msgstr "Krei aŭ Elekti monopd-ludon"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
 #, kde-format
 msgid "Game"
-msgstr "Jokoa"
+msgstr "Ludo"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
 #, kde-format
 msgid "Id"
-msgstr "ID"
+msgstr "Id"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:45
 #, kde-format
 msgid "Players"
-msgstr "Jokalariak"
+msgstr "Ludantoj"
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
 #, kde-format
 msgid "Server List"
-msgstr "Zerbitzari zerrenda"
+msgstr "Listo de Serviloj"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr "Sortu jokoa"
+msgstr "Krei Ludon"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr "Sortu %1 joko berri bat"
+msgstr "Krei novan %1 Ludon"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr "Ikusi %1(e)ren %2 jokoa"
+msgstr "Rigardi la %2 Ludon de %1"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr "Batu %1(e)ren %2 jokoa"
+msgstr "Aliĝi al %2 Ludo de %1"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr "Joko berria erabilgarri."
+msgstr "Nova ludo disponebla."
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr "Ikusi jokoa"
+msgstr "Spekti Ludon"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr "Batu jokora"
+msgstr "Aliĝi al Ludo"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr "Sartu neurrira ipinitako «monopod» zerbitzaria"
+msgstr "Enigi Propran monopd-Servilon"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr "Ostalari-izena:"
+msgstr "Gastnomo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
 #, kde-format
 msgid "Port:"
-msgstr "Ataka:"
+msgstr "Pordo:"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectserver.ui:56 client/selectserver.ui:127
 #, kde-format
 msgid "Connect"
-msgstr "Konektatu"
+msgstr "Konekti"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr "Hautatu «monopod» zerbitzaria"
+msgstr "Elekti monopd-Servilon"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
 #, kde-format
 msgid "Host"
-msgstr "Ostalaria"
+msgstr "Gastiganto"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
 #, kde-format
 msgid "Latency"
-msgstr "Latentzia"
+msgstr "Latenteco"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:89
 #, kde-format
 msgid "Version"
-msgstr "Bertsioa"
+msgstr "Versio"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:94
 #, kde-format
 msgid "Users"
-msgstr "Erabiltzaileak"
+msgstr "Uzantoj"
 
 #: client/selectserver_widget.cpp:45
 #, kde-format
 msgid "unknown"
-msgstr "ezezaguna"
+msgstr "nekonata"
 
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr "Lortu zerbitzari-zerrenda"
+msgstr "Ekpreni Servilan Liston"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list..."
-msgstr "Zerbitzari-zerrenda berreskuratzen..."
+msgstr "Prenante servilliston..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr "Birzamatu zerbitzari-zerrenda"
+msgstr "Reŝargi Servilan Liston"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr "Errorea zerbitzari-zerrenda berreskuratzean."
+msgstr "Eraro dum reakiro de la servilisto."
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr "Zerbitzari-zerrenda berreskuratuta."
+msgstr "Prenita servilisto."
 
 #: libatlantikclient/atlantik_network.cpp:128
 #, kde-format
 msgid "Connecting to %1:%2..."
-msgstr "%1(e)ra konektatzen:%2..."
+msgstr "Konektante al %1:%2..."
 
 #: libatlantikclient/atlantik_network.cpp:136
 #, kde-format
 msgid "Server host name lookup finished..."
-msgstr "Zerbitzariaren ostalari-izenaren bilaketa bukatu da..."
+msgstr "Serĉo pri servila gastiga nomo finiĝis..."
 
 #: libatlantikclient/atlantik_network.cpp:141
 #, kde-format
 msgid "Connected to %1:%2."
-msgstr "%1(e)ra konektatuta:%2."
+msgstr "Konektita al %1:%2."
 
 #: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr "Konexioak huts egin du! Errore-kodea: %1"
+msgstr "Konekto malsukcesis! Erarkodo: %1"
 
 #: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr "%1(e)tik deskonektatuta:%2"
+msgstr "Malkonektita de %1:%2."
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
 #: libatlantikui/trade_widget.cpp:164
 #, kde-format
 msgid "Player"
-msgstr "Jokalaria"
+msgstr "Ludanto"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr "Eskaintza"
+msgstr "Proponi"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr "Egin eskaintza"
+msgstr "Fari Oferton"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once..."
-msgstr "Lehenengoa..."
+msgstr "Al la unua..."
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice..."
-msgstr "Bigarrena..."
+msgstr "Al la dua..."
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
 msgid "Sold!"
-msgstr "Salduta!"
+msgstr "Vendite!"
 
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
-msgstr "Salneurria: %1"
+msgstr "Prezo: %1"
 
 #: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
-msgstr "Jabea: %1"
+msgstr "Posedanto: %1"
 
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
-msgstr "jaberik gabe"
+msgstr "neposedata"
 
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr "Etxeak: %1"
+msgstr "Domoj: %1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
-msgstr "Bai"
+msgstr "Jes"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "No"
-msgstr "Ez"
+msgstr "Ne"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Mortgaged: %1"
-msgstr "Hipotekaduna: %1"
+msgstr "Hipotekita: %1"
 
 #: libatlantikui/estateview.cpp:78
 #, kde-format
 msgid "Unmortgage Price: %1"
-msgstr "Hipoteka gabeko salneurria: %1"
+msgstr "Nehipoteka Prezo: %1"
 
 #: libatlantikui/estateview.cpp:80
 #, kde-format
 msgid "Mortgage Value: %1"
-msgstr "Hipotekaren balioa: %1"
+msgstr "Hipoteka valoro: %1"
 
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr "Etxearen balioa: %1"
+msgstr "Domvaloro: %1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
 msgid "House Price: %1"
-msgstr "Etxearen salneurria: %1"
+msgstr "Domprezo: %1"
 
 #: libatlantikui/estateview.cpp:89
 #, kde-format
 msgid "Money: %1"
-msgstr "Dirua: %1"
+msgstr "Mono: %1"
 
 #: libatlantikui/estateview.cpp:426
 #, kde-format
 msgid "Unmortgage"
-msgstr "Hipoteka gabetu"
+msgstr "Senhipoteko"
 
 #: libatlantikui/estateview.cpp:432
 #, kde-format
 msgid "Mortgage"
-msgstr "Hipoteka"
+msgstr "Hipoteko"
 
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr "Eraiki hotela"
+msgstr "Konstrui Hotelon"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr "Eraiki etxea"
+msgstr "Konstrui Domon"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr "Saldu hotela"
+msgstr "Vendi Hotelon"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr "Saldu etxea"
+msgstr "Vendi Domon"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr "Saldu"
+msgstr "Vendi"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr "Eskatu salerosketa %1(r)(e)(kin"
+msgstr "Peti Komercon kun %1"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr "Bidali %1 jokalaria egongelara"
+msgstr "Lanĉi Ludanton %1 al Lounge"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr "%1 salerosketa"
+msgstr "Komerci %1"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr "Gehitu osagaia"
+msgstr "Aldoni Komponanton"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr "Higiezina"
+msgstr "Biendomo"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr "Dirua"
+msgstr "Mono"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
 msgid "Card"
-msgstr "Txartela"
+msgstr "Karto"
 
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
 msgid "From"
-msgstr "Nork"
+msgstr "De"
 
 #: libatlantikui/trade_widget.cpp:108
 #, kde-format
 msgid "To"
-msgstr "Nori"
+msgstr "Al"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
 msgid "Update"
-msgstr "Eguneratu"
+msgstr "Ĝisdatigo"
 
 #: libatlantikui/trade_widget.cpp:141
 #, kde-format
 msgid "Participants"
-msgstr "Partaideak"
+msgstr "Partoprenantoj"
 
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
 msgid "Gives"
-msgstr "Eman"
+msgstr "Donas"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
 msgid "Item"
-msgstr "Elementua"
+msgstr "Ero"
 
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
-msgstr "Errefusatu"
+msgstr "Malakcepti"
 
 #: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
-msgstr "Onartu"
+msgstr "Akcepti"
 
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr "%1/%2 jokalarik uneko salerosketa proposamena onartzen dute."
+msgstr "%1 el %2 ludantoj akceptas aktualan komercan proponon."
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr "eman"
+msgstr "donas"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr "%1(e)k salerosketa proposamena errefusatu egin du."
+msgstr "Komerca propono estis malakceptita de %1."
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr "Salerosketa proposamena errefusatu da."
+msgstr "Komerca propono estis malakceptita."
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr "Kendu salerosketatik"
+msgstr "Forigi De Komerco"
