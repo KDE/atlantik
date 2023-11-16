@@ -79,12 +79,12 @@ msgstr "S'ha unit un jugador nou."
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr "S'ha produït un error de connexió: connexió refusada pel servidor."
+msgstr "S'ha produït un error de connexió: connexió refusada per l'amfitrió."
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr "S'ha produït un error de connexió: no s'ha trobat el servidor."
+msgstr "S'ha produït un error de connexió: no s'ha trobat l'amfitrió."
 
 #: client/atlantik.cpp:514
 #, kde-format
@@ -171,7 +171,7 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
-"Si està marcada, les propietats sense propietari al tauler mostraran una "
+"Si se selecciona, les propietats sense propietari en el tauler mostraran una "
 "targeta immobiliària per a indicar que la propietat està en venda."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
@@ -187,8 +187,8 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
-"Si està marcada, les propietats sense propietari al tauler es ressaltaran "
-"per a indicar que la propietat està en venda."
+"Si se selecciona, les propietats sense propietari en el tauler es "
+"ressaltaran per a indicar que la propietat està en venda."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
@@ -203,7 +203,7 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
-"Si està marcada, les propietats hipotecades al tauler s'acoloriran més "
+"Si se selecciona, les propietats hipotecades en el tauler s'acoloriran més "
 "fosques que el color predeterminat."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
@@ -219,7 +219,7 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
-"Si està marcada, les fitxes es mouran pel tauler en lloc de saltar "
+"Si se selecciona, les fitxes es mouran pel tauler en lloc de saltar "
 "directament a la ubicació nova."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
@@ -235,8 +235,8 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
-"Si està marcada, les capçaleres acolorides de les propietats dels carrers en "
-"el tauler tindran un efecte Quartz similar a l'estil Quartz de KWin."
+"Si se selecciona, les capçaleres acolorides de les propietats dels carrers "
+"en el tauler tindran un efecte Quartz similar a l'estil Quartz de KWin."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
@@ -275,7 +275,7 @@ msgstr "Meta-servidor"
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
-"Si està marcada, Atlantik afegirà segells de temps davant dels missatges de "
+"Si se selecciona, Atlantik afegirà segells de temps davant dels missatges de "
 "xat."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
@@ -291,7 +291,7 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
-"Si està marcada, Atlantik en iniciar-se connectarà amb un meta-servidor per "
+"Si se selecciona, Atlantik en iniciar-se connectarà amb un meta-servidor per "
 "a recuperar una llista de servidors d'Internet."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
@@ -310,7 +310,7 @@ msgid ""
 msgstr ""
 "Diversos servidors d'Internet poden estar executant versions de "
 "desenvolupament del programari del servidor.\n"
-"Si està marcada, Atlantik no mostrarà estos servidors."
+"Si se selecciona, Atlantik no mostrarà estos servidors."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
@@ -452,12 +452,12 @@ msgstr "Carlo Caneva"
 #: client/main.cpp:63
 #, kde-format
 msgid "Connect to this host"
-msgstr "Connecta amb este servidor"
+msgstr "Connecta amb este amfitrió"
 
 #: client/main.cpp:63
 #, kde-format
 msgid "host"
-msgstr "Servidor"
+msgstr "Amfitrió"
 
 #: client/main.cpp:64
 #, kde-format
@@ -594,7 +594,7 @@ msgstr "Introduïu un servidor «monopd» personalitzat"
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr "Nom del servidor:"
+msgstr "Nom de l'amfitrió:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
@@ -619,7 +619,7 @@ msgstr "Seleccioneu el servidor «monopd»"
 #: client/selectserver.ui:79
 #, kde-format
 msgid "Host"
-msgstr "Servidor"
+msgstr "Amfitrió"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
@@ -677,7 +677,7 @@ msgstr "S'està connectant amb %1:%2..."
 #: libatlantikclient/atlantik_network.cpp:136
 #, kde-format
 msgid "Server host name lookup finished..."
-msgstr "Ha acabat la busca de nom de màquina del servidor..."
+msgstr "Ha acabat la busca de nom d'amfitrió del servidor..."
 
 #: libatlantikclient/atlantik_network.cpp:141
 #, kde-format
