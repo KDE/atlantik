@@ -1,18 +1,19 @@
 # translation of atlantik.po to Slovak
 # Roman Paholík <wizzardsk@gmail.com>, 2019, 2022.
+# Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:49+0000\n"
-"PO-Revision-Date: 2022-04-07 18:00+0200\n"
-"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
-"Language-Team: Slovak <kde-sk@linux.sk>\n"
+"PO-Revision-Date: 2023-11-21 18:58+0100\n"
+"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -28,17 +29,17 @@ msgstr "wizzardsk@gmail.com"
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
-msgstr ""
+msgstr "Zobraziť záznam uda&lostí..."
 
 #: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr ""
+msgstr "Znovu p&ripojiť (po páde)"
 
 #: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
-msgstr ""
+msgstr "Opustiť hru"
 
 #: client/atlantik.cpp:149
 #, kde-format
@@ -48,42 +49,42 @@ msgstr "Nákup"
 #: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
-msgstr ""
+msgstr "&Aukcia"
 
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr ""
+msgstr "Použiť kartu na opustenie väzenia"
 
 #: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr ""
+msgstr "Za&platiť za opustenie väzenia"
 
 #: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr ""
+msgstr "Hodiť kocku na opustenie väzenia"
 
 #: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "Pripojil sa nový hráč."
 
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "Chyba pripojenia: hostiteľ odmietol pripojenie."
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "Chyba pripojenia: hostiteľ nebol nájdený."
 
 #: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "Chyba pripojenia: chyba %1."
 
 #: client/atlantik.cpp:730
 #, kde-format
@@ -100,7 +101,7 @@ msgstr "Info"
 #: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
-msgstr ""
+msgstr "Teraz je rad na vás."
 
 #: client/atlantik.cpp:919
 #, kde-format
@@ -108,16 +109,18 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
+"Momentálne ste súčasťou aktívnej hry. Ste si istí, že chcete zatvoriť "
+"Atlantik? Ak áno, vzdáte hru."
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr ""
+msgstr "Zatvoriť a vzdať sa?"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
-msgstr ""
+msgstr "Zatvoriť a vzdať sa"
 
 #: client/atlantik.cpp:952
 #, kde-format
@@ -125,27 +128,28 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
+"Momentálne ste súčasťou aktívnej hry. Ste si istí, že ju chcete opustiť? Ak "
+"áno, vzdáte hru."
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr ""
+msgstr "Opustiť a vzdať sa?"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr ""
+msgstr "Opustiť a vzdať sa"
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
-#, fuzzy, kde-format
-#| msgid "Game"
+#, kde-format
 msgid "&Game"
 msgstr "&Hra"
 
 #. i18n: ectx: Menu (move)
 #: client/atlantikui.rc:10
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Move"
 msgstr "&Presunúť"
 
@@ -153,7 +157,7 @@ msgstr "&Presunúť"
 #: client/configboard.ui:17
 #, kde-format
 msgid "Game Status Feedback"
-msgstr ""
+msgstr "Spätná väzba o stave hry"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:23
@@ -162,12 +166,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
+"Ak je začiarknuté, na hracej ploche sa pri nevlastnených nehnuteľnostiach "
+"zobrazí karta nehnuteľnosti, ktorá označuje, že nehnuteľnosť je na predaj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr ""
+msgstr "Zobraziť kartu listu vlastníctva na nevlastnených nehnuteľnostiach"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -176,12 +182,14 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
+"Ak je začiarknuté, na hracej ploche sú nevlastnené nehnuteľnosti zvýraznené, "
+"aby sa označili, že nehnuteľnosť je na predaj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "Zvýrazniť nevlastnené nehnuteľnosti"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -190,12 +198,14 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
+"Ak je začiarknuté, nehnuteľnosti zaťažené hypotékou na hracej ploche budú "
+"sfarbené tmavšou farbou ako predvolená farba."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "Stmaviť nehnuteľnosti zaťažené hypotékou"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -204,12 +214,14 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
+"Ak je začiarknuté, žetóny sa budú pohybovať po hracej ploche namiesto toho, "
+"aby skočili priamo na svoje nové miesto."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr ""
+msgstr "Animovať pohyb žetónov"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -218,19 +230,20 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"Ak je začiarknuté, farebné záhlavia pouličné nehnuteľnosti na hracej ploche "
+"budú mať efekt Quartz podobný štýlu Quartz KWin."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "Efekty Quartz"
 
 #: client/configdlg.cpp:26
-#, fuzzy, kde-format
-#| msgid "Atlantik"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr "Atlantik"
+msgstr "Nastaviť Atlantik"
 
 #: client/configdlg.cpp:33
 #, kde-format
@@ -250,19 +263,19 @@ msgstr "Hrací plán"
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr ""
+msgstr "Meta Server"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
-msgstr ""
+msgstr "Ak je začiarknuté, Atlantik pridá pred správy rozhovoru časové značky."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "Zobraziť časové značky v správach rozhovoru"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -271,12 +284,14 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"Ak je začiarknuté, Atlantik sa pri spustení pripojí k meta serveru a vyžiada "
+"si zoznam internetových serverov."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "Vyžiadať zoznam internetových serverov pri spustení"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -286,12 +301,15 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"Na niektorých internetových serveroch môžu byť spustené vývojové verzie "
+"serverového softvéru.\n"
+"Ak je začiarknuté, Atlantik tieto servery nezobrazí."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "Skryť vývojové servery"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
@@ -303,7 +321,7 @@ msgstr "Meno hráča:"
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr ""
+msgstr "Obrázok hráča:"
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
@@ -320,7 +338,7 @@ msgstr "Popis"
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr ""
+msgstr "Záznam udalostí"
 
 #: client/eventlogwidget.cpp:223
 #, kde-format
@@ -335,7 +353,7 @@ msgstr "Vyčistiť záznam"
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Súbor záznamu Atlantik, uložený v %1."
 
 #: client/main.cpp:36
 #, kde-format
@@ -345,7 +363,7 @@ msgstr "Atlantik"
 #: client/main.cpp:37
 #, kde-format
 msgid "The Atlantic board game"
-msgstr ""
+msgstr "Stolová hra Atlantik"
 
 #: client/main.cpp:39
 #, kde-format
@@ -355,17 +373,17 @@ msgstr "(c) 1998-2004 Rob Kaper"
 #: client/main.cpp:40
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
+msgstr "Klient KDE na hranie hier v štýle Monopoly v sieti monopd."
 
 #: client/main.cpp:45
 #, kde-format
 msgid "Rob Kaper"
-msgstr ""
+msgstr "Rob Kaper"
 
 #: client/main.cpp:45
 #, kde-format
 msgid "main author"
-msgstr ""
+msgstr "hlavný autor"
 
 #: client/main.cpp:48
 #, kde-format
@@ -375,7 +393,7 @@ msgstr "Thiago Macieira"
 #: client/main.cpp:48
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr ""
+msgstr "Podpora KExtendedSocket"
 
 #: client/main.cpp:49
 #, kde-format
@@ -385,12 +403,12 @@ msgstr "Albert Astals Cid"
 #: client/main.cpp:49
 #, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "rôzne opravy"
 
 #: client/main.cpp:51
 #, kde-format
 msgid "Bart Szyszka"
-msgstr ""
+msgstr "Bart Szyszka"
 
 #: client/main.cpp:51
 #, kde-format
@@ -400,17 +418,17 @@ msgstr "ikona aplikácie"
 #: client/main.cpp:52
 #, kde-format
 msgid "Rob Malda"
-msgstr ""
+msgstr "Rob Malda"
 
 #: client/main.cpp:52
 #, kde-format
 msgid "token icons"
-msgstr ""
+msgstr "ikony žetónov"
 
 #: client/main.cpp:53
 #, kde-format
 msgid "Elhay Achiam"
-msgstr ""
+msgstr "Elhay Achiam"
 
 #: client/main.cpp:53 client/main.cpp:54
 #, kde-format
@@ -420,12 +438,12 @@ msgstr "ikony"
 #: client/main.cpp:54
 #, kde-format
 msgid "Carlo Caneva"
-msgstr ""
+msgstr "Carlo Caneva"
 
 #: client/main.cpp:63
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "Pripojiť sa k tomuto hostiteľovi"
 
 #: client/main.cpp:63
 #, kde-format
@@ -435,7 +453,7 @@ msgstr "hostiteľ"
 #: client/main.cpp:64
 #, kde-format
 msgid "Connect at this port"
-msgstr ""
+msgstr "Pripojiť na tento port"
 
 #: client/main.cpp:64
 #, kde-format
@@ -445,7 +463,7 @@ msgstr "port"
 #: client/main.cpp:65
 #, kde-format
 msgid "Join this game"
-msgstr ""
+msgstr "Pripojiť sa k tejto hre"
 
 #: client/main.cpp:65
 #, kde-format
@@ -455,17 +473,17 @@ msgstr "hra"
 #: client/main.cpp:76
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "Stolová hra Atlantik"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "Nastavenie hry"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "Opustiť hru"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
@@ -475,23 +493,23 @@ msgstr "Spustiť hru"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list..."
-msgstr ""
+msgstr "Získava sa zoznam nastavení..."
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data..."
-msgstr ""
+msgstr "Hra sa začala. Získavajú sa úplné údaje o hre..."
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "Získaný zoznam nastavení."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "Vytvoriť alebo vybrať hru monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
@@ -526,29 +544,29 @@ msgstr "Vytvoriť hru"
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "Vytvoriť novú hru %1"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr ""
+msgstr "Sledovať hru %2 %1"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr ""
+msgstr "Pripojiť sa k hre %2 %1"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "Nová hra je k dispozícii."
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr ""
+msgstr "Sledovať hru"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
@@ -559,7 +577,7 @@ msgstr "Pripojiť sa k hre"
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "Zadať vlastný server monopd"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
@@ -584,7 +602,7 @@ msgstr "Pripojiť"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "Vybrať server monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
@@ -618,27 +636,27 @@ msgstr "neznáme"
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr ""
+msgstr "Získať zoznam serverov"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list..."
-msgstr "Získavam zoznam serverov..."
+msgstr "Získava sa zoznam serverov..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr ""
+msgstr "Znovu načítať zoznam serverov"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr ""
+msgstr "Chyba počas získavania zoznamu serverov."
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "Získaný zoznam serverov."
 
 #: libatlantikclient/atlantik_network.cpp:128
 #, kde-format
@@ -648,7 +666,7 @@ msgstr "Pripájam k %1:%2..."
 #: libatlantikclient/atlantik_network.cpp:136
 #, kde-format
 msgid "Server host name lookup finished..."
-msgstr ""
+msgstr "Vyhľadávanie názvu hostiteľa servera dokončené..."
 
 #: libatlantikclient/atlantik_network.cpp:141
 #, kde-format
@@ -658,12 +676,12 @@ msgstr "Pripojený k %1:%2."
 #: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "Pripojenie zlyhalo! Kód chyby: %1"
 
 #: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "Odpojený od %1:%2."
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
@@ -676,23 +694,23 @@ msgstr "Hráč"
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr ""
+msgstr "Ponuka"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr ""
+msgstr "Urobiť ponuku"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once..."
-msgstr ""
+msgstr "Po prvé..."
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice..."
-msgstr ""
+msgstr "Po druhé..."
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
@@ -712,12 +730,12 @@ msgstr "Vlastník: %1"
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
-msgstr ""
+msgstr "nevlastnené"
 
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr ""
+msgstr "Domy: %1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -732,27 +750,27 @@ msgstr "Nie"
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Mortgaged: %1"
-msgstr ""
+msgstr "Zaťažené hypotékou: %1"
 
 #: libatlantikui/estateview.cpp:78
 #, kde-format
 msgid "Unmortgage Price: %1"
-msgstr ""
+msgstr "Cena zrušenia hypotéky: %1"
 
 #: libatlantikui/estateview.cpp:80
 #, kde-format
 msgid "Mortgage Value: %1"
-msgstr ""
+msgstr "Hodnota hypotéky: %1"
 
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr ""
+msgstr "Hodnota domu: %1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
 msgid "House Price: %1"
-msgstr ""
+msgstr "Cena domu: %1"
 
 #: libatlantikui/estateview.cpp:89
 #, kde-format
@@ -762,32 +780,32 @@ msgstr "Peniaze: %1"
 #: libatlantikui/estateview.cpp:426
 #, kde-format
 msgid "Unmortgage"
-msgstr ""
+msgstr "Zrušenie hypotéky"
 
 #: libatlantikui/estateview.cpp:432
 #, kde-format
 msgid "Mortgage"
-msgstr ""
+msgstr "Hypotéka"
 
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "Postaviť hotel"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "Postaviť dom"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "Predať hotel"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "Predať dom"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
@@ -797,28 +815,28 @@ msgstr "Predaj"
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "Žiadosť o obchod s %1"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "Zaviesť hráč %1 do salónika"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "Obchod %1"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "Pridať komponent"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "Nehnuteľnosť"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
@@ -853,7 +871,7 @@ msgstr "Účastníci"
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
 msgid "Gives"
-msgstr ""
+msgstr "Poskytuje"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
@@ -873,25 +891,25 @@ msgstr "Prijať"
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%1 z %2 hráčov prijíma súčasný návrh obchodu."
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
+msgstr "poskytuje"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "Obchodný návrh bol zamietnutý %1."
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "Obchodný návrh bol zamietnutý ."
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "Odstrániť z obchodovania"
