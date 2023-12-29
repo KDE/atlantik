@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:49+0000\n"
-"PO-Revision-Date: 2023-12-18 12:04+0100\n"
+"PO-Revision-Date: 2023-12-28 19:30+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -340,7 +340,7 @@ msgstr ""
 #: client/main.cpp:36
 #, kde-format
 msgid "Atlantik"
-msgstr ""
+msgstr "Atlantik"
 
 #: client/main.cpp:37
 #, kde-format
