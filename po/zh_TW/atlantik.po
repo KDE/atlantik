@@ -4,64 +4,66 @@
 # This file is distributed under the same license as the atlantik package.
 # Automatically generated, 2019.
 #
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-25 01:49+0000\n"
-"PO-Revision-Date: 2019-04-14 03:32+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-01-12 21:42+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 24.01.90\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "mail@kisaragi-hiu.com"
 
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log..."
-msgstr ""
+msgstr "顯示事件紀錄(&L)..."
 
 #: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr ""
+msgstr "重新連線（崩潰後）(&R)"
 
 #: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
-msgstr ""
+msgstr "離開遊戲(&L)"
 
 #: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
-msgstr ""
+msgstr "購買(&B)"
 
 #: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
-msgstr ""
+msgstr "拍賣(&A)"
 
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr ""
+msgstr "用卡片離開監獄"
 
 #: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr ""
+msgstr "付錢離開監獄(&P)"
 
 #: client/atlantik.cpp:179
 #, kde-format
@@ -71,39 +73,39 @@ msgstr ""
 #: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "新玩家已加入。"
 
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "連線失敗：主機拒絕連線。"
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "連線失敗：找不到主機。"
 
 #: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "連線失敗：錯誤 %1。"
 
 #: client/atlantik.cpp:730
 #, kde-format
 msgctxt "error message"
 msgid "Error"
-msgstr ""
+msgstr "錯誤"
 
 #: client/atlantik.cpp:733
 #, kde-format
 msgctxt "informative message"
 msgid "Info"
-msgstr ""
+msgstr "資訊"
 
 #: client/atlantik.cpp:803
 #, kde-format
 msgid "It is your turn now."
-msgstr ""
+msgstr "現在是您的回合。"
 
 #: client/atlantik.cpp:919
 #, kde-format
@@ -111,39 +113,41 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
+"您目前正在參與進行中的遊戲。確定要關閉 Atlantik 嗎？若是關閉 Atlantik，您將會"
+"放棄遊戲。"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr ""
+msgstr "關閉並放棄？"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
-msgstr ""
+msgstr "關閉並放棄"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
-msgstr ""
+msgstr "您目前正在參與進行中的遊戲。確定要離開遊戲嗎？離開即會視為放棄遊戲。"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr ""
+msgstr "離開並放棄？"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr ""
+msgstr "離開並放棄"
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
 #, kde-format
 msgid "&Game"
-msgstr ""
+msgstr "遊戲(&G)"
 
 #. i18n: ectx: Menu (move)
 #: client/atlantikui.rc:10
@@ -155,7 +159,7 @@ msgstr ""
 #: client/configboard.ui:17
 #, kde-format
 msgid "Game Status Feedback"
-msgstr ""
+msgstr "遊戲狀態回饋"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:23
@@ -183,7 +187,7 @@ msgstr ""
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "突顯未持有的財產"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -197,7 +201,7 @@ msgstr ""
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "暗化用於貸款的財產"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -231,22 +235,22 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr ""
+msgstr "設定 Atlantik"
 
 #: client/configdlg.cpp:33
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: client/configdlg.cpp:40
 #, kde-format
 msgid "Personalization"
-msgstr ""
+msgstr "個人化"
 
 #: client/configdlg.cpp:46
 #, kde-format
 msgid "Board"
-msgstr ""
+msgstr "棋盤"
 
 #: client/configdlg.cpp:52
 #, kde-format
@@ -257,13 +261,13 @@ msgstr ""
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
-msgstr ""
+msgstr "勾選時，Atlantik 將會在聊天訊息前顯示時間戳。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "為聊天訊息顯示時間戳"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -292,111 +296,111 @@ msgstr ""
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "隱藏開發伺服器"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr ""
+msgstr "玩家名稱："
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr ""
+msgstr "玩家影像："
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
 msgid "Date/Time"
-msgstr ""
+msgstr "日期/時間"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: client/eventlogwidget.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr ""
+msgstr "事件紀錄"
 
 #: client/eventlogwidget.cpp:223
 #, kde-format
 msgid "&Save As..."
-msgstr ""
+msgstr "另存新檔(&S)..."
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
-msgstr ""
+msgstr "清除紀錄(&C)"
 
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Atlantik 紀錄檔，儲存於 %1。"
 
 #: client/main.cpp:36
 #, kde-format
 msgid "Atlantik"
-msgstr ""
+msgstr "Atlantik"
 
 #: client/main.cpp:37
 #, kde-format
 msgid "The Atlantic board game"
-msgstr ""
+msgstr "Atlantic 棋盤遊戲"
 
 #: client/main.cpp:39
 #, kde-format
 msgid "(c) 1998-2004 Rob Kaper"
-msgstr ""
+msgstr "(c) 1998-2004 Rob Kaper"
 
 #: client/main.cpp:40
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
+msgstr "來自 KDE 的，在 monopd 網路上遊玩類似 Monopoly 的棋盤遊戲的用戶端。"
 
 #: client/main.cpp:45
 #, kde-format
 msgid "Rob Kaper"
-msgstr ""
+msgstr "Rob Kaper"
 
 #: client/main.cpp:45
 #, kde-format
 msgid "main author"
-msgstr ""
+msgstr "主作者"
 
 #: client/main.cpp:48
 #, kde-format
 msgid "Thiago Macieira"
-msgstr ""
+msgstr "Thiago Macieira"
 
 #: client/main.cpp:48
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr ""
+msgstr "KExtendedSocket 支援"
 
 #: client/main.cpp:49
 #, kde-format
 msgid "Albert Astals Cid"
-msgstr ""
+msgstr "Albert Astals Cid"
 
 #: client/main.cpp:49
 #, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "各種補丁"
 
 #: client/main.cpp:51
 #, kde-format
 msgid "Bart Szyszka"
-msgstr ""
+msgstr "Bart Szyszka"
 
 #: client/main.cpp:51
 #, kde-format
 msgid "application icon"
-msgstr ""
+msgstr "應用程式圖示"
 
 #: client/main.cpp:52
 #, kde-format
@@ -411,12 +415,12 @@ msgstr ""
 #: client/main.cpp:53
 #, kde-format
 msgid "Elhay Achiam"
-msgstr ""
+msgstr "Elhay Achiam"
 
 #: client/main.cpp:53 client/main.cpp:54
 #, kde-format
 msgid "icons"
-msgstr ""
+msgstr "圖示"
 
 #: client/main.cpp:54
 #, kde-format
@@ -426,12 +430,12 @@ msgstr ""
 #: client/main.cpp:63
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "連線到這個主機"
 
 #: client/main.cpp:63
 #, kde-format
 msgid "host"
-msgstr ""
+msgstr "主機"
 
 #: client/main.cpp:64
 #, kde-format
@@ -441,42 +445,42 @@ msgstr ""
 #: client/main.cpp:64
 #, kde-format
 msgid "port"
-msgstr ""
+msgstr "連接埠"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "Join this game"
-msgstr ""
+msgstr "加入這個遊戲"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "game"
-msgstr ""
+msgstr "遊戲"
 
 #: client/main.cpp:76
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "Atlantic 棋盤遊戲"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "遊戲設定"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "離開遊戲"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
 msgid "Start Game"
-msgstr ""
+msgstr "開始遊戲"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list..."
-msgstr ""
+msgstr "正在取得設定清單..."
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
@@ -486,192 +490,192 @@ msgstr ""
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "已取得設定清單。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "建立或選取一個 monopd 遊戲"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
 #, kde-format
 msgid "Game"
-msgstr ""
+msgstr "遊戲"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
 #, kde-format
 msgid "Id"
-msgstr ""
+msgstr "ID"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:45
 #, kde-format
 msgid "Players"
-msgstr ""
+msgstr "玩家"
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
 #, kde-format
 msgid "Server List"
-msgstr ""
+msgstr "伺服器清單"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr ""
+msgstr "建立遊戲"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "建立新的 %1 遊戲"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr ""
+msgstr "旁觀 %1 的 %2 遊戲"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr ""
+msgstr "加入 %1 的 %2 遊戲"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "有可加入的新遊戲。"
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr ""
+msgstr "旁觀遊戲"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr ""
+msgstr "加入遊戲"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "輸入自訂的 monopd 伺服器"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr ""
+msgstr "主機名稱："
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
 #, kde-format
 msgid "Port:"
-msgstr ""
+msgstr "連接埠："
 
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectserver.ui:56 client/selectserver.ui:127
 #, kde-format
 msgid "Connect"
-msgstr ""
+msgstr "連線"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "選取 monopd 伺服器"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
 #, kde-format
 msgid "Host"
-msgstr ""
+msgstr "主機"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
 #, kde-format
 msgid "Latency"
-msgstr ""
+msgstr "延遲"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:89
 #, kde-format
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:94
 #, kde-format
 msgid "Users"
-msgstr ""
+msgstr "使用者"
 
 #: client/selectserver_widget.cpp:45
 #, kde-format
 msgid "unknown"
-msgstr ""
+msgstr "未知"
 
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr ""
+msgstr "取得伺服器清單"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list..."
-msgstr ""
+msgstr "正在取得伺服器清單..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr ""
+msgstr "重新載入伺服器清單"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr ""
+msgstr "取得伺服器清單時發生錯誤。"
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "已取得伺服器清單。"
 
 #: libatlantikclient/atlantik_network.cpp:128
 #, kde-format
 msgid "Connecting to %1:%2..."
-msgstr ""
+msgstr "正在連線到 %1:%2..."
 
 #: libatlantikclient/atlantik_network.cpp:136
 #, kde-format
 msgid "Server host name lookup finished..."
-msgstr ""
+msgstr "已完成伺服器主機名稱查詢..."
 
 #: libatlantikclient/atlantik_network.cpp:141
 #, kde-format
 msgid "Connected to %1:%2."
-msgstr ""
+msgstr "已連線至 %1:%2。"
 
 #: libatlantikclient/atlantik_network.cpp:151
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "連線失敗！錯誤代碼：%1"
 
 #: libatlantikclient/atlantik_network.cpp:156
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "已從 %1:%2 中斷連線。"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
 #: libatlantikui/trade_widget.cpp:164
 #, kde-format
 msgid "Player"
-msgstr ""
+msgstr "玩家"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:26
@@ -698,22 +702,22 @@ msgstr ""
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
 msgid "Sold!"
-msgstr ""
+msgstr "售出！"
 
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
-msgstr ""
+msgstr "價格：%1"
 
 #: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
-msgstr ""
+msgstr "擁有者：%1"
 
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
-msgstr ""
+msgstr "未持有"
 
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
@@ -723,12 +727,12 @@ msgstr ""
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -758,7 +762,7 @@ msgstr ""
 #: libatlantikui/estateview.cpp:89
 #, kde-format
 msgid "Money: %1"
-msgstr ""
+msgstr "金錢：%1"
 
 #: libatlantikui/estateview.cpp:426
 #, kde-format
@@ -773,32 +777,32 @@ msgstr ""
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "蓋飯店"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "蓋房子"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "賣出飯店"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "賣出房子"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr ""
+msgstr "賣出"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "請求與 %1 交易"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
@@ -809,7 +813,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "交換 %1"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
@@ -819,37 +823,37 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "不動產"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr ""
+msgstr "金錢"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
 msgid "Card"
-msgstr ""
+msgstr "卡片"
 
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
 msgid "From"
-msgstr ""
+msgstr "從"
 
 #: libatlantikui/trade_widget.cpp:108
 #, kde-format
 msgid "To"
-msgstr ""
+msgstr "到"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: libatlantikui/trade_widget.cpp:141
 #, kde-format
 msgid "Participants"
-msgstr ""
+msgstr "參加者"
 
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
@@ -859,22 +863,22 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
 msgid "Item"
-msgstr ""
+msgstr "項目"
 
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
-msgstr ""
+msgstr "拒絕"
 
 #: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
-msgstr ""
+msgstr "接受"
 
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "總共 %2 個玩家當中，%1 個玩家接受了目前的交易請求。"
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
@@ -885,14 +889,14 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "交易請求已被 %1 拒絕。"
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "交易請求已被拒絕。"
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "從交易中移除"
