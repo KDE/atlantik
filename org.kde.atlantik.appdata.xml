@@ -33,6 +33,7 @@
   <name xml:lang="uk">Atlantik</name>
   <name xml:lang="x-test">xxAtlantikxx</name>
   <name xml:lang="zh-CN">Atlantik</name>
+  <name xml:lang="zh-TW">Atlantik</name>
   <summary>Monopoly®-like Board Games</summary>
   <summary xml:lang="ca">Jocs de taula semblants al Monopoly®</summary>
   <summary xml:lang="ca-valencia">Jocs de taula semblants al Monopoly®</summary>
@@ -58,6 +59,7 @@
   <summary xml:lang="tr">Monopoly® benzeri Masa Oyunları</summary>
   <summary xml:lang="uk">Подібні до Monopoly® ігри на дошці</summary>
   <summary xml:lang="x-test">xxMonopoly®-like Board Gamesxx</summary>
+  <summary xml:lang="zh-TW">類似 Monopoly® 的棋盤遊戲</summary>
   <description>
     <p>
       Atlantik is a KDE client for playing Monopoly®-like board games on the
@@ -86,6 +88,7 @@
     <p xml:lang="tr">Atlantik, monopd ağında Monopoly® benzeri masa oyunları oynamak için bir KDE istemcisidir.</p>
     <p xml:lang="uk">Atlantik — клієнт KDE для подібної до Monopoly® гри на дошці у мережі monopd.</p>
     <p xml:lang="x-test">xxAtlantik is a KDE client for playing Monopoly®-like board games on the monopd network.xx</p>
+    <p xml:lang="zh-TW">Atlantik 是來自 KDE 的，在 monopd 網路上遊玩類似 Monopoly® 的棋盤遊戲的用戶端。</p>
     <p>
       Purpose of the Atlantik board game is to acquire land in major cities
       in North America and Europe while being a transatlantic traveler.
@@ -115,6 +118,7 @@
     <p xml:lang="tr">Atlantik masa oyununun amacı, uluslararası bir gezgini oynarken Kuzey Amerika ve Avrupa'daki büyük kentlerde arazi satın almaktır. Oyunun kazanmak için, oyuncular diğer oyuncuları iflasa sürükleyebilmek için monopolleştirilmiş arazilerde kâr edebilen binalar dikmelilerdir.</p>
     <p xml:lang="uk">Метою гри на дошці Atlantik є накопичення нерухомості у головних містах Північної Америки та Європи. Щоб виграти гру, гравець має забудовувати придбані земельні ділянки прибутковими будинками так, щоб довести до банкрутства інших гравців.</p>
     <p xml:lang="x-test">xxPurpose of the Atlantik board game is to acquire land in major cities in North America and Europe while being a transatlantic traveler. To win the game, players improve monopolized land with profitable buildings in the hopes of bankrupting all other players.xx</p>
+    <p xml:lang="zh-TW">Atlantik 棋盤遊戲的目的是作為橫跨大西洋的旅者，在北美與歐洲的大城市取得土地。要贏得遊戲，玩家必須用賺錢的建築改善自己所獨有的土地，並期望使其他玩家破產。</p>
     <p>
       All game modes are served by monopd, a dedicated game server designed
       for Atlantik. One of the game modes plays like the popular real estate
@@ -143,6 +147,7 @@
     <p xml:lang="tr">Tüm oyun kipleri, Atlantik için tasarlanmış bir oyun sunucusu olan monopd tarafından sunulur. Oyun kiplerinden bir tanesi tam olarak Monopoly® oyununun aynısı gibi oynanır.</p>
     <p xml:lang="uk">Усі режими гри обслуговуються monopd, спеціалізованим ігровим сервером, розробленим для гри в Atlantik. Один з режимів гри подібний до популярної гри на дошці у торгівлю нерухомістю, відомої за назвою Monopoly®.</p>
     <p xml:lang="x-test">xxAll game modes are served by monopd, a dedicated game server designed for Atlantik. One of the game modes plays like the popular real estate board game known as Monopoly®.xx</p>
+    <p xml:lang="zh-TW">所有遊戲模式都是由 monopd 所提供，monopd 是設計給 Atlantik 用的專用遊戲伺服器。其中一個遊戲模式與知名大富翁棋盤遊戲 Monopoly® 類似。</p>
   </description>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=atlantik</url>
   <url type="homepage">https://apps.kde.org/atlantik/</url>
