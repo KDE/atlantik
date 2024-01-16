@@ -29,7 +29,8 @@
 int main(int argc, char *argv[])
 {
 	QApplication kapplication(argc, argv);
-	KLocalizedString::setApplicationDomain("atlantik");
+
+	KLocalizedString::setApplicationDomain(QByteArrayLiteral("atlantik"));
 
 	KAboutData aboutData(
 		QStringLiteral("atlantik"),
