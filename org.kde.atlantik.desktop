@@ -57,5 +57,5 @@ Type=Application
 X-DocPath=atlantik/index.html
 Terminal=false
 Icon=atlantik
-X-KDE-StartupNotify=true
+StartupNotify=true
 Categories=Qt;KDE;Game;BoardGame;
