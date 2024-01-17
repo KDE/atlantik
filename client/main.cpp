@@ -20,6 +20,7 @@
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
+#include <kdbusservice.h>
 #include <kcrash.h>
 
 #include "version.h"
@@ -67,6 +68,8 @@ int main(int argc, char *argv[])
 	aboutData.setupCommandLine(&parser);
 	parser.process(kapplication);
 	aboutData.processCommandLine(&parser);
+
+	KDBusService service;
 
 	if (kapplication.isSessionRestored())
 		kRestoreMainWindows<Atlantik>();
