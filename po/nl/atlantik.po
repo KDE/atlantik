@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-25 01:49+0000\n"
+"POT-Creation-Date: 2024-01-17 00:36+0000\n"
 "PO-Revision-Date: 2021-10-11 11:43+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -356,124 +356,124 @@ msgstr "Log &wissen"
 msgid "Atlantik log file, saved at %1."
 msgstr "Atlantik logbestand, opgeslagen op %1."
 
-#: client/main.cpp:36
+#: client/main.cpp:37
 #, kde-format
 msgid "Atlantik"
 msgstr "Atlantik"
 
-#: client/main.cpp:37
+#: client/main.cpp:38
 #, kde-format
 msgid "The Atlantic board game"
 msgstr "Het bordspel Atlantic"
 
-#: client/main.cpp:39
+#: client/main.cpp:40
 #, kde-format
 msgid "(c) 1998-2004 Rob Kaper"
 msgstr "(c) 1998-2004 Rob Kaper"
 
-#: client/main.cpp:40
+#: client/main.cpp:41
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
 msgstr ""
 "KDE client voor het spelen van Monopoly-achtige spellen op het monopd-"
 "netwerk."
 
-#: client/main.cpp:45
+#: client/main.cpp:46
 #, kde-format
 msgid "Rob Kaper"
 msgstr "Rob Kaper"
 
-#: client/main.cpp:45
+#: client/main.cpp:46
 #, kde-format
 msgid "main author"
 msgstr "hoofdauthor"
 
-#: client/main.cpp:48
+#: client/main.cpp:49
 #, kde-format
 msgid "Thiago Macieira"
 msgstr "Thiago Macieira"
 
-#: client/main.cpp:48
+#: client/main.cpp:49
 #, kde-format
 msgid "KExtendedSocket support"
 msgstr "Ondersteuning voor KExtendedSocket"
 
-#: client/main.cpp:49
+#: client/main.cpp:50
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: client/main.cpp:49
+#: client/main.cpp:50
 #, kde-format
 msgid "various patches"
 msgstr "verscheidene patches"
 
-#: client/main.cpp:51
+#: client/main.cpp:52
 #, kde-format
 msgid "Bart Szyszka"
 msgstr "Bart Szyszka"
 
-#: client/main.cpp:51
+#: client/main.cpp:52
 #, kde-format
 msgid "application icon"
 msgstr "toepassings-pictogram"
 
-#: client/main.cpp:52
+#: client/main.cpp:53
 #, kde-format
 msgid "Rob Malda"
 msgstr "Rob Malda"
 
-#: client/main.cpp:52
+#: client/main.cpp:53
 #, kde-format
 msgid "token icons"
 msgstr "pionnenpictogrammen"
 
-#: client/main.cpp:53
+#: client/main.cpp:54
 #, kde-format
 msgid "Elhay Achiam"
 msgstr "Elhay Achiam"
 
-#: client/main.cpp:53 client/main.cpp:54
+#: client/main.cpp:54 client/main.cpp:55
 #, kde-format
 msgid "icons"
 msgstr "pictogrammen"
 
-#: client/main.cpp:54
+#: client/main.cpp:55
 #, kde-format
 msgid "Carlo Caneva"
 msgstr "Carlo Caneva"
 
-#: client/main.cpp:63
+#: client/main.cpp:64
 #, kde-format
 msgid "Connect to this host"
 msgstr "Met deze host verbinden"
 
-#: client/main.cpp:63
+#: client/main.cpp:64
 #, kde-format
 msgid "host"
 msgstr "host"
 
-#: client/main.cpp:64
+#: client/main.cpp:65
 #, kde-format
 msgid "Connect at this port"
 msgstr "Met deze poort verbinden"
 
-#: client/main.cpp:64
+#: client/main.cpp:65
 #, kde-format
 msgid "port"
 msgstr "poort"
 
-#: client/main.cpp:65
+#: client/main.cpp:66
 #, kde-format
 msgid "Join this game"
 msgstr "Meedoen met spel"
 
-#: client/main.cpp:65
+#: client/main.cpp:66
 #, kde-format
 msgid "game"
 msgstr "spel"
 
-#: client/main.cpp:76
+#: client/main.cpp:77
 #, kde-format
 msgid "The Atlantic Board Game"
 msgstr "Het bordspel Atlantic"
