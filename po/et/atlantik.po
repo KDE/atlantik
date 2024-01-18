@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-17 00:36+0000\n"
+"POT-Creation-Date: 2024-01-18 00:35+0000\n"
 "PO-Revision-Date: 2020-01-22 21:15+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -359,122 +359,122 @@ msgstr "&Puhasta logi"
 msgid "Atlantik log file, saved at %1."
 msgstr "Atlantiku logifail, salvestatud %1."
 
-#: client/main.cpp:37
+#: client/main.cpp:38
 #, kde-format
 msgid "Atlantik"
 msgstr "Atlantik"
 
-#: client/main.cpp:38
+#: client/main.cpp:39
 #, kde-format
 msgid "The Atlantic board game"
 msgstr "Atlantiku lauamäng"
 
-#: client/main.cpp:40
+#: client/main.cpp:41
 #, kde-format
 msgid "(c) 1998-2004 Rob Kaper"
 msgstr "(c) 1998-2004: Rob Kaper"
 
-#: client/main.cpp:41
+#: client/main.cpp:42
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
 msgstr "KDE klient Monopoly stiilis mängude mängimiseks monopd võrgus."
 
-#: client/main.cpp:46
+#: client/main.cpp:47
 #, kde-format
 msgid "Rob Kaper"
 msgstr "Rob Kaper"
 
-#: client/main.cpp:46
+#: client/main.cpp:47
 #, kde-format
 msgid "main author"
 msgstr "põhiautor"
 
-#: client/main.cpp:49
+#: client/main.cpp:50
 #, kde-format
 msgid "Thiago Macieira"
 msgstr "Thiago Macieira"
 
-#: client/main.cpp:49
+#: client/main.cpp:50
 #, kde-format
 msgid "KExtendedSocket support"
 msgstr "KExtendedSocket'i toetus"
 
-#: client/main.cpp:50
+#: client/main.cpp:51
 #, kde-format
 msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
-#: client/main.cpp:50
+#: client/main.cpp:51
 #, kde-format
 msgid "various patches"
 msgstr "mitmesugused paigad"
 
-#: client/main.cpp:52
+#: client/main.cpp:53
 #, kde-format
 msgid "Bart Szyszka"
 msgstr "Bart Szyszka"
 
-#: client/main.cpp:52
+#: client/main.cpp:53
 #, kde-format
 msgid "application icon"
 msgstr "rakenduse ikoon"
 
-#: client/main.cpp:53
+#: client/main.cpp:54
 #, kde-format
 msgid "Rob Malda"
 msgstr "Rob Malda"
 
-#: client/main.cpp:53
+#: client/main.cpp:54
 #, kde-format
 msgid "token icons"
 msgstr "sümbolite ikoonid"
 
-#: client/main.cpp:54
+#: client/main.cpp:55
 #, kde-format
 msgid "Elhay Achiam"
 msgstr "Elhay Achiam"
 
-#: client/main.cpp:54 client/main.cpp:55
+#: client/main.cpp:55 client/main.cpp:56
 #, kde-format
 msgid "icons"
 msgstr "ikoonid"
 
-#: client/main.cpp:55
+#: client/main.cpp:56
 #, kde-format
 msgid "Carlo Caneva"
 msgstr "Carlo Caneva"
 
-#: client/main.cpp:64
+#: client/main.cpp:65
 #, kde-format
 msgid "Connect to this host"
 msgstr "Ühendus selle masinaga"
 
-#: client/main.cpp:64
+#: client/main.cpp:65
 #, kde-format
 msgid "host"
 msgstr "masin"
 
-#: client/main.cpp:65
+#: client/main.cpp:66
 #, kde-format
 msgid "Connect at this port"
 msgstr "Ühendus selles pordis"
 
-#: client/main.cpp:65
+#: client/main.cpp:66
 #, kde-format
 msgid "port"
 msgstr "port"
 
-#: client/main.cpp:66
+#: client/main.cpp:67
 #, kde-format
 msgid "Join this game"
 msgstr "Ühinemine selle mänguga"
 
-#: client/main.cpp:66
+#: client/main.cpp:67
 #, kde-format
 msgid "game"
 msgstr "mäng"
 
-#: client/main.cpp:77
+#: client/main.cpp:80
 #, kde-format
 msgid "The Atlantic Board Game"
 msgstr "Atlantiku lauamäng"
