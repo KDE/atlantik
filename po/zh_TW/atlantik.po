@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-18 00:35+0000\n"
-"PO-Revision-Date: 2024-01-12 21:42+0900\n"
+"PO-Revision-Date: 2024-02-19 05:45+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.01.90\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -68,7 +68,7 @@ msgstr "付錢離開監獄(&P)"
 #: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr ""
+msgstr "骰骰子離開監獄(&J)"
 
 #: client/atlantik.cpp:300
 #, kde-format
@@ -224,12 +224,14 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"勾選時，棋盤上街道不動產的有色標頭會套用一個水晶特效，類似「Quartz」KWin 風"
+"格。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "Quartz 特效"
 
 #: client/configdlg.cpp:26
 #, kde-format
@@ -255,7 +257,7 @@ msgstr "棋盤"
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr ""
+msgstr "中繼伺服器"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
@@ -276,12 +278,13 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"勾選時，Atlantik 會在啟動時連線到一個中繼伺服器來請求網際網路伺服器清單。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "啟動時請求網際網路伺服器清單"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -291,6 +294,8 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"某些網際網路伺服器上的伺服器軟體可能是開發版的。\n"
+"勾選時，Atlantik 將不會顯示這些伺服器。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
@@ -440,7 +445,7 @@ msgstr "主機"
 #: client/main.cpp:66
 #, kde-format
 msgid "Connect at this port"
-msgstr ""
+msgstr "連線到這個連接埠"
 
 #: client/main.cpp:66
 #, kde-format
@@ -485,7 +490,7 @@ msgstr "正在取得設定清單..."
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data..."
-msgstr ""
+msgstr "遊戲開始。取得完整遊戲資料中..."
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -722,7 +727,7 @@ msgstr "未持有"
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr ""
+msgstr "房屋：%1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -752,12 +757,12 @@ msgstr ""
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr ""
+msgstr "房屋價值：%1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
 msgid "House Price: %1"
-msgstr ""
+msgstr "房屋價格：%1"
 
 #: libatlantikui/estateview.cpp:89
 #, kde-format
@@ -807,7 +812,7 @@ msgstr "請求與 %1 交易"
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "將玩家 %1 踢至大廳"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
@@ -818,7 +823,7 @@ msgstr "交換 %1"
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "新增部件"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
@@ -884,7 +889,7 @@ msgstr "總共 %2 個玩家當中，%1 個玩家接受了目前的交易請求�
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
+msgstr "給予"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
