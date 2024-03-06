@@ -54,7 +54,6 @@ target_link_libraries(atlantik
     KF6::XmlGui
     KF6::WidgetsAddons
     KF6::IconWidgets
-    Qt6::Core5Compat
 )
 
 install(TARGETS atlantik ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

@@ -16,7 +16,6 @@
 
 #include <iostream>
 
-#include <qtextcodec.h>
 #include <QTimer>
 #include <QTcpSocket>
 #include <QHostAddress>

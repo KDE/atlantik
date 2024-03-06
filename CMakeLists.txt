@@ -28,7 +28,6 @@ ecm_setup_version(PROJECT
 
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Core
-    Core5Compat
     Gui
     Network
     Xml

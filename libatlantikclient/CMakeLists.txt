@@ -28,7 +28,6 @@ target_link_libraries(atlantikclient
         KF6::I18n
         Qt6::Xml
         Qt6::Network
-        Qt6::Core5Compat
 )
 
 install(TARGETS atlantikclient ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)

@@ -17,7 +17,6 @@
 #include "metatlantic.h"
 
 #include <QTcpSocket>
-#include <QTextCodec>
 #include <QTimer>
 #include <QXmlStreamReader>
 
