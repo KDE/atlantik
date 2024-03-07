@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-18 00:35+0000\n"
+"POT-Creation-Date: 2024-03-07 00:36+0000\n"
 "PO-Revision-Date: 2019-10-04 14:48+0300\n"
 "Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -641,27 +641,27 @@ msgstr ""
 msgid "Retrieved server list."
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:128
+#: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2..."
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:136
+#: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished..."
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:141
+#: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
 msgid "Connected to %1:%2."
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:151
+#: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr ""
 
-#: libatlantikclient/atlantik_network.cpp:156
+#: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-18 00:35+0000\n"
+"POT-Creation-Date: 2024-03-07 00:36+0000\n"
 "PO-Revision-Date: 2024-02-19 05:45+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -650,27 +650,27 @@ msgstr "取得伺服器清單時發生錯誤。"
 msgid "Retrieved server list."
 msgstr "已取得伺服器清單。"
 
-#: libatlantikclient/atlantik_network.cpp:128
+#: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2..."
 msgstr "正在連線到 %1:%2..."
 
-#: libatlantikclient/atlantik_network.cpp:136
+#: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished..."
 msgstr "已完成伺服器主機名稱查詢..."
 
-#: libatlantikclient/atlantik_network.cpp:141
+#: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
 msgid "Connected to %1:%2."
 msgstr "已連線至 %1:%2。"
 
-#: libatlantikclient/atlantik_network.cpp:151
+#: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
 msgstr "連線失敗！錯誤代碼：%1"
 
-#: libatlantikclient/atlantik_network.cpp:156
+#: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
 msgid "Disconnected from %1:%2."
 msgstr "已從 %1:%2 中斷連線。"
