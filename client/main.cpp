@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 		KAboutLicense::GPL,
 		i18n("(c) 1998-2004 Rob Kaper"),
 		i18n("KDE client for playing Monopoly-like games on the monopd network."),
-		QStringLiteral("http://unixcode.org/atlantik/")
+		QStringLiteral("https://apps.kde.org/atlantik/")
 		);
 	aboutData.setDesktopFileName(QStringLiteral("org.kde.atlantik"));
 
