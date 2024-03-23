@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-07 00:36+0000\n"
-"PO-Revision-Date: 2024-02-09 17:45+0300\n"
+"PO-Revision-Date: 2024-03-22 16:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -110,8 +110,8 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
-"Şu anda etkin bir oyunun bir parçasısınız. Atlantik’i kapatmak istediğinize "
-"emin misiniz? Kapatırsanız oyunu kaybetmiş sayılacaksınız."
+"Şu anda etkin bir oyunun bir parçasısınız. Atlantik’i kapatmak "
+"istediğinizden emin misiniz? Kapatırsanız oyunu kaybetmiş sayılacaksınız."
 
 #: client/atlantik.cpp:919
 #, kde-format
@@ -129,7 +129,7 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
-"Şu anda etkin bir oyunun bir parçasısınız. Ayrılmak istediğinize emin "
+"Şu anda etkin bir oyunun bir parçasısınız. Ayrılmak istediğinizden emin "
 "misiniz? Ayrılırsanız oyunu kaybetmiş sayılacaksınız."
 
 #: client/atlantik.cpp:952
