@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Slovenian "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>&atlantik; Stran priročnika</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>&atlantik; man stran.</contrib
+> &Lauri.Watts.mail;</author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>&atlantik; man stran.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>10.10.2021</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>Odjemalec monopd</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>options</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Opis</title>
+
+<para
+>&atlantik; je odjemalec za igranje &Monopoly; podobnih družabnih iger na &monopd; omrežju. </para>
+
+<para
+>Namen namizne intik; je pridobivanje zemljišč v večjih mestih v Severni Ameriki in Evropi, medtem ko ste čezatlantski popotnik. Za zmago v igri igralci izboljšajo monopolno zemljišče z donosnimi zgradbami v upanju, da bodo vsi drugi igralci bankrotirali.</para>
+
+<para
+>Vse načine igre streže &monopd;, namenski strežnik za igre, zasnovan za &atlantik;. Eden od načinov igre se igra kot priljubljena nepremičninska družabna igra, znana kot &Monopoly;.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Možnosti</title>
+
+<variablelist>
+<title
+>&atlantik; možnosti</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>host</parameter
+></term>
+<listitem>
+<para
+>Povežite se s tem gostiteljem.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>port</parameter
+></term>
+<listitem
+><para
+>Povežite se s temi vrati.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>game</parameter
+></term>
+<listitem
+><para
+>Pridružite se tej igri.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Poglejte tudi</title>
+
+<simplelist>
+<member
+>Podrobnejša uporabniška dokumentacija je na voljo na <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (bodisi vnesite ta &URL; ali zaženite <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>
