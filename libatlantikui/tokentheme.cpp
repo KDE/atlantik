@@ -119,9 +119,9 @@ QStringList TokenTheme::themeNames()
 	return set.values();
 }
 
-QVector<TokenTheme> TokenTheme::themes()
+QList<TokenTheme> TokenTheme::themes()
 {
-	QVector<TokenTheme> list;
+	QList<TokenTheme> list;
 
 	iterateTokenThemes(
 		[&list](const QString &dir, const QString &name)

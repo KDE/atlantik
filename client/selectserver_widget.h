@@ -20,7 +20,7 @@
 #include <QWidget>
 #include <QTreeWidgetItem>
 #include <QElapsedTimer>
-#include <QVector>
+#include <QList>
 
 #include <ui_selectserver.h>
 
@@ -85,7 +85,7 @@ private:
 
 	Metatlantic *m_metatlantic;
 	bool m_hideDevelopmentServers;
-	QVector<MetaserverEntry *> m_developmentServers;
+	QList<MetaserverEntry *> m_developmentServers;
 };
 
 #endif

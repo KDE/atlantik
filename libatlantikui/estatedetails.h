@@ -19,7 +19,7 @@
 
 #include "estatedetailsbase.h"
 
-#include <QVector>
+#include <QList>
 
 class QHBoxLayout;
 
@@ -49,7 +49,7 @@ private:
 	QListWidget *m_infoListView;
 	QPushButton *m_closeButton;
 	QHBoxLayout *m_buttonBox;
-	QVector<QPushButton *> m_buttons;
+	QList<QPushButton *> m_buttons;
 };
 
 #endif

@@ -19,7 +19,7 @@
 
 #include <QPixmap>
 #include <QStringList>
-#include <QVector>
+#include <QList>
 
 #include "libatlantikui_export.h"
 
@@ -41,7 +41,7 @@ public:
 	QPixmap tokenPixmap(const QString &name) const;
 
 	static QStringList themeNames();
-	static QVector<TokenTheme> themes();
+	static QList<TokenTheme> themes();
 	static TokenTheme theme(const QString &theme);
 	static TokenTheme defaultTheme() { return theme(QLatin1String("default")); }
 
