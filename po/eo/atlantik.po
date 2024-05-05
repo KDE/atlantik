@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-07 00:36+0000\n"
-"PO-Revision-Date: 2024-01-03 14:17+0100\n"
+"PO-Revision-Date: 2024-05-04 23:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -168,7 +168,7 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
-"Se kontrolite, neposedataj posedaĵoj sur la tabulo montras bienokarton por "
+"Se markite, neposedataj posedaĵoj sur la tabulo montras bienokarton por "
 "indiki ke la posedaĵo estas vendota."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
@@ -200,8 +200,8 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
-"Se kontrolite, hipotekitaj propraĵoj sur la tabulo estos koloritaj pli "
-"malhele ol de la defaŭlta koloro."
+"Se markite, hipotekitaj propraĵoj sur la tabulo estos koloritaj pli malhele "
+"ol de la defaŭlta koloro."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
@@ -216,7 +216,7 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
-"Se kontrolite, ĵetonoj moviĝos trans la tabulon anstataŭ salti rekte al sia "
+"Se markite, ĵetonoj moviĝos trans la tabulon anstataŭ salti rekte al sia "
 "nova loko."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
@@ -271,7 +271,7 @@ msgstr "Meta Servilo"
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
-msgstr "Se kontrolite, Atlantik aldonos tempomarkojn antaŭ babilmesaĝoj."
+msgstr "Se markite, Atlantik aldonos tempomarkojn antaŭ babilmesaĝoj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
@@ -286,7 +286,7 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
-"Se kontrolita, Atlantik konektas al meta-servilo dum ekfunkciigo por peti "
+"Se markita, Atlantik konektas al meta-servilo dum ekfunkciigo por peti "
 "liston de interretaj serviloj."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
@@ -305,7 +305,7 @@ msgid ""
 msgstr ""
 "Iuj el la interretaj serviloj eble funkcias evoluigajn versiojn de la "
 "servila programaro.\n"
-"Se kontrolite, Atlantik ne montros ĉi tiujn servilojn."
+"Se markite, Atlantik ne montros ĉi tiujn servilojn."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
