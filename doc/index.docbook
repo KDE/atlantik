@@ -99,7 +99,7 @@ your system administrator.</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice>
-<guimenu>Game</guimenu><guimenuitem>Show Event Log...</guimenuitem></menuchoice></term>
+<guimenu>Game</guimenu><guimenuitem>Show Event Log…</guimenuitem></menuchoice></term>
 <listitem><para><action>Display</action> the event log window.</para></listitem>
 </varlistentry>
 
@@ -186,7 +186,7 @@ very well prevent them from being fixed indefinitely.</para>
 <para>You can report bugs for &atlantik; at the <ulink
 url="https://bugs.kde.org/">&kde; Bug Tracking System</ulink>. Use the
 <menuchoice><guimenu>Help</guimenu><guimenuitem>Report
-Bug...</guimenuitem></menuchoice> menu item to visit the bug wizard with some
+Bug…</guimenuitem></menuchoice> menu item to visit the bug wizard with some
 details of your &atlantik; version filled in automatically.</para>
 
 <para>Please specify details in your bug report, such as game
