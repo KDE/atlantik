@@ -83,7 +83,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 		connect(playerSelf, SIGNAL(changed(Player *)), this, SLOT(playerChanged(Player *)));
 	}
 
-	Q_EMIT statusMessage(i18n("Retrieving configuration list..."));
+	Q_EMIT statusMessage(i18n("Retrieving configuration list…"));
 
 	if (m_game) {
 		foreach (ConfigOption *opt, m_game->configOptions())
@@ -97,7 +97,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 
 void SelectConfiguration::initGame()
 {
-	Q_EMIT statusMessage(i18n("Game started. Retrieving full game data..."));
+	Q_EMIT statusMessage(i18n("Game started. Retrieving full game data…"));
 }
 
 void SelectConfiguration::addConfigOption(ConfigOption *configOption)

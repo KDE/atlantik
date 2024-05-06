@@ -83,11 +83,11 @@ void AuctionWidget::auctionChanged()
 	switch (m_auction->status())
 	{
 	case 1:
-		status = i18n("Going once...");
+		status = i18n("Going once…");
 		break;
 
 	case 2:
-		status = i18n("Going twice...");
+		status = i18n("Going twice…");
 		break;
 
 	case 3:

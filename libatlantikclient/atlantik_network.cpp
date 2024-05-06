@@ -124,7 +124,7 @@ void AtlantikNetwork::slotRead()
 
 void AtlantikNetwork::serverConnect(const QString &host, int port)
 {
-	Q_EMIT msgStatus(i18n("Connecting to %1:%2...", host, QString::number(port)), ET_NetGeneric);
+	Q_EMIT msgStatus(i18n("Connecting to %1:%2…", host, QString::number(port)), ET_NetGeneric);
 	m_host = host;
 	m_port = port;
 	m_monopdsocket->connectToHost(host, port);
@@ -132,7 +132,7 @@ void AtlantikNetwork::serverConnect(const QString &host, int port)
 
 void AtlantikNetwork::slotLookupFinished()
 {
-	Q_EMIT msgStatus(i18n("Server host name lookup finished..."), ET_NetGeneric);
+	Q_EMIT msgStatus(i18n("Server host name lookup finished…"), ET_NetGeneric);
 }
 
 void AtlantikNetwork::slotConnectionSuccess()

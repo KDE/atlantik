@@ -164,7 +164,7 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 void SelectServer::initMetaserver()
 {
 	// Hardcoded, but there aren't any other Metatlantic root servers at the moment
-	Q_EMIT msgStatus(i18n("Retrieving server list..."));
+	Q_EMIT msgStatus(i18n("Retrieving server list…"));
 
 	KGuiItem::assign(m_refreshButton, KGuiItem(i18n("Reload Server List"), QStringLiteral("view-refresh")));
 	m_metatlantic = new Metatlantic(QString::fromLatin1(METATLANTIC_HOST), METATLANTIC_PORT);
