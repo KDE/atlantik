@@ -31,8 +31,8 @@
 
 #include <klocalizedstring.h>
 #include <kiconloader.h>
-#include <kguiitem.h>
 #include <ksharedconfig.h>
+#include <KStandardGuiItem>
 #include <kwindowconfig.h>
 
 #include "event.h"
@@ -220,7 +220,7 @@ EventLogWidget::EventLogWidget(EventLog *eventLog, QWidget *parent)
 
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	QPushButton *saveButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
-	KGuiItem::assign(saveButton, KGuiItem(i18n("&Save As..."), QStringLiteral("document-save-as")));
+	KGuiItem::assign(saveButton, KStandardGuiItem::saveAs());
 	QPushButton *clearButton = buttonBox->addButton(QString(), QDialogButtonBox::ActionRole);
 	KGuiItem::assign(clearButton, KGuiItem(i18n("&Clear Log"), QStringLiteral("edit-clear")));
 	listCompBox->addWidget(buttonBox);
