@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:36+0000\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
 "PO-Revision-Date: 2022-05-07 00:05+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -28,8 +28,9 @@ msgid "Your emails"
 msgstr "kde@peremen.name"
 
 #: client/atlantik.cpp:116
-#, kde-format
-msgid "Show Event &Log..."
+#, fuzzy, kde-format
+#| msgid "Show Event &Log..."
+msgid "Show Event &Log…"
 msgstr "이벤트 기록 표시(&L)..."
 
 #: client/atlantik.cpp:119
@@ -330,11 +331,6 @@ msgctxt "@title:window"
 msgid "Event Log"
 msgstr "이벤트 기록"
 
-#: client/eventlogwidget.cpp:223
-#, kde-format
-msgid "&Save As..."
-msgstr "다른 이름으로 저장(&S)..."
-
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
@@ -482,13 +478,15 @@ msgid "Start Game"
 msgstr "게임 시작"
 
 #: client/selectconfiguration_widget.cpp:86
-#, kde-format
-msgid "Retrieving configuration list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving configuration list..."
+msgid "Retrieving configuration list…"
 msgstr "설정 목록 가져오는 중..."
 
 #: client/selectconfiguration_widget.cpp:100
-#, kde-format
-msgid "Game started. Retrieving full game data..."
+#, fuzzy, kde-format
+#| msgid "Game started. Retrieving full game data..."
+msgid "Game started. Retrieving full game data…"
 msgstr "게임이 시작되었습니다. 전체 게임 데이터 가져오는 중..."
 
 #: client/selectconfiguration_widget.cpp:195
@@ -630,8 +628,9 @@ msgid "Get Server List"
 msgstr "서버 목록 가져오기"
 
 #: client/selectserver_widget.cpp:167
-#, kde-format
-msgid "Retrieving server list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving server list..."
+msgid "Retrieving server list…"
 msgstr "서버 목록 가져오는 중..."
 
 #: client/selectserver_widget.cpp:169
@@ -650,13 +649,15 @@ msgid "Retrieved server list."
 msgstr "서버 목록을 가져왔습니다."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, kde-format
-msgid "Connecting to %1:%2..."
+#, fuzzy, kde-format
+#| msgid "Connecting to %1:%2..."
+msgid "Connecting to %1:%2…"
 msgstr "%1:%2에 연결 중..."
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, kde-format
-msgid "Server host name lookup finished..."
+#, fuzzy, kde-format
+#| msgid "Server host name lookup finished..."
+msgid "Server host name lookup finished…"
 msgstr "서버 호스트 이름 알아내기 완료..."
 
 #: libatlantikclient/atlantik_network.cpp:140
@@ -695,12 +696,12 @@ msgstr ""
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
-msgid "Going once..."
+msgid "Going once…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
-msgid "Going twice..."
+msgid "Going twice…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:94
@@ -904,3 +905,6 @@ msgstr "거래 제안이 거부되었습니다."
 #, kde-format
 msgid "Remove From Trade"
 msgstr "거래에서 삭제"
+
+#~ msgid "&Save As..."
+#~ msgstr "다른 이름으로 저장(&S)..."

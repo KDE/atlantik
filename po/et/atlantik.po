@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:36+0000\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
 "PO-Revision-Date: 2020-01-22 21:15+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -30,7 +30,7 @@ msgstr "duke@linux.ee, hasso@linux.ee, qiilaq69@gmail.com"
 #: client/atlantik.cpp:116
 #, fuzzy, kde-format
 #| msgid "Show Event &Log"
-msgid "Show Event &Log..."
+msgid "Show Event &Log…"
 msgstr "Näita sündmuste &logi"
 
 #: client/atlantik.cpp:119
@@ -344,11 +344,6 @@ msgctxt "@title:window"
 msgid "Event Log"
 msgstr "Sündmuste logi"
 
-#: client/eventlogwidget.cpp:223
-#, kde-format
-msgid "&Save As..."
-msgstr "&Salvesta kui ..."
-
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
@@ -495,13 +490,15 @@ msgid "Start Game"
 msgstr "Alusta mängu"
 
 #: client/selectconfiguration_widget.cpp:86
-#, kde-format
-msgid "Retrieving configuration list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving configuration list..."
+msgid "Retrieving configuration list…"
 msgstr "Seadistusloendi tõmbamine ..."
 
 #: client/selectconfiguration_widget.cpp:100
-#, kde-format
-msgid "Game started. Retrieving full game data..."
+#, fuzzy, kde-format
+#| msgid "Game started. Retrieving full game data..."
+msgid "Game started. Retrieving full game data…"
 msgstr "Mäng on alustatud. Täielike mänguandmete tõmbamine ..."
 
 #: client/selectconfiguration_widget.cpp:195
@@ -645,8 +642,9 @@ msgid "Get Server List"
 msgstr "Hangi serveriloend"
 
 #: client/selectserver_widget.cpp:167
-#, kde-format
-msgid "Retrieving server list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving server list..."
+msgid "Retrieving server list…"
 msgstr "Serveriloendi tõmbamine ..."
 
 #: client/selectserver_widget.cpp:169
@@ -665,13 +663,15 @@ msgid "Retrieved server list."
 msgstr "Tõmmati serveriloend,"
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, kde-format
-msgid "Connecting to %1:%2..."
+#, fuzzy, kde-format
+#| msgid "Connecting to %1:%2..."
+msgid "Connecting to %1:%2…"
 msgstr "Ühendumine serveriga %1:%2 ..."
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, kde-format
-msgid "Server host name lookup finished..."
+#, fuzzy, kde-format
+#| msgid "Server host name lookup finished..."
+msgid "Server host name lookup finished…"
 msgstr "Serverinime otsing lõpetatud ..."
 
 #: libatlantikclient/atlantik_network.cpp:140
@@ -709,13 +709,15 @@ msgid "Make Bid"
 msgstr "Paku"
 
 #: libatlantikui/auction_widget.cpp:86
-#, kde-format
-msgid "Going once..."
+#, fuzzy, kde-format
+#| msgid "Going once..."
+msgid "Going once…"
 msgstr "Esimest korda ..."
 
 #: libatlantikui/auction_widget.cpp:90
-#, kde-format
-msgid "Going twice..."
+#, fuzzy, kde-format
+#| msgid "Going twice..."
+msgid "Going twice…"
 msgstr "Teist korda ..."
 
 #: libatlantikui/auction_widget.cpp:94
@@ -920,3 +922,6 @@ msgstr "Tehingu pakkumine lükati tagasi."
 #, kde-format
 msgid "Remove From Trade"
 msgstr "Eemalda tehingust"
+
+#~ msgid "&Save As..."
+#~ msgstr "&Salvesta kui ..."

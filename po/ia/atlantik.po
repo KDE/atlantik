@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:36+0000\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
 "PO-Revision-Date: 2023-12-28 19:30+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -29,7 +29,7 @@ msgstr "g.sora@tiscali.it"
 
 #: client/atlantik.cpp:116
 #, kde-format
-msgid "Show Event &Log..."
+msgid "Show Event &Log…"
 msgstr ""
 
 #: client/atlantik.cpp:119
@@ -322,11 +322,6 @@ msgctxt "@title:window"
 msgid "Event Log"
 msgstr ""
 
-#: client/eventlogwidget.cpp:223
-#, kde-format
-msgid "&Save As..."
-msgstr "&Salveguarda como..."
-
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
@@ -474,12 +469,12 @@ msgstr "Initia Joco"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
-msgid "Retrieving configuration list..."
+msgid "Retrieving configuration list…"
 msgstr ""
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
-msgid "Game started. Retrieving full game data..."
+msgid "Game started. Retrieving full game data…"
 msgstr ""
 
 #: client/selectconfiguration_widget.cpp:195
@@ -621,8 +616,9 @@ msgid "Get Server List"
 msgstr ""
 
 #: client/selectserver_widget.cpp:167
-#, kde-format
-msgid "Retrieving server list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving server list..."
+msgid "Retrieving server list…"
 msgstr "Recuperante lista de servitor..."
 
 #: client/selectserver_widget.cpp:169
@@ -641,13 +637,14 @@ msgid "Retrieved server list."
 msgstr ""
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, kde-format
-msgid "Connecting to %1:%2..."
+#, fuzzy, kde-format
+#| msgid "Connecting to %1:%2..."
+msgid "Connecting to %1:%2…"
 msgstr "Connectente a %1:%2..."
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
-msgid "Server host name lookup finished..."
+msgid "Server host name lookup finished…"
 msgstr ""
 
 #: libatlantikclient/atlantik_network.cpp:140
@@ -686,12 +683,12 @@ msgstr ""
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
-msgid "Going once..."
+msgid "Going once…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
-msgid "Going twice..."
+msgid "Going twice…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:94
@@ -895,3 +892,6 @@ msgstr ""
 #, kde-format
 msgid "Remove From Trade"
 msgstr ""
+
+#~ msgid "&Save As..."
+#~ msgstr "&Salveguarda como..."

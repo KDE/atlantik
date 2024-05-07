@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:36+0000\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
 "PO-Revision-Date: 2024-02-19 05:45+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -31,8 +31,9 @@ msgid "Your emails"
 msgstr "mail@kisaragi-hiu.com"
 
 #: client/atlantik.cpp:116
-#, kde-format
-msgid "Show Event &Log..."
+#, fuzzy, kde-format
+#| msgid "Show Event &Log..."
+msgid "Show Event &Log…"
 msgstr "顯示事件紀錄(&L)..."
 
 #: client/atlantik.cpp:119
@@ -332,11 +333,6 @@ msgctxt "@title:window"
 msgid "Event Log"
 msgstr "事件紀錄"
 
-#: client/eventlogwidget.cpp:223
-#, kde-format
-msgid "&Save As..."
-msgstr "另存新檔(&S)..."
-
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
@@ -483,13 +479,15 @@ msgid "Start Game"
 msgstr "開始遊戲"
 
 #: client/selectconfiguration_widget.cpp:86
-#, kde-format
-msgid "Retrieving configuration list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving configuration list..."
+msgid "Retrieving configuration list…"
 msgstr "正在取得設定清單..."
 
 #: client/selectconfiguration_widget.cpp:100
-#, kde-format
-msgid "Game started. Retrieving full game data..."
+#, fuzzy, kde-format
+#| msgid "Game started. Retrieving full game data..."
+msgid "Game started. Retrieving full game data…"
 msgstr "遊戲開始。取得完整遊戲資料中..."
 
 #: client/selectconfiguration_widget.cpp:195
@@ -631,8 +629,9 @@ msgid "Get Server List"
 msgstr "取得伺服器清單"
 
 #: client/selectserver_widget.cpp:167
-#, kde-format
-msgid "Retrieving server list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving server list..."
+msgid "Retrieving server list…"
 msgstr "正在取得伺服器清單..."
 
 #: client/selectserver_widget.cpp:169
@@ -651,13 +650,15 @@ msgid "Retrieved server list."
 msgstr "已取得伺服器清單。"
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, kde-format
-msgid "Connecting to %1:%2..."
+#, fuzzy, kde-format
+#| msgid "Connecting to %1:%2..."
+msgid "Connecting to %1:%2…"
 msgstr "正在連線到 %1:%2..."
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, kde-format
-msgid "Server host name lookup finished..."
+#, fuzzy, kde-format
+#| msgid "Server host name lookup finished..."
+msgid "Server host name lookup finished…"
 msgstr "已完成伺服器主機名稱查詢..."
 
 #: libatlantikclient/atlantik_network.cpp:140
@@ -696,12 +697,12 @@ msgstr ""
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
-msgid "Going once..."
+msgid "Going once…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
-msgid "Going twice..."
+msgid "Going twice…"
 msgstr ""
 
 #: libatlantikui/auction_widget.cpp:94
@@ -905,3 +906,6 @@ msgstr "交易請求已被拒絕。"
 #, kde-format
 msgid "Remove From Trade"
 msgstr "從交易中移除"
+
+#~ msgid "&Save As..."
+#~ msgstr "另存新檔(&S)..."

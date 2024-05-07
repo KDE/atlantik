@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-07 00:36+0000\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
 "PO-Revision-Date: 2021-10-17 11:13+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -28,8 +28,9 @@ msgid "Your emails"
 msgstr "steve.allewell@gmail.com"
 
 #: client/atlantik.cpp:116
-#, kde-format
-msgid "Show Event &Log..."
+#, fuzzy, kde-format
+#| msgid "Show Event &Log..."
+msgid "Show Event &Log…"
 msgstr "Show Event &Log..."
 
 #: client/atlantik.cpp:119
@@ -341,11 +342,6 @@ msgctxt "@title:window"
 msgid "Event Log"
 msgstr "Event Log"
 
-#: client/eventlogwidget.cpp:223
-#, kde-format
-msgid "&Save As..."
-msgstr "&Save As..."
-
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
@@ -492,13 +488,15 @@ msgid "Start Game"
 msgstr "Start Game"
 
 #: client/selectconfiguration_widget.cpp:86
-#, kde-format
-msgid "Retrieving configuration list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving configuration list..."
+msgid "Retrieving configuration list…"
 msgstr "Retrieving configuration list..."
 
 #: client/selectconfiguration_widget.cpp:100
-#, kde-format
-msgid "Game started. Retrieving full game data..."
+#, fuzzy, kde-format
+#| msgid "Game started. Retrieving full game data..."
+msgid "Game started. Retrieving full game data…"
 msgstr "Game started. Retrieving full game data..."
 
 #: client/selectconfiguration_widget.cpp:195
@@ -640,8 +638,9 @@ msgid "Get Server List"
 msgstr "Get Server List"
 
 #: client/selectserver_widget.cpp:167
-#, kde-format
-msgid "Retrieving server list..."
+#, fuzzy, kde-format
+#| msgid "Retrieving server list..."
+msgid "Retrieving server list…"
 msgstr "Retrieving server list..."
 
 #: client/selectserver_widget.cpp:169
@@ -660,13 +659,15 @@ msgid "Retrieved server list."
 msgstr "Retrieved server list."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, kde-format
-msgid "Connecting to %1:%2..."
+#, fuzzy, kde-format
+#| msgid "Connecting to %1:%2..."
+msgid "Connecting to %1:%2…"
 msgstr "Connecting to %1:%2..."
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, kde-format
-msgid "Server host name lookup finished..."
+#, fuzzy, kde-format
+#| msgid "Server host name lookup finished..."
+msgid "Server host name lookup finished…"
 msgstr "Server host name lookup finished..."
 
 #: libatlantikclient/atlantik_network.cpp:140
@@ -704,13 +705,15 @@ msgid "Make Bid"
 msgstr "Make Bid"
 
 #: libatlantikui/auction_widget.cpp:86
-#, kde-format
-msgid "Going once..."
+#, fuzzy, kde-format
+#| msgid "Going once..."
+msgid "Going once…"
 msgstr "Going once..."
 
 #: libatlantikui/auction_widget.cpp:90
-#, kde-format
-msgid "Going twice..."
+#, fuzzy, kde-format
+#| msgid "Going twice..."
+msgid "Going twice…"
 msgstr "Going twice..."
 
 #: libatlantikui/auction_widget.cpp:94
@@ -914,3 +917,6 @@ msgstr "Trade proposal was rejected."
 #, kde-format
 msgid "Remove From Trade"
 msgstr "Remove From Trade"
+
+#~ msgid "&Save As..."
+#~ msgstr "&Save As..."
