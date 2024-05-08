@@ -28,10 +28,9 @@ msgid "Your emails"
 msgstr "vit@pelcak.org"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
-msgstr "Zobrazit záznam udá&lostí..."
+msgstr ""
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -617,10 +616,9 @@ msgid "Get Server List"
 msgstr ""
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
-msgstr "Získávám seznam serverů..."
+msgstr ""
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -638,10 +636,9 @@ msgid "Retrieved server list."
 msgstr ""
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "Připojuji k %1:%2..."
+msgstr ""
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
@@ -893,6 +890,3 @@ msgstr ""
 #, kde-format
 msgid "Remove From Trade"
 msgstr ""
-
-#~ msgid "&Save As..."
-#~ msgstr "Uložit &jako..."

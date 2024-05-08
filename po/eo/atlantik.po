@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-05-04 23:30+0100\n"
+"PO-Revision-Date: 2024-05-07 23:27+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -29,10 +29,9 @@ msgid "Your emails"
 msgstr "okellogg@users.sourceforge.net"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
-msgstr "Montri Eventprotoko&lon..."
+msgstr "Montri Eventprotoko&lon…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -489,16 +488,14 @@ msgid "Start Game"
 msgstr "Komenci Ludon"
 
 #: client/selectconfiguration_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Retrieving configuration list..."
+#, kde-format
 msgid "Retrieving configuration list…"
-msgstr "Prenante agordan liston..."
+msgstr "Prenante agordan liston…"
 
 #: client/selectconfiguration_widget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Game started. Retrieving full game data..."
+#, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "Ludo komenciĝis. Prenante plenajn ludajn datumojn..."
+msgstr "Ludo komenciĝis. Prenante plenajn luddatumojn…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -639,10 +636,9 @@ msgid "Get Server List"
 msgstr "Ekpreni Servilan Liston"
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
-msgstr "Prenante servilliston..."
+msgstr "Prenante servilliston…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -660,16 +656,14 @@ msgid "Retrieved server list."
 msgstr "Prenita servilisto."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "Konektante al %1:%2..."
+msgstr "Konektante al %1:%2…"
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Serĉo pri servila gastiga nomo finiĝis..."
+msgstr "Serĉo pri servila gastiga nomo finiĝis…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -706,16 +700,14 @@ msgid "Make Bid"
 msgstr "Fari Oferton"
 
 #: libatlantikui/auction_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Going once..."
+#, kde-format
 msgid "Going once…"
-msgstr "Al la unua..."
+msgstr "Al la unua…"
 
 #: libatlantikui/auction_widget.cpp:90
-#, fuzzy, kde-format
-#| msgid "Going twice..."
+#, kde-format
 msgid "Going twice…"
-msgstr "Al la dua..."
+msgstr "Al la dua…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
@@ -918,6 +910,3 @@ msgstr "Komerca propono estis malakceptita."
 #, kde-format
 msgid "Remove From Trade"
 msgstr "Forigi De Komerco"
-
-#~ msgid "&Save As..."
-#~ msgstr "Kon&servi kiel..."

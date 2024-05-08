@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2021-10-11 05:52+0200\n"
+"PO-Revision-Date: 2024-05-07 06:20+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.2\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -29,10 +29,9 @@ msgid "Your emails"
 msgstr "matjaz.jeran@amis.net"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
-msgstr "Prikaži dnevnik dogodkov..."
+msgstr "Prikaži dogodek in dnevnik…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -490,16 +489,14 @@ msgid "Start Game"
 msgstr "Začni igro"
 
 #: client/selectconfiguration_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Retrieving configuration list..."
+#, kde-format
 msgid "Retrieving configuration list…"
-msgstr "Pridobivanje seznama nastavitev..."
+msgstr "Pridobivanje seznama konfiguracij…"
 
 #: client/selectconfiguration_widget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Game started. Retrieving full game data..."
+#, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "Igra se je začela. Pridobivanje celotnih podatkov o igri..."
+msgstr "Igra se je začela. Pridobivanje celotnih podatkov o igri…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -640,10 +637,9 @@ msgid "Get Server List"
 msgstr "Dobi seznam strežnikov"
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
-msgstr "Pridobivanje seznama strežnikov..."
+msgstr "Pridobivanje seznama strežnikov…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -661,16 +657,14 @@ msgid "Retrieved server list."
 msgstr "Seznam strežnikov pridobljen."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "Povezujem se na %1:%2..."
+msgstr "Povezujem se na %1:%2…"
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Dokončanje iskanja imena gostitelja strežnika..."
+msgstr "Dokončanje iskanja imena gostitelja strežnika…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -707,16 +701,14 @@ msgid "Make Bid"
 msgstr "Daj ponudbo"
 
 #: libatlantikui/auction_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Going once..."
+#, kde-format
 msgid "Going once…"
-msgstr "Prvič..."
+msgstr "Gremo prvič…"
 
 #: libatlantikui/auction_widget.cpp:90
-#, fuzzy, kde-format
-#| msgid "Going twice..."
+#, kde-format
 msgid "Going twice…"
-msgstr "Drugič..."
+msgstr "Gremo drugič…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format

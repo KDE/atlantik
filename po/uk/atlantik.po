@@ -3,22 +3,22 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019, 2021, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2021-10-11 08:15+0300\n"
+"PO-Revision-Date: 2024-05-07 08:58+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,8 +31,7 @@ msgid "Your emails"
 msgstr "yurchor@ukr.net"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
 msgstr "Показати &журнал подій…"
 
@@ -493,14 +492,12 @@ msgid "Start Game"
 msgstr "Почати гру"
 
 #: client/selectconfiguration_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Retrieving configuration list..."
+#, kde-format
 msgid "Retrieving configuration list…"
 msgstr "Отримуємо список налаштувань…"
 
 #: client/selectconfiguration_widget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Game started. Retrieving full game data..."
+#, kde-format
 msgid "Game started. Retrieving full game data…"
 msgstr "Гру розпочато. Отримуємо усі дані гри…"
 
@@ -643,8 +640,7 @@ msgid "Get Server List"
 msgstr "Отримати список серверів"
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
 msgstr "Триває пошук за списком серверів…"
 
@@ -664,14 +660,12 @@ msgid "Retrieved server list."
 msgstr "Отримано список серверів."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
 msgstr "Встановлюємо з’єднання з %1:%2…"
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
 msgstr "Завершено пошук назв вузлів серверів…"
 
@@ -710,14 +704,12 @@ msgid "Make Bid"
 msgstr "Зробити пропозицію"
 
 #: libatlantikui/auction_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Going once..."
+#, kde-format
 msgid "Going once…"
 msgstr "Продано раз…"
 
 #: libatlantikui/auction_widget.cpp:90
-#, fuzzy, kde-format
-#| msgid "Going twice..."
+#, kde-format
 msgid "Going twice…"
 msgstr "Продано два…"
 
