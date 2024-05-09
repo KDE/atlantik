@@ -364,14 +364,14 @@
 
 <para
 >Puoi segnalare errori di &atlantik; tramite il <ulink url="https://bugs.kde.org/"
->sistema di gestione errori di &kde;</ulink
->. Se lo attivi dal menu <menuchoice
+>sistema di tracciamento dei bug di &kde;</ulink
+>. Utilizza la voce di menu <menuchoice
 ><guimenu
 >Aiuto</guimenu
 ><guimenuitem
 >Segnala un errore...</guimenuitem
 ></menuchoice
->, saranno inseriti automaticamente alcuni dati sulla versione di &atlantik; che stai utilizzando.</para>
+> per visitare la procedura guidata di segnalazione dei bug con alcuni dettagli della tua versione di &atlantik; compilati automaticamente.</para>
 
 <para
 >Nel riferire il bug sei pregato di riportare tutti i dettagli che puoi, anche sulla partita in corso. Per esempio, un bug può verificarsi solo se qualcuno è in prigione, o durante un'asta. Se possibile, salva il log degli eventi e allegalo alla tua segnalazione o invialo all'autore. Potrebbe contenere importanti spunti per arrivare ad una più rapida risoluzione del problema.</para>

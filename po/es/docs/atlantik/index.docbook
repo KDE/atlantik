@@ -14,7 +14,7 @@
 
 <bookinfo>
 <title
->El manual de &atlantik;</title>
+>Manual de &atlantik;</title>
 
 <authorgroup>
 <author
@@ -65,7 +65,7 @@
 
 <abstract>
 <para
->&atlantik; es un cliente para jugar partidas de tipo &Monopoly; en la red &monopd;. </para>
+>&atlantik; es un cliente para juegos similares a &Monopoly; en la red &monopd;. </para>
 
 </abstract>
 
@@ -88,7 +88,7 @@
 >Introducción</title>
 
 <para
->La finalidad del juego de tablero &atlantik; es adquirir terrenos en las ciudades principales de Norteamérica y de Europa mientras viaja en un transatlántico. Para ganar, los jugadores deben mejorar los terrenos monopolizados con edificaciones rentables con la esperanza de llevar a la bancarrota al resto de jugadores.</para>
+>La finalidad del juego de tablero &atlantik; es adquirir terrenos en las ciudades principales de Norteamérica y de Europa mientras se viaja en un transatlántico. Para ganar, los jugadores deben mejorar los terrenos monopolizados con edificaciones rentables con la esperanza de llevar a la bancarrota al resto de jugadores.</para>
 
 <para
 >Todos los modos de juego están servidos por &monopd;, un servidor de juego dedicado diseñado por &atlantik;. Uno de los modos de juego es similar al del popular juego de tablero de propiedades conocido como &Monopoly;.</para>
@@ -100,23 +100,23 @@
 >Conectarse a un servidor</title>
 
 <para
->&atlantik; necesita un servidor de juego al que conectarse. Si dispone de una conexión a Internet, puede solicitar una lista de servidores públicos de Internet y no necesitará ningún software adicional. Si desea jugar con &atlantik; de forma local, en una <acronym
+>&atlantik; necesita un servidor de juego al que conectarse. Si dispones de una conexión a Internet, puedes solicitar una lista de servidores públicos de Internet y no necesitarás ningún software adicional. Si quieres jugar con &atlantik; de forma local, en una <acronym
 >LAN</acronym
-> o en un servidor de Internet privado, puede introducir la máquina y el puerto al que conectarse. En este caso, necesitará tener instalado y en funcionamiento el servidor <ulink url="https://gtkatlantic.gradator.net/"
+> o en un servidor de Internet privado, puedes introducir la máquina y el puerto al que conectarse. En este caso, deberás tener instalado y en funcionamiento el servidor <ulink url="https://gtkatlantic.gradator.net/"
 >&monopd;</ulink
-> en la máquina a la que se va a conectar.</para>
+> en la máquina a la que te vas a conectar.</para>
 
 <para
->Si tiene problemas para conectarse a un servidor, las siguientes notas le pueden servir de ayuda:</para>
+>Si tienes problemas para conectarte a un servidor, las siguientes notas te pueden servir de ayuda:</para>
 
 <itemizedlist>
 <listitem
 ><para
->Pruebe con otro servidor.</para>
+>Prueba con otro servidor.</para>
 </listitem>
 <listitem>
 <para
->Compruebe su cortafuegos y la configuración de enmascaramiento. Es posible que existan restricciones que le impidan conectarse a servidores o recibir tráfico de respuesta. De forma predeterminada, los servidores &monopd; usan el puerto TCP 1234. Si no está seguro, contacte con el administrador del sistema.</para>
+>Comprueba tu cortafuegos y la configuración de enmascaramiento. Es posible que existan restricciones que te impidan conectarte a servidores o recibir tráfico de respuesta. De forma predeterminada, los servidores &monopd; usan el puerto TCP 1234. Si no estás seguro, contacta con el administrador del sistema.</para>
 </listitem>
 </itemizedlist>
 
@@ -144,7 +144,7 @@
 ><para
 ><action
 >Muestra</action
-> la ventana de registro de eventos.</para
+> la ventana del registro de eventos.</para
 ></listitem>
 </varlistentry>
 
@@ -161,7 +161,7 @@
 ><para
 ><action
 >Reconectarse</action
-> a la última partida. Esto solo estará disponible en el caso de que &atlantik; no haya salido limpiamente de una partida (por lo general, debido a un fallo de la aplicación), y ya no se puede hacer una vez que se conecta a un servidor.</para
+> a la última partida. Esto solo estará disponible en el caso de que &atlantik; no haya salido limpiamente de una partida (por lo general, debido a un fallo de la aplicación), y ya no se puede hacer una vez que te conectes a un servidor.</para
 ></listitem>
 </varlistentry>
 
@@ -200,7 +200,7 @@
 <listitem
 ><para
 ><action
->Cierra</action
+>Cerrar</action
 > &atlantik;.</para
 ></listitem>
 </varlistentry>
@@ -216,7 +216,7 @@
 <term
 ><menuchoice
 ><guimenu
->Mover</guimenu
+>Movimiento</guimenu
 ><guimenuitem
 >Finalizar turno</guimenuitem
 > </menuchoice
@@ -224,7 +224,7 @@
 <listitem
 ><para
 ><action
->Permite que los otros jugadores sepan que ha terminado de mover.</action
+>Permite que los otros jugadores sepan que has terminado de mover.</action
 ></para
 ></listitem>
 </varlistentry>
@@ -239,7 +239,7 @@
 ></keycombo
 ></shortcut
 > <guimenu
->Mover</guimenu
+>Movimiento</guimenu
 ><guimenuitem
 >Lanzar dados</guimenuitem
 ></menuchoice
@@ -262,7 +262,7 @@
 ></keycombo
 ></shortcut
 > <guimenu
->Mover</guimenu
+>Movimiento</guimenu
 ><guimenuitem
 >Subastar</guimenuitem
 ></menuchoice
@@ -277,7 +277,7 @@
 <term
 ><menuchoice
 ><guimenu
->Mover</guimenu
+>Movimiento</guimenu
 ><guimenuitem
 >Usar tarjeta para salir de la cárcel</guimenuitem
 ></menuchoice
@@ -298,7 +298,7 @@
 ></keycombo
 ></shortcut
 > <guimenu
->Mover</guimenu
+>Movimiento</guimenu
 ><guimenuitem
 >Lanzar dados para salir de la cárcel</guimenuitem
 ></menuchoice
@@ -313,7 +313,7 @@
 
 <sect1 id="menu-settings-help">
 <title
->Los menús de Preferencias y de Ayuda</title>
+>Los menús Preferencias y Ayuda</title>
 
 <para
 >&atlantik; dispone de los típicos menús <guimenu
@@ -332,21 +332,21 @@
 >Informar de fallos</title>
 
 <para
->Si cree que ha encontrado un error en &atlantik;, háganoslo saber. A menudo, los desarrolladores detectan y solucionan fallos por sí mismos, pero es posible que usted experimente problemas aún desconocidos. Si no los comunica, es posible que nunca lleguen a solucionarse.</para>
+>Si crees que has encontrado un error en &atlantik;, háznoslo saber. A menudo, los desarrolladores detectan y solucionan fallos por sí mismos, pero es posible que experimentes problemas aún desconocidos. Si no los comunicas, es posible que nunca lleguen a solucionarse.</para>
 
 <para
->Puede informar de errores en &atlantik; en el <ulink url="https://bugs.kde.org/"
+>Puedes informar de errores en &atlantik; en el <ulink url="https://bugs.kde.org/"
 >sistema de seguimiento de errores de &kde;</ulink
->. Use la opción del menú <menuchoice
+>. Usa la opción del menú <menuchoice
 ><guimenu
 >Ayuda</guimenu
 ><guimenuitem
 >Informar de fallo...</guimenuitem
 ></menuchoice
-> para lanzar el asistente de errores con algunos detalles sobre su versión de &atlantik; insertados automáticamente.</para>
+> para lanzar el asistente de errores con algunos detalles sobre tu versión de &atlantik; insertados automáticamente.</para>
 
 <para
->Especifique los detalles en su informe de errores, como las condiciones del juego. Por ejemplo, un error solo puede ocurrir cuando las personas están en la cárcel o durante una subasta. Si es posible, guarde el registro de eventos y adjúntelo al informe de errores o envíeselo al autor. Puede contener pistas vitales sobre el comportamiento que podrían conducir a una resolución más rápida del error.</para>
+>Especifica los detalles en tu informe de errores, como las condiciones del juego. Por ejemplo, un error solo puede ocurrir cuando las personas están en la cárcel o durante una subasta. Si es posible, guarda el registro de eventos y adjúntalo al informe de errores o envíaselo al autor. Puede contener pistas vitales sobre el comportamiento que podrían conducir a una resolución más rápida del error.</para>
 
 </chapter>
 
@@ -363,7 +363,7 @@
 </question>
 <answer>
 <para
->Desafortunadamente, todavía no puede tener oponentes de computadora en &atlantik;. </para>
+>Desafortunadamente, todavía no puedes tener oponentes de computadora en &atlantik;. </para>
 <para
 >Se aconseja a los usuarios que aprovechen los servidores públicos de Internet o un servidor <acronym
 >LAN</acronym
@@ -378,9 +378,9 @@
 </question>
 <answer>
 <para
->Haga clic en la cartera o patrimonio de un jugador con el &RMB; para abrir una negociación.</para>
+>Haz clic en la cartera o patrimonio de un jugador con el &RMB; para abrir una negociación.</para>
 <para
->Existen dos problemas de usabilidad en las negociaciones que pueden causar cierta confusión. Si de alguna manera incluye a otro jugador en una negociación, dicho jugador verá la ventana de negociación. Cualquier jugador puede rechazar las condiciones, lo que también finaliza innecesariamente la sesión de comercio para todos los demás jugadores. Todos los jugadores deben aceptar una negociación antes de que se pueda completar, lo que puede ser complicado porque los jugadores siguen participando en los acuerdos incluso cuando ya no están involucrados con artículos negociables.</para>
+>Existen dos problemas de usabilidad en las negociaciones que pueden causar cierta confusión. Si de alguna manera incluyes a otro jugador en una negociación, dicho jugador verá la ventana de negociación. Un jugador puede rechazar las condiciones, lo que también finaliza innecesariamente la sesión de comercio para todos los demás jugadores. Todos los jugadores deben aceptar una negociación antes de que se pueda completar, lo que puede ser complicado porque los jugadores siguen participando en los acuerdos incluso cuando ya no están involucrados con artículos negociables.</para>
 </answer>
 </qandaentry>
 
@@ -399,7 +399,7 @@
 <para
 >Traducido por Eloy Cuadra <email
 >ecuadra@eloihr.net</email
-></para
+>.</para
 > &underFDL; &underGPL; </chapter>
 
 &documentation.index;
