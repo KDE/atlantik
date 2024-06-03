@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-05-21 00:55+0900\n"
+"PO-Revision-Date: 2024-06-02 17:54+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -681,13 +681,13 @@ msgstr "玩家"
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr ""
+msgstr "出價"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr ""
+msgstr "投標"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
