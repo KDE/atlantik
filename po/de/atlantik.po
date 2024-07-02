@@ -1,22 +1,23 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the atlantik package.
 # Burkhard Lück <lueck@hube-lueck.de>, 2019, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2022.
+# SPDX-FileCopyrightText: 2024 Alois Spitzbart <spitz234@hotmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2022-04-14 18:11+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-06-12 22:37+0200\n"
+"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -170,7 +171,7 @@ msgid ""
 "indicate the property is for sale."
 msgstr ""
 "Wenn dies aktiviert ist, wird auf herrenlose Immobilien auf dem Brett eine "
-"Immobilienurkunde angezeigt, die angibt,  dass die Immobilie zum Verkauf "
+"Immobilienurkunde angezeigt, die angibt, dass die Immobilie zum Verkauf "
 "steht."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
@@ -236,7 +237,7 @@ msgid ""
 msgstr ""
 "Wenn diese Einstellung aktiviert ist, werden die farbigen Kopfzeilen der "
 "Straßengrundstücke auf dem Brett mit einem Quarzeffekt ähnlich dem Quarz-"
-"Stil von  KWin."
+"Stil von KWin."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
@@ -368,7 +369,7 @@ msgstr "Das Spielfeld von Atlantik"
 #: client/main.cpp:41
 #, kde-format
 msgid "(c) 1998-2004 Rob Kaper"
-msgstr "(c) 1998-2004 Rob Kaper"
+msgstr "Copyright © 1998-2004 Rob Kaper"
 
 #: client/main.cpp:42
 #, kde-format
@@ -668,10 +669,9 @@ msgid "Connecting to %1:%2…"
 msgstr "Verbinden mit %1: %2 ..."
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Namensauflösung des Serverrechners beendet.."
+msgstr "Namensauflösung des Serverrechners beendet ..."
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
