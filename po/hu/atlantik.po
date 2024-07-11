@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-07-07 15:35+0200\n"
+"PO-Revision-Date: 2024-07-10 15:01+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -231,50 +231,53 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"Ha be van jelölve, akkor a táblán lévő utcai ingatlanok színes fejlécei a "
+"Quartz KWin stílushoz hasonló Quartz effektust kapnak."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "Quartz effektusok"
 
 #: client/configdlg.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr ""
+msgstr "Az Atlantik beállítása"
 
 #: client/configdlg.cpp:33
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: client/configdlg.cpp:40
 #, kde-format
 msgid "Personalization"
-msgstr ""
+msgstr "Testre szabás"
 
 #: client/configdlg.cpp:46
 #, kde-format
 msgid "Board"
-msgstr ""
+msgstr "Tábla"
 
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr ""
+msgstr "Metakiszolgáló"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
+"Ha be van jelölve, az Atlantik időbélyegzőt tesz a csevegőüzenetek elé."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "Időbélyegző megjelenítése a csevegőüzenetekben"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -283,12 +286,14 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"Ha be van jelölve, az Atlantik induláskor csatlakozik a metakiszolgálóhoz az "
+"internetes kiszolgálók listájának lekéréséhez."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "Internetes kiszolgálók listájának lekérése induláskor"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -298,51 +303,54 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"Az internetes kiszolgálók némelyike a kiszolgálószoftver fejlesztői "
+"verzióját futtathatja.\n"
+"Ha be van jelölve, az Atlantik nem jeleníti meg ezeket."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "Fejlesztői kiszolgálók elrejtése"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr ""
+msgstr "Játékos neve:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr ""
+msgstr "Játékos képe:"
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
 msgid "Date/Time"
-msgstr ""
+msgstr "Dátum/Idő"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: client/eventlogwidget.cpp:213
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr ""
+msgstr "Eseménynapló"
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
-msgstr ""
+msgstr "Napló &törlése"
 
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Atlantik naplófájl, mentve ekkor: %1."
 
 #: client/main.cpp:38
 #, kde-format
@@ -362,7 +370,7 @@ msgstr "(c) Rob Kaper, 1998-2004."
 #: client/main.cpp:42
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
+msgstr "KDE kliens a Monopoly-szerű játékok játszásához a monopd hálózaton."
 
 #: client/main.cpp:47
 #, kde-format
@@ -382,7 +390,7 @@ msgstr "Thiago Macieira"
 #: client/main.cpp:50
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr ""
+msgstr "KExtendedSocket támogatás"
 
 #: client/main.cpp:51
 #, kde-format
@@ -392,7 +400,7 @@ msgstr "Albert Astals Cid"
 #: client/main.cpp:51
 #, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "Különböző javítások"
 
 #: client/main.cpp:53
 #, kde-format
@@ -402,82 +410,82 @@ msgstr "Bart Szyszka"
 #: client/main.cpp:53
 #, kde-format
 msgid "application icon"
-msgstr ""
+msgstr "Alkalmazásikon"
 
 #: client/main.cpp:54
 #, kde-format
 msgid "Rob Malda"
-msgstr ""
+msgstr "Rob Malda"
 
 #: client/main.cpp:54
 #, kde-format
 msgid "token icons"
-msgstr ""
+msgstr "Zsetonikonok"
 
 #: client/main.cpp:55
 #, kde-format
 msgid "Elhay Achiam"
-msgstr ""
+msgstr "Elhay Achiam"
 
 #: client/main.cpp:55 client/main.cpp:56
 #, kde-format
 msgid "icons"
-msgstr ""
+msgstr "Ikonok"
 
 #: client/main.cpp:56
 #, kde-format
 msgid "Carlo Caneva"
-msgstr ""
+msgstr "Carlo Caneva"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "Kapcsolódás ehhez a kiszolgálóhoz"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "host"
-msgstr ""
+msgstr "kiszolgáló"
 
 #: client/main.cpp:66
 #, kde-format
 msgid "Connect at this port"
-msgstr ""
+msgstr "Kapcsolódás ezen a porton"
 
 #: client/main.cpp:66
 #, kde-format
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: client/main.cpp:67
 #, kde-format
 msgid "Join this game"
-msgstr ""
+msgstr "Csatlakozás ehhet a játékhoz"
 
 #: client/main.cpp:67
 #, kde-format
 msgid "game"
-msgstr ""
+msgstr "játék"
 
 #: client/main.cpp:80
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "Az Atlantik társasjáték"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "Játékbeállítás"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "Játék elhagyása"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
 msgid "Start Game"
-msgstr ""
+msgstr "Játék indítása"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
@@ -504,36 +512,36 @@ msgstr ""
 #: client/selectgame.ui:30
 #, kde-format
 msgid "Game"
-msgstr ""
+msgstr "Játék"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
 #, kde-format
 msgid "Id"
-msgstr ""
+msgstr "Azonosító"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:45
 #, kde-format
 msgid "Players"
-msgstr ""
+msgstr "Játékosok"
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
 #, kde-format
 msgid "Server List"
-msgstr ""
+msgstr "Kiszolgálólista"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr ""
+msgstr "Játék létrehozása"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "Új %1 játék létrehozása"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
@@ -550,7 +558,7 @@ msgstr ""
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "Új játék érhető el."
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
@@ -560,7 +568,7 @@ msgstr ""
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr ""
+msgstr "Csatlakozás a játékhoz"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
@@ -572,20 +580,20 @@ msgstr ""
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr ""
+msgstr "Gépnév:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
 #, kde-format
 msgid "Port:"
-msgstr ""
+msgstr "Port:"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectserver.ui:56 client/selectserver.ui:127
 #, kde-format
 msgid "Connect"
-msgstr ""
+msgstr "Kapcsolódás"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
@@ -609,18 +617,18 @@ msgstr ""
 #: client/selectserver.ui:89
 #, kde-format
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:94
 #, kde-format
 msgid "Users"
-msgstr ""
+msgstr "Felhasználók"
 
 #: client/selectserver_widget.cpp:45
 #, kde-format
 msgid "unknown"
-msgstr ""
+msgstr "ismeretlen"
 
 #: client/selectserver_widget.cpp:135
 #, kde-format
@@ -677,7 +685,7 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:164
 #, kde-format
 msgid "Player"
-msgstr ""
+msgstr "Játékos"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:26
@@ -709,12 +717,12 @@ msgstr ""
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
-msgstr ""
+msgstr "Ár: %1"
 
 #: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
-msgstr ""
+msgstr "Tulajdonos: %1"
 
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
@@ -724,17 +732,17 @@ msgstr ""
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr ""
+msgstr "Házak: %1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -764,7 +772,7 @@ msgstr ""
 #: libatlantikui/estateview.cpp:89
 #, kde-format
 msgid "Money: %1"
-msgstr ""
+msgstr "Pénz: %1"
 
 #: libatlantikui/estateview.cpp:426
 #, kde-format
@@ -779,27 +787,27 @@ msgstr ""
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "Hotel építése"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "Ház építése"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "Hotel eladása"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "Ház eladása"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr ""
+msgstr "Eladás"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
