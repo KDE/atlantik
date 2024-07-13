@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-07-10 15:01+0200\n"
+"PO-Revision-Date: 2024-07-11 14:03+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -823,90 +823,90 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "%1 kereskedelem"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "Komponens hozzáadása"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "Ingatlan"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr ""
+msgstr "Pénz"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
 msgid "Card"
-msgstr ""
+msgstr "Kártya"
 
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
 msgid "From"
-msgstr ""
+msgstr "Feladó"
 
 #: libatlantikui/trade_widget.cpp:108
 #, kde-format
 msgid "To"
-msgstr ""
+msgstr "Címzett"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "Frissítés"
 
 #: libatlantikui/trade_widget.cpp:141
 #, kde-format
 msgid "Participants"
-msgstr ""
+msgstr "Résztvevők"
 
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
 msgid "Gives"
-msgstr ""
+msgstr "Ad"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
 msgid "Item"
-msgstr ""
+msgstr "Elem"
 
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
-msgstr ""
+msgstr "Elutasítás"
 
 #: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
-msgstr ""
+msgstr "Elfogadás"
 
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%1 / %2 játékos elfogadta a jelenlegi kereskedelmi javaslatot."
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
+msgstr "ad"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "%1 elutasította a kereskedelmi ajánlatot."
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "A kereskedelmi ajánlatot elutasították."
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "Eltávolítás a kereskedelemből"
