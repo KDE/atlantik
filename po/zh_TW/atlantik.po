@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-06-02 17:54+0900\n"
+"PO-Revision-Date: 2024-07-18 16:52+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -173,7 +173,7 @@ msgstr "勾選時，棋盤上未持有的財產會顯示不動產卡片來代表
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr ""
+msgstr "在未持有的財產上顯示產權證卡片"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
