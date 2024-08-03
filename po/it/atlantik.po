@@ -3,21 +3,21 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003.
 # Andrea Celli <a.celli@caltanet.it>, 2003, 2004, 2005, 2006.
 # Pino Toscano <toscano.pino@tiscali.it>, 2019.
-# Paolo Zamponi <feus73@gmail.com>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2022-07-10 08:10+0200\n"
-"Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
+"PO-Revision-Date: 2024-08-02 15:41+0200\n"
+"Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -31,10 +31,9 @@ msgid "Your emails"
 msgstr "toscano.pino@tiscali.it,"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
-msgstr "Mostra &registro degli eventi..."
+msgstr "Mostra registro deg&li eventi…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -493,16 +492,14 @@ msgid "Start Game"
 msgstr "Avvia partita"
 
 #: client/selectconfiguration_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Retrieving configuration list..."
+#, kde-format
 msgid "Retrieving configuration list…"
-msgstr "Recupero la lista di configurazione..."
+msgstr "Recupero la lista di configurazione…"
 
 #: client/selectconfiguration_widget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Game started. Retrieving full game data..."
+#, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "Partita iniziata. Recupero i dati della partita..."
+msgstr "Partita iniziata. Recupero i dati della partita…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -643,10 +640,9 @@ msgid "Get Server List"
 msgstr "Preleva elenco dei server"
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
-msgstr "Recupero della lista dei server..."
+msgstr "Recupero della lista dei server…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -664,16 +660,14 @@ msgid "Retrieved server list."
 msgstr "Elenco server recuperato."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "Connessione a %1:%2 in corso..."
+msgstr "Connessione a %1:%2 in corso…"
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Ricerca nome host del server terminata..."
+msgstr "Ricerca nome host del server terminata…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -710,16 +704,14 @@ msgid "Make Bid"
 msgstr "Presenta un'offerta"
 
 #: libatlantikui/auction_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Going once..."
+#, kde-format
 msgid "Going once…"
-msgstr "E uno..."
+msgstr "E uno…"
 
 #: libatlantikui/auction_widget.cpp:90
-#, fuzzy, kde-format
-#| msgid "Going twice..."
+#, kde-format
 msgid "Going twice…"
-msgstr "E due..."
+msgstr "E due…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
