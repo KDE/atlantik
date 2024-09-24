@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Slovenian "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>&atlantik; Priročnik</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Matjaž</firstname
+><surname
+>Jeran</surname
+><affiliation
+><address
+><email
+></email
+></address
+></affiliation
+><contrib
+>Prevod</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>10.10.2021</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; je odjemalec za igranje &Monopoly; podobnih družabnih iger na omrežju&monopd;. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>omrežni odjemalec</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Uvod</title>
+
+<para
+>Namen namizne igre &atlantik; je pridobivanje zemljišč v večjih mestih v Severni Ameriki in Evropi, medtem ko ste čezatlantski popotnik. Za zmago v igri igralci izboljšajo monopolno zemljišče z donosnimi zgradbami v upanju, da bodo vsi drugi igralci bankrotirali.</para>
+
+<para
+>Vse načine igre streže &monopd;, namenski strežnik za igre, zasnovan za &atlantik;. Eden od načinov igre se igra kot priljubljena nepremičninska družabna igra, znana kot &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Povezovanje s strežnikom</title>
+
+<para
+>&atlantik; za povezavo potrebujete igralni strežnik. Če imate internetno povezavo, lahko zahtevate seznam javnih internetnih strežnikov in ne boste potrebovali dodatne programske opreme. Če želite igrati &atlantik; lokalno, v <acronym
+>LAN</acronym
+> ali na zasebnem internetnem strežniku, lahko vnesete ime gostitelja in vrata za povezavo. V tem primeru boste potrebovali strežniško programsko opremo <ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+> nameščeno in zagnano na gostitelju, s katerim se povezujete.</para>
+
+<para
+>Če imate težave pri povezovanju s strežnikom, vam bodo morda pomagale naslednje opombe za odpravljanje težav:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Poskusi z drugim strežnikom.</para>
+</listitem>
+<listitem>
+<para
+>Preverite vdorobran in nastavitve maskiranja. Morda obstajajo omejitve, ki vam preprečujejo povezavo s strežniki ali prejemanje odgovorov. Privzeto je, da &monopd; strežniki uporabljajo vrata TCP 1234. Če niste prepričani, se obrnite na skrbnika sistema.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>Menijska vrstica</title>
+
+<sect1 id="menu-game">
+<title
+>Meni igre</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Igra</guimenu
+><guimenuitem
+>Pokaži dnevnik dogodkov…</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Prikaži</action
+> okno dnevnika dogodkov.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Igra</guimenu
+><guimenuitem
+>Ponovna povezava (po sesutju)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Ponovna povezava</action
+> z zadnjo igro. To je na voljo samo če &atlantik; ni čisto zapustil igre (običajno zato, ker se je sesula) in tega ni več mogoče storiti, ko se povežete s strežnikom.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Igra</guimenu
+><guimenuitem
+>Zapusti igro</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Zapusti trenutno igro</action
+>, ne da bi zaprl &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Igra</guimenu
+><guimenuitem
+>Zapri</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Zapri</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Meni Premakni</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Premik</guimenu
+><guimenuitem
+>Končaj potezo</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Sporočite drugim igralcem, da ste končali premikanje.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Premakni</guimenu
+><guimenuitem
+>Meči kocko</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Vrzi kocko.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Premakni</guimenu
+><guimenuitem
+>Dražba</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Začnite dražbo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Premakni se</guimenu
+><guimenuitem
+>Uporabi kartico za odhod iz zapora</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Uporabi kartico za odhod iz zapora.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Premakni</guimenu
+><guimenuitem
+>Meči, da zapustiš zapor</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Vrzite kocko, da zapustite zapor.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Meniji Nastavitve in Pomoč</title>
+
+<para
+>&atlantik; ima skupni &kde; meni <guimenu
+>Nastavitve</guimenu
+> in <guimenu
+>Pomoč</guimenu
+> sta opisana v poglavju <ulink url="help:/fundamentals/menus.html"
+>Meni</ulink
+> v &kde; Dokumentacija o osnovah.</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Poročanje o napakah</title>
+
+<para
+>Če menite, da ste našli napako v &atlantik;, jo prijavite. Razvijalci pogosto sami odkrijejo in odpravijo hrošče, vendar lahko naletite na težave, ki še niso znane. Če ne poročate o svojih težavah, lahko preprečite, da bi jih popravili za nedoločen čas.</para>
+
+<para
+>Lahko prijavite napake za &atlantik; na <ulink url="https://bugs.kde.org/"
+>&kde; Sistem za sledenje napakam</ulink
+>. Uporabite element menija <menuchoice
+><guimenu
+>Pomoč</guimenu
+><guimenuitem
+>Prijavi napako…</guimenuitem
+></menuchoice
+>, da obiščete čarovnika za napake z nekaterimi podrobnostmi vašega &atlantik; različica se izpolni samodejno.</para>
+
+<para
+>V poročilu o napakah navedite podrobnosti, kot so pogoji igre. Na primer, napaka se lahko pojavi le, ko so ljudje v zaporu ali med dražbo. Če je mogoče, shranite dnevnik dogodkov in ga priložite poročilu o napakah ali pa ga pošljite avtorju. Morda vsebuje bistvene namige o vedenju, ki bi lahko vodilo do hitrejše rešitve napake.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Odgovori na pogosto zastavljena vprašanja</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Kako dodam računalniškega igralca?</para>
+</question>
+<answer>
+<para
+>Na žalost &atlantik; še ne podpira računalniških nasprotnikov. </para>
+<para
+>Uporabnikom svetujemo, da izkoristijo prednosti javnih internetnih strežnikov ali zasebnega <acronym
+>LAN</acronym
+> strežnika.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Kako naj trgujem?</para>
+</question>
+<answer>
+<para
+>Kliknite portfelj ali posestvo igralca z &RMB; in lahko odprete trgovino.</para>
+<para
+>Obstajata dve težavi z uporabnostjo trgovanja, ki lahko povzročita zmedo. Če na kakršen koli način v trgovanje vključite drugega igralca, bo ta igralec dobil okno za trgovanje. Vsak igralec lahko pogoje zavrne, kar po nepotrebnem konča trgovalno sejo tudi za vse ostale igralce. Trgovanje morajo sprejeti vsi igralci v njem, preden se lahko zaključi, kar je lahko zapleteno, ker igralci ostanejo udeleženci v poslih, tudi če niso več vključeni v predmete, s katerimi se trguje.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Zasluge in licenca</title>
+
+<para
+>Program &atlantik; in dokumentacija sta avtorsko zaščitena &copy; 1998-2004 &Rob.Kaper; <email
+>kaper@kde.org</email
+>.</para>
+
+<para
+>Prevod: Matjaž Jeran <email
+>matjaz.jeran@amis.net</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->
