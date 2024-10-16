@@ -7,6 +7,7 @@
     <name translate="no">KDE</name>
   </developer>
   <name>Atlantik</name>
+  <name xml:lang="ar">أطلنطي</name>
   <name xml:lang="ast">Atlantik</name>
   <name xml:lang="ca">Atlantik</name>
   <name xml:lang="ca-valencia">Atlantik</name>
@@ -40,6 +41,7 @@
   <name xml:lang="zh-CN">Atlantik</name>
   <name xml:lang="zh-TW">Atlantik</name>
   <summary>Monopoly®-like Board Games</summary>
+  <summary xml:lang="ar">ألعاب لوحية شبيهة بلعبة المونوبولي®</summary>
   <summary xml:lang="ca">Jocs de taula semblants al Monopoly®</summary>
   <summary xml:lang="ca-valencia">Jocs de taula semblants al Monopoly®</summary>
   <summary xml:lang="de">Monopoly®-ähnliches Brettspiel</summary>
@@ -72,6 +74,7 @@
       Atlantik is a KDE client for playing Monopoly®-like board games on the
       monopd network.
     </p>
+    <p xml:lang="ar">أطلنطي هو عميل كيدي لتشغيل ألعاب الطاولة المشابهة بلعبة المونوبولي® على شبكة monopd.</p>
     <p xml:lang="ca">L'Atlantik és un client del KDE per a jugar als jocs de taula semblants al Monopoly® a la xarxa «monopd».</p>
     <p xml:lang="ca-valencia">Atlantik és un client de KDE per a jugar als jocs de taula semblants al Monopoly® en la xarxa «monopd».</p>
     <p xml:lang="de">Atlantik ist ein KDE-Programm für Monopoly®-ähnliche Brettspiele im „monopd“-Netzwerk.</p>
@@ -104,6 +107,7 @@
       To win the game, players improve monopolized land with profitable
       buildings in the hopes of bankrupting all other players.
     </p>
+    <p xml:lang="ar">الغرض من لعبة أطلنطي هو الاستحواذ على الأراضي في المدن الكبرى في أمريكا الشمالية وأوروبا أثناء السفر عبر المحيط الأطلسي. للفوز باللعبة، يقوم اللاعبون بتحسين الأراضي التي يحتكرونها بمباني مربحة على أمل إفلاس جميع اللاعبين الآخرين.</p>
     <p xml:lang="ca">L'objectiu del joc de taula Atlantik és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fan viatges transatlàntics. Per a guanyar la partida, els jugadors cal que millorin els terrenys monopolitzats amb construccions que donin beneficis i amb l'esperança que els altres jugadors facin fallida.</p>
     <p xml:lang="ca-valencia">L'objectiu del joc de taula Atlantik és comprar terrenys a les grans ciutats d'Amèrica del Nord i Europa mentre es fan viatges transatlàntics. Per a guanyar la partida, els jugadors cal que milloren els terrenys monopolitzats amb construccions que donen beneficis i amb l'esperança que els altres jugadors facen fallida.</p>
     <p xml:lang="de">In Atlantik muss man als transatlantischer Reisender versuchen, Land in den großen Städten von Nordamerika und Europa zu erwerben. Um das Spiel zu gewinnen, bauen die Spieler profitablen Gebäuden auf Ihrem Land, um damit alle anderen Spieler in den Bankrott zu treiben.</p>
@@ -135,6 +139,7 @@
       for Atlantik. One of the game modes plays like the popular real estate
       board game known as Monopoly®.
     </p>
+    <p xml:lang="ar">تقدم جميع أوضاع اللعبة بواسطة monopd، وهو خادم ألعاب مخصص مصمم خصيصًا لأطلنطي. يلعب أحد أوضاع اللعبة مثل لعبة لوحة العقارات الشهيرة المعروفة باسم المونوبولي®.</p>
     <p xml:lang="ca">Tots els modes de joc són servits pel «monopd», un servidor de jocs dedicat dissenya per a l'Atlantik. Un dels modes de joc és com el joc de taula de propietats immobiliàries conegut com a Monopoly®.</p>
     <p xml:lang="ca-valencia">Tots els modes de joc són servits per «monopd», un servidor de jocs dedicat dissenya per a Atlantik. Un dels modes de joc és com el joc de taula de propietats immobiliàries conegut com a Monopoly®.</p>
     <p xml:lang="de">Alle Spielmodi werden über monopd gespielt, einem speziellen Spielserver fürAtlantik. Eine der Spielvarianten entspricht dem bekannten und beliebten Brettspiel Monopoly®.</p>
