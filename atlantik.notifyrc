@@ -1,6 +1,7 @@
 [Global]
 IconName=atlantik
 Comment=Atlantik
+Comment[ar]=أطلنطي
 Comment[ast]=Atlantik
 Comment[ca]=Atlantik
 Comment[ca@valencia]=Atlantik
@@ -33,6 +34,7 @@ Comment[zh_TW]=Atlantik
 
 [Event/gainedturn]
 Name=Gained Turn
+Name[ar]=حصلت على دور
 Name[ca]=Obté el torn
 Name[ca@valencia]=Obté el torn
 Name[de]=Gewonnene Runde
@@ -60,6 +62,7 @@ Name[x-test]=xxGained Turnxx
 Name[zh_CN]=获得一个额外回合
 Name[zh_TW]=獲得了回合
 Comment=It is your turn now
+Comment[ar]=حان دورك الآن
 Comment[ca]=Ara és el vostre torn
 Comment[ca@valencia]=Ara és el vostre torn
 Comment[de]=Sie sind am Zug
@@ -90,6 +93,7 @@ Action=PassivePopup|Taskbar
 
 [Event/chat]
 Name=Chat
+Name[ar]=دردشة
 Name[ca]=Xat
 Name[ca@valencia]=Xat
 Name[cs]=Rozhovor
@@ -119,6 +123,7 @@ Name[x-test]=xxChatxx
 Name[zh_CN]=聊天
 Name[zh_TW]=聊天
 Comment=A player sends a chat message
+Comment[ar]=لاعب أرسل رسالة دردشة
 Comment[ca]=Un jugador ha enviat un missatge de xat
 Comment[ca@valencia]=Un jugador ha enviat un missatge de xat
 Comment[de]=Ein Spieler sendet eine Chat-Nachricht
@@ -149,6 +154,7 @@ default_presentation=Taskbar
 
 [Event/newplayer]
 Name=New player
+Name[ar]=لاعب جديد
 Name[ca]=Jugador nou
 Name[ca@valencia]=Jugador nou
 Name[cs]=Nový hráč
@@ -178,6 +184,7 @@ Name[x-test]=xxNew playerxx
 Name[zh_CN]=新建球手(&N)
 Name[zh_TW]=新玩家
 Comment=A new player joins the game
+Comment[ar]=انضم لاعب جديد للعبة
 Comment[ca]=Un jugador nou s'ha unit al joc
 Comment[ca@valencia]=Un jugador nou s'ha unit al joc
 Comment[de]=Ein neuer Spieler mach beim Spiel mit
@@ -207,6 +214,7 @@ Comment[zh_TW]=有新玩家加入遊戲
 
 [Event/newgame]
 Name=New game
+Name[ar]=لعبة جديدة
 Name[ca]=Partida nova
 Name[ca@valencia]=Partida nova
 Name[cs]=Nová hra
@@ -236,6 +244,7 @@ Name[x-test]=xxNew gamexx
 Name[zh_CN]=新游戏
 Name[zh_TW]=新遊戲
 Comment=A new game is created
+Comment[ar]=أنشئت لعبة جديدة
 Comment[ca]=S'ha creat una partida nova
 Comment[ca@valencia]=S'ha creat una partida nova
 Comment[de]=Ein neues Spiel wird erstellt

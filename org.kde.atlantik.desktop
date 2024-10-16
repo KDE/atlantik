@@ -1,6 +1,7 @@
 [Desktop Entry]
 Exec=atlantik -qwindowtitle %c
 Name=Atlantik
+Name[ar]=أتلانتيك
 Name[ca]=Atlantik
 Name[ca@valencia]=Atlantik
 Name[cs]=Atlantik
@@ -31,6 +32,7 @@ Name[x-test]=xxAtlantikxx
 Name[zh_CN]=Atlantik
 Name[zh_TW]=Atlantik
 GenericName=Monopoly®-like Board Games
+GenericName[ar]=ألعاب لوحية شبيهة بلعبة المونوبولي®
 GenericName[ca]=Jocs de taula semblants al Monopoly®
 GenericName[ca@valencia]=Jocs de taula semblants al Monopoly®
 GenericName[de]=Monopoly®-ähnliches Brettspiel
