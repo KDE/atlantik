@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-10-15 12:16+0400\n"
+"PO-Revision-Date: 2024-10-17 08:30+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -36,7 +36,7 @@ msgstr "أ&ظهر سجل الأحداث…"
 #: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr ""
+msgstr "أ&عد الاتصال (بعد الانهيار)"
 
 #: client/atlantik.cpp:123
 #, kde-format
@@ -56,37 +56,37 @@ msgstr "&مزاد"
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr ""
+msgstr "استخدم البطاقة لتخرج من السجن"
 
 #: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr ""
+msgstr "ا&دفع لتخرج من السجن"
 
 #: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr ""
+msgstr "ل&ف لتخرج من السجن"
 
 #: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "انضم لاعب جديد."
 
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "خطأ في الاتصال: رفض المضيف الاتصال."
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "خطأ في الاتصال: لم يعثر على المضيف."
 
 #: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "خطأ في الاتصال: خطأ %1."
 
 #: client/atlantik.cpp:730
 #, kde-format
@@ -117,12 +117,12 @@ msgstr ""
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr ""
+msgstr "هل أغلق وتخسر؟"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
-msgstr ""
+msgstr "أغلق واخسر"
 
 #: client/atlantik.cpp:952
 #, kde-format
@@ -136,12 +136,12 @@ msgstr ""
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr ""
+msgstr "هل أغادر وتخسر؟"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr ""
+msgstr "غادر واخسر"
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
@@ -168,12 +168,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
+"في حالة تحديدها، تعرض العقارات غير المملوكة على اللوحة بطاقة ملكية للإشارة "
+"إلى أن العقار معروض للبيع."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr ""
+msgstr "اعرض بطاقة سند الملكية على العقارات غير المملوكة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -182,12 +184,14 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
+"في حالة تحديدها، ستميز العقارات غير المملوكة على اللوحة للإشارة إلى أن "
+"العقار معروض للبيع."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "ميّز العقارات غير المملوكة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -196,12 +200,14 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
+"في حالة تحديد هذا الخيار، سيلون العقارات المرهونة على اللوحة بلون أغمق من "
+"اللون الافتراضي."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "عتّم العقارات المرهونة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -210,12 +216,14 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
+"في حالة تحديدها، فسوف تتحرك الرموز عبر اللوحة بدلاً من القفز مباشرة إلى "
+"موقعها الجديد."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr ""
+msgstr "أظهر حركة الرموز عند تحركها"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -224,6 +232,8 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"في حالة تحديها، فإن العناوين الملونة لشوارع العقارات الموجودة على اللوحة "
+"سيكون لها تأثير كوارتز مشابه لنمط Quartz KWin."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
@@ -262,6 +272,7 @@ msgstr "خادم التعريف"
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
+"في حالة تحديدها، فسوف يقوم أطلنطي بإضافة الطوابع الزمنية أمام رسائل الدردشة."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
@@ -276,12 +287,14 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"في حالة تحديدها، فسوف يقوم أطلنطي بالاتصال بخادم التعريف عند بدء التشغيل "
+"لطلب قائمة بخوادم الإنترنت."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "اطلب قائمة بخوادم الإنترنت عند بدء التشغيل"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -291,6 +304,8 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"قد تقوم بعض خوادم الإنترنت بتشغيل إصدارات تطويرية من برنامج الخادم.\n"
+"في حالة تحديد هذا الخيار، فلن يعرض أطلنطي هذه الخوادم."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
@@ -425,7 +440,7 @@ msgstr "كارلو كانيفا"
 #: client/main.cpp:65
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "اتصل بهذا المضيف"
 
 #: client/main.cpp:65
 #, kde-format
@@ -475,23 +490,23 @@ msgstr "ابدأ اللعبة"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list…"
-msgstr ""
+msgstr "يجلب قائمة الضبط…"
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr ""
+msgstr "بدأت اللعبة. يجلب كامل بيانات اللعبة…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "جلب قائمة الضبط."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "أنشئ أو حدد لعبة monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
@@ -559,7 +574,7 @@ msgstr "انضم لللعبة"
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "أدخل خادم monopd مخصص"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
@@ -584,7 +599,7 @@ msgstr "اتّصل"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "حدد خادم monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
@@ -638,7 +653,7 @@ msgstr "خطأ أثناء جلب قائمة الخوادم."
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "جلب قائمة الخوادم."
 
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
@@ -648,7 +663,7 @@ msgstr "يتّصل بـ %1:%2…"
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr ""
+msgstr "انتهى من البحث عن اسم الخادم…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -658,12 +673,12 @@ msgstr "متّصل بـ%1:%2."
 #: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "فشل الاتّصال! رمز الخطأ: %1"
 
 #: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "انقطع الاتصال من  %1:%2."
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
@@ -687,17 +702,17 @@ msgstr "قدم عرض"
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr ""
+msgstr "النداء الأول…"
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr ""
+msgstr "النداء الثاني…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
 msgid "Sold!"
-msgstr "مباع!"
+msgstr "بيعت!"
 
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
@@ -797,12 +812,12 @@ msgstr "بِع"
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "اطلب التجارة مع %1"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "اطر اللاعب %1 إلى الصالة"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
@@ -873,7 +888,7 @@ msgstr "اقبل"
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%1 من %2 لاعبين يقبلون اقتراح التجارة الحالي."
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
@@ -884,14 +899,14 @@ msgstr "يعطي"
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "رُفِض طلب التجارة من %1."
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "رُفِض طلب التجارة."
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "أزل من التجارة"
