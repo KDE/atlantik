@@ -1,0 +1,913 @@
+# Sanskrit translations for atlantik package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the atlantik package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: atlantik\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-07 00:36+0000\n"
+"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.08.2\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "भवतः नामानि"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "भवतः ईमेलपत्राणि"
+
+#: client/atlantik.cpp:116
+#, kde-format
+msgid "Show Event &Log…"
+msgstr "इवेण्ट् &लॉग् दर्शयतु…"
+
+#: client/atlantik.cpp:119
+#, kde-format
+msgid "&Reconnect (After Crash)"
+msgstr "&पुनः संयोजनं (दुर्घटनानन्तरं)"
+
+#: client/atlantik.cpp:123
+#, kde-format
+msgid "&Leave Game"
+msgstr "&खेलं त्यजतु"
+
+#: client/atlantik.cpp:149
+#, kde-format
+msgid "&Buy"
+msgstr "&क्रीडातु"
+
+#: client/atlantik.cpp:156
+#, kde-format
+msgid "&Auction"
+msgstr "&निलाम"
+
+#: client/atlantik.cpp:167
+#, kde-format
+msgid "Use Card to Leave Jail"
+msgstr "जेलतः बहिः गन्तुं कार्डस्य उपयोगं कुर्वन्तु"
+
+#: client/atlantik.cpp:172
+#, kde-format
+msgid "&Pay to Leave Jail"
+msgstr "&कारागारं त्यक्त्वा भुक्तिं कुर्वन्तु"
+
+#: client/atlantik.cpp:179
+#, kde-format
+msgid "Roll to Leave &Jail"
+msgstr "रोल टू लीव &जेल"
+
+#: client/atlantik.cpp:300
+#, kde-format
+msgid "New player joined."
+msgstr "नूतनः खिलाडी सम्मिलितः।"
+
+#: client/atlantik.cpp:508
+#, kde-format
+msgid "Error connecting: connection refused by host."
+msgstr "संयोजने त्रुटिः: संयोजनं मेजबानेन अङ्गीकृतम्।"
+
+#: client/atlantik.cpp:511
+#, kde-format
+msgid "Error connecting: host not found."
+msgstr "संयोजने त्रुटिः: होस्ट् न प्राप्तः।"
+
+#: client/atlantik.cpp:514
+#, kde-format
+msgid "Error connecting: error %1."
+msgstr "संयोजने त्रुटिः: त्रुटिः %1."
+
+#: client/atlantik.cpp:730
+#, kde-format
+msgctxt "error message"
+msgid "Error"
+msgstr "त्रुटि"
+
+#: client/atlantik.cpp:733
+#, kde-format
+msgctxt "informative message"
+msgid "Info"
+msgstr "Info"
+
+#: client/atlantik.cpp:803
+#, kde-format
+msgid "It is your turn now."
+msgstr "इदानीं भवतः वारः अस्ति।"
+
+#: client/atlantik.cpp:919
+#, kde-format
+msgid ""
+"You are currently part of an active game. Are you sure you want to close "
+"Atlantik? If you do, you forfeit the game."
+msgstr ""
+"भवान् सम्प्रति सक्रियक्रीडायाः भागः अस्ति । किं भवन्तः निश्चयेन अटलाण्टिकं बन्दं कर्तुम् "
+"इच्छन्ति? यदि भवन्तः कुर्वन्ति तर्हि भवन्तः क्रीडां त्यजन्ति।"
+
+#: client/atlantik.cpp:919
+#, kde-format
+msgid "Close & Forfeit?"
+msgstr "बन्द & जब्त?"
+
+#: client/atlantik.cpp:919
+#, kde-format
+msgid "Close && Forfeit"
+msgstr "बन्द && जब्त"
+
+#: client/atlantik.cpp:952
+#, kde-format
+msgid ""
+"You are currently part of an active game. Are you sure you want to leave it? "
+"If you do, you forfeit the game."
+msgstr ""
+"भवान् सम्प्रति सक्रियक्रीडायाः भागः अस्ति । किं त्वं निश्चयेन तत् त्यक्तुम् इच्छसि ? यदि "
+"भवन्तः कुर्वन्ति तर्हि भवन्तः क्रीडां त्यजन्ति।"
+
+#: client/atlantik.cpp:952
+#, kde-format
+msgid "Leave & Forfeit?"
+msgstr "त्यजन्तु & जब्धं कुर्वन्तु?"
+
+#: client/atlantik.cpp:952
+#, kde-format
+msgid "Leave && Forfeit"
+msgstr "त्यजन्तु && जब्धं कुर्वन्तु"
+
+#. i18n: ectx: Menu (game)
+#: client/atlantikui.rc:4
+#, kde-format
+msgid "&Game"
+msgstr "&क्रीडा"
+
+#. i18n: ectx: Menu (move)
+#: client/atlantikui.rc:10
+#, kde-format
+msgid "&Move"
+msgstr "&चलनम्"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: client/configboard.ui:17
+#, kde-format
+msgid "Game Status Feedback"
+msgstr "खेल स्थिति प्रतिक्रिया"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
+#: client/configboard.ui:23
+#, kde-format
+msgid ""
+"If checked, unowned properties on the board display an estate card to "
+"indicate the property is for sale."
+msgstr ""
+"यदि जाँचितं भवति तर्हि बोर्डे अनामिकाः सम्पत्तिः सम्पत्तिपत्रं प्रदर्शयन्ति यत् सम्पत्तिः "
+"विक्रयणार्थं अस्ति इति सूचयति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
+#: client/configboard.ui:26
+#, kde-format
+msgid "Display title deed card on unowned properties"
+msgstr "अस्वामिषु सम्पत्तिषु शीर्षकपत्रपत्रं प्रदर्शयन्तु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
+#: client/configboard.ui:33
+#, kde-format
+msgid ""
+"If checked, unowned properties on the board are highlighted to indicate the "
+"property is for sale."
+msgstr ""
+"यदि जाँचितं भवति तर्हि फलकस्य उपरि अस्वामित्वं विद्यमानाः सम्पत्तिः प्रकाशिताः भवन्ति येन "
+"सम्पत्तिः विक्रयणार्थं अस्ति इति सूचयति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
+#: client/configboard.ui:36
+#, kde-format
+msgid "Highlight unowned properties"
+msgstr "अस्वामित्वयुक्तान् सम्पत्तिं प्रकाशयन्तु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
+#: client/configboard.ui:43
+#, kde-format
+msgid ""
+"If checked, mortgaged properties on the board will be colored darker than of "
+"the default color."
+msgstr ""
+"यदि जाँचितं भवति तर्हि बोर्डे बंधकसम्पत्तयः पूर्वनिर्धारितवर्णस्य अपेक्षया कृष्णवर्णाः "
+"भविष्यन्ति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
+#: client/configboard.ui:46
+#, kde-format
+msgid "Darken mortgaged properties"
+msgstr "बंधकसम्पत्त्याः अन्धकारं कुर्वन्तु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
+#: client/configboard.ui:53
+#, kde-format
+msgid ""
+"If checked, tokens will move across the board instead of jumping directly to "
+"their new location."
+msgstr ""
+"यदि परीक्षिताः सन्ति तर्हि टोकनाः प्रत्यक्षतया स्वस्य नूतनस्थानं प्रति कूर्दनस्य स्थाने "
+"बोर्डस्य पारं गमिष्यन्ति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
+#: client/configboard.ui:56
+#, kde-format
+msgid "Animate token movement"
+msgstr "टोकन गति सजीव"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
+#: client/configboard.ui:63
+#, kde-format
+msgid ""
+"If checked, the colored headers of street estates on the board will have a "
+"Quartz effect similar to the Quartz KWin style."
+msgstr ""
+"यदि जाँचः क्रियते तर्हि बोर्ड् मध्ये स्ट्रीट् एस्टेट्स् इत्यस्य रङ्गिणः हेडर्स् Quartz KWin शैल्याः "
+"सदृशः Quartz प्रभावः भविष्यति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
+#: client/configboard.ui:66
+#, kde-format
+msgid "Quartz effects"
+msgstr "क्वार्ट्ज प्रभाव"
+
+#: client/configdlg.cpp:26
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Atlantik"
+msgstr "अटलाण्टिक विन्यस्तं कुर्वन्तु"
+
+#: client/configdlg.cpp:33
+#, kde-format
+msgid "General"
+msgstr "सामान्य"
+
+#: client/configdlg.cpp:40
+#, kde-format
+msgid "Personalization"
+msgstr "व्यक्तिगतकरणम्"
+
+#: client/configdlg.cpp:46
+#, kde-format
+msgid "Board"
+msgstr "मण्डलम्‌"
+
+#: client/configdlg.cpp:52
+#, kde-format
+msgid "Meta Server"
+msgstr "मेटा सर्वर"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
+#: client/configgeneral.ui:17
+#, kde-format
+msgid "If checked, Atlantik will add timestamps in front of chat messages."
+msgstr ""
+"यदि जाँचितम् अस्ति तर्हि Atlantik chat messages इत्यस्य पुरतः timestamps योजयिष्यति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
+#: client/configgeneral.ui:20
+#, kde-format
+msgid "Show timestamps in chat messages"
+msgstr "गपशपसन्देशेषु समयमुद्रिकाः दर्शयन्तु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
+#: client/configmetaserver.ui:17
+#, kde-format
+msgid ""
+"If checked, Atlantik connects to a meta server on start-up to request a list "
+"of Internet servers."
+msgstr ""
+"यदि परीक्षितं भवति तर्हि अटलाण्टिकः आरम्भे मेटा सर्वरेण सह सम्बद्धः भवति यत् "
+"अन्तर्जालसर्वरस्य सूचीं अनुरोधयति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
+#: client/configmetaserver.ui:20
+#, kde-format
+msgid "Request list of Internet servers on start-up"
+msgstr "प्रारम्भे अन्तर्जालसर्वरस्य सूचीं अनुरोधयन्तु"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
+#: client/configmetaserver.ui:28
+#, kde-format
+msgid ""
+"Some of the Internet servers might be running development versions of the "
+"server software.\n"
+"If checked, Atlantik will not display these servers."
+msgstr ""
+"केचन अन्तर्जालसर्वरः सर्वरसॉफ्टवेयरस्य विकाससंस्करणं चालयन्ति स्यात् ।\n"
+"यदि परीक्षितं तर्हि Atlantik एतान् सर्वरान् न प्रदर्शयिष्यति ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
+#: client/configmetaserver.ui:31
+#, kde-format
+msgid "Hide development servers"
+msgstr "विकाससर्वरं गोपयन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: client/configplayer.ui:17
+#, kde-format
+msgid "Player name:"
+msgstr "खिलाडीनाम : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: client/configplayer.ui:30
+#, kde-format
+msgid "Player image:"
+msgstr "खिलाडी चित्रम् : १."
+
+#: client/eventlogwidget.cpp:115
+#, kde-format
+msgid "Date/Time"
+msgstr "तिथि/समय"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/eventlogwidget.cpp:117 client/selectgame.ui:35
+#, kde-format
+msgid "Description"
+msgstr "वर्णनम्‌"
+
+#: client/eventlogwidget.cpp:213
+#, kde-format
+msgctxt "@title:window"
+msgid "Event Log"
+msgstr "इवेण्ट् लॉग्"
+
+#: client/eventlogwidget.cpp:225
+#, kde-format
+msgid "&Clear Log"
+msgstr "&Clear Log"
+
+#: client/eventlogwidget.cpp:266
+#, kde-format
+msgid "Atlantik log file, saved at %1."
+msgstr "Atlantik log file, %1 इत्यत्र रक्षिता ।"
+
+#: client/main.cpp:38
+#, kde-format
+msgid "Atlantik"
+msgstr "अटलाण्टिक"
+
+#: client/main.cpp:39
+#, kde-format
+msgid "The Atlantic board game"
+msgstr "अटलाण्टिकः बोर्डक्रीडा"
+
+#: client/main.cpp:41
+#, kde-format
+msgid "(c) 1998-2004 Rob Kaper"
+msgstr "(ग) 1998-2004 रोब कापर"
+
+#: client/main.cpp:42
+#, kde-format
+msgid "KDE client for playing Monopoly-like games on the monopd network."
+msgstr "monopd संजाले Monopoly-सदृशानि क्रीडाः क्रीडितुं KDE क्लायन्ट् ।"
+
+#: client/main.cpp:47
+#, kde-format
+msgid "Rob Kaper"
+msgstr "रोब कापर"
+
+#: client/main.cpp:47
+#, kde-format
+msgid "main author"
+msgstr "मुख्य लेखक"
+
+#: client/main.cpp:50
+#, kde-format
+msgid "Thiago Macieira"
+msgstr "थिआगो मसीएरा"
+
+#: client/main.cpp:50
+#, kde-format
+msgid "KExtendedSocket support"
+msgstr "KExtendedSocket समर्थनम्"
+
+#: client/main.cpp:51
+#, kde-format
+msgid "Albert Astals Cid"
+msgstr "अल्बर्ट एस्टल्स सिड"
+
+#: client/main.cpp:51
+#, kde-format
+msgid "various patches"
+msgstr "विविधाः पटलाः"
+
+#: client/main.cpp:53
+#, kde-format
+msgid "Bart Szyszka"
+msgstr "बार्ट Szyszka"
+
+#: client/main.cpp:53
+#, kde-format
+msgid "application icon"
+msgstr "अनुप्रयोग चिह्न"
+
+#: client/main.cpp:54
+#, kde-format
+msgid "Rob Malda"
+msgstr "रोब मालदा"
+
+#: client/main.cpp:54
+#, kde-format
+msgid "token icons"
+msgstr "टोकन चिह्न"
+
+#: client/main.cpp:55
+#, kde-format
+msgid "Elhay Achiam"
+msgstr "एलहय अचिअम्"
+
+#: client/main.cpp:55 client/main.cpp:56
+#, kde-format
+msgid "icons"
+msgstr "चिह्नानि"
+
+#: client/main.cpp:56
+#, kde-format
+msgid "Carlo Caneva"
+msgstr "कार्लो कानेवा"
+
+#: client/main.cpp:65
+#, kde-format
+msgid "Connect to this host"
+msgstr "अस्मिन् होस्ट् इत्यनेन सह सम्बद्धं कुर्वन्तु"
+
+#: client/main.cpp:65
+#, kde-format
+msgid "host"
+msgstr "निमन्त्रकः"
+
+#: client/main.cpp:66
+#, kde-format
+msgid "Connect at this port"
+msgstr "अस्मिन् पोर्ट् मध्ये संयोजयन्तु"
+
+#: client/main.cpp:66
+#, kde-format
+msgid "port"
+msgstr "पोताश्रय"
+
+#: client/main.cpp:67
+#, kde-format
+msgid "Join this game"
+msgstr "अस्मिन् क्रीडने सम्मिलितं भवतु"
+
+#: client/main.cpp:67
+#, kde-format
+msgid "game"
+msgstr "क्रीडा"
+
+#: client/main.cpp:80
+#, kde-format
+msgid "The Atlantic Board Game"
+msgstr "अटलाण्टिक बोर्ड गेम"
+
+#: client/selectconfiguration_widget.cpp:48
+#, kde-format
+msgid "Game Configuration"
+msgstr "गेम विन्यास"
+
+#: client/selectconfiguration_widget.cpp:67
+#, kde-format
+msgid "Leave Game"
+msgstr "क्रीडां त्यजतु"
+
+#: client/selectconfiguration_widget.cpp:74
+#, kde-format
+msgid "Start Game"
+msgstr "क्रीडां आरभत"
+
+#: client/selectconfiguration_widget.cpp:86
+#, kde-format
+msgid "Retrieving configuration list…"
+msgstr "विन्याससूचीं पुनः प्राप्तुं…"
+
+#: client/selectconfiguration_widget.cpp:100
+#, kde-format
+msgid "Game started. Retrieving full game data…"
+msgstr "क्रीडा आरब्धा। पूर्णं क्रीडादत्तांशं पुनः प्राप्तुं…"
+
+#: client/selectconfiguration_widget.cpp:195
+#, kde-format
+msgid "Retrieved configuration list."
+msgstr "विन्याससूची पुनः प्राप्ता।"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: client/selectgame.ui:17
+#, kde-format
+msgid "Create or Select monopd Game"
+msgstr "monopd Game रचयन्तु अथवा चयनं कुर्वन्तु"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:30
+#, kde-format
+msgid "Game"
+msgstr "क्रीडा"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:40
+#, kde-format
+msgid "Id"
+msgstr "Id"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
+#: client/selectgame.ui:45
+#, kde-format
+msgid "Players"
+msgstr "क्रीडकाः"
+
+#. i18n: ectx: property (text), widget (QPushButton, backButton)
+#: client/selectgame.ui:58
+#, kde-format
+msgid "Server List"
+msgstr "सर्वर सूची"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
+#: client/selectgame.ui:78 client/selectgame_widget.cpp:194
+#, kde-format
+msgid "Create Game"
+msgstr "गेम रचयन्तु"
+
+#: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
+#, kde-format
+msgid "Create a new %1 Game"
+msgstr "नूतनं %1 Game रचयन्तु"
+
+#: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
+#: client/selectgame_widget.cpp:159
+#, kde-format
+msgid "Watch %1's %2 Game"
+msgstr "%1 इत्यस्य %2 क्रीडां पश्यन्तु"
+
+#: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
+#: client/selectgame_widget.cpp:161
+#, kde-format
+msgid "Join %1's %2 Game"
+msgstr "%1 इत्यस्य %2 क्रीडने सम्मिलितं भवतु"
+
+#: client/selectgame_widget.cpp:97
+#, kde-format
+msgid "New game available."
+msgstr "नूतनः क्रीडा उपलब्धः।"
+
+#: client/selectgame_widget.cpp:189
+#, kde-format
+msgid "Watch Game"
+msgstr "Watch Game"
+
+#: client/selectgame_widget.cpp:191
+#, kde-format
+msgid "Join Game"
+msgstr "Game इत्यत्र सम्मिलितं भवतु"
+
+#. i18n: ectx: property (title), widget (QGroupBox, customGroup)
+#: client/selectserver.ui:17
+#, kde-format
+msgid "Enter Custom monopd Server"
+msgstr "Custom monopd Server इति प्रविष्टं कुर्वन्तु"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: client/selectserver.ui:23
+#, kde-format
+msgid "Hostname:"
+msgstr "होस्टनाम : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: client/selectserver.ui:36
+#, kde-format
+msgid "Port:"
+msgstr "पोताश्रय:"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
+#. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
+#: client/selectserver.ui:56 client/selectserver.ui:127
+#, kde-format
+msgid "Connect"
+msgstr "संयुज्"
+
+#. i18n: ectx: property (title), widget (QGroupBox, bgroup)
+#: client/selectserver.ui:66
+#, kde-format
+msgid "Select monopd Server"
+msgstr "monopd Server इति चिनोतु"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:79
+#, kde-format
+msgid "Host"
+msgstr "निमन्त्रकः"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:84
+#, kde-format
+msgid "Latency"
+msgstr "विलम्बता"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:89
+#, kde-format
+msgid "Version"
+msgstr "संस्करण"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
+#: client/selectserver.ui:94
+#, kde-format
+msgid "Users"
+msgstr "उपयोक्तारः"
+
+#: client/selectserver_widget.cpp:45
+#, kde-format
+msgid "unknown"
+msgstr "अज्ञात"
+
+#: client/selectserver_widget.cpp:135
+#, kde-format
+msgid "Get Server List"
+msgstr "सर्वर सूचीं प्राप्नुवन्तु"
+
+#: client/selectserver_widget.cpp:167
+#, kde-format
+msgid "Retrieving server list…"
+msgstr "सर्वरसूचीं पुनः प्राप्तुं…"
+
+#: client/selectserver_widget.cpp:169
+#, kde-format
+msgid "Reload Server List"
+msgstr "सर्वर सूची पुनः लोड् कुर्वन्तु"
+
+#: client/selectserver_widget.cpp:196
+#, kde-format
+msgid "Error while retrieving the server list."
+msgstr "सर्वरसूचीं पुनः प्राप्तुं त्रुटिः।"
+
+#: client/selectserver_widget.cpp:198
+#, kde-format
+msgid "Retrieved server list."
+msgstr "सर्वरसूची पुनः प्राप्ता।"
+
+#: libatlantikclient/atlantik_network.cpp:127
+#, kde-format
+msgid "Connecting to %1:%2…"
+msgstr "%1:%2 इत्यनेन सह सम्बद्धं भवति…"
+
+#: libatlantikclient/atlantik_network.cpp:135
+#, kde-format
+msgid "Server host name lookup finished…"
+msgstr "सर्वर होस्ट् नाम अन्वेषणं समाप्तम्…"
+
+#: libatlantikclient/atlantik_network.cpp:140
+#, kde-format
+msgid "Connected to %1:%2."
+msgstr "%1:%2 इत्यनेन सह सम्बद्धम् ।"
+
+#: libatlantikclient/atlantik_network.cpp:150
+#, kde-format
+msgid "Connection failed! Error code: %1"
+msgstr "संयोजनं विफलम् अभवत् ! त्रुटिसङ्केतः: %1"
+
+#: libatlantikclient/atlantik_network.cpp:155
+#, kde-format
+msgid "Disconnected from %1:%2."
+msgstr "%1:%2 तः विच्छिन्नम् ।"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, playerList)
+#: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
+#: libatlantikui/trade_widget.cpp:164
+#, kde-format
+msgid "Player"
+msgstr "खिलाडी"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, playerList)
+#: libatlantikui/auction.ui:26
+#, kde-format
+msgid "Bid"
+msgstr "आदिशति"
+
+#. i18n: ectx: property (text), widget (QPushButton, bidButton)
+#: libatlantikui/auction.ui:46
+#, kde-format
+msgid "Make Bid"
+msgstr "बोली करो"
+
+#: libatlantikui/auction_widget.cpp:86
+#, kde-format
+msgid "Going once…"
+msgstr "एकवारं गत्वा…"
+
+#: libatlantikui/auction_widget.cpp:90
+#, kde-format
+msgid "Going twice…"
+msgstr "द्विवारं गत्वा…"
+
+#: libatlantikui/auction_widget.cpp:94
+#, kde-format
+msgid "Sold!"
+msgstr "विक्रीत!"
+
+#: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
+#, kde-format
+msgid "Price: %1"
+msgstr "मूल्यम् : %1"
+
+#: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
+#, kde-format
+msgid "Owner: %1"
+msgstr "स्वामी : %1"
+
+#: libatlantikui/estatedetails.cpp:98
+#, kde-format
+msgid "unowned"
+msgstr "अस्वामित्वम्"
+
+#: libatlantikui/estatedetails.cpp:105
+#, kde-format
+msgid "Houses: %1"
+msgstr "गृहाणि : %1"
+
+#: libatlantikui/estatedetails.cpp:110
+#, kde-format
+msgid "Yes"
+msgstr "आम्‌"
+
+#: libatlantikui/estatedetails.cpp:110
+#, kde-format
+msgid "No"
+msgstr "नहि"
+
+#: libatlantikui/estatedetails.cpp:110
+#, kde-format
+msgid "Mortgaged: %1"
+msgstr "बंधक : %1"
+
+#: libatlantikui/estateview.cpp:78
+#, kde-format
+msgid "Unmortgage Price: %1"
+msgstr "अबंधक मूल्य: %1"
+
+#: libatlantikui/estateview.cpp:80
+#, kde-format
+msgid "Mortgage Value: %1"
+msgstr "बंधक मूल्य: %1"
+
+#: libatlantikui/estateview.cpp:82
+#, kde-format
+msgid "House Value: %1"
+msgstr "गृहमूल्यम् : %1"
+
+#: libatlantikui/estateview.cpp:84
+#, kde-format
+msgid "House Price: %1"
+msgstr "गृहमूल्यम् : %1"
+
+#: libatlantikui/estateview.cpp:89
+#, kde-format
+msgid "Money: %1"
+msgstr "धनम् : %1"
+
+#: libatlantikui/estateview.cpp:426
+#, kde-format
+msgid "Unmortgage"
+msgstr "अबंधक"
+
+#: libatlantikui/estateview.cpp:432
+#, kde-format
+msgid "Mortgage"
+msgstr "मौर्व"
+
+#: libatlantikui/estateview.cpp:440
+#, kde-format
+msgid "Build Hotel"
+msgstr "होटेलस्य निर्माणं कुर्वन्तु"
+
+#: libatlantikui/estateview.cpp:442
+#, kde-format
+msgid "Build House"
+msgstr "गृहं निर्मायताम्"
+
+#: libatlantikui/estateview.cpp:449
+#, kde-format
+msgid "Sell Hotel"
+msgstr "होटलं विक्रयतु"
+
+#: libatlantikui/estateview.cpp:451
+#, kde-format
+msgid "Sell House"
+msgstr "गृहं विक्रयतु"
+
+#: libatlantikui/estateview.cpp:457
+#, kde-format
+msgid "Sell"
+msgstr "विक्रयिन्"
+
+#: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
+#, kde-format
+msgid "Request Trade with %1"
+msgstr "%1 इत्यनेन सह व्यापारस्य अनुरोधं कुर्वन्तु"
+
+#: libatlantikui/portfolioview.cpp:282
+#, kde-format
+msgid "Boot Player %1 to Lounge"
+msgstr "प्लेयर %1 इत्येतत् लाउन्ज इत्यत्र बूट् कुर्वन्तु"
+
+#: libatlantikui/trade_widget.cpp:49
+#, kde-format
+msgctxt "@title:window"
+msgid "Trade %1"
+msgstr "व्यापारः %1"
+
+#: libatlantikui/trade_widget.cpp:53
+#, kde-format
+msgid "Add Component"
+msgstr "घटकं योजयतु"
+
+#: libatlantikui/trade_widget.cpp:59
+#, kde-format
+msgid "Estate"
+msgstr "पस्त्या"
+
+#: libatlantikui/trade_widget.cpp:60
+#, kde-format
+msgid "Money"
+msgstr "मुद्रा"
+
+#: libatlantikui/trade_widget.cpp:61
+#, kde-format
+msgid "Card"
+msgstr "कार्ड"
+
+#: libatlantikui/trade_widget.cpp:102
+#, kde-format
+msgid "From"
+msgstr "इत्यस्मात्‌"
+
+#: libatlantikui/trade_widget.cpp:108
+#, kde-format
+msgid "To"
+msgstr "इत्यस्मै"
+
+#: libatlantikui/trade_widget.cpp:129
+#, kde-format
+msgid "Update"
+msgstr "अद्यतन"
+
+#: libatlantikui/trade_widget.cpp:141
+#, kde-format
+msgid "Participants"
+msgstr "प्रतिभागी"
+
+#: libatlantikui/trade_widget.cpp:163
+#, kde-format
+msgid "Gives"
+msgstr "ददाति"
+
+#: libatlantikui/trade_widget.cpp:165
+#, kde-format
+msgid "Item"
+msgstr "वस्तु"
+
+#: libatlantikui/trade_widget.cpp:177
+#, kde-format
+msgid "Reject"
+msgstr "अस्वीकार"
+
+#: libatlantikui/trade_widget.cpp:182
+#, kde-format
+msgid "Accept"
+msgstr "स्वीकरोतु"
+
+#: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
+#, kde-format
+msgid "%1 out of %2 players accept current trade proposal."
+msgstr "%2 मध्ये %1 खिलाडयः वर्तमानव्यापारप्रस्तावम् स्वीकुर्वन्ति ।"
+
+#: libatlantikui/trade_widget.cpp:224
+#, kde-format
+msgctxt "gives is transitive ;)"
+msgid "gives"
+msgstr "ददाति"
+
+#: libatlantikui/trade_widget.cpp:285
+#, kde-format
+msgid "Trade proposal was rejected by %1."
+msgstr "व्यापारप्रस्तावः %1 इत्यनेन अङ्गीकृतः ।"
+
+#: libatlantikui/trade_widget.cpp:290
+#, kde-format
+msgid "Trade proposal was rejected."
+msgstr "व्यापारप्रस्तावः अङ्गीकृतः ।"
+
+#: libatlantikui/trade_widget.cpp:495
+#, kde-format
+msgid "Remove From Trade"
+msgstr "Remove From Trade इति"
