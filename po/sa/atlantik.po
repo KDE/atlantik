@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -318,13 +318,13 @@ msgstr "विकाससर्वरं गोपयन्तु"
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr "खिलाडीनाम : १."
+msgstr "खिलाडीनाम :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr "खिलाडी चित्रम् : १."
+msgstr "खिलाडी चित्रम् :"
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
@@ -581,7 +581,7 @@ msgstr "Custom monopd Server इति प्रविष्टं कुर्�
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr "होस्टनाम : १."
+msgstr "होस्टनाम :"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
