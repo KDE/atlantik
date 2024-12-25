@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the atlantik package.
-# Shinjo Park <kde@peremen.name>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2022-05-07 00:05+0200\n"
+"PO-Revision-Date: 2024-12-24 23:10+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -28,10 +28,9 @@ msgid "Your emails"
 msgstr "kde@peremen.name"
 
 #: client/atlantik.cpp:116
-#, fuzzy, kde-format
-#| msgid "Show Event &Log..."
+#, kde-format
 msgid "Show Event &Log…"
-msgstr "이벤트 기록 표시(&L)..."
+msgstr "이벤트 로그 표시(&L)…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -478,16 +477,14 @@ msgid "Start Game"
 msgstr "게임 시작"
 
 #: client/selectconfiguration_widget.cpp:86
-#, fuzzy, kde-format
-#| msgid "Retrieving configuration list..."
+#, kde-format
 msgid "Retrieving configuration list…"
-msgstr "설정 목록 가져오는 중..."
+msgstr "설정 목록 가져오는 중…"
 
 #: client/selectconfiguration_widget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Game started. Retrieving full game data..."
+#, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "게임이 시작되었습니다. 전체 게임 데이터 가져오는 중..."
+msgstr "게임이 시작되었습니다. 전체 게임 데이터 가져오는 중…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -628,10 +625,9 @@ msgid "Get Server List"
 msgstr "서버 목록 가져오기"
 
 #: client/selectserver_widget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Retrieving server list..."
+#, kde-format
 msgid "Retrieving server list…"
-msgstr "서버 목록 가져오는 중..."
+msgstr "서버 목록 가져오는 중…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -649,16 +645,14 @@ msgid "Retrieved server list."
 msgstr "서버 목록을 가져왔습니다."
 
 #: libatlantikclient/atlantik_network.cpp:127
-#, fuzzy, kde-format
-#| msgid "Connecting to %1:%2..."
+#, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "%1:%2에 연결 중..."
+msgstr "%1:%2에 연결 중…"
 
 #: libatlantikclient/atlantik_network.cpp:135
-#, fuzzy, kde-format
-#| msgid "Server host name lookup finished..."
+#, kde-format
 msgid "Server host name lookup finished…"
-msgstr "서버 호스트 이름 알아내기 완료..."
+msgstr "서버 호스트 이름 알아내기 완료…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
