@@ -168,7 +168,7 @@ void Game::removeConfigOption(ConfigOption *configOption)
 
 ConfigOption *Game::findConfigOption(int configId) const
 {
-	foreach (ConfigOption *configOption, m_configOptions)
+	for (ConfigOption *configOption: m_configOptions)
 		if (configOption->id() == configId)
 			return configOption;
 
@@ -177,7 +177,7 @@ ConfigOption *Game::findConfigOption(int configId) const
 
 ConfigOption *Game::findConfigOption(const QString &name) const
 {
-	foreach (ConfigOption *configOption, m_configOptions)
+	for (ConfigOption *configOption: m_configOptions)
 		if (configOption->name() == name)
 			return configOption;
 

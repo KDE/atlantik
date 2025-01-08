@@ -86,7 +86,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
 	Q_EMIT statusMessage(i18n("Retrieving configuration list…"));
 
 	if (m_game) {
-		foreach (ConfigOption *opt, m_game->configOptions())
+		for (ConfigOption *opt: m_game->configOptions())
 			addConfigOption(opt);
 
 		connect(m_game, SIGNAL(createGUI(ConfigOption *)), this, SLOT(addConfigOption(ConfigOption *)));

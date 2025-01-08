@@ -156,7 +156,7 @@ void SelectServer::setHideDevelopmentServers(bool hideDevelopmentServers)
 	if ( m_hideDevelopmentServers != hideDevelopmentServers )
 	{
 		m_hideDevelopmentServers = hideDevelopmentServers;
-		foreach (MetaserverEntry *e, m_developmentServers)
+		for (MetaserverEntry *e: m_developmentServers)
 			e->setHidden(m_hideDevelopmentServers);
 	}
 }

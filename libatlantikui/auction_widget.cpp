@@ -54,7 +54,7 @@ AuctionWidget::AuctionWidget(AtlanticCore *atlanticCore, Auction *auction, QWidg
 	QList<QTreeWidgetItem *> items;
 	Player *pSelf = m_atlanticCore->playerSelf();
 
-	foreach (Player *player, m_atlanticCore->players())
+	for (Player *player: m_atlanticCore->players())
 	{
 		if (player->game() == pSelf->game() && !player->isSpectator())
 			items << createPlayerItem(player);

@@ -67,7 +67,7 @@ void EventLog::clear()
 
 void EventLog::saveAsText(QTextStream &stream) const
 {
-	foreach (Event *e, m_events)
+	for (Event *e: m_events)
 		stream << e->dateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss")) << " " << e->description() << '\n';
 }
 

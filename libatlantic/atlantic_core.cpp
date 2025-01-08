@@ -45,14 +45,14 @@ void AtlanticCore::reset(bool deletePermanents)
 	qDeleteAll(m_cards);
 	m_cards.clear();
 
-	foreach (Trade *trade, m_trades)
+	for (Trade *trade: m_trades)
 	{
 		Q_EMIT removeGUI(trade);
 		trade->deleteLater();
 	}
 	m_trades.clear();
 
-	foreach (Player *player, m_players)
+	for (Player *player: m_players)
 	{
 		if (deletePermanents)
 		{
@@ -70,7 +70,7 @@ void AtlanticCore::reset(bool deletePermanents)
 		m_players.clear();
 		m_playerSelf = nullptr;
 
-		foreach (Game *game, m_games)
+		for (Game *game: m_games)
 		{
 			Q_EMIT removeGUI(game);
 			game->deleteLater();
@@ -129,7 +129,7 @@ Player *AtlanticCore::newPlayer(int playerId, bool playerSelf)
 
 Player *AtlanticCore::findPlayer(int playerId) const
 {
-	foreach (Player *player, m_players)
+	for (Player *player: m_players)
 		if (player->id() == playerId)
 			return player;
 
@@ -165,7 +165,7 @@ Game *AtlanticCore::newGame(int gameId, const QString &type)
 
 Game *AtlanticCore::findGame(const QString &type) const
 {
-	foreach (Game *game, m_games)
+	for (Game *game: m_games)
 		if (game->id() == -1 && game->type() == type)
 			return game;
 
@@ -177,7 +177,7 @@ Game *AtlanticCore::findGame(int gameId) const
 	if (gameId == -1)
 		return nullptr;
 
-	foreach (Game *game, m_games)
+	for (Game *game: m_games)
 		if (game->id() == gameId)
 			return game;
 
@@ -192,7 +192,7 @@ Game *AtlanticCore::gameSelf() const
 void AtlanticCore::removeGame(Game *game)
 {
 	m_games.removeOne(game);
-	foreach (Player *player, m_players)
+	for (Player *player: m_players)
 		if (player->game() && player->game()->id() == game->id())
 		{
 			player->setGame(nullptr);
@@ -204,7 +204,7 @@ void AtlanticCore::removeGame(Game *game)
 
 void AtlanticCore::emitGames()
 {
-	foreach (Game *game, m_games)
+	for (Game *game: m_games)
 		Q_EMIT createGUI(game);
 }
 
@@ -222,7 +222,7 @@ Estate *AtlanticCore::newEstate(int estateId)
 
 Estate *AtlanticCore::findEstate(int estateId) const
 {
-	foreach (Estate *estate, m_estates)
+	for (Estate *estate: m_estates)
 		if (estate->id() == estateId)
 			return estate;
 
@@ -255,7 +255,7 @@ EstateGroup *AtlanticCore::newEstateGroup(int groupId)
 
 EstateGroup *AtlanticCore::findEstateGroup(int groupId) const
 {
-	foreach (EstateGroup *estateGroup, m_estateGroups)
+	for (EstateGroup *estateGroup: m_estateGroups)
 		if (estateGroup->id() == groupId)
 			return estateGroup;
 
@@ -279,7 +279,7 @@ Trade *AtlanticCore::newTrade(int tradeId)
 
 Trade *AtlanticCore::findTrade(int tradeId) const
 {
-	foreach (Trade *trade, m_trades)
+	for (Trade *trade: m_trades)
 		if (trade->tradeId() == tradeId)
 			return trade;
 
@@ -307,7 +307,7 @@ Auction *AtlanticCore::newAuction(int auctionId, Estate *estate)
 
 Auction *AtlanticCore::findAuction(int auctionId) const
 {
-	foreach (Auction *auction, m_auctions)
+	for (Auction *auction: m_auctions)
 		if (auction->auctionId() == auctionId)
 			return auction;
 
@@ -334,7 +334,7 @@ Card *AtlanticCore::newCard(int cardId)
 
 Card *AtlanticCore::findCard(int cardId) const
 {
-	foreach (Card *card, m_cards)
+	for (Card *card: m_cards)
 		if (card->cardId() == cardId)
 			return card;
 
@@ -345,32 +345,32 @@ void AtlanticCore::printDebug() const
 {
 #define LP(string) (string).toLatin1().constData()
 
-	foreach (Player *player, m_players)
+	for (Player *player: m_players)
 		if (player == m_playerSelf)
 			std::cout << "PS: " << LP(player->name()) << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 		else
 			std::cout << " P: " << LP(player->name()) << ", game " << (player->game() ? player->game()->id() : -1) << std::endl;
 
-	foreach (Game *game, m_games)
+	for (Game *game: m_games)
 	{
 		std::cout << " G: " << game->id() << ", master: " << (game->master() ? game->master()->id() : -1 ) << std::endl;
-		foreach (ConfigOption *configOption, game->configOptions())
+		for (ConfigOption *configOption: game->configOptions())
 			std::cout << "    CO:" << configOption->id() << " " << LP(configOption->name()) << " " << LP(configOption->value()) << std::endl;
 	}
 
-	foreach (Estate *estate, m_estates)
+	for (Estate *estate: m_estates)
 		std::cout << " E: " << LP(estate->name()) << std::endl;
 
-	foreach (EstateGroup *estateGroup, m_estateGroups)
+	for (EstateGroup *estateGroup: m_estateGroups)
 		std::cout << "EG: " << LP(estateGroup->name()) << std::endl;
 
-	foreach (Auction *auction, m_auctions)
+	for (Auction *auction: m_auctions)
 		std::cout << " A: " << auction->auctionId() << std::endl;
 
-	foreach (Trade *trade, m_trades)
+	for (Trade *trade: m_trades)
 		std::cout << " T: " << trade->tradeId() << std::endl;
 
-	foreach (Card *card, m_cards)
+	for (Card *card: m_cards)
 		std::cout << "CA: " << card->cardId() << std::endl;
 
 #undef LP

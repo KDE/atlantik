@@ -480,7 +480,7 @@ void Atlantik::showBoard()
 	m_board->displayDefault();
 	m_board->show();
 
-	foreach (PortfolioView *portfolioView, m_portfolioViews)
+	for (PortfolioView *portfolioView: m_portfolioViews)
 		if (!portfolioView->player()->isSpectator())
 			portfolioView->buildPortfolio();
 }
@@ -671,7 +671,7 @@ static bool commandForMe(const QList<QStringView> &parts, const QString &playerN
 	if (parts.size() <= 1)
 		return true;
 
-	foreach (const QStringView &p, parts)
+	for (const QStringView &p: parts)
 	{
 		if (p == playerName)
 			return true;
@@ -751,7 +751,7 @@ void Atlantik::playerChanged(Player *player)
 	if (player == playerSelf)
 	{
 		// We changed ourselves..
-		foreach (PortfolioView *portfolioView, m_portfolioViews)
+		for (PortfolioView *portfolioView: m_portfolioViews)
 			{
 				// Clear all portfolios if we're not in game
 				if ( !player->game() )
@@ -902,7 +902,7 @@ PortfolioView *Atlantik::addPortfolioView(Player *player)
 
 PortfolioView *Atlantik::findPortfolioView(Player *player)
 {
-	foreach (PortfolioView *portfolioView, m_portfolioViews)
+	for (PortfolioView *portfolioView: m_portfolioViews)
 		if (player == portfolioView->player())
 			return portfolioView;
 

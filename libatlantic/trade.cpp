@@ -68,7 +68,7 @@ void Trade::updateEstate(Estate *estate, Player *to)
 {
 	TradeEstate *t=nullptr;
 	
-	foreach (TradeItem *i, mTradeItems)
+	for (TradeItem *i: mTradeItems)
 	{
 		t=dynamic_cast<TradeEstate*>(i);
 
@@ -109,7 +109,7 @@ void Trade::updateMoney(unsigned int money, Player *from, Player *to)
 {
 	TradeMoney *t=nullptr;
 	
-	foreach (TradeItem *i, mTradeItems)
+	for (TradeItem *i: mTradeItems)
 	{
 		t=dynamic_cast<TradeMoney*>(i);
 
@@ -150,7 +150,7 @@ void Trade::updateCard(Card *card, Player *to)
 {
 	TradeCard *t=nullptr;
 	
-	foreach (TradeItem *i, mTradeItems)
+	for (TradeItem *i: mTradeItems)
 	{
 		t=dynamic_cast<TradeCard*>(i);
 

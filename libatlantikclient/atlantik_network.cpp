@@ -351,7 +351,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                 a = e.attributeNode(QStringLiteral("version"));
                 if ( !a.isNull() )
                     m_serverVersion = a.value();
-                    qCDebug(LIBATLANTIKCLIENT_LOG) << "receivedHandshake";
+                qCDebug(LIBATLANTIKCLIENT_LOG) << "receivedHandshake";
                 Q_EMIT receivedHandshake();
             } else if (e.tagName() == QLatin1String("msg")) {
                 a = e.attributeNode(QStringLiteral("type"));
@@ -690,7 +690,7 @@ void AtlantikNetwork::processNode(QDomNode n) {
                         QObject::connect(estate, SIGNAL(newTrade(Player *)), this, SLOT(newTrade(Player *)));
 
                         // Players without estate should get one
-                        foreach (Player *player, m_atlanticCore->players())
+                        for (Player *player: m_atlanticCore->players())
                             if (m_playerLocationMap.value(player) == estate->id())
                                 player->setLocation(estate);
                     }

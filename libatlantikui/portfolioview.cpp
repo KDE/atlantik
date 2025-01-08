@@ -88,13 +88,13 @@ void PortfolioView::buildPortfolio()
 
 	QMultiHash<EstateGroup *, Estate *> groups;
 
-	foreach (Estate *estate, m_atlanticCore->estates())
+	for (Estate *estate: m_atlanticCore->estates())
 		groups.insert(estate->estateGroup(), estate);
 
 	if (!groups.isEmpty())
 		m_portfolioEstates.reserve(groups.count());
 
-	foreach (EstateGroup *estateGroup, m_atlanticCore->estateGroups())
+	for (EstateGroup *estateGroup: m_atlanticCore->estateGroups())
 	{
 		{
 			// New group
@@ -106,7 +106,7 @@ void PortfolioView::buildPortfolio()
 			std::reverse(estates.begin(), estates.end());
 
 			// Loop through estates
-			foreach (Estate *estate, estates)
+			for (Estate *estate: estates)
 			{
 				{
 					// Create PE

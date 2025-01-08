@@ -26,7 +26,7 @@
 
 static void iterateTokenThemes(std::function<void(const QString &, const QString &)> fun)
 {
-	foreach (const QString &dir, QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("atlantik/themes/"), QStandardPaths::LocateDirectory))
+	for (const QString &dir: QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("atlantik/themes/"), QStandardPaths::LocateDirectory))
 	{
 		QDirIterator it(dir, QDir::Dirs | QDir::NoDotAndDotDot);
 		while (it.hasNext())

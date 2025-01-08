@@ -65,7 +65,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_estateCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_estateCombo);
-	foreach (Estate *estate, m_atlanticCore->estates())
+	for (Estate *estate: m_atlanticCore->estates())
 	{
 		if (estate->isOwned())
 		{
@@ -84,7 +84,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 
 	m_cardCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_cardCombo);
-	foreach (Card *card, m_atlanticCore->cards())
+	for (Card *card: m_atlanticCore->cards())
 	{
 		if (card->isOwned())
 		{
@@ -110,7 +110,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_playerTargetCombo = new QComboBox(m_updateComponentBox);
 	updateComponentBoxLayout->addWidget(m_playerTargetCombo);
 
-	foreach (Player *player, m_atlanticCore->players())
+	for (Player *player: m_atlanticCore->players())
 	{
 		if (player->game() == pSelf->game())
 		{
@@ -140,7 +140,7 @@ TradeDisplay::TradeDisplay(Trade *trade, AtlanticCore *atlanticCore, QWidget *pa
 	m_participantsList->header()->setSectionResizeMode(QHeaderView::Stretch);
 	m_participantsList->setHeaderLabels(QStringList() << i18n("Participants"));
 	QList<QTreeWidgetItem *> items;
-	foreach (Player *player, m_trade->participants())
+	for (Player *player: m_trade->participants())
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, player->name());
@@ -274,7 +274,7 @@ void TradeDisplay::playerChanged(Player *player)
 	m_playerFromCombo->setItemText(m_playerFromRevMap[player], player->name());
 	m_playerTargetCombo->setItemText(m_playerTargetRevMap[player], player->name());
 
-	foreach (TradeItem *item, m_componentRevMap)
+	for (TradeItem *item: m_componentRevMap)
 		tradeItemChanged(item);
 }
 

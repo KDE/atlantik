@@ -104,7 +104,7 @@ void AtlantikBoard::setViewProperties(bool indicateUnowned, bool highlightUnowne
 		m_animateTokens = animateTokens;
 
 	// Update EstateViews
-	foreach (EstateView *estateView, m_estateViews)
+	for (EstateView *estateView: m_estateViews)
 			estateView->setViewProperties(indicateUnowned, highlightUnowned, darkenMortgaged, quartzEffects);
 }
 
@@ -164,7 +164,7 @@ void AtlantikBoard::addEstateView(Estate *estate, bool indicateUnowned, bool hig
 
 	if (m_atlanticCore)
 	{
-		foreach (Player *player, m_atlanticCore->players())
+		for (Player *player: m_atlanticCore->players())
 			if (player->location() == estate)
 				addToken(player);
 	}
@@ -484,7 +484,7 @@ void AtlantikBoard::slotResizeAftermath()
 	// _after_ resizeEvent has returned to make sure we have the correct
 	// adjusted estate geometries.
 
-	foreach (Token *token, m_tokens)
+	for (Token *token: m_tokens)
 		jumpToken(token);
 
 	// Restart the timer that was stopped in resizeEvent
@@ -627,7 +627,7 @@ QWidget *AtlantikBoard::centerWidget()
 void AtlantikBoard::setTokenTheme(const TokenTheme &theme)
 {
 	m_tokenTheme = theme;
-	foreach (Token *token, m_tokens)
+	for (Token *token: m_tokens)
 		token->setTokenTheme(m_tokenTheme);
 }
 
