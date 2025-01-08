@@ -46,7 +46,6 @@ AtlantikBoard::AtlantikBoard(AtlanticCore *atlanticCore, int maxEstates, Display
 	, m_movingToken(nullptr)
 	, m_resumeTimer(false)
 	, m_animateTokens(false)
-	, m_maxEstates(maxEstates)
 {
 	setMinimumSize(QSize(500, 500));
 

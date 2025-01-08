@@ -62,7 +62,7 @@ private:
 	void addConfigOptionBool(ConfigOption *configOption);
 
 	QVBoxLayout *m_mainLayout;
-	QGroupBox *m_configBox, *m_messageBox;
+	QGroupBox *m_configBox;
 	QPushButton *m_backButton, *m_startButton;
 	QMap <QObject *, QString> m_optionCommandMap;
 	QMap <QObject *, ConfigOption *> m_configMap;

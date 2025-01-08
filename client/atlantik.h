@@ -255,12 +255,11 @@ private:
 	ClickableLabel *m_sbVersion;
 	ClickableLabel *m_sbStatus;
 
-	QLabel *m_portfolioLabel;
 	QLineEdit *m_input;
 	QTextEdit *m_serverMsgs;
 
 	QAction *m_roll, *m_buyEstate, *m_auctionEstate, *m_endTurn,
-		*m_jailCard, *m_jailPay, *m_jailRoll, *m_configure,
+		*m_jailCard, *m_jailPay, *m_jailRoll,
 		*m_showEventLog, *m_reconnect, *m_leaveGame;
 
 	AtlanticCore *m_atlanticCore;

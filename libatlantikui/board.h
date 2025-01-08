@@ -91,14 +91,13 @@ private:
 	AtlanticCore *m_atlanticCore;
 	DisplayMode m_mode;
 
-	QWidget *spacer, *m_lastServerDisplay, *m_lastServerDisplayBeforeAuction;
+	QWidget *m_lastServerDisplay, *m_lastServerDisplayBeforeAuction;
 	QGridLayout *m_gridLayout;
 	Token *m_movingToken;
 	QTimer *m_timer;
 	bool m_resumeTimer;
 
 	bool m_animateTokens;
-	int m_maxEstates;
 
 	QHash<Estate *, EstateView *> m_estateViews;
 	QHash<Player *, Token *> m_tokens;

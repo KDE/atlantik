@@ -56,7 +56,6 @@ private:
 		Player *m_player;
 		Estate *m_location, *m_destination;
 		bool m_inJail;
-		AtlantikBoard *m_parentBoard;
 		bool b_recreate;
 		QPixmap *qpixmap, *m_image;
 		QString m_imageName;
