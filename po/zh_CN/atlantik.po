@@ -30,7 +30,7 @@ msgstr "kde-china@kde.org, dasferco@gmail.com"
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log…"
-msgstr ""
+msgstr "显示事件日志(&L)"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -470,12 +470,12 @@ msgstr "开始游戏"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list…"
-msgstr ""
+msgstr "正在获取配置列表..."
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr ""
+msgstr "游戏开始。正在获取完整的游戏数据..."
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -618,7 +618,7 @@ msgstr "获取服务器列表"
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list…"
-msgstr ""
+msgstr "正在获取服务器列表..."
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -638,12 +638,12 @@ msgstr ""
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2…"
-msgstr ""
+msgstr "正在连接 %1：%2..."
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr ""
+msgstr "服务器主机名查找已完成..."
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -682,12 +682,12 @@ msgstr ""
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr ""
+msgstr "走一步..."
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr ""
+msgstr "走两步..."
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
