@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-05-07 07:47+0300\n"
+"PO-Revision-Date: 2025-01-24 09:25+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -638,7 +638,7 @@ msgstr "רשימת השרתים מתקבלת…"
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr "רענון רשימת השרתים"
+msgstr "ריענון רשימת השרתים"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
