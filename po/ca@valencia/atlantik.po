@@ -452,7 +452,7 @@ msgstr "Connecta amb este amfitrió"
 #: client/main.cpp:65
 #, kde-format
 msgid "host"
-msgstr "Servidor"
+msgstr "Amfitrió"
 
 #: client/main.cpp:66
 #, kde-format
@@ -589,7 +589,7 @@ msgstr "Introduïu un servidor «monopd» personalitzat"
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr "Nom del servidor:"
+msgstr "Nom de l'amfitrió:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
@@ -614,7 +614,7 @@ msgstr "Seleccioneu el servidor «monopd»"
 #: client/selectserver.ui:79
 #, kde-format
 msgid "Host"
-msgstr "Servidor"
+msgstr "Amfitrió"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
@@ -672,7 +672,7 @@ msgstr "S'està connectant amb %1:%2…"
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Ha acabat la busca de nom de l'amfitrió del servidor…"
+msgstr "Ha acabat la busca de nom d'amfitrió del servidor…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
