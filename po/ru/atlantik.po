@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the atlantik package.
 #
 # Alexander Potashev <aspotashev@gmail.com>, 2019.
+# Alexander Yavorskiy <kekcuha@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2019-10-04 14:48+0300\n"
-"Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
+"PO-Revision-Date: 2025-06-02 22:29+0200\n"
+"Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 19.07.70\n"
+"X-Generator: Lokalize 21.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -46,7 +47,7 @@ msgstr ""
 #: client/atlantik.cpp:149
 #, kde-format
 msgid "&Buy"
-msgstr ""
+msgstr "&Купить"
 
 #: client/atlantik.cpp:156
 #, kde-format
@@ -89,21 +90,21 @@ msgid "Error connecting: error %1."
 msgstr ""
 
 #: client/atlantik.cpp:730
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "error message"
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: client/atlantik.cpp:733
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "informative message"
 msgid "Info"
-msgstr ""
+msgstr "Информация"
 
 #: client/atlantik.cpp:803
-#, kde-format
+#, fuzzy, kde-format
 msgid "It is your turn now."
-msgstr ""
+msgstr "Твой ход"
 
 #: client/atlantik.cpp:919
 #, kde-format
@@ -141,15 +142,15 @@ msgstr ""
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Game"
-msgstr ""
+msgstr "игра"
 
 #. i18n: ectx: Menu (move)
 #: client/atlantikui.rc:10
-#, kde-format
+#, fuzzy, kde-format
 msgid "&Move"
-msgstr ""
+msgstr "Перемещение"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/configboard.ui:17
@@ -234,19 +235,19 @@ msgid "Configure Atlantik"
 msgstr ""
 
 #: client/configdlg.cpp:33
-#, kde-format
+#, fuzzy, kde-format
 msgid "General"
-msgstr ""
+msgstr "Общие"
 
 #: client/configdlg.cpp:40
-#, kde-format
+#, fuzzy, kde-format
 msgid "Personalization"
-msgstr ""
+msgstr "<link linkend=\"personalization\">Предпочтения пользователя</link>"
 
 #: client/configdlg.cpp:46
 #, kde-format
 msgid "Board"
-msgstr ""
+msgstr "Настольная"
 
 #: client/configdlg.cpp:52
 #, kde-format
@@ -307,15 +308,15 @@ msgid "Player image:"
 msgstr ""
 
 #: client/eventlogwidget.cpp:115
-#, kde-format
+#, fuzzy, kde-format
 msgid "Date/Time"
-msgstr ""
+msgstr "Дата и время"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: client/eventlogwidget.cpp:213
 #, kde-format
@@ -336,7 +337,7 @@ msgstr ""
 #: client/main.cpp:38
 #, kde-format
 msgid "Atlantik"
-msgstr ""
+msgstr "Atlantik"
 
 #: client/main.cpp:39
 #, kde-format
@@ -354,9 +355,9 @@ msgid "KDE client for playing Monopoly-like games on the monopd network."
 msgstr ""
 
 #: client/main.cpp:47
-#, kde-format
+#, fuzzy, kde-format
 msgid "Rob Kaper"
-msgstr ""
+msgstr "&Rob.Kaper;"
 
 #: client/main.cpp:47
 #, kde-format
@@ -376,12 +377,12 @@ msgstr ""
 #: client/main.cpp:51
 #, kde-format
 msgid "Albert Astals Cid"
-msgstr ""
+msgstr "Albert Astals Cid"
 
 #: client/main.cpp:51
-#, kde-format
+#, fuzzy, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "Исправления и прочее"
 
 #: client/main.cpp:53
 #, kde-format
@@ -389,9 +390,9 @@ msgid "Bart Szyszka"
 msgstr "Bart Szyszka"
 
 #: client/main.cpp:53
-#, kde-format
+#, fuzzy, kde-format
 msgid "application icon"
-msgstr ""
+msgstr "Иконка приложения:"
 
 #: client/main.cpp:54
 #, kde-format
@@ -409,9 +410,9 @@ msgid "Elhay Achiam"
 msgstr ""
 
 #: client/main.cpp:55 client/main.cpp:56
-#, kde-format
+#, fuzzy, kde-format
 msgid "icons"
-msgstr ""
+msgstr "Значки"
 
 #: client/main.cpp:56
 #, kde-format
@@ -424,9 +425,9 @@ msgid "Connect to this host"
 msgstr ""
 
 #: client/main.cpp:65
-#, kde-format
+#, fuzzy, kde-format
 msgid "host"
-msgstr ""
+msgstr "Хост:"
 
 #: client/main.cpp:66
 #, kde-format
@@ -434,9 +435,9 @@ msgid "Connect at this port"
 msgstr ""
 
 #: client/main.cpp:66
-#, kde-format
+#, fuzzy, kde-format
 msgid "port"
-msgstr ""
+msgstr "Порт"
 
 #: client/main.cpp:67
 #, kde-format
@@ -444,9 +445,9 @@ msgid "Join this game"
 msgstr ""
 
 #: client/main.cpp:67
-#, kde-format
+#, fuzzy, kde-format
 msgid "game"
-msgstr ""
+msgstr "игра"
 
 #: client/main.cpp:80
 #, kde-format
@@ -454,9 +455,9 @@ msgid "The Atlantic Board Game"
 msgstr ""
 
 #: client/selectconfiguration_widget.cpp:48
-#, kde-format
+#, fuzzy, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "Настройка игры"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
@@ -491,15 +492,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
-#, kde-format
+#, fuzzy, kde-format
 msgid "Game"
-msgstr ""
+msgstr "игра"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
 #, kde-format
 msgid "Id"
-msgstr ""
+msgstr "Идентификатор"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:45
@@ -509,9 +510,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
-#, kde-format
+#, fuzzy, kde-format
 msgid "Server List"
-msgstr ""
+msgstr "<screeninfo>Список серверов</screeninfo>"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
@@ -559,22 +560,22 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
-#, kde-format
+#, fuzzy, kde-format
 msgid "Hostname:"
-msgstr ""
+msgstr "&Узел:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
 #, kde-format
 msgid "Port:"
-msgstr ""
+msgstr "Порт:"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectserver.ui:56 client/selectserver.ui:127
-#, kde-format
+#, fuzzy, kde-format
 msgid "Connect"
-msgstr ""
+msgstr "Подключить"
 
 #. i18n: ectx: property (title), widget (QGroupBox, bgroup)
 #: client/selectserver.ui:66
@@ -584,9 +585,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
-#, kde-format
+#, fuzzy, kde-format
 msgid "Host"
-msgstr ""
+msgstr "Хост"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
@@ -598,28 +599,28 @@ msgstr ""
 #: client/selectserver.ui:89
 #, kde-format
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:94
 #, kde-format
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: client/selectserver_widget.cpp:45
-#, kde-format
+#, fuzzy, kde-format
 msgid "unknown"
-msgstr ""
+msgstr "неизвестно"
 
 #: client/selectserver_widget.cpp:135
 #, kde-format
 msgid "Get Server List"
-msgstr ""
+msgstr "Получить список серверов"
 
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list…"
-msgstr ""
+msgstr "Получение списка серверов…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -639,7 +640,7 @@ msgstr ""
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2…"
-msgstr ""
+msgstr "Подключение к %1:%2…"
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
@@ -649,7 +650,7 @@ msgstr ""
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
 msgid "Connected to %1:%2."
-msgstr ""
+msgstr "Подключено к %1:%2."
 
 #: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
@@ -666,7 +667,7 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:164
 #, kde-format
 msgid "Player"
-msgstr ""
+msgstr "Игрок"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:26
@@ -678,7 +679,7 @@ msgstr ""
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr ""
+msgstr "Сделать ставку"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
@@ -693,17 +694,17 @@ msgstr ""
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
 msgid "Sold!"
-msgstr ""
+msgstr "Продано!"
 
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
-msgstr ""
+msgstr "Цена: %1"
 
 #: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
-msgstr ""
+msgstr "Владелец: %1"
 
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
@@ -713,17 +714,17 @@ msgstr ""
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr ""
+msgstr "Домов: %1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -748,47 +749,47 @@ msgstr ""
 #: libatlantikui/estateview.cpp:84
 #, kde-format
 msgid "House Price: %1"
-msgstr ""
+msgstr "Цена дома: %1"
 
 #: libatlantikui/estateview.cpp:89
 #, kde-format
 msgid "Money: %1"
-msgstr ""
+msgstr "Деньги: %1"
 
 #: libatlantikui/estateview.cpp:426
 #, kde-format
 msgid "Unmortgage"
-msgstr ""
+msgstr "Выкупить залог"
 
 #: libatlantikui/estateview.cpp:432
 #, kde-format
 msgid "Mortgage"
-msgstr ""
+msgstr "Заложить"
 
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "Построить отель"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "Построить дом"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "Продать отель"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "Продать дом"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr ""
+msgstr "Продать"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
@@ -809,22 +810,22 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "Добавить компонент"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "Недвижимость"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr ""
+msgstr "Денежный"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
 msgid "Card"
-msgstr ""
+msgstr "Карта"
 
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
@@ -832,24 +833,26 @@ msgid "From"
 msgstr ""
 
 #: libatlantikui/trade_widget.cpp:108
-#, kde-format
+#, fuzzy, kde-format
 msgid "To"
-msgstr ""
+msgstr "В"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: libatlantikui/trade_widget.cpp:141
 #, kde-format
 msgid "Participants"
-msgstr ""
+msgstr "Роль"
 
 #: libatlantikui/trade_widget.cpp:163
-#, kde-format
+#, fuzzy, kde-format
 msgid "Gives"
 msgstr ""
+"<userinput>42 * 3 %</userinput> отобразит <emphasis>1.26</emphasis> (42 * "
+"3 / 100)"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
@@ -859,12 +862,12 @@ msgstr ""
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
-msgstr ""
+msgstr "Отклонить"
 
 #: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
-msgstr ""
+msgstr "Принять"
 
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
@@ -872,10 +875,12 @@ msgid "%1 out of %2 players accept current trade proposal."
 msgstr ""
 
 #: libatlantikui/trade_widget.cpp:224
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
 msgstr ""
+"<userinput>42 * 3 %</userinput> отобразит <emphasis>1.26</emphasis> (42 * "
+"3 / 100)"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
