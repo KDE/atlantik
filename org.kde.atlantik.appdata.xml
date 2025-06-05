@@ -67,6 +67,7 @@
   <summary xml:lang="pt">Jogos de Tabuleiro do tipo Monopólio®</summary>
   <summary xml:lang="pt-BR">Jogos e tabuleiro no estilo do Monopoly®</summary>
   <summary xml:lang="ro">Jocuri de table ca Monopoly®</summary>
+  <summary xml:lang="ru">Настольные игры в стиле игры Монополия®</summary>
   <summary xml:lang="sa">Monopoly®-सदृशाः बोर्ड गेम्स्</summary>
   <summary xml:lang="sk">Doskové hry v štýle Metropoly</summary>
   <summary xml:lang="sl">Podobne namizne igre kot Monopoly®</summary>
@@ -102,6 +103,7 @@
     <p xml:lang="pl">Atlantik to klient KDE do grania w gry rodzaju Monopoly® w sieci monopd.</p>
     <p xml:lang="pt">O Atlantik é um cliente do KDE para jogar jogos de tabuleiro do tipo Monopólio® na rede 'monopd'.</p>
     <p xml:lang="pt-BR">Atlantik é um cliente KDE para jogar jogos de tabuleiro do tipo Monopoly® na rede monopd.</p>
+    <p xml:lang="ru">Atlantik — это приложение-клиент, разработанный KDE, для игры в настольные игры, подобные игре Монополия®, через сеть monopd.</p>
     <p xml:lang="sa">Atlantik इति monopd संजाले Monopoly®-सदृशानि बोर्ड गेम्स् क्रीडितुं KDE क्लायन्ट् अस्ति ।</p>
     <p xml:lang="sk">Atlantik je klient KDE na hranie stolových hier v štýle Monopoly v sieti monopd.</p>
     <p xml:lang="sl">Atlantik je odjemalec KDE za igranje družabnih iger, podobnih kot Monopoly® na omrežju monopd.</p>
@@ -138,6 +140,7 @@
     <p xml:lang="pl">Celem gry planszowej Atlantik jest zdobycie ziem w głównych miastach ameryki północnej i europie, będą podróżnikiem transatlantyckim. Aby wygrać grę, gracze ulepszają swoją ziemię budynkami przynoszącymi zyski z nadzieją, że inni gracze zbankrutują.</p>
     <p xml:lang="pt">O objectivo do jogo de tabuleiro Atlantik é adquirir terrenos nas cidades mais importantes da América do Norte e da Europa, enquanto é um viajante transatlântico. Para ganhar o jogo, os jogadores melhoram nos terrenos monopolizados com edifícios rentáveis, com a esperança de levar os outros jogadores à bancarrota.</p>
     <p xml:lang="pt-BR">O objetivo do jogo de tabuleiro Atlantik é adquirir terras nas principais cidades da América do Norte e Europa enquanto é um viajante transatlântico. Para vencer o jogo, os jogadores melhoram as terras monopolizadas com edifícios lucrativos na esperança de levar todos os outros jogadores à falência.</p>
+    <p xml:lang="ru">Цель настольной игры Atlantik — приобретать землю в крупных городах Северной Америки и Европы, выступая в роли трансатлантического путешественника. Чтобы победить, игроки развивают участки, на которых у них монополия, возводя на них прибыльные здания, с целью довести остальных игроков до банкротства.</p>
     <p xml:lang="sa">अटलाण्टिक-बोर्ड-क्रीडायाः उद्देश्यं उत्तर-अमेरिका-युरोप-देशयोः प्रमुखनगरेषु भूमिं प्राप्तुं अटलाण्टिक-पार-यात्री भूत्वा । क्रीडां जितुम् अन्येषां सर्वेषां क्रीडकानां दिवालियापनस्य आशायां क्रीडकाः एकाधिकारयुक्तभूमिं लाभप्रदभवनैः सह सुधारयन्ति ।</p>
     <p xml:lang="sk">Cieľom stolovej hry Atlantik je získať pozemky vo veľkých mestách v Severnej Amerike a Európe a zároveň byť transatlantickým cestovateľom. Aby hráči vyhrali, vylepšujú monopolizovanú pôdu výnosnými budovami v nádeji, že zruinujú všetkých ostatných hráčov.</p>
     <p xml:lang="sl">Namen namizne igre Atlantik je da kot kot čezatlantski popotnik pridobiš zemljišča v večjih mestih v Severni Ameriki in Evropi. Za zmago igralci izboljšajo monopolizirano zemljišče z donosnimi zgradbami v upanju, da bodo bankrotirali vsi drugi igralci.</p>
@@ -173,6 +176,7 @@
     <p xml:lang="pl">Wszystkie tryby gry są dostarczane przez monopd, serwer gry przeznaczony dla Atlantik. Jeden z trybów gry jest znany z Monopoly®.</p>
     <p xml:lang="pt">Todos os modos de jogo são servidos pelo 'monopd', um servidor de jogos dedicado e desenhado para o Atlantik. Um dos modos de jogo joga-se como o conhecido jogo imobiliário Monopólio®.</p>
     <p xml:lang="pt-BR">Todos os modos de jogo são servidos pelo monopd, um servidor de jogo dedicado projetado para Atlantik. Um dos modos de jogo joga como o popular jogo de tabuleiro imobiliário conhecido como Monopoly®.</p>
+    <p xml:lang="ru">Все игровые режимы обслуживаются monopd — специализированным игровым сервером, разработанным для Atlantik. Один из режимов повторяет механику популярной настольной игры о торговле недвижимостью, известной как Монополия®.</p>
     <p xml:lang="sa">सर्वाणि क्रीडाविधानानि monopd इत्यनेन सेव्यन्ते, यत् अटलाण्टिकस्य कृते डिजाइनं कृतं समर्पितं गेम सर्वरम् अस्ति । एकः क्रीडाविधिः Monopoly® इति नाम्ना प्रसिद्धः लोकप्रियः अचलसम्पत् बोर्डक्रीडा इव क्रीडति ।</p>
     <p xml:lang="sk">Všetky herné režimy obsluhuje monopd, špecializovaný herný server určený pre Atlantik. Jeden z herných režimov sa hrá ako populárna stolová hra s nehnuteľnosťami Monopoly.</p>
     <p xml:lang="sl">Za vse načine igre uporablja namenski strežnik za igre monopd, zasnovan za Atlantik. Eden od načinov igre se igra kot priljubljena namizna igra za nepremičnine, znana kot Monopoly®.</p>
