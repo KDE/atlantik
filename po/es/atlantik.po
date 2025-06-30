@@ -1,16 +1,16 @@
 # Spanish translations for atlantik.po package.
-# Copyright (C) 2019 This file is copyright:
+# Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the atlantik package.
-#
-# Sofía Priego <spriego@darksylvania.net>, %Y.
 # Automatically generated, 2019.
+#
 # SPDX-FileCopyrightText: 2019, 2021, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2024, 2025 Sofía Priego <spriego@darksylvania.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-05-08 00:40+0100\n"
+"PO-Revision-Date: 2025-06-29 14:26+0100\n"
 "Last-Translator: Sofía Priego <spriego@darksylvania.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr "spriego@darksylvania.net,ecuadra@eloihr.net"
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log…"
-msgstr "Mostrar el registro de e&ventos..."
+msgstr "Mostrar el registro de e&ventos…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -492,12 +492,12 @@ msgstr "Iniciar partida"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list…"
-msgstr "Obteniendo la lista de configuración..."
+msgstr "Obteniendo la lista de configuración…"
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "Partida iniciada. Obteniendo todos los datos de la partida..."
+msgstr "Partida iniciada. Obteniendo todos los datos de la partida…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -640,7 +640,7 @@ msgstr "Obtener lista de servidores"
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list…"
-msgstr "Obteniendo lista de servidores..."
+msgstr "Obteniendo lista de servidores…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -660,12 +660,12 @@ msgstr "Lista de servidores obtenida."
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "Conectando a %1:%2..."
+msgstr "Conectando a %1:%2…"
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr "La búsqueda de nombres de servidores ha terminado..."
+msgstr "La búsqueda de nombres de servidores ha terminado…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -704,12 +704,12 @@ msgstr "Hacer una oferta"
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr "A la de una..."
+msgstr "A la de una…"
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr "A la de dos..."
+msgstr "A la de dos…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
@@ -912,6 +912,3 @@ msgstr "La propuesta ha sido rechazada."
 #, kde-format
 msgid "Remove From Trade"
 msgstr "Eliminar de la negociación"
-
-#~ msgid "&Save As..."
-#~ msgstr "&Guardar como..."
