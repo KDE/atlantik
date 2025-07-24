@@ -1,7 +1,7 @@
 # Translation for atlantik.po to Euskara/Basque (eu).
 # Copyright (C) 2023-2024 This file is copyright:
 # This file is distributed under the same license as the atlantik package.
-# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # SPDX-FileCopyrightText: 2023, 2024 Iñigo Salvador Azurmendi <xalba@ni.eus>
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-07 00:36+0000\n"
-"PO-Revision-Date: 2024-06-29 22:03+0200\n"
+"PO-Revision-Date: 2025-07-23 13:56+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -33,7 +33,7 @@ msgstr "xalba@ni.eus"
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log…"
-msgstr "Erakutsi gertaeren e&gunkaria..."
+msgstr "Erakutsi gertaeren e&gunkaria…"
 
 #: client/atlantik.cpp:119
 #, kde-format
@@ -495,12 +495,12 @@ msgstr "Hasi jokoa"
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list…"
-msgstr "Konfiguratzeko zerrenda berreskuratzen..."
+msgstr "Konfiguratzeko zerrenda berreskuratzen…"
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr "Jokoa hasita. Joko osoaren datuak berreskuratzen..."
+msgstr "Jokoa hasita. Joko osoaren datuak berreskuratzen…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
@@ -643,7 +643,7 @@ msgstr "Lortu zerbitzari-zerrenda"
 #: client/selectserver_widget.cpp:167
 #, kde-format
 msgid "Retrieving server list…"
-msgstr "Zerbitzari-zerrenda berreskuratzen..."
+msgstr "Zerbitzari-zerrenda berreskuratzen…"
 
 #: client/selectserver_widget.cpp:169
 #, kde-format
@@ -663,12 +663,12 @@ msgstr "Zerbitzari-zerrenda berreskuratuta."
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
 msgid "Connecting to %1:%2…"
-msgstr "%1:%2(e)ra konektatzen..."
+msgstr "%1:%2(e)ra konektatzen…"
 
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr "Zerbitzariaren ostalari-izenaren bilaketa bukatu da..."
+msgstr "Zerbitzariaren ostalari-izenaren bilaketa bukatu da…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -707,12 +707,12 @@ msgstr "Egin eskaintza"
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr "Lehenengoa..."
+msgstr "Lehenengoa…"
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr "Bigarrena..."
+msgstr "Bigarrena…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
