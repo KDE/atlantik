@@ -201,7 +201,7 @@ msgid ""
 "the default color."
 msgstr ""
 "في حالة تحديد هذا الخيار، سيلون العقارات المرهونة على اللوحة بلون أغمق من "
-"اللون الافتراضي."
+"اللون المبدئي."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
