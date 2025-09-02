@@ -515,7 +515,7 @@ msgstr "S'està recuperant la llista de configuració."
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr "Crea o selecciona un joc de «monopd»"
+msgstr "Crea o tria un joc de «monopd»"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
@@ -608,7 +608,7 @@ msgstr "Connecta"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr "Seleccioneu el servidor «monopd»"
+msgstr "Trieu el servidor «monopd»"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
