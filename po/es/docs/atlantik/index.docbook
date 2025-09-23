@@ -137,7 +137,7 @@
 ><guimenu
 >Juego</guimenu
 ><guimenuitem
->Mostrar registro de eventos...</guimenuitem
+>Mostrar registro de eventos…</guimenuitem
 ></menuchoice
 ></term>
 <listitem
@@ -341,7 +341,7 @@
 ><guimenu
 >Ayuda</guimenu
 ><guimenuitem
->Informar de fallo...</guimenuitem
+>Informar de fallo…</guimenuitem
 ></menuchoice
 > para lanzar el asistente de errores con algunos detalles sobre tu versión de &atlantik; insertados automáticamente.</para>
 
