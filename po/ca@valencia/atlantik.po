@@ -657,7 +657,7 @@ msgstr "Torna a carregar la llista de servidors"
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr "S'ha produït un error en recuperar la llista de servidors."
+msgstr "S'ha produït un error mentre es recuperava la llista de servidors."
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
