@@ -1,14 +1,14 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the atlantik package.
 #
 # Alexander Potashev <aspotashev@gmail.com>, 2019.
-# Alexander Yavorskiy <kekcuha@gmail.com>, 2025.
+# SPDX-FileCopyrightText: 2025, 2026 Alexander Yavorskiy <kekcuha@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2025-06-02 22:29+0200\n"
+"PO-Revision-Date: 2026-04-03 22:15+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Александр Яворский"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "kekcuha@gmail.com"
 
 #: client/atlantik.cpp:116
 #, kde-format
 msgid "Show Event &Log…"
-msgstr ""
+msgstr "Показать журнал &событий…"
 
 #: client/atlantik.cpp:119
 #, kde-format
 msgid "&Reconnect (After Crash)"
-msgstr ""
+msgstr "&Повторное подключение (после сбоя)"
 
 #: client/atlantik.cpp:123
 #, kde-format
 msgid "&Leave Game"
-msgstr ""
+msgstr "&Выйти из игры"
 
 #: client/atlantik.cpp:149
 #, kde-format
@@ -52,57 +52,57 @@ msgstr "&Купить"
 #: client/atlantik.cpp:156
 #, kde-format
 msgid "&Auction"
-msgstr ""
+msgstr "&Аукцион"
 
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr ""
+msgstr "Использовать карту для выхода из тюрьмы"
 
 #: client/atlantik.cpp:172
 #, kde-format
 msgid "&Pay to Leave Jail"
-msgstr ""
+msgstr "&Выйти из тюрьмы за деньги"
 
 #: client/atlantik.cpp:179
 #, kde-format
 msgid "Roll to Leave &Jail"
-msgstr ""
+msgstr "Бросить кубики, чтобы выйти из &тюрьмы"
 
 #: client/atlantik.cpp:300
 #, kde-format
 msgid "New player joined."
-msgstr ""
+msgstr "Подключился новый игрок."
 
 #: client/atlantik.cpp:508
 #, kde-format
 msgid "Error connecting: connection refused by host."
-msgstr ""
+msgstr "Не удалось подключиться: хост отклонил подключение."
 
 #: client/atlantik.cpp:511
 #, kde-format
 msgid "Error connecting: host not found."
-msgstr ""
+msgstr "Ошибка подключения: хост не найден."
 
 #: client/atlantik.cpp:514
 #, kde-format
 msgid "Error connecting: error %1."
-msgstr ""
+msgstr "Не удалось подключиться: ошибка %1."
 
 #: client/atlantik.cpp:730
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "error message"
 msgid "Error"
 msgstr "Ошибка"
 
 #: client/atlantik.cpp:733
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "informative message"
 msgid "Info"
 msgstr "Информация"
 
 #: client/atlantik.cpp:803
-#, fuzzy, kde-format
+#, kde-format
 msgid "It is your turn now."
 msgstr "Твой ход"
 
@@ -112,16 +112,17 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to close "
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
+"Вы участвуете в активной игре. Закрыть Atlantik? В этом случае вы проиграете."
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close & Forfeit?"
-msgstr ""
+msgstr "Закрыть и &сдаться?"
 
 #: client/atlantik.cpp:919
 #, kde-format
 msgid "Close && Forfeit"
-msgstr ""
+msgstr "Закрыть и &сдаться"
 
 #: client/atlantik.cpp:952
 #, kde-format
@@ -129,34 +130,36 @@ msgid ""
 "You are currently part of an active game. Are you sure you want to leave it? "
 "If you do, you forfeit the game."
 msgstr ""
+"Вы участвуете в активной игре. Выйти из неё? В этом случае игра будет "
+"проиграна."
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave & Forfeit?"
-msgstr ""
+msgstr "Покинуть & игру?"
 
 #: client/atlantik.cpp:952
 #, kde-format
 msgid "Leave && Forfeit"
-msgstr ""
+msgstr "Покинуть и сдаться"
 
 #. i18n: ectx: Menu (game)
 #: client/atlantikui.rc:4
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Game"
-msgstr "игра"
+msgstr "&Игра"
 
 #. i18n: ectx: Menu (move)
 #: client/atlantikui.rc:10
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Move"
-msgstr "Перемещение"
+msgstr "&Ход"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/configboard.ui:17
 #, kde-format
 msgid "Game Status Feedback"
-msgstr ""
+msgstr "Статус игры"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:23
@@ -165,12 +168,14 @@ msgid ""
 "If checked, unowned properties on the board display an estate card to "
 "indicate the property is for sale."
 msgstr ""
+"Если этот параметр включён, на настольной будут отображаться карточки "
+"недвижимости для свободных участков, указывая на их продажу."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_IndicateUnowned)
 #: client/configboard.ui:26
 #, kde-format
 msgid "Display title deed card on unowned properties"
-msgstr ""
+msgstr "Показывать карточку владения на некупленных объектах"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:33
@@ -179,12 +184,14 @@ msgid ""
 "If checked, unowned properties on the board are highlighted to indicate the "
 "property is for sale."
 msgstr ""
+"При выборе этого параметра непроданные параметры на настольной выделяются "
+"для обозначения возможности покупки."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HighlightUnowned)
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "Выделять не принадлежащие параметры"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -193,12 +200,14 @@ msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
 msgstr ""
+"Если выбрано, заложенные участки на настольной будут окрашены темнее цвета "
+"по умолчанию."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "Затемнить заложенные объекты"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -207,12 +216,14 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
+"При включении этого параметра фишки будут перемещаться по полю плавно, а не "
+"перескакивать на новую позицию мгновенно."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr ""
+msgstr "Анимировать перемещение фишки"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -221,28 +232,30 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"Если этот параметр включён, цветные заголовки участков улиц на игровом поле "
+"будут иметь эффект Quartz, аналогичный стилю оконного менеджера KWin Quartz."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "Эффекты Quartz"
 
 #: client/configdlg.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr ""
+msgstr "Параметры Atlantik"
 
 #: client/configdlg.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgid "General"
 msgstr "Общие"
 
 #: client/configdlg.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgid "Personalization"
-msgstr "<link linkend=\"personalization\">Предпочтения пользователя</link>"
+msgstr "Предпочтения пользователя"
 
 #: client/configdlg.cpp:46
 #, kde-format
@@ -252,19 +265,21 @@ msgstr "Настольная"
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr ""
+msgstr "Главный сервер"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
 msgstr ""
+"При включении этого параметра Atlantik будет добавлять метки времени перед "
+"сообщениями в чате."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "Показывать метки времени в сообщениях чата"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -273,12 +288,14 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"Если этот параметр включён, Atlantik при запуске подключается к метасерверу "
+"для получения списка интернет-серверов."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "Запрашивать список интернет-серверов при запуске"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -288,27 +305,30 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"Некоторые интернет-серверы могут использовать тестовые версии серверного "
+"программного обеспечения.\n"
+"При включении этого параметра Atlantik не будет отображать такие серверы."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "Скрыть серверы для разработки"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
 #, kde-format
 msgid "Player name:"
-msgstr ""
+msgstr "Имя игрока:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr ""
+msgstr "Изображение игрока:"
 
 #: client/eventlogwidget.cpp:115
-#, fuzzy, kde-format
+#, kde-format
 msgid "Date/Time"
 msgstr "Дата и время"
 
@@ -322,17 +342,17 @@ msgstr "Описание"
 #, kde-format
 msgctxt "@title:window"
 msgid "Event Log"
-msgstr ""
+msgstr "Журнал событий"
 
 #: client/eventlogwidget.cpp:225
 #, kde-format
 msgid "&Clear Log"
-msgstr ""
+msgstr "&Очистить журнал"
 
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Журнал Atlantik, сохранён в %1."
 
 #: client/main.cpp:38
 #, kde-format
@@ -342,27 +362,27 @@ msgstr "Atlantik"
 #: client/main.cpp:39
 #, kde-format
 msgid "The Atlantic board game"
-msgstr ""
+msgstr "Настольная игра «Атлантик»"
 
 #: client/main.cpp:41
 #, kde-format
 msgid "(c) 1998-2004 Rob Kaper"
-msgstr ""
+msgstr "© Rob Kaper, 1998–2004"
 
 #: client/main.cpp:42
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
+msgstr "Клиент KDE для игры в игры типа «Монополия» в сети monopd."
 
 #: client/main.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rob Kaper"
-msgstr "&Rob.Kaper;"
+msgstr "Rob Kaper"
 
 #: client/main.cpp:47
 #, kde-format
 msgid "main author"
-msgstr ""
+msgstr "Автор"
 
 #: client/main.cpp:50
 #, kde-format
@@ -372,7 +392,7 @@ msgstr "Thiago Macieira"
 #: client/main.cpp:50
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr ""
+msgstr "Поддержка KExtendedSocket"
 
 #: client/main.cpp:51
 #, kde-format
@@ -380,9 +400,9 @@ msgid "Albert Astals Cid"
 msgstr "Albert Astals Cid"
 
 #: client/main.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgid "various patches"
-msgstr "Исправления и прочее"
+msgstr "Различные исправления"
 
 #: client/main.cpp:53
 #, kde-format
@@ -390,111 +410,111 @@ msgid "Bart Szyszka"
 msgstr "Bart Szyszka"
 
 #: client/main.cpp:53
-#, fuzzy, kde-format
+#, kde-format
 msgid "application icon"
-msgstr "Иконка приложения:"
+msgstr "Значок приложения:"
 
 #: client/main.cpp:54
 #, kde-format
 msgid "Rob Malda"
-msgstr ""
+msgstr "Rob Malda"
 
 #: client/main.cpp:54
 #, kde-format
 msgid "token icons"
-msgstr ""
+msgstr "Значки token"
 
 #: client/main.cpp:55
 #, kde-format
 msgid "Elhay Achiam"
-msgstr ""
+msgstr "Elhay Achiam"
 
 #: client/main.cpp:55 client/main.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "icons"
 msgstr "Значки"
 
 #: client/main.cpp:56
 #, kde-format
 msgid "Carlo Caneva"
-msgstr ""
+msgstr "Carlo Caneva"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "Подключиться к этому хосту"
 
 #: client/main.cpp:65
-#, fuzzy, kde-format
+#, kde-format
 msgid "host"
 msgstr "Хост:"
 
 #: client/main.cpp:66
 #, kde-format
 msgid "Connect at this port"
-msgstr ""
+msgstr "Подключение к этому порту"
 
 #: client/main.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgid "port"
 msgstr "Порт"
 
 #: client/main.cpp:67
 #, kde-format
 msgid "Join this game"
-msgstr ""
+msgstr "Присоединиться к игре"
 
 #: client/main.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgid "game"
 msgstr "игра"
 
 #: client/main.cpp:80
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "Настольная игра «Атлантик»"
 
 #: client/selectconfiguration_widget.cpp:48
-#, fuzzy, kde-format
+#, kde-format
 msgid "Game Configuration"
 msgstr "Настройка игры"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
 msgid "Leave Game"
-msgstr ""
+msgstr "Выйти из игры"
 
 #: client/selectconfiguration_widget.cpp:74
 #, kde-format
 msgid "Start Game"
-msgstr ""
+msgstr "Начать игру"
 
 #: client/selectconfiguration_widget.cpp:86
 #, kde-format
 msgid "Retrieving configuration list…"
-msgstr ""
+msgstr "Получение списка конфигураций…"
 
 #: client/selectconfiguration_widget.cpp:100
 #, kde-format
 msgid "Game started. Retrieving full game data…"
-msgstr ""
+msgstr "Игра начата. Получение полных данных игры…"
 
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "Получен список конфигураций."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "Создание или выбор игры monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
-#, fuzzy, kde-format
+#, kde-format
 msgid "Game"
-msgstr "игра"
+msgstr "Игра"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:40
@@ -506,63 +526,63 @@ msgstr "Идентификатор"
 #: client/selectgame.ui:45
 #, kde-format
 msgid "Players"
-msgstr ""
+msgstr "Игроки"
 
 #. i18n: ectx: property (text), widget (QPushButton, backButton)
 #: client/selectgame.ui:58
-#, fuzzy, kde-format
+#, kde-format
 msgid "Server List"
-msgstr "<screeninfo>Список серверов</screeninfo>"
+msgstr "Список серверов"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectgame.ui:78 client/selectgame_widget.cpp:194
 #, kde-format
 msgid "Create Game"
-msgstr ""
+msgstr "Создать игру"
 
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "Создать игру «%1»"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr ""
+msgstr "Наблюдать за игрой %1 в %2"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr ""
+msgstr "Присоединиться к игре «%2» игрока %1"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "Доступна новая игра."
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
 msgid "Watch Game"
-msgstr ""
+msgstr "Наблюдать за игрой"
 
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr ""
+msgstr "Присоединиться к игре"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "Ввод пользовательского сервера monopd"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hostname:"
-msgstr "&Узел:"
+msgstr "&Хост:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
@@ -573,7 +593,7 @@ msgstr "Порт:"
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
 #: client/selectserver.ui:56 client/selectserver.ui:127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Connect"
 msgstr "Подключить"
 
@@ -581,19 +601,19 @@ msgstr "Подключить"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "Выбор сервера monopd"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
-#, fuzzy, kde-format
+#, kde-format
 msgid "Host"
-msgstr "Хост"
+msgstr "Сервер"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
 #, kde-format
 msgid "Latency"
-msgstr ""
+msgstr "Задержка"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:89
@@ -608,7 +628,7 @@ msgid "Users"
 msgstr "Пользователи"
 
 #: client/selectserver_widget.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "unknown"
 msgstr "неизвестно"
 
