@@ -183,7 +183,7 @@ msgstr "如果勾选此项，棋盘上的无主地产将高亮显示，以表示
 #: client/configboard.ui:36
 #, kde-format
 msgid "Highlight unowned properties"
-msgstr ""
+msgstr "高亮显示无主地产"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:43
@@ -191,13 +191,13 @@ msgstr ""
 msgid ""
 "If checked, mortgaged properties on the board will be colored darker than of "
 "the default color."
-msgstr ""
+msgstr "如果勾选此项，棋盘上已抵押的地产颜色将比默认颜色更深。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_DarkenMortgaged)
 #: client/configboard.ui:46
 #, kde-format
 msgid "Darken mortgaged properties"
-msgstr ""
+msgstr "加深已抵押地产颜色"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:53
@@ -205,13 +205,13 @@ msgstr ""
 msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
-msgstr ""
+msgstr "如果勾选此项，棋子将在棋盘上移动，而不是直接跳到新位置。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
 #: client/configboard.ui:56
 #, kde-format
 msgid "Animate token movement"
-msgstr ""
+msgstr "棋子移动动画"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:63
@@ -220,50 +220,52 @@ msgid ""
 "If checked, the colored headers of street estates on the board will have a "
 "Quartz effect similar to the Quartz KWin style."
 msgstr ""
+"如果勾选此项，棋盘上街道地产的彩色标题将具有类似于 Quartz KWin 样式的 Quartz "
+"效果。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_QuartzEffects)
 #: client/configboard.ui:66
 #, kde-format
 msgid "Quartz effects"
-msgstr ""
+msgstr "Quartz 效果"
 
 #: client/configdlg.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Atlantik"
-msgstr ""
+msgstr "配置 Atlantik"
 
 #: client/configdlg.cpp:33
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "常规"
 
 #: client/configdlg.cpp:40
 #, kde-format
 msgid "Personalization"
-msgstr ""
+msgstr "个性化"
 
 #: client/configdlg.cpp:46
 #, kde-format
 msgid "Board"
-msgstr ""
+msgstr "棋盘"
 
 #: client/configdlg.cpp:52
 #, kde-format
 msgid "Meta Server"
-msgstr ""
+msgstr "元服务器"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:17
 #, kde-format
 msgid "If checked, Atlantik will add timestamps in front of chat messages."
-msgstr ""
+msgstr "如果勾选此项，Atlantik 将在聊天消息前添加时间戳。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ChatTimeStamps)
 #: client/configgeneral.ui:20
 #, kde-format
 msgid "Show timestamps in chat messages"
-msgstr ""
+msgstr "在聊天消息中显示时间戳"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:17
@@ -272,12 +274,13 @@ msgid ""
 "If checked, Atlantik connects to a meta server on start-up to request a list "
 "of Internet servers."
 msgstr ""
+"如果勾选此项，Atlantik 将在启动时连接到元服务器以获取互联网服务器列表。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ConnectOnStart)
 #: client/configmetaserver.ui:20
 #, kde-format
 msgid "Request list of Internet servers on start-up"
-msgstr ""
+msgstr "启动时请求互联网服务器列表"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:28
@@ -287,12 +290,14 @@ msgid ""
 "server software.\n"
 "If checked, Atlantik will not display these servers."
 msgstr ""
+"某些互联网服务器可能正在运行服务器软件的开发版本。\n"
+"如果勾选此项，Atlantik 将不显示这些服务器。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideDevelopmentServers)
 #: client/configmetaserver.ui:31
 #, kde-format
 msgid "Hide development servers"
-msgstr ""
+msgstr "隐藏开发版服务器"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/configplayer.ui:17
@@ -304,7 +309,7 @@ msgstr "玩家姓名："
 #: client/configplayer.ui:30
 #, kde-format
 msgid "Player image:"
-msgstr ""
+msgstr "玩家图像："
 
 #: client/eventlogwidget.cpp:115
 #, kde-format
@@ -315,7 +320,7 @@ msgstr "日期/时间"
 #: client/eventlogwidget.cpp:117 client/selectgame.ui:35
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: client/eventlogwidget.cpp:213
 #, kde-format
@@ -331,17 +336,17 @@ msgstr "清除日志(&C)"
 #: client/eventlogwidget.cpp:266
 #, kde-format
 msgid "Atlantik log file, saved at %1."
-msgstr ""
+msgstr "Atlantik 日志文件，保存于 %1。"
 
 #: client/main.cpp:38
 #, kde-format
 msgid "Atlantik"
-msgstr ""
+msgstr "Atlantik"
 
 #: client/main.cpp:39
 #, kde-format
 msgid "The Atlantic board game"
-msgstr ""
+msgstr "大西洋棋盘游戏"
 
 #: client/main.cpp:41
 #, kde-format
@@ -351,12 +356,12 @@ msgstr "(c) 1998-2004 Rob Kaper"
 #: client/main.cpp:42
 #, kde-format
 msgid "KDE client for playing Monopoly-like games on the monopd network."
-msgstr ""
+msgstr "用于在 monopd 网络上玩类似大富翁游戏的 KDE 客户端。"
 
 #: client/main.cpp:47
 #, kde-format
 msgid "Rob Kaper"
-msgstr ""
+msgstr "Rob Kaper"
 
 #: client/main.cpp:47
 #, kde-format
@@ -366,27 +371,27 @@ msgstr "主要作者"
 #: client/main.cpp:50
 #, kde-format
 msgid "Thiago Macieira"
-msgstr ""
+msgstr "Thiago Macieira"
 
 #: client/main.cpp:50
 #, kde-format
 msgid "KExtendedSocket support"
-msgstr ""
+msgstr "KExtendedSocket 支持"
 
 #: client/main.cpp:51
 #, kde-format
 msgid "Albert Astals Cid"
-msgstr ""
+msgstr "Albert Astals Cid"
 
 #: client/main.cpp:51
 #, kde-format
 msgid "various patches"
-msgstr ""
+msgstr "各种补丁"
 
 #: client/main.cpp:53
 #, kde-format
 msgid "Bart Szyszka"
-msgstr ""
+msgstr "Bart Szyszka"
 
 #: client/main.cpp:53
 #, kde-format
@@ -396,32 +401,32 @@ msgstr "应用程序图标"
 #: client/main.cpp:54
 #, kde-format
 msgid "Rob Malda"
-msgstr ""
+msgstr "Rob Malda"
 
 #: client/main.cpp:54
 #, kde-format
 msgid "token icons"
-msgstr ""
+msgstr "棋子图标"
 
 #: client/main.cpp:55
 #, kde-format
 msgid "Elhay Achiam"
-msgstr ""
+msgstr "Elhay Achiam"
 
 #: client/main.cpp:55 client/main.cpp:56
 #, kde-format
 msgid "icons"
-msgstr ""
+msgstr "图标"
 
 #: client/main.cpp:56
 #, kde-format
 msgid "Carlo Caneva"
-msgstr ""
+msgstr "Carlo Caneva"
 
 #: client/main.cpp:65
 #, kde-format
 msgid "Connect to this host"
-msgstr ""
+msgstr "连接到此主机"
 
 #: client/main.cpp:65
 #, kde-format
@@ -431,7 +436,7 @@ msgstr "主机名"
 #: client/main.cpp:66
 #, kde-format
 msgid "Connect at this port"
-msgstr ""
+msgstr "连接到此端口"
 
 #: client/main.cpp:66
 #, kde-format
@@ -441,7 +446,7 @@ msgstr "端口"
 #: client/main.cpp:67
 #, kde-format
 msgid "Join this game"
-msgstr ""
+msgstr "加入此游戏"
 
 #: client/main.cpp:67
 #, kde-format
@@ -451,12 +456,12 @@ msgstr "游戏"
 #: client/main.cpp:80
 #, kde-format
 msgid "The Atlantic Board Game"
-msgstr ""
+msgstr "大西洋棋盘游戏"
 
 #: client/selectconfiguration_widget.cpp:48
 #, kde-format
 msgid "Game Configuration"
-msgstr ""
+msgstr "游戏配置"
 
 #: client/selectconfiguration_widget.cpp:67
 #, kde-format
@@ -481,13 +486,13 @@ msgstr "游戏开始。正在获取完整的游戏数据..."
 #: client/selectconfiguration_widget.cpp:195
 #, kde-format
 msgid "Retrieved configuration list."
-msgstr ""
+msgstr "已获取配置列表。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: client/selectgame.ui:17
 #, kde-format
 msgid "Create or Select monopd Game"
-msgstr ""
+msgstr "创建或选择 monopd 游戏"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:30
@@ -499,7 +504,7 @@ msgstr "游戏"
 #: client/selectgame.ui:40
 #, kde-format
 msgid "Id"
-msgstr ""
+msgstr "编号"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_gameList)
 #: client/selectgame.ui:45
@@ -522,24 +527,24 @@ msgstr "创建游戏"
 #: client/selectgame_widget.cpp:75 client/selectgame_widget.cpp:130
 #, kde-format
 msgid "Create a new %1 Game"
-msgstr ""
+msgstr "创建新 %1 游戏"
 
 #: client/selectgame_widget.cpp:86 client/selectgame_widget.cpp:135
 #: client/selectgame_widget.cpp:159
 #, kde-format
 msgid "Watch %1's %2 Game"
-msgstr ""
+msgstr "观看 %1 的 %2 游戏"
 
 #: client/selectgame_widget.cpp:88 client/selectgame_widget.cpp:137
 #: client/selectgame_widget.cpp:161
 #, kde-format
 msgid "Join %1's %2 Game"
-msgstr ""
+msgstr "加入 %1 的 %2 游戏"
 
 #: client/selectgame_widget.cpp:97
 #, kde-format
 msgid "New game available."
-msgstr ""
+msgstr "有新游戏可用。"
 
 #: client/selectgame_widget.cpp:189
 #, kde-format
@@ -549,25 +554,25 @@ msgstr "观看比赛"
 #: client/selectgame_widget.cpp:191
 #, kde-format
 msgid "Join Game"
-msgstr ""
+msgstr "加入游戏"
 
 #. i18n: ectx: property (title), widget (QGroupBox, customGroup)
 #: client/selectserver.ui:17
 #, kde-format
 msgid "Enter Custom monopd Server"
-msgstr ""
+msgstr "输入自定义 monopd 服务器"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr ""
+msgstr "主机名："
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
 #, kde-format
 msgid "Port:"
-msgstr ""
+msgstr "端口："
 
 #. i18n: ectx: property (text), widget (QPushButton, m_customConnectButton)
 #. i18n: ectx: property (text), widget (QPushButton, m_connectButton)
@@ -580,19 +585,19 @@ msgstr "连接"
 #: client/selectserver.ui:66
 #, kde-format
 msgid "Select monopd Server"
-msgstr ""
+msgstr "选择 monopd 服务器"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:79
 #, kde-format
 msgid "Host"
-msgstr ""
+msgstr "主机"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:84
 #, kde-format
 msgid "Latency"
-msgstr ""
+msgstr "延迟"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_serverList)
 #: client/selectserver.ui:89
@@ -629,12 +634,12 @@ msgstr "重新加载服务器列表"
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr ""
+msgstr "获取服务器列表时出错。"
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "已获取服务器列表。"
 
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
@@ -649,76 +654,76 @@ msgstr "服务器主机名查找已完成..."
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
 msgid "Connected to %1:%2."
-msgstr ""
+msgstr "已连接到 %1:%2。"
 
 #: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "连接失败！错误代码：%1"
 
 #: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "已从 %1:%2 断开连接。"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
 #: libatlantikui/trade_widget.cpp:164
 #, kde-format
 msgid "Player"
-msgstr ""
+msgstr "玩家"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr ""
+msgstr "出价"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
 #, kde-format
 msgid "Make Bid"
-msgstr ""
+msgstr "出价"
 
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr "走一步..."
+msgstr "第一次..."
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr "走两步..."
+msgstr "第二次..."
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
 msgid "Sold!"
-msgstr ""
+msgstr "成交 ！"
 
 #: libatlantikui/estatedetails.cpp:89 libatlantikui/estateview.cpp:87
 #, kde-format
 msgid "Price: %1"
-msgstr ""
+msgstr "价格：%1"
 
 #: libatlantikui/estatedetails.cpp:98 libatlantikui/estateview.cpp:76
 #, kde-format
 msgid "Owner: %1"
-msgstr ""
+msgstr "所有者：%1"
 
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
-msgstr ""
+msgstr "无主"
 
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
 msgid "Houses: %1"
-msgstr ""
+msgstr "房屋：%1"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Yes"
-msgstr "有"
+msgstr "是"
 
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
@@ -728,166 +733,166 @@ msgstr "否"
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Mortgaged: %1"
-msgstr ""
+msgstr "已抵押：%1"
 
 #: libatlantikui/estateview.cpp:78
 #, kde-format
 msgid "Unmortgage Price: %1"
-msgstr ""
+msgstr "赎回价格：%1"
 
 #: libatlantikui/estateview.cpp:80
 #, kde-format
 msgid "Mortgage Value: %1"
-msgstr ""
+msgstr "抵押价值：%1"
 
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr ""
+msgstr "房屋价值：%1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
 msgid "House Price: %1"
-msgstr ""
+msgstr "房屋价格：%1"
 
 #: libatlantikui/estateview.cpp:89
 #, kde-format
 msgid "Money: %1"
-msgstr ""
+msgstr "资金：%1"
 
 #: libatlantikui/estateview.cpp:426
 #, kde-format
 msgid "Unmortgage"
-msgstr ""
+msgstr "赎回"
 
 #: libatlantikui/estateview.cpp:432
 #, kde-format
 msgid "Mortgage"
-msgstr ""
+msgstr "抵押"
 
 #: libatlantikui/estateview.cpp:440
 #, kde-format
 msgid "Build Hotel"
-msgstr ""
+msgstr "建造酒店"
 
 #: libatlantikui/estateview.cpp:442
 #, kde-format
 msgid "Build House"
-msgstr ""
+msgstr "建造房屋"
 
 #: libatlantikui/estateview.cpp:449
 #, kde-format
 msgid "Sell Hotel"
-msgstr ""
+msgstr "出售酒店"
 
 #: libatlantikui/estateview.cpp:451
 #, kde-format
 msgid "Sell House"
-msgstr ""
+msgstr "出售房屋"
 
 #: libatlantikui/estateview.cpp:457
 #, kde-format
 msgid "Sell"
-msgstr ""
+msgstr "出售"
 
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "请求与 %1 交易"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "将玩家 %1 踢出至休息室"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "交易 %1"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
 msgid "Add Component"
-msgstr ""
+msgstr "添加组件"
 
 #: libatlantikui/trade_widget.cpp:59
 #, kde-format
 msgid "Estate"
-msgstr ""
+msgstr "地产"
 
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr ""
+msgstr "资金"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
 msgid "Card"
-msgstr ""
+msgstr "卡片"
 
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
 msgid "From"
-msgstr ""
+msgstr "来自"
 
 #: libatlantikui/trade_widget.cpp:108
 #, kde-format
 msgid "To"
-msgstr ""
+msgstr "至"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: libatlantikui/trade_widget.cpp:141
 #, kde-format
 msgid "Participants"
-msgstr ""
+msgstr "参与者"
 
 #: libatlantikui/trade_widget.cpp:163
 #, kde-format
 msgid "Gives"
-msgstr ""
+msgstr "给出"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
 msgid "Item"
-msgstr ""
+msgstr "项目"
 
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
 msgid "Reject"
-msgstr ""
+msgstr "拒绝"
 
 #: libatlantikui/trade_widget.cpp:182
 #, kde-format
 msgid "Accept"
-msgstr ""
+msgstr "接受"
 
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%2 名玩家中有 %1 名接受了当前交易提议。"
 
 #: libatlantikui/trade_widget.cpp:224
 #, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
+msgstr "给出"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "交易提议被 %1 拒绝。"
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "交易提议被拒绝。"
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "从交易中移除"
