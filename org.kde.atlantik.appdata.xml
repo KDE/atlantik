@@ -76,6 +76,7 @@
   <summary xml:lang="tr">Monopoly® benzeri Masa Oyunları</summary>
   <summary xml:lang="ug">Monopoly® غا ئوخشاش تاختا ئويۇنى</summary>
   <summary xml:lang="uk">Подібні до Monopoly® ігри на дошці</summary>
+  <summary xml:lang="zh-CN">大富翁类桌游</summary>
   <summary xml:lang="zh-TW">類似 Monopoly® 的棋盤遊戲</summary>
   <description>
     <p>
@@ -113,6 +114,7 @@
     <p xml:lang="sv">Atlantik är en KDE-klient för att spela Monopol®-liknande brädspel på monopd-nätverket.</p>
     <p xml:lang="tr">Atlantik, monopd ağında Monopoly® benzeri masa oyunları oynamak için bir KDE istemcisidir.</p>
     <p xml:lang="uk">Atlantik — клієнт KDE для подібної до Monopoly® гри на дошці у мережі monopd.</p>
+    <p xml:lang="zh-CN">Atlantik 是一款 KDE 客户端，用于在 monopd 网络上玩大富翁类桌游。</p>
     <p xml:lang="zh-TW">Atlantik 是來自 KDE 的，在 monopd 網路上遊玩類似 Monopoly® 的棋盤遊戲的用戶端。</p>
     <p>
       Purpose of the Atlantik board game is to acquire land in major cities
@@ -151,6 +153,7 @@
     <p xml:lang="sv">Syftet med brädspelet Atlantik är att förvärva land i större nordamerikanska och europeiska städer, som en transatlantisk resenär. För att vinna spelet förbättrar spelarna monopoliserad mark med lönsamma byggnader med hopp om att göra alla andra spelare bankrutta.</p>
     <p xml:lang="tr">Atlantik masa oyununun amacı, uluslararası bir gezgini oynarken Kuzey Amerika ve Avrupa’daki büyük kentlerde arazi satın almaktır. Oyunun kazanmak için oyuncular diğer oyuncuları iflasa sürükleyebilmek için monopolleştirilmiş arazilerde kâr edebilen binalar dikmelilerdir.</p>
     <p xml:lang="uk">Метою гри на дошці Atlantik є накопичення нерухомості у головних містах Північної Америки та Європи. Щоб виграти гру, гравець має забудовувати придбані земельні ділянки прибутковими будинками так, щоб довести до банкрутства інших гравців.</p>
+    <p xml:lang="zh-CN">Atlantik 桌游的核心目标是让玩家扮演跨大西洋旅行者，在北美与欧洲各大城市购置地产。为取得胜利，玩家需在已垄断的地块上加盖盈利建筑，最终迫使所有对手破产。</p>
     <p xml:lang="zh-TW">Atlantik 棋盤遊戲的目的是作為橫跨大西洋的旅者，在北美與歐洲的大城市取得土地。要贏得遊戲，玩家必須用賺錢的建築改善自己所獨有的土地，並期望使其他玩家破產。</p>
     <p>
       All game modes are served by monopd, a dedicated game server designed
