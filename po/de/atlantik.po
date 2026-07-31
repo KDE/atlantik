@@ -57,7 +57,7 @@ msgstr "&Versteigerung"
 #: client/atlantik.cpp:167
 #, kde-format
 msgid "Use Card to Leave Jail"
-msgstr "Eine Karte benutzen, um das Gefängnis zu verlassen"
+msgstr "Eine Karte verwenden, um das Gefängnis zu verlassen"
 
 #: client/atlantik.cpp:172
 #, kde-format
@@ -113,7 +113,7 @@ msgid ""
 "Atlantik? If you do, you forfeit the game."
 msgstr ""
 "Sie nehmen derzeit aktiv an einem Spiel teil. Sind Sie sicher, dass Sie "
-"Atlantik schließen wollen? Sie brechen damit das Spiel ab."
+"Atlantik schließen möchten? Sie brechen damit das Spiel ab."
 
 #: client/atlantik.cpp:919
 #, kde-format
