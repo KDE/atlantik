@@ -216,7 +216,7 @@ msgid ""
 "If checked, tokens will move across the board instead of jumping directly to "
 "their new location."
 msgstr ""
-"في حالة تحديدها، فسوف تتحرك الرموز عبر اللوحة بدلاً من القفز مباشرة إلى "
+"في حالة تحديدها، فسوف تتحرك الرموز عبر اللوحة بدلًا من القفز مباشرة إلى "
 "موقعها الجديد."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AnimateToken)
