@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2026-05-28 17:06-0400\n"
+"PO-Revision-Date: 2026-09-22 18:02+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -336,7 +336,7 @@ msgstr ""
 #: client/main.cpp:38
 #, kde-format
 msgid "Atlantik"
-msgstr "Atlantik"
+msgstr ""
 
 #: client/main.cpp:39
 #, kde-format
@@ -376,7 +376,7 @@ msgstr ""
 #: client/main.cpp:51
 #, kde-format
 msgid "Albert Astals Cid"
-msgstr "Albert Astals Cid"
+msgstr ""
 
 #: client/main.cpp:51
 #, kde-format
@@ -654,7 +654,7 @@ msgstr ""
 #: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "Connection failed! خاتالىق كودى: %1"
 
 #: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
