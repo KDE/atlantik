@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atlantik\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2026-04-03 22:15+0200\n"
+"PO-Revision-Date: 2026-09-23 09:20+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -582,7 +582,7 @@ msgstr "Ввод пользовательского сервера monopd"
 #: client/selectserver.ui:23
 #, kde-format
 msgid "Hostname:"
-msgstr "&Хост:"
+msgstr "&Имя узла:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: client/selectserver.ui:36
@@ -645,17 +645,17 @@ msgstr "Получение списка серверов…"
 #: client/selectserver_widget.cpp:169
 #, kde-format
 msgid "Reload Server List"
-msgstr ""
+msgstr "Обновить список серверов"
 
 #: client/selectserver_widget.cpp:196
 #, kde-format
 msgid "Error while retrieving the server list."
-msgstr ""
+msgstr "Ошибка при получении списка серверов."
 
 #: client/selectserver_widget.cpp:198
 #, kde-format
 msgid "Retrieved server list."
-msgstr ""
+msgstr "Получен список серверов."
 
 #: libatlantikclient/atlantik_network.cpp:127
 #, kde-format
@@ -665,7 +665,7 @@ msgstr "Подключение к %1:%2…"
 #: libatlantikclient/atlantik_network.cpp:135
 #, kde-format
 msgid "Server host name lookup finished…"
-msgstr ""
+msgstr "Поиск имени узла сервера завершён…"
 
 #: libatlantikclient/atlantik_network.cpp:140
 #, kde-format
@@ -675,12 +675,12 @@ msgstr "Подключено к %1:%2."
 #: libatlantikclient/atlantik_network.cpp:150
 #, kde-format
 msgid "Connection failed! Error code: %1"
-msgstr ""
+msgstr "Не удалось подключиться! Код ошибки: %1"
 
 #: libatlantikclient/atlantik_network.cpp:155
 #, kde-format
 msgid "Disconnected from %1:%2."
-msgstr ""
+msgstr "Разорвано соединение с %1:%2."
 
 #. i18n: ectx: property (text), widget (QTreeWidget, playerList)
 #: libatlantikui/auction.ui:21 libatlantikui/trade_widget.cpp:162
@@ -693,7 +693,7 @@ msgstr "Игрок"
 #: libatlantikui/auction.ui:26
 #, kde-format
 msgid "Bid"
-msgstr ""
+msgstr "Ставка"
 
 #. i18n: ectx: property (text), widget (QPushButton, bidButton)
 #: libatlantikui/auction.ui:46
@@ -704,12 +704,12 @@ msgstr "Сделать ставку"
 #: libatlantikui/auction_widget.cpp:86
 #, kde-format
 msgid "Going once…"
-msgstr ""
+msgstr "Раз…"
 
 #: libatlantikui/auction_widget.cpp:90
 #, kde-format
 msgid "Going twice…"
-msgstr ""
+msgstr "Два…"
 
 #: libatlantikui/auction_widget.cpp:94
 #, kde-format
@@ -729,7 +729,7 @@ msgstr "Владелец: %1"
 #: libatlantikui/estatedetails.cpp:98
 #, kde-format
 msgid "unowned"
-msgstr ""
+msgstr "без владельца"
 
 #: libatlantikui/estatedetails.cpp:105
 #, kde-format
@@ -749,22 +749,22 @@ msgstr "Нет"
 #: libatlantikui/estatedetails.cpp:110
 #, kde-format
 msgid "Mortgaged: %1"
-msgstr ""
+msgstr "Заложено: %1"
 
 #: libatlantikui/estateview.cpp:78
 #, kde-format
 msgid "Unmortgage Price: %1"
-msgstr ""
+msgstr "Цена выкупа залога: %1"
 
 #: libatlantikui/estateview.cpp:80
 #, kde-format
 msgid "Mortgage Value: %1"
-msgstr ""
+msgstr "Залоговая стоимость: %1"
 
 #: libatlantikui/estateview.cpp:82
 #, kde-format
 msgid "House Value: %1"
-msgstr ""
+msgstr "Стоимость дома: %1"
 
 #: libatlantikui/estateview.cpp:84
 #, kde-format
@@ -814,18 +814,18 @@ msgstr "Продать"
 #: libatlantikui/estateview.cpp:465 libatlantikui/portfolioview.cpp:276
 #, kde-format
 msgid "Request Trade with %1"
-msgstr ""
+msgstr "Предложить обмен с %1"
 
 #: libatlantikui/portfolioview.cpp:282
 #, kde-format
 msgid "Boot Player %1 to Lounge"
-msgstr ""
+msgstr "Выгнать игрока %1 в фойе"
 
 #: libatlantikui/trade_widget.cpp:49
 #, kde-format
 msgctxt "@title:window"
 msgid "Trade %1"
-msgstr ""
+msgstr "Обмен с %1"
 
 #: libatlantikui/trade_widget.cpp:53
 #, kde-format
@@ -840,7 +840,7 @@ msgstr "Недвижимость"
 #: libatlantikui/trade_widget.cpp:60
 #, kde-format
 msgid "Money"
-msgstr "Денежный"
+msgstr "Деньги"
 
 #: libatlantikui/trade_widget.cpp:61
 #, kde-format
@@ -850,12 +850,12 @@ msgstr "Карта"
 #: libatlantikui/trade_widget.cpp:102
 #, kde-format
 msgid "From"
-msgstr ""
+msgstr "От кого"
 
 #: libatlantikui/trade_widget.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid "To"
-msgstr "В"
+msgstr "Кому"
 
 #: libatlantikui/trade_widget.cpp:129
 #, kde-format
@@ -868,16 +868,14 @@ msgid "Participants"
 msgstr "Роль"
 
 #: libatlantikui/trade_widget.cpp:163
-#, fuzzy, kde-format
+#, kde-format
 msgid "Gives"
-msgstr ""
-"<userinput>42 * 3 %</userinput> отобразит <emphasis>1.26</emphasis> (42 * "
-"3 / 100)"
+msgstr "Даёт"
 
 #: libatlantikui/trade_widget.cpp:165
 #, kde-format
 msgid "Item"
-msgstr ""
+msgstr "Элемент"
 
 #: libatlantikui/trade_widget.cpp:177
 #, kde-format
@@ -892,27 +890,25 @@ msgstr "Принять"
 #: libatlantikui/trade_widget.cpp:190 libatlantikui/trade_widget.cpp:269
 #, kde-format
 msgid "%1 out of %2 players accept current trade proposal."
-msgstr ""
+msgstr "%1 из %2 игроков принимают текущее предложение обмена."
 
 #: libatlantikui/trade_widget.cpp:224
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "gives is transitive ;)"
 msgid "gives"
-msgstr ""
-"<userinput>42 * 3 %</userinput> отобразит <emphasis>1.26</emphasis> (42 * "
-"3 / 100)"
+msgstr "даёт"
 
 #: libatlantikui/trade_widget.cpp:285
 #, kde-format
 msgid "Trade proposal was rejected by %1."
-msgstr ""
+msgstr "Предложение обмена отклонено игроком %1."
 
 #: libatlantikui/trade_widget.cpp:290
 #, kde-format
 msgid "Trade proposal was rejected."
-msgstr ""
+msgstr "Предложение обмена отклонено."
 
 #: libatlantikui/trade_widget.cpp:495
 #, kde-format
 msgid "Remove From Trade"
-msgstr ""
+msgstr "Удалить из обмена"
