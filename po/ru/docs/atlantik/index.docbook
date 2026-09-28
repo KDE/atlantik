@@ -1,0 +1,419 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+  <!ENTITY monopd "<command
+>monopd</command
+>">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE">
+]>
+
+<book id="atlantik" lang="&language;">
+
+<bookinfo>
+<title
+>Руководство пользователя &atlantik;</title>
+
+<authorgroup>
+<author
+><firstname
+>Rob</firstname
+> <surname
+>Kaper</surname
+> <affiliation
+> <address
+><email
+>kaper@kde.org</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Александр</firstname
+><surname
+>Яворский</surname
+><affiliation
+><address
+><email
+>kekcuha@gmail.com</email
+></address
+></affiliation
+><contrib
+>Перевод на русский</contrib
+></othercredit
+> 
+</authorgroup>
+
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<copyright>
+<year
+>2002</year
+><year
+>2004</year>
+<holder
+>&Rob.Kaper;</holder>
+</copyright>
+
+<date
+>10 октября 2021 г.</date>
+<releaseinfo
+>0.7.80</releaseinfo>
+
+<abstract>
+<para
+>&atlantik; — клиент для настольных игр наподобие &Monopoly; в сети &monopd;. </para>
+
+</abstract>
+
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>сетевой клиент</keyword>
+<keyword
+>Atlantik</keyword>
+<keyword
+>monopd</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title>
+
+<para
+>Цель настольной игры &atlantik; — скупать земли в крупных городах Северной Америки и Европы, путешествуя через Атлантику. Чтобы победить, игроки застраивают свои монополии доходными зданиями в надежде разорить всех остальных.</para>
+
+<para
+>Все режимы игры обслуживает &monopd; — игровой сервер, созданный специально для &atlantik;. Один из режимов повторяет популярную настольную игру о недвижимости, известную как &Monopoly;.</para>
+
+</chapter>
+
+<chapter id="connecting">
+<title
+>Подключение к серверу</title>
+
+<para
+>Для игры в &atlantik; нужен игровой сервер. Если у вас есть подключение к Интернету, можно запросить список общедоступных серверов, и никаких дополнительных программ не потребуется. Если вы хотите играть в &atlantik; на одном компьютере, в локальной сети (<acronym
+>LAN</acronym
+>) или на частном сервере в Интернете, укажите имя узла и порт для подключения. В этом случае на узле, к которому вы подключаетесь, должен быть установлен и запущен сервер <ulink url="https://gtkatlantic.gradator.net/"
+>&monopd;</ulink
+>.</para>
+
+<para
+>Если подключиться к серверу не удаётся, могут помочь следующие советы:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Попробуйте другой сервер.</para>
+</listitem>
+<listitem>
+<para
+>Проверьте параметры брандмауэра и трансляции адресов (маскарадинга). Возможно, какие-то ограничения не дают подключиться к серверу или получать ответы от него. По умолчанию серверы &monopd; используют TCP-порт 1234. Если сомневаетесь, обратитесь к системному администратору.</para>
+</listitem>
+</itemizedlist>
+
+</chapter>
+
+<chapter id="primary-menu-items">
+<title
+>Строка меню</title>
+
+<sect1 id="menu-game">
+<title
+>Меню «Игра»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Игра</guimenu
+><guimenuitem
+>Показать журнал событий…</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Показать</action
+> окно журнала событий.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Игра</guimenu
+><guimenuitem
+>Повторное подключение (после сбоя)</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Снова подключиться</action
+> к последней игре. Доступно, только если &atlantik; вышел из игры некорректно (обычно из-за сбоя), и недоступно после подключения к серверу.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Игра</guimenu
+><guimenuitem
+>Выйти из игры</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Выйти из текущей игры</action
+>, не закрывая &atlantik;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Игра</guimenu
+><guimenuitem
+>Выход</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Закрыть</action
+> &atlantik;.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-move">
+<title
+>Меню «Ход»</title>
+
+<variablelist>
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Ход</guimenu
+><guimenuitem
+>Конец хода</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Сообщить другим игрокам, что вы закончили ход.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Ход</guimenu
+><guimenuitem
+>Бросить кости</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+><action
+>Бросить кости.</action
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Ход</guimenu
+><guimenuitem
+>Аукцион</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Начать аукцион.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Ход</guimenu
+><guimenuitem
+>Использовать карту для выхода из тюрьмы</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Использовать карту для выхода из тюрьмы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Ход</guimenu
+><guimenuitem
+>Бросить кубики, чтобы выйти из тюрьмы</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Бросить кости, чтобы выйти из тюрьмы.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="menu-settings-help">
+<title
+>Меню «Настройка» и «Справка»</title>
+
+<para
+>В &atlantik; есть стандартные для &kde; меню <guimenu
+>Настройка</guimenu
+> и <guimenu
+>Справка</guimenu
+>, описанные в главе <ulink url="help:/fundamentals/menus.html"
+>Меню</ulink
+> руководства «Основы &kde;».</para>
+
+</sect1>
+</chapter>
+
+<chapter id="reporting-bugs">
+<title
+>Сообщение об ошибках</title>
+
+<para
+>Если вы считаете, что нашли ошибку в &atlantik;, сообщите о ней. Разработчики часто сами находят и исправляют ошибки, но вы можете столкнуться с ещё неизвестной им проблемой. Если о проблеме не сообщить, её могут не исправить никогда.</para>
+
+<para
+>Об ошибках в &atlantik; можно сообщить в <ulink url="https://bugs.kde.org/"
+>системе отслеживания ошибок &kde;</ulink
+>. Чтобы перейти к мастеру сообщений об ошибках, в котором часть сведений о версии &atlantik; заполняется автоматически, выберите пункт меню <menuchoice
+><guimenu
+>Справка</guimenu
+><guimenuitem
+>Сообщить об ошибке…</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Опишите в отчёте подробности, например обстановку в игре: ошибка может возникать, только когда игроки сидят в тюрьме или во время аукциона. По возможности сохраните журнал событий и приложите его к отчёту или отправьте автору: в нём могут найтись важные подсказки, которые помогут быстрее исправить ошибку.</para>
+
+</chapter>
+
+<chapter id="faq-answers">
+<title
+>Ответы на часто задаваемые вопросы</title>
+
+<qandaset>
+
+<qandaentry>
+<question>
+<para
+>Как добавить компьютерного игрока?</para>
+</question>
+<answer>
+<para
+>К сожалению, компьютерные соперники в &atlantik; пока не поддерживаются. </para>
+<para
+>Советуем играть на общедоступных серверах в Интернете или на частном сервере в локальной сети (<acronym
+>LAN</acronym
+>).</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Как совершить обмен?</para>
+</question>
+<answer>
+<para
+>Чтобы предложить обмен, щёлкните правой кнопкой мыши по списку владений игрока или по его участку.</para>
+<para
+>С обменом связаны две неудобные особенности, которые могут сбить с толку. Если вы хоть как-то вовлекаете в обмен другого игрока, у него тоже открывается окно обмена. Любой игрок может отклонить условия, и тогда обмен без всякой нужды прекращается для всех остальных. Обмен состоится, только если его примут все участники, а это бывает непросто: игрок остаётся участником сделки, даже когда к обмениваемому уже не имеет отношения.</para>
+</answer>
+</qandaentry>
+
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+<title
+>Авторские права и лицензия</title>
+
+<para
+>© &Rob.Kaper; <email
+>kaper@kde.org</email
+>, 1998–2004 (программа и документация)</para>
+
+<para
+>Перевод на русский — Александр Яворский<email
+>kekcuha@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&documentation.index;
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+// vim:ts=2:sw=2:tw=78:noet
+-->

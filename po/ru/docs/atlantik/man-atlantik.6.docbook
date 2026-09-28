@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Russian "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Страница руководства &atlantik;</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>Страница руководства &atlantik;.</contrib
+> &Lauri.Watts.mail;</author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>Страница руководства &atlantik;.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>10 октября 2021 г.</date>
+<releaseinfo
+>Atlantik 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>atlantik</refname>
+<refpurpose
+>Клиент monopd</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>параметры</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>Описание</title>
+
+<para
+>&atlantik; — клиент для настольных игр наподобие &Monopoly; в сети &monopd;. </para>
+
+<para
+>Цель настольной игры &atlantik; — скупать земли в крупных городах Северной Америки и Европы, путешествуя через Атлантику. Чтобы победить, игроки застраивают свои монополии доходными зданиями в надежде разорить всех остальных.</para>
+
+<para
+>Все режимы игры обслуживает &monopd; — игровой сервер, созданный специально для &atlantik;. Один из режимов повторяет популярную настольную игру о недвижимости, известную как &Monopoly;.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>Параметры</title>
+
+<variablelist>
+<title
+>Параметры &atlantik;</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>узел</parameter
+></term>
+<listitem>
+<para
+>Подключиться к указанному узлу.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>порт</parameter
+></term>
+<listitem
+><para
+>Подключиться к указанному порту.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>игра</parameter
+></term>
+<listitem
+><para
+>Присоединиться к указанной игре.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Смотрите также</title>
+
+<simplelist>
+<member
+>Более подробное руководство пользователя доступно по адресу <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (введите этот &URL; или выполните <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>).</member>
+<member
+>kf6options(7)</member>
+<member
+>qt6options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>
