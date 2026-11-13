@@ -1,0 +1,155 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+
+<!ENTITY Monopoly '<trademark class="registered"
+>Monopoly</trademark
+>'>
+<!ENTITY monopd "<command
+>monopd</command
+>">
+<!ENTITY % Arabic "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>صفحة دليل أطلنطي</title>
+<author
+><firstname
+>Lauri</firstname
+><surname
+>Watts</surname
+> <contrib
+>&atlantik; man page.</contrib
+> &Lauri.Watts.mail;</author>
+<author
+><firstname
+>Pino</firstname
+><surname
+>Toscano</surname
+> <contrib
+>أطلنطي man page.</contrib
+> <email
+>pino@kde.org</email
+></author>
+<date
+>2021-10-10</date>
+<releaseinfo
+>أطلنطي 0.7.80</releaseinfo>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>atlantik</command
+></refentrytitle>
+<manvolnum
+>6</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+>أطلنطي</refname>
+<refpurpose
+>عميل لـ monopd</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id='synopsis'>
+<cmdsynopsis
+><command
+>atlantik</command
+> <arg choice="opt"
+><replaceable
+>خيارات</replaceable
+></arg
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1 id="description">
+<title
+>الوصف</title>
+
+<para
+>أطلنطي هو عميل للعب ألعاب لوحية شبيهة بـ &Monopoly; على شبكة &monopd;. </para>
+
+<para
+>الغرض من لعبة أطلنطي اللوحية هو امتلاك أراضٍ في مدن رئيسة في أمريكا الشمالية وأوروبا بصفة مسافر عبر الأطلسي. للفوز باللعبة، يحسّن اللاعبون الأراضي المحتكرة بمبانٍ مربحة على أمل إفلاس جميع اللاعبين الآخرين.</para>
+
+<para
+>جميع أنماط اللعبة يخدمها &monopd;، وهو خادم لعبة مخصص صُمم لـ أطلنطي. أحد أنماط اللعبة يُلعب مثل لعبة العقارات اللوحية الشهيرة المعروفة باسم &Monopoly;.</para>
+
+</refsect1>
+
+<refsect1 id="options">
+<title
+>خيارات</title>
+
+<variablelist>
+<title
+>خيارات أطلنطي</title>
+<varlistentry>
+<term
+><option
+>--host</option
+> <parameter
+>مستضيف</parameter
+></term>
+<listitem>
+<para
+>اتصل بهذا المضيف.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-p, --port</option
+> <parameter
+>منفذ</parameter
+></term>
+<listitem
+><para
+>اتصل بهذا المنفذ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><option
+>-g, --game</option
+> <parameter
+>لعبة</parameter
+></term>
+<listitem
+><para
+>انضم لهذه اللعبة.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>انظر أيضًا</title>
+
+<simplelist>
+<member
+>وثائق المستخدم الأكثر تفصيلًا متاحة من <ulink url="help:/atlantik"
+>help:/atlantik</ulink
+> (إما أدخل هذا &URL;، أو شغّل <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/atlantik</parameter
+></userinput
+>).</member>
+<member
+>kf6options(7)</member>
+<member
+>qt6options(7)</member>
+</simplelist>
+
+</refsect1>
+
+</refentry>
