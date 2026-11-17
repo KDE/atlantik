@@ -42,7 +42,7 @@ SelectConfiguration::SelectConfiguration(AtlanticCore *atlanticCore, QWidget *pa
         m_mainLayout->setContentsMargins(0, 0, 0, 0);
 	Q_CHECK_PTR(m_mainLayout);
 
-	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
+	const std::pair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
 
 	// Game configuration.
 	m_configBox = new QGroupBox(i18n("Game Configuration"), this);

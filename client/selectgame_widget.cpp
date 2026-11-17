@@ -45,7 +45,7 @@ SelectGame::SelectGame(AtlanticCore *atlanticCore, QWidget *parent)
 	setupUi(this);
 	layout()->setContentsMargins(0, 0, 0, 0);
 
-	const QPair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
+	const std::pair<KGuiItem, KGuiItem> icons = KStandardGuiItem::backAndForward();
 
 	// List of games
 	m_gameList->header()->setSectionsClickable(false);
